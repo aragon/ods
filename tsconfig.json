@@ -1,5 +1,5 @@
 {
-  "include": ["src"],
+  "include": ["src", ".eslintrc.js", "*.config.js"],
   "compilerOptions": {
     "module": "esnext",
     "lib": ["dom", "esnext"],
