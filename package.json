@@ -2,9 +2,17 @@
   "name": "@aragon/ods",
   "version": "0.1.0",
   "description": "Implementation of the Aragon's Open Design System",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint"
   },
   "repository": {
     "type": "git",
@@ -18,6 +26,25 @@
     "tailwind"
   ],
   "author": "Aragon Association",
+  "dependencies": {
+    "classnames": "^2.3.2"
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17",
+    "styled-components": ">=5",
+    "tailwindcss": ">=2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "react": ">=17",
+    "react-dom": ">=17",
+    "styled-components": ">=5",
+    "tailwindcss": ">=2",
+    "tsdx": "^0.14.1",
+    "typescript": "^4.9.5"
+  },
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/aragon/ods/issues"
