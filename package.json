@@ -1,0 +1,30 @@
+{
+  "name": "@aragon/ods",
+  "version": "0.1.0",
+  "description": "Implementation of the Aragon's Open Design System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aragon/ods.git"
+  },
+  "keywords": [
+    "aragon",
+    "design-system",
+    "open-design-system",
+    "react",
+    "tailwind"
+  ],
+  "author": "Aragon Association",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/aragon/ods/issues"
+  },
+  "homepage": "https://github.com/aragon/ods#readme",
+  "engines": {
+    "node": ">=16",
+    "npm": "please-use-yarn"
+  }
+}

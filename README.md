@@ -33,4 +33,4 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-[GPU GPL V3](./LICENSE)
+[GPL-V3](./LICENSE)
