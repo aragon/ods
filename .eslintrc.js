@@ -9,6 +9,7 @@ const extendsBase = [
     'plugin:jsx-a11y/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
+    'plugin:testing-library/react',
     'plugin:tailwindcss/recommended',
     'plugin:storybook/recommended',
 ];
@@ -17,18 +18,11 @@ const extendsTypescript = [...extendsBase, 'plugin:@typescript-eslint/recommende
 
 const rulesBase = {
     'tailwindcss/no-custom-classname': 'off',
-    'tailwindcss/classnames-order': [
-        'warn',
-        {
-            config: 'tailwind.config.js',
-        },
-    ],
     'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
-    'import/no-duplicates': 'warn',
+    'react/self-closing-comp': 'warn',
     'no-console': 'warn',
     curly: 'warn',
     'brace-style': 'warn',
-    'react/self-closing-comp': 'warn',
     'prefer-template': 'warn',
     'no-useless-concat': 'warn',
 };
