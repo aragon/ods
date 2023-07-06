@@ -14,15 +14,52 @@
 
 # Aragon ODS
 
-WIP
+Aragon Open Design System (Aragon ODS) is an open source and human-centric design system specifically designed for the Aragon App.
+It provides a unified and easy-to-use framework for creating visually consistent and engaging interfaces that prioritize
+user experience throughout the Aragon ecosystem. Aragon ODS is currently in alpha version, with documentation updates planned for Q2.
+The developed components are expected to be available in the coming months.
 
 ## Installation
 
-WIP
+Install the `@aragon/ods` library and using yarn or npm:
+
+Yarn:
+
+```shell
+yarn add @aragon/ods tailwindcss tailwindcss-fluid-type
+```
+
+Npm:
+
+```shell
+npm install @aragon/ods tailwindcss tailwindcss-fluid-type
+```
+
+**NOTE:** `react` and `react-dom` are also required to correctly use the library:
+
+```json
+"peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17",
+},
+```
 
 ## Usage
 
-WIP
+Import the `@aragon/ods` library on your application and use the components:
+
+```typescript
+import React from 'react';
+import { Tag } from '@aragon/ods';
+
+export default function App() {
+    return (
+        <div>
+            <Tag colorScheme="primary">My label</Tag>
+        </div>
+    );
+}
+```
 
 ## Contributing
 
