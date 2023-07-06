@@ -1,31 +1,30 @@
-import commonjs from '@rollup/plugin-commonjs';
-import images from '@rollup/plugin-image';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import terser from '@rollup/plugin-terser';
-import typescript from '@rollup/plugin-typescript';
-import cleanup from 'rollup-plugin-delete';
-import dts from 'rollup-plugin-dts';
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import postcss from 'rollup-plugin-postcss';
+const commonjs = require('@rollup/plugin-commonjs');
+const images = require('@rollup/plugin-image');
+const { nodeResolve } = require('@rollup/plugin-node-resolve');
+const terser = require('@rollup/plugin-terser');
+const typescript = require('@rollup/plugin-typescript');
+const cleanup = require('rollup-plugin-delete');
+const peerDepsExternal = require('rollup-plugin-peer-deps-external');
+const postcss = require('rollup-plugin-postcss');
 
-import tsConfig from './tsconfig.json' assert { type: "json" };
+const tsConfig = require('./tsconfig.json');
 const { outDir } = tsConfig.compilerOptions;
 
-export default [
+module.exports = [
     {
         input: {
             index: 'src/index.ts',
         },
         output: [
-            { format: 'es', dir: outDir, entryFileNames: '[name].[format].js' },
-            { format: 'cjs', dir: outDir, entryFileNames: '[name].[format].js' },
+            { format: 'es', dir: outDir, entryFileNames: '[name].[format].js', sourcemap: true },
+            { format: 'cjs', dir: outDir, entryFileNames: '[name].[format].js', sourcemap: true },
         ],
         plugins: [
             cleanup({ targets: `${outDir}/*` }),
             peerDepsExternal(),
             nodeResolve(),
             commonjs(),
-            typescript({ tsconfig: './tsconfig.json', sourceMap: true }),
+            typescript({ tsconfig: './tsconfig.json' }),
             postcss({
                 config: {
                     path: './postcss.config.js',
@@ -39,10 +38,5 @@ export default [
             images({ include: ['**/*.png', '**/*.jpg', '**/*.svg'] }),
             terser(),
         ],
-    },
-    {
-        input: 'dist/types/index.d.ts',
-        output: [{ file: 'dist/index.d.ts', format: 'esm' }],
-        plugins: [dts()],
     },
 ];

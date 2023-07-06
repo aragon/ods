@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import type { TagColorScheme, TagProps } from './tag.api';
+import type { ITagProps, TagColorScheme } from './tag.api';
 
 const colorSchemeClass: Record<TagColorScheme, string> = {
     neutral: 'bg-ui-100 text-ui-600',
@@ -11,7 +11,7 @@ const colorSchemeClass: Record<TagColorScheme, string> = {
     primary: 'bg-primary-100 text-primary-800',
 };
 
-export const Tag: React.FC<TagProps> = (props) => {
+export const Tag: React.FC<ITagProps> = (props) => {
     const { children, colorScheme = 'neutral', className } = props;
 
     return (

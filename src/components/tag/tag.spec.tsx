@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { Tag } from './tag';
-import { TagProps } from './tag.api';
+import { type ITagProps } from './tag.api';
 
 describe('Tag', () => {
-    const createTestComponent = (props?: Partial<TagProps>) => {
+    const createTestComponent = (props?: Partial<ITagProps>) => {
         const completeProps = {
             children: 'my-label',
             ...props,

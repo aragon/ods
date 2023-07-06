@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "description": "Implementation of the Aragon's Open Design System",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "type": "module",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist",
     "src"
@@ -13,7 +12,7 @@
     "setup": "husky install",
     "build": "rollup -c",
     "test": "jest",
-    "lint": "eslint . --max-warnings=0"
+    "lint": "eslint . --max-warnings=0 --ext .js,.jsx,.ts,.tsx"
   },
   "repository": {
     "type": "git",
@@ -47,6 +46,7 @@
     "@typescript-eslint/parser": "^5.61.0",
     "eslint": "^8.44.0",
     "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-tailwindcss": "^3.13.0",

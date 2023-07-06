@@ -2,9 +2,23 @@
 
 const tsConfig = require('./tsconfig.json');
 
+const extendsBase = [
+    'eslint:recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'plugin:jsx-a11y/recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:tailwindcss/recommended',
+];
+
+const extendsTypescript = [...extendsBase, 'plugin:@typescript-eslint/recommended'];
+
 module.exports = {
     env: {
+        commonjs: true,
         browser: true,
+        es6: true,
         node: true,
         jest: true,
     },
@@ -14,13 +28,7 @@ module.exports = {
         },
     },
     plugins: ['@typescript-eslint'],
-    extends: [
-        'eslint:recommended',
-        'plugin:react/recommended',
-        'plugin:react-hooks/recommended',
-        'plugin:import/recommended',
-        'plugin:tailwindcss/recommended',
-    ],
+    extends: extendsBase,
     rules: {
         '@typescript-eslint/no-explicit-any': 'warn',
         '@typescript-eslint/prefer-nullish-coalescing': 'warn',
@@ -41,4 +49,10 @@ module.exports = {
         tsconfigRootDir: __dirname,
     },
     ignorePatterns: tsConfig.exclude,
+    overrides: [
+        {
+            files: ['**/*.ts', '**/*.tsx'],
+            extends: extendsTypescript,
+        },
+    ],
 };
