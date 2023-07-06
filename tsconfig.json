@@ -1,6 +1,6 @@
 {
   "include": ["src", ".eslintrc.js", "*.config.js"],
-  "exclude": ["dist", "node_modules"],
+  "exclude": ["node_modules", "dist", "storybook-static"],
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",

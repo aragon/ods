@@ -10,6 +10,7 @@ const extendsBase = [
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:tailwindcss/recommended',
+    'plugin:storybook/recommended',
 ];
 
 const extendsTypescript = [...extendsBase, 'plugin:@typescript-eslint/recommended'];
@@ -47,6 +48,10 @@ module.exports = {
     parserOptions: {
         project: 'tsconfig.json',
         tsconfigRootDir: __dirname,
+        sourceType: 'module',
+        ecmaFeatures: {
+            jsx: true,
+        },
     },
     ignorePatterns: tsConfig.exclude,
     overrides: [
