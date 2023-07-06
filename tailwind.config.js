@@ -1,6 +1,5 @@
 module.exports = {
-    purge: ['./src/**/*.{jsx,tsx}', './docs/**/*.{jsx,tsx}'],
-    darkMode: false,
+    content: ['./src/**/*.{jsx,tsx}', './docs/**/*.{jsx,tsx}'],
     theme: {
         extend: {
             // extends colors according to design system

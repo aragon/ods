@@ -21,5 +21,6 @@ module.exports = {
             },
         },
     ],
-    plugins: [require.resolve('prettier-plugin-organize-imports')],
+    plugins: [require.resolve('prettier-plugin-organize-imports'), require('prettier-plugin-tailwindcss')],
+    tailwindFunctions: ['twMerge'],
 };

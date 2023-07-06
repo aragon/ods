@@ -1,6 +1,7 @@
 'use strict';
 
 const tsConfig = require('./tsconfig.json');
+const tailwindConfig = require('./tailwind.config');
 
 const extendsBase = [
     'eslint:recommended',
@@ -17,7 +18,6 @@ const extendsBase = [
 const extendsTypescript = [...extendsBase, 'plugin:@typescript-eslint/recommended'];
 
 const rulesBase = {
-    'tailwindcss/no-custom-classname': 'off',
     'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
     'react/self-closing-comp': 'warn',
     'no-console': 'warn',
@@ -48,7 +48,8 @@ module.exports = {
             version: 'detect',
         },
         tailwindcss: {
-            callees: ['twMerge'],
+            callees: ['classnames', 'clsx', 'ctl', 'twMerge'],
+            config: tailwindConfig,
         },
     },
     extends: extendsBase,

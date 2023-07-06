@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react';
+import React from 'react';
 import '../src/styles/index.css';
 
 const preview: Preview = {
@@ -11,6 +12,13 @@ const preview: Preview = {
             },
         },
     },
+    decorators: [
+        (Story) => (
+            <div className="flex">
+                <Story />
+            </div>
+        ),
+    ],
 };
 
 export default preview;
