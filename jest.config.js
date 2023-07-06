@@ -9,4 +9,4 @@ const config = {
     transform: { '^.+\\.tsx?$': 'ts-jest' },
 };
 
-module.exports = config;
+export default config;

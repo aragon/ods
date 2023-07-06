@@ -1,5 +1,7 @@
 'use strict';
 
+const tsConfig = require('./tsconfig.json');
+
 module.exports = {
     env: {
         browser: true,
@@ -38,4 +40,5 @@ module.exports = {
         project: 'tsconfig.json',
         tsconfigRootDir: __dirname,
     },
+    ignorePatterns: tsConfig.exclude,
 };

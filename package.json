@@ -3,14 +3,15 @@
   "version": "0.1.0",
   "description": "Implementation of the Aragon's Open Design System",
   "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
+  "type": "module",
   "files": [
     "dist",
     "src"
   ],
   "scripts": {
     "setup": "husky install",
-    "build": "tsdx build",
+    "build": "rollup -c",
     "test": "jest",
     "lint": "eslint . --max-warnings=0"
   },
@@ -35,6 +36,11 @@
     "tailwindcss": ">=2"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.2",
+    "@rollup/plugin-image": "^3.0.2",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-terser": "^0.4.3",
+    "@rollup/plugin-typescript": "^11.1.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
@@ -52,6 +58,11 @@
     "prettier-plugin-organize-imports": "^3.2.2",
     "react": ">=17",
     "react-dom": ">=17",
+    "rollup": "^3.26.1",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
     "tailwindcss": ">=2",
     "ts-jest": "^29.1.1",
     "typescript": "^5.1.5"

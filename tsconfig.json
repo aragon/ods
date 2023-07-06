@@ -1,10 +1,15 @@
 {
-  "include": ["src", ".eslintrc.js", "*.config.js"],
+  "include": ["src", ".eslintrc.cjs", "*.config.js"],
+  "exclude": ["dist", "node_modules"],
   "compilerOptions": {
+    "target": "es5",
     "module": "esnext",
     "lib": ["dom", "esnext"],
     "importHelpers": true,
     "declaration": true,
+    "declarationDir": "dist/types",
+    "outDir": "dist",
+    "emitDeclarationOnly": true,
     "sourceMap": true,
     "rootDir": "./src",
     "strict": true,
@@ -16,7 +21,6 @@
     "jsx": "react",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true
+    "forceConsistentCasingInFileNames": true
   }
 }
