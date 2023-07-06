@@ -3,7 +3,7 @@ import React from 'react';
 import { Tag } from './tag';
 import { type ITagProps } from './tag.api';
 
-describe('Tag', () => {
+describe('<Tag /> component', () => {
     const createTestComponent = (props?: Partial<ITagProps>) => {
         const completeProps = {
             children: 'my-label',
