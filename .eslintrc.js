@@ -15,6 +15,32 @@ const extendsBase = [
 
 const extendsTypescript = [...extendsBase, 'plugin:@typescript-eslint/recommended'];
 
+const rulesBase = {
+    'tailwindcss/no-custom-classname': 'off',
+    'tailwindcss/classnames-order': [
+        'warn',
+        {
+            config: 'tailwind.config.js',
+        },
+    ],
+    'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
+    'import/no-duplicates': 'warn',
+    'no-console': 'warn',
+    curly: 'warn',
+    'brace-style': 'warn',
+    'react/self-closing-comp': 'warn',
+    'prefer-template': 'warn',
+    'no-useless-concat': 'warn',
+};
+
+const typescriptRules = {
+    ...rulesBase,
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/prefer-nullish-coalescing': 'warn',
+    '@typescript-eslint/array-type': ['warn', { default: 'array-simple' }],
+    '@typescript-eslint/consistent-type-imports': ['warn', { fixStyle: 'inline-type-imports' }],
+};
+
 module.exports = {
     env: {
         commonjs: true,
@@ -27,23 +53,13 @@ module.exports = {
         react: {
             version: 'detect',
         },
+        tailwindcss: {
+            callees: ['twMerge'],
+        },
     },
-    plugins: ['@typescript-eslint'],
     extends: extendsBase,
-    rules: {
-        '@typescript-eslint/no-explicit-any': 'warn',
-        '@typescript-eslint/prefer-nullish-coalescing': 'warn',
-        '@typescript-eslint/array-type': ['warn', { default: 'array-simple' }],
-        '@typescript-eslint/consistent-type-imports': ['warn', { fixStyle: 'inline-type-imports' }],
-        'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
-        'import/no-duplicates': 'warn',
-        'no-console': 'warn',
-        curly: 'warn',
-        'brace-style': 'warn',
-        'react/self-closing-comp': 'warn',
-        'prefer-template': 'warn',
-        'no-useless-concat': 'warn',
-    },
+    plugins: ['@typescript-eslint', 'tailwindcss'],
+    rules: rulesBase,
     parser: '@typescript-eslint/parser',
     parserOptions: {
         project: 'tsconfig.json',
@@ -58,6 +74,7 @@ module.exports = {
         {
             files: ['**/*.ts', '**/*.tsx'],
             extends: extendsTypescript,
+            rules: typescriptRules,
         },
     ],
 };
