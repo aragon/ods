@@ -1,0 +1,54 @@
+name: Library test
+
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: 16
+  NODE_CACHE: "yarn"
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3.5.3
+      - name: Setup Node
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: ${{ env.NODE_CACHE }}
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Build library
+        run: yarn build
+      - name: Build storybook
+        run: yarn build:storybook
+
+  test:
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3.5.3
+      - name: Setup Node
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: ${{ env.NODE_CACHE }}
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run tests with coverage
+        run: |
+          set -eo pipefail
+          yarn test:coverage
+      - name: Check types
+        run: yarn type-check
+      - name: Check linter
+        run: yarn lint
+      - name: Check prettier
+        run: yarn prettier
