@@ -7,5 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
--   Setup development tools for ODS library
--   Implement Tag component
+### Added
+
+-   Setup of development tools for ODS library
+-   Tag component
