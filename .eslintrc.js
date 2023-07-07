@@ -1,6 +1,9 @@
 'use strict';
 
 const tsConfig = require('./tsconfig.json');
+
+// Import tailwind configs instead of simply specifying the config path because editors do not correctly load these
+// configurations otherwise (see https://github.com/francoismassart/eslint-plugin-tailwindcss/issues/51)
 const tailwindConfig = require('./tailwind.config');
 
 const extendsBase = [
