@@ -20,7 +20,8 @@
     "lint:fix": "eslint . --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "type-check": "tsc --noemit"
+    "type-check": "tsc --noemit",
+    "deploy:storybook": "storybook-to-ghpages"
   },
   "repository": {
     "type": "git",
@@ -59,6 +60,7 @@
     "@storybook/blocks": "^7.0.26",
     "@storybook/react": "^7.0.26",
     "@storybook/react-webpack5": "^7.0.26",
+    "@storybook/storybook-deployer": "^2.8.16",
     "@storybook/testing-library": "^0.2.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
