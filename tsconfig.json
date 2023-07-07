@@ -1,15 +1,12 @@
 {
   "include": ["src", ".eslintrc.js", "*.config.js"],
-  "exclude": ["node_modules", "dist", "storybook-static"],
+  "exclude": ["node_modules", "dist", "storybook-static", "coverage"],
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
     "lib": ["dom", "esnext"],
     "importHelpers": true,
-    "declaration": true,
-    "declarationDir": "dist/types",
     "outDir": "dist",
-    "emitDeclarationOnly": true,
     "sourceMap": true,
     "rootDir": "./src",
     "strict": true,

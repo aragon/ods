@@ -25,7 +25,13 @@ module.exports = [
             nodeResolve(),
             commonjs(),
             typescript({
-                tsconfig: './tsconfig.json',
+                compilerOptions: {
+                    noEmit: false,
+                    declaration: true,
+                    emitDeclarationOnly: true,
+                    declarationDir: `${outDir}/types`,
+                    outDir,
+                },
                 exclude: ['**/*.spec.tsx', '**/*.spec.ts', '**/*.test.tsx', '**/*.test.ts', '**/*.stories.tsx'],
             }),
 
