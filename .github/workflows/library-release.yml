@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3.5.3
+        with:
+          token: ${{ secrets.ARABOT_PAT }}
       - name: Setup Node
         uses: actions/setup-node@v3.6.0
         with:
