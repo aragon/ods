@@ -12,7 +12,7 @@
 
 <br/>
 
-# ODS
+# Aragon ODS
 
 Aragon Open Design System (Aragon ODS) is an open source and human-centric design system specifically designed for the Aragon App.
 It provides a unified and easy-to-use framework for creating visually consistent and engaging interfaces that prioritize
