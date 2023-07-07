@@ -24,7 +24,11 @@ module.exports = [
             peerDepsExternal(),
             nodeResolve(),
             commonjs(),
-            typescript({ tsconfig: './tsconfig.json' }),
+            typescript({
+                tsconfig: './tsconfig.json',
+                exclude: ['**/*.spec.tsx', '**/*.spec.ts', '**/*.test.tsx', '**/*.test.ts', '**/*.stories.tsx'],
+            }),
+
             postcss({
                 config: {
                     path: './postcss.config.js',
