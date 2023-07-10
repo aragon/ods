@@ -40,7 +40,7 @@ jobs:
           version: ${{ steps.package-version.outputs.current-version}}
         with:
           script: |
-            const updateChangelog = require('./.github/scripts/update-changelog.js');
+            const updateChangelog = require('./.github/workflows/scripts/update-changelog.js');
             await updateChangelog({ github, context, core });
       - name: Commit changes
         id: commit-changes
