@@ -2,7 +2,7 @@
   "name": "@aragon/ods",
   "version": "0.1.2",
   "description": "Implementation of the Aragon's Open Design System",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
   "types": "dist/types/index.d.ts",
   "license": "GPL-3.0",
   "files": [
