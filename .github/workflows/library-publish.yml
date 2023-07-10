@@ -20,6 +20,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: ${{ env.NODE_CACHE }}
+          registry-url: "https://registry.npmjs.org"
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Get package version
