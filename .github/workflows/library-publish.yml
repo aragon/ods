@@ -29,7 +29,6 @@ jobs:
         run: yarn build
       - name: Publish library
         run: yarn publish --new-version ${{ steps.package-version.outputs.current-version }}
-        working-directory: ./modules/${{ needs.check_tag.outputs.package }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Read changelog entry for version

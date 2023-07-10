@@ -25,4 +25,4 @@ jobs:
       - name: Deploy storybook
         env:
           GITHUB_TOKEN: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
-        run: yarn deploy-storybook --ci --host-token-env-variable=GITHUB_TOKEN --source-branch develop --branch gh-pages
+        run: yarn deploy:storybook --ci --host-token-env-variable=GITHUB_TOKEN --source-branch develop --branch gh-pages
