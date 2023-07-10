@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   Export Tailwind configuration file
+
+### Changed
+
+-   Path to `index.css` file, from `src/styles/index.css` to `/index.css`
+
 ## [0.1.1] - 2023-07-10
 
 ### Added
