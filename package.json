@@ -1,6 +1,6 @@
 {
   "name": "@aragon/ods",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Implementation of the Aragon's Open Design System",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
