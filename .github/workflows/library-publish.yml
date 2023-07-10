@@ -29,7 +29,7 @@ jobs:
       - name: Build library
         run: yarn build
       - name: Publish library
-        run: yarn publish --new-version ${{ steps.package-version.outputs.current-version }}
+        run: yarn publish --new-version ${{ steps.package-version.outputs.current-version }} --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Read changelog entry for version
