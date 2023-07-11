@@ -26,5 +26,6 @@ module.exports = {
         // TODO: introduce tailwind prettier plugin after migration to Prettier v3 as not supported by V2
         // require('prettier-plugin-tailwindcss'),
     ],
-    tailwindFunctions: ['twMerge'],
+    // TODO: introduce plugin options when prettier-plugin-tailwindcss is enabled
+    // tailwindFunctions: ['twMerge'],
 };

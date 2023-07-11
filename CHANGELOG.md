@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 -   Font size of Tag component
+-   Unknown option warning when running prettier
 
 ## [0.1.3] - 2023-07-10
 
