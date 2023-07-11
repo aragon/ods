@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+-   Downgrade `tailwindcss` dependency to v2
+-   Remove `tailwind-merge` dependency, use `classnames` instead
+
+### Added
+
+-   CSS custom properties for design system
+
+### Fixed
+
+-   Font size of Tag component
+
 ## [0.1.3] - 2023-07-10
 
 ### Fixed
