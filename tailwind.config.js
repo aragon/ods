@@ -2,79 +2,77 @@ module.exports = {
     content: ['./src/**/*.{jsx,tsx}', './docs/**/*.{jsx,tsx}'],
     theme: {
         extend: {
-            // extends colors according to design system
             colors: {
                 primary: {
-                    50: '#F5F8FF',
-                    100: '#C4D7FF',
-                    200: '#93B2FF',
-                    300: '#628CFE',
-                    400: '#3164FA',
-                    500: '#003BF5',
-                    600: '#0037D2',
-                    700: '#0031AD',
-                    800: '#002985',
-                    900: '#001F5C',
+                    50: 'var(--ods-color-primary-50)',
+                    100: 'var(--ods-color-primary-100)',
+                    200: 'var(--ods-color-primary-200)',
+                    300: 'var(--ods-color-primary-300)',
+                    400: 'var(--ods-color-primary-400)',
+                    500: 'var(--ods-color-primary-500)',
+                    600: 'var(--ods-color-primary-600)',
+                    700: 'var(--ods-color-primary-700)',
+                    800: 'var(--ods-color-primary-800)',
+                    900: 'var(--ods-color-primary-900)',
                 },
                 ui: {
-                    0: '#FFFFFF',
-                    50: '#F5F7FA',
-                    100: '#E4E7EB',
-                    200: '#CBD2D9',
-                    300: '#9AA5B1',
-                    400: '#7B8794',
-                    500: '#616E7C',
-                    600: '#52606D',
-                    700: '#3E4C59',
-                    800: '#323F4B',
-                    900: '#1F2933',
+                    0: 'var(--ods-color-neutral-0)',
+                    50: 'var(--ods-color-neutral-50)',
+                    100: 'var(--ods-color-neutral-100)',
+                    200: 'var(--ods-color-neutral-200)',
+                    300: 'var(--ods-color-neutral-300)',
+                    400: 'var(--ods-color-neutral-400)',
+                    500: 'var(--ods-color-neutral-500)',
+                    600: 'var(--ods-color-neutral-600)',
+                    700: 'var(--ods-color-neutral-700)',
+                    800: 'var(--ods-color-neutral-800)',
+                    900: 'var(--ods-color-neutral-900)',
                 },
                 info: {
-                    100: '#D1FDFA',
-                    200: '#A4F9FB',
-                    300: '#75E8F3',
-                    400: '#52CFE7',
-                    500: '#1EADD8',
-                    600: '#1588B9',
-                    700: '#0F669B',
-                    800: '#09497D',
-                    900: '#053467',
+                    100: 'var(--ods-color-info-100)',
+                    200: 'var(--ods-color-info-200)',
+                    300: 'var(--ods-color-info-300)',
+                    400: 'var(--ods-color-info-400)',
+                    500: 'var(--ods-color-info-500)',
+                    600: 'var(--ods-color-info-600)',
+                    700: 'var(--ods-color-info-700)',
+                    800: 'var(--ods-color-info-800)',
+                    900: 'var(--ods-color-info-900)',
                 },
                 success: {
-                    100: '#F3FCCC',
-                    200: '#E4F99A',
-                    300: '#CCEF66',
-                    400: '#B2E040',
-                    500: '#8ECC0A',
-                    600: '#74AF07',
-                    700: '#5C9205',
-                    800: '#467603',
-                    900: '#366101',
+                    100: 'var(--ods-color-success-100)',
+                    200: 'var(--ods-color-success-200)',
+                    300: 'var(--ods-color-success-300)',
+                    400: 'var(--ods-color-success-400)',
+                    500: 'var(--ods-color-success-500)',
+                    600: 'var(--ods-color-success-600)',
+                    700: 'var(--ods-color-success-700)',
+                    800: 'var(--ods-color-success-800)',
+                    900: 'var(--ods-color-success-900)',
                 },
                 warning: {
-                    100: '#FFF3D6',
-                    200: '#FFE4AD',
-                    300: '#FFD083',
-                    400: '#FFBE65',
-                    500: '#FF9F32',
-                    600: '#DB7D24',
-                    700: '#B75E19',
-                    800: '#93430F',
-                    900: '#7A3009',
+                    100: 'var(--ods-color-warning-100)',
+                    200: 'var(--ods-color-warning-200)',
+                    300: 'var(--ods-color-warning-300)',
+                    400: 'var(--ods-color-warning-400)',
+                    500: 'var(--ods-color-warning-500)',
+                    600: 'var(--ods-color-warning-600)',
+                    700: 'var(--ods-color-warning-700)',
+                    800: 'var(--ods-color-warning-800)',
+                    900: 'var(--ods-color-warning-900)',
                 },
                 critical: {
-                    100: '#FEE4D6',
-                    200: '#FEC3AE',
-                    300: '#FD9A86',
-                    400: '#FB7467',
-                    500: '#F93636',
-                    600: '#D62736',
-                    700: '#B31B35',
-                    800: '#901132',
-                    900: '#770A30',
+                    100: 'var(--ods-color-critical-100)',
+                    200: 'var(--ods-color-critical-200)',
+                    300: 'var(--ods-color-critical-300)',
+                    400: 'var(--ods-color-critical-400)',
+                    500: 'var(--ods-color-critical-500)',
+                    600: 'var(--ods-color-critical-600)',
+                    700: 'var(--ods-color-critical-700)',
+                    800: 'var(--ods-color-critical-800)',
+                    900: 'var(--ods-color-critical-900)',
                 },
             },
-            // extends spacing accorging to design system
             spacing: {
                 0.1: '1px',
                 0.25: '2px',
@@ -118,7 +116,6 @@ module.exports = {
             semibold: 600,
             bold: 700,
         },
-        // overwirtes screen breakpoints according to design system
         screens: {
             tablet: '768px',
             lg: '1280px',
@@ -128,8 +125,6 @@ module.exports = {
         fontFamily: {
             sans: ['Manrope'],
         },
-        // overwirtes font sizes according to design system
-        // These are to be used on components (labels, etc.).
         fontSize: {
             xs: ['0.64rem', 1.5],
             sm: ['0.8rem', 1.5],
@@ -143,18 +138,15 @@ module.exports = {
         },
         fluidType: {
             settings: {
-                fontSizeMin: 0.875, // 0.875rem === 14px
-                fontSizeMax: 1, // 1rem === 16px
-                ratioMin: 1.2, // Multiplicator Min: Minor Third
-                ratioMax: 1.25, // Multiplicator Max Major Third
-                screenMin: 20, // 20rem === 320px
-                screenMax: 96, // 96rem === 1536px
+                fontSizeMin: 0.875, // 14px
+                fontSizeMax: 1, // 16px
+                ratioMin: 1.2, // Minor third as minimum multiplicator
+                ratioMax: 1.25, // Major third as maximum multiplicator
+                screenMin: 20, // 320px
+                screenMax: 96, // 1536px
                 unit: 'rem',
                 prefix: 'ft-',
             },
-            // Creates the ft-text-xx classes. These are to be used for inline text
-            // and headings.
-            // 'lineHeight' is unitless.
             values: {
                 xs: [-2, 1.5],
                 sm: [-1, 1.5],
