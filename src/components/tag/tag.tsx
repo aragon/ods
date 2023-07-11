@@ -15,7 +15,7 @@ export const Tag: React.FC<ITagProps> = (props) => {
     const { children, colorScheme = 'neutral', className } = props;
 
     const classes = twMerge(
-        'ft-text-sm flex rounded px-0.5 py-0.1 text-center font-bold',
+        'flex py-0.1 px-0.5 font-bold text-center rounded ft-text-sm',
         colorSchemeClass[colorScheme],
         className,
     );

@@ -28,6 +28,7 @@ const rulesBase = {
     'brace-style': 'warn',
     'prefer-template': 'warn',
     'no-useless-concat': 'warn',
+    'tailwindcss/no-custom-classname': ['off'],
 };
 
 const typescriptRules = {

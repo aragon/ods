@@ -21,6 +21,10 @@ module.exports = {
             },
         },
     ],
-    plugins: [require.resolve('prettier-plugin-organize-imports'), require('prettier-plugin-tailwindcss')],
+    plugins: [
+        require.resolve('prettier-plugin-organize-imports'),
+        // TODO: introduce tailwind prettier plugin after migration to Prettier v3 as not supported by V2
+        // require('prettier-plugin-tailwindcss'),
+    ],
     tailwindFunctions: ['twMerge'],
 };
