@@ -52,7 +52,7 @@ module.exports = {
             version: 'detect',
         },
         tailwindcss: {
-            callees: ['classnames', 'clsx', 'ctl', 'twMerge'],
+            callees: ['classnames', 'classNames', 'clsx', 'ctl'],
             config: tailwindConfig,
         },
     },

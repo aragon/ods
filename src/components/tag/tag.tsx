@@ -1,5 +1,5 @@
+import classNames from 'classnames';
 import React from 'react';
-import { twMerge } from 'tailwind-merge';
 import type { ITagProps, TagColorScheme } from './tag.api';
 
 const colorSchemeClass: Record<TagColorScheme, string> = {
@@ -14,7 +14,7 @@ const colorSchemeClass: Record<TagColorScheme, string> = {
 export const Tag: React.FC<ITagProps> = (props) => {
     const { children, colorScheme = 'neutral', className } = props;
 
-    const classes = twMerge(
+    const classes = classNames(
         'flex py-0.1 px-0.5 font-bold text-center rounded ft-text-sm',
         colorSchemeClass[colorScheme],
         className,
