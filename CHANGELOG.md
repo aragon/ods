@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 -   Add missing exports for components
+-   Fix `lint-staged` configuration file
 
 ## [0.2.0] - 2023-07-11
 

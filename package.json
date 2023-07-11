@@ -19,8 +19,8 @@
     "test:coverage": "jest --coverage",
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint . --fix",
-    "prettier": "prettier . --check",
-    "prettier:fix": "prettier . --write",
+    "prettify": "prettier . --check",
+    "prettify:fix": "prettier . --write",
     "type-check": "tsc --noemit",
     "deploy:storybook": "storybook-to-ghpages"
   },

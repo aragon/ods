@@ -54,4 +54,4 @@ jobs:
       - name: Check linter
         run: yarn lint
       - name: Check prettier
-        run: yarn prettier
+        run: yarn prettify
