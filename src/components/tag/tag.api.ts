@@ -1,17 +1,15 @@
-import { type ReactNode } from 'react';
-
 export type TagColorScheme = 'neutral' | 'info' | 'warning' | 'critical' | 'success' | 'primary';
 
-export interface ITagProps {
+export interface TagProps {
     /**
      * Defines the color scheme of the tag.
      * @default neutral
      */
     colorScheme?: TagColorScheme;
     /**
-     * Children of the component.
+     * Label of the tag.
      */
-    children: ReactNode;
+    label: string;
     /**
      * Classes for the component.
      */

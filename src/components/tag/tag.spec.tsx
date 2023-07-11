@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { Tag } from './tag';
-import { type ITagProps } from './tag.api';
+import { type TagProps } from './tag.api';
 
 describe('<Tag /> component', () => {
-    const createTestComponent = (props?: Partial<ITagProps>) => {
+    const createTestComponent = (props?: Partial<TagProps>) => {
         const completeProps = {
-            children: 'my-label',
+            label: 'my-label',
             ...props,
         };
 
@@ -14,8 +14,8 @@ describe('<Tag /> component', () => {
     };
 
     it('renders the specified label', () => {
-        const children = 'label-test';
-        render(createTestComponent({ children }));
-        expect(screen.getByText(children)).toBeInTheDocument();
+        const label = 'label-test';
+        render(createTestComponent({ label }));
+        expect(screen.getByText(label)).toBeInTheDocument();
     });
 });

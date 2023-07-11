@@ -6,7 +6,10 @@ const config = {
     collectCoverageFrom: ['./src/**/*.{ts,tsx}'],
     coveragePathIgnorePatterns: ['.d.ts', '.api.ts', 'index.ts', '.stories.tsx'],
     setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
-    transform: { '^.+\\.tsx?$': 'ts-jest' },
+    transform: {
+        '^.+\\.tsx?$': 'ts-jest',
+        '^.+\\.svg$': '<rootDir>/src/test/svg-transform.js',
+    },
 };
 
 module.exports = config;

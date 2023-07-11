@@ -23,6 +23,7 @@ const extendsTypescript = [...extendsBase, 'plugin:@typescript-eslint/recommende
 const rulesBase = {
     'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
     'react/self-closing-comp': 'warn',
+    'react/prop-types': 'off',
     'no-console': 'warn',
     curly: 'warn',
     'brace-style': 'warn',
@@ -37,6 +38,7 @@ const typescriptRules = {
     '@typescript-eslint/prefer-nullish-coalescing': 'warn',
     '@typescript-eslint/array-type': ['warn', { default: 'array-simple' }],
     '@typescript-eslint/consistent-type-imports': ['warn', { fixStyle: 'inline-type-imports' }],
+    '@typescript-eslint/no-non-null-assertion': 'off',
 };
 
 module.exports = {
