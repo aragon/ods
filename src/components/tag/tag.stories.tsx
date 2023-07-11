@@ -13,19 +13,19 @@ export default meta;
 
 export const Default: StoryObj<typeof meta> = {
     args: {
-        children: 'Default label',
+        label: 'Default label',
     },
 };
 
 export const ColorSchemes: StoryObj<typeof Tag> = {
     render: () => (
         <div className="flex gap-1">
-            <Tag colorScheme="critical">Critical</Tag>
-            <Tag colorScheme="info">Info</Tag>
-            <Tag colorScheme="neutral">Neutral</Tag>
-            <Tag colorScheme="primary">Primary</Tag>
-            <Tag colorScheme="success">Success</Tag>
-            <Tag colorScheme="warning">Warning</Tag>
+            <Tag colorScheme="critical" label="Critical" />
+            <Tag colorScheme="info" label="Info" />
+            <Tag colorScheme="neutral" label="Neutral" />
+            <Tag colorScheme="primary" label="Primary" />
+            <Tag colorScheme="success" label="Success" />
+            <Tag colorScheme="warning" label="Warning" />
         </div>
     ),
 };

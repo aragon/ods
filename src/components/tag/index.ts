@@ -1,2 +1,2 @@
 export { Tag } from './tag';
-export type { ITagProps, TagColorScheme } from './tag.api';
+export type { TagColorScheme, TagProps } from './tag.api';
