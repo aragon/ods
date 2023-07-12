@@ -1,7 +1,7 @@
 import React, { type ButtonHTMLAttributes, type FC } from 'react';
 import styled from 'styled-components';
 
-import { IsAddress, shortenAddress } from '../../utils/addresses';
+import { shortenAddress } from '../../utils/addresses';
 import { AvatarWallet } from '../avatar';
 import { IconLinkExternal, IconPerson } from '../icons';
 
@@ -49,7 +49,7 @@ const Avatar: FC<AvatarProps> = ({ src }) => {
     if (!src) {
         return <IconPerson className="w-2.5 h-2.5" />;
     }
-    return <AvatarWallet src={IsAddress(src) ? src : '0x0000000000000000000000000000000000000000'} />;
+    return <AvatarWallet src={src} />;
 };
 
 const Container = styled.button.attrs(() => {
