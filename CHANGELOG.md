@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   Workflows to deploy Storybook previews
+-   Step to enforce updates to changelog file
+
 ## [0.2.3] - 2023-07-12
 
 ### Fixed
