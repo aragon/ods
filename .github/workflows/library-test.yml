@@ -55,3 +55,5 @@ jobs:
         run: yarn lint
       - name: Check prettier
         run: yarn prettify
+      - name: Enforce changelog
+        uses: dangoslen/changelog-enforcer@v3.3.1
