@@ -16,8 +16,8 @@ module.exports = [
             index: 'src/index.ts',
         },
         output: [
-            { format: 'es', dir: outDir, entryFileNames: '[name].[format].js', sourcemap: true },
-            { format: 'cjs', dir: outDir, entryFileNames: '[name].[format].js', sourcemap: true },
+            { format: 'es', dir: outDir, entryFileNames: '[name].[format].js', sourcemap: true, interop: 'auto' },
+            { format: 'cjs', dir: outDir, entryFileNames: '[name].[format].js', sourcemap: true, interop: 'auto' },
         ],
         plugins: [
             cleanup({ targets: `${outDir}/*` }),
