@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+-   Remove scroll from modals and bottom sheet components
+
 ## [0.2.4] - 2023-07-13
 
 ### Changed
