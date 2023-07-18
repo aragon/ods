@@ -26,22 +26,13 @@ Install the `@aragon/ods` library and using yarn or npm:
 Yarn:
 
 ```shell
-yarn add @aragon/ods tailwindcss tailwindcss-fluid-type
+yarn add @aragon/ods
 ```
 
 Npm:
 
 ```shell
-npm install @aragon/ods tailwindcss tailwindcss-fluid-type
-```
-
-**NOTE:** `react` and `react-dom` are also required to correctly use the library:
-
-```json
-"peerDependencies": {
-    "react": ">=17",
-    "react-dom": ">=17",
-},
+npm install @aragon/ods
 ```
 
 ## Usage

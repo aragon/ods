@@ -4,11 +4,12 @@ const { nodeResolve } = require('@rollup/plugin-node-resolve');
 const terser = require('@rollup/plugin-terser');
 const typescript = require('@rollup/plugin-typescript');
 const cleanup = require('rollup-plugin-delete');
-const peerDepsExternal = require('rollup-plugin-peer-deps-external');
 const postcss = require('rollup-plugin-postcss');
 
 const tsConfig = require('./tsconfig.json');
 const { outDir } = tsConfig.compilerOptions;
+
+const package = require('./package.json');
 
 module.exports = [
     {
@@ -19,9 +20,9 @@ module.exports = [
             { format: 'es', dir: outDir, entryFileNames: '[name].[format].js', sourcemap: true, interop: 'auto' },
             { format: 'cjs', dir: outDir, entryFileNames: '[name].[format].js', sourcemap: true, interop: 'auto' },
         ],
+        external: Object.keys(package.dependencies),
         plugins: [
             cleanup({ targets: `${outDir}/*` }),
-            peerDepsExternal(),
             nodeResolve(),
             commonjs(),
             typescript({
