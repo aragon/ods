@@ -33,7 +33,7 @@ module.exports = [
                 entryFileNames: '[name].[format].js',
                 sourcemap: true,
                 interop: 'auto',
-                plugins: [analyze ? visualizer({ filename: 'stats.es.html', open: true }) : undefined],
+                plugins: [analyze ? visualizer({ filename: 'stats.cjs.html', open: true }) : undefined],
             },
         ],
         external: Object.keys(package.dependencies),
