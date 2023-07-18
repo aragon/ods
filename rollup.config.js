@@ -5,11 +5,13 @@ const terser = require('@rollup/plugin-terser');
 const typescript = require('@rollup/plugin-typescript');
 const cleanup = require('rollup-plugin-delete');
 const postcss = require('rollup-plugin-postcss');
+const { visualizer } = require('rollup-plugin-visualizer');
 
 const tsConfig = require('./tsconfig.json');
 const { outDir } = tsConfig.compilerOptions;
 
 const package = require('./package.json');
+const analyze = process.env.ANALYZE === 'true';
 
 module.exports = [
     {
@@ -17,8 +19,22 @@ module.exports = [
             index: 'src/index.ts',
         },
         output: [
-            { format: 'es', dir: outDir, entryFileNames: '[name].[format].js', sourcemap: true, interop: 'auto' },
-            { format: 'cjs', dir: outDir, entryFileNames: '[name].[format].js', sourcemap: true, interop: 'auto' },
+            {
+                format: 'es',
+                dir: outDir,
+                entryFileNames: '[name].[format].js',
+                sourcemap: true,
+                interop: 'auto',
+                plugins: [analyze ? visualizer({ filename: 'stats.es.html', open: true }) : undefined],
+            },
+            {
+                format: 'cjs',
+                dir: outDir,
+                entryFileNames: '[name].[format].js',
+                sourcemap: true,
+                interop: 'auto',
+                plugins: [analyze ? visualizer({ filename: 'stats.es.html', open: true }) : undefined],
+            },
         ],
         external: Object.keys(package.dependencies),
         plugins: [
