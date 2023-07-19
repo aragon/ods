@@ -3,7 +3,6 @@ node_modules
 
 # testing
 coverage
-stats.*.html
 
 # production
 build
@@ -44,3 +43,4 @@ deployments
 generated
 subgraph.yaml
 .bin
+stats.*.html
