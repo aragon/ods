@@ -43,3 +43,4 @@ deployments
 generated
 subgraph.yaml
 .bin
+stats.*.html
