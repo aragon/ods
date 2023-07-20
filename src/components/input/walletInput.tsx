@@ -520,7 +520,7 @@ const modeStyles = (state: WalletInputProps['state']) => {
 };
 
 export const Container = styled.div.attrs(({ state, disabled }: StyledContainerProps) => {
-    const baseClassName = 'border-2 flex space-x-1.5 py-1 pr-1 pl-2 rounded-xl';
+    const baseClassName = 'border-2 flex space-x-1.5 py-0.75 pr-1 pl-2 rounded-xl';
     const modeClassName = modeStyles(state);
 
     const focusClass = disabled ? '' : 'focus-within:ring-2 focus-within:ring-primary-500';

@@ -140,12 +140,12 @@ export const NumberInput: React.FC<NumberInputProps> = ({
 export type StyledContainerProps = Pick<NumberInputProps, 'mode' | 'disabled' | 'width'>;
 
 const Container = styled.div.attrs(({ mode, disabled, width }: StyledContainerProps) => {
-    let className = `${disabled ? 'bg-ui-100' : 'bg-ui-0'} inline-flex p-1 bg-ui-0 ${
+    let className = `${disabled ? 'bg-ui-100' : 'bg-ui-0'} inline-flex bg-ui-0 ${
         width ? '' : 'w-full'
-    } focus:outline-none items-center h-6
+    } focus:outline-none items-center py-0.75 px-1
       focus-within:ring-2 focus-within:ring-primary-500 justify-between
       rounded-xl hover:border-ui-300 border-2 active:border-primary-500
-      active:ring-0
+      active:ring-0 
     `;
 
     if (mode === 'default') {

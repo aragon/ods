@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   `build:analyze` script to analyze bundle size
 
+### Fixed
+
+-   Set correct padding and height for `input-wallet` and `input-number` components
+
 ## [0.2.6] - 2023-07-18
 
 ### Fixed
