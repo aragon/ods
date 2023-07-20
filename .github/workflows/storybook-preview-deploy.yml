@@ -60,7 +60,9 @@ jobs:
       - name: Echo url
         uses: peter-evans/create-or-update-comment@v2
         with:
+          comment-id: ${{ steps.get-deployment.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
+          edit-mode: replace
           body: |
             Storybook IPFS Hash: ${{ steps.ipfs-pin.outputs.hash }}
             ODS deployed to https://ipfs.eth.aragon.network/ipfs/${{ steps.ipfs-pin.outputs.hash }}/
