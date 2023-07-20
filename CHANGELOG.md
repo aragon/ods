@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+-   Changed the contents of IconFeedback
+
 ### Added
 
 -   `build:analyze` script to analyze bundle size
