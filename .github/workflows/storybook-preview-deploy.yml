@@ -60,6 +60,7 @@ jobs:
       - name: Echo url
         uses: peter-evans/create-or-update-comment@v2
         with:
+          comment-id: ${{ steps.get-deployment.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             Storybook IPFS Hash: ${{ steps.ipfs-pin.outputs.hash }}
