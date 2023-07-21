@@ -17,7 +17,10 @@ export type WalletInputLegacyProps = React.InputHTMLAttributes<HTMLInputElement>
 };
 
 export const WalletInputLegacy = React.forwardRef<HTMLInputElement, WalletInputLegacyProps>(
-    ({ mode = 'default', disabled = false, disabledFilled = false, adornmentText = '', ...props }, ref) => (
+    (
+        { mode = 'default', disabled = false, disabledFilled = false, adornmentText = '', onAdornmentClick, ...props },
+        ref,
+    ) => (
         <Container data-testid="input-wallet" disabled={disabled || disabledFilled} {...{ mode, disabledFilled }}>
             <StyledInput
                 disabled={disabled || disabledFilled}
@@ -35,7 +38,7 @@ export const WalletInputLegacy = React.forwardRef<HTMLInputElement, WalletInputL
                     mode="secondary"
                     bgWhite={true}
                     disabled={disabled}
-                    onClick={props.onAdornmentClick}
+                    onClick={onAdornmentClick}
                 />
             )}
         </Container>
@@ -49,8 +52,8 @@ type StyledContainerProps = Pick<WalletInputLegacyProps, 'mode' | 'disabled'>;
 export const Container = styled.div.attrs(({ mode, disabled }: StyledContainerProps) => {
     let className = `${
         disabled ? 'bg-ui-100 border-ui-200' : 'bg-ui-0'
-    } flex items-center space-x-1.5 p-0.75 pl-2 text-ui-600 rounded-xl 
-    border-2 focus-within:ring-2 focus-within:ring-primary-500 
+    } flex items-center space-x-1.5 p-0.75 pl-2 text-ui-600 rounded-xl
+    border-2 focus-within:ring-2 focus-within:ring-primary-500
     hover:border-ui-300 active:border-primary-500 active:ring-0 `;
 
     if (mode === 'default') {

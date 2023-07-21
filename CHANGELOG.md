@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Set correct padding and height for `input-wallet` and `input-number` components
 -   Preview workflow to correctly udpate preview comments on PRs
+-   Fix "unknown event handler" warning on input components
 
 ## [0.2.6] - 2023-07-18
 
