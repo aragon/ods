@@ -16,7 +16,7 @@ export type ValueInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 export const ValueInput = React.forwardRef<HTMLInputElement, ValueInputProps>(
-    ({ mode = 'default', disabled = false, adornmentText = '', ...props }, ref) => (
+    ({ mode = 'default', disabled = false, adornmentText = '', onAdornmentClick, ...props }, ref) => (
         <Container data-testid="input-value" {...{ mode, disabled }}>
             <StyledInput
                 disabled={disabled}
@@ -34,7 +34,7 @@ export const ValueInput = React.forwardRef<HTMLInputElement, ValueInputProps>(
                     mode="secondary"
                     bgWhite={true}
                     disabled={disabled}
-                    onClick={props.onAdornmentClick}
+                    onClick={onAdornmentClick}
                 />
             )}
         </Container>
@@ -48,8 +48,8 @@ type StyledContainerProps = Pick<ValueInputProps, 'mode' | 'disabled'>;
 export const Container = styled.div.attrs(({ mode, disabled }: StyledContainerProps) => {
     let className = `${
         disabled ? 'bg-ui-100 border-ui-200' : 'bg-ui-0'
-    } flex items-center space-x-1.5 p-0.75 pl-2 text-ui-600 rounded-xl 
-    border-2 focus-within:ring-2 focus-within:ring-primary-500 
+    } flex items-center space-x-1.5 p-0.75 pl-2 text-ui-600 rounded-xl
+    border-2 focus-within:ring-2 focus-within:ring-primary-500
     hover:border-ui-300 active:border-primary-500 active:ring-0 `;
 
     if (mode === 'default') {
