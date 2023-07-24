@@ -24,6 +24,7 @@ Single.args = {
     minDimension: 256,
     maxFileSize: 3000000,
     onlySquare: true,
+    acceptableFileFormat: 'image/jpg, image/jpeg, image/png, image/gif',
     onError: () =>
         alert(
             'Please provide a squared image (PNG, SVG, JPG or GIF) with a maximum of 3MB and size between 256px and 2400 px on each side',
