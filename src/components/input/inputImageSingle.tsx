@@ -34,6 +34,9 @@ export type InputImageSingleProps = {
      * Passing image src for preview
      */
     preview?: string;
+    /**
+     * acceptable image formats
+     */
     acceptableFileFormat?: string;
 };
 
