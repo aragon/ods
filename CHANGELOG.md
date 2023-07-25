@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   New icons: IconExplore, IconShrink, IconRadioPause, IconQuestion, and IconFailure
+-   `acceptableFileFormat` property for InputImage component
+
 ### Changed
 
--   a new variable named acceptableFileFormat added to inputImage Component
+-   Changed the contents of IconCopy and IconLinkExternal
 
 ## [0.2.7] - 2023-07-24
 
