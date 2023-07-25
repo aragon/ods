@@ -3,7 +3,14 @@ import { type IconType } from '..';
 
 export const IconExplore: IconType = ({ height = 16, width = 16, ...props }) => {
     return (
-        <svg width={width} height={height} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <svg
+            width={width}
+            height={height}
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
             <g clipPath="url(#clip0_8874_15270)">
                 <path
                     d="M9.16659 7.99998C9.16659 8.64431 8.64425 9.16665 7.99992 9.16665C7.35559 9.16665 6.83325 8.64431 6.83325 7.99998C6.83325 7.35565 7.35559 6.83331 7.99992 6.83331C8.64425 6.83331 9.16659 7.35565 9.16659 7.99998Z"

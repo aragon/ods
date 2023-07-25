@@ -3,7 +3,14 @@ import { type IconType } from '..';
 
 export const IconShrink: IconType = ({ height = 16, width = 16, ...props }) => {
     return (
-        <svg width={width} height={height} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <svg
+            width={width}
+            height={height}
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
             <g clipPath="url(#clip0_8874_15278)">
                 <path
                     fillRule="evenodd"
