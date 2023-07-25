@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed the contents of IconCopy and IconLinkExternal
 - Added new icons - IconExplore, IconShrink, IconRadioPause, IconQuestion, and IconFailure
 
+### Changed
+
+-   a new variable named acceptableFileFormat added to inputImage Component
+
 ## [0.2.7] - 2023-07-24
 
 ### Changed
