@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.8] - 2023-07-25
-
 ### Changed
 
 -   a new variable named acceptableFileFormat added to inputImage Component
