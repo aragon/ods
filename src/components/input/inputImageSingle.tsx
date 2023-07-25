@@ -34,6 +34,10 @@ export type InputImageSingleProps = {
      * Passing image src for preview
      */
     preview?: string;
+    /**
+     * acceptable image formats
+     */
+    acceptableFileFormat?: string;
 };
 
 export const InputImageSingle: React.FC<InputImageSingleProps> = ({
@@ -43,6 +47,7 @@ export const InputImageSingle: React.FC<InputImageSingleProps> = ({
     maxFileSize,
     onlySquare = false,
     preview: previewSrc = '',
+    acceptableFileFormat = 'image/jpg, image/jpeg, image/png, image/gif, image/svg+xml',
     onError,
 }) => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -96,7 +101,7 @@ export const InputImageSingle: React.FC<InputImageSingleProps> = ({
     } = useDropzone({
         onDrop,
         ...(maxFileSize && { maxSize: maxFileSize }),
-        accept: 'image/jpg, image/jpeg, image/png, image/gif, image/svg+xml',
+        accept: acceptableFileFormat,
     });
 
     if (loading) {
