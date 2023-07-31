@@ -1,4 +1,4 @@
-import React, { useEffect, type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import styled, { type CSSProperties } from 'styled-components';
 
 export interface BackdropProps {
@@ -21,31 +21,6 @@ export interface BackdropProps {
  */
 export const Backdrop: React.FC<BackdropProps> = ({ visible = false, children, onClose, ...props }) => {
     // TODO:Implement Backdrop to use as wrapper
-
-    useEffect(() => {
-        const html = document.querySelector('html');
-        if (!html) {
-            return;
-        }
-        html.style.overflow = visible ? 'hidden' : 'auto';
-    }, [visible]);
-
-    useEffect(() => {
-        function lockScrollOnResize() {
-            const html = document.querySelector('html');
-            if (!visible || !html) {
-                return;
-            }
-            html.style.overflow = 'hidden';
-        }
-
-        window?.addEventListener?.('resize', lockScrollOnResize);
-
-        return () => {
-            window?.removeEventListener?.('resize', lockScrollOnResize);
-        };
-    }, [visible]);
-
     return (
         <StyledBackdrop data-testid="backdrop-container" visible={visible} onClick={onClose} {...props}>
             {children}
@@ -57,9 +32,9 @@ type StyledBackdropProps = {
     visible: boolean;
 };
 
-export const BackdropStyles = ({ visible }: StyledBackdropProps) => {
+const StyledBackdrop = styled.div.attrs(({ visible }: StyledBackdropProps) => {
     const className: string = visible ? 'visible opacity-100 z-20' : 'invisible opacity-0';
-    const css: CSSProperties = {
+    const style: CSSProperties = {
         position: 'fixed',
         top: 0,
         left: 0,
@@ -72,10 +47,5 @@ export const BackdropStyles = ({ visible }: StyledBackdropProps) => {
         marginTop: 0,
     };
 
-    return { className, css };
-};
-
-const StyledBackdrop = styled.div.attrs(({ visible }: StyledBackdropProps) => {
-    const { className, css } = BackdropStyles({ visible });
-    return { className, style: css };
+    return { className, style };
 })<StyledBackdropProps>``;
