@@ -7,11 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+-   Disable page scroll when Modal component is open
+
 ## [0.2.9] - 2023-07-31
 
 ### Fixed
 
--   Disable scroll when modal are open
+-   Revert "remove scroll from modals and bottom sheet components" to fix scroll issues
 
 ## [0.2.8] - 2023-07-26
 
