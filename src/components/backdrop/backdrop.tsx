@@ -16,33 +16,31 @@ export interface BackdropProps {
     children?: ReactNode;
 }
 
+const togglePageOverflow = (visible: boolean) => {
+    const html = document.querySelector('html');
+
+    if (!html) {
+        return;
+    }
+
+    html.style.overflow = visible ? 'hidden' : 'auto';
+};
+
 /**
  * Backdrop UI component
  */
 export const Backdrop: React.FC<BackdropProps> = ({ visible = false, children, onClose, ...props }) => {
-    // TODO:Implement Backdrop to use as wrapper
-
     useEffect(() => {
-        const html = document.querySelector('html');
-        if (!html) {
-            return;
-        }
-        html.style.overflow = visible ? 'hidden' : 'auto';
+        togglePageOverflow(visible);
     }, [visible]);
 
     useEffect(() => {
-        function lockScrollOnResize() {
-            const html = document.querySelector('html');
-            if (!visible || !html) {
-                return;
-            }
-            html.style.overflow = 'hidden';
-        }
+        const handleResize = () => togglePageOverflow(visible);
 
-        window?.addEventListener?.('resize', lockScrollOnResize);
+        window?.addEventListener?.('resize', handleResize);
 
         return () => {
-            window?.removeEventListener?.('resize', lockScrollOnResize);
+            window?.removeEventListener?.('resize', handleResize);
         };
     }, [visible]);
 
