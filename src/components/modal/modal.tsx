@@ -1,7 +1,7 @@
-import { Close, Content, Portal, Root, Title } from '@radix-ui/react-dialog';
+import { Close, Content, Overlay, Portal, Root, Title } from '@radix-ui/react-dialog';
 import React, { type CSSProperties, type ReactNode } from 'react';
 import styled from 'styled-components';
-import { Backdrop } from '../backdrop';
+import { BackdropStyles } from '../backdrop';
 import { IconClose } from '../icons';
 
 export interface ModalProps {
@@ -52,7 +52,7 @@ export const Modal: React.FC<ModalProps> = ({
         <>
             <Root open={isOpen}>
                 <Portal>
-                    <Backdrop visible={isOpen} />
+                    <ModalOverlay />
                     <ModalContainer
                         data-testid="modal-content"
                         onInteractOutside={onInteractOutside}
@@ -122,4 +122,9 @@ const ModalSubtitle = styled.div.attrs({
 
 const ModalClose = styled(Close).attrs({
     className: 'flex-shrink-0 text-ui-500 w-4 h-4 rounded-lg bg-ui-50 outline:none',
+})``;
+
+const ModalOverlay = styled(Overlay).attrs(() => {
+    const { className, css } = BackdropStyles({ visible: true });
+    return { className, style: css };
 })``;
