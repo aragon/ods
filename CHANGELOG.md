@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+-   Disable page scroll when Modal component is open
+
 ## [0.2.9] - 2023-07-31
 
 ### Fixed

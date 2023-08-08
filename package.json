@@ -38,8 +38,8 @@
   ],
   "author": "Aragon Association",
   "dependencies": {
-    "@radix-ui/react-dialog": "^0.1.2",
-    "@radix-ui/react-dropdown-menu": "^0.1.4",
+    "@radix-ui/react-dialog": "^1.0.4",
+    "@radix-ui/react-dropdown-menu": "^2.0.5",
     "@tiptap/extension-link": "^2.0.3",
     "@tiptap/extension-placeholder": "^2.0.3",
     "@tiptap/pm": "^2.0.3",

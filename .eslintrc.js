@@ -39,6 +39,7 @@ const typescriptRules = {
     '@typescript-eslint/array-type': ['warn', { default: 'array-simple' }],
     '@typescript-eslint/consistent-type-imports': ['warn', { fixStyle: 'inline-type-imports' }],
     '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-unused-vars': ['warn', { ignoreRestSiblings: true }],
 };
 
 module.exports = {

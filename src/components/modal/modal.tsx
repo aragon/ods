@@ -1,7 +1,7 @@
-import { Close, Content, Portal, Root, Title } from '@radix-ui/react-dialog';
+import { Close, Content, Overlay, Portal, Root, Title } from '@radix-ui/react-dialog';
 import React, { type CSSProperties, type ReactNode } from 'react';
 import styled from 'styled-components';
-import { Backdrop } from '../backdrop';
+import { BackdropStyles } from '../backdrop';
 import { IconClose } from '../icons';
 
 export interface ModalProps {
@@ -49,33 +49,31 @@ export const Modal: React.FC<ModalProps> = ({
     ...props
 }) => {
     return (
-        <>
-            <Root open={isOpen}>
-                <Portal>
-                    <Backdrop visible={isOpen} />
-                    <ModalContainer
-                        data-testid="modal-content"
-                        onInteractOutside={onInteractOutside}
-                        onEscapeKeyDown={onClose}
-                        onOpenAutoFocus={onOpenAutoFocus}
-                        {...props}
-                    >
-                        {title && (
-                            <ModalHeader>
-                                <ModalTitleContainer>
-                                    <ModalTitle>{title}</ModalTitle>
-                                    {subtitle && <ModalSubtitle>{subtitle}</ModalSubtitle>}
-                                </ModalTitleContainer>
-                                <ModalClose onClick={onClose}>
-                                    <IconClose height={10} width={10} className="mx-auto" />
-                                </ModalClose>
-                            </ModalHeader>
-                        )}
-                        {children}
-                    </ModalContainer>
-                </Portal>
-            </Root>
-        </>
+        <Root open={isOpen}>
+            <Portal>
+                <ModalOverlay />
+                <ModalContainer
+                    data-testid="modal-content"
+                    onInteractOutside={onInteractOutside}
+                    onEscapeKeyDown={onClose}
+                    onOpenAutoFocus={onOpenAutoFocus}
+                    {...props}
+                >
+                    {title && (
+                        <ModalHeader>
+                            <ModalTitleContainer>
+                                <ModalTitle>{title}</ModalTitle>
+                                {subtitle && <ModalSubtitle>{subtitle}</ModalSubtitle>}
+                            </ModalTitleContainer>
+                            <ModalClose onClick={onClose}>
+                                <IconClose height={10} width={10} className="mx-auto" />
+                            </ModalClose>
+                        </ModalHeader>
+                    )}
+                    {children}
+                </ModalContainer>
+            </Portal>
+        </Root>
     );
 };
 
@@ -122,4 +120,10 @@ const ModalSubtitle = styled.div.attrs({
 
 const ModalClose = styled(Close).attrs({
     className: 'flex-shrink-0 text-ui-500 w-4 h-4 rounded-lg bg-ui-50 outline:none',
+})``;
+
+const ModalOverlay = styled(Overlay).attrs(() => {
+    const { className, css } = BackdropStyles({ visible: true });
+
+    return { className, style: css };
 })``;
