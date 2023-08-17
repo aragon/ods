@@ -2,10 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { shortenAddress } from '../../utils/addresses';
-import { IconChevronDown } from '../icons';
-import { Link } from '../link';
-import { Tag } from '../tag';
-import { TableCell } from './tableCell';
+import { ListItemAddress } from '../listItem';
 
 export type VoterType = {
     wallet: string;
@@ -23,6 +20,7 @@ export type VotersTableProps = {
     showVotingPower?: boolean;
     showAmount?: boolean;
     pageSize?: number; // number of rows to show
+    baseUrl?: string;
 };
 
 const colorScheme = (option: string) =>
@@ -36,102 +34,36 @@ export const VotersTable: React.FC<VotersTableProps> = ({
     showVotingPower = false,
     showAmount = false,
     pageSize = 3,
+    baseUrl,
 }) => {
     const displayedVoters = page * pageSize;
 
     return (
         <div className="overflow-x-auto">
-            <Table data-testid="votersTable">
-                <thead>
+            <Container>
+                {voters.slice(0, displayedVoters).map((voter, index) => (
+                    <ListItemAddress
+                        key={index}
+                        label={shortenAddress(voter.wallet)}
+                        src={voter.wallet}
+                        onClick={() => null}
+                    />
+                ))}
+                {/* {onLoadMore && voters.length > pageSize && displayedVoters < voters.length && (
                     <tr>
-                        <TableCell type="head" text="Wallet" className="w-1/2" />
-                        {showOption && <TableCell type="head" text="Option" />}
-                        <TableCell type="head" rightAligned />
-                        {showVotingPower && (
-                            <TableCell type="head" text="Voting Power" className="text-center" rightAligned />
-                        )}
-                        {showAmount && <TableCell type="head" text="Token Amount" rightAligned />}
+                        <TableCell type="link">
+                            <Link label="Load More" iconRight={<IconChevronDown />} onClick={onLoadMore} />
+                        </TableCell>
+                        {showOption && <TableCell type="text" text="" />}
+                        {showVotingPower && <TableCell type="text" text="" />}
+                        {showAmount && <TableCell type="text" text="" />}
                     </tr>
-                </thead>
-                <tbody>
-                    {voters.slice(0, displayedVoters).map((voter, index) => (
-                        <tr key={index}>
-                            <TableCell type="text" text={shortenAddress(voter.wallet)} />
-                            {showOption && (
-                                <TableCell type="tag">
-                                    {voter.option && (
-                                        <span className="flex">
-                                            <Tag
-                                                label={voter.option}
-                                                className="capitalize"
-                                                colorScheme={colorScheme(voter.option)}
-                                            />
-                                        </span>
-                                    )}
-                                </TableCell>
-                            )}
-                            {showOption && voter.voteReplaced === true ? (
-                                <TableCell type="tag" rightAligned>
-                                    <span className="flex items-center -ml-2 text-xs text-ui-600">Edited</span>
-                                </TableCell>
-                            ) : (
-                                <TableCell type="text" rightAligned />
-                            )}
-                            {showVotingPower && <TableCell type="text" text={voter.votingPower} rightAligned />}
-                            {showAmount && <TableCell type="text" text={voter.tokenAmount} rightAligned />}
-                        </tr>
-                    ))}
-                    {onLoadMore && voters.length > pageSize && displayedVoters < voters.length && (
-                        <tr>
-                            <TableCell type="link">
-                                <Link label="Load More" iconRight={<IconChevronDown />} onClick={onLoadMore} />
-                            </TableCell>
-                            {showOption && <TableCell type="text" text="" />}
-                            {showVotingPower && <TableCell type="text" text="" />}
-                            {showAmount && <TableCell type="text" text="" />}
-                        </tr>
-                    )}
-                </tbody>
-            </Table>
+                )} */}
+            </Container>
         </div>
     );
 };
 
-export const Table = styled.table.attrs({
-    className: 'w-full border-separate whitespace-nowrap',
-})`
-    border-spacing: 0;
-
-    tr th,
-    tr td {
-        border-bottom: 1px solid #e4e7eb;
-    }
-
-    tr td:first-child {
-        border-left: 1px solid #e4e7eb;
-    }
-
-    tr td:last-child {
-        border-right: 1px solid #e4e7eb;
-    }
-
-    tr th {
-        border-top: 1px solid #e4e7eb;
-    }
-
-    tr:first-child th:first-child {
-        border-top-left-radius: 12px;
-    }
-
-    tr:first-child th:last-child {
-        border-top-right-radius: 12px;
-    }
-
-    tr:last-child td:first-child {
-        border-bottom-left-radius: 12px;
-    }
-
-    tr:last-child td:last-child {
-        border-bottom-right-radius: 12px;
-    }
-`;
+const Container = styled.div.attrs(() => ({
+    className: 'w-full',
+}))``;
