@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Feat
+
+-   Add `build:watch` script to re-build the library on file changes
+
 ## [0.2.10] - 2023-08-08
 
 ### Fixed
