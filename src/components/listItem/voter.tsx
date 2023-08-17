@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { shortenAddress } from '../../utils/addresses';
 import { AvatarWallet } from '../avatar';
 import { IconLinkExternal, IconPerson } from '../icons';
+import type { TagProps } from '../tag';
 import { Tag } from '../tag';
 
 type TokenInfo = {
@@ -23,19 +24,23 @@ export type ListItemVoterProps = ButtonHTMLAttributes<HTMLButtonElement> & {
      */
     tokenInfo?: TokenInfo;
     option?: 'yes' | 'abstain' | 'no';
+    walletTag?: TagProps;
     onClick: () => null;
 };
 
 const colorScheme = (option: string) =>
     option === 'yes' || option === 'approved' ? 'success' : option === 'no' ? 'critical' : 'neutral';
 
-export const ListItemVoter: FC<ListItemVoterProps> = ({ label, src, tokenInfo, option, ...props }) => {
+export const ListItemVoter: FC<ListItemVoterProps> = ({ label, src, tokenInfo, option, walletTag, ...props }) => {
     return (
         <Container data-testid="listItem-voter" {...props}>
             <LeftSection>
                 <Avatar src={src ?? ''} />
                 <LeftContent>
-                    <p className="flex font-semibold text-ui-800 ft-text-base">{shortenAddress(label)}</p>
+                    <p className="flex font-semibold text-ui-800 ft-text-base">
+                        {shortenAddress(label)}
+                        {walletTag && <Tag {...walletTag} className="mx-1" />}
+                    </p>
                     <p className="flex font-semibold text-ui-600 ft-text-sm">
                         {tokenInfo?.amount} {tokenInfo?.symbol}
                     </p>

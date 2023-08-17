@@ -19,4 +19,8 @@ Default.args = {
         symbol: 'ETH',
         percentage: 0.1,
     },
+    walletTag: {
+        label: 'Your delegate',
+        colorScheme: 'info',
+    },
 };
