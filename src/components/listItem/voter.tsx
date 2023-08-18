@@ -9,9 +9,9 @@ import type { TagProps } from '../tag';
 import { Tag } from '../tag';
 
 type TokenInfo = {
-    amount: number;
+    amount: number | string;
     symbol: string;
-    percentage: number | string;
+    percentage?: number | string;
 };
 
 export type ListItemVoterProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -24,15 +24,26 @@ export type ListItemVoterProps = ButtonHTMLAttributes<HTMLButtonElement> & {
      * Optional token information. Consists of a token amount, symbol and share.
      */
     tokenInfo?: TokenInfo;
-    option?: 'yes' | 'abstain' | 'no';
+    option?: 'yes' | 'abstain' | 'no' | 'approved' | 'none';
     walletTag?: TagProps;
+    voteReplaced?: boolean;
+    voteReplacedLabel?: string;
     onClick: () => null;
 };
 
 const colorScheme = (option: string) =>
     option === 'yes' || option === 'approved' ? 'success' : option === 'no' ? 'critical' : 'neutral';
 
-export const ListItemVoter: FC<ListItemVoterProps> = ({ label, src, tokenInfo, option, walletTag, ...props }) => {
+export const ListItemVoter: FC<ListItemVoterProps> = ({
+    label,
+    src,
+    tokenInfo,
+    option,
+    walletTag,
+    voteReplaced,
+    voteReplacedLabel,
+    ...props
+}) => {
     const { isMobile } = useScreen();
 
     return (
@@ -51,7 +62,10 @@ export const ListItemVoter: FC<ListItemVoterProps> = ({ label, src, tokenInfo, o
             </LeftSection>
 
             <RightSection>
-                {option && <Tag label={option} className="capitalize" colorScheme={colorScheme(option)} />}
+                <RightContent>
+                    {option && <Tag label={option} className="capitalize" colorScheme={colorScheme(option)} />}
+                    {voteReplaced && <p className="text-ui-600 ft-text-xs">{voteReplacedLabel}</p>}
+                </RightContent>
                 {!isMobile && (
                     <span className="px-1.5">
                         <IconLinkExternal />
@@ -72,7 +86,7 @@ const Avatar: FC<AvatarProps> = ({ src }) => {
 };
 
 const Container = styled.button.attrs(() => {
-    const baseLayoutClasses = 'flex items-center justify-between w-full border-ui-100 border-b-2';
+    const baseLayoutClasses = 'flex items-center justify-between w-full border-ui-100 border-b';
     const baseStyleClasses = 'bg-ui-0 pl-2 pr-1.5 py-1.5 ';
     let className: string | undefined = `${baseLayoutClasses} ${baseStyleClasses}`;
 
@@ -87,6 +101,7 @@ const Container = styled.button.attrs(() => {
 
 const LeftSection = styled.div.attrs({ className: 'flex items-center space-x-1.5' })``;
 const LeftContent = styled.div.attrs({ className: 'space-y-0.5' })``;
+const RightContent = styled.div.attrs({ className: 'flex flex-col items-end space-y-0.5' })``;
 const RightSection = styled.div.attrs({
     className: 'flex space-x-1.5 items-center ft-text-sm',
 })``;

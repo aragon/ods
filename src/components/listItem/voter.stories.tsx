@@ -23,4 +23,6 @@ Default.args = {
         label: 'Your delegate',
         colorScheme: 'info',
     },
+    voteReplaced: true,
+    voteReplacedLabel: 'Vote was changed',
 };
