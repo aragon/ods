@@ -7,6 +7,7 @@ import { ListItemVoter } from '../listItem/voter';
 
 export type VoterType = {
     wallet: string;
+    src: string;
     option: 'yes' | 'abstain' | 'no' | 'approved' | 'none';
     votingPower?: string;
     tokenAmount?: string | number;
@@ -43,7 +44,7 @@ export const VotersTable: React.FC<VotersTableProps> = ({
                 <ListItemVoter
                     key={index}
                     label={shortenAddress(voter.wallet)}
-                    src={voter.wallet}
+                    src={voter.src}
                     option={voter.option}
                     onClick={() => null}
                     voteReplaced={voter.voteReplaced}
@@ -73,8 +74,8 @@ export const VotersTable: React.FC<VotersTableProps> = ({
     );
 };
 
-export const Container = styled.div.attrs({
-    className: 'w-full border rounded-xl whitespace-nowrap',
+const Container = styled.div.attrs({
+    className: 'w-full border-2 rounded-xl whitespace-nowrap',
 })`
     button:first-child {
         border-top-right-radius: 12px;
