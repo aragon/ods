@@ -29,7 +29,7 @@ export function isEnsDomain(input: string | null): boolean {
     // - starts with an alphanumeric character (case-insensitive)
     // - followed by zero or more alphanumeric characters, hyphens, or underscores (case-insensitive)
     // - ends with '.eth'
-    const ensPattern = new RegExp('^([a-z0-9]+(-[a-z0-9]+)*.)*[a-z0-9]+(-[a-z0-9]+)*.eth$');
+    const ensPattern = /^(?:[a-z0-9]+(?:[-_][a-z0-9]+)*\.)*[a-z0-9]+(?:[-_][a-z0-9]+)*\.eth$/;
     return ensPattern.test(input);
 }
 
