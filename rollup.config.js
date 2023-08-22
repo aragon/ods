@@ -3,7 +3,6 @@ const images = require('@rollup/plugin-image');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
 const terser = require('@rollup/plugin-terser');
 const typescript = require('@rollup/plugin-typescript');
-const cleanup = require('rollup-plugin-delete');
 const postcss = require('rollup-plugin-postcss');
 const { visualizer } = require('rollup-plugin-visualizer');
 
@@ -38,7 +37,6 @@ module.exports = [
         ],
         external: Object.keys(package.dependencies),
         plugins: [
-            cleanup({ targets: `${outDir}/*` }),
             nodeResolve(),
             commonjs(),
             typescript({

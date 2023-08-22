@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 -   New `VoterListItem` Component
+-   Add `build:watch` script to re-build the library on file changes
 
 ### Changed
 
