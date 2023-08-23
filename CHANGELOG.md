@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.11] - 2023-08-23
+
+### Fixed
+
+-   Performances of `isEnsDomain` utility
+
 ### Added
 
 -   New `VoterListItem` Component
+-   Add `build:watch` script to re-build the library on file changes
 
 ### Changed
 
