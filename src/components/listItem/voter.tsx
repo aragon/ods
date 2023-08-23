@@ -28,7 +28,7 @@ export type ListItemVoterProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     walletTag?: TagProps;
     voteReplaced?: boolean;
     voteReplacedLabel?: string;
-    onClick: () => null;
+    onClick: () => void;
 };
 
 const colorScheme = (option: string) =>
