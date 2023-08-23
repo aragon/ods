@@ -9,7 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+-   New `VoterListItem` Component
 -   Add `build:watch` script to re-build the library on file changes
+
+### Changed
+
+-   `VotersTable` component according to new ODS designs
 
 ## [0.2.10] - 2023-08-08
 

@@ -1,137 +1,102 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { shortenAddress } from '../../utils/addresses';
+import { shortenAddress } from '../../utils';
 import { IconChevronDown } from '../icons';
-import { Link } from '../link';
-import { Tag } from '../tag';
-import { TableCell } from './tableCell';
+import { ListItemVoter } from '../listItem/voter';
 
 export type VoterType = {
     wallet: string;
+    src: string;
     option: 'yes' | 'abstain' | 'no' | 'approved' | 'none';
     votingPower?: string;
-    tokenAmount?: string;
+    tokenAmount?: string | number;
+    tokenSymbol?: string;
     voteReplaced?: boolean;
+    walletTag?: 'You' | 'Your delegate';
 };
 
 export type VotersTableProps = {
     voters: VoterType[];
     page?: number;
+    LoadMoreLabel: string;
     onLoadMore?: () => void;
     showOption?: boolean;
-    showVotingPower?: boolean;
     showAmount?: boolean;
     pageSize?: number; // number of rows to show
 };
 
-const colorScheme = (option: string) =>
-    option === 'yes' || option === 'approved' ? 'success' : option === 'no' ? 'critical' : 'neutral';
+const colorScheme = (option: VoterType['walletTag']) => (option === 'You' ? 'neutral' : 'info');
 
 export const VotersTable: React.FC<VotersTableProps> = ({
     voters,
+    LoadMoreLabel,
     onLoadMore,
     page = 1,
-    showOption = false,
-    showVotingPower = false,
     showAmount = false,
     pageSize = 3,
 }) => {
     const displayedVoters = page * pageSize;
 
     return (
-        <div className="overflow-x-auto">
-            <Table data-testid="votersTable">
-                <thead>
-                    <tr>
-                        <TableCell type="head" text="Wallet" className="w-1/2" />
-                        {showOption && <TableCell type="head" text="Option" />}
-                        <TableCell type="head" rightAligned />
-                        {showVotingPower && (
-                            <TableCell type="head" text="Voting Power" className="text-center" rightAligned />
-                        )}
-                        {showAmount && <TableCell type="head" text="Token Amount" rightAligned />}
-                    </tr>
-                </thead>
-                <tbody>
-                    {voters.slice(0, displayedVoters).map((voter, index) => (
-                        <tr key={index}>
-                            <TableCell type="text" text={shortenAddress(voter.wallet)} />
-                            {showOption && (
-                                <TableCell type="tag">
-                                    {voter.option && (
-                                        <span className="flex">
-                                            <Tag
-                                                label={voter.option}
-                                                className="capitalize"
-                                                colorScheme={colorScheme(voter.option)}
-                                            />
-                                        </span>
-                                    )}
-                                </TableCell>
-                            )}
-                            {showOption && voter.voteReplaced === true ? (
-                                <TableCell type="tag" rightAligned>
-                                    <span className="flex items-center -ml-2 text-xs text-ui-600">Edited</span>
-                                </TableCell>
-                            ) : (
-                                <TableCell type="text" rightAligned />
-                            )}
-                            {showVotingPower && <TableCell type="text" text={voter.votingPower} rightAligned />}
-                            {showAmount && <TableCell type="text" text={voter.tokenAmount} rightAligned />}
-                        </tr>
-                    ))}
-                    {onLoadMore && voters.length > pageSize && displayedVoters < voters.length && (
-                        <tr>
-                            <TableCell type="link">
-                                <Link label="Load More" iconRight={<IconChevronDown />} onClick={onLoadMore} />
-                            </TableCell>
-                            {showOption && <TableCell type="text" text="" />}
-                            {showVotingPower && <TableCell type="text" text="" />}
-                            {showAmount && <TableCell type="text" text="" />}
-                        </tr>
-                    )}
-                </tbody>
-            </Table>
-        </div>
+        <Container data-testid="votersTable">
+            {voters.slice(0, displayedVoters).map((voter, index) => (
+                <ListItemVoter
+                    key={index}
+                    label={shortenAddress(voter.wallet)}
+                    src={voter.src}
+                    option={voter.option}
+                    onClick={() => null}
+                    voteReplaced={voter.voteReplaced}
+                    {...(voter.walletTag && {
+                        walletTag: {
+                            colorScheme: colorScheme(voter.walletTag),
+                            label: voter.walletTag || '',
+                        },
+                    })}
+                    {...(showAmount && {
+                        tokenInfo: {
+                            amount: voter.tokenAmount as string,
+                            symbol: voter.tokenSymbol as string,
+                        },
+                    })}
+                />
+            ))}
+            {onLoadMore && voters.length > pageSize && displayedVoters < voters.length && (
+                <LoadMoreContainer onClick={onLoadMore}>
+                    <Link>
+                        <LinkLabel>{LoadMoreLabel}</LinkLabel>
+                        <IconChevronDown />
+                    </Link>
+                </LoadMoreContainer>
+            )}
+        </Container>
     );
 };
 
-export const Table = styled.table.attrs({
-    className: 'w-full border-separate whitespace-nowrap',
+const Container = styled.div.attrs({
+    className: 'w-full border-2 rounded-xl whitespace-nowrap',
 })`
-    border-spacing: 0;
-
-    tr th,
-    tr td {
-        border-bottom: 1px solid #e4e7eb;
-    }
-
-    tr td:first-child {
-        border-left: 1px solid #e4e7eb;
-    }
-
-    tr td:last-child {
-        border-right: 1px solid #e4e7eb;
-    }
-
-    tr th {
-        border-top: 1px solid #e4e7eb;
-    }
-
-    tr:first-child th:first-child {
+    button:first-child {
+        border-top-right-radius: 12px;
         border-top-left-radius: 12px;
     }
 
-    tr:first-child th:last-child {
-        border-top-right-radius: 12px;
-    }
-
-    tr:last-child td:first-child {
-        border-bottom-left-radius: 12px;
-    }
-
-    tr:last-child td:last-child {
+    button:last-child {
         border-bottom-right-radius: 12px;
+        border-bottom-left-radius: 12px;
+        border-bottom-width: 0;
     }
 `;
+
+const LoadMoreContainer = styled.button.attrs({
+    className: 'px-2 py-1.5',
+})``;
+
+const Link = styled.a.attrs({
+    className: 'flex items-center min-w-0 text-primary-500 space-x-1.5',
+})``;
+
+const LinkLabel = styled.p.attrs({
+    className: 'font-semibold',
+})``;
