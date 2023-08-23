@@ -41,4 +41,5 @@ Default.args = {
     onLoadMore: () => alert('load more clicked'),
     showOption: true,
     showAmount: true,
+    explorerURL: 'https://etherscan.io/',
 };
