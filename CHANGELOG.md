@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 -   Bump `@adobe/css-tools` from 4.2.0 to 4.3.1
+-   Re-renders on `WalletInput` component when programmatically changing its value
 
 ## [0.2.12] - 2023-08-23
 
