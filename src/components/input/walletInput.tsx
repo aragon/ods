@@ -128,7 +128,6 @@ export const WalletInput = React.forwardRef<HTMLTextAreaElement, WalletInputProp
         const [isEditing, setIsEditing] = useState(false);
         const [displayMode, setDisplayMode] = useState<DisplayMode>(() => (value.ensName ? 'ensName' : 'address'));
         const [initialHeight, setInitialHeight] = useState(0);
-        const [resolvedValues, setResolvedValues] = useState<WalletInputValue>();
 
         const canToggle = !!value.address && !!value.ensName;
         const togglerLabel = displayMode === 'address' ? 'ENS' : '0x…';
@@ -206,15 +205,12 @@ export const WalletInput = React.forwardRef<HTMLTextAreaElement, WalletInputProp
                     }
                 }
 
-                setResolvedValues(newValue);
+                if (value.address !== newValue.address || value.ensName !== newValue.ensName) {
+                    onValueChange(newValue);
+                }
             }
 
-            if (
-                ensSupported && // network supports ens
-                displayMode && // not initial state/render
-                value[displayMode] && // the displayed value isn't empty
-                JSON.stringify(value) !== JSON.stringify(resolvedValues) // value and resolved values don't match
-            ) {
+            if (ensSupported && value[displayMode]) {
                 resolveValues();
             }
         }, [
@@ -226,20 +222,9 @@ export const WalletInput = React.forwardRef<HTMLTextAreaElement, WalletInputProp
             onResolvingError,
             resolveAddressFromEnsName,
             resolveEnsNameFromAddress,
-            resolvedValues,
+            onValueChange,
             value,
         ]);
-
-        useEffect(() => {
-            if (resolvedValues) {
-                // update the controller value if it is not the same as the resolved values;
-                // this works in conjunction with the previous hook
-                const resolvedType = displayMode === 'address' ? 'ensName' : 'address';
-                if (value[resolvedType] !== resolvedValues[resolvedType]) {
-                    onValueChange(resolvedValues);
-                }
-            }
-        }, [displayMode, onValueChange, resolvedValues, value]);
 
         // resolve the forwarded ref and local ref
         useEffect(() => {
@@ -326,8 +311,6 @@ export const WalletInput = React.forwardRef<HTMLTextAreaElement, WalletInputProp
 
         const setValue = useCallback(
             (addressOrEns: string) => {
-                setResolvedValues(undefined);
-
                 if (addressOrEns === '') {
                     return { ensName: '', address: '' };
                 }
