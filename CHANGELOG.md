@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.13] - 2023-08-31
+
 ### Fixed
 
 -   Bump `@adobe/css-tools` from 4.2.0 to 4.3.1
