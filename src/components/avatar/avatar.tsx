@@ -33,7 +33,7 @@ export const Avatar: React.FC<AvatarProps> = ({ mode = 'circle', size = 'default
     if (!error) {
         return (
             <AvatarContainer mode={mode} size={size}>
-                {IsAddress(src) || src.endsWith('.eth') ? (
+                {IsAddress(src) || src?.endsWith('.eth') ? (
                     <Blockies seed={src} size={BLOCKIES_SQUARES} scale={sizes[size].scale} />
                 ) : (
                     <StyledAvatar
