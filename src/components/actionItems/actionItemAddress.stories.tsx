@@ -5,7 +5,7 @@ import React from 'react';
 
 import { IconCopy, IconGovernance, IconLinkExternal } from '../icons';
 import { ListItemAction } from '../listItem';
-import { ActionItemAddress, TAG_WALLET_ID_VARIANTS } from './address';
+import { ActionItemAddress, TAG_WALLET_ID_VARIANTS } from './actionItemAddress';
 
 const meta: Meta<typeof ActionItemAddress> = {
     component: ActionItemAddress,
