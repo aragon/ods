@@ -43,6 +43,7 @@ export { IconStorage } from './icon_storage';
 export { IconSuccess } from './icon_success';
 export { IconSwitch } from './icon_switch';
 export { IconTurnOff } from './icon_turn_off';
+export { IconUpdate } from './icon_update';
 export { IconWarning } from './icon_warning';
 export { IconWithdraw } from './icon_withdraw';
 export { IconRadioCancel } from './radio';
