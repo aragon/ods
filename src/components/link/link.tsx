@@ -24,34 +24,30 @@ type LinkType = (typeof LINK_VARIANTS)[number];
  *
  * @param {LinkProps} props - The properties of the link.
  */
-export const Link: React.FC<LinkProps> = ({
-    disabled = false,
-    external = true,
-    type = 'primary',
-    iconRight,
-    description,
-    label,
-    href,
-    ...props
-}) => {
-    return (
-        <StyledLink
-            href={disabled ? undefined : href}
-            rel="noopener noreferrer"
-            type={type}
-            disabled={disabled}
-            {...(external && { target: '_blank' })}
-            {...props}
-            data-testid="link"
-        >
-            <div className="flex gap-x-1 items-center mr-0.5">
-                <Label>{label}</Label>
-                {iconRight && <div>{iconRight}</div>}
-            </div>
-            {description && <Description>{description}</Description>}
-        </StyledLink>
-    );
-};
+export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
+    ({ disabled = false, external = true, type = 'primary', iconRight, description, label, href, ...props }, ref) => {
+        return (
+            <StyledLink
+                ref={ref}
+                href={disabled ? undefined : href}
+                rel="noopener noreferrer"
+                type={type}
+                disabled={disabled}
+                {...(external && { target: '_blank' })}
+                {...props}
+                data-testid="link"
+            >
+                <div className="flex gap-x-1 items-center mr-0.5">
+                    <Label>{label}</Label>
+                    {iconRight && <div>{iconRight}</div>}
+                </div>
+                {description && <Description>{description}</Description>}
+            </StyledLink>
+        );
+    },
+);
+
+Link.displayName = 'Link';
 
 type StyledLinkProps = Pick<LinkProps, 'disabled'> & {
     type: NonNullable<LinkProps['type']>;
