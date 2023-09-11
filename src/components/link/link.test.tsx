@@ -1,16 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { Link } from './link';
+import { Link, type LinkProps } from './link';
 
 describe('Link', () => {
-    // eslint-disable-next-line
-    function setup(args: any) {
+    function setup(args: LinkProps = {} as LinkProps) {
         render(<Link {...args} />);
         return screen.getByTestId('link');
     }
 
     test('should render without crashing', () => {
-        const element = setup({});
+        const element = setup();
         expect(element).toBeInTheDocument;
     });
 });
