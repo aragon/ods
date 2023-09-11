@@ -1,35 +1,46 @@
-import { type Meta, type Story } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import React from 'react';
-import { IconChevronDown } from '../icons';
-import { Link, type LinkProps } from './link';
 
-export default {
-    title: 'Components/Link',
+import { IconLinkExternal } from '../icons';
+import { LINK_VARIANTS, Link } from './link';
+
+const meta: Meta<typeof Link> = {
     component: Link,
-} as Meta;
-
-const Template: Story<LinkProps> = (args) => <Link {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-    label: 'Link text',
-    href: 'https://aragon.org/',
-    type: 'primary',
+    title: 'Components/Link',
+    tags: ['autodocs'],
+    argTypes: {
+        label: { control: { type: 'text' } },
+        description: { control: { type: 'text' } },
+        type: {
+            options: LINK_VARIANTS,
+            control: { type: 'select' },
+            defaultValue: 'primary',
+        },
+    },
 };
 
-export const IconRight = Template.bind({});
-IconRight.args = {
-    iconRight: <IconChevronDown />,
-    label: 'Link text',
-    href: 'https://aragon.org/',
-    type: 'secondary',
+export default meta;
+
+type Story = StoryObj<typeof Link>;
+
+export const Primary: Story = {
+    render: (args) => <Link {...args} />,
+    args: {
+        label: 'Aragon',
+        description: 'Association Website',
+        href: 'https://aragon.org/',
+        type: 'primary',
+        iconRight: <IconLinkExternal />,
+    },
 };
 
-export const IconLeft = Template.bind({});
-IconLeft.args = {
-    iconLeft: <IconChevronDown />,
-    label: 'Link text',
-    href: 'https://aragon.org/',
-    disabled: true,
-    type: 'neutral',
+export const Neutral: Story = {
+    render: (args) => <Link {...args} />,
+    args: {
+        label: 'Aragon',
+        description: 'Association Website',
+        href: 'https://aragon.org/',
+        type: 'neutral',
+        iconRight: <IconLinkExternal />,
+    },
 };
