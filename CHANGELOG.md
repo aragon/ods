@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 -   `ActionItemAddress` component
+-   `IconUpdate` component
+
+### Changed
+
+-   `Link` component to include description
 
 ## [0.2.13] - 2023-08-31
 
