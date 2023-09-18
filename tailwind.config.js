@@ -108,6 +108,14 @@ module.exports = {
                 80: 'var(--ods-space-80)', // 320px
                 96: 'var(--ods-space-96)', // 384px
             },
+            borderRadius: {
+                default: 'var(--ods-border-rounded)',
+                lg: 'var(--ods-border-rounded-lg)',
+                xl: 'var(--ods-border-rounded-xl)',
+                '2xl': 'var(--ods-border-rounded-2xl)',
+                '3xl': 'var(--ods-border-rounded-3xl)',
+                full: 'var(--ods-border-rounded-full)',
+            },
         },
         fontWeight: {
             normal: 500,

@@ -1,0 +1,8 @@
+:root {
+  --ods-border-rounded: "4px";
+  --ods-border-rounded-lg: "8px";
+  --ods-border-rounded-xl: "12px";
+  --ods-border-rounded-2xl: "16px";
+  --ods-border-rounded-3xl: "24px";
+  --ods-border-rounded-full: "9999px";
+}
