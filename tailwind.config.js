@@ -1,6 +1,5 @@
 module.exports = {
-    purge: ['./src/**/*.{jsx,tsx}', './docs/**/*.{jsx,tsx}'],
-    darkMode: false,
+    content: ['./src/**/*.{jsx,tsx}', './docs/**/*.{jsx,tsx}'],
     theme: {
         extend: {
             colors: {
@@ -137,42 +136,5 @@ module.exports = {
             '4xl': ['3.052rem', 1.2],
             '5xl': ['3.185rem', 1.2],
         },
-        fluidType: {
-            settings: {
-                fontSizeMin: 0.875, // 14px
-                fontSizeMax: 1, // 16px
-                ratioMin: 1.2, // Minor third as minimum multiplicator
-                ratioMax: 1.25, // Major third as maximum multiplicator
-                screenMin: 20, // 320px
-                screenMax: 96, // 1536px
-                unit: 'rem',
-                prefix: 'ft-',
-            },
-            values: {
-                xs: [-2, 1.5],
-                sm: [-1, 1.5],
-                base: [0, 1.5],
-                lg: [1, 1.5],
-                xl: [2, 1.2],
-                '2xl': [3, 1.2],
-                '3xl': [4, 1.2],
-                '4xl': [5, 1.2],
-                '5xl': [6, 1.2],
-            },
-        },
     },
-    variants: {
-        extend: {
-            backgroundColor: ['active', 'disabled'],
-            textColor: ['active', 'disabled'],
-            borderColor: ['active', 'disabled'],
-            borderWidth: ['active', 'disabled'],
-            ringColor: ['focus-visible'],
-            ringWidth: ['active', 'focus-visible', 'disabled'],
-            outline: ['focus-visible', 'active', 'focus', 'hover'],
-            rounded: ['focus-visible'],
-        },
-        fluidType: ['responsive'],
-    },
-    plugins: [require('tailwindcss-fluid-type')],
 };
