@@ -1,4 +1,5 @@
 @import "./src/styles/colors.css";
+@import "./src/styles/spacing.css";
 
 @tailwind base;
 @tailwind components;
