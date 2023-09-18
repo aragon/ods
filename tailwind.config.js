@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
     content: ['./src/**/*.{jsx,tsx}', './docs/**/*.{jsx,tsx}', '.storybook/*.{jsx,tsx}'],
     theme: {
@@ -108,22 +109,23 @@ module.exports = {
                 80: 'var(--ods-space-80)', // 320px
                 96: 'var(--ods-space-96)', // 384px
             },
-            borderRadius: {
-                default: 'var(--ods-border-rounded)',
-                lg: 'var(--ods-border-rounded-lg)',
-                xl: 'var(--ods-border-rounded-xl)',
-                '2xl': 'var(--ods-border-rounded-2xl)',
-                '3xl': 'var(--ods-border-rounded-3xl)',
-                full: 'var(--ods-border-rounded-full)',
-            },
+
             boxShadow: {
                 sm: '0px 1px 2px 0px rgba(31, 41, 51, 0.05)',
-                default: '0px 1px 3px 0px rgba(31, 41, 51, 0.10), 0px 1px 2px -1px rgba(31, 41, 51, 0.10)',
+                DEFAULT: '0px 1px 3px 0px rgba(31, 41, 51, 0.10), 0px 1px 2px -1px rgba(31, 41, 51, 0.10)',
                 md: '0px 4px 6px -1px rgba(0, 0, 0, 0.10), 0px 2px 4px -2px rgba(31, 41, 51, 0.10)',
                 lg: '0px 10px 15px -3px rgba(31, 41, 51, 0.10), 0px 4px 6px -4px rgba(31, 41, 51, 0.10)',
                 xl: '0px 20px 25px -5px rgba(31, 41, 51, 0.10), 0px 8px 10px -6px rgba(31, 41, 51, 0.10)',
                 '2xl': '0px 25px 50px -12px rgba(31, 41, 51, 0.25)',
             },
+        },
+        borderRadius: {
+            DEFAULT: '4px',
+            lg: '8px',
+            xl: '12px',
+            '2xl': '16px',
+            '3xl': '24px',
+            full: '9999px',
         },
         fontWeight: {
             normal: 500,
@@ -140,6 +142,7 @@ module.exports = {
         fontFamily: {
             sans: ['Manrope'],
         },
+
         fontSize: {
             xs: ['0.64rem', 1.5],
             sm: ['0.8rem', 1.5],
