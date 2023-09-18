@@ -93,6 +93,9 @@
     "ts-jest": "^29.1.1",
     "typescript": "^5.2.2"
   },
+  "resolutions": {
+    "jackspeak": "2.1.1"
+  },
   "bugs": {
     "url": "https://github.com/aragon/ods/issues"
   },
