@@ -108,15 +108,6 @@ module.exports = {
                 80: 'var(--ods-space-80)', // 320px
                 96: 'var(--ods-space-96)', // 384px
             },
-            borderRadius: {
-                larger: '10px',
-            },
-            boxShadow: {
-                100: '0px 4px 8px rgba(31, 41, 51, 0.04), 0px 0px 2px rgba(31, 41, 51, 0.06), 0px 0px 1px rgba(31, 41, 51, 0.04)',
-                200: '0px 10px 20px rgba(31, 41, 51, 0.04), 0px 2px 6px rgba(31, 41, 51, 0.04), 0px 0px 1px rgba(31, 41, 51, 0.04)',
-                300: '0px 16px 24px rgba(31, 41, 51, 0.06), 0px 2px 6px rgba(31, 41, 51, 0.04), 0px 0px 1px rgba(31, 41, 51, 0.04)',
-                400: '0px 24px 32px rgba(31, 41, 51, 0.04), 0px 16px 24px rgba(31, 41, 51, 0.04), 0px 4px 8px rgba(31, 41, 51, 0.04), 0px 0px 1px rgba(31, 41, 51, 0.04)',
-            },
         },
         fontWeight: {
             normal: 500,
@@ -124,10 +115,11 @@ module.exports = {
             bold: 700,
         },
         screens: {
-            tablet: '768px',
-            lg: '1280px',
-            desktop: '1440px',
-            wide: '1920px',
+            sm: 'var(--ods-breakpoint-sm)',
+            md: 'var(--ods-breakpoint-md)',
+            lg: 'var(--ods-breakpoint-lg)',
+            xl: 'var(--ods-breakpoint-xl)',
+            '2xl': 'var(--ods-breakpoint-2xl)',
         },
         fontFamily: {
             sans: ['Manrope'],
