@@ -15,7 +15,7 @@ module.exports = {
                     800: 'var(--ods-color-primary-800)',
                     900: 'var(--ods-color-primary-900)',
                 },
-                ui: {
+                neutral: {
                     0: 'var(--ods-color-neutral-0)',
                     50: 'var(--ods-color-neutral-50)',
                     100: 'var(--ods-color-neutral-100)',
