@@ -10,6 +10,19 @@ const preview: Preview = {
                 date: /Date$/,
             },
         },
+        backgrounds: {
+            default: 'light',
+            values: [
+                {
+                    name: 'light',
+                    value: 'var(--ods-color-neutral-50)',
+                },
+                {
+                    name: 'dark',
+                    value: 'var(--ods-color-neutral-800)',
+                },
+            ],
+        },
     },
     decorators: [
         (Story) => (
