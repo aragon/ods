@@ -116,6 +116,14 @@ module.exports = {
                 '3xl': 'var(--ods-border-rounded-3xl)',
                 full: 'var(--ods-border-rounded-full)',
             },
+            boxShadow: {
+                sm: 'var(--ods-shadow-sm)',
+                default: 'var(--ods-shadow)',
+                md: 'var(--ods-shadow-md)',
+                lg: 'var(--ods-shadow-lg)',
+                xl: 'var(--ods-shadow-xl)',
+                '2xl': 'var(--ods-shadow-2xl)',
+            },
         },
         fontWeight: {
             normal: 500,
