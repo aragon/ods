@@ -22,7 +22,7 @@ import Users from '../../assets/illustrations/objects/users.svg';
 import Wagmi from '../../assets/illustrations/objects/wagmi.svg';
 import Wallet from '../../assets/illustrations/objects/wallet.svg';
 import Warning from '../../assets/illustrations/objects/warning.svg';
-import { IllustrationObjectType } from './illustration-object-type';
+import { IllustrationObjectType } from './illustrationObjectType';
 
 type IllustrationObjectComponent = React.FC<SVGProps<SVGSVGElement>>;
 

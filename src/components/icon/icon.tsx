@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react';
-import { iconList } from './icon-list';
-import type { IconType } from './icon-type';
+import { iconList } from './iconList';
+import type { IconType } from './iconType';
 
 export type IconSize = 'sm' | 'md' | 'lg';
 

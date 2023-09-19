@@ -6,14 +6,14 @@ import {
     illustrationHumanExpressionList,
     illustrationHumanHairsList,
     illustrationHumanSunglassesList,
-} from './illustration-human-list';
+} from './illustrationHumanList';
 import type {
     IllustrationHumanAccessory,
     IllustrationHumanBody,
     IllustrationHumanExpression,
     IllustrationHumanHairs,
     IllustrationHumanSunglasses,
-} from './illustration-human-type';
+} from './illustrationHumanType';
 
 export interface IIllustrationHumanProps extends HTMLAttributes<HTMLDivElement> {
     /**

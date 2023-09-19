@@ -58,7 +58,7 @@ import WysiwygLinkSet from '../../assets/icons/wysiwyg-link-set.svg';
 import WysiwygLinkUnset from '../../assets/icons/wysiwyg-link-unset.svg';
 import WysiwygListOrdered from '../../assets/icons/wysiwyg-list-ordered.svg';
 import WysiwygListUnordered from '../../assets/icons/wysiwyg-list-unordered.svg';
-import { IconType } from './icon-type';
+import { IconType } from './iconType';
 
 type IconComponent = React.FC<SVGProps<SVGSVGElement>>;
 

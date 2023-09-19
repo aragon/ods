@@ -1,8 +1,4 @@
-@import "./src/styles/borderRadius.css";
-@import "./src/styles/colors.css";
-@import "./src/styles/breakpoints.css";
-@import "./src/styles/spacing.css";
-@import "./src/styles/shadows.css";
+@import "./src/styles/index.css";
 
 @tailwind base;
 @tailwind components;
