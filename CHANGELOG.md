@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Correctly udpate `WalletInput` display mode when changing the input value programmatically
 -   Fix racing conditions on `WalletInput` component when resolving ens-names and addresses
 
+### Changed
+
+-   Removed `IconUpdate` fixed white color
+
 ## [0.2.14] - 2023-09-12
 
 ### Added
