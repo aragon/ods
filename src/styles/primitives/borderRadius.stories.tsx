@@ -18,7 +18,7 @@ type Story = StoryObj<typeof DisplayComponent>;
 
 export const Default: Story = {
     render: () => {
-        const tokens = Object.keys(resolveConfig(tailwindConfig).theme.borderRadius);
+        const tokens = Object.keys(resolveConfig(tailwindConfig).theme?.borderRadius ?? {});
 
         return (
             <div className="flex space-x-14 bg-transparent text-neutral-800">
