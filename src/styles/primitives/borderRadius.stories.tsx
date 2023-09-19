@@ -23,17 +23,10 @@ export const Default: Story = {
         return (
             <div className="flex space-x-14 bg-transparent text-neutral-800">
                 {tokens.map((token) => {
-                    const classes = classNames('border', {
-                        'rounded-full': token === 'full',
-                        'rounded-3xl': token === '3xl',
-                        'rounded-2xl': token === '2xl',
-                        'rounded-xl': token === 'xl',
-                        'rounded-lg': token === 'lg',
-                        rounded: token === 'DEFAULT',
-                    });
+                    const className = `border rounded${token === 'DEFAULT' ? '' : `-${token}`}`;
 
                     return (
-                        <DisplayComponent key={token} className={classes}>
+                        <DisplayComponent key={token} className={className}>
                             {token === 'DEFAULT' ? 'rounded (default)' : `rounded-${token}`}
                         </DisplayComponent>
                     );
