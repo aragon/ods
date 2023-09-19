@@ -12,7 +12,7 @@ const preview: Preview = {
         },
         options: {
             storySort: {
-                order: ['Docs', 'Design Tokens', 'Components'],
+                order: ['Docs', ['Open Design System', 'Installation'], 'Design Tokens', 'Components'],
             },
         },
         backgrounds: {
