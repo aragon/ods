@@ -72,7 +72,7 @@ import type {
     IllustrationHumanExpression,
     IllustrationHumanHairs,
     IllustrationHumanSunglasses,
-} from './illustration-human-type';
+} from './illustrationHumanType';
 
 type IllustrationHumanComponent = React.FC<SVGProps<SVGSVGElement>>;
 

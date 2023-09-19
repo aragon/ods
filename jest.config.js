@@ -8,7 +8,7 @@ const config = {
     setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
     transform: {
         '^.+\\.tsx?$': 'ts-jest',
-        '^.+\\.svg$': '<rootDir>/src/test/svg-transform.js',
+        '^.+\\.svg$': '<rootDir>/src/test/svgTransform.js',
     },
 };
 

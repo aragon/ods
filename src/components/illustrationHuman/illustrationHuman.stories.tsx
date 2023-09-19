@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { IllustrationHuman } from './illustration-human';
+import { IllustrationHuman } from './illustrationHuman';
 
 const meta: Meta<typeof IllustrationHuman> = {
     title: 'components/IllustrationHuman',

@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react';
-import { illustrationObjectList } from './illustration-object-list';
-import type { IllustrationObjectType } from './illustration-object-type';
+import { illustrationObjectList } from './illustrationObjectList';
+import type { IllustrationObjectType } from './illustrationObjectType';
 
 export interface IIllustrationObjectProps extends SVGProps<SVGSVGElement> {
     /**
