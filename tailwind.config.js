@@ -111,12 +111,12 @@ module.exports = {
             },
 
             boxShadow: {
-                sm: '0px 1px 2px 0px rgba(31, 41, 51, 0.05)',
-                DEFAULT: '0px 1px 3px 0px rgba(31, 41, 51, 0.10), 0px 1px 2px -1px rgba(31, 41, 51, 0.10)',
-                md: '0px 4px 6px -1px rgba(0, 0, 0, 0.10), 0px 2px 4px -2px rgba(31, 41, 51, 0.10)',
-                lg: '0px 10px 15px -3px rgba(31, 41, 51, 0.10), 0px 4px 6px -4px rgba(31, 41, 51, 0.10)',
-                xl: '0px 20px 25px -5px rgba(31, 41, 51, 0.10), 0px 8px 10px -6px rgba(31, 41, 51, 0.10)',
-                '2xl': '0px 25px 50px -12px rgba(31, 41, 51, 0.25)',
+                sm: 'var(--ods-shadow-sm)',
+                DEFAULT: 'var(--ods-shadow)',
+                md: 'var(--ods-shadow-md)',
+                lg: 'var(--ods-shadow-lg)',
+                xl: 'var(--ods-shadow-xl)',
+                '2xl': 'var(--ods-shadow-2xl)',
             },
         },
         borderRadius: {
