@@ -58,11 +58,13 @@ const variantToClassNames: Record<ButtonVariant, string[]> = {
         'bg-warning-100 text-warning-800 border-warning-300', // Default
         'hover:border-warning-400', // Hover
         'hover:border-warning-500', // Active
+        'disabled:bg-warning-100 disabled:text-warning-400 disabled:border-warning-200', // Disabled
     ],
     critical: [
         'bg-critical-100 text-critical-800 border-critical-300', // Defalt
         'hover:border-critical-400', // Hover
         'hover:border-critical-500', // Active
+        'disabled:bg-critical-100 disabled:text-critical-400 disabled:border-critical-200', // Disabled
     ],
 };
 
