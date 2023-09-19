@@ -172,6 +172,8 @@ export const WalletInput = React.forwardRef<HTMLTextAreaElement, WalletInputProp
          *               Hooks & Effects                 *
          *************************************************/
         useEffect(() => {
+            // Use the isActive flag to avoid racing conditions when changing the input value
+            // and resolving the ENS names or addresses
             let isActive = true;
 
             async function resolveValues() {
