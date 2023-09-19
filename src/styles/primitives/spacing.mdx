@@ -1,0 +1,39 @@
+import { Meta } from '@storybook/blocks';
+import classNames from 'classnames';
+
+import { getSpacing } from './helpers';
+
+<Meta title="Design Tokens/Primitive/Spacing" />
+
+export const DisplayComponent = ({ name, value, sizePx, sizeRem }) => {
+    return (
+        <tr>
+            <td className="border-b px-4 py-2">{name}</td>
+            <td className="border-b px-4 py-2">{`${sizeRem}${sizeRem === 1 || sizeRem === 0 ? 'px' : 'rem'}`}</td>
+            <td className="border-b px-4 py-2">{`${sizePx}px`}</td>
+            <td className="border-b px-4 py-2">
+                <div style={{ width: value }} className="h-6 bg-cyan-300" />
+            </td>
+        </tr>
+    );
+};
+
+# Spacing
+
+<div className="flex">
+    <table className="px-4-collapse table-fixed border-b bg-white text-neutral-800">
+        <thead>
+            <tr className="text-left">
+                <th className="border-b px-4 py-2">Name</th>
+                <th className="border-b px-4 py-2">Size</th>
+                <th className="border-b px-4 py-2">Pixels</th>
+                <th className="border-b" />
+            </tr>
+        </thead>
+        <tbody>
+            {getSpacing().map(({ key, px, rem, value }) => (
+                <DisplayComponent key={key} name={key} sizePx={px} sizeRem={rem} value={value} />
+            ))}
+        </tbody>
+    </table>
+</div>
