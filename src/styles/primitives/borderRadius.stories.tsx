@@ -10,7 +10,7 @@ const DisplayComponent: React.FC<{ className?: string; children?: ReactNode }> =
 );
 
 const meta: Meta<typeof DisplayComponent> = {
-    title: 'design-tokens/primitive/Border Radius',
+    title: 'Design Tokens/Primitive/Border Radius',
     component: DisplayComponent,
 };
 

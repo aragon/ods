@@ -8,7 +8,7 @@ const DisplayComponent: React.FC<{ className?: string; children?: ReactNode }> =
 );
 
 const meta: Meta<typeof DisplayComponent> = {
-    title: 'design-tokens/primitive/Shadows',
+    title: 'Design Tokens/Primitive/Shadows',
     component: DisplayComponent,
 };
 
