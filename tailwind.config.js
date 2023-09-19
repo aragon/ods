@@ -120,12 +120,12 @@ module.exports = {
             },
         },
         borderRadius: {
-            DEFAULT: '4px',
-            lg: '8px',
-            xl: '12px',
-            '2xl': '16px',
-            '3xl': '24px',
-            full: '9999px',
+            DEFAULT: 'var(--ods-border-rounded)',
+            lg: 'var(--ods-border-rounded-lg)',
+            xl: 'var(--ods-border-rounded-xl)',
+            '2xl': 'var(--ods-border-rounded-2xl)',
+            '3xl': 'var(--ods-border-rounded-3xl)',
+            full: 'var(--ods-border-rounded-full)',
         },
         fontWeight: {
             normal: 500,
