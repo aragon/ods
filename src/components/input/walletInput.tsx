@@ -172,6 +172,10 @@ export const WalletInput = React.forwardRef<HTMLTextAreaElement, WalletInputProp
          *               Hooks & Effects                 *
          *************************************************/
         useEffect(() => {
+            // Use the isActive flag to avoid racing conditions when changing the input value
+            // and resolving the ENS names or addresses
+            let isActive = true;
+
             async function resolveValues() {
                 const newValue = { ...value };
 
@@ -205,7 +209,8 @@ export const WalletInput = React.forwardRef<HTMLTextAreaElement, WalletInputProp
                     }
                 }
 
-                if (value.address !== newValue.address || value.ensName !== newValue.ensName) {
+                const didChange = value.address !== newValue.address || value.ensName !== newValue.ensName;
+                if (isActive && didChange) {
                     onValueChange(newValue);
                 }
             }
@@ -213,6 +218,10 @@ export const WalletInput = React.forwardRef<HTMLTextAreaElement, WalletInputProp
             if (ensSupported && value[displayMode]) {
                 resolveValues();
             }
+
+            return () => {
+                isActive = false;
+            };
         }, [
             displayMode,
             ensSupported,
@@ -271,6 +280,15 @@ export const WalletInput = React.forwardRef<HTMLTextAreaElement, WalletInputProp
             }
         }, [initialHeight, isEditing, displayedValue]);
 
+        // Update wallet display mode on value change
+        useEffect(() => {
+            if (IsAddress(value.address) || !ensSupported || value.address.startsWith('0x')) {
+                setDisplayMode('address');
+            } else {
+                setDisplayMode('ensName');
+            }
+        }, [value.address, ensSupported]);
+
         /*************************************************
          *             Callbacks and handlers            *
          *************************************************/
@@ -311,18 +329,15 @@ export const WalletInput = React.forwardRef<HTMLTextAreaElement, WalletInputProp
 
         const setValue = useCallback(
             (addressOrEns: string) => {
-                if (addressOrEns === '') {
-                    return { ensName: '', address: '' };
+                const newValue = { ensName: '', address: '' };
+
+                if (IsAddress(addressOrEns) || !ensSupported || addressOrEns.startsWith('0x')) {
+                    newValue.address = addressOrEns.toLowerCase();
+                } else {
+                    newValue.ensName = addressOrEns.toLowerCase();
                 }
 
-                // set proper display mode based on the value
-                if (IsAddress(addressOrEns) || !ensSupported || addressOrEns.startsWith('0x')) {
-                    setDisplayMode('address');
-                    return { ensName: '', address: addressOrEns.toLowerCase() };
-                } else {
-                    setDisplayMode('ensName');
-                    return { address: '', ensName: addressOrEns.toLowerCase() };
-                }
+                return newValue;
             },
             [ensSupported],
         );

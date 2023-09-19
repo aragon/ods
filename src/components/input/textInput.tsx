@@ -13,6 +13,7 @@ export type TextInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
      */
     rightAdornment?: ReactNode;
     disabled?: boolean;
+    containerClassName?: string;
 };
 
 /** Simple input with variable styling (depending on mode) */
@@ -21,10 +22,11 @@ export const TextInput: React.FC<TextInputProps> = ({
     disabled,
     leftAdornment,
     rightAdornment,
+    containerClassName,
     ...props
 }) => {
     return (
-        <Container data-testid="input" {...{ mode, disabled }}>
+        <Container data-testid="input" className={containerClassName} {...{ mode, disabled }}>
             {leftAdornment}
             <InputWrapper {...{ leftAdornment }}>
                 <StyledInput disabled={disabled} {...props} />
@@ -34,13 +36,17 @@ export const TextInput: React.FC<TextInputProps> = ({
     );
 };
 
-type StyledContainerProps = Pick<TextInputProps, 'mode' | 'disabled'>;
+type StyledContainerProps = Pick<TextInputProps, 'mode' | 'disabled' | 'containerClassName'>;
 
-export const Container = styled.div.attrs(({ mode, disabled }: StyledContainerProps) => {
-    let className = `${disabled ? 'bg-ui-100 border-ui-200 border-2' : 'bg-ui-0'} flex items-center focus-within:ring-2 
+export const Container = styled.div.attrs(({ mode, disabled, containerClassName }: StyledContainerProps) => {
+    let className = `${disabled ? 'bg-ui-100 border-ui-200 border-2' : 'bg-ui-0'} flex items-center focus-within:ring-2
     focus-within:ring-primary-500
     rounded-xl hover:border-ui-300 border-2 h-6
     active:border-primary-500 active:ring-0 `;
+
+    if (containerClassName) {
+        className += containerClassName;
+    }
 
     if (mode === 'default') {
         className += 'border-ui-100';
