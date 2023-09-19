@@ -3,7 +3,13 @@ import { Button, type IButtonProps } from './button';
 
 describe('<Button /> component', () => {
     const createTestComponent = (props?: Partial<IButtonProps>) => {
-        return <Button {...props} />;
+        const completeProps: IButtonProps = {
+            variant: 'primary',
+            size: 'md',
+            ...props,
+        };
+
+        return <Button {...completeProps} />;
     };
 
     it('renders a button', () => {
