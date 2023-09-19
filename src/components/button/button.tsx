@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import type { ButtonHTMLAttributes } from 'react';
 import { Icon, type IconType } from '../icon';
 import type { IconSize } from '../icon/icon';
+import { Spinner } from '../spinner';
+import type { SpinnerSize, SpinnerVariant } from '../spinner/spinner';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'critical';
 export type ButtonSize = 'lg' | 'md' | 'sm';
@@ -68,10 +70,19 @@ const variantToClassNames: Record<ButtonVariant, string[]> = {
     ],
 };
 
+const variantToSpinnerVariant: Record<ButtonVariant, SpinnerVariant> = {
+    primary: 'primary',
+    secondary: 'neutral',
+    tertiary: 'neutral',
+    success: 'success',
+    warning: 'warning',
+    critical: 'critical',
+};
+
 const sizeToClassNames: Record<ButtonSize, string> = {
-    lg: 'h-[48px] rounded-xl px-4 gap-1',
-    md: 'h-[40px] rounded-xl px-3 gap-1',
-    sm: 'h-[32px] rounded-lg px-2 gap-0.5',
+    lg: 'h-[48px] rounded-xl px-4 gap-2',
+    md: 'h-[40px] rounded-xl px-3 gap-2',
+    sm: 'h-[32px] rounded-lg px-2 gap-1.5',
 };
 
 const sizeToIconSize: Record<ButtonSize, IconSize> = {
@@ -80,16 +91,28 @@ const sizeToIconSize: Record<ButtonSize, IconSize> = {
     sm: 'sm',
 };
 
+const sizeToSpinnerSize: Record<ButtonSize, SpinnerSize> = {
+    lg: 'md',
+    md: 'md',
+    sm: 'sm',
+};
+
 export const Button: React.FC<IButtonProps> = (props) => {
     const { variant, size, iconRight, iconLeft, className, children, state, ...otherProps } = props;
 
-    const commonClasses = 'flex flex-row border items-center focus:outline enabled:hover:shadow-md';
+    const commonClasses = 'flex flex-row border items-center focus:outline';
     const variantClasses = variantToClassNames[variant].join(' ');
-    const classes = classNames(commonClasses, variantClasses, sizeToClassNames[size], className);
+    const classes = classNames(commonClasses, variantClasses, sizeToClassNames[size], className, {
+        'hover:shadow-md': state !== 'disabled' && state != 'loading',
+        'cursor-progress': state === 'loading',
+    });
 
     return (
         <button className={classes} disabled={state === 'disabled'} {...otherProps}>
             {iconLeft && <Icon icon={iconLeft} size={sizeToIconSize[size]} />}
+            {state === 'loading' && (
+                <Spinner size={sizeToSpinnerSize[size]} variant={variantToSpinnerVariant[variant]} />
+            )}
             {children}
             {iconRight && <Icon icon={iconRight} size={sizeToIconSize[size]} />}
         </button>

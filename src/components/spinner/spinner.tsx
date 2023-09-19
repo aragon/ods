@@ -24,7 +24,7 @@ const sizeToDimension: Record<SpinnerSize, number> = {
 
 const variantToClassNames: Record<SpinnerVariant, string> = {
     neutral: 'border-neutral-100 border-t-primary-400',
-    primary: 'border-neutral-0 border-t-primary-300',
+    primary: 'border-primary-300 border-t-neutral-0',
     success: 'border-success-300 border-t-success-800',
     warning: 'border-warning-300 border-t-warning-800',
     critical: 'border-critical-300 border-t-critical-800',
