@@ -109,23 +109,22 @@ module.exports = {
                 80: 'var(--ods-space-80)', // 320px
                 96: 'var(--ods-space-96)', // 384px
             },
-
-            boxShadow: {
-                sm: 'var(--ods-shadow-sm)',
-                DEFAULT: 'var(--ods-shadow)',
-                md: 'var(--ods-shadow-md)',
-                lg: 'var(--ods-shadow-lg)',
-                xl: 'var(--ods-shadow-xl)',
-                '2xl': 'var(--ods-shadow-2xl)',
-            },
         },
         borderRadius: {
-            DEFAULT: 4,
-            lg: 8,
-            xl: 12,
-            '2xl': 16,
-            '3xl': 24,
-            full: 9999,
+            DEFAULT: 'var(--ods-border-rounded)',
+            lg: 'var(--ods-border-rounded-lg)',
+            xl: 'var(--ods-border-rounded-xl)',
+            '2xl': 'var(--ods-border-rounded-2xl)',
+            '3xl': 'var(--ods-border-rounded-3xl)',
+            full: 'var(--ods-border-rounded-full)',
+        },
+        boxShadow: {
+            sm: 'var(--ods-shadow-sm)',
+            DEFAULT: 'var(--ods-shadow)',
+            md: 'var(--ods-shadow-md)',
+            lg: 'var(--ods-shadow-lg)',
+            xl: 'var(--ods-shadow-xl)',
+            '2xl': 'var(--ods-shadow-2xl)',
         },
         fontWeight: {
             normal: 500,

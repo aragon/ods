@@ -11,7 +11,7 @@ export const DisplayComponent = ({ className, children }) => (
 
 # Border Radius
 
-<div className="flex flex-wrap gap-14 bg-transparent text-neutral-800">
+<div className="flex flex-wrap p-14 gap-14 bg-neutral-50 text-neutral-800">
     {Object.keys(resolveConfig(tailwindConfig).theme?.borderRadius ?? {}).map((token) => {
         const classes = classNames('border', {
             'rounded-full': token === 'full',

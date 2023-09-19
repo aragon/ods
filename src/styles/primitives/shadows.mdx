@@ -1,0 +1,32 @@
+import { Meta } from '@storybook/blocks';
+import classNames from 'classnames';
+import resolveConfig from 'tailwindcss/resolveConfig';
+import tailwindConfig from '../../../tailwind.config';
+
+<Meta title="Design Tokens/Primitive/Shadows" />
+
+export const DisplayComponent = ({ className, children }) => (
+    <div className={classNames('flex h-40 w-40 items-center justify-center bg-neutral-0', className)}>{children}</div>
+);
+
+# Shadows
+
+<div className="flex p-14 flex-wrap gap-14 bg-neutral-50 text-neutral-800">
+    {Object.keys(resolveConfig(tailwindConfig).theme?.boxShadow ?? {}).map((token) => {
+       const classes = classNames({
+        'shadow-sm': token === 'sm',
+        'shadow': token === 'DEFAULT',
+        'shadow-md': token === 'md',
+        'shadow-lg': token === 'lg',
+        'shadow-xl': token === 'xl',
+        'shadow-2xl': token === '2xl'
+       });
+
+       return (
+        <DisplayComponent className={classes}>
+            <p>{token === 'DEFAULT' ? 'shadow (default)' : `shadow-${token}`}</p>
+        </DisplayComponent>
+    );
+    })}
+
+</div>
