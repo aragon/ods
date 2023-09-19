@@ -10,7 +10,7 @@ const DisplayComponent: React.FC<{ className?: string; children?: ReactNode }> =
 );
 
 const meta: Meta<typeof DisplayComponent> = {
-    title: 'Design Tokens/Primitive/Border Radius',
+    title: 'design-tokens/primitive/Border Radius',
     component: DisplayComponent,
 };
 
@@ -23,10 +23,17 @@ export const Default: Story = {
         return (
             <div className="flex space-x-14 bg-transparent text-neutral-800">
                 {tokens.map((token) => {
-                    const className = `border rounded${token === 'DEFAULT' ? '' : `-${token}`}`;
+                    const classes = classNames('border', {
+                        'rounded-full': token === 'full',
+                        'rounded-3xl': token === '3xl',
+                        'rounded-2xl': token === '2xl',
+                        'rounded-xl': token === 'xl',
+                        'rounded-lg': token === 'lg',
+                        rounded: token === 'DEFAULT',
+                    });
 
                     return (
-                        <DisplayComponent key={token} className={className}>
+                        <DisplayComponent key={token} className={classes}>
                             {token === 'DEFAULT' ? 'rounded (default)' : `rounded-${token}`}
                         </DisplayComponent>
                     );
