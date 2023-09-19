@@ -14,6 +14,8 @@ type Story = StoryObj<typeof Button>;
  */
 export const Default: Story = {
     args: {
+        variant: 'primary',
+        size: 'lg',
         children: 'Default',
         onClick: () => alert('click'),
     },

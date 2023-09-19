@@ -110,6 +110,12 @@ module.exports = {
                 96: 'var(--ods-space-96)', // 384px
             },
         },
+        outlineColor: {
+            DEFAULT: 'var(--ods-color-primary-200)',
+        },
+        outlineWidth: {
+            DEFAULT: 3,
+        },
         borderRadius: {
             DEFAULT: 'var(--ods-border-rounded)',
             lg: 'var(--ods-border-rounded-lg)',
