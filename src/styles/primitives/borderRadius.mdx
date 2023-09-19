@@ -1,0 +1,32 @@
+import { Meta } from '@storybook/blocks';
+import classNames from 'classnames';
+import resolveConfig from 'tailwindcss/resolveConfig';
+import tailwindConfig from '../../../tailwind.config';
+
+<Meta title="Design Tokens/Primitive/Border Radius" />
+
+export const DisplayComponent = ({ className, children }) => (
+    <div className={classNames('flex h-40 w-40 items-center justify-center bg-neutral-0', className)}>{children}</div>
+);
+
+# Border Radius
+
+<div className="flex flex-wrap gap-14 bg-transparent text-neutral-800">
+    {Object.keys(resolveConfig(tailwindConfig).theme?.borderRadius ?? {}).map((token) => {
+        const classes = classNames('border', {
+            'rounded-full': token === 'full',
+            'rounded-3xl': token === '3xl',
+            'rounded-2xl': token === '2xl',
+            'rounded-xl': token === 'xl',
+            'rounded-lg': token === 'lg',
+            rounded: token === 'DEFAULT',
+        });
+
+        return (
+            <DisplayComponent key={token} className={classes}>
+                <p>{token === 'DEFAULT' ? 'rounded (default)' : `rounded-${token}`}</p>
+            </DisplayComponent>
+        );
+    })}
+
+</div>

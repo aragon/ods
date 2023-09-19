@@ -2,7 +2,7 @@ import type { StorybookConfig } from '@storybook/react-webpack5';
 import type { RuleSetRule } from 'webpack';
 
 const config: StorybookConfig = {
-    stories: ['../docs/**/*.@(md|mdx)', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+    stories: ['../docs/**/*.@(md|mdx)', '../src/**/*.stories.@(js|jsx|ts|tsx)', '../src/**/*.@(md|mdx)'],
     addons: [
         '@storybook/addon-links',
         '@storybook/addon-essentials',
