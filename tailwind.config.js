@@ -132,11 +132,6 @@ module.exports = {
             xl: 'var(--ods-shadow-xl)',
             '2xl': 'var(--ods-shadow-2xl)',
         },
-        fontWeight: {
-            normal: 500,
-            semibold: 600,
-            bold: 700,
-        },
         screens: {
             sm: 'var(--ods-breakpoint-sm)',
             md: 'var(--ods-breakpoint-md)',
@@ -147,17 +142,25 @@ module.exports = {
         fontFamily: {
             sans: ['Manrope'],
         },
-
         fontSize: {
-            xs: ['0.64rem', 1.5],
-            sm: ['0.8rem', 1.5],
-            base: ['1rem', 1.5],
-            lg: ['1.25rem', 1.5],
-            xl: ['1.563rem', 1.2],
-            '2xl': ['1.953rem', 1.2],
-            '3xl': ['2.441rem', 1.2],
-            '4xl': ['3.052rem', 1.2],
-            '5xl': ['3.185rem', 1.2],
+            xs: 'var(--ods-font-size-xs:)',
+            sm: 'var(--ods-font-size-sm:)',
+            base: 'var(--ods-font-size-base)',
+            lg: 'var(--ods-font-size-lg:)',
+            xl: 'var(--ods-font-size-xl:)',
+            '2xl': 'var(--ods-font-size-2xl)',
+            '3xl': 'var(--ods-font-size-3xl)',
+            '4xl': 'var(--ods-font-size-4xl)',
+            '5xl': 'var(--ods-font-size-5xl)',
+        },
+        fontWeight: {
+            normal: 'var(--ods-font-weight-normal)',
+            semibold: 'var(--ods-font-weight-semibold)',
+        },
+        lineHeight: {
+            normal: 'var(--ods-line-height-normal)',
+            tight: 'var(--ods-line-height-tight)',
+            relaxed: 'var(--ods-line-height-relaxed)',
         },
     },
 };
