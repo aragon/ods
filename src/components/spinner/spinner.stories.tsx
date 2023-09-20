@@ -17,6 +17,12 @@ export const Default: Story = {
         variant: 'neutral',
         size: 'lg',
     },
+    parameters: {
+        design: {
+            type: 'figma',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=7806-26769&mode=dev',
+        },
+    },
 };
 
 export default meta;

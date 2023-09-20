@@ -11,6 +11,7 @@ const config: StorybookConfig = {
             name: '@storybook/addon-styling',
             options: { postCss: true },
         },
+        '@storybook/addon-designs',
     ],
     framework: {
         name: '@storybook/react-webpack5',
