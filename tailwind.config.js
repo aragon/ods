@@ -139,7 +139,7 @@ module.exports = {
             'neutral-2xl': 'var(--ods-shadow-neutral-2xl)',
 
             'primary-sm': 'var(--ods-shadow-primary-sm)',
-            'primary-': 'var(--ods-shadow-primary)',
+            primary: 'var(--ods-shadow-primary)',
             'primary-md': 'var(--ods-shadow-primary-md)',
             'primary-lg': 'var(--ods-shadow-primary-lg)',
             'primary-xl': 'var(--ods-shadow-primary-xl)',
