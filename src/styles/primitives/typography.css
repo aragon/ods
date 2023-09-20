@@ -20,5 +20,7 @@
   --ods-line-height-relaxed: 1.65;
 
   /******* Font Family *******/
-  --ods-font-family: "Manrope", sans-serif;
+  --ods-font-family: "Manrope", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
 }
