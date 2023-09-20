@@ -79,16 +79,37 @@ const variantToSpinnerVariant: Record<ButtonVariant, SpinnerVariant> = {
     critical: 'critical',
 };
 
-const sizeToClassNames: Record<ButtonSize, string> = {
-    lg: 'h-[48px] rounded-xl px-4 gap-2',
-    md: 'h-[40px] rounded-xl px-3 gap-2',
-    sm: 'h-[32px] rounded-lg px-2 gap-1.5',
+const sizeToClassNames: Record<ButtonSize, Record<'onlyIcon' | 'default' | 'common', string>> = {
+    lg: {
+        common: 'h-[48px] rounded-xl gap-1',
+        default: 'min-w-[112px] py-3 px-4',
+        onlyIcon: 'p-3.5',
+    },
+    md: {
+        common: 'h-[40px] rounded-xl gap-1',
+        default: 'min-w-[96px] p-3',
+        onlyIcon: 'p-3',
+    },
+    sm: {
+        common: 'h-[32px] rounded-lg gap-0.5',
+        default: 'min-w-[80px] p-2',
+        onlyIcon: 'p-2.5',
+    },
 };
 
-const sizeToIconSize: Record<ButtonSize, IconSize> = {
-    lg: 'md',
-    md: 'md',
-    sm: 'sm',
+const sizeToIconSize: Record<ButtonSize, Record<'onlyIcon' | 'default', IconSize>> = {
+    lg: {
+        default: 'md',
+        onlyIcon: 'lg',
+    },
+    md: {
+        default: 'md',
+        onlyIcon: 'md',
+    },
+    sm: {
+        default: 'sm',
+        onlyIcon: 'sm',
+    },
 };
 
 const sizeToSpinnerSize: Record<ButtonSize, SpinnerSize> = {
@@ -100,21 +121,35 @@ const sizeToSpinnerSize: Record<ButtonSize, SpinnerSize> = {
 export const Button: React.FC<IButtonProps> = (props) => {
     const { variant, size, iconRight, iconLeft, className, children, state, ...otherProps } = props;
 
-    const commonClasses = 'flex flex-row border items-center focus:outline';
+    const isOnlyIcon = children == null || children === '';
+
+    const commonClasses = 'flex flex-row border items-center focus:outline cursor:pointer disabled:cursor-not-allowed';
     const variantClasses = variantToClassNames[variant].join(' ');
-    const classes = classNames(commonClasses, variantClasses, sizeToClassNames[size], className, {
-        'hover:shadow-md': state !== 'disabled' && state != 'loading',
-        'cursor-progress': state === 'loading',
-    });
+    const sizeClasses = sizeToClassNames[size];
+
+    const classes = classNames(
+        commonClasses,
+        variantClasses,
+        sizeClasses.common,
+        className,
+        { [sizeClasses.default]: !isOnlyIcon },
+        { [sizeClasses.onlyIcon]: isOnlyIcon },
+        { 'hover:shadow-md': state !== 'disabled' && state !== 'loading' },
+        { 'cursor-progress': state === 'loading' },
+    );
+
+    const iconSize = sizeToIconSize[size][isOnlyIcon ? 'onlyIcon' : 'default'];
+    const displayIconLeft = state !== 'loading' && iconLeft != null;
+    const displayIconRight = state !== 'loading' && iconRight != null && !isOnlyIcon;
 
     return (
         <button className={classes} disabled={state === 'disabled'} {...otherProps}>
-            {iconLeft && <Icon icon={iconLeft} size={sizeToIconSize[size]} />}
+            {displayIconLeft && <Icon icon={iconLeft} size={iconSize} />}
             {state === 'loading' && (
                 <Spinner size={sizeToSpinnerSize[size]} variant={variantToSpinnerVariant[variant]} />
             )}
-            {children}
-            {iconRight && <Icon icon={iconRight} size={sizeToIconSize[size]} />}
+            {!isOnlyIcon && <div className="px-1">{children}</div>}
+            {displayIconRight && <Icon icon={iconRight} size={iconSize} />}
         </button>
     );
 };
