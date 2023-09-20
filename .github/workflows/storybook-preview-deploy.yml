@@ -41,8 +41,8 @@ jobs:
         run: pip install --user pyyaml packaging
       - name: Install ipfs-cluster-ctl
         run: |
-          wget https://dist.ipfs.io/ipfs-cluster-ctl/v1.0.0/ipfs-cluster-ctl_v1.0.0_linux-amd64.tar.gz
-          tar xvfz ipfs-cluster-ctl_v1.0.0_linux-amd64.tar.gz
+          wget https://dist.ipfs.tech/ipfs-cluster-ctl/v1.0.6/ipfs-cluster-ctl_v1.0.6_linux-amd64.tar.gz
+          tar xvfz ipfs-cluster-ctl_v1.0.6_linux-amd64.tar.gz
       - name: Unpin from IPFS
         continue-on-error: true
         if: steps.get-deployment.outputs.comment-id != 0
