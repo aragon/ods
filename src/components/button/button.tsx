@@ -34,38 +34,38 @@ export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const variantToClassNames: Record<ButtonVariant, string[]> = {
     primary: [
         'bg-primary-400 text-neutral-0 border-primary-400', // Default
-        'hover:bg-primary-500 hover:border-primary-500', // Hover
+        'hover:bg-primary-500 hover:border-primary-500 hover:shadow-primary-md', // Hover
         'active:bg-primary-800 active:border-primary-800', // Active
         'disabled:bg-primary-100 disabled:text-primary-300 disabled:border-primary-100', // Disabled
     ],
     secondary: [
         'bg-neutral-0 text-primary-400 border-neutral-100', // Default
-        'hover:border-neutral-200', // Hover
-        'hover:border-primary-400', // Active
+        'hover:border-neutral-200 hover:shadow-neutral-md', // Hover
+        'active:border-primary-400', // Active
         'disabled:bg-neutral-100 disabled:text-neutral-300 disabled:border-neutral-100', // Disabled
     ],
     tertiary: [
         'bg-neutral-0 text-neutral-600 border-neutral-100', // Default
-        'hover:border-neutral-200', // Hover
+        'hover:border-neutral-200 hover:shadow-neutral-md', // Hover
         'hover:border-neutral-300', // Active
         'disabled:bg-neutral-100 disabled:text-neutral-300 disabled:border-neutral-100', // Disabled
     ],
     success: [
         'bg-success-100 text-success-800 border-success-300', // Default
-        'hover:border-success-400', // Hover
-        'hover:border-success-500', // Active
+        'hover:border-success-400 hover:shadow-success-md', // Hover
+        'active:border-success-500', // Active
         'disabled:bg-success-100 disabled:text-success-400 disabled:border-success-200', // Disabled
     ],
     warning: [
         'bg-warning-100 text-warning-800 border-warning-300', // Default
-        'hover:border-warning-400', // Hover
-        'hover:border-warning-500', // Active
+        'hover:border-warning-400 hover:shadow-warning-md', // Hover
+        'active:border-warning-500', // Active
         'disabled:bg-warning-100 disabled:text-warning-400 disabled:border-warning-200', // Disabled
     ],
     critical: [
         'bg-critical-100 text-critical-800 border-critical-300', // Defalt
-        'hover:border-critical-400', // Hover
-        'hover:border-critical-500', // Active
+        'hover:border-critical-400 hover:shadow-critical-md', // Hover
+        'active:border-critical-500', // Active
         'disabled:bg-critical-100 disabled:text-critical-400 disabled:border-critical-200', // Disabled
     ],
 };
@@ -81,17 +81,17 @@ const variantToSpinnerVariant: Record<ButtonVariant, SpinnerVariant> = {
 
 const sizeToClassNames: Record<ButtonSize, Record<'onlyIcon' | 'default' | 'common', string>> = {
     lg: {
-        common: 'h-[48px] rounded-xl gap-1',
+        common: 'h-[48px] text-base rounded-xl gap-1',
         default: 'min-w-[112px] py-3 px-4',
         onlyIcon: 'p-3.5',
     },
     md: {
-        common: 'h-[40px] rounded-xl gap-1',
+        common: 'h-[40px] text-base rounded-xl gap-1',
         default: 'min-w-[96px] p-3',
         onlyIcon: 'p-3',
     },
     sm: {
-        common: 'h-[32px] rounded-lg gap-0.5',
+        common: 'h-[32px] text-sm rounded-lg gap-0.5',
         default: 'min-w-[80px] p-2',
         onlyIcon: 'p-2.5',
     },
@@ -123,7 +123,12 @@ export const Button: React.FC<IButtonProps> = (props) => {
 
     const isOnlyIcon = children == null || children === '';
 
-    const commonClasses = 'flex flex-row border items-center focus:outline cursor:pointer disabled:cursor-not-allowed';
+    const commonClasses = [
+        'flex flex-row items-center', // Layout
+        'leading-tight font-semibold font-default', // Typography
+        'border cursor:pointer', // Commons
+        'focus:outline disabled:cursor-not-allowed', // States
+    ].join(' ');
     const variantClasses = variantToClassNames[variant].join(' ');
     const sizeClasses = sizeToClassNames[size];
 
@@ -134,7 +139,6 @@ export const Button: React.FC<IButtonProps> = (props) => {
         className,
         { [sizeClasses.default]: !isOnlyIcon },
         { [sizeClasses.onlyIcon]: isOnlyIcon },
-        { 'hover:shadow-md': state !== 'disabled' && state !== 'loading' },
         { 'cursor-progress': state === 'loading' },
     );
 
