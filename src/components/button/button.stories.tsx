@@ -16,7 +16,7 @@ export const Default: Story = {
     args: {
         variant: 'primary',
         size: 'lg',
-        children: 'Default',
+        children: 'Button label',
         onClick: () => alert('click'),
     },
 };

@@ -16,4 +16,10 @@ describe('<Button /> component', () => {
         render(createTestComponent());
         expect(screen.getByRole('button')).toBeInTheDocument();
     });
+
+    it('renders the specified button label', () => {
+        const children = 'Button label';
+        render(createTestComponent({ children }));
+        expect(screen.getByRole('button', { name: children })).toBeInTheDocument();
+    });
 });
