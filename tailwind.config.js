@@ -110,11 +110,17 @@ module.exports = {
                 96: 'var(--ods-space-96)', // 384px
             },
         },
-        outlineColor: {
-            DEFAULT: 'var(--ods-color-primary-200)',
+        ringWidth: {
+            DEFAULT: '3px',
         },
-        outlineWidth: {
-            DEFAULT: 3,
+        ringColor: {
+            primary: 'var(--ods-color-primary-200)',
+            success: 'var(--ods-color-success-200)',
+            warning: 'var(--ods-color-warning-200)',
+            critical: 'var(--ods-color-critical-200)',
+        },
+        ringOffsetWidth: {
+            DEFAULT: '2px',
         },
         borderRadius: {
             DEFAULT: 'var(--ods-border-rounded)',
