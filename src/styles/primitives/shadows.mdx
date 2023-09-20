@@ -5,28 +5,68 @@ import tailwindConfig from '../../../tailwind.config';
 
 <Meta title="Design Tokens/Primitive/Shadows" />
 
-export const DisplayComponent = ({ className, children }) => (
-    <div className={classNames('flex h-40 w-40 items-center justify-center bg-neutral-0', className)}>{children}</div>
+export const DisplayComponent = ({ className, children, style }) => (
+    <div
+        style={style}
+        className={classNames(
+            'flex h-28 flex-1 flex-wrap items-center justify-center rounded-xl text-center',
+            className,
+        )}
+    >
+        {children}
+    </div>
 );
+
+export const shadowSizes = ['sm', 'DEFAULT', 'md', 'lg', 'xl', '2xl'];
 
 # Shadows
 
-<div className="flex p-14 flex-wrap gap-14 bg-neutral-50 text-neutral-800">
-    {Object.keys(resolveConfig(tailwindConfig).theme?.boxShadow ?? {}).map((token) => {
-       const classes = classNames({
-        'shadow-sm': token === 'sm',
-        'shadow': token === 'DEFAULT',
-        'shadow-md': token === 'md',
-        'shadow-lg': token === 'lg',
-        'shadow-xl': token === 'xl',
-        'shadow-2xl': token === '2xl'
-       });
+<div className="flex flex-col text-neutral-800 bg-neutral-0 border">
+    {Object.keys(resolveConfig(tailwindConfig).theme?.boxShadow ?? {}).map((variant) => {
+        let backgroundColor;
+        let textColor;
+        
+        if (variant === "primary") {
+            backgroundColor = `var(--ods-color-${variant}-400)`;
+            textColor = `var(--ods-color-${variant}-50)`;
+        }else if (variant === 'neutral') {
+            backgroundColor = `var(--ods-color-${variant}-0)`;
+        }else {
+            backgroundColor = `var(--ods-color-${variant}-100)`;
+            textColor = `var(--ods-color-${variant}-800)`;
+        }
 
-       return (
-        <DisplayComponent className={classes}>
-            <p>{token === 'DEFAULT' ? 'shadow (default)' : `shadow-${token}`}</p>
-        </DisplayComponent>
-    );
+        return (
+            <div className={classNames("py-10 px-5 pt-5", {"bg-neutral-0": variant === 'primary', "bg-neutral-50": variant !== 'primary'})}>
+                <div>
+                    <p className="text-5xl/tight font-semibold capitalize">{variant}</p>
+                    <p>
+                        <span className="text-lg">Based on</span>
+                        <span className="text-lg font-semibold">{` color-${variant}-600`}</span>
+                    </p>
+                    <div className="flex gap-x-6">
+                        <DisplayComponent style={{ backgroundColor: `var(--ods-color-${variant}-600)` }} />
+                        {shadowSizes.map((size) => {
+                            return (
+                                <DisplayComponent
+                                    className="text-sm"
+                                    style={{
+                                        backgroundColor,
+                                        boxShadow:
+                                            size !== 'DEFAULT'
+                                                ? `var(--ods-shadow-${variant}-${size})`
+                                                : `var(--ods-shadow-${variant})`,
+                                        color: textColor
+                                    }}
+                                >
+                                    {size === 'DEFAULT' ? 'shadow (default)' : `shadow-${size}`}
+                                </DisplayComponent>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
+        );
     })}
 
 </div>
