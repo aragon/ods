@@ -17,6 +17,7 @@ const config: StorybookConfig = {
         name: '@storybook/react-webpack5',
         options: {},
     },
+    staticDirs: ['../src/assets'],
     webpackFinal: (webpackConfig) => {
         // Remove any svg loader already set and use @svgr/webpack to load svgs on Storybook
         const svgWebpackRule = webpackConfig.module?.rules?.find((rule) => {
