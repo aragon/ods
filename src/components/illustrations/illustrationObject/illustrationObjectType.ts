@@ -1,25 +1,24 @@
-export enum IllustrationObjectType {
-    ACTION = 'ACTION',
-    APP = 'APP',
-    ARCHIVE = 'ARCHIVE',
-    BOOK = 'BOOK',
-    BUILD = 'BUILD',
-    CHAIN = 'CHAIN',
-    DATABASE = 'DATABASE',
-    ERROR = 'ERROR',
-    EXPLORE = 'EXPLORE',
-    GAS = 'GAS',
-    GOAL = 'GOAL',
-    LABELS = 'LABELS',
-    LIGHTBULB = 'LIGHTBULB',
-    MAGNIFYING_GLASS = 'MAGNIFYING_GLASS',
-    NOT_FOUND = 'NOT_FOUND',
-    SECURITY = 'SECURITY',
-    SETTINGS = 'SETTINGS',
-    SMART_CONTRACT = 'SMART_CONTRACT',
-    SUCCESS = 'SUCCESS',
-    USERS = 'USERS',
-    WAGMI = 'WAGMI',
-    WALLET = 'WALLET',
-    WARNING = 'WARNING',
-}
+export type IllustrationObjectType =
+    | 'ACTION'
+    | 'APP'
+    | 'ARCHIVE'
+    | 'BOOK'
+    | 'BUILD'
+    | 'CHAIN'
+    | 'DATABASE'
+    | 'ERROR'
+    | 'EXPLORE'
+    | 'GAS'
+    | 'GOAL'
+    | 'LABELS'
+    | 'LIGHTBULB'
+    | 'MAGNIFYING_GLASS'
+    | 'NOT_FOUND'
+    | 'SECURITY'
+    | 'SETTINGS'
+    | 'SMART_CONTRACT'
+    | 'SUCCESS'
+    | 'USERS'
+    | 'WAGMI'
+    | 'WALLET'
+    | 'WARNING';

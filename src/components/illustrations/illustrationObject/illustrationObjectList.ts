@@ -22,32 +22,32 @@ import Users from '../../../assets/illustrations/objects/users.svg';
 import Wagmi from '../../../assets/illustrations/objects/wagmi.svg';
 import Wallet from '../../../assets/illustrations/objects/wallet.svg';
 import Warning from '../../../assets/illustrations/objects/warning.svg';
-import { IllustrationObjectType } from './illustrationObjectType';
+import type { IllustrationObjectType } from './illustrationObjectType';
 
 type IllustrationObjectComponent = React.FC<SVGProps<SVGSVGElement>>;
 
 export const illustrationObjectList: Record<IllustrationObjectType, IllustrationObjectComponent> = {
-    [IllustrationObjectType.ACTION]: Action,
-    [IllustrationObjectType.APP]: App,
-    [IllustrationObjectType.ARCHIVE]: Archive,
-    [IllustrationObjectType.BOOK]: Book,
-    [IllustrationObjectType.BUILD]: Build,
-    [IllustrationObjectType.CHAIN]: Chain,
-    [IllustrationObjectType.DATABASE]: Database,
-    [IllustrationObjectType.ERROR]: Error,
-    [IllustrationObjectType.EXPLORE]: Explore,
-    [IllustrationObjectType.GAS]: Gas,
-    [IllustrationObjectType.GOAL]: Goal,
-    [IllustrationObjectType.LABELS]: Labels,
-    [IllustrationObjectType.LIGHTBULB]: Lightbulb,
-    [IllustrationObjectType.MAGNIFYING_GLASS]: MagnifyingGlass,
-    [IllustrationObjectType.NOT_FOUND]: NotFound,
-    [IllustrationObjectType.SECURITY]: Security,
-    [IllustrationObjectType.SETTINGS]: Settings,
-    [IllustrationObjectType.SMART_CONTRACT]: SmartContract,
-    [IllustrationObjectType.SUCCESS]: Success,
-    [IllustrationObjectType.USERS]: Users,
-    [IllustrationObjectType.WAGMI]: Wagmi,
-    [IllustrationObjectType.WALLET]: Wallet,
-    [IllustrationObjectType.WARNING]: Warning,
+    ACTION: Action,
+    APP: App,
+    ARCHIVE: Archive,
+    BOOK: Book,
+    BUILD: Build,
+    CHAIN: Chain,
+    DATABASE: Database,
+    ERROR: Error,
+    EXPLORE: Explore,
+    GAS: Gas,
+    GOAL: Goal,
+    LABELS: Labels,
+    LIGHTBULB: Lightbulb,
+    MAGNIFYING_GLASS: MagnifyingGlass,
+    NOT_FOUND: NotFound,
+    SECURITY: Security,
+    SETTINGS: Settings,
+    SMART_CONTRACT: SmartContract,
+    SUCCESS: Success,
+    USERS: Users,
+    WAGMI: Wagmi,
+    WALLET: Wallet,
+    WARNING: Warning,
 };

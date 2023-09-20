@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { IllustrationObject } from './illustrationObject';
-import { IllustrationObjectType } from './illustrationObjectType';
 
 const meta: Meta<typeof IllustrationObject> = {
     title: 'components/Illustrations/IllustrationObject',
@@ -15,28 +14,13 @@ type Story = StoryObj<typeof IllustrationObject>;
  */
 export const Default: Story = {
     args: {
-        object: IllustrationObjectType.ACTION,
+        object: 'ACTION',
     },
-};
-
-/**
- * All available illustration objects of the ODS library.
- */
-export const AvailableIllustrationObjects: Story = {
-    render: () => {
-        const size = 160;
-
-        return (
-            <div className="flex flex-row flex-wrap gap-5">
-                {Object.keys(IllustrationObjectType).map((illustrationObjectType) => (
-                    <IllustrationObject
-                        key={illustrationObjectType}
-                        object={illustrationObjectType as IllustrationObjectType}
-                        style={{ width: size, height: size }}
-                    />
-                ))}
-            </div>
-        );
+    parameters: {
+        design: {
+            type: 'figma',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=8874-14443&mode=dev',
+        },
     },
 };
 
