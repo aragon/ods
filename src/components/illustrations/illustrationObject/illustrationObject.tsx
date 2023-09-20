@@ -9,11 +9,9 @@ export interface IIllustrationObjectProps extends SVGProps<SVGSVGElement> {
     object: IllustrationObjectType;
 }
 
-const illustrationObjectSize = 160;
-
 export const IllustrationObject: React.FC<IIllustrationObjectProps> = (props) => {
     const { object, ...otherProps } = props;
     const IllustrationObject = illustrationObjectList[object];
 
-    return <IllustrationObject width={illustrationObjectSize} height={illustrationObjectSize} {...otherProps} />;
+    return <IllustrationObject {...otherProps} />;
 };

@@ -38,8 +38,6 @@ export interface IIllustrationHumanProps extends HTMLAttributes<HTMLDivElement> 
     accessory?: IllustrationHumanAccessory;
 }
 
-const illustrationHumanSize = 360;
-
 export const IllustrationHuman: React.FC<IIllustrationHumanProps> = (props) => {
     const { body, expression, hairs, sunglasses, accessory, className, style, ...otherProps } = props;
 
@@ -50,12 +48,12 @@ export const IllustrationHuman: React.FC<IIllustrationHumanProps> = (props) => {
     const Sunglasses = sunglasses ? illustrationHumanSunglassesList[sunglasses] : undefined;
     const Accessory = accessory ? illustrationHumanAccessoryList[accessory] : undefined;
 
-    const computedStyle = { width: illustrationHumanSize, height: illustrationHumanSize, ...style };
-    const commonProps = { width: illustrationHumanSize, height: illustrationHumanSize, className: 'absolute' };
+    const computedStyle = { width: '100%', height: '100%', ...style };
+    const commonProps = { className: 'absolute top-0 right-0' };
 
     return (
         <div className={classNames('relative', className)} style={computedStyle} {...otherProps}>
-            <Body {...commonProps} />
+            <Body />
             <Expression {...commonProps} />
             {Hairs && <Hairs {...commonProps} />}
             {Sunglasses && <Sunglasses {...commonProps} />}

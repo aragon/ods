@@ -3,7 +3,7 @@ import { IllustrationObject } from './illustrationObject';
 import { IllustrationObjectType } from './illustrationObjectType';
 
 const meta: Meta<typeof IllustrationObject> = {
-    title: 'components/IllustrationObject',
+    title: 'components/Illustrations/IllustrationObject',
     component: IllustrationObject,
     tags: ['autodocs'],
 };
@@ -24,12 +24,15 @@ export const Default: Story = {
  */
 export const AvailableIllustrationObjects: Story = {
     render: () => {
+        const size = 160;
+
         return (
             <div className="flex flex-row flex-wrap gap-5">
                 {Object.keys(IllustrationObjectType).map((illustrationObjectType) => (
                     <IllustrationObject
                         key={illustrationObjectType}
                         object={illustrationObjectType as IllustrationObjectType}
+                        style={{ width: size, height: size }}
                     />
                 ))}
             </div>

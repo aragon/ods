@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { IllustrationHuman } from './illustrationHuman';
 
 const meta: Meta<typeof IllustrationHuman> = {
-    title: 'components/IllustrationHuman',
+    title: 'components/Illustrations/IllustrationHuman',
     component: IllustrationHuman,
     tags: ['autodocs'],
 };
