@@ -139,9 +139,6 @@ module.exports = {
             xl: 'var(--ods-breakpoint-xl)',
             '2xl': 'var(--ods-breakpoint-2xl)',
         },
-        fontFamily: {
-            sans: ['Manrope'],
-        },
         fontSize: {
             xs: 'var(--ods-font-size-xs:)',
             sm: 'var(--ods-font-size-sm:)',

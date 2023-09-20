@@ -18,4 +18,7 @@
   --ods-line-height-normal: 1.5;
   --ods-line-height-tight: 1.25;
   --ods-line-height-relaxed: 1.65;
+
+  /******* Font Family *******/
+  --ods-font-family: "Manrope", sans-serif;
 }
