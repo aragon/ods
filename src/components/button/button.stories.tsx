@@ -21,4 +21,18 @@ export const Default: Story = {
     },
 };
 
+/**
+ * Usage example of the Button component as Link.
+ */
+export const Link: Story = {
+    args: {
+        variant: 'primary',
+        size: 'lg',
+        children: 'Link label',
+        onClick: () => alert('click'),
+        href: 'www.google.com',
+        target: '_blank',
+    },
+};
+
 export default meta;

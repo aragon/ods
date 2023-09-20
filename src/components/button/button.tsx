@@ -1,35 +1,9 @@
 import classNames from 'classnames';
-import type { ButtonHTMLAttributes } from 'react';
-import { Icon, type IconType } from '../icon';
-import type { IconSize } from '../icon/icon';
+import type { ButtonHTMLAttributes, MouseEvent } from 'react';
+import { Icon, type IconSize } from '../icon';
 import { Spinner } from '../spinner';
 import type { SpinnerSize, SpinnerVariant } from '../spinner/spinner';
-
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'critical';
-export type ButtonSize = 'lg' | 'md' | 'sm';
-
-export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    /**
-     * Variant of the button.
-     */
-    variant: ButtonVariant;
-    /**
-     * Size of the button.
-     */
-    size: ButtonSize;
-    /**
-     * State of the button.
-     */
-    state?: 'disabled' | 'loading';
-    /**
-     * Icon displayed on the right side of the button.
-     */
-    iconRight?: IconType;
-    /**
-     * Icon displayed on the left side of the button.
-     */
-    iconLeft?: IconType;
-}
+import type { ButtonSize, ButtonVariant, IButtonProps } from './button.api';
 
 const variantToClassNames: Record<ButtonVariant, string[]> = {
     primary: [
@@ -158,14 +132,41 @@ export const Button: React.FC<IButtonProps> = (props) => {
     const displayIconLeft = state !== 'loading' && iconLeft != null;
     const displayIconRight = state !== 'loading' && iconRight != null && !isOnlyIcon;
 
-    return (
-        <button className={classes} disabled={isDisabled} {...otherProps}>
+    const buttonContent = (
+        <>
             {displayIconLeft && <Icon icon={iconLeft} size={iconSize} />}
             {state === 'loading' && (
                 <Spinner size={sizeToSpinnerSize[size]} variant={variantToSpinnerVariant[variant]} />
             )}
             {!isOnlyIcon && <div className="px-1">{children}</div>}
             {displayIconRight && <Icon icon={iconRight} size={iconSize} />}
+        </>
+    );
+
+    const handleLinkClick =
+        (onClick?: (event: MouseEvent<HTMLAnchorElement>) => void) => (event: MouseEvent<HTMLAnchorElement>) => {
+            if (isDisabled) {
+                event.preventDefault();
+            } else {
+                onClick?.(event);
+            }
+        };
+
+    if ('href' in otherProps && otherProps.href !== '') {
+        const { onClick, href, ...linkProps } = otherProps;
+
+        return (
+            <a className={classes} href={href} onClick={handleLinkClick(onClick)} {...linkProps}>
+                {buttonContent}
+            </a>
+        );
+    }
+
+    const buttonProps = otherProps as ButtonHTMLAttributes<HTMLButtonElement>;
+
+    return (
+        <button className={classes} disabled={isDisabled} {...buttonProps}>
+            {buttonContent}
         </button>
     );
 };

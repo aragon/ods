@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { Button, type IButtonProps } from './button';
+import { Button } from './button';
+import type { IButtonProps } from './button.api';
 
 describe('<Button /> component', () => {
     const createTestComponent = (props?: Partial<IButtonProps>) => {
