@@ -61,7 +61,7 @@ jobs:
       - name: Pin on IPFS
         id: ipfs-pin
         run: |
-          ipfsResult="$(./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ secrets.IPFS_HOST }}' add -r './storybook-static')"
+          ipfsResult="$(./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ secrets.IPFS_HOST }}' -s add -r './storybook-static')"
           echo $ipfsResult
           processedIpfsResult="$(echo $ipfsResult | tail -1)"
           IFS=" " read -ra array <<< "$processedIpfsResult"
