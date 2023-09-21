@@ -23,4 +23,13 @@ describe('<Button /> component', () => {
         render(createTestComponent({ children }));
         expect(screen.getByRole('button', { name: children })).toBeInTheDocument();
     });
+
+    it('renders a link when the href property is set', () => {
+        const href = 'https://www.aragon.org/';
+        const children = 'Link label';
+        render(createTestComponent({ href, children }));
+        const link = screen.getByRole<HTMLAnchorElement>('link', { name: children });
+        expect(link).toBeInTheDocument();
+        expect(link.href).toEqual(href);
+    });
 });
