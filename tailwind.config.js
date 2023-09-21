@@ -167,14 +167,14 @@ module.exports = {
             'critical-2xl': 'var(--ods-shadow-critical-2xl)',
         },
         screens: {
-            sm: 'var(--ods-breakpoint-sm)',
-            md: 'var(--ods-breakpoint-md)',
+            sm: '640px', //'var(--ods-breakpoint-sm)',
+            md: '786px', // 'var(--ods-breakpoint-md)',
             lg: 'var(--ods-breakpoint-lg)',
             xl: 'var(--ods-breakpoint-xl)',
             '2xl': 'var(--ods-breakpoint-2xl)',
         },
         fontFamily: {
-            default: 'var(--ods-font-family)',
+            sans: [`var(--ods-font-family)`],
         },
         fontSize: {
             xs: 'var(--ods-font-size-xs)',

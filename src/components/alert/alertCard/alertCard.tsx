@@ -5,7 +5,7 @@ import { type HTMLAttributes } from 'react';
 import { Icon } from '../../icon';
 import { alertVariantToIconType, type AlertVariant } from '../utils';
 
-export interface AlertCardProps extends HTMLAttributes<HTMLDivElement> {
+export interface IAlertCardProps extends HTMLAttributes<HTMLDivElement> {
     /** The main alert message. */
     message: string;
     /** Optional description for the alert. */
@@ -51,12 +51,13 @@ const alertVariantToDescriptionClassNames: Record<AlertVariant, string> = {
  *
  * Displays an alert card with an icon, a main message, and an optional description.
  *
- * @param {AlertCardProps} props - Component properties.
+ * @param {IAlertCardProps} props - Component properties.
  * @returns {React.ReactElement} Rendered AlertCard component.
  */
-export const AlertCard: React.FC<AlertCardProps> = ({ className, description, message, variant, ...rest }) => {
+export const AlertCard: React.FC<IAlertCardProps> = ({ className, description, message, variant, ...rest }) => {
     return (
         <div
+            role="alert"
             className={classNames(
                 'w-full space-y-0.5 rounded-xl border px-4 py-3 md:space-y-1 md:px-6 md:py-5',
                 alertVariantToContainerClassNames[variant],

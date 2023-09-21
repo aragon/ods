@@ -107,7 +107,7 @@ export const Button: React.FC<IButtonProps> = (props) => {
 
     const commonClasses = [
         'flex flex-row items-center justify-center', // Layout
-        'leading-tight font-semibold font-default', // Typography
+        'leading-tight font-semibold', // Typography
         'border cursor:pointer', // Commons
         'focus:outline-none focus-visible:ring focus-visible:ring-offset aria-disabled:cursor-not-allowed', // States
     ].join(' ');
