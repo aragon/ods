@@ -5,48 +5,49 @@ import { Spinner } from '../spinner';
 import type { SpinnerSize, SpinnerVariant } from '../spinner/spinner';
 import type { ButtonSize, ButtonVariant, IButtonProps } from './button.api';
 
+// Using aria-disabled: instead of disabled: modifier in order to make the modifier work for buttons and links
 const variantToClassNames: Record<ButtonVariant, string[]> = {
     primary: [
         'bg-primary-400 text-neutral-0 border-primary-400', // Default
-        'enabled:hover:bg-primary-500 enabled:hover:border-primary-500 enabled:hover:shadow-primary-md', // Hover
-        'enabled:active:bg-primary-800 enabled:active:border-primary-800', // Active
-        'focus:ring-primary', // Focus
-        'disabled:bg-primary-100 disabled:text-primary-300 disabled:border-primary-100', // Disabled
+        'hover:bg-primary-500 hover:border-primary-500 hover:shadow-primary-md', // Hover
+        'active:bg-primary-800 active:border-primary-800', // Active
+        'focus-visible:ring-primary', // Focus
+        'aria-disabled:bg-primary-100 aria-disabled:text-primary-300 aria-disabled:border-primary-100', // Disabled
     ],
     secondary: [
         'bg-neutral-0 text-primary-400 border-neutral-100', // Default
-        'enabled:hover:border-neutral-200 enabled:hover:shadow-neutral-md', // Hover
-        'enabled:active:border-primary-400', // Active
-        'focus:ring-primary', // Focus
-        'disabled:bg-neutral-100 disabled:text-neutral-300 disabled:border-neutral-100', // Disabled
+        'hover:border-neutral-200 hover:shadow-neutral-md', // Hover
+        'active:border-primary-400', // Active
+        'focus-visible:ring-primary', // Focus
+        'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     tertiary: [
         'bg-neutral-0 text-neutral-600 border-neutral-100', // Default
-        'enabled:hover:border-neutral-200 enabled:hover:shadow-neutral-md', // Hover
-        'enabled:active:border-neutral-300', // Active
-        'focus:ring-primary', // Focus
-        'disabled:bg-neutral-100 disabled:text-neutral-300 disabled:border-neutral-100', // Disabled
+        'hover:border-neutral-200 hover:shadow-neutral-md', // Hover
+        'active:border-neutral-300', // Active
+        'focus-visible:ring-primary', // Focus
+        'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     success: [
         'bg-success-100 text-success-800 border-success-300', // Default
-        'enabled:hover:border-success-400 enabled:hover:shadow-success-md', // Hover
-        'enabled:active:border-success-500', // Active
-        'focus:ring-success', // Focus
-        'disabled:bg-success-100 disabled:text-success-400 disabled:border-success-200', // Disabled
+        'hover:border-success-400 hover:shadow-success-md', // Hover
+        'active:border-success-500', // Active
+        'focus-visible:ring-success', // Focus
+        'aria-disabled:bg-success-100 aria-disabled:text-success-400 aria-disabled:border-success-200', // Disabled
     ],
     warning: [
         'bg-warning-100 text-warning-800 border-warning-300', // Default
-        'enabled:hover:border-warning-400 enabled:hover:shadow-warning-md', // Hover
-        'enabled:active:border-warning-500', // Active
-        'focus:ring-warning', // Focus
-        'disabled:bg-warning-100 disabled:text-warning-400 disabled:border-warning-200', // Disabled
+        'hover:border-warning-400 hover:shadow-warning-md', // Hover
+        'active:border-warning-500', // Active
+        'focus-visible:ring-warning', // Focus
+        'aria-disabled:bg-warning-100 aria-disabled:text-warning-400 aria-disabled:border-warning-200', // Disabled
     ],
     critical: [
         'bg-critical-100 text-critical-800 border-critical-300', // Defalt
-        'enabled:hover:border-critical-400 enabled:hover:shadow-critical-md', // Hover
-        'enabled:active:border-critical-500', // Active
-        'focus:ring-critical', // Focus
-        'disabled:bg-critical-100 disabled:text-critical-400 disabled:border-critical-200', // Disabled
+        'hover:border-critical-400 hover:shadow-critical-md', // Hover
+        'active:border-critical-500', // Active
+        'focus-visible:ring-critical', // Focus
+        'aria-disabled:bg-critical-100 aria-disabled:text-critical-400 aria-disabled:border-critical-200', // Disabled
     ],
 };
 
@@ -108,12 +109,21 @@ export const Button: React.FC<IButtonProps> = (props) => {
         'flex flex-row items-center justify-center', // Layout
         'leading-tight font-semibold font-default', // Typography
         'border cursor:pointer', // Commons
-        'focus:outline-none focus:ring focus:ring-offset disabled:cursor-not-allowed', // States
+        'focus:outline-none focus-visible:ring focus-visible:ring-offset aria-disabled:cursor-not-allowed', // States
     ].join(' ');
 
-    // Filter out `disabled:` classes to avoid applying disabled styles when button is loading
     const variantClasses = variantToClassNames[variant]
-        .filter((classes) => state !== 'loading' || !classes.includes('disabled'))
+        .filter((classes) => {
+            // Do not apply specific state classes when button is on a disabled or loading state. Even though this
+            // might be done through the tailwind enabled: modifier, it won't work when the button is a link.
+            if (state === 'disabled') {
+                return !classes.includes('hover');
+            } else if (state === 'loading') {
+                return !classes.includes('disabled') && !classes.includes('hover') && !classes.includes('active');
+            }
+
+            return true;
+        })
         .join(' ');
 
     const sizeClasses = sizeToClassNames[size];
@@ -131,6 +141,8 @@ export const Button: React.FC<IButtonProps> = (props) => {
     const iconSize = sizeToIconSize[size][isOnlyIcon ? 'onlyIcon' : 'default'];
     const displayIconLeft = state !== 'loading' && iconLeft != null;
     const displayIconRight = state !== 'loading' && iconRight != null && !isOnlyIcon;
+
+    const commonProps = { className: classes, 'aria-disabled': isDisabled };
 
     const buttonContent = (
         <>
@@ -156,7 +168,7 @@ export const Button: React.FC<IButtonProps> = (props) => {
         const { onClick, href, ...linkProps } = otherProps;
 
         return (
-            <a className={classes} href={href} onClick={handleLinkClick(onClick)} {...linkProps}>
+            <a href={href} onClick={handleLinkClick(onClick)} {...commonProps} {...linkProps}>
                 {buttonContent}
             </a>
         );
@@ -165,7 +177,7 @@ export const Button: React.FC<IButtonProps> = (props) => {
     const buttonProps = otherProps as ButtonHTMLAttributes<HTMLButtonElement>;
 
     return (
-        <button className={classes} disabled={isDisabled} {...buttonProps}>
+        <button disabled={isDisabled} {...commonProps} {...buttonProps}>
             {buttonContent}
         </button>
     );

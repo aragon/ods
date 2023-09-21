@@ -5,6 +5,9 @@ const meta: Meta<typeof Button> = {
     title: 'components/Button',
     component: Button,
     tags: ['autodocs'],
+    argTypes: {
+        href: { control: 'text' },
+    },
     parameters: {
         design: {
             type: 'figma',
@@ -36,7 +39,7 @@ export const Link: Story = {
         size: 'lg',
         children: 'Link label',
         onClick: () => alert('click'),
-        href: 'www.google.com',
+        href: 'https://www.google.com',
         target: '_blank',
     },
 };
