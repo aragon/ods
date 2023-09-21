@@ -33,7 +33,7 @@ jobs:
           COMMENT='${{ steps.get-deployment.outputs.comment-body }}'
           IFS=" " read -ra array <<< "$COMMENT"
           hash=${array[3]}
-          ./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ secrets.IPFS_HOST }}' pin rm $hash
+          ./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ env.IPFS_HOST_ADDRESS }}' pin rm $hash
       - name: Delete Comment
         uses: actions/github-script@v6.4.1
         if: steps.get-deployment.outputs.comment-id != 0
