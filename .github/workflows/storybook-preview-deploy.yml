@@ -51,19 +51,24 @@ jobs:
           IFS=" " read -ra array <<< "$COMMENT"
           hash=${array[3]}
           ./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ secrets.IPFS_HOST }}' pin rm $hash
+      - name: Pin on IPFS
+        id: ipfs-pin
+        run: |
+          ipfsResult="$(./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ secrets.IPFS_HOST }}' -s add -r './storybook-static' | tail -1)"
+          echo $ipfsResult
+          IFS=" " read -ra array <<< "$ipfsResult"
+          echo "hash=${array[1]}" >> $GITHUB_OUTPUT
 
+      # <----- START DEBUG
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: storybook-build
           path: storybook-static
+      - name: Echo IPFS status
+        run: ./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ secrets.IPFS_HOST }}' -s status '${{ steps.ipfs-pin.outputs.hash }}'
+      # <----- END DEBUG
 
-      - name: Pin on IPFS
-        id: ipfs-pin
-        run: |
-          ipfsResult="$(./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ secrets.IPFS_HOST }}' -s add -r './storybook-static' | tail -1)"
-          IFS=" " read -ra array <<< "$ipfsResult"
-          echo "hash=${array[1]}" >> $GITHUB_OUTPUT
       - name: Echo url
         uses: peter-evans/create-or-update-comment@v2
         with:
