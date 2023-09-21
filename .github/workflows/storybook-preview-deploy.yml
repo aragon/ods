@@ -61,10 +61,8 @@ jobs:
       - name: Pin on IPFS
         id: ipfs-pin
         run: |
-          ipfsResult="$(./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ secrets.IPFS_HOST }}' -s add -r './storybook-static')"
-          echo $ipfsResult
-          processedIpfsResult="$(echo $ipfsResult | tail -1)"
-          IFS=" " read -ra array <<< "$processedIpfsResult"
+          ipfsResult="$(./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ secrets.IPFS_HOST }}' -s add -r './storybook-static' | tail -1)"
+          IFS=" " read -ra array <<< "$ipfsResult"
           echo "hash=${array[1]}" >> $GITHUB_OUTPUT
       - name: Echo url
         uses: peter-evans/create-or-update-comment@v2
