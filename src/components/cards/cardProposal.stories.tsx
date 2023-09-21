@@ -23,6 +23,7 @@ Default.args = {
     publisherAddress: '0x374d444487A4602750CA00EFdaC5d22B21F130E1',
     alertMessage: 'Starts in x days y hours',
     stateLabel: ['Draft', 'Pending', 'Active', 'Executed', 'Succeeded', 'Defeated'],
+    bannerContent: 'Verified Aragon App Update',
 };
 
 export const Explore = Template.bind({});
@@ -42,4 +43,5 @@ Explore.args = {
     publisherAddress: '0x374d444487A4602750CA00EFdaC5d22B21F130E1',
     alertMessage: 'Starts in x days y hours',
     stateLabel: ['Draft', 'Pending', 'Active', 'Executed', 'Succeeded', 'Defeated'],
+    bannerContent: 'Verified Aragon App Update',
 };
