@@ -51,6 +51,13 @@ jobs:
           IFS=" " read -ra array <<< "$COMMENT"
           hash=${array[3]}
           ./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ secrets.IPFS_HOST }}' pin rm $hash
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: storybook-build
+          path: storybook-static
+
       - name: Pin on IPFS
         id: ipfs-pin
         run: |
