@@ -50,11 +50,11 @@ jobs:
           COMMENT='${{ steps.get-deployment.outputs.comment-body }}'
           IFS=" " read -ra array <<< "$COMMENT"
           hash=${array[3]}
-          ./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ env.IPFS_HOST_ADDRESS }}' pin rm $hash
+          ./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ vars.IPFS_HOST_ADDRESS }}' pin rm $hash
       - name: Pin on IPFS
         id: ipfs-pin
         run: |
-          ipfsResult="$(./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ env.IPFS_HOST_ADDRESS }}' -s add -r './storybook-static' | tail -1)"
+          ipfsResult="$(./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ vars.IPFS_HOST_ADDRESS }}' -s add -r './storybook-static' | tail -1)"
           echo $ipfsResult
           IFS=" " read -ra array <<< "$ipfsResult"
           echo "hash=${array[1]}" >> $GITHUB_OUTPUT
@@ -66,7 +66,7 @@ jobs:
           name: storybook-build
           path: storybook-static
       - name: Echo IPFS status
-        run: ./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ env.IPFS_HOST_ADDRESS }}' -s status '${{ steps.ipfs-pin.outputs.hash }}'
+        run: ./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ vars.IPFS_HOST_ADDRESS }}' -s status '${{ steps.ipfs-pin.outputs.hash }}'
       # <----- END DEBUG
 
       - name: Echo url
