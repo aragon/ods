@@ -6,6 +6,12 @@ const meta: Meta<typeof Icon> = {
     title: 'components/Icon',
     component: Icon,
     tags: ['autodocs'],
+    parameters: {
+        design: {
+            type: 'figma',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=8842-13134&mode=dev',
+        },
+    },
 };
 
 type Story = StoryObj<typeof Icon>;
@@ -16,12 +22,6 @@ type Story = StoryObj<typeof Icon>;
 export const Default: Story = {
     args: {
         icon: IconType.ADD,
-    },
-    parameters: {
-        design: {
-            type: 'figma',
-            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=8842-13134&mode=dev',
-        },
     },
 };
 

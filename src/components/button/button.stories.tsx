@@ -5,6 +5,12 @@ const meta: Meta<typeof Button> = {
     title: 'components/Button',
     component: Button,
     tags: ['autodocs'],
+    parameters: {
+        design: {
+            type: 'figma',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=7980-15610&mode=design&t=GaPykW52ajbQx2r7-4',
+        },
+    },
 };
 
 type Story = StoryObj<typeof Button>;

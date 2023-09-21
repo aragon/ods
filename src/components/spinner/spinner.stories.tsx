@@ -5,6 +5,12 @@ const meta: Meta<typeof Spinner> = {
     title: 'components/Spinner',
     component: Spinner,
     tags: ['autodocs'],
+    parameters: {
+        design: {
+            type: 'figma',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=7806-26769&mode=dev',
+        },
+    },
 };
 
 type Story = StoryObj<typeof Spinner>;
@@ -16,12 +22,6 @@ export const Default: Story = {
     args: {
         variant: 'neutral',
         size: 'lg',
-    },
-    parameters: {
-        design: {
-            type: 'figma',
-            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=7806-26769&mode=dev',
-        },
     },
 };
 

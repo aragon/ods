@@ -5,6 +5,12 @@ const meta: Meta<typeof IllustrationObject> = {
     title: 'components/Illustrations/IllustrationObject',
     component: IllustrationObject,
     tags: ['autodocs'],
+    parameters: {
+        design: {
+            type: 'figma',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=8874-14443&mode=dev',
+        },
+    },
 };
 
 type Story = StoryObj<typeof IllustrationObject>;
@@ -15,12 +21,6 @@ type Story = StoryObj<typeof IllustrationObject>;
 export const Default: Story = {
     args: {
         object: 'ACTION',
-    },
-    parameters: {
-        design: {
-            type: 'figma',
-            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=8874-14443&mode=dev',
-        },
     },
 };
 
