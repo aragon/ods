@@ -2,7 +2,7 @@ import { Meta } from '@storybook/blocks';
 import { Figma } from '@storybook/addon-designs/blocks';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
-import { getAvailableColors } from '../../utils/tw';
+import { TailwindUtilities } from '../../utils/tw';
 
 <Meta title="Design Tokens/Primitive/Colors" />
 
@@ -10,7 +10,7 @@ export const ColorSwatch = ({ colorGroupName }) => {
     const [availableColors, setAvailableColors] = useState([]);
 
     useEffect(() => {
-        const colors = getAvailableColors(colorGroupName);
+        const colors = TailwindUtilities.getColorConfig(colorGroupName);
         setAvailableColors(colors);
     }, [colorGroupName]);
 

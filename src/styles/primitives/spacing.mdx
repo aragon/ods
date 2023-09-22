@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/blocks';
 import classNames from 'classnames';
 
-import { getSpacingConfig } from '../../utils/tw';
+import { TailwindUtilities } from '../../utils/tw';
 
 <Meta title="Design Tokens/Primitive/Spacing" />
 
@@ -31,7 +31,7 @@ export const DisplayComponent = ({ name, value, sizePx, sizeRem }) => {
             </tr>
         </thead>
         <tbody>
-            {getSpacingConfig().map(({ key, px, rem, value }) => (
+            {TailwindUtilities.getSpacingConfig().map(({ key, px, rem, value }) => (
                 <DisplayComponent key={key} name={key} sizePx={px} sizeRem={rem} value={value} />
             ))}
         </tbody>
