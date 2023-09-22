@@ -12,6 +12,7 @@ const preview: Preview = {
         },
         options: {
             storySort: {
+                method: 'alphabetical',
                 order: ['Docs', ['Open Design System', 'Installation'], 'Design Tokens', 'Components'],
             },
         },
