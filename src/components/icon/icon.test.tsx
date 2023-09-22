@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+
 import { Icon, type IIconProps } from './icon';
 import { IconType } from './iconType';
 
