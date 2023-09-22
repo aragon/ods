@@ -30,7 +30,7 @@ const variantToTextClassNames: Record<AlertVariant, string> = {
 export const AlertInline: React.FC<IAlertInlineProps> = (props) => {
     const { className, message, variant, ...rest } = props;
     return (
-        <div className={classNames('inline-flex items-center gap-x-2 rounded', className)} {...rest}>
+        <div role="alert" className={classNames('inline-flex items-center gap-x-2 rounded', className)} {...rest}>
             <Icon
                 icon={alertVariantToIconType[variant]}
                 responsiveSize={{ sm: 'sm' }}
