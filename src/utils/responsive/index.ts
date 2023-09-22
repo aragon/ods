@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { type ClassMapKey, type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../types';
+import { type ClassMapKey, type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../types';
 
 export class ResponsiveUtilities {
     static generateClassNames<T extends ClassMapKey>(
