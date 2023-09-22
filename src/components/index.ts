@@ -1,3 +1,4 @@
+export * from './actionItem';
 export * from './alerts';
 export * from './button';
 export * from './icon';
