@@ -12,14 +12,14 @@ export interface IAlertInlineProps extends HTMLAttributes<HTMLDivElement> {
     variant: AlertVariant;
 }
 
-const alertVariantToIconClassNames: Record<AlertVariant, string> = {
+const variantToIconClassNames: Record<AlertVariant, string> = {
     critical: 'text-critical-500',
     info: 'text-info-500',
     success: 'text-success-500',
     warning: 'text-warning-500',
 };
 
-const alertVariantToTextClassNames: Record<AlertVariant, string> = {
+const variantToTextClassNames: Record<AlertVariant, string> = {
     critical: 'text-critical-800',
     info: 'text-info-800',
     success: 'text-success-800',
@@ -27,16 +27,19 @@ const alertVariantToTextClassNames: Record<AlertVariant, string> = {
 };
 
 /** AlertInline UI Component */
-// TODO Handle icon sizing
 export const AlertInline: React.FC<IAlertInlineProps> = (props) => {
     const { className, message, variant, ...rest } = props;
     return (
         <div className={classNames('inline-flex items-center gap-x-2 rounded', className)} {...rest}>
-            <Icon icon={alertVariantToIconType[variant]} className={alertVariantToIconClassNames[variant]} />
+            <Icon
+                icon={alertVariantToIconType[variant]}
+                responsiveSize={{ sm: 'sm' }}
+                className={variantToIconClassNames[variant]}
+            />
             <p
                 className={classNames(
                     'text-xs font-semibold leading-tight md:text-base',
-                    alertVariantToTextClassNames[variant],
+                    variantToTextClassNames[variant],
                 )}
             >
                 {message}
