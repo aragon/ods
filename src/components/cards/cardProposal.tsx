@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { type ReactElement, type ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { shortenAddress } from '../../utils/addresses';
 import { AlertInline } from '../alerts';
 import { AvatarDao } from '../avatar';
-import { IconClock } from '../icons';
+import { IconClock, IconUpdate } from '../icons';
 import { Link } from '../link';
 import { LinearProgress } from '../progress';
 import { Tag } from '../tag';
@@ -63,6 +63,11 @@ export type CardProposalProps = {
      * ['Draft', 'Pending', 'Active', 'Executed', 'Succeeded', 'Defeated']
      */
     stateLabel: string[];
+
+    /** Ability to display card banner, nothing passed === banner hidden */
+    bannerContent?: ReactNode;
+    /** Select the icon you want to accompany the banner  */
+    bannerIcon?: ReactElement;
 };
 
 export const CardProposal: React.FC<CardProposalProps> = ({
@@ -85,54 +90,64 @@ export const CardProposal: React.FC<CardProposalProps> = ({
     daoLogo,
     daoName,
     onClick,
+    bannerContent,
+    bannerIcon = <IconUpdate />,
 }: CardProposalProps) => {
     const addressExploreUrl = `${explorer}address/${publisherAddress}`;
 
     return (
         <Card data-testid="cardProposal" onClick={onClick}>
-            <Header>
-                <HeaderOptions process={process} stateLabel={stateLabel} alertMessage={alertMessage} type={type} />
-            </Header>
-            <TextContent>
-                <Title>{title}</Title>
-                <Description>{description}</Description>
-                <Publisher>
-                    {isExploreProposal(type) ? (
-                        <AvatarDao daoName={daoName!} size="small" src={daoLogo} />
-                    ) : (
-                        <PublisherLabel>{publishLabel}</PublisherLabel>
-                    )}
-
-                    <Link
-                        external
-                        href={addressExploreUrl}
-                        label={shortenAddress((isExploreProposal(type) ? daoName : publisherAddress) ?? '')}
-                        className="text-sm"
-                    />
-                </Publisher>
-            </TextContent>
-            {process === 'active' && voteProgress !== undefined && (
-                <>
-                    <LoadingContent>
-                        <ProgressInfoWrapper>
-                            <ProgressTitle>{voteTitle}</ProgressTitle>
-                            <Amount>
-                                {tokenAmount && tokenSymbol ? `${tokenAmount} ${tokenSymbol}` : winningOptionValue}
-                            </Amount>
-                        </ProgressInfoWrapper>
-                        <LinearProgress max={100} value={voteProgress} />
-                        <ProgressInfoWrapper>
-                            <Vote>{voteLabel}</Vote>
-                            <Percentage>{voteProgress}%</Percentage>
-                        </ProgressInfoWrapper>
-                    </LoadingContent>
-                    {votedAlertLabel && (
-                        <VotedAlertWrapper>
-                            <AlertInline mode="success" label={votedAlertLabel} />
-                        </VotedAlertWrapper>
-                    )}
-                </>
+            {bannerContent && (
+                <CardBanner>
+                    {bannerIcon}
+                    <div>{bannerContent}</div>
+                </CardBanner>
             )}
+            <CardBody>
+                <Header>
+                    <HeaderOptions process={process} stateLabel={stateLabel} alertMessage={alertMessage} type={type} />
+                </Header>
+                <TextContent>
+                    <Title>{title}</Title>
+                    <Description>{description}</Description>
+                    <Publisher>
+                        {isExploreProposal(type) ? (
+                            <AvatarDao daoName={daoName!} size="small" src={daoLogo} />
+                        ) : (
+                            <PublisherLabel>{publishLabel}</PublisherLabel>
+                        )}
+
+                        <Link
+                            external
+                            href={addressExploreUrl}
+                            label={shortenAddress((isExploreProposal(type) ? daoName : publisherAddress) ?? '')}
+                            className="text-sm"
+                        />
+                    </Publisher>
+                </TextContent>
+                {process === 'active' && voteProgress !== undefined && (
+                    <>
+                        <LoadingContent>
+                            <ProgressInfoWrapper>
+                                <ProgressTitle>{voteTitle}</ProgressTitle>
+                                <Amount>
+                                    {tokenAmount && tokenSymbol ? `${tokenAmount} ${tokenSymbol}` : winningOptionValue}
+                                </Amount>
+                            </ProgressInfoWrapper>
+                            <LinearProgress max={100} value={voteProgress} />
+                            <ProgressInfoWrapper>
+                                <Vote>{voteLabel}</Vote>
+                                <Percentage>{voteProgress}%</Percentage>
+                            </ProgressInfoWrapper>
+                        </LoadingContent>
+                        {votedAlertLabel && (
+                            <VotedAlertWrapper>
+                                <AlertInline mode="success" label={votedAlertLabel} />
+                            </VotedAlertWrapper>
+                        )}
+                    </>
+                )}
+            </CardBody>
         </Card>
     );
 };
@@ -184,7 +199,7 @@ const HeaderOptions: React.VFC<HeaderOptionProps> = ({ alertMessage, process, st
 
 const Card = styled.button.attrs({
     className:
-        'w-full bg-white rounded-xl p-2 space-y-3 box-border ' +
+        'w-full bg-white rounded-xl box-border ' +
         'hover:border hover:border-ui-100 ' +
         'active:border active:border-ui-200 ' +
         'focus:outline-none focus:ring-2 focus:ring-primary-500',
@@ -194,6 +209,13 @@ const Card = styled.button.attrs({
             0px 0px 1px rgba(31, 41, 51, 0.04);
     }
 `;
+
+const CardBody = styled.div.attrs({ className: 'p-2 space-y-3' })``;
+
+const CardBanner = styled.div.attrs({
+    className:
+        'bg-primary-400 text-primary-50 text-sm font-semibold px-2 py-1 flex items-center gap-x-1.5 rounded-t-xl',
+})``;
 
 const Header = styled.div.attrs({
     className: 'flex justify-between',

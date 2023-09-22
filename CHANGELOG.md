@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   `bannerContent` property to `CardProposal` component to allow for optionally display banner
+-   `bannerIcon` property to `CardProposal` component to allow optionally select icon for the banner
+
 ## [0.2.15] - 2023-09-19
 
 ### Added
