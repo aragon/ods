@@ -32,8 +32,9 @@ export const AlertInline: React.FC<IAlertInlineProps> = (props) => {
     return (
         <div role="alert" className={classNames('inline-flex items-center gap-x-2 rounded', className)} {...rest}>
             <Icon
+                size="sm"
                 icon={alertVariantToIconType[variant]}
-                responsiveSize={{ sm: 'sm' }}
+                responsiveSize={{ md: 'md' }}
                 className={variantToIconClassNames[variant]}
             />
             <p
