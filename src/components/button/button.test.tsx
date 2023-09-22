@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { IconType } from '../icon';
 import { Button } from './button';
 import type { IButtonProps } from './button.api';
 
@@ -24,6 +25,39 @@ describe('<Button /> component', () => {
         expect(screen.getByRole('button', { name: children })).toBeInTheDocument();
     });
 
+    it('renders the icon-right when specified', () => {
+        const iconRight = IconType.UPDATE;
+        const children = 'Button content';
+        render(createTestComponent({ iconRight, children }));
+        expect(screen.getByTestId(iconRight)).toBeInTheDocument();
+    });
+
+    it('renders the icon-left when specified', () => {
+        const iconLeft = IconType.UPDATE;
+        render(createTestComponent({ iconLeft }));
+        expect(screen.getByTestId(iconLeft)).toBeInTheDocument();
+    });
+
+    it('only renders the icon left when button has no content (only icon)', () => {
+        const iconRight = IconType.CALENDAR;
+        const iconLeft = IconType.CHECKMARK;
+        const children = undefined;
+        render(createTestComponent({ iconLeft, iconRight, children }));
+        expect(screen.getByTestId(iconLeft)).toBeInTheDocument();
+        expect(screen.queryByTestId(iconRight)).not.toBeInTheDocument();
+    });
+
+    it('renders a loading indicator and hides the icon right and left on loading state', () => {
+        const state = 'loading';
+        const iconRight = IconType.CALENDAR;
+        const iconLeft = IconType.CHECKMARK;
+        const children = 'Button';
+        render(createTestComponent({ state, iconLeft, iconRight, children }));
+        expect(screen.getByRole('progressbar')).toBeInTheDocument();
+        expect(screen.queryByTestId(iconRight)).not.toBeInTheDocument();
+        expect(screen.queryByTestId(iconLeft)).not.toBeInTheDocument();
+    });
+
     it('renders a link when the href property is set', () => {
         const href = 'https://www.aragon.org/';
         const children = 'Link label';
@@ -31,5 +65,35 @@ describe('<Button /> component', () => {
         const link = screen.getByRole<HTMLAnchorElement>('link', { name: children });
         expect(link).toBeInTheDocument();
         expect(link.href).toEqual(href);
+    });
+
+    it('disables the button on disabled state', () => {
+        const state = 'disabled';
+        const onClick = jest.fn();
+        render(createTestComponent({ state, onClick }));
+        const button = screen.getByRole<HTMLButtonElement>('button');
+        expect(button).toBeDisabled();
+        expect(button).toHaveAttribute('aria-disabled', 'true');
+        fireEvent.click(button);
+        expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('disables the button link on disabled state', () => {
+        const state = 'disabled';
+        const onClick = jest.fn();
+        const href = '/test';
+        render(createTestComponent({ state, href, onClick }));
+        const link = screen.getByRole<HTMLAnchorElement>('link');
+        expect(link).toHaveAttribute('aria-disabled', 'true');
+        fireEvent.click(link);
+        expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('supports the onClick property on link variant', () => {
+        const onClick = jest.fn();
+        const href = '/test';
+        render(createTestComponent({ onClick, href }));
+        fireEvent.click(screen.getByRole('link'));
+        expect(onClick).toHaveBeenCalled();
     });
 });
