@@ -57,7 +57,6 @@ jobs:
           ipfsResult="$(./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ vars.IPFS_HOST_ADDRESS }}' -s add -r './storybook-static' | tail -1)"
           IFS=" " read -ra array <<< "$ipfsResult"
           echo "hash=${array[1]}" >> $GITHUB_OUTPUT
-
       - name: Echo url
         uses: peter-evans/create-or-update-comment@v2
         with:
