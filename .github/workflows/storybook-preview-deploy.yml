@@ -55,19 +55,8 @@ jobs:
         id: ipfs-pin
         run: |
           ipfsResult="$(./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ vars.IPFS_HOST_ADDRESS }}' -s add -r './storybook-static' | tail -1)"
-          echo $ipfsResult
           IFS=" " read -ra array <<< "$ipfsResult"
           echo "hash=${array[1]}" >> $GITHUB_OUTPUT
-
-      # <----- START DEBUG
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: storybook-build
-          path: storybook-static
-      - name: Echo IPFS status
-        run: ./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ vars.IPFS_HOST_ADDRESS }}' -s status '${{ steps.ipfs-pin.outputs.hash }}'
-      # <----- END DEBUG
 
       - name: Echo url
         uses: peter-evans/create-or-update-comment@v2
