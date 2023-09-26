@@ -38,6 +38,7 @@ export { IconSearch } from './icon_search';
 export { IconSettings } from './icon_settings';
 export { IconShrink } from './icon_shrink';
 export { IconSmartContract } from './icon_smart_contract';
+export { IconSort } from './icon_sort';
 export { IconSpinner } from './icon_spinner';
 export { IconStorage } from './icon_storage';
 export { IconSuccess } from './icon_success';

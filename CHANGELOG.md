@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   `IconSort` icon
+
 ## [0.2.16] - 2023-09-22
 
 ### Added
