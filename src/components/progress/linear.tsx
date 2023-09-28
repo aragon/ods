@@ -14,10 +14,10 @@ export const LinearProgress: React.FC<Omit<React.ProgressHTMLAttributes<HTMLProg
 const Progress = styled.progress.attrs({
     className: 'h-1 w-full',
 })<React.ProgressHTMLAttributes<HTMLProgressElement>>`
-    ::-webkit-progress-bar {
+    &::-webkit-progress-bar {
         background-color: #e4e7eb;
     }
-    ::-webkit-progress-value {
+    &::-webkit-progress-value {
         border-radius: 12px 0 0 12px;
         background: linear-gradient(90deg, #0031ad 0%, #003bf5 100.32%);
     }
@@ -31,7 +31,7 @@ const Progress = styled.progress.attrs({
     height: 20px;
     padding: 4px;
 
-    ::-moz-progress-bar {
+    &::-moz-progress-bar {
         border-radius: 12px 0 0 12px;
         background: -moz-linear-gradient(90deg, #0031ad 0%, #003bf5 100.32%);
     }
