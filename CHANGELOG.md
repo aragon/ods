@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+-   Update `TailwindCSS` dependencies to v3
+-   Update `React` dependencies to v18
+
 ## [0.2.19] - 2023-10-09
 
 ### Added
