@@ -16,7 +16,11 @@ const preview: Preview = {
     },
     decorators: [
         (Story) => (
-            <StyleSheetManager shouldForwardProp={isPropValid}>
+            <StyleSheetManager
+                shouldForwardProp={(propName, elementToBeRendered) =>
+                    typeof elementToBeRendered === 'string' ? isPropValid(propName) : true
+                }
+            >
                 <div className="flex">
                     <Story />
                 </div>
