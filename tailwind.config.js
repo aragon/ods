@@ -137,19 +137,6 @@ module.exports = {
             '5xl': ['3.185rem', 1.2],
         },
     },
-    variants: {
-        extend: {
-            backgroundColor: ['active', 'disabled'],
-            textColor: ['active', 'disabled'],
-            borderColor: ['active', 'disabled'],
-            borderWidth: ['active', 'disabled'],
-            ringColor: ['focus-visible'],
-            ringWidth: ['active', 'focus-visible', 'disabled'],
-            outline: ['focus-visible', 'active', 'focus', 'hover'],
-            rounded: ['focus-visible'],
-        },
-        fluidType: ['responsive'],
-    },
     plugins: [
         require('tailwindcss-fluid-type')({
             settings: {
