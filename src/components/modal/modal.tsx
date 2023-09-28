@@ -1,6 +1,6 @@
 import { Close, Content, Overlay, Portal, Root, Title } from '@radix-ui/react-dialog';
 import React, { type CSSProperties, type ReactNode } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { BackdropStyles } from '../backdrop';
 import { IconClose } from '../icons';
 

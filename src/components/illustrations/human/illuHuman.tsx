@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { type Dimensions } from '../../../utils/illustrations';
 
 import { IllustrationAccessory, type Accessory } from './human_accessories';

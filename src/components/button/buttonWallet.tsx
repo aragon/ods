@@ -1,5 +1,5 @@
 import React, { type ButtonHTMLAttributes, type FC } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { shortenAddress } from '../../utils/addresses';
 import { AvatarWallet } from '../avatar';
@@ -44,7 +44,7 @@ type AvatarProps = Pick<ButtonWalletProps, 'isLoading' | 'isConnected' | 'src'>;
 
 const Avatar: FC<AvatarProps> = ({ isConnected, isLoading, src }) => {
     if (!isConnected) {
-        return <IconPerson className="w-2.5 h-2.5" />;
+        return <IconPerson className="h-2.5 w-2.5" />;
     }
     if (isLoading) {
         return <Spinner size="small" />;
@@ -54,7 +54,7 @@ const Avatar: FC<AvatarProps> = ({ isConnected, isLoading, src }) => {
 
 type StyledButtonProp = Pick<ButtonWalletProps, 'isLoading'>;
 
-const StyledButton = styled.button.attrs(({ isLoading }: StyledButtonProp) => {
+const StyledButton = styled.button.attrs<StyledButtonProp>(({ isLoading }) => {
     const className = `${
         isLoading ? 'text-primary-500' : 'text-ui-600'
     } flex items-center tablet:space-x-1.5 font-bold p-1.5 hover:text-ui-800

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { ButtonIcon } from '../button';
 import { IconAdd, IconRemove } from '../icons';
@@ -139,13 +139,13 @@ export const NumberInput: React.FC<NumberInputProps> = ({
 
 export type StyledContainerProps = Pick<NumberInputProps, 'mode' | 'disabled' | 'width'>;
 
-const Container = styled.div.attrs(({ mode, disabled, width }: StyledContainerProps) => {
+const Container = styled.div.attrs<StyledContainerProps>(({ mode, disabled, width }) => {
     let className = `${disabled ? 'bg-ui-100' : 'bg-ui-0'} inline-flex bg-ui-0 ${
         width ? '' : 'w-full'
     } focus:outline-none items-center py-0.75 px-1
       focus-within:ring-2 focus-within:ring-primary-500 justify-between
       rounded-xl hover:border-ui-300 border-2 active:border-primary-500
-      active:ring-0 
+      active:ring-0
     `;
 
     if (mode === 'default') {
@@ -173,21 +173,21 @@ export type StyledNumberInputProps = Pick<NumberInputProps, 'disabled'> & {
 
 export type PercentProps = Pick<NumberInputProps, 'disabled'>;
 
-const Percent = styled.label.attrs(({ disabled }: PercentProps) => {
+const Percent = styled.label.attrs<PercentProps>(({ disabled }) => {
     const className: string | undefined = `${disabled ? 'text-ui-300' : 'text-ui-600'}`;
     return {
         className,
     };
 })<PercentProps>``;
 
-const LeftAdornment = styled.label.attrs(({ disabled }: PercentProps) => {
+const LeftAdornment = styled.label.attrs<PercentProps>(({ disabled }) => {
     const className: string | undefined = `${disabled ? 'text-ui-300' : 'text-ui-600'}`;
     return {
         className,
     };
 })<PercentProps>``;
 
-const StyledNumberInput = styled.input.attrs(({ disabled, inputWidth }: StyledNumberInputProps) => {
+const StyledNumberInput = styled.input.attrs<StyledNumberInputProps>(({ disabled, inputWidth }) => {
     const className: string | undefined = `${
         disabled ? 'text-ui-300' : 'text-ui-600'
     } bg-transparent margin-0 ${inputWidth}`;

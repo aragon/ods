@@ -1,5 +1,5 @@
 import React, { type ButtonHTMLAttributes, type FC } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { useScreen } from '../../hooks';
 import { shortenAddress } from '../../utils/addresses';
@@ -80,7 +80,7 @@ type AvatarProps = Pick<ListItemVoterProps, 'src'>;
 
 const Avatar: FC<AvatarProps> = ({ src }) => {
     if (!src) {
-        return <IconPerson className="w-2.5 h-2.5" />;
+        return <IconPerson className="h-2.5 w-2.5" />;
     }
     return <AvatarWallet src={src} />;
 };

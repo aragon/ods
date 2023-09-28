@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { IsAddress, shortenAddress } from '../../utils/addresses';
 import { IconChevronRight } from '../icons';
@@ -42,7 +42,7 @@ const CardContainer = styled.div.attrs({
 })``;
 
 type ContainerProps = { bgWhite: boolean };
-const Container = styled.div.attrs(({ bgWhite }: ContainerProps) => {
+const Container = styled.div.attrs<ContainerProps>(({ bgWhite }) => {
     return {
         className: `flex-1 py-1.5 px-2 min-w-0 text-left ${bgWhite ? 'bg-ui-50' : 'bg-ui-0'} rounded-xl`,
     };
@@ -54,7 +54,7 @@ const Label = styled.p.attrs({
 
 // TODO: Revisit address shortening
 type ValueProps = { isAddress: boolean };
-const Value = styled.p.attrs(({ isAddress }: ValueProps) => {
+const Value = styled.p.attrs<ValueProps>(({ isAddress }) => {
     const className = isAddress
         ? 'font-bold text-ui-800'
         : 'overflow-hidden font-bold text-ui-800 overflow-ellipsis whitespace-nowrap';

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { shortenAddress } from '../../utils/addresses';
 import { AvatarDao } from '../avatar';
@@ -37,7 +37,7 @@ export const ListItemDao: React.FC<ListItemDaoProps> = (props) => {
 
 type Selectable = Pick<ListItemDaoProps, 'selected'>;
 
-const Container = styled.button.attrs(({ selected }: Selectable) => {
+const Container = styled.button.attrs<Selectable>(({ selected }) => {
     const baseClasses =
         'group flex items-center p-2 space-x-2  w-full rounded-xl' +
         ' focus-visible:ring-2 focus-visible:ring-primary-500 focus:outline-none';
@@ -55,7 +55,7 @@ const Domain = styled.p.attrs({
     className: 'ft-text-sm text-ui-500 truncate',
 })``;
 
-const DaoName = styled.p.attrs(({ selected }: Selectable) => {
+const DaoName = styled.p.attrs<Selectable>(({ selected }) => {
     return {
         className: selected
             ? 'font-bold truncate text-primary-500'
@@ -63,7 +63,7 @@ const DaoName = styled.p.attrs(({ selected }: Selectable) => {
     };
 })<Selectable>``;
 
-const IconContainer = styled.div.attrs(({ selected }: Selectable) => {
+const IconContainer = styled.div.attrs<Selectable>(({ selected }) => {
     return {
         className: selected
             ? 'ft-text-sm text-primary-500'

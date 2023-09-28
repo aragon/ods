@@ -1,5 +1,5 @@
 import React, { useEffect, type ReactNode } from 'react';
-import styled, { type CSSProperties } from 'styled-components';
+import { styled, type CSSProperties } from 'styled-components';
 
 export interface BackdropProps {
     /**
@@ -73,7 +73,7 @@ export const BackdropStyles = ({ visible }: StyledBackdropProps) => {
     return { className, css };
 };
 
-const StyledBackdrop = styled.div.attrs(({ visible }: StyledBackdropProps) => {
+const StyledBackdrop = styled.div.attrs<StyledBackdropProps>(({ visible }) => {
     const { className, css } = BackdropStyles({ visible });
     return { className, style: css };
 })<StyledBackdropProps>``;

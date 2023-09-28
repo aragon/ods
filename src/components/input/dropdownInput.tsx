@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { IconChevronDown } from '../icons';
 import { type StyledContainerProps } from './numberInput';

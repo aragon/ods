@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 export type AlertBannerProps = {
     /** type and severity of alert */
@@ -28,6 +28,6 @@ type ContainerProps = {
     mode: NonNullable<AlertBannerProps['mode']>;
 };
 
-const Container = styled.div.attrs(({ mode }: ContainerProps) => ({
+const Container = styled.div.attrs<ContainerProps>(({ mode }) => ({
     className: `ft-text-xs py-0.5 px-2 text-center font-bold ${styles[mode]}`,
 }))<ContainerProps>``;

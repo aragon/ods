@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import type { IconType } from '../icons';
 import type { ButtonBaseProps } from './buttonBase';
@@ -43,7 +43,7 @@ type StyledButtonProps = {
     size: ButtonBaseProps['size'];
 };
 
-const StyledButton = styled(ButtonBase).attrs(({ bgWhite, isActive, mode, size = 'medium' }: StyledButtonProps) => {
+const StyledButton = styled(ButtonBase).attrs<StyledButtonProps>(({ bgWhite, isActive, mode, size = 'medium' }) => {
     let className: string | undefined;
 
     switch (mode) {

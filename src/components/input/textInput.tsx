@@ -1,5 +1,5 @@
 import React, { type ReactNode } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 export type TextInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
     /** Changes a input's color schema */
@@ -38,7 +38,7 @@ export const TextInput: React.FC<TextInputProps> = ({
 
 type StyledContainerProps = Pick<TextInputProps, 'mode' | 'disabled' | 'containerClassName'>;
 
-export const Container = styled.div.attrs(({ mode, disabled, containerClassName }: StyledContainerProps) => {
+export const Container = styled.div.attrs<StyledContainerProps>(({ mode, disabled, containerClassName }) => {
     let className = `${disabled ? 'bg-ui-100 border-ui-200 border-2' : 'bg-ui-0'} flex items-center focus-within:ring-2
     focus-within:ring-primary-500
     rounded-xl hover:border-ui-300 border-2 h-6
@@ -70,6 +70,6 @@ export const StyledInput = styled.input.attrs(() => {
 
 type StyledInputWrapper = Pick<TextInputProps, 'leftAdornment'>;
 
-const InputWrapper = styled.div.attrs(({ leftAdornment }: StyledInputWrapper) => ({
+const InputWrapper = styled.div.attrs<StyledInputWrapper>(({ leftAdornment }) => ({
     className: `py-1.5 ${leftAdornment ? 'pr-2' : 'px-2'} w-full`,
 }))``;

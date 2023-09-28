@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { Avatar } from '../avatar';
 
 export type TokenListItemProps = {
@@ -54,10 +54,10 @@ export const TokenListItem: React.FC<TokenListItemProps> = ({
 
 type StyledContentProps = Pick<TokenListItemProps, 'bgWhite'>;
 
-const Container = styled.button.attrs(({ bgWhite }: StyledContentProps) => ({
+const Container = styled.button.attrs<StyledContentProps>(({ bgWhite }) => ({
     className: `w-full flex justify-between items-center py-1.5
   px-2 hover:text-ui-800 hover:bg-ui-100 active:text-ui-800
-  text-ui-600 active:bg-ui-200 disabled:text-ui-300 
+  text-ui-600 active:bg-ui-200 disabled:text-ui-300
   disabled:text-ui-300 disabled:bg-ui-100 rounded-xl
   ${bgWhite ? 'bg-ui-50' : 'bg-ui-0'}`,
 }))``;

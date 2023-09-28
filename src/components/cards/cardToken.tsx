@@ -1,5 +1,5 @@
 import React, { type ReactNode, type SyntheticEvent } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import FallbackImg from '../../assets/avatar-token.svg';
 import { Tag } from '../tag';
@@ -100,7 +100,7 @@ export const CardToken: React.FC<CardTokenProps> = ({
 
 type CardProps = Pick<CardTokenProps, 'bgWhite'>;
 
-const Card = styled.div.attrs(({ bgWhite }: CardProps) => ({
+const Card = styled.div.attrs<CardProps>(({ bgWhite }) => ({
     className: `flex justify-between space-x-4 items-center py-2.5 px-3 overflow-hidden ${
         bgWhite ? 'bg-ui-50' : 'bg-ui-0'
     } rounded-xl`,

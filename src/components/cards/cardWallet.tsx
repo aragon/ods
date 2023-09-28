@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { shortenAddress } from '../../utils/addresses';
 import { Avatar } from '../avatar';
@@ -55,7 +55,7 @@ export const CardWallet: React.FC<CardWalletProps> = ({ src, name, address, wide
 };
 
 type ContainerProps = Pick<CardWalletProps, 'wide'>;
-const Card = styled.div.attrs(({ wide }: ContainerProps) => ({
+const Card = styled.div.attrs<ContainerProps>(({ wide }) => ({
     className: `flex items-center ${wide && 'w-full justify-between'} space-x-1.5`,
 }))``;
 

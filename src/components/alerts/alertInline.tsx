@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { IconInfo, IconSuccess, IconWarning, type IconType } from '../icons';
 
@@ -46,7 +46,7 @@ export const AlertInline: React.FC<AlertInlineProps> = ({ mode = 'neutral', labe
 type ContainerProps = {
     mode: NonNullable<AlertInlineProps['mode']>;
 };
-const Container = styled.div.attrs(({ mode }: ContainerProps) => ({
+const Container = styled.div.attrs<ContainerProps>(({ mode }) => ({
     className: `flex items-center space-x-1 ${styles[mode].color}`,
 }))<ContainerProps>``;
 

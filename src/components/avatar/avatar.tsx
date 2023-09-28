@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Blockies from 'react-blockies';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { IsAddress } from '../../utils/addresses';
 
@@ -53,12 +53,12 @@ export const Avatar: React.FC<AvatarProps> = ({ mode = 'circle', size = 'default
 type StyledAvatarProps = Pick<AvatarProps, 'size'>;
 type StyledContainerProps = Pick<AvatarProps, 'mode' | 'size'>;
 
-const StyledAvatar = styled.img.attrs(({ size }: StyledAvatarProps) => {
+const StyledAvatar = styled.img.attrs<StyledAvatarProps>(({ size }) => {
     const className = `${sizes[size].sizes}`;
     return { className };
 })<StyledAvatarProps>``;
 
-const AvatarContainer = styled.div.attrs(({ size, mode }: StyledContainerProps) => {
+const AvatarContainer = styled.div.attrs<StyledContainerProps>(({ size, mode }) => {
     const className = `overflow-hidden bg-ui-100
     ${sizes[size].sizes}
     ${mode === 'circle' ? 'rounded-full' : 'rounded-2xl'}

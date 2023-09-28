@@ -1,5 +1,5 @@
 import React, { type ButtonHTMLAttributes, type CSSProperties } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { type IconType } from '../icons';
 
@@ -68,9 +68,9 @@ type SizeProps = {
     size: ButtonBaseProps['size'];
 };
 
-const BaseStyledButton = styled.button.attrs(({ size = 'medium' }: SizeProps) => {
-    const className = `${sizeClassNames[size]} ${fontStyles[size]} 
-  flex justify-center items-center focus:outline-none focus-visible:ring-2 
+const BaseStyledButton = styled.button.attrs<SizeProps>(({ size = 'medium' }) => {
+    const className = `${sizeClassNames[size]} ${fontStyles[size]}
+  flex justify-center items-center focus:outline-none focus-visible:ring-2
   focus-visible:ring-primary-500`;
 
     const style = sizeStyles[size] as CSSProperties;
@@ -82,7 +82,7 @@ type LabelProps = {
     visible: boolean;
 };
 
-const Label = styled.span.attrs(({ visible }: LabelProps) => {
+const Label = styled.span.attrs<LabelProps>(({ visible }) => {
     let className = 'font-bold';
     if (!visible) {
         className += ' hidden';
@@ -90,7 +90,7 @@ const Label = styled.span.attrs(({ visible }: LabelProps) => {
     return { className };
 })<LabelProps>``;
 
-const IconContainer = styled.span.attrs(({ size = 'medium' }: SizeProps) => {
+const IconContainer = styled.span.attrs<SizeProps>(({ size = 'medium' }) => {
     const className = `flex items-center ${iconStyles[size]}`;
     return { className };
 })<SizeProps>``;

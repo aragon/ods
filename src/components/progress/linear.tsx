@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 /* TODO should be called ProgressLinear to for consistency */
 export const LinearProgress: React.FC<Omit<React.ProgressHTMLAttributes<HTMLProgressElement>, 'className'>> = ({

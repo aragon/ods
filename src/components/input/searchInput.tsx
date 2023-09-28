@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { IconClose, IconSearch } from '../icons';
 import { Spinner } from '../spinner';

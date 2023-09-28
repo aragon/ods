@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { IconBlock, IconRadioCancel, IconRadioDefault, IconSuccess } from '../icons';
 import { type LabelProps } from '../label';
 import { Spinner } from '../spinner';
@@ -76,7 +76,7 @@ const TopContainer = styled.div.attrs({
     className: 'flex justify-between gap-x-1.5',
 })``;
 
-const LeftContainer = styled.div.attrs(({ mode }: ModeProps) => {
+const LeftContainer = styled.div.attrs<ModeProps>(({ mode }) => {
     const className: string | undefined = `flex space-x-1.5 ${textColors[mode]}`;
     return { className };
 })<ModeProps>``;

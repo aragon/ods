@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 export type DateInputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
@@ -13,7 +13,7 @@ export const DateInput: React.FC<DateInputProps> = ({ disabled, ...props }) => {
 
 type InputContainerProps = Pick<DateInputProps, 'disabled'>;
 
-const InputContainer = styled.div.attrs(({ disabled }: InputContainerProps) => {
+const InputContainer = styled.div.attrs<InputContainerProps>(({ disabled }) => {
     const baseClasses = 'flex relative items-center p-1 rounded-xl border-2 font-normal cursor-pointer';
     let className = `${baseClasses}`;
 

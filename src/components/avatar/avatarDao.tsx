@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, type HTMLAttributes } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 export interface AvatarDaoProps extends HTMLAttributes<HTMLElement> {
     daoName: string;
@@ -49,11 +49,11 @@ const sizes = {
     hero: 'w-14 h-14 ft-text-xl',
 };
 
-const Avatar = styled.img.attrs(({ size }: AvatarPropsType) => ({
+const Avatar = styled.img.attrs<AvatarPropsType>(({ size }) => ({
     className: `${size !== 'unset' && sizes[size]} rounded-full` as string,
 }))<AvatarPropsType>``;
 
-const FallBackAvatar = styled.div.attrs(({ size }: AvatarPropsType) => ({
+const FallBackAvatar = styled.div.attrs<AvatarPropsType>(({ size }) => ({
     className:
         'flex items-center justify-center font-bold text-ui-0 bg-gradient-to-r' +
         ` from-primary-500 to-primary-800 ${size !== 'unset' && sizes[size]} rounded-full border`,

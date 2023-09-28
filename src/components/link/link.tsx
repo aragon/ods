@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { type IconType } from '../icons';
 
@@ -37,7 +37,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
                 {...props}
                 data-testid="link"
             >
-                <div className="flex gap-x-1 items-center mr-0.5">
+                <div className="mr-0.5 flex items-center gap-x-1">
                     <Label>{label}</Label>
                     {iconRight && <div>{iconRight}</div>}
                 </div>
@@ -53,7 +53,7 @@ type StyledLinkProps = Pick<LinkProps, 'disabled'> & {
     type: NonNullable<LinkProps['type']>;
 };
 
-const StyledLink = styled.a.attrs(({ disabled, type }: StyledLinkProps) => {
+const StyledLink = styled.a.attrs<StyledLinkProps>(({ disabled, type }) => {
     let className = 'inline-flex flex-col gap-y-0.25 tablet:gap-y-0.5 max-w-full rounded cursor-pointer ';
     className += variants[type];
     className += disabled ? disabledColors[type] : defaultColors[type];
@@ -72,10 +72,10 @@ const Description = styled.p.attrs({
 })``;
 
 const variants = {
-    primary: `hover:text-primary-600 active:text-primary-800 
+    primary: `hover:text-primary-600 active:text-primary-800
         focus-visible:ring focus-visible:ring-primary-200 focus-visible:bg-ui-50 `,
 
-    neutral: `hover:text-ui-800 active:text-ui-800 
+    neutral: `hover:text-ui-800 active:text-ui-800
         focus-visible:ring focus-visible:ring-primary-200 focus-visible:bg-ui-50 `,
 };
 

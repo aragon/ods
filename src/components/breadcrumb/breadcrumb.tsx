@@ -1,5 +1,5 @@
 import React, { type ReactComponentElement } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { ButtonIcon } from '../button';
 import { IconChevronLeft, IconChevronRight, type IconType } from '../icons';
 import { type TagProps } from '../tag';

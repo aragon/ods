@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import {
     IconCheckboxDefault,
     IconCheckboxMulti,
@@ -56,7 +56,7 @@ type ContainerTypes = {
     type: CheckboxListItemProps['type'];
 };
 
-const Container = styled.div.attrs(({ disabled, type }: ContainerTypes) => ({
+const Container = styled.div.attrs<ContainerTypes>(({ disabled, type }) => ({
     className: `py-1.5 px-2 rounded-xl border-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${
         disabled
             ? 'bg-ui-100 border-ui-300'
@@ -67,7 +67,7 @@ const Container = styled.div.attrs(({ disabled, type }: ContainerTypes) => ({
     tabIndex: disabled ? -1 : 0,
 }))<ContainerTypes>``;
 
-const HStack = styled.div.attrs(({ disabled, type }: ContainerTypes) => ({
+const HStack = styled.div.attrs<ContainerTypes>(({ disabled, type }) => ({
     className: `flex justify-between items-center group-hover:text-primary-500 space-x-1.5 ${
         disabled ? 'text-ui-600' : type === 'default' || type === 'error' ? 'text-ui-600' : 'text-primary-500'
     }`,

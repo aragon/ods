@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { ButtonText } from '../button';
 import { CardToken, type CardTokenProps } from './cardToken';
 import { CardTransfer, type CardTransferProps } from './cardTransfer';
@@ -80,7 +80,7 @@ export const CardExecution: React.FC<CardExecutionProps> = ({
 
 type CardProps = Pick<CardExecutionProps, 'wide'>;
 
-const Card = styled.div.attrs(({ wide }: CardProps) => ({
+const Card = styled.div.attrs<CardProps>(({ wide }) => ({
     className: `${wide ? 'flex justify-between' : 'w-84'} flex-col bg-white rounded-xl p-3 space-y-3`,
 }))<CardProps>``;
 

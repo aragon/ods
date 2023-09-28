@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { Breadcrumb, type BreadcrumbProps, type DefaultCrumbProps } from '../breadcrumb';
 import { ButtonText, type ButtonTextProps } from '../button';
 

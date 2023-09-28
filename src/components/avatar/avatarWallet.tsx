@@ -1,6 +1,6 @@
 import React from 'react';
 import Blockies from 'react-blockies';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { IsAddress } from '../../utils/addresses';
 
 const SQUARES = 8;
@@ -32,8 +32,8 @@ const StyledBlockies = styled(Blockies).attrs({
     className: 'rounded-full',
 })``;
 
-type SizeProps = Pick<AvatarWalletProps, 'size'>;
-const StyledAvatar = styled.img.attrs(({ size = 'medium' }: SizeProps) => {
+type SizeProps = { size: AvatarWalletProps['size'] };
+const StyledAvatar = styled.img.attrs<SizeProps>(({ size = 'medium' }) => {
     return {
         className: `${styles[size].style} rounded-full`,
     };

@@ -4,7 +4,7 @@ import { EditorContent, useEditor, type Editor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import React, { useCallback, useState } from 'react';
 import ReactDOM from 'react-dom';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { ButtonIcon } from '../button';
 import {
@@ -208,7 +208,7 @@ type Props = {
     fullScreen?: boolean;
 };
 
-const Container = styled.div.attrs(({ disabled, fullScreen = false }: Props) => ({
+const Container = styled.div.attrs<Props>(({ disabled, fullScreen = false }) => ({
     className: `w-full text-ui-600 overflow-auto ${
         fullScreen
             ? 'h-screen flex flex-col fixed top-0'
@@ -229,7 +229,7 @@ const Container = styled.div.attrs(({ disabled, fullScreen = false }: Props) => 
     }
 `;
 
-const StyledMenuBar = styled.div.attrs(({ disabled, fullScreen }: Props) => ({
+const StyledMenuBar = styled.div.attrs<Props>(({ disabled, fullScreen }) => ({
     className: `bg-ui-50 px-2 py-1.5 flex flex-wrap justify-between ${
         fullScreen ? 'sticky top-0 z-10' : 'rounded-t-xl'
     } ${disabled ? 'bg-ui-100' : ''}`,

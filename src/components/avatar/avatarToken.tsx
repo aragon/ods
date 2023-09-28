@@ -1,5 +1,5 @@
 import React, { type SyntheticEvent } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import FallbackImg from '../../assets/avatar-token.svg';
 
 export type AvatarTokenProps = {
@@ -25,8 +25,8 @@ const styles = {
     large: 'w-5 h-5',
 };
 
-type SizesType = Pick<AvatarTokenProps, 'size'>;
+type StyledImageProps = { size: AvatarTokenProps['size'] };
 
-const StyledImage = styled.img.attrs(({ size = 'medium' }: SizesType) => {
+const StyledImage = styled.img.attrs<StyledImageProps>(({ size = 'medium' }) => {
     return { className: `${styles[size]} rounded-full` };
-})<SizesType>``;
+})<StyledImageProps>``;
