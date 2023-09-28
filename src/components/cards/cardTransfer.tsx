@@ -57,7 +57,7 @@ type ValueProps = { isAddress: boolean };
 const Value = styled.p.attrs<ValueProps>(({ isAddress }) => {
     const className = isAddress
         ? 'font-bold text-ui-800'
-        : 'overflow-hidden font-bold text-ui-800 overflow-ellipsis whitespace-nowrap';
+        : 'overflow-hidden font-bold text-ui-800 text-ellipsis whitespace-nowrap';
 
     return { className };
 })<ValueProps>``;
