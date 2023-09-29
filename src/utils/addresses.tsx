@@ -42,3 +42,11 @@ export function shortenENS(input: string | null): string {
     const shortenedName = name.slice(0, 7);
     return `${shortenedName}…eth`;
 }
+
+export function shortenDaoUrl(url: string | null): string {
+    if (!url) {
+        return '';
+    }
+
+    return `${url.substring(0, 17)}…`;
+}

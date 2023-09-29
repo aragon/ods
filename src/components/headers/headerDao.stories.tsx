@@ -12,6 +12,7 @@ const Template: Story<HeaderDaoProps> = (args) => <HeaderDao {...args} />;
 export const Dao = Template.bind({});
 Dao.args = {
     daoName: 'DaoName',
+    daoAddress: '0x999e89E75B3C49D3eF628f804F2c10e9A91F0C57',
     daoEnsName: 'daoName.dao.eth',
     description:
         'We are a community that loves trees and the planet. We track where forestation is increasing (or shrinking), fund people who are growing and protecting trees We are a community that loves trees and the planet. We track where forestation is increasing (or shrinking), fund people who are growing and protecting trees We are a community that loves trees and the planet.',
