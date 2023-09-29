@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   Removed display of dao url and dao ens name from `HeaderDao`, substituted with dropdown component
+-   Introduced required `daoAddress` in `HeaderDao`
+-   Made `daoEnsName` optional in `HeaderDao`
+-   Renamed `copiedOnClick` to `copy` prop on `HeaderDao`, made `copy` accept copy input to be more generic
+-   `shortenDaoUrl` util
+
 ## [0.2.17] - 2023-09-26
 
 ### Added

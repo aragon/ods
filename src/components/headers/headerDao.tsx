@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { useScreen } from '../../hooks';
+import { shortenAddress, shortenDaoUrl } from '../../utils';
 import { AvatarDao } from '../avatar';
 import { ButtonIcon, ButtonText } from '../button';
 import { Dropdown } from '../dropdown';
@@ -22,7 +23,8 @@ const DEFAULT_LINKS_SHOWN = 3;
 
 export type HeaderDaoProps = {
     daoName: string;
-    daoEnsName: string;
+    daoAddress: string;
+    daoEnsName?: string;
     daoAvatar?: string;
     daoUrl: string;
     description: string;
@@ -38,7 +40,7 @@ export type HeaderDaoProps = {
         readMore: string;
         readLess: string;
     };
-    copiedOnClick?: () => void;
+    copy?: (input: string) => void;
     onFavoriteClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
@@ -48,6 +50,7 @@ type DescriptionProps = {
 
 export const HeaderDao: React.FC<HeaderDaoProps> = ({
     daoName,
+    daoAddress,
     daoEnsName,
     daoAvatar,
     daoUrl,
@@ -58,7 +61,8 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
     favorited = false,
     links = [],
     translation,
-    copiedOnClick,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    copy = () => {},
     onFavoriteClick,
 }) => {
     const [showAll, setShowAll] = useState(true);
@@ -95,13 +99,58 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
     // always show dropdown if there are links, unless we're on desktop with less than 3 links
     const showDropdown = !(links?.length <= DEFAULT_LINKS_SHOWN && isDesktop) && links?.length !== 0;
 
+    const daoCredentialsDropdownItems = useMemo(() => {
+        const result = [
+            {
+                component: (
+                    <CredentialsDropdownItem key={2} onClick={() => copy(daoAddress)}>
+                        {shortenAddress(daoAddress)}
+                        <StyledCopyIcon />
+                    </CredentialsDropdownItem>
+                ),
+            },
+            {
+                component: (
+                    <CredentialsDropdownItem key={3} isLast onClick={() => copy(`https://${daoUrl}`)}>
+                        {shortenDaoUrl(daoUrl)}
+                        <StyledCopyIcon />
+                    </CredentialsDropdownItem>
+                ),
+            },
+        ];
+
+        if (daoEnsName) {
+            result.unshift({
+                component: (
+                    <CredentialsDropdownItem key={1} onClick={() => copy(daoEnsName)}>
+                        {daoEnsName}
+                        <StyledCopyIcon />
+                    </CredentialsDropdownItem>
+                ),
+            });
+        }
+
+        return result;
+    }, [copy, daoAddress, daoEnsName, daoUrl]);
+
     return (
         <Card data-testid="header-dao">
             <ContentWrapper>
                 <Content>
                     <Title>{daoName}</Title>
-                    <p className="mt-0.25 desktop:mt-0.5 font-semibold text-ui-500">{daoEnsName}</p>
-                    <Link label={daoUrl} iconRight={<IconCopy />} onClick={copiedOnClick} className="mt-1.5" />
+
+                    <Dropdown
+                        align="start"
+                        trigger={
+                            <CredentialsDropdownTrigger
+                                label={daoEnsName ? daoEnsName : shortenAddress(daoAddress)}
+                                iconRight={<IconChevronDown />}
+                            />
+                        }
+                        sideOffset={8}
+                        listItems={daoCredentialsDropdownItems}
+                    />
+
                     <div className="mt-1.5">
                         <Description ref={descriptionRef} {...{ fullDescription: showAll }}>
                             {description}
@@ -246,4 +295,23 @@ const ActionContainer = styled.div.attrs({
 const ActionWrapper = styled.div.attrs({
     className:
         'flex items-center tablet:space-x-3 justify-between tablet:justify-start w-full tablet:w-max space-y-3 tablet:space-y-0',
+})``;
+
+type CredentialsDropdownItemProps = {
+    isLast?: boolean;
+};
+
+const CredentialsDropdownItem = styled.div.attrs<CredentialsDropdownItemProps>((props) => ({
+    className: `flex items-center justify-between gap-1.5 py-1 font-semibold ft-text-base text-ui-600 hover:text-ui-400 ${
+        props.isLast ? '' : 'mb-1'
+    }`,
+}))<CredentialsDropdownItemProps>``;
+
+const CredentialsDropdownTrigger = styled(Link).attrs({
+    className:
+        'mt-1.5 text-primary-400 hover:text-primary-600 active:text-primary-800 focus-visible:ring focus-visible:ring-primary-200 focus-visible:bg-ui-50',
+})``;
+
+const StyledCopyIcon = styled(IconCopy).attrs({
+    className: 'text-ui-400',
 })``;
