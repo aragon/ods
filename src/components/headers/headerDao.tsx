@@ -40,7 +40,7 @@ export type HeaderDaoProps = {
         readMore: string;
         readLess: string;
     };
-    copy?: (input: string) => void;
+    onCopy?: (input: string) => void;
     onFavoriteClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
@@ -62,7 +62,7 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
     links = [],
     translation,
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    copy = () => {},
+    onCopy = () => {},
     onFavoriteClick,
 }) => {
     const [showAll, setShowAll] = useState(true);
@@ -103,7 +103,7 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
         const result = [
             {
                 component: (
-                    <CredentialsDropdownItem key={2} onClick={() => copy(daoAddress)}>
+                    <CredentialsDropdownItem key={2} onClick={() => onCopy(daoAddress)}>
                         {shortenAddress(daoAddress)}
                         <StyledCopyIcon />
                     </CredentialsDropdownItem>
@@ -111,7 +111,7 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
             },
             {
                 component: (
-                    <CredentialsDropdownItem key={3} isLast onClick={() => copy(`https://${daoUrl}`)}>
+                    <CredentialsDropdownItem key={3} isLast onClick={() => onCopy(`https://${daoUrl}`)}>
                         {shortenDaoUrl(daoUrl)}
                         <StyledCopyIcon />
                     </CredentialsDropdownItem>
@@ -122,7 +122,7 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
         if (daoEnsName) {
             result.unshift({
                 component: (
-                    <CredentialsDropdownItem key={1} onClick={() => copy(daoEnsName)}>
+                    <CredentialsDropdownItem key={1} onClick={() => onCopy(daoEnsName)}>
                         {daoEnsName}
                         <StyledCopyIcon />
                     </CredentialsDropdownItem>
@@ -131,7 +131,7 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
         }
 
         return result;
-    }, [copy, daoAddress, daoEnsName, daoUrl]);
+    }, [onCopy, daoAddress, daoEnsName, daoUrl]);
 
     return (
         <Card data-testid="header-dao">
