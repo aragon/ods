@@ -61,8 +61,7 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
     favorited = false,
     links = [],
     translation,
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    onCopy = () => {},
+    onCopy,
     onFavoriteClick,
 }) => {
     const [showAll, setShowAll] = useState(true);
@@ -103,7 +102,7 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
         const result = [
             {
                 component: (
-                    <CredentialsDropdownItem key={2} onClick={() => onCopy(daoAddress)}>
+                    <CredentialsDropdownItem key={2} onClick={() => onCopy?.(daoAddress)}>
                         {shortenAddress(daoAddress)}
                         <StyledCopyIcon />
                     </CredentialsDropdownItem>
@@ -111,7 +110,7 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
             },
             {
                 component: (
-                    <CredentialsDropdownItem key={3} isLast onClick={() => onCopy(`https://${daoUrl}`)}>
+                    <CredentialsDropdownItem key={3} isLast onClick={() => onCopy?.(`https://${daoUrl}`)}>
                         {shortenDaoUrl(daoUrl)}
                         <StyledCopyIcon />
                     </CredentialsDropdownItem>
@@ -122,7 +121,7 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
         if (daoEnsName) {
             result.unshift({
                 component: (
-                    <CredentialsDropdownItem key={1} onClick={() => onCopy(daoEnsName)}>
+                    <CredentialsDropdownItem key={1} onClick={() => onCopy?.(daoEnsName)}>
                         {daoEnsName}
                         <StyledCopyIcon />
                     </CredentialsDropdownItem>
