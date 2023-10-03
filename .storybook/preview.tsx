@@ -17,14 +17,18 @@ const preview: Preview = {
             },
         },
         backgrounds: {
-            default: 'light',
+            default: 'neutral-50',
             values: [
                 {
-                    name: 'light',
+                    name: 'neutral-0',
+                    value: 'var(--ods-color-neutral-0)',
+                },
+                {
+                    name: 'neutral-50',
                     value: 'var(--ods-color-neutral-50)',
                 },
                 {
-                    name: 'dark',
+                    name: 'neutral-800',
                     value: 'var(--ods-color-neutral-800)',
                 },
             ],
