@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   mobile pagination
+
 ## [0.2.18] - 2023-09-29
 
 ### Added
