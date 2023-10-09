@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useScreen } from '../../hooks';
 import { ButtonIcon, ButtonText } from '../button';
 import { IconChevronLeft, IconChevronRight } from '../icons/interface';
 export interface PaginationProps {
@@ -42,6 +43,56 @@ export const Pagination: React.FC<PaginationProps> = ({
 
     function ButtonList() {
         const list = [];
+
+        const { isMobile } = useScreen();
+
+        if (isMobile) {
+            if (totalPages - page <= 1) {
+                const penultimatePage = totalPages - 1;
+                return (
+                    <>
+                        <Separator>...</Separator>
+                        <ButtonText
+                            mode="secondary"
+                            size="large"
+                            onClick={() => setPage(penultimatePage)}
+                            isActive={penultimatePage === page}
+                            {...(bgWhite && { bgWhite })}
+                            label={penultimatePage.toString()}
+                        />
+                        <ButtonText
+                            mode="secondary"
+                            size="large"
+                            onClick={() => setPage(totalPages)}
+                            isActive={page === totalPages}
+                            {...(bgWhite && { bgWhite })}
+                            label={totalPages.toString()}
+                        />
+                    </>
+                );
+            }
+
+            return (
+                <>
+                    <ButtonText
+                        mode="secondary"
+                        size="large"
+                        onClick={() => setPage(page)}
+                        isActive
+                        {...(bgWhite && { bgWhite })}
+                        label={page.toString()}
+                    />
+                    <Separator>...</Separator>
+                    <ButtonText
+                        mode="secondary"
+                        size="large"
+                        onClick={() => setPage(totalPages)}
+                        {...(bgWhite && { bgWhite })}
+                        label={`${totalPages}`}
+                    />
+                </>
+            );
+        }
 
         if (totalPages <= 7) {
             for (let i = 1; i <= totalPages; i++) {
@@ -182,5 +233,5 @@ const HStack = styled.div.attrs({
 })``;
 
 const Separator = styled.div.attrs({
-    className: 'flex items-center',
+    className: 'flex items-center justify-center w-6 h-6',
 })``;
