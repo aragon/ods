@@ -52,7 +52,7 @@ export const NumberInput: React.FC<NumberInputProps> = ({
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // this handles pasting in the value/ could also use onPaste event
         if (!includeDecimal) {
-            event.target.value = event.target.value.replace(/[^0-9]/g, '');
+            event.target.value = event.target.value.replace(/[^-0-9]/g, '');
         }
 
         onChange?.(event);
