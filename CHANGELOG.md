@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fix incorrect regex on Number Input that prevents "-" sign from being entered
+-   Fix incorrect regex on Number Input that prevents "-" sign from being entered
 
 ## [0.2.18] - 2023-09-29
 
