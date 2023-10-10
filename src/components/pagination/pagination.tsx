@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { useScreen } from '../../hooks';
 import { ButtonIcon, ButtonText } from '../button';
 import { IconChevronLeft, IconChevronRight } from '../icons/interface';

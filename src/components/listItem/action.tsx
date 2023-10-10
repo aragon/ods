@@ -1,5 +1,5 @@
 import React, { type ButtonHTMLAttributes } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { AvatarDao } from '../avatar';
 
@@ -49,7 +49,7 @@ export const ListItemAction: React.FC<ListItemActionProps> = ({
                 <LabelContainer>
                     <p className={`font-bold ft-text-base ${truncateText ? 'truncate' : ''}`}>{title}</p>
                     {subtitle && (
-                        <p className={`ft-text-sm text-ui-500 ${truncateText ? 'truncate' : ''}`}>{subtitle}</p>
+                        <p className={`text-ui-500 ft-text-sm ${truncateText ? 'truncate' : ''}`}>{subtitle}</p>
                     )}
                 </LabelContainer>
             </LeftContent>
@@ -76,7 +76,7 @@ const RenderIconLeft: React.FC<{
 
 type InputContainerProps = Pick<ListItemActionProps, 'mode' | 'bgWhite'>;
 
-const Container = styled.button.attrs(({ mode, bgWhite = false }: InputContainerProps) => {
+const Container = styled.button.attrs<InputContainerProps>(({ mode, bgWhite = false }) => {
     const baseLayoutClasses = 'flex items-center gap-x-1.5 w-full';
     const baseStyleClasses = 'py-1.5 px-2 rounded-xl font-normal border-2 border-transparent';
     let className: string | undefined = `${baseLayoutClasses} ${baseStyleClasses}`;

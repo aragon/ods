@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { IconInfo, IconSuccess, IconWarning } from '../icons';
 
@@ -54,7 +54,7 @@ export const AlertCard: React.FC<AlertCardProps> = ({ mode = 'info', title, help
 type ContainerProps = {
     mode: NonNullable<AlertCardProps['mode']>;
 };
-const Container = styled.div.attrs(({ mode }: ContainerProps) => ({
+const Container = styled.div.attrs<ContainerProps>(({ mode }) => ({
     className: `flex gap-1.5 box-border px-2 py-1.5 border-2 rounded-xl ${styles[mode].bgColor} ${styles[mode].borderColor}`,
 }))<ContainerProps>``;
 
@@ -62,7 +62,7 @@ const TextContainer = styled.div.attrs(() => ({
     className: 'flex flex-col gap-0.25 ',
 }))``;
 
-const Title = styled.div.attrs(({ mode }: ContainerProps) => ({
+const Title = styled.div.attrs<ContainerProps>(({ mode }) => ({
     className: `flex flex-col font-bold ft-text-base  ${styles[mode].color}`,
 }))<ContainerProps>``;
 

@@ -1,5 +1,5 @@
 import React, { type HTMLAttributes } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 export type SpinnerProps = HTMLAttributes<HTMLElement> & {
     /**
@@ -21,7 +21,7 @@ export const Spinner: React.FC<SpinnerProps> = ({ size = 'small', color }) => {
 
 type SizesType = Record<SpinnerProps['size'], string>;
 
-const StyledSpinner = styled.div.attrs(({ size }: SpinnerProps) => {
+const StyledSpinner = styled.div.attrs<SpinnerProps>(({ size }) => {
     // I couldn't find information on the sizes in the design system. I think a
     // size of 2 (=16px) is badly needed, as this is the size of text-base. I
     // added it as a new size so as to avoid refactoring existing components

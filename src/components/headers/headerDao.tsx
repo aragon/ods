@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import styled from 'styled-components';
-
+import { styled } from 'styled-components';
 import { useScreen } from '../../hooks';
 import { shortenAddress, shortenDaoUrl } from '../../utils';
 import { AvatarDao } from '../avatar';
@@ -171,7 +170,7 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
                     <AvatarDao
                         daoName={daoName || ''}
                         size="unset"
-                        className="w-10 desktop:w-14 h-10 desktop:h-14 text-lg desktop:text-xl"
+                        className="h-10 w-10 text-lg desktop:h-14 desktop:w-14 desktop:text-xl"
                         {...(daoAvatar && { src: daoAvatar })}
                     />
                 </AvatarContainer>
@@ -214,7 +213,7 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
                                 className="max-w-xs"
                                 listItems={links?.map(({ label, href }, index: number) => ({
                                     component: (
-                                        <div className="p-1 mb-1.5">
+                                        <div className="mb-1.5 p-1">
                                             <ListItemLink {...{ label, href }} key={index} external />
                                         </div>
                                     ),

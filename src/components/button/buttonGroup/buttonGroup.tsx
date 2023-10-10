@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { type OptionProps } from './button';
 
@@ -76,7 +76,7 @@ type HStackProps = {
     bgWhite: boolean;
 };
 
-const HStack = styled.div.attrs(({ bgWhite }: HStackProps) => ({
+const HStack = styled.div.attrs<HStackProps>(({ bgWhite }) => ({
     className: `flex rounded-xl p-0.5 space-x-1.5
     ${bgWhite ? 'bg-ui-50' : 'bg-ui-0'}
   `,

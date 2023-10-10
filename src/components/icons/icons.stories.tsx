@@ -1,6 +1,6 @@
 import type { Meta, Story } from '@storybook/react';
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import * as interface_icons from './interface';
 import * as markdown_icons from './markdown';
 import * as module_icons from './module';

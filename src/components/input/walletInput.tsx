@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState, type ReactEventHandler } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { IsAddress, isEnsDomain, shortenAddress, shortenENS } from '../../utils/addresses';
 import { ButtonIcon, ButtonText } from '../button';
@@ -517,7 +517,7 @@ const modeStyles = (state: WalletInputProps['state']) => {
     }
 };
 
-export const Container = styled.div.attrs(({ state, disabled }: StyledContainerProps) => {
+export const Container = styled.div.attrs<StyledContainerProps>(({ state, disabled }) => {
     const baseClassName = 'border-2 flex space-x-1.5 py-0.75 pr-1 pl-2 rounded-xl';
     const modeClassName = modeStyles(state);
 

@@ -25,7 +25,7 @@ export const TableCell: React.FC<TableCellProps> = ({
         return (
             <td
                 data-testid="tableCell"
-                className={`px-2 py-1.5 bg-ui-100 ${rightAligned ? 'text-right' : 'text-left'} ${className}`}
+                className={`bg-ui-100 px-2 py-1.5 ${rightAligned ? 'text-right' : 'text-left'} ${className}`}
             >
                 <p className="text-ui-600 ft-text-base">{text}</p>
                 {subtext && <p className="text-ui-500 ft-text-sm">{subtext}</p>}
@@ -35,7 +35,7 @@ export const TableCell: React.FC<TableCellProps> = ({
         return (
             <th
                 data-testid="tableCell"
-                className={`px-2 py-1.75 bg-ui-100 ${rightAligned ? 'text-right' : 'text-left'} ${className}`}
+                className={`bg-ui-100 px-2 py-1.75 ${rightAligned ? 'text-right' : 'text-left'} ${className}`}
             >
                 <p className="font-bold text-ui-800 ft-text-sm">{text}</p>
             </th>
@@ -48,7 +48,7 @@ export const TableCell: React.FC<TableCellProps> = ({
                     rightAligned ? 'text-right' : 'text-left'
                 } ${className}`}
             >
-                <p className="font-bold text-primary-500 cursor-pointer ft-text-base">{children}</p>
+                <p className="cursor-pointer font-bold text-primary-500 ft-text-base">{children}</p>
             </td>
         );
     } else if (type === 'tag') {

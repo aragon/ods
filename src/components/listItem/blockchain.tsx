@@ -1,5 +1,5 @@
 import React, { type SyntheticEvent } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import FallbackImg from '../../assets/avatar-token.svg';
 import { IconRadioDefault, IconSuccess } from '../icons';
@@ -40,12 +40,12 @@ export const ListItemBlockchain: React.FC<ListItemBlockchainProps> = ({ selected
 type SelectedProps = {
     selected: boolean;
 };
-const Container = styled.div.attrs(({ selected }: SelectedProps) => {
+const Container = styled.div.attrs<SelectedProps>(({ selected }) => {
     const className = `${selected ? 'bg-ui-0' : 'bg-ui-50'} flex items-center p-2 space-x-2 rounded-xl cursor-pointer`;
     return { className };
 })<SelectedProps>``;
 
-const Domain = styled.p.attrs(({ selected }: SelectedProps) => ({
+const Domain = styled.p.attrs<SelectedProps>(({ selected }) => ({
     className: `${selected ? 'text-primary-500' : 'text-ui-600'} font-bold`,
 }))<SelectedProps>``;
 

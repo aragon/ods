@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 export interface CardTextProps {
     type: 'title' | 'label';
@@ -19,14 +19,14 @@ export const CardText: React.FC<CardTextProps> = ({ type, title, content, bgWhit
 
 type ContainerProps = Pick<CardTextProps, 'bgWhite'>;
 
-const Container = styled.div.attrs(({ bgWhite }: ContainerProps) => {
+const Container = styled.div.attrs<ContainerProps>(({ bgWhite }) => {
     const className = `${!bgWhite && 'bg-ui-0'} break-words p-2 tablet:p-3 rounded-xl space-y-1 text-ui-600`;
     return { className };
 })<ContainerProps>``;
 
 type TitleProps = Pick<CardTextProps, 'type'>;
 
-const Title = styled.p.attrs(({ type }: TitleProps) => {
+const Title = styled.p.attrs<TitleProps>(({ type }) => {
     const className = `${type === 'label' ? 'ft-text-sm  text-ui-500' : 'ft-text-base text-ui-800'} font-bold`;
     return { className };
 })<TitleProps>``;

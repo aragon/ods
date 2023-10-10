@@ -1,6 +1,6 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 // NOTE: I'm not sure whether having a callback per list item is the ideal API
 // for this component. The reasoning for doing it this way, is that this

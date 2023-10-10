@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { ButtonText } from '../button';
 import { StyledInput } from './textInput';
@@ -45,7 +45,7 @@ ValueInput.displayName = 'ValueInput';
 
 type StyledContainerProps = Pick<ValueInputProps, 'mode' | 'disabled'>;
 
-export const Container = styled.div.attrs(({ mode, disabled }: StyledContainerProps) => {
+export const Container = styled.div.attrs<StyledContainerProps>(({ mode, disabled }) => {
     let className = `${
         disabled ? 'bg-ui-100 border-ui-200' : 'bg-ui-0'
     } flex items-center space-x-1.5 p-0.75 pl-2 text-ui-600 rounded-xl

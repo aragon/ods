@@ -11,7 +11,7 @@ export default {
 } as Meta;
 
 const Template: Story<DropdownProps> = (args) => (
-    <div className="flex justify-center items-center h-96">
+    <div className="flex h-96 items-center justify-center">
         <div>
             <Dropdown {...args} />
         </div>

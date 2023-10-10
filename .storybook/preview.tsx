@@ -1,5 +1,7 @@
+import isPropValid from '@emotion/is-prop-valid';
 import type { Preview } from '@storybook/react';
 import React from 'react';
+import { StyleSheetManager } from 'styled-components';
 import '../index.css';
 
 const preview: Preview = {
@@ -14,9 +16,15 @@ const preview: Preview = {
     },
     decorators: [
         (Story) => (
-            <div className="flex">
-                <Story />
-            </div>
+            <StyleSheetManager
+                shouldForwardProp={(propName, elementToBeRendered) =>
+                    typeof elementToBeRendered === 'string' ? isPropValid(propName) : true
+                }
+            >
+                <div className="flex">
+                    <Story />
+                </div>
+            </StyleSheetManager>
         ),
     ],
 };

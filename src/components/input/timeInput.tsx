@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { ButtonGroup, Option } from '../button/buttonGroup';
 
@@ -93,13 +93,13 @@ export const TimeInput: React.FC<TimeInputProps> = ({
 
 export type StyledContainerProps = Pick<TimeInputProps, 'mode' | 'disabled' | 'width'>;
 
-const Container = styled.div.attrs(({ mode, disabled, width }: StyledContainerProps) => {
+const Container = styled.div.attrs<StyledContainerProps>(({ mode, disabled, width }) => {
     let className = `${disabled ? 'bg-ui-100' : 'bg-ui-0'} inline-flex p-1 bg-ui-0 ${
         width ? '' : 'w-30'
     } focus:outline-none items-center font-normal
       focus-within:ring-2 focus-within:ring-primary-500 justify-between
       rounded-xl hover:border-ui-300 border-2 active:border-primary-500
-      active:ring-0 
+      active:ring-0
     `;
 
     if (mode === 'default') {

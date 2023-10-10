@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { Icons } from './checkboxListItem';
 
 export type CheckboxSimpleProps = {
@@ -33,7 +33,7 @@ type ContainerTypes = {
     iconLeft: boolean;
 };
 
-const Container = styled.div.attrs(({ disabled, state, iconLeft }: ContainerTypes) => ({
+const Container = styled.div.attrs<ContainerTypes>(({ disabled, state, iconLeft }) => ({
     className: `flex w-max space-x-1.5 items-center ${!iconLeft && 'flex-row-reverse space-x-reverse'} ${
         disabled
             ? 'text-ui-300'

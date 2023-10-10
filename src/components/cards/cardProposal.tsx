@@ -1,5 +1,5 @@
 import React, { type ReactElement, type ReactNode } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { shortenAddress } from '../../utils/addresses';
 import { AlertInline } from '../alerts';

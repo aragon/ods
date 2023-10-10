@@ -1,5 +1,5 @@
 import React, { type ReactComponentElement } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { type IconType } from '../icons';
 import { type TagProps } from '../tag';
 
@@ -16,7 +16,7 @@ const Crumb: React.FC<CrumbProps> = (props) => {
     return (
         <CrumbContainer
             onClick={props.onClick}
-            className={props.last ? 'text-ui-600 cursor-default' : 'text-primary-500'}
+            className={props.last ? 'cursor-default text-ui-600' : 'text-primary-500'}
         >
             {props.first &&
                 props.icon &&

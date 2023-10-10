@@ -1,5 +1,5 @@
 import React, { type ReactComponentElement } from 'react';
-import styled, { css } from 'styled-components';
+import { css, styled } from 'styled-components';
 
 import { IconCheckmark, type IconType } from '../icons';
 
@@ -37,8 +37,8 @@ export const AlertChip: React.FC<AlertChipProps> = ({
 
 type ContainerProps = Pick<AlertChipProps, 'isShown'>;
 
-const WrapperAnimationCSS = css`
-  animation: ${({ isShown }: ContainerProps) => (isShown ? 'fadein 0.3s' : 'fadeout 0.3s')};
+const WrapperAnimationCSS = css<ContainerProps>`
+  animation: ${({ isShown }) => (isShown ? 'fadein 0.3s' : 'fadeout 0.3s')};
 
   @-webkit-keyframes fadein {
     from {
@@ -93,7 +93,7 @@ const WrapperAnimationCSS = css`
   }
 `;
 
-const Wrapper = styled.div.attrs(({ isShown }: ContainerProps) => ({
+const Wrapper = styled.div.attrs<ContainerProps>(({ isShown }) => ({
     className: `fixed w-full flex items-center justify-center top-3 ${
         isShown ? 'opacity-100 fixed' : 'opacity-0 none'
     }`,

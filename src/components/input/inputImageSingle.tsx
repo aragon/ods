@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone, type FileRejection } from 'react-dropzone';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { ButtonIcon } from '../button';
 import { IconAdd, IconClose } from '../icons/interface';
 import { Spinner } from '../spinner';
@@ -137,7 +137,7 @@ type DefaultContainerProps = {
     isdragactive: boolean;
 };
 
-const DefaultContainer = styled.div.attrs(({ isdragactive }: DefaultContainerProps) => ({
+const DefaultContainer = styled.div.attrs<DefaultContainerProps>(({ isdragactive }) => ({
     className: `flex items-center justify-center bg-ui-0
     h-8 w-8 border-dashed ${isdragactive ? 'border-primary-500' : 'border-ui-100'} border-2 rounded-xl cursor-pointer`,
 }))<DefaultContainerProps>``;
