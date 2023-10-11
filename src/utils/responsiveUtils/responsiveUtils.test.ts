@@ -1,5 +1,5 @@
 import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../types';
-import { responsiveUtils } from './responsive-utils';
+import { responsiveUtils } from './responsiveUtils';
 
 type MockAttribute = 'sm' | 'md' | 'lg';
 type TestCase = {
