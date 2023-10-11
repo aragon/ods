@@ -138,6 +138,7 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
                     <Title>{daoName}</Title>
 
                     <Dropdown
+                        className="w-30"
                         align="start"
                         trigger={
                             <CredentialsDropdownTrigger
@@ -296,7 +297,7 @@ const ActionWrapper = styled.div.attrs({
 })``;
 
 const CredentialsDropdownItem = styled.div.attrs({
-    className: `flex text-ui-600 items-center justify-between gap-1.5 py-1 font-semibold ft-text-base hover:bg-primary-50 px-2 rounded-xl hover:text-primary-400`,
+    className: `flex text-ui-600 items-center justify-between gap-1.5 py-1.5 font-semibold ft-text-base hover:bg-primary-50 px-2 rounded-xl hover:text-primary-400`,
 })``;
 
 const CredentialsDropdownTrigger = styled(Link).attrs({
