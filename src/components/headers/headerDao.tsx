@@ -109,7 +109,7 @@ export const HeaderDao: React.FC<HeaderDaoProps> = ({
             },
             {
                 component: (
-                    <CredentialsDropdownItem key={3} isLast onClick={() => onCopy?.(`https://${daoUrl}`)}>
+                    <CredentialsDropdownItem key={3} onClick={() => onCopy?.(`https://${daoUrl}`)}>
                         {shortenDaoUrl(daoUrl)}
                         <StyledCopyIcon />
                     </CredentialsDropdownItem>
@@ -295,15 +295,9 @@ const ActionWrapper = styled.div.attrs({
         'flex items-center tablet:space-x-3 justify-between tablet:justify-start w-full tablet:w-max space-y-3 tablet:space-y-0',
 })``;
 
-type CredentialsDropdownItemProps = {
-    isLast?: boolean;
-};
-
-const CredentialsDropdownItem = styled.div.attrs<CredentialsDropdownItemProps>((props) => ({
-    className: `flex items-center justify-between gap-1.5 py-1 font-semibold ft-text-base text-ui-600 hover:text-ui-400 ${
-        props.isLast ? '' : 'mb-1'
-    }`,
-}))<CredentialsDropdownItemProps>``;
+const CredentialsDropdownItem = styled.div.attrs({
+    className: `flex text-ui-600 items-center justify-between gap-1.5 py-1 font-semibold ft-text-base hover:bg-primary-50 px-2 rounded-xl hover:text-primary-400`,
+})``;
 
 const CredentialsDropdownTrigger = styled(Link).attrs({
     className:
