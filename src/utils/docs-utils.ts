@@ -4,13 +4,13 @@ import tailwindConfig from '../../tailwind.config';
 
 type Color = { shade: number; value: string };
 
-export class TailwindUtilities {
+class DocsUtils {
     /**
      * Retrieves and processes spacing values from the provided Tailwind CSS configuration.
      * The function computes the pixel (px) and relative (rem) sizes based on the given configuration.
      * It then returns a sorted list of these computed values.
      */
-    public static getSpacingConfig() {
+    getSpacingConfig() {
         return Object.entries(resolveConfig(tailwindConfig).theme?.spacing ?? {})
             .map(([key, value]) => {
                 const parsedKey = parseFloat(key);
@@ -28,7 +28,7 @@ export class TailwindUtilities {
      * @param {number} [baseSize=16] - The base size for conversion.
      * @returns {number} - The converted value in rem units.
      */
-    public static pxToRem(px: number, baseSize = 16) {
+    pxToRem(px: number, baseSize = 16) {
         return px / baseSize;
     }
 
@@ -38,7 +38,7 @@ export class TailwindUtilities {
      * @param {string} colorGroupName - Name of the color group.
      * @returns {Color[]} Array of available colors.
      */
-    public static getColorConfig(colorGroupName: string): Color[] {
+    getColorConfig(colorGroupName: string): Color[] {
         const shades = [0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
         const rootStyles = getComputedStyle(document.documentElement);
 
@@ -47,3 +47,5 @@ export class TailwindUtilities {
             .filter((shade) => shade.value.trim() !== '');
     }
 }
+
+export const docsUtils = new DocsUtils();

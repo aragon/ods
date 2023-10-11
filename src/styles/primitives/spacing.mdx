@@ -2,7 +2,7 @@ import { Meta } from '@storybook/blocks';
 import { Figma } from '@storybook/addon-designs/blocks';
 import classNames from 'classnames';
 
-import { TailwindUtilities } from '../../utils/tw';
+import { docsUtils } from '../../utils';
 
 <Meta title="Design Tokens/Primitive/Spacing" />
 
@@ -32,7 +32,7 @@ export const DisplayComponent = ({ name, value, sizePx, sizeRem }) => {
             </tr>
         </thead>
         <tbody>
-            {TailwindUtilities.getSpacingConfig().map(({ key, px, rem, value }) => (
+            {docsUtils.getSpacingConfig().map(({ key, px, rem, value }) => (
                 <DisplayComponent key={key} name={key} sizePx={px} sizeRem={rem} value={value} />
             ))}
         </tbody>
