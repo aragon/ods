@@ -1,5 +1,5 @@
-import { ResponsiveUtilities } from '.';
 import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../types';
+import { responsiveUtils } from './responsive-utils';
 
 type MockAttribute = 'sm' | 'md' | 'lg';
 type TestCase = {
@@ -47,7 +47,7 @@ describe('ResponsiveUtilities', () => {
             it(`should return "${test.expected}" for size "${test.size}" with responsiveSize ${JSON.stringify(
                 test.responsiveSize,
             )}`, () => {
-                const result = ResponsiveUtilities.generateClassNames(
+                const result = responsiveUtils.generateClassNames(
                     test.size as MockAttribute,
                     test.responsiveSize,
                     classes,

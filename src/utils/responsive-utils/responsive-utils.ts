@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import { type ClassMapKey, type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../types';
+import type { ClassMapKey, ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../types';
 
-export class ResponsiveUtilities {
-    static generateClassNames<T extends ClassMapKey>(
+class ResponsiveUtils {
+    generateClassNames<T extends ClassMapKey>(
         size: T,
         responsiveSize: ResponsiveAttribute<T>,
         classes: ResponsiveAttributeClassMap<T>,
@@ -17,3 +17,5 @@ export class ResponsiveUtilities {
         return classNames(smClass, mdClass, lgClass);
     }
 }
+
+export const responsiveUtils = new ResponsiveUtils();

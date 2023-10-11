@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { SVGProps } from 'react';
 
 import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../types';
-import { ResponsiveUtilities } from '../../utils';
+import { responsiveUtils } from '../../utils';
 import { iconList } from './iconList';
 import type { IconType } from './iconType';
 
@@ -37,7 +37,7 @@ export const Icon: React.FC<IIconProps> = (props) => {
 
     const IconComponent = iconList[icon];
 
-    const classes = ResponsiveUtilities.generateClassNames(size, responsiveSize, iconClasses);
+    const classes = responsiveUtils.generateClassNames(size, responsiveSize, iconClasses);
 
     return <IconComponent className={classNames(classes, className)} {...otherProps} />;
 };

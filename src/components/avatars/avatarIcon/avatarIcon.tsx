@@ -3,7 +3,7 @@ import type React from 'react';
 
 import { type HTMLAttributes } from 'react';
 import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../../types';
-import { ResponsiveUtilities } from '../../../utils';
+import { responsiveUtils } from '../../../utils';
 import { Icon, type IconType } from '../../icon';
 
 type AvatarIconSize = 'sm' | 'md' | 'lg';
@@ -58,7 +58,7 @@ export const AvatarIcon: React.FC<IAvatarIconProps> = (props) => {
     const containerClasses = classNames(
         'flex items-center justify-center rounded-full',
         avatarVariantToContainerClassNames[variant],
-        ResponsiveUtilities.generateClassNames(size, responsiveSize, responsiveSizeClasses),
+        responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClasses),
         className,
     );
 
