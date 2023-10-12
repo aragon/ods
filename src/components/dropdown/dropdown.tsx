@@ -61,7 +61,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             </DropdownMenu.Trigger>
 
             <StyledContent {...rest}>
-                <DropdownMenu.Group className="space-y-0.5">
+                <DropdownMenu.Group className="flex flex-col gap-y-0.75">
                     {listItems?.map((li, index) => (
                         <StyledItem key={index} onSelect={li.callback}>
                             {li.component}
@@ -75,9 +75,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
 };
 
 const StyledContent = styled(DropdownMenu.Content).attrs({
-    className: 'bg-ui-0 rounded-lg p-2 shadow-xl' as string | undefined,
+    className: 'bg-ui-0 rounded-xl p-1 shadow-xl' as string,
 })``;
 
 const StyledItem = styled(DropdownMenu.Item).attrs({
-    className: 'rounded-xl focus-visible:outline-primary',
-})``;
+    className: 'rounded-xl outline-none focus:outline-none focus:ring focus:ring-primary-200',
+})`
+    &:hover:focus {
+        outline: none;
+        box-shadow: none;
+    }
+`;
