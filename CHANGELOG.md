@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+-   `HeaderDao` favorited indicator to labelled button
+-   `HeaderDao` description line clamp indicator icon
+
 ## [0.3.1] - 2023-10-12
 
 ### Changed

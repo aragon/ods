@@ -23,6 +23,8 @@ Dao.args = {
     translation: {
         readMore: 'Read more',
         readLess: 'Read less',
+        follow: 'follow',
+        following: 'following',
     },
     links: [
         {
