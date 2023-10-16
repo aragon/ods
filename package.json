@@ -8,6 +8,8 @@
   "files": [
     "dist",
     "index.css",
+    "src/**/*.css",
+    "src/assets/fonts/*",
     "tailwind.config.js"
   ],
   "scripts": {
