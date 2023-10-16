@@ -1,7 +1,4 @@
-import isPropValid from '@emotion/is-prop-valid';
 import type { Preview } from '@storybook/react';
-import React from 'react';
-import { StyleSheetManager } from 'styled-components';
 import '../index.css';
 
 const preview: Preview = {
@@ -13,18 +10,35 @@ const preview: Preview = {
                 date: /Date$/,
             },
         },
+        options: {
+            storySort: {
+                method: 'alphabetical',
+                order: ['Docs', ['Open Design System', 'Installation'], 'Design Tokens', 'Components'],
+            },
+        },
+        backgrounds: {
+            default: 'neutral-50',
+            values: [
+                {
+                    name: 'neutral-0',
+                    value: 'var(--ods-color-neutral-0)',
+                },
+                {
+                    name: 'neutral-50',
+                    value: 'var(--ods-color-neutral-50)',
+                },
+                {
+                    name: 'neutral-800',
+                    value: 'var(--ods-color-neutral-800)',
+                },
+            ],
+        },
     },
     decorators: [
         (Story) => (
-            <StyleSheetManager
-                shouldForwardProp={(propName, elementToBeRendered) =>
-                    typeof elementToBeRendered === 'string' ? isPropValid(propName) : true
-                }
-            >
-                <div className="flex">
-                    <Story />
-                </div>
-            </StyleSheetManager>
+            <div className="flex">
+                <Story />
+            </div>
         ),
     ],
 };

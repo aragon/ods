@@ -1,0 +1,37 @@
+:root {
+  --ods-space-base: 4px;
+  --ods-space-0: calc(var(--ods-space-base) * 0);
+  --ods-space-0-25: calc(var(--ods-space-base) * 0.25);
+  --ods-space-0-5: calc(var(--ods-space-base) * 0.5);
+  --ods-space-1-5: calc(var(--ods-space-base) * 1.5);
+  --ods-space-2: calc(var(--ods-space-base) * 2);
+  --ods-space-2-5: calc(var(--ods-space-base) * 2.5);
+  --ods-space-3: calc(var(--ods-space-base) * 3);
+  --ods-space-3-5: calc(var(--ods-space-base) * 3.5);
+  --ods-space-4: calc(var(--ods-space-base) * 4);
+  --ods-space-5: calc(var(--ods-space-base) * 5);
+  --ods-space-6: calc(var(--ods-space-base) * 6);
+  --ods-space-7: calc(var(--ods-space-base) * 7);
+  --ods-space-8: calc(var(--ods-space-base) * 8);
+  --ods-space-9: calc(var(--ods-space-base) * 9);
+  --ods-space-10: calc(var(--ods-space-base) * 10);
+  --ods-space-11: calc(var(--ods-space-base) * 11);
+  --ods-space-12: calc(var(--ods-space-base) * 12);
+  --ods-space-14: calc(var(--ods-space-base) * 14);
+  --ods-space-16: calc(var(--ods-space-base) * 16);
+  --ods-space-20: calc(var(--ods-space-base) * 20);
+  --ods-space-24: calc(var(--ods-space-base) * 24);
+  --ods-space-28: calc(var(--ods-space-base) * 28);
+  --ods-space-32: calc(var(--ods-space-base) * 32);
+  --ods-space-36: calc(var(--ods-space-base) * 36);
+  --ods-space-40: calc(var(--ods-space-base) * 40);
+  --ods-space-44: calc(var(--ods-space-base) * 44);
+  --ods-space-48: calc(var(--ods-space-base) * 48);
+  --ods-space-52: calc(var(--ods-space-base) * 52);
+  --ods-space-56: calc(var(--ods-space-base) * 56);
+  --ods-space-60: calc(var(--ods-space-base) * 60);
+  --ods-space-64: calc(var(--ods-space-base) * 64);
+  --ods-space-72: calc(var(--ods-space-base) * 72);
+  --ods-space-80: calc(var(--ods-space-base) * 80);
+  --ods-space-96: calc(var(--ods-space-base) * 96);
+}

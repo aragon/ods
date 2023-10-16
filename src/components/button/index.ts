@@ -1,4 +1,2 @@
-export * from './buttonGroup';
-export * from './buttonIcon';
-export * from './buttonText';
-export * from './buttonWallet';
+export { Button } from './button';
+export type { IButtonProps } from './button.api';

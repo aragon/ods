@@ -1,16 +1,19 @@
 import { render, screen } from '@testing-library/react';
-import React from 'react';
-import { Spinner } from './spinner';
+import { Spinner, type ISpinnerProps } from './spinner';
 
-describe('Spinner', () => {
-    // eslint-disable-next-line
-    function setup(args: any) {
-        render(<Spinner {...args} />);
-        return screen.getByTestId('spinner');
-    }
+describe('<Spinner /> component', () => {
+    const createTestComponent = (props?: Partial<ISpinnerProps>) => {
+        const completeProps: ISpinnerProps = {
+            variant: 'primary',
+            size: 'md',
+            ...props,
+        };
 
-    test('should render without crashing', () => {
-        const element = setup({});
-        expect(element).toBeInTheDocument;
+        return <Spinner {...completeProps} />;
+    };
+
+    it('renders a spinner', () => {
+        render(createTestComponent());
+        expect(screen.getByRole('progressbar')).toBeInTheDocument();
     });
 });

@@ -1,23 +1,24 @@
 {
-  "include": ["src", ".eslintrc.js", "*.config.js"],
-  "exclude": ["node_modules", "dist", "storybook-static", "coverage"],
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
     "lib": ["dom", "esnext"],
     "importHelpers": true,
     "outDir": "dist",
+    "allowJs": true,
     "sourceMap": true,
-    "rootDir": "./src",
+    "rootDir": ".",
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "include": ["src", ".eslintrc.js", "*.config.js"],
+  "exclude": ["node_modules", "dist", "storybook-static", "coverage"]
 }

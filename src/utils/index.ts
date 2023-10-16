@@ -1,2 +1,2 @@
-export * from './addresses';
-export * from './illustrations';
+export * from './docsUtils';
+export * from './responsiveUtils';

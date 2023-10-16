@@ -12,6 +12,7 @@ const extendsBase = [
     'plugin:import/typescript',
     'plugin:jsx-a11y/recommended',
     'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
     'plugin:testing-library/react',
     'plugin:tailwindcss/recommended',
@@ -29,12 +30,12 @@ const rulesBase = {
     'brace-style': 'warn',
     'prefer-template': 'warn',
     'no-useless-concat': 'warn',
-    'tailwindcss/no-custom-classname': ['off'],
 };
 
 const typescriptRules = {
     ...rulesBase,
     '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/prefer-nullish-coalescing': 'warn',
     '@typescript-eslint/array-type': ['warn', { default: 'array-simple' }],
     '@typescript-eslint/consistent-type-imports': ['warn', { fixStyle: 'inline-type-imports' }],

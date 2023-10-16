@@ -1,12 +1,28 @@
-import { type Meta, type Story } from '@storybook/react';
-import React from 'react';
-import { Spinner, type SpinnerProps } from './spinner';
+import type { Meta, StoryObj } from '@storybook/react';
+import { Spinner } from './spinner';
 
-export default {
-    title: 'Components/Spinner',
+const meta: Meta<typeof Spinner> = {
+    title: 'components/Spinner',
     component: Spinner,
-} as Meta;
+    tags: ['autodocs'],
+    parameters: {
+        design: {
+            type: 'figma',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=7806-26769&mode=dev',
+        },
+    },
+};
 
-const Template: Story<SpinnerProps> = (args) => <Spinner {...args} />;
+type Story = StoryObj<typeof Spinner>;
 
-export const Default = Template.bind({});
+/**
+ * Default usage example of the Spinner component.
+ */
+export const Default: Story = {
+    args: {
+        variant: 'neutral',
+        size: 'lg',
+    },
+};
+
+export default meta;

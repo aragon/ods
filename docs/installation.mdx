@@ -1,0 +1,49 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Docs/Installation" />
+
+# Installation
+
+TODO
+
+## 1. Install the library
+
+Install the `@aragon/ods` library and using yarn or npm:
+
+Yarn:
+
+```shell
+yarn add @aragon/ods tailwindcss tailwindcss-fluid-type
+```
+
+Npm:
+
+```shell
+npm install @aragon/ods tailwindcss tailwindcss-fluid-type
+```
+
+**NOTE:** `react` and `react-dom` are also required to correctly use the library:
+
+```json
+"peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17",
+},
+```
+
+## 2. Usage
+
+Import the `@aragon/ods` library on your application and use the components:
+
+```typescript
+import React from 'react';
+import { Tag } from '@aragon/ods';
+
+export default function App() {
+    return (
+        <div>
+            <Tag colorScheme="primary">My label</Tag>
+        </div>
+    );
+}
+```

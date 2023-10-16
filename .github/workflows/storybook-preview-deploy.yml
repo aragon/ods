@@ -7,7 +7,7 @@ on:
       - synchronize
 
 env:
-  NODE_VERSION: 16
+  NODE_VERSION: 18
   NODE_CACHE: "yarn"
 
 jobs:
@@ -41,8 +41,8 @@ jobs:
         run: pip install --user pyyaml packaging
       - name: Install ipfs-cluster-ctl
         run: |
-          wget https://dist.ipfs.io/ipfs-cluster-ctl/v1.0.0/ipfs-cluster-ctl_v1.0.0_linux-amd64.tar.gz
-          tar xvfz ipfs-cluster-ctl_v1.0.0_linux-amd64.tar.gz
+          wget https://dist.ipfs.tech/ipfs-cluster-ctl/v1.0.6/ipfs-cluster-ctl_v1.0.6_linux-amd64.tar.gz
+          tar xvfz ipfs-cluster-ctl_v1.0.6_linux-amd64.tar.gz
       - name: Unpin from IPFS
         continue-on-error: true
         if: steps.get-deployment.outputs.comment-id != 0
@@ -50,11 +50,11 @@ jobs:
           COMMENT='${{ steps.get-deployment.outputs.comment-body }}'
           IFS=" " read -ra array <<< "$COMMENT"
           hash=${array[3]}
-          ./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ secrets.IPFS_HOST }}' pin rm $hash
+          ./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ vars.IPFS_HOST_ADDRESS }}' pin rm $hash
       - name: Pin on IPFS
         id: ipfs-pin
         run: |
-          ipfsResult="$(./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ secrets.IPFS_HOST }}' add -r './storybook-static' | tail -1)"
+          ipfsResult="$(./ipfs-cluster-ctl/ipfs-cluster-ctl --basic-auth '${{ secrets.IPFS_BASIC_AUTH }}' --host '${{ vars.IPFS_HOST_ADDRESS }}' -s add -r './storybook-static' | tail -1)"
           IFS=" " read -ra array <<< "$ipfsResult"
           echo "hash=${array[1]}" >> $GITHUB_OUTPUT
       - name: Echo url

@@ -1,2 +1,1 @@
-export * from './linear';
-export * from './status';
+export { Progress, type IProgressProps } from './progress';

@@ -1,2 +1,2 @@
-export * from './human/illuHuman';
-export * from './object/illuObject';
+export * from './illustrationHuman';
+export * from './illustrationObject';
