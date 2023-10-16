@@ -7,4 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
--   Initial release of `@aragon/ods` library
+### Added
+
+-   Initial v1.0 release of `@aragon/ods` library
