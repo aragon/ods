@@ -29,8 +29,15 @@ class FormatterUtils {
 
     formatNumber = (value: number | string | null | undefined, options: IFormatNumberOptions = {}): string | null => {
         const { format = NumberFormat.GENERIC_LONG, fallback = null } = options;
-        const { fixedFractionDigits, maxFractionDigits, minFractionDigits, useBaseSymbol, withSign } =
-            numberFormats[format];
+        const {
+            fixedFractionDigits,
+            maxFractionDigits,
+            minFractionDigits,
+            useBaseSymbol,
+            minDisplayValue,
+            isCurrency,
+            withSign,
+        } = numberFormats[format];
 
         const parsedValue = typeof value === 'number' ? value : parseFloat(value ?? '');
 
@@ -42,6 +49,8 @@ class FormatterUtils {
 
         if (!cache[cacheKey]) {
             cache[cacheKey] = new Intl.NumberFormat(this.numberLocale, {
+                style: isCurrency ? 'currency' : undefined,
+                currency: isCurrency ? this.currencyLocale : undefined,
                 maximumFractionDigits: fixedFractionDigits ?? maxFractionDigits,
                 minimumFractionDigits: fixedFractionDigits ?? minFractionDigits,
             });
@@ -51,17 +60,31 @@ class FormatterUtils {
         const baseRangeDenominator =
             parsedValue > 1e15 ? 10 ** (this.getDecimalPlaces(parsedValue) - 1) : baseRange?.value ?? 1;
 
-        const processedValue = useBaseSymbol ? parsedValue / baseRangeDenominator : parsedValue;
+        let processedValue = parsedValue;
 
-        const formattedValue = cache[cacheKey]!.format(processedValue);
-        const processedFormattedValue =
-            useBaseSymbol && baseRange != null ? `${formattedValue}${baseRange.symbol(parsedValue)}` : formattedValue;
+        // Set the processedValue to the minDisplayValue (e.g. 0.0012 to 0.01) when the value is not zero and
+        // smaller than the minDisplayValue
+        const useMinDisplayValue = minDisplayValue != null && parsedValue > 0 && parsedValue < minDisplayValue;
 
-        if (!withSign || parsedValue < 0) {
-            return processedFormattedValue;
+        if (useMinDisplayValue) {
+            processedValue = minDisplayValue;
+        } else if (useBaseSymbol) {
+            processedValue = parsedValue / baseRangeDenominator;
         }
 
-        return `+${processedFormattedValue}`;
+        let formattedValue = cache[cacheKey]!.format(processedValue);
+
+        if (useBaseSymbol && baseRange != null) {
+            formattedValue = `${formattedValue}${baseRange.symbol(parsedValue)}`;
+        } else if (useMinDisplayValue) {
+            formattedValue = `<${formattedValue}`;
+        }
+
+        if (!withSign || processedValue < 0) {
+            return formattedValue;
+        }
+
+        return `+${formattedValue}`;
     };
 
     private getDecimalPlaces = (value: number) => value.toString().split('.')[0].length;

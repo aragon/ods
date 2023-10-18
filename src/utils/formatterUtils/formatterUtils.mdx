@@ -4,13 +4,26 @@ import { formatterUtils } from './formatterUtils';
 
 <Meta title="Utilities/Formatter" />
 
-export const formatValues = [0, 123, 1234, 1234567, 1234567890, 1234567890123, 1234567890123456];
-
-export const buildTableRows = (value, formatShort, formatLong) =>
-    `| ${value} | ${formatterUtils.formatNumber(value, { format: formatShort })} | ${formatterUtils.formatNumber(
-        value,
-        { format: formatLong },
-    )} |`;
+export const FormatExampleTable = ({ values, formatShort, formatLong }) => (
+    <table>
+        <thead>
+            <tr className="text-left">
+                <th>Value</th>
+                <th>Long format</th>
+                <th>Short format</th>
+            </tr>
+        </thead>
+        <tbody>
+            {values.map((value) => (
+                <tr key={value}>
+                    <td>{value}</td>
+                    <td>{formatterUtils.formatNumber(value, { format: formatLong })}</td>
+                    <td>{formatterUtils.formatNumber(value, { format: formatShort })}</td>
+                </tr>
+            ))}
+        </tbody>
+    </table>
+);
 
 # Formatter Utils
 
@@ -26,25 +39,27 @@ formatted. For each format we have then 2 variants:
 
 ### Generic quantity
 
-Generic quantities are any countable thing, such as members, proposals, votes, block number.
+Generic quantities are any countable thing, such as members, proposals, votes, block number, etc.
 
 **Examples**:
 
-<table>
-    <thead>
-        <tr className="text-left">
-            <th>Value</th>
-            <th>Short</th>
-            <th>Long</th>
-        </tr>
-    </thead>
-    <tbody>
-        {formatValues.map((value) => (
-            <tr key={value}>
-                <td>{value}</td>
-                <td>{formatterUtils.formatNumber(value, { format: NumberFormat.GENERIC_SHORT })}</td>
-                <td>{formatterUtils.formatNumber(value, { format: NumberFormat.GENERIC_LONG })}</td>
-            </tr>
-        ))}
-    </tbody>
-</table>
+<FormatExampleTable
+    values={[0, 123, 1234, 1234567, 1234567890, 1234567890123, 1234567890123456]}
+    formatShort={NumberFormat.GENERIC_SHORT}
+    formatLong={NumberFormat.GENERIC_LONG}
+/>
+
+### FIAT totals
+
+Fiat totals are any summed monetary value, such as treasury, fiat equivalents for withdrawals, etc.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[
+        0, 0.0012345678, 0.012345678, 0.12345678, 123.45678, 1234.56789, 1234567.89012, 1234567890.12345,
+        1234567890123.45678, 1234567890123456.78901,
+    ]}
+    formatShort={NumberFormat.FIAT_TOTAL_SHORT}
+    formatLong={NumberFormat.FIAT_TOTAL_LONG}
+/>
