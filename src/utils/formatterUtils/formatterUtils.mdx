@@ -63,3 +63,18 @@ Fiat totals are any summed monetary value, such as treasury, fiat equivalents fo
     formatShort={NumberFormat.FIAT_TOTAL_SHORT}
     formatLong={NumberFormat.FIAT_TOTAL_LONG}
 />
+
+### Token amounts
+
+Token amounts are any whole or fractional amount of token, such as an amount withdrawn, balance, or voting power.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[
+        0, 0.0012, 0.0123456789012345678, 0.12345678901234567, 123.4567, 1234, 1234.5678, 1234567.8901, 1234567890.1234,
+        1234567890123.4567, 1234567890123456.789,
+    ]}
+    formatShort={NumberFormat.TOKEN_AMOUNT_SHORT}
+    formatLong={NumberFormat.TOKEN_AMOUNT_LONG}
+/>

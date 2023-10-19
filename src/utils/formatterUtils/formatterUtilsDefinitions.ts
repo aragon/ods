@@ -34,8 +34,8 @@ export enum NumberFormat {
     GENERIC_LONG = 'GENERIC_LONG',
     FIAT_TOTAL_SHORT = 'FIAT_TOTAL_SHORT',
     FIAT_TOTAL_LONG = 'FIAT_TOTAL_LONG',
-    // TOKEN_AMOUNT_SHORT = 'TOKEN_AMOUNT_SHORT',
-    // TOKEN_AMOUNT_LONG = 'TOKEN_AMOUNT_LONG',
+    TOKEN_AMOUNT_SHORT = 'TOKEN_AMOUNT_SHORT',
+    TOKEN_AMOUNT_LONG = 'TOKEN_AMOUNT_LONG',
     // TOKEN_PRICE_SHORT = 'TOKEN_PRICE_SHORT',
     // TOKEN_PRICE_LONG = 'TOKEN_PRICE_LONG',
     // PERCENTAGE_SHORT = 'PERCENTAGE_SHORT',
@@ -61,6 +61,12 @@ export const numberFormats: Record<NumberFormat, INumberFormat> = {
         minDisplayValue: 0.01,
         isCurrency: true,
     },
-    // [NumberFormat.TOKEN_AMOUNT_SHORT]: {},
-    // [NumberFormat.TOKEN_AMOUNT_LONG]: {},
+    [NumberFormat.TOKEN_AMOUNT_SHORT]: {
+        maxFractionDigits: 2,
+        useBaseSymbol: true,
+        minDisplayValue: 0.01,
+    },
+    [NumberFormat.TOKEN_AMOUNT_LONG]: {
+        maxFractionDigits: 18,
+    },
 };
