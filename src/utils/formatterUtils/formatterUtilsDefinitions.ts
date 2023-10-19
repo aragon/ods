@@ -1,12 +1,21 @@
+export type DynamicOptionFunction<TOptionValue> = (value: number) => TOptionValue | undefined;
+export type DynamicOption<TOptionValue extends string | number = number> =
+    | TOptionValue
+    | DynamicOptionFunction<TOptionValue>;
+
 export interface INumberFormat {
     /**
      * Fixed fraction digits to use to format the number.
      */
-    fixedFractionDigits?: number;
+    fixedFractionDigits?: DynamicOption;
     /**
      * Maximum fraction digits to use to format the number.
      */
     maxFractionDigits?: number;
+    /**
+     * Maximum number of significant digits displayed.
+     */
+    maxSignificantDigits?: DynamicOption;
     /**
      * Minumum fraction digits to use to format the number.
      */
@@ -27,6 +36,15 @@ export interface INumberFormat {
      * Add the sign (-, +) of the number when set to true.
      */
     withSign?: boolean;
+    /**
+     * Fallback to display in case the value is null.
+     */
+    fallback?: string;
+    /**
+     * Displayes the specified fallback when this function returns true, by default the formatter will display
+     * the fallback when the value is NaN.
+     */
+    displayFallback?: (value: number) => boolean;
 }
 
 export enum NumberFormat {
@@ -36,8 +54,7 @@ export enum NumberFormat {
     FIAT_TOTAL_LONG = 'FIAT_TOTAL_LONG',
     TOKEN_AMOUNT_SHORT = 'TOKEN_AMOUNT_SHORT',
     TOKEN_AMOUNT_LONG = 'TOKEN_AMOUNT_LONG',
-    // TOKEN_PRICE_SHORT = 'TOKEN_PRICE_SHORT',
-    // TOKEN_PRICE_LONG = 'TOKEN_PRICE_LONG',
+    TOKEN_PRICE = 'TOKEN_PRICE',
     // PERCENTAGE_SHORT = 'PERCENTAGE_SHORT',
     // PERCENTAGE_LONG = 'PERCENTAGE_LONG',
 }
@@ -68,5 +85,12 @@ export const numberFormats: Record<NumberFormat, INumberFormat> = {
     },
     [NumberFormat.TOKEN_AMOUNT_LONG]: {
         maxFractionDigits: 18,
+    },
+    [NumberFormat.TOKEN_PRICE]: {
+        fixedFractionDigits: (value) => (value >= 1 ? 2 : undefined),
+        maxSignificantDigits: (value) => (value < 1 ? 4 : undefined),
+        isCurrency: true,
+        fallback: 'Unknown',
+        displayFallback: (value) => isNaN(value) || value === 0,
     },
 };

@@ -78,3 +78,18 @@ Token amounts are any whole or fractional amount of token, such as an amount wit
     formatShort={NumberFormat.TOKEN_AMOUNT_SHORT}
     formatLong={NumberFormat.TOKEN_AMOUNT_LONG}
 />
+
+### Token prices
+
+Token prices are the actual price of a specific token. Long and short formats are the same.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[
+        0, 0.0012345678, 0.012345678, 0.12345678, 123.45678, 1234.56789, 1234567.89012, 1234567890.12345,
+        1234567890123.45678, 1234567890123456.78901,
+    ]}
+    formatShort={NumberFormat.TOKEN_PRICE}
+    formatLong={NumberFormat.TOKEN_PRICE}
+/>

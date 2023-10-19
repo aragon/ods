@@ -1,4 +1,4 @@
-import { NumberFormat, numberFormats } from './formatterUtilsDefinitions';
+import { NumberFormat, numberFormats, type DynamicOption } from './formatterUtilsDefinitions';
 
 export interface IFormatNumberOptions {
     /**
@@ -33,26 +33,40 @@ class FormatterUtils {
             fixedFractionDigits,
             maxFractionDigits,
             minFractionDigits,
+            maxSignificantDigits,
             useBaseSymbol,
             minDisplayValue,
             isCurrency,
             withSign,
+            fallback: fallbackFormat,
+            displayFallback,
         } = numberFormats[format];
 
         const parsedValue = typeof value === 'number' ? value : parseFloat(value ?? '');
 
-        if (isNaN(parsedValue)) {
-            return fallback;
+        if (Boolean(displayFallback?.(parsedValue)) || isNaN(parsedValue)) {
+            return fallbackFormat ?? fallback;
         }
 
-        const cacheKey = `number/${this.numberLocale}/${format}`;
+        const fixedFractionDigitsOption = this.getDynamicOption(parsedValue, fixedFractionDigits);
+        const maxSignificantDigitsOption = this.getDynamicOption(parsedValue, maxSignificantDigits);
+
+        const maxDigits = maxSignificantDigitsOption
+            ? this.significantDigitsToFractionDigits(parsedValue, maxSignificantDigitsOption)
+            : fixedFractionDigitsOption ?? maxFractionDigits;
+
+        const minDigits = fixedFractionDigitsOption ?? minFractionDigits;
+
+        const cacheKey = `number/${this.numberLocale}/${this.currencyLocale}/${isCurrency ?? '-'}/${maxDigits ?? '-'}/${
+            minDigits ?? '-'
+        }`;
 
         if (!cache[cacheKey]) {
             cache[cacheKey] = new Intl.NumberFormat(this.numberLocale, {
                 style: isCurrency ? 'currency' : undefined,
                 currency: isCurrency ? this.currencyLocale : undefined,
-                maximumFractionDigits: fixedFractionDigits ?? maxFractionDigits,
-                minimumFractionDigits: fixedFractionDigits ?? minFractionDigits,
+                maximumFractionDigits: maxDigits,
+                minimumFractionDigits: minDigits,
             });
         }
 
@@ -87,7 +101,15 @@ class FormatterUtils {
         return `+${formattedValue}`;
     };
 
+    private getDynamicOption = <TOptionValue extends string | number = number>(
+        value: number,
+        option?: DynamicOption<TOptionValue>,
+    ): TOptionValue | undefined => (typeof option === 'function' ? option(value) : option);
+
     private getDecimalPlaces = (value: number) => value.toString().split('.')[0].length;
+
+    private significantDigitsToFractionDigits = (value: number, digits: number) =>
+        value === 0 ? 0 : Math.floor(digits - Math.log10(value));
 }
 
 export const formatterUtils = new FormatterUtils();
