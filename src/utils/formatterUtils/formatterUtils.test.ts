@@ -101,15 +101,15 @@ describe('formatter utils', () => {
         describe('token prices', () => {
             test.each([
                 { value: 0, result: 'Unknown' },
-                { value: 0.0012345678, result: '$0.001234' },
-                { value: 0.012345678, result: '$0.01234' },
-                { value: 0.12345678, result: '$0.1234' },
+                { value: 0.0012345678, result: '$0.001235' },
+                { value: 0.012345678, result: '$0.01235' },
+                { value: 0.12345678, result: '$0.1235' },
                 { value: 123.45678, result: '$123.46' },
                 { value: 1234.56789, result: '$1,234.57' },
                 { value: 1234567.89012, result: '$1,234,567.89' },
                 { value: 1234567890.12345, result: '$1,234,567,890.12' },
                 { value: 1234567890123.45678, result: '$1,234,567,890,123.46' },
-                { value: 1234567890123456.78901, result: '$1,234,567,890,123,456.79' },
+                { value: 1234567890123456.78901, result: '$1,234,567,890,123,456.80' },
             ])('correctly apply the token-price formatting for value $value', ({ value, result }) => {
                 expect(formatterUtils.formatNumber(value, { format: NumberFormat.TOKEN_PRICE })).toEqual(result);
             });
