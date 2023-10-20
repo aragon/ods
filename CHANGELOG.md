@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
--   Bump `@babel/traverse` from 7.23.0 to 7.23.2 #38
+-   Bump `@babel/traverse` from 7.23.0 to 7.23.2
 
 ## [1.0.1] - 2023-10-16
 
