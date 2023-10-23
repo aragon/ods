@@ -114,5 +114,35 @@ describe('formatter utils', () => {
                 expect(formatterUtils.formatNumber(value, { format: NumberFormat.TOKEN_PRICE })).toEqual(result);
             });
         });
+
+        describe('percentages', () => {
+            test.each([
+                { value: 0, result: '0.00%' },
+                { value: 0.00012345, result: '0.01%' },
+                { value: 0.0012345, result: '0.12%' },
+                { value: 0.012345, result: '1.23%' },
+                { value: 0.12345, result: '12.35%' },
+                { value: 0.510001, result: '51.00%' },
+                { value: 0.9985, result: '99.85%' },
+                { value: 0.999001, result: '99.90%' },
+                { value: 1, result: '100.00%' },
+            ])('correctly apply the long percentage formatting for value $value', ({ value, result }) => {
+                expect(formatterUtils.formatNumber(value, { format: NumberFormat.PERCENTAGE_LONG })).toEqual(result);
+            });
+
+            test.each([
+                { value: 0, result: '0%' },
+                { value: 0.00012345, result: '<0.1%' },
+                { value: 0.0012345, result: '0.1%' },
+                { value: 0.012345, result: '1.2%' },
+                { value: 0.12345, result: '12.3%' },
+                { value: 0.510001, result: '51%' },
+                { value: 0.9985, result: '99.9%' },
+                { value: 0.999001, result: '>99.9%' },
+                { value: 1, result: '100%' },
+            ])('correctly apply the short percentage formatting for value $value', ({ value, result }) => {
+                expect(formatterUtils.formatNumber(value, { format: NumberFormat.PERCENTAGE_SHORT })).toEqual(result);
+            });
+        });
     });
 });

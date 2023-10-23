@@ -25,17 +25,21 @@ export interface INumberFormat {
      */
     useBaseSymbol?: boolean;
     /**
-     * Formats the number as "< $value" when set.
+     * Formats the number as "< $value" when the value is lower than the one specified.
      */
     minDisplayValue?: number;
+    /**
+     * Formats the number as "> $value" when the value is higher than the one specified.
+     */
+    maxDisplayValue?: number;
     /**
      * Format the number with the default currency when set to true.
      */
     isCurrency?: boolean;
     /**
-     * Add the sign (-, +) of the number when set to true.
+     * Format the number as a percentage when set to true.
      */
-    withSign?: boolean;
+    isPercentage?: boolean;
     /**
      * Fallback to display in case the value is null.
      */
@@ -55,8 +59,8 @@ export enum NumberFormat {
     TOKEN_AMOUNT_SHORT = 'TOKEN_AMOUNT_SHORT',
     TOKEN_AMOUNT_LONG = 'TOKEN_AMOUNT_LONG',
     TOKEN_PRICE = 'TOKEN_PRICE',
-    // PERCENTAGE_SHORT = 'PERCENTAGE_SHORT',
-    // PERCENTAGE_LONG = 'PERCENTAGE_LONG',
+    PERCENTAGE_SHORT = 'PERCENTAGE_SHORT',
+    PERCENTAGE_LONG = 'PERCENTAGE_LONG',
 }
 
 export const numberFormats: Record<NumberFormat, INumberFormat> = {
@@ -92,5 +96,15 @@ export const numberFormats: Record<NumberFormat, INumberFormat> = {
         isCurrency: true,
         fallback: 'Unknown',
         displayFallback: (value) => isNaN(value) || value === 0,
+    },
+    [NumberFormat.PERCENTAGE_SHORT]: {
+        maxFractionDigits: 1,
+        minDisplayValue: 0.1,
+        maxDisplayValue: 99.9,
+        isPercentage: true,
+    },
+    [NumberFormat.PERCENTAGE_LONG]: {
+        fixedFractionDigits: 2,
+        isPercentage: true,
     },
 };

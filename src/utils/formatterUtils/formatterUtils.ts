@@ -36,8 +36,9 @@ class FormatterUtils {
             maxSignificantDigits,
             useBaseSymbol,
             minDisplayValue,
+            maxDisplayValue,
             isCurrency,
-            withSign,
+            isPercentage,
             fallback: fallbackFormat,
             displayFallback,
         } = numberFormats[format];
@@ -74,14 +75,17 @@ class FormatterUtils {
         const baseRangeDenominator =
             parsedValue > 1e15 ? 10 ** (this.getDecimalPlaces(parsedValue) - 1) : baseRange?.value ?? 1;
 
-        let processedValue = parsedValue;
+        let processedValue = isPercentage ? parsedValue * 100 : parsedValue;
 
-        // Set the processedValue to the minDisplayValue (e.g. 0.0012 to 0.01) when the value is not zero and
-        // smaller than the minDisplayValue
-        const useMinDisplayValue = minDisplayValue != null && parsedValue > 0 && parsedValue < minDisplayValue;
+        // Set the processedValue to the minDisplayValue (e.g. 0.0012 to 0.01) or maxDisplayValue (e.g. 99.99 to 99.9)
+        // when the value is not zero / 100 and smaller / higher than the minDisplayValue / maxDisplayValue
+        const useMinDisplayValue = minDisplayValue != null && processedValue > 0 && processedValue < minDisplayValue;
+        const useMaxDisplayValue = maxDisplayValue != null && processedValue < 100 && processedValue > maxDisplayValue;
 
         if (useMinDisplayValue) {
             processedValue = minDisplayValue;
+        } else if (useMaxDisplayValue) {
+            processedValue = maxDisplayValue;
         } else if (useBaseSymbol) {
             processedValue = parsedValue / baseRangeDenominator;
         }
@@ -92,13 +96,15 @@ class FormatterUtils {
             formattedValue = `${formattedValue}${baseRange.symbol(parsedValue)}`;
         } else if (useMinDisplayValue) {
             formattedValue = `<${formattedValue}`;
+        } else if (useMaxDisplayValue) {
+            formattedValue = `>${formattedValue}`;
         }
 
-        if (!withSign || processedValue < 0) {
-            return formattedValue;
+        if (isPercentage) {
+            return `${formattedValue}%`;
         }
 
-        return `+${formattedValue}`;
+        return formattedValue;
     };
 
     private getDynamicOption = <TOptionValue extends string | number = number>(
