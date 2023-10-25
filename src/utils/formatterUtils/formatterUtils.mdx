@@ -1,0 +1,108 @@
+import { Meta } from '@storybook/blocks';
+import { NumberFormat } from './formatterUtilsDefinitions';
+import { formatterUtils } from './formatterUtils';
+
+<Meta title="Utilities/Formatter" />
+
+export const FormatExampleTable = ({ values, formatShort, formatLong }) => (
+    <table>
+        <thead>
+            <tr className="text-left">
+                <th>VALUE</th>
+                <th>{formatLong}</th>
+                <th>{formatShort}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {values.map((value) => (
+                <tr key={value}>
+                    <td>{value}</td>
+                    <td>{formatterUtils.formatNumber(value, { format: formatLong })}</td>
+                    <td>{formatterUtils.formatNumber(value, { format: formatShort })}</td>
+                </tr>
+            ))}
+        </tbody>
+    </table>
+);
+
+# Formatter Utils
+
+Use the `formatterUtils` utility to format numbers and dates (soon) across the application.
+
+## Number formatting
+
+The `formatNumber` utility currently supports 5 formats, which are used depending on the type of data that is being
+formatted. For each format we have then 2 variants:
+
+-   **Long**: the full value which we show only when there is enough space and the user needs precision
+-   **Short**: the abbreviated value which we show when space is limited and the user doesn't need as much precision
+
+### Generic quantity
+
+Generic quantities are any countable thing, such as members, proposals, votes, block number, etc.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[0, 123, 1234, 1234567, 1234567890, 1234567890123, 1234567890123456]}
+    formatShort={NumberFormat.GENERIC_SHORT}
+    formatLong={NumberFormat.GENERIC_LONG}
+/>
+
+### FIAT totals
+
+Fiat totals are any summed monetary value, such as treasury, fiat equivalents for withdrawals, etc.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[
+        0, 0.0012345678, 0.012345678, 0.12345678, 123.45678, 1234.56789, 1234567.89012, 1234567890.12345,
+        1234567890123.45678, 1234567890123456.78901,
+    ]}
+    formatShort={NumberFormat.FIAT_TOTAL_SHORT}
+    formatLong={NumberFormat.FIAT_TOTAL_LONG}
+/>
+
+### Token amounts
+
+Token amounts are any whole or fractional amount of token, such as an amount withdrawn, balance, or voting power.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[
+        0, 0.0012, 0.0123456789012345678, 0.12345678901234567, 123.4567, 1234, 1234.5678, 1234567.8901, 1234567890.1234,
+        1234567890123.4567, 1234567890123456.789,
+    ]}
+    formatShort={NumberFormat.TOKEN_AMOUNT_SHORT}
+    formatLong={NumberFormat.TOKEN_AMOUNT_LONG}
+/>
+
+### Token prices
+
+Token prices are the actual price of a specific token. For the token price format, the long and short variants are the same.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[
+        0, 0.0012345678, 0.012345678, 0.12345678, 123.45678, 1234.56789, 1234567.89012, 1234567890.12345,
+        1234567890123.45678, 1234567890123456.78901,
+    ]}
+    formatShort={NumberFormat.TOKEN_PRICE}
+    formatLong={NumberFormat.TOKEN_PRICE}
+/>
+
+### Percentages
+
+Percentages are used in various places, such as to describe voting outcomes, governance parameters, voting power out
+of the total supply, etc.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[0, 0.00012345, 0.0012345, 0.012345, 0.12345, 0.510001, 0.9985, 0.999001, 1]}
+    formatShort={NumberFormat.PERCENTAGE_SHORT}
+    formatLong={NumberFormat.PERCENTAGE_LONG}
+/>

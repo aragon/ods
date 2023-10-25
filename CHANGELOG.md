@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   Implement `formatterUtils` class to format numbers
+
 ### Changed
 
 -   Bump `@babel/traverse` from 7.23.0 to 7.23.2
