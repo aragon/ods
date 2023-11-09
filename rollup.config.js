@@ -9,7 +9,6 @@ const { visualizer } = require('rollup-plugin-visualizer');
 const tsConfig = require('./tsconfig.json');
 const { outDir } = tsConfig.compilerOptions;
 
-const package = require('./package.json');
 const analyze = process.env.ANALYZE === 'true';
 
 module.exports = [
@@ -35,7 +34,7 @@ module.exports = [
                 plugins: [analyze ? visualizer({ filename: 'stats.cjs.html', open: true }) : undefined],
             },
         ],
-        external: Object.keys(package.dependencies),
+        external: [/node_modules/, 'tslib'],
         plugins: [
             nodeResolve(),
             commonjs(),
