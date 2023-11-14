@@ -3,12 +3,13 @@ const images = require('@rollup/plugin-image');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
 const terser = require('@rollup/plugin-terser');
 const typescript = require('@rollup/plugin-typescript');
-const postcss = require('rollup-plugin-postcss');
 const { visualizer } = require('rollup-plugin-visualizer');
+const svgr = require('@svgr/rollup');
 
 const tsConfig = require('./tsconfig.json');
 const { outDir } = tsConfig.compilerOptions;
 
+const package = require('./package.json');
 const analyze = process.env.ANALYZE === 'true';
 
 module.exports = [
@@ -34,32 +35,32 @@ module.exports = [
                 plugins: [analyze ? visualizer({ filename: 'stats.cjs.html', open: true }) : undefined],
             },
         ],
-        external: [/node_modules/, 'tslib'],
+        external: Object.keys(package.dependencies),
         plugins: [
+            // Locate and resolve node modules
             nodeResolve(),
+
+            // Convert CommonJs modules to ES6
             commonjs(),
+
+            // Compile ts files and generate type declarations
             typescript({
                 compilerOptions: {
                     noEmit: false,
                     declaration: true,
-                    emitDeclarationOnly: true,
                     declarationDir: `${outDir}/types`,
                     outDir,
                 },
                 exclude: ['**/*.spec.tsx', '**/*.spec.ts', '**/*.test.tsx', '**/*.test.ts', '**/*.stories.tsx'],
             }),
 
-            postcss({
-                config: {
-                    path: './postcss.config.js',
-                },
-                extensions: ['.css'],
-                minimize: true,
-                inject: {
-                    insertAt: 'top',
-                },
-            }),
-            images({ include: ['**/*.png', '**/*.jpg', '**/*.svg'] }),
+            // Bundle png and jpg images
+            images({ include: ['**/*.png', '**/*.jpg'] }),
+
+            // Bundle svg files
+            svgr(),
+
+            // Generate a minified bundle
             terser(),
         ],
     },

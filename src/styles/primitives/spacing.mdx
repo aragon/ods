@@ -1,10 +1,24 @@
 import { Meta } from '@storybook/blocks';
 import { Figma } from '@storybook/addon-designs/blocks';
+import resolveConfig from 'tailwindcss/resolveConfig';
 import classNames from 'classnames';
-
-import { docsUtils } from '../../utils';
+import tailwindConfig from '../../../tailwind.config';
 
 <Meta title="Design Tokens/Primitive/Spacing" />
+
+export const getSpacingConfig = () => {
+    const spacers = Object.entries(resolveConfig(tailwindConfig).theme?.spacing ?? {});
+    const spacerItems = spacers.map(([key, value]) => {
+        const parsedKey = parseFloat(key);
+        const pxSize = Number.isNaN(parsedKey) ? 1 : 4 * parsedKey;
+        const remSize = Number.isNaN(parsedKey) ? 1 : pxSize / 16;
+
+        return { key, px: pxSize, rem: remSize, value };
+    });
+
+    return spacerItems.sort((a, b) => a.px - b.px);
+
+};
 
 export const DisplayComponent = ({ name, value, sizePx, sizeRem }) => {
     return (
@@ -13,7 +27,7 @@ export const DisplayComponent = ({ name, value, sizePx, sizeRem }) => {
             <td className="border-b px-4 py-2">{`${sizeRem}${sizeRem === 1 || sizeRem === 0 ? 'px' : 'rem'}`}</td>
             <td className="border-b px-4 py-2">{`${sizePx}px`}</td>
             <td className="border-b px-4 py-2">
-                <div style={{ width: value }} className="bg-cyan-300 h-6" />
+                <div style={{ width: value }} className="h-6 bg-primary-300" />
             </td>
         </tr>
     );
@@ -32,7 +46,7 @@ export const DisplayComponent = ({ name, value, sizePx, sizeRem }) => {
             </tr>
         </thead>
         <tbody>
-            {docsUtils.getSpacingConfig().map(({ key, px, rem, value }) => (
+            {getSpacingConfig().map(({ key, px, rem, value }) => (
                 <DisplayComponent key={key} name={key} sizePx={px} sizeRem={rem} value={value} />
             ))}
         </tbody>

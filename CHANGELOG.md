@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+-   Introduce `@svgr/rollup` to correctly bundle SVGs
+
+### Removed
+
+-   Remove redundant `postcss` step and dependency
+-   Do not include `tailwindcss` configuration utilities into bundle
+
+### Changed
+
+-   Bundle `tslib` utilities into library by removing `importHelpers` TypeScript configuration
+
 ## [1.0.4] - 2023-11-09
 
 ### Fixed
