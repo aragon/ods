@@ -30,15 +30,9 @@ const variantToClassName: Record<TagVariant, string> = {
 export const Tag: React.FC<ITagProps> = (props) => {
     const { label, variant = 'neutral', className } = props;
 
-    const classes = classNames(
-        'flex h-5 items-center rounded px-1 text-sm font-semibold leading-tight md:text-base',
-        variantToClassName[variant],
-        className,
-    );
-
     return (
-        <div className={classes}>
-            <p>{label}</p>
+        <div className={classNames('flex h-5 items-center rounded px-1', variantToClassName[variant], className)}>
+            <p className="text-sm font-semibold leading-tight md:text-base">{label}</p>
         </div>
     );
 };
