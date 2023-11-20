@@ -10,11 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 -   Update `lint-staged` to v15
+-   Update `babel` and `rollup` dependencies
 
 ### Fixed
 
 -   Introduce `@svgr/rollup` to correctly bundle SVGs
 -   Remove redundant `jackspeak` dependency resolution
+-   Move `"@svgr/rollup` dependency to dev dependencies
 
 ### Removed
 
