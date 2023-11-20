@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+-   Update `lint-staged` to v15
+
 ### Fixed
 
 -   Introduce `@svgr/rollup` to correctly bundle SVGs
+-   Remove redundant `jackspeak` dependency resolution
 
 ### Removed
 
