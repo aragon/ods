@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Introduce `@svgr/rollup` to correctly bundle SVGs
 -   Remove redundant `jackspeak` dependency resolution
+-   Move `"@svgr/rollup` dependency to dev dependencies
 
 ### Removed
 
