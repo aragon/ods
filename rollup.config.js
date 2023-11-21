@@ -5,6 +5,7 @@ const terser = require('@rollup/plugin-terser');
 const typescript = require('@rollup/plugin-typescript');
 const { visualizer } = require('rollup-plugin-visualizer');
 const svgr = require('@svgr/rollup');
+const postcss = require('rollup-plugin-postcss');
 
 const tsConfig = require('./tsconfig.json');
 const { outDir } = tsConfig.compilerOptions;
@@ -63,5 +64,10 @@ module.exports = [
             // Generate a minified bundle
             terser(),
         ],
+    },
+    {
+        input: 'index.css',
+        output: { file: 'build.css' },
+        plugins: [postcss({ plugins: [], extract: true, minimize: true })],
     },
 ];

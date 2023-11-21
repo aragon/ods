@@ -7,6 +7,7 @@ coverage
 # production
 build
 build.txt
+build.css
 dist
 dist-ssr
 *.local
