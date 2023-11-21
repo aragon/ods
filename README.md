@@ -1,7 +1,7 @@
 ![Aragon](https://res.cloudinary.com/duvrxe0m9/image/upload/v1686656588/aragon-sdk_tjosse.png)
 
 <p align="center">
-  <a href="https://aragon.org/">Aragon website</a>
+  <a href="https://aragon.org/">Aragon Website</a>
   •
   <a href="https://devs.aragon.org/">Developer Portal</a>
   •
@@ -14,43 +14,14 @@
 
 # Aragon ODS
 
-Aragon Open Design System (Aragon ODS) is an open source and human-centric design system specifically designed for the Aragon App.
-It provides a unified and easy-to-use framework for creating visually consistent and engaging interfaces that prioritize
-user experience throughout the Aragon ecosystem. Aragon ODS is currently in alpha version, with documentation updates planned for Q2.
-The developed components are expected to be available in the coming months.
+The Aragon Open Design System (ODS) is an open source and human-centric design system specifically designed for the Aragon App.
+It provides a unified and easy-to-use framework for creating visually consistent and engaging interfaces, prioritizing user experience throughout the Aragon ecosystem.
 
-## Installation
-
-Install the `@aragon/ods` library and using yarn or npm:
-
-Yarn:
-
-```shell
-yarn add @aragon/ods
-```
-
-Npm:
-
-```shell
-npm install @aragon/ods
-```
+**NOTE**: The Aragon ODS library is currenlty in alpha version, breaking changes are likely to occur.
 
 ## Usage
 
-Import the `@aragon/ods` library on your application and use the components:
-
-```typescript
-import React from 'react';
-import { Tag } from '@aragon/ods';
-
-export default function App() {
-    return (
-        <div>
-            <Tag colorScheme="primary">My label</Tag>
-        </div>
-    );
-}
-```
+Visit the [Installation documentation page](https://aragon.github.io/ods/?path=/docs/docs-installation) to correctly install, setup and use the library.
 
 ## Contributing
 

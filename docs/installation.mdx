@@ -4,46 +4,65 @@ import { Meta } from '@storybook/blocks';
 
 # Installation
 
-TODO
-
-## 1. Install the library
-
-Install the `@aragon/ods` library and using yarn or npm:
+Install the `@aragon/ods` library and using Yarn or npm:
 
 Yarn:
 
 ```shell
-yarn add @aragon/ods tailwindcss tailwindcss-fluid-type
+yarn add @aragon/ods
 ```
 
 Npm:
 
 ```shell
-npm install @aragon/ods tailwindcss tailwindcss-fluid-type
+npm install @aragon/ods
 ```
 
-**NOTE:** `react` and `react-dom` are also required to correctly use the library:
+# Setup
 
-```json
-"peerDependencies": {
-    "react": ">=17",
-    "react-dom": ">=17",
-},
-```
+You can setup the Aragon ODS library in your project with [Taildwind CSS](https://tailwindcss.com) or as a standalone library:
 
-## 2. Usage
+-   Follow the [Setup with TaildindCSS](#setup-with-tailwindcss) guide if you are using or planning to use `Tailwind CSS` for your project.
+-   Follow the [Standalone Setup](#standalone-setup) guide if you are using your own or another UI library.
 
-Import the `@aragon/ods` library on your application and use the components:
+## Setup with Tailwind CSS
+
+-   (Optional) Setup `Tailwind CSS` for your project by following their [installation guide](https://tailwindcss.com/docs/installation).
+
+-   Update the `tailwind.config.js` configuration file as follows:
+
+    ```javascript
+    module.exports = {
+        presets: [require('@aragon/ods/tailwind.config')],
+        content: ['./src/**/*.{jsx,tsx,html}', './node_modules/@aragon/ods/**/*.js'],
+    };
+    ```
+
+-   Import the Aragon ODS styles in your project entry file (e.g. `src/index.js` or `App.js`):
+
+    ```typescript
+    import '@aragon/ods/index.css';
+    ```
+
+## Standalone Setup
+
+-   Import the Aragon ODS stylesheet bundle in your project entry file (e.g. `src/index.js` or `App.js`):
+
+    ```typescript
+    import '@aragon/ods/bundle.css';
+    ```
+
+# Usage
+
+Import the `@aragon/ods` library on your application and start using the components:
 
 ```typescript
 import React from 'react';
-import { Tag } from '@aragon/ods';
+import { Button } from '@aragon/ods';
 
-export default function App() {
-    return (
-        <div>
-            <Tag colorScheme="primary">My label</Tag>
-        </div>
-    );
+export const App: React.FC = () => (
+    <div>
+        <Button variant="primary" size="lg">My label</Tag>
+    </div>
 }
 ```

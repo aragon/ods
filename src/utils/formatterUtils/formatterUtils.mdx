@@ -27,19 +27,28 @@ export const FormatExampleTable = ({ values, formatShort, formatLong }) => (
 
 # Formatter Utils
 
-Use the `formatterUtils` utility to format numbers and dates (soon) across the application.
+Use the `formatterUtils` utility to format numbers and dates (soon) across your application.
 
-## Number formatting
+## Number Formatting
 
-The `formatNumber` utility currently supports 5 formats, which are used depending on the type of data that is being
-formatted. For each format we have then 2 variants:
+The `formatNumber` utility currently supports 5 formats, each with two variants based on the type of data being formatted:
 
--   **Long**: the full value which we show only when there is enough space and the user needs precision
--   **Short**: the abbreviated value which we show when space is limited and the user doesn't need as much precision
+-   **Long**: The full value is displayed when there is enough space and the user needs precision.
+-   **Short**: An abbreviated value is shown when space is limited and less precision is required.
+
+### Usage
+
+Import the `formatterUtils` utility and start using it as follows:
+
+```typescript
+import { NumberFormat, formatterUtils } from '@aragon/ods';
+
+const formattedQuantity = formatterUtils.formatNumber(amount, { format: NumberFormat.TOKEN_AMOUNT_SHORT });
+```
 
 ### Generic quantity
 
-Generic quantities are any countable thing, such as members, proposals, votes, block number, etc.
+Generic quantities represent any countable thing, such as members, proposals, votes, block numbers, etc.
 
 **Examples**:
 
@@ -51,7 +60,7 @@ Generic quantities are any countable thing, such as members, proposals, votes, b
 
 ### FIAT totals
 
-Fiat totals are any summed monetary value, such as treasury, fiat equivalents for withdrawals, etc.
+Fiat totals represent any summed monetary value, such as treasury amounts or fiat equivalents for withdrawals.
 
 **Examples**:
 
@@ -66,7 +75,7 @@ Fiat totals are any summed monetary value, such as treasury, fiat equivalents fo
 
 ### Token amounts
 
-Token amounts are any whole or fractional amount of token, such as an amount withdrawn, balance, or voting power.
+Token amounts represent whole or fractional amounts of tokens, such as withdrawals, balances, or voting power.
 
 **Examples**:
 
@@ -81,7 +90,7 @@ Token amounts are any whole or fractional amount of token, such as an amount wit
 
 ### Token prices
 
-Token prices are the actual price of a specific token. For the token price format, the long and short variants are the same.
+Token prices represent the actual price of a specific token. For token price formatting, the long and short variants are the same.
 
 **Examples**:
 
@@ -96,8 +105,7 @@ Token prices are the actual price of a specific token. For the token price forma
 
 ### Percentages
 
-Percentages are used in various places, such as to describe voting outcomes, governance parameters, voting power out
-of the total supply, etc.
+Percentages are used in various contexts, such as describing voting outcomes, governance parameters, or voting power out of the total supply.
 
 **Examples**:
 
