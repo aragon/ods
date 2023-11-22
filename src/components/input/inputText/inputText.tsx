@@ -4,12 +4,11 @@ import { useInputProps } from '../useInputProps';
 export interface IInputTextProps extends Omit<IInputComponentProps, 'type'> {}
 
 export const InputText: React.FC<IInputTextProps> = (props) => {
-    const { containerProps, inputProps, inputClasses } = useInputProps(props);
-    const { isDisabled } = props;
+    const { containerProps, inputProps } = useInputProps(props);
 
     return (
         <InputContainer {...containerProps}>
-            <input type="text" className={inputClasses} disabled={isDisabled} {...inputProps} />
+            <input type="text" {...inputProps} />
         </InputContainer>
     );
 };
