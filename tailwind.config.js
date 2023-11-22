@@ -165,6 +165,8 @@ module.exports = {
             'critical-lg': 'var(--ods-shadow-critical-lg)',
             'critical-xl': 'var(--ods-shadow-critical-xl)',
             'critical-2xl': 'var(--ods-shadow-critical-2xl)',
+
+            none: 'var(--ods-shadow-none)',
         },
         screens: {
             sm: '640px',

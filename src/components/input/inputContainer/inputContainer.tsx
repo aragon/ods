@@ -1,74 +1,48 @@
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
 import { AlertInline } from '../../alerts';
+import type { IInputContainerProps, InputVariant } from './inputContainer.api';
 
-export type InputVariant = 'default' | 'warning' | 'critical';
-
-export interface IInputContainerProps {
-    /**
-     * Label of the input.
-     */
-    label?: string;
-    /**
-     * Variant of the input.
-     * @default default
-     */
-    variant?: InputVariant;
-    /**
-     * Help text displayed above the input.
-     */
-    helpText?: string;
-    /**
-     * Displays the optional tag when set to true.
-     */
-    isOptional?: boolean;
-    /**
-     * Additional information displayed below the input.
-     */
-    infoText?: string;
-    /**
-     * Alert message displayed below the input.
-     */
-    alertMessage?: string;
-    /**
-     * Children of the component.
-     */
-    children?: ReactNode;
-    /**
-     * Classes for the component.
-     */
-    className?: string;
-}
-
-const variantToClassNames: Record<InputVariant, string[]> = {
+const variantToClassNames: Record<InputVariant | 'disabled', string[]> = {
     default: [
-        'border-neutral-100', // Default state
+        'border-neutral-100 bg-neutral-0', // Default state
         'hover:border-neutral-200 hover:shadow-neutral-md', // Hover state
         'focus-within:outline-primary-200 focus-within:border-primary-200 focus-within:shadow-primary-md', // Focus state
         'focus-within:hover:border-primary-200 focus-within:hover:shadow-primary-md', // Focus + Hover state
     ],
     warning: [
-        'border-warning-500', // Default state
+        'border-warning-500 bg-neutral-0', // Default state
         'hover:border-warning-600 hover:shadow-warning-md', // Hover state
         'focus-within:outline-warning-600 focus-within:border-warning-600 focus-within:shadow-warning-md', // Focus state
         'focus-within:hover:border-warning-600 focus-within:hover:shadow-warning-md', // Focus + Hover state
     ],
     critical: [
-        'border-critical-500', // Default state
+        'border-critical-500 bg-neutral-0', // Default state
         'hover:border-critical-600 hover:shadow-critical-md', // Hover state
         'focus-within:outline-critical-600 focus-within:border-critical-600 focus-within:shadow-critical-md', // Focus state
         'focus-within:hover:border-critical-600 focus-within:hover:shadow-critical-md', // Focus + Hover state
     ],
+    disabled: ['border-neutral-200 bg-neutral-100 cursor-not-allowed'],
 };
 
 export const InputContainer: React.FC<IInputContainerProps> = (props) => {
-    const { label, variant = 'default', helpText, isOptional, infoText, alertMessage, children, className } = props;
+    const {
+        label,
+        variant = 'default',
+        helpText,
+        isOptional,
+        infoText,
+        alertMessage,
+        isDisabled,
+        children,
+        className,
+    } = props;
 
+    const processedVariant = isDisabled ? 'disabled' : variant;
     const containerClasses = classNames(
-        'h-12 w-80 rounded-xl border bg-neutral-0 text-neutral-600 transition-all', // Default
+        'h-12 w-80 rounded-xl border text-neutral-600 transition-all', // Default
         'outline-1 focus-within:outline', // Outline on focus
         'text-base font-normal leading-tight', // Typography
-        variantToClassNames[variant],
+        variantToClassNames[processedVariant],
     );
 
     return (

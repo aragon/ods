@@ -1,27 +1,16 @@
-import classNames from 'classnames';
-import { type InputHTMLAttributes } from 'react';
-import { InputContainer, type IInputContainerProps } from '../inputContainer';
+import { InputContainer, inputContainerUtils, type IInputContainerInputProps } from '../inputContainer';
 
-export interface IInputTextProps extends Omit<IInputContainerProps, 'children'>, InputHTMLAttributes<HTMLInputElement> {
-    /**
-     * Classes for the input element.
-     */
-    inputClassName?: string;
-}
+export interface IInputTextProps extends Omit<IInputContainerInputProps, 'type'> {}
 
 export const InputText: React.FC<IInputTextProps> = (props) => {
-    const { label, variant, helpText, isOptional, infoText, alertMessage, inputClassName, ...inputProps } = props;
-    const containerProps = { label, variant, helpText, isOptional, infoText, alertMessage };
+    const { containerProps, inputProps } = inputContainerUtils.extractContainerProps(props);
+    const { isDisabled, inputClassName } = props;
 
-    const inputClasses = classNames(
-        'h-full w-full rounded-xl px-4 py-3 outline-none', // Default
-        'placeholder:text-base placeholder:font-normal placeholder:leading-tight placeholder:text-neutral-300', // Placeholder
-        inputClassName, // Prop
-    );
+    const inputClasses = inputContainerUtils.buildInputClasses({ isDisabled, inputClassName });
 
     return (
         <InputContainer {...containerProps}>
-            <input className={inputClasses} {...inputProps} />
+            <input type="text" className={inputClasses} disabled={isDisabled} {...inputProps} />
         </InputContainer>
     );
 };
