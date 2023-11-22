@@ -19,7 +19,9 @@ type Story = StoryObj<typeof InputText>;
  * Default usage example of the InputText component.
  */
 export const Default: Story = {
-    args: {},
+    args: {
+        placeholder: 'Placeholder',
+    },
 };
 
 export default meta;
