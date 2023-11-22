@@ -33,6 +33,10 @@ export interface IInputContainerProps {
      */
     alertMessage?: string;
     /**
+     * Id of the input field.
+     */
+    id: string;
+    /**
      * Children of the component.
      */
     children?: ReactNode;
@@ -42,8 +46,8 @@ export interface IInputContainerProps {
     className?: string;
 }
 
-export interface IInputContainerInputProps
-    extends Omit<IInputContainerProps, 'children'>,
+export interface IInputComponentProps
+    extends Omit<IInputContainerProps, 'children' | 'id'>,
         InputHTMLAttributes<HTMLInputElement> {
     /**
      * Classes for the input element.

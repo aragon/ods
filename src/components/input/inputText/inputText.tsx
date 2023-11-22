@@ -1,12 +1,11 @@
-import { InputContainer, inputContainerUtils, type IInputContainerInputProps } from '../inputContainer';
+import { InputContainer, type IInputComponentProps } from '../inputContainer';
+import { useInputProps } from '../useInputProps';
 
-export interface IInputTextProps extends Omit<IInputContainerInputProps, 'type'> {}
+export interface IInputTextProps extends Omit<IInputComponentProps, 'type'> {}
 
 export const InputText: React.FC<IInputTextProps> = (props) => {
-    const { containerProps, inputProps } = inputContainerUtils.extractContainerProps(props);
-    const { isDisabled, inputClassName } = props;
-
-    const inputClasses = inputContainerUtils.buildInputClasses({ isDisabled, inputClassName });
+    const { containerProps, inputProps, inputClasses } = useInputProps(props);
+    const { isDisabled } = props;
 
     return (
         <InputContainer {...containerProps}>

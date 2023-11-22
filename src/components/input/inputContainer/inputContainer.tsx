@@ -35,6 +35,7 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
         isDisabled,
         children,
         className,
+        id,
     } = props;
 
     const processedVariant = isDisabled ? 'disabled' : variant;
@@ -48,7 +49,7 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
     return (
         <div className={classNames('flex flex-col gap-2', className)}>
             {(label != null || helpText != null) && (
-                <div className="flex flex-col gap-0.5">
+                <label className="flex flex-col gap-0.5" htmlFor={id}>
                     {label && (
                         <div className="flex flex-row items-center gap-3">
                             <p className="text-base font-semibold leading-normal text-neutral-600">{label}</p>
@@ -56,7 +57,7 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
                         </div>
                     )}
                     {helpText && <p className="text-sm font-normal leading-normal text-neutral-800">{helpText}</p>}
-                </div>
+                </label>
             )}
             <div className={containerClasses}>{children}</div>
             {infoText && <p className="text-sm font-normal leading-tight text-neutral-600">{infoText}</p>}

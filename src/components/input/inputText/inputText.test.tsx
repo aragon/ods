@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { InputText, type IInputTextProps } from './inputText';
 
 describe('<InputText /> component', () => {
@@ -8,8 +8,20 @@ describe('<InputText /> component', () => {
         return <InputText {...completeProps} />;
     };
 
-    it('TODO', () => {
+    it('renders a text input element', () => {
         render(createTestComponent());
-        // TODO
+        expect(screen.getByRole('textbox')).toBeInTheDocument();
+    });
+
+    it('disables the text input when isDisabled is set to true', () => {
+        const isDisabled = true;
+        render(createTestComponent({ isDisabled }));
+        expect(screen.getByRole<HTMLInputElement>('textbox').disabled).toBeTruthy();
+    });
+
+    it('applies the input class names when defined', () => {
+        const inputClassName = 'class-test';
+        render(createTestComponent({ inputClassName }));
+        expect(screen.getByRole('textbox').className).toContain(inputClassName);
     });
 });
