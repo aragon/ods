@@ -2,8 +2,8 @@ name: Storybook Publish
 
 on:
   push:
-    tags:
-      - "*"
+    branches:
+      - main
 
 env:
   NODE_VERSION: 18
