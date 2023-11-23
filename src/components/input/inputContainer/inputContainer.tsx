@@ -25,6 +25,11 @@ const variantToClassNames: Record<InputVariant | 'disabled', string[]> = {
     disabled: ['border-neutral-200 bg-neutral-100 cursor-not-allowed'],
 };
 
+/**
+ * The InputContainer component provides a consistent and shared styling foundation for various input components, such
+ * as `InputText`, `InputNumber` and others. It also manages properties that are shared across all input components,
+ * including `label`, `helpText` and more.
+ */
 export const InputContainer: React.FC<IInputContainerProps> = (props) => {
     const {
         label,
