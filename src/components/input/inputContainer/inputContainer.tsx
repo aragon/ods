@@ -54,6 +54,7 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
                     {label && (
                         <div className="flex flex-row items-center gap-3">
                             <p className="text-base font-semibold leading-normal text-neutral-600">{label}</p>
+                            {/* TODO: apply internationalisation to Optional label [APP-2627] */}
                             {isOptional && <Tag variant="neutral" label="Optional" />}
                         </div>
                     )}
