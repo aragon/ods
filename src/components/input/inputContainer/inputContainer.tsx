@@ -7,8 +7,8 @@ const variantToClassNames: Record<InputVariant | 'disabled', string[]> = {
     default: [
         'border-neutral-100 bg-neutral-0', // Default state
         'hover:border-neutral-200 hover:shadow-neutral-md', // Hover state
-        'focus-within:outline-primary-200 focus-within:border-primary-200 focus-within:shadow-primary-md', // Focus state
-        'focus-within:hover:border-primary-200 focus-within:hover:shadow-primary-md', // Focus + Hover state
+        'focus-within:outline-primary-400 focus-within:border-primary-400 focus-within:shadow-primary-md', // Focus state
+        'focus-within:hover:border-primary-400 focus-within:hover:shadow-primary-md', // Focus + Hover state
     ],
     warning: [
         'border-warning-500 bg-neutral-0', // Default state
