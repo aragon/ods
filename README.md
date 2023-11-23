@@ -2,11 +2,11 @@
 
 <p align="center">
   <a href="https://aragon.org/">Aragon Website</a>
-  •
+  <span>&nbsp;•&nbsp;</span>
   <a href="https://devs.aragon.org/">Developer Portal</a>
-  •
+  <span>&nbsp;•&nbsp;</span>
   <a href="http://eepurl.com/icA7oj">Join our Developer Community</a>
-  •
+  <span>&nbsp;•&nbsp;</span>
   <a href="https://aragonproject.typeform.com/dx-contribution">Contribute</a>
 </p>
 
