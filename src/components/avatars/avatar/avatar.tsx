@@ -75,6 +75,7 @@ export const Avatar: React.FC<IAvatarProps> = (props) => {
 
     const [imgErr, setImgErr] = useState(false);
 
+    // clear the image error when the src changes
     useEffect(clearImgError, [src]);
 
     function handleImgError() {
@@ -86,12 +87,12 @@ export const Avatar: React.FC<IAvatarProps> = (props) => {
     }
 
     // address or ens with broken or no image src
-    if ((addressUtils.isAddress(src) || addressUtils.isEnsDomain(src)) && imgErr) {
+    if (addressUtils.isAddress(src) || addressUtils.isEnsDomain(src)) {
         return (
-            <div {...rest} className={containerClasses}>
+            <div data-testid="avatar" {...rest} className={containerClasses}>
                 {/* Note: have to overwrite blockies size with important modifier */}
                 {/* in order to keep the "image" quality when using responsive sizes */}
-                <Blockies seed={src!} size={DEFAULT_SQUARES} className="!h-full !w-full" />
+                <Blockies data-testid="blockies" seed={src!} size={DEFAULT_SQUARES} className="!h-full !w-full" />
             </div>
         );
     }
@@ -112,11 +113,13 @@ export const Avatar: React.FC<IAvatarProps> = (props) => {
 
     // valid image src
     return (
-        <div {...rest} className={containerClasses}>
-            <img src={src} alt="" onError={handleImgError} className="rounded-full object-cover" />
+        <div data-testid="avatar" {...rest} className={containerClasses}>
+            <img src={src} alt="avatar" onError={handleImgError} className="rounded-full object-cover" />
         </div>
     );
 };
+
+Avatar.displayName = 'Avatar';
 
 /**
  * Function to retrieve initials from a string.
