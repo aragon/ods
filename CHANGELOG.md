@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `Tag`, `InputContainer` and `InputText` components
 -   Documentation on how to handle library dependencies
+-   `shadow-none` utility class to remove shadow on elements
 
 ### Changed
 
@@ -19,6 +20,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Relax `dependencies` and `peerDependencies` versions
 -   Prettier configuration to propertly format markdown files
 -   Bump `@adobe/css-tools` from 4.3.1 to 4.3.2
+
+### Fixed
+
+-   Correctly format `README.md` links on Storybook
 
 ## [1.0.5] - 2023-11-20
 
