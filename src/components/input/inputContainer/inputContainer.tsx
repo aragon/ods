@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { AlertInline } from '../../alerts';
+import { Tag } from '../../tag';
 import type { IInputContainerProps, InputVariant } from './inputContainer.api';
 
 const variantToClassNames: Record<InputVariant | 'disabled', string[]> = {
@@ -53,7 +54,7 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
                     {label && (
                         <div className="flex flex-row items-center gap-3">
                             <p className="text-base font-semibold leading-normal text-neutral-600">{label}</p>
-                            {isOptional && <p>TODO tag</p>}
+                            {isOptional && <Tag variant="neutral" label="Optional" />}
                         </div>
                     )}
                     {helpText && <p className="text-sm font-normal leading-normal text-neutral-800">{helpText}</p>}
