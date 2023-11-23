@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `Tag` component
+-   Implement `Tag`, `InputContainer` and `InputText` components
 -   Documentation on how to handle library dependencies
 
 ### Changed
