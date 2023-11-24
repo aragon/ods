@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 -   Implement `Tag` component
+-   Documentation on how to handle library dependencies
 
 ### Changed
 
