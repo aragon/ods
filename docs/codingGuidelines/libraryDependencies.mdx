@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Docs/Coding Guidelines/Library Dependencies" />
+
+# Library Dependencies
+
+## Dependencies
+
+The `@aragon/ods` library relies on the dependencies listed under the `dependencies` section to function correctly.
+These dependencies are not bundled with the library, but when you add `@aragon/ods` to your application, the package
+manager will install them if they are missing in the current project.
+
+## Peer Dependencies
+
+The `peerDependencies` section lists optional dependencies that are not included in the library bundle and will not be
+automatically installed by the package manager. Consumers of the library are responsible for installing these
+dependencies.
+
+## Dev Dependencies
+
+The `devDependencies` section includes dependencies that are essential for documentation and development purposes. These
+dependencies are not included in the library bundle, and users do not need to install them when using the library in
+their applications.
+
+## Recommendations
+
+For the dependencies listed under the `dependencies` or `peerDependencies` sections, make sure to:
+
+-   **Use Relaxed Versions:** We recommend specifying relaxed versions for dependencies listed under the `dependencies`
+    section. For example, use `"react": "^18.0.0"` instead of specifying an exact version like `"react": "18.2.2"`. This
+    practice allows for flexibility and helps prevent conflicts with other libraries.
+
+-   **Support Major Versions:** Whenever possible, support multiple major versions of dependencies. For instance, use
+    `"react": "^18.0.0 || ^19.0.0"` to accommodate a broader range of applications.
+
+For the dependencies listed under the `devDependencies` section, make sure to:
+
+-   **Keep Dependencies Updated:** It's crucial to regularly update the dependencies listed under `devDependencies` to
+    benefit from the latest features, bug fixes, and improvements during development. This practice ensures that your
+    development environment remains current and efficient.
