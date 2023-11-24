@@ -10,13 +10,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 -   Implement `Tag` component
--   Documentation on how to handle library dependencies
 
 ### Changed
 
 -   Update library documentation
 -   Output `build.css` file to be able to use ODS library without TailwindCSS
 -   Relax `dependencies` and `peerDependencies` versions
+-   Prettier configuration to propertly format markdown files
 
 ## [1.0.5] - 2023-11-20
 
