@@ -24,10 +24,13 @@ describe('<Avatar /> component', () => {
         expect(screen.getByTestId('fallbackAvatar')).toBeInTheDocument();
     });
 
-    it('renders a fallback when source leads to broken image2', async () => {
-        render(createTestComponent({ src: 'https://exxxsample.com/abc.jpg' }));
+    it('renders a fallback when source leads to broken image', async () => {
+        const { container } = render(createTestComponent({ src: 'https://examplebrokenimage.com/abc.jpg' }));
 
-        fireEvent.error(screen.getByAltText('avatar'));
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const avatarEl = container.querySelector('img') as Element;
+
+        fireEvent.error(avatarEl);
 
         expect(await screen.findByTestId('fallbackAvatar')).toBeInTheDocument();
     });
