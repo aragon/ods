@@ -17,13 +17,11 @@ export interface IAvatarProps extends HTMLAttributes<HTMLDivElement> {
     size?: AvatarSize;
     /**
      * Image source.
-     * An address or Ens domain will result in a corresponding Blockies
-     * avatar shown as a fallback provided an omitted or broken `src`.
-     */
-    src?: string;
-    /**
-     * A two letter initial from this label is displayed as a fallback
-     * when the `src` is either omitted or points to a broken image.
+     *
+     * Passing an address or Ens domain results in a corresponding Blockies avatar shown.
+     *
+     *  When a non image src string is given, a two-letter initial from this label
+     * is displayed as a fallback
      *
      * @example
      * // Results in the fallback 'JD' due to a multi-word copy.
@@ -33,8 +31,7 @@ export interface IAvatarProps extends HTMLAttributes<HTMLDivElement> {
      * // Results in the fallback 'Al' due to a single-word copy.
      * 'Alice'
      */
-    copy?: string;
-
+    src?: string;
     /**
      * Responsive size attributes for different screen sizes.
      */
@@ -65,15 +62,15 @@ const responsiveSizeClasses: ResponsiveAttributeClassMap<AvatarSize> = {
  * Avatar component.
  */
 export const Avatar: React.FC<IAvatarProps> = (props) => {
-    const { className, size = 'md', responsiveSize = {}, src, copy, ...rest } = props;
+    const [imgErr, setImgErr] = useState(false);
+
+    const { className, size = 'md', responsiveSize = {}, src, ...rest } = props;
 
     const containerClasses = classNames(
         'flex items-center justify-center overflow-hidden rounded-full',
         responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClasses),
         className,
     );
-
-    const [imgErr, setImgErr] = useState(false);
 
     // clear the image error when the src changes
     useEffect(clearImgError, [src]);
@@ -86,7 +83,7 @@ export const Avatar: React.FC<IAvatarProps> = (props) => {
         setImgErr(false);
     }
 
-    // address or ens with broken or no image src
+    // src is address or ENS domain
     if (addressUtils.isAddress(src) || addressUtils.isEnsDomain(src)) {
         return (
             <div data-testid="avatar" {...rest} className={containerClasses}>
@@ -97,18 +94,18 @@ export const Avatar: React.FC<IAvatarProps> = (props) => {
         );
     }
 
-    // copy with broken or no image src
-    if (copy && (!src || imgErr)) {
-        return (
-            <FallbackAvatar className={classNames('bg-primary-700', containerClasses)}>
-                <p className="text-base/tight font-semibold text-neutral-0">{getInitials(copy)}</p>
-            </FallbackAvatar>
-        );
+    // no src or valid image source but broken image
+    if (!src || (src && imgErr && isImageSrc(src))) {
+        return <FallbackAvatar className={classNames('bg-neutral-700', containerClasses)} />;
     }
 
-    // no copy with broken or no image src
-    if (!copy && (!src || imgErr)) {
-        return <FallbackAvatar className={classNames('bg-neutral-700', containerClasses)} />;
+    // invalid image source ie, label
+    if (!isImageSrc(src)) {
+        return (
+            <FallbackAvatar className={classNames('bg-primary-700', containerClasses)}>
+                <p className="text-base/tight font-semibold text-neutral-0">{getInitials(src)}</p>
+            </FallbackAvatar>
+        );
     }
 
     // valid image src
@@ -135,4 +132,24 @@ function getInitials(str: string): string {
     } else {
         return arr[0][0] + arr[1][0];
     }
+}
+
+/**
+ * Checks if a given value is a valid image source.
+ * Supports URLs pointing to image files, Data URIs, and file extensions of common image formats.
+ * @param value - The value to be checked for being an image source.
+ * @returns A boolean indicating if the value represents an image source.
+ */
+function isImageSrc(value: string): boolean {
+    if (!value) {
+        return false;
+    }
+
+    // check if the provided value is a Data URI representing an image.
+    const isDataURI = /^data:image\/(png|jpeg|jpg|gif|svg\+xml);base64,/.test(value);
+
+    // check if the provided value ends with a valid image file extension.
+    const includesImgFileExtension = /\.(jpg|jpeg|png|gif|svg)$/i.test(value);
+
+    return isDataURI || includesImgFileExtension;
 }

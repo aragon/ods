@@ -25,12 +25,9 @@ describe('<Avatar /> component', () => {
     });
 
     it('renders a fallback when source leads to broken image', async () => {
-        const { container } = render(createTestComponent({ src: 'https://examplebrokenimage.com/abc.jpg' }));
+        render(createTestComponent({ src: 'https://examplebrokenimage.com/abc.jpg' }));
 
-        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-        const avatarEl = container.querySelector('img') as Element;
-
-        fireEvent.error(avatarEl);
+        fireEvent.error(screen.getByAltText('avatar'));
 
         expect(await screen.findByTestId('fallbackAvatar')).toBeInTheDocument();
     });
