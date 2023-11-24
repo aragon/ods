@@ -1,5 +1,6 @@
 'use strict';
 
+/** @type {import('prettier').Config} */
 module.exports = {
     printWidth: 120,
     tabWidth: 4,
@@ -18,6 +19,12 @@ module.exports = {
             files: '*.{json,json5}',
             options: {
                 printWidth: 999999,
+            },
+        },
+        {
+            files: '*.{md,mdx}',
+            options: {
+                proseWrap: 'always',
             },
         },
     ],
