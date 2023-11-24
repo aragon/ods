@@ -47,7 +47,8 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
 
     const processedVariant = isDisabled ? 'disabled' : variant;
     const containerClasses = classNames(
-        'h-12 w-full rounded-xl border text-neutral-600 transition-all', // Default
+        'flex h-12 w-full flex-row items-center', // Layout
+        'rounded-xl border text-neutral-600 transition-all', // Styling
         'outline-1 focus-within:outline', // Outline on focus
         'text-base font-normal leading-tight', // Typography
         variantToClassNames[processedVariant],
