@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Update library documentation
 -   Output `build.css` file to be able to use ODS library without TailwindCSS
+-   Relax `dependencies` and `peerDependencies` versions
 
 ## [1.0.5] - 2023-11-20
 
