@@ -46,19 +46,21 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
 
     const processedVariant = isDisabled ? 'disabled' : variant;
     const containerClasses = classNames(
-        'h-12 w-80 rounded-xl border text-neutral-600 transition-all', // Default
+        'h-12 w-full rounded-xl border text-neutral-600 transition-all', // Default
         'outline-1 focus-within:outline', // Outline on focus
         'text-base font-normal leading-tight', // Typography
         variantToClassNames[processedVariant],
     );
 
     return (
-        <div className={classNames('flex flex-col gap-2', className)}>
+        <div className={classNames('flex grow flex-col gap-2 md:gap-3', className)}>
             {(label != null || helpText != null) && (
-                <label className="flex flex-col gap-0.5" htmlFor={id}>
+                <label className="flex flex-col gap-0.5 md:gap-1" htmlFor={id}>
                     {label && (
                         <div className="flex flex-row items-center gap-3">
-                            <p className="text-base font-semibold leading-normal text-neutral-600">{label}</p>
+                            <p className="text-base font-semibold leading-normal text-neutral-600 md:text-lg md:leading-tight">
+                                {label}
+                            </p>
                             {/* TODO: apply internationalisation to Optional label [APP-2627] */}
                             {isOptional && <Tag variant="neutral" label="Optional" />}
                         </div>
