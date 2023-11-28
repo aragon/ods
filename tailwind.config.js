@@ -2,6 +2,12 @@
 module.exports = {
     content: ['./src/**/*.{jsx,tsx,mdx}', './docs/**/*.{jsx,tsx,mdx}', '.storybook/*.{jsx,tsx}'],
     theme: {
+        extend: {
+            backgroundImage: {
+                'gradients-tl-neutral-900': 'var(--ods-gradient-tl-neutral-900)',
+                'gradients-tl-primary-500-to-800': 'var(--ods-gradient-tl-primary-500-to-800)',
+            },
+        },
         colors: {
             primary: {
                 50: 'var(--ods-color-primary-50)',

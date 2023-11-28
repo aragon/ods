@@ -67,4 +67,18 @@
   --ods-color-critical-700: #b31b35;
   --ods-color-critical-800: #901132;
   --ods-color-critical-900: #770a30;
+
+  /* Gradients */
+  --ods-gradient-tl-primary-500-to-800: linear-gradient(
+    135deg,
+    var(--ods-color-primary-500),
+    var(--ods-color-primary-800)
+  );
+
+  --ods-gradient-neutral-900: 31 41 51;
+  --ods-gradient-tl-neutral-900: linear-gradient(
+    135deg,
+    rgb(var(--ods-gradient-neutral-900) / 0.24),
+    rgb(var(--ods-gradient-neutral-900) / 0.96)
+  );
 }

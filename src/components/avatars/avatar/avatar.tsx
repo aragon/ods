@@ -96,13 +96,13 @@ export const Avatar: React.FC<IAvatarProps> = (props) => {
 
     // no src or valid image source but broken image
     if (!src || (src && imgErr && isImageSrc(src))) {
-        return <FallbackAvatar className={classNames('bg-neutral-700', containerClasses)} />;
+        return <FallbackAvatar className={classNames('bg-gradients-tl-neutral-900', containerClasses)} />;
     }
 
     // invalid image source ie, label
     if (!isImageSrc(src)) {
         return (
-            <FallbackAvatar className={classNames('bg-primary-700', containerClasses)}>
+            <FallbackAvatar className={classNames('bg-gradients-tl-primary-500-to-800', containerClasses)}>
                 <p className="text-base/tight font-semibold text-neutral-0">{getInitials(src)}</p>
             </FallbackAvatar>
         );
