@@ -1,7 +1,7 @@
 import { InputContainer, type IInputComponentProps } from '../inputContainer';
 import { useInputProps } from '../useInputProps';
 
-export interface IInputTextProps extends Omit<IInputComponentProps, 'type'> {}
+export interface IInputTextProps extends IInputComponentProps {}
 
 export const InputText: React.FC<IInputTextProps> = (props) => {
     const { containerProps, inputProps } = useInputProps(props);
