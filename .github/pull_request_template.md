@@ -1,6 +1,7 @@
 ## Description
 
-Please include a summary of the change and be sure you follow the contributions rules we do provide [here](./CONTRIBUTIONS.md)
+Please include a summary of the change and be sure you follow the contributions rules we do provide
+[here](./CONTRIBUTIONS.md)
 
 <!--- Set the correct ticket number -->
 
@@ -23,5 +24,6 @@ Task: [APP-0000](https://aragonassociation.atlassian.net/browse/APP-0000)
 -   [ ] My changes generate no new warnings.
 -   [ ] Any dependent changes have been merged and published in downstream modules.
 -   [ ] I ran all tests with success and extended them if necessary.
--   [ ] I have updated the `CHANGELOG.md` file in the root folder of the package after the [UPCOMING] title and before the latest version.
+-   [ ] I have updated the `CHANGELOG.md` file in the root folder of the package after the [UPCOMING] title and before
+        the latest version.
 -   [ ] I have tested my code on the test network.
