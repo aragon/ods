@@ -10,6 +10,7 @@ describe('useInputProps hook', () => {
             isOptional: true,
             infoText: 'info-text',
             alertMessage: 'alert-message',
+            className: 'container-classname',
         };
 
         const inputProps = {

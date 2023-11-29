@@ -29,6 +29,7 @@ export const useInputProps = (props: IInputComponentProps): IUseInputPropsResult
         isDisabled,
         inputClassName,
         id,
+        className,
         ...inputElementProps
     } = props;
 
@@ -44,6 +45,7 @@ export const useInputProps = (props: IInputComponentProps): IUseInputPropsResult
         alertMessage,
         isDisabled,
         id: processedId,
+        className,
     };
 
     const inputClasses = classNames(
