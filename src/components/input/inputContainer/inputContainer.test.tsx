@@ -43,9 +43,12 @@ describe('<InputContainer /> component', () => {
     });
 
     it('renders the input alert when defined', () => {
-        const alertMessage = 'input-alert-message';
-        render(createTestComponent({ alertMessage }));
+        const alert = {
+            message: 'input-alert-message',
+            variant: 'critical' as const,
+        };
+        render(createTestComponent({ alert }));
         expect(screen.getByRole('alert')).toBeInTheDocument();
-        expect(screen.getByText(alertMessage)).toBeInTheDocument();
+        expect(screen.getByText(alert.message)).toBeInTheDocument();
     });
 });

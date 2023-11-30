@@ -9,7 +9,7 @@ describe('useInputProps hook', () => {
             helpText: 'help-text',
             isOptional: true,
             infoText: 'info-text',
-            alertMessage: 'alert-message',
+            alert: { message: 'alert-message', variant: 'critical' as const },
             className: 'container-classname',
         };
 

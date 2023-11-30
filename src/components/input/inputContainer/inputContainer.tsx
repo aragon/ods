@@ -37,7 +37,7 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
         helpText,
         isOptional,
         infoText,
-        alertMessage,
+        alert,
         isDisabled,
         children,
         className,
@@ -70,7 +70,7 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
             )}
             <div className={containerClasses}>{children}</div>
             {infoText && <p className="text-sm font-normal leading-tight text-neutral-600">{infoText}</p>}
-            {alertMessage && <AlertInline variant="critical" message={alertMessage} />}
+            {alert && <AlertInline variant={alert.variant} message={alert.message} />}
         </div>
     );
 };

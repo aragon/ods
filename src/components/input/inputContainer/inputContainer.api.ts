@@ -1,6 +1,18 @@
 import type { InputHTMLAttributes, ReactNode } from 'react';
+import type { AlertVariant } from '../../alerts/utils';
 
 export type InputVariant = 'default' | 'warning' | 'critical';
+
+export interface IInputContainerAlert {
+    /**
+     * Message to be displayed.
+     */
+    message: string;
+    /**
+     * Variant of the alert.
+     */
+    variant: Exclude<AlertVariant, 'info' | 'success'>;
+}
 
 export interface IInputContainerProps {
     /**
@@ -29,9 +41,9 @@ export interface IInputContainerProps {
      */
     infoText?: string;
     /**
-     * Alert message displayed below the input.
+     * Alert displayed below the input.
      */
-    alertMessage?: string;
+    alert?: IInputContainerAlert;
     /**
      * Id of the input field.
      */

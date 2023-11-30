@@ -6,9 +6,13 @@ import { Icon } from '../../icon';
 import { alertVariantToIconType, type AlertVariant } from '../utils';
 
 export interface IAlertInlineProps extends HTMLAttributes<HTMLDivElement> {
-    /** Alert text content. */
+    /**
+     * Alert text content.
+     */
     message: string;
-    /** Defines the variant of the alert. */
+    /**
+     * Defines the variant of the alert.
+     */
     variant: AlertVariant;
 }
 
@@ -29,6 +33,7 @@ const variantToTextClassNames: Record<AlertVariant, string> = {
 /** AlertInline UI Component */
 export const AlertInline: React.FC<IAlertInlineProps> = (props) => {
     const { className, message, variant, ...rest } = props;
+
     return (
         <div role="alert" className={classNames('inline-flex items-center gap-x-2 rounded', className)} {...rest}>
             <Icon
