@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { InputText } from './inputText';
+import { useState, type ChangeEvent } from 'react';
+import { InputText, type IInputTextProps } from './inputText';
 
 const meta: Meta<typeof InputText> = {
     title: 'components/Input/InputText',
@@ -16,11 +17,29 @@ const meta: Meta<typeof InputText> = {
 type Story = StoryObj<typeof InputText>;
 
 /**
- * Default usage example of the InputText component.
+ * Default uncontrolled usage example of the InputText component.
  */
 export const Default: Story = {
     args: {
-        placeholder: 'Placeholder',
+        placeholder: 'Uncontrolled input',
+    },
+};
+
+const ControlledInput = (props: IInputTextProps) => {
+    const [value, setValue] = useState<string>('');
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value);
+
+    return <InputText value={value} onChange={handleChange} {...props} />;
+};
+
+/**
+ * Usage example of a controlled input.
+ */
+export const Controlled: Story = {
+    render: (props) => <ControlledInput {...props} />,
+    args: {
+        placeholder: 'Controlled input',
     },
 };
 

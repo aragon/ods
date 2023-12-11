@@ -70,7 +70,7 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
                 </label>
             )}
             <div className={containerClasses}>{children}</div>
-            {maxLength && (
+            {maxLength != null && (
                 <p className="text-sm font-normal leading-tight text-neutral-600">
                     [{inputLength}/{maxLength}]
                 </p>
