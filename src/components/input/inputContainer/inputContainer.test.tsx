@@ -36,10 +36,11 @@ describe('<InputContainer /> component', () => {
         expect(screen.getByText(helpText)).toBeInTheDocument();
     });
 
-    it('renders the info text when defined', () => {
-        const infoText = '10/1000';
-        render(createTestComponent({ infoText }));
-        expect(screen.getByText(infoText)).toBeInTheDocument();
+    it('renders the input value counter when maxLength is defined', () => {
+        const maxLength = 100;
+        const inputLength = 47;
+        render(createTestComponent({ maxLength, inputLength }));
+        expect(screen.getByText(`[${inputLength}/${maxLength}]`)).toBeInTheDocument();
     });
 
     it('renders the input alert when defined', () => {
