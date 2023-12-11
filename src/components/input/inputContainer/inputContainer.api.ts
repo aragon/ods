@@ -37,10 +37,6 @@ export interface IInputContainerProps {
      */
     isDisabled?: boolean;
     /**
-     * Additional information displayed below the input.
-     */
-    infoText?: string;
-    /**
      * Alert displayed below the input.
      */
     alert?: IInputContainerAlert;
@@ -48,6 +44,14 @@ export interface IInputContainerProps {
      * Id of the input field.
      */
     id: string;
+    /**
+     * Displays an input length counter when set.
+     */
+    maxLength?: number;
+    /**
+     * Current input length displayed when maxLength property is set.
+     */
+    inputLength?: number;
     /**
      * Children of the component.
      */

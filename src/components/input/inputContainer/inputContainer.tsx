@@ -36,7 +36,8 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
         variant = 'default',
         helpText,
         isOptional,
-        infoText,
+        maxLength,
+        inputLength = 0,
         alert,
         isDisabled,
         children,
@@ -69,7 +70,11 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
                 </label>
             )}
             <div className={containerClasses}>{children}</div>
-            {infoText && <p className="text-sm font-normal leading-tight text-neutral-600">{infoText}</p>}
+            {maxLength && (
+                <p className="text-sm font-normal leading-tight text-neutral-600">
+                    [{inputLength}/{maxLength}]
+                </p>
+            )}
             {alert && <AlertInline variant={alert.variant} message={alert.message} />}
         </div>
     );

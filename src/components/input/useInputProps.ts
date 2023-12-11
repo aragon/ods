@@ -24,12 +24,12 @@ export const useInputProps = (props: IInputComponentProps): IUseInputPropsResult
         variant,
         helpText,
         isOptional,
-        infoText,
         alert,
         isDisabled,
         inputClassName,
         id,
         className,
+        maxLength,
         ...inputElementProps
     } = props;
 
@@ -41,17 +41,16 @@ export const useInputProps = (props: IInputComponentProps): IUseInputPropsResult
         variant,
         helpText,
         isOptional,
-        infoText,
         alert,
         isDisabled,
         id: processedId,
+        maxLength,
         className,
     };
 
     const inputClasses = classNames(
         'h-full w-full rounded-xl px-4 py-3 caret-neutral-500 outline-none', // Default
         'placeholder:text-base placeholder:font-normal placeholder:leading-tight placeholder:text-neutral-300', // Placeholder
-        { 'cursor-not-allowed': isDisabled }, // Disabled
         inputClassName, // Prop
     );
 
@@ -59,6 +58,7 @@ export const useInputProps = (props: IInputComponentProps): IUseInputPropsResult
         id: processedId,
         disabled: isDisabled,
         className: inputClasses,
+        maxLength,
         ...inputElementProps,
     };
 
