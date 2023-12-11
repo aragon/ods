@@ -22,7 +22,7 @@ const variantToClassNames: Record<InputVariant | 'disabled', string[]> = {
         'focus-within:outline-critical-600 focus-within:border-critical-600 focus-within:shadow-critical-md', // Focus state
         'focus-within:hover:border-critical-600 focus-within:hover:shadow-critical-md', // Focus + Hover state
     ],
-    disabled: ['border-neutral-200 bg-neutral-100 cursor-not-allowed'],
+    disabled: ['border-neutral-200 bg-neutral-100'],
 };
 
 /**
