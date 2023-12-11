@@ -11,8 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `Tag`, `InputContainer` and `InputText` components
 -   Documentation on how to handle library dependencies
--   `shadow-none` utility class to remove shadow on elements
--   Extend Tailwind configurations to add `shake` animation
+-   `shadow-none` and `shake` Tailwind CSS utility classes
 
 ### Changed
 
