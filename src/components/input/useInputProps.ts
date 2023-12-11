@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useId, type InputHTMLAttributes } from 'react';
+import { useId, useState, type ChangeEvent, type InputHTMLAttributes } from 'react';
 import type { IInputComponentProps, IInputContainerProps } from './inputContainer';
 
 export interface IUseInputPropsResult {
@@ -30,11 +30,21 @@ export const useInputProps = (props: IInputComponentProps): IUseInputPropsResult
         id,
         className,
         maxLength,
+        onChange,
         ...inputElementProps
     } = props;
 
+    // Set a random generated id to the input field when id property is not defined to properly link the
+    // input with the label
     const randomId = useId();
     const processedId = id ?? randomId;
+
+    const [inputLength, setInputLength] = useState(0);
+
+    const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setInputLength(event.target.value.length);
+        onChange?.(event);
+    };
 
     const containerProps = {
         label,
@@ -46,6 +56,7 @@ export const useInputProps = (props: IInputComponentProps): IUseInputPropsResult
         id: processedId,
         maxLength,
         className,
+        inputLength,
     };
 
     const inputClasses = classNames(
@@ -58,6 +69,7 @@ export const useInputProps = (props: IInputComponentProps): IUseInputPropsResult
         id: processedId,
         disabled: isDisabled,
         className: inputClasses,
+        onChange: handleOnChange,
         maxLength,
         ...inputElementProps,
     };
