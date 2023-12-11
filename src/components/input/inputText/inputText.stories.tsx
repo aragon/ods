@@ -25,7 +25,7 @@ export const Default: Story = {
     },
 };
 
-const ControlledInput = (props: IInputTextProps) => {
+const ControlledComponent = (props: IInputTextProps) => {
     const [value, setValue] = useState<string>('');
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value);
@@ -37,7 +37,7 @@ const ControlledInput = (props: IInputTextProps) => {
  * Usage example of a controlled input.
  */
 export const Controlled: Story = {
-    render: (props) => <ControlledInput {...props} />,
+    render: (props) => <ControlledComponent {...props} />,
     args: {
         placeholder: 'Controlled input',
     },

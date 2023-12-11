@@ -71,7 +71,11 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
             )}
             <div className={containerClasses}>{children}</div>
             {maxLength != null && (
-                <p className="text-sm font-normal leading-tight text-neutral-600">
+                <p
+                    className={classNames('text-sm font-normal leading-tight text-neutral-600', {
+                        'animate-shake': inputLength === maxLength,
+                    })}
+                >
                     [{inputLength}/{maxLength}]
                 </p>
             )}
