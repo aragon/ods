@@ -63,7 +63,7 @@ export interface IInputContainerProps {
 }
 
 export interface IInputComponentProps
-    extends Omit<IInputContainerProps, 'children' | 'id'>,
+    extends Omit<IInputContainerProps, 'children' | 'id' | 'inputLength'>,
         Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
     /**
      * Classes for the input element.
