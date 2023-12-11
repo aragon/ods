@@ -43,6 +43,13 @@ describe('<InputContainer /> component', () => {
         expect(screen.getByText(`[${inputLength}/${maxLength}]`)).toBeInTheDocument();
     });
 
+    it('adds a shake animation when the input length is equal to the max length property', () => {
+        const maxLength = 10;
+        const inputLength = 10;
+        render(createTestComponent({ maxLength, inputLength }));
+        expect(screen.getByText(`[${inputLength}/${maxLength}]`).className).toContain('shake');
+    });
+
     it('renders the input alert when defined', () => {
         const alert = {
             message: 'input-alert-message',

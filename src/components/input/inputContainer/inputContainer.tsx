@@ -53,6 +53,10 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
         variantToClassNames[processedVariant],
     );
 
+    const counterClasses = classNames('text-sm font-normal leading-tight text-neutral-600', {
+        'animate-shake': inputLength === maxLength,
+    });
+
     return (
         <div className={classNames('flex grow flex-col gap-2 md:gap-3', className)}>
             {(label != null || helpText != null) && (
@@ -71,11 +75,7 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
             )}
             <div className={containerClasses}>{children}</div>
             {maxLength != null && (
-                <p
-                    className={classNames('text-sm font-normal leading-tight text-neutral-600', {
-                        'animate-shake': inputLength === maxLength,
-                    })}
-                >
+                <p className={counterClasses}>
                     [{inputLength}/{maxLength}]
                 </p>
             )}
