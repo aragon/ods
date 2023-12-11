@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Output `build.css` file to be able to use ODS library without TailwindCSS
 -   Relax `dependencies` and `peerDependencies` versions
 -   Prettier configuration to propertly format markdown files
+-   Bump `@adobe/css-tools` from 4.3.1 to 4.3.2
 
 ## [1.0.5] - 2023-11-20
 
