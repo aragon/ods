@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `Tag`, `InputContainer` and `InputText` components
+-   Implement `Tag`, `InputContainer`, `InputText` and `InputSearch` components
 -   Documentation on how to handle library dependencies
 -   `shadow-none` and `shake` Tailwind CSS utility classes
 
