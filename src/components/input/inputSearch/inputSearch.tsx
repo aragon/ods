@@ -5,7 +5,7 @@ import { Spinner } from '../../spinner';
 import { InputContainer, type IInputComponentProps } from '../inputContainer';
 import { useInputProps } from '../useInputProps';
 
-export interface IInputSearchProps extends Omit<IInputComponentProps, 'type'> {
+export interface IInputSearchProps extends IInputComponentProps {
     /**
      * Displays a loading indicator when set to true.
      */
