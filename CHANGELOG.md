@@ -32,6 +32,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Update `lint-staged` to v15
 -   Update `babel`, `rollup`, `storybook` dependencies
+-   Bundle `tslib` utilities into library by removing `importHelpers` TypeScript configuration
 
 ### Fixed
 
@@ -43,10 +44,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Remove redundant `postcss` step and dependency
 -   Do not include `tailwindcss` configuration utilities into bundle
-
-### Changed
-
--   Bundle `tslib` utilities into library by removing `importHelpers` TypeScript configuration
 
 ## [1.0.4] - 2023-11-09
 
