@@ -47,7 +47,7 @@ export const InputSearch: React.FC<IInputSearchProps> = (props) => {
         inputRef.current.focus();
     };
 
-    const handleKeyDown = (event: KeyboardEvent<SVGSVGElement>) => {
+    const handleClearKeyDown = (event: KeyboardEvent<SVGSVGElement>) => {
         if (event.key === 'Enter') {
             handleClear();
         }
@@ -75,11 +75,12 @@ export const InputSearch: React.FC<IInputSearchProps> = (props) => {
             />
             <Icon
                 role="button"
-                tabIndex={0}
+                tabIndex={displayClearIcon ? 0 : -1}
                 icon={IconType.CLOSE}
+                aria-hidden={!displayClearIcon}
                 className={classNames('mr-4 cursor-pointer text-neutral-600', { invisible: !displayClearIcon })}
                 onClick={handleClear}
-                onKeyDown={handleKeyDown}
+                onKeyDown={handleClearKeyDown}
             />
         </InputContainer>
     );
