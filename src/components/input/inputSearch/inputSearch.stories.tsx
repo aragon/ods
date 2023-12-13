@@ -9,7 +9,7 @@ const meta: Meta<typeof InputSearch> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=17-292&mode=design&t=dehPZplRn0YEdOuB-4',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=8199-17879&mode=design&t=2bLCEeKZ7ueBboTs-4',
         },
     },
 };
