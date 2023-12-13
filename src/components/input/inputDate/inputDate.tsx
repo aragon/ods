@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import { useRef } from 'react';
+import { forwardRef, useRef } from 'react';
+import { mergeRefs } from 'react-merge-refs';
 import { Button } from '../../button';
 import { IconType } from '../../icon';
 import { InputContainer, type IInputComponentProps } from '../inputContainer';
@@ -7,7 +8,7 @@ import { useInputProps } from '../useInputProps';
 
 export interface IInputDateProps extends IInputComponentProps {}
 
-export const InputDate: React.FC<IInputDateProps> = (props) => {
+export const InputDate: React.FC<IInputDateProps> = forwardRef((props, ref) => {
     const { containerProps, inputProps } = useInputProps(props);
 
     const { className: inputClassName, ...otherInputProps } = inputProps;
@@ -23,7 +24,7 @@ export const InputDate: React.FC<IInputDateProps> = (props) => {
             <input
                 type="date"
                 className={classNames('calendar-icon:hidden calendar-icon:appearance-none', inputClassName)}
-                ref={inputRef}
+                ref={mergeRefs([inputRef, ref])}
                 {...otherInputProps}
             />
             <Button
@@ -35,4 +36,6 @@ export const InputDate: React.FC<IInputDateProps> = (props) => {
             />
         </InputContainer>
     );
-};
+});
+
+InputDate.displayName = 'InputDate';
