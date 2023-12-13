@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Implement `InputDate` and `Avatar` components
 -   Add `AvatarIcon` documentation and tests
 
+### Added
+
+-   Implement `InputNumberMax` component
+
 ## [1.0.8] - 2024-01-17
 
 ### Fixed
@@ -46,7 +50,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `Tag`, `InputContainer`, `InputText`, `InputSearch` and `InputNumberMax` components
+-   Implement `Tag`, `InputContainer`, `InputText` and `InputSearch` components
 -   Documentation on how to handle library dependencies
 -   `shadow-none` and `shake` Tailwind CSS utility classes
 
