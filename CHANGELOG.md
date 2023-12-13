@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `Tag`, `InputContainer` and `InputText` components
+-   Implement `Tag`, `InputContainer`, `InputText` and `InputSearch` components
 -   Documentation on how to handle library dependencies
 -   `shadow-none` and `shake` Tailwind CSS utility classes
 
@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 -   Correctly format `README.md` links on Storybook
+-   Handling of value length for controlled inputs
 
 ## [1.0.5] - 2023-11-20
 
@@ -31,6 +32,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Update `lint-staged` to v15
 -   Update `babel`, `rollup`, `storybook` dependencies
+-   Bundle `tslib` utilities into library by removing `importHelpers` TypeScript configuration
 
 ### Fixed
 
@@ -42,10 +44,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Remove redundant `postcss` step and dependency
 -   Do not include `tailwindcss` configuration utilities into bundle
-
-### Changed
-
--   Bundle `tslib` utilities into library by removing `importHelpers` TypeScript configuration
 
 ## [1.0.4] - 2023-11-09
 

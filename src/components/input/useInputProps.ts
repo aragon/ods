@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useId, useState, type ChangeEvent, type InputHTMLAttributes } from 'react';
+import { useEffect, useId, useState, type ChangeEvent, type InputHTMLAttributes } from 'react';
 import type { IInputComponentProps, IInputContainerProps } from './inputContainer';
 
 export interface IUseInputPropsResult {
@@ -31,6 +31,7 @@ export const useInputProps = (props: IInputComponentProps): IUseInputPropsResult
         className,
         maxLength,
         onChange,
+        value,
         ...inputElementProps
     } = props;
 
@@ -71,8 +72,14 @@ export const useInputProps = (props: IInputComponentProps): IUseInputPropsResult
         className: inputClasses,
         onChange: handleOnChange,
         maxLength,
+        value,
         ...inputElementProps,
     };
+
+    // Update input length on value change for controlled inputs
+    useEffect(() => {
+        setInputLength(value?.toString().length ?? 0);
+    }, [value]);
 
     return { containerProps, inputProps };
 };

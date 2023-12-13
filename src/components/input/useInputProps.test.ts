@@ -55,6 +55,15 @@ describe('useInputProps hook', () => {
         expect(result.current.containerProps.inputLength).toEqual(newValue.length);
     });
 
+    it('tracks the current input length for controlled inputs', () => {
+        const value = 'initialValue';
+        const newValue = 'newValue';
+        const { result, rerender } = renderHook((props) => useInputProps(props), { initialProps: { value } });
+        expect(result.current.containerProps.inputLength).toEqual(value.length);
+        rerender({ value: newValue });
+        expect(result.current.containerProps.inputLength).toEqual(newValue.length);
+    });
+
     it('calls the onChange property on input value change', () => {
         const onChange = jest.fn();
         const { result } = renderHook(() => useInputProps({ onChange }));
