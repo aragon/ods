@@ -31,7 +31,7 @@ export const Default: Story = {
 };
 
 /**
- * Usage example of the Button component as Link.
+ * The Button component renders a <a /> tag when the href property is set.
  */
 export const Link: Story = {
     args: {
@@ -45,7 +45,7 @@ export const Link: Story = {
 };
 
 /**
- * Responsive button
+ * Button component with a size that changes depending on the current breakpoint.
  */
 export const ResponsiveButton: Story = {
     args: {
