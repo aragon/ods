@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import type { ClassMapKey, ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../types';
+import type { ResponsiveAttribute, ResponsiveAttributeClassMap, ResponsiveSizeKey } from '../../types';
 
 class ResponsiveUtils {
-    generateClassNames<T extends ClassMapKey>(
-        size: T,
-        responsiveSize: ResponsiveAttribute<T>,
-        classes: ResponsiveAttributeClassMap<T>,
+    generateClassNames<TSize extends ResponsiveSizeKey>(
+        size: TSize,
+        responsiveSize: ResponsiveAttribute<TSize>,
+        classes: ResponsiveAttributeClassMap<TSize>,
     ): string {
         const defaultSize = classes[size].sm;
 
@@ -13,8 +13,10 @@ class ResponsiveUtils {
         const smClass = responsiveSize.sm ? classes[responsiveSize.sm].sm : defaultSize;
         const mdClass = responsiveSize.md ? classes[responsiveSize.md].md : '';
         const lgClass = responsiveSize.lg ? classes[responsiveSize.lg].lg : '';
+        const xlClass = responsiveSize.xl ? classes[responsiveSize.xl].xl : '';
+        const twoXlClass = responsiveSize['2xl'] ? classes[responsiveSize['2xl']]['2xl'] : '';
 
-        return classNames(smClass, mdClass, lgClass);
+        return classNames(smClass, mdClass, lgClass, xlClass, twoXlClass);
     }
 }
 

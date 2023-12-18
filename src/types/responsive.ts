@@ -1,7 +1,34 @@
 export type Breakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
-export type ResponsiveAttribute<T> = Partial<Record<Breakpoint, T>>;
+/**
+ * Size key of a component that is responsive.
+ */
+export type ResponsiveSizeKey = string | symbol | number;
 
-export type ClassMapKey = string | number | symbol;
+/**
+ * Defines the component property which is responsive.
+ */
+export type ResponsiveAttribute<TSize> = Partial<Record<Breakpoint, TSize>>;
 
-export type ResponsiveAttributeClassMap<T extends ClassMapKey> = Record<T, ResponsiveAttribute<string>>;
+/**
+ * Defines the structure to build the responsive classes for each breakpoint.
+ *
+ * Example:
+ *
+ * type ButtonSize = 'big' | 'small';
+ * type Breakpoint = 'sm' | 'md' | 'lg';
+ *
+ * const responsiveButtonSizeClassNames: ResponsiveAttributeClassMap<ButtonSize> = {
+ *      'big': {
+ *          'sm': 'w-40',
+ *          'md': 'md:w-40',
+ *          'lg': 'lg:w-40',
+ *      },
+ *      'small': {
+ *          'sm': 'w-20',
+ *          'md': 'md:w-20',
+ *          'lg': 'lg-w-20',
+ *      }
+ * }
+ */
+export type ResponsiveAttributeClassMap<TSize extends ResponsiveSizeKey> = Record<TSize, Record<Breakpoint, string>>;

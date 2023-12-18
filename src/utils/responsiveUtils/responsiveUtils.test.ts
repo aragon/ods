@@ -1,38 +1,38 @@
-import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../types';
+import { type ResponsiveAttributeClassMap } from '../../types';
 import { responsiveUtils } from './responsiveUtils';
 
-type MockAttribute = 'sm' | 'md' | 'lg';
-type TestCase = {
-    size: MockAttribute;
-    responsiveSize: ResponsiveAttribute<MockAttribute>;
-    expected: string;
-};
-
-const classes: ResponsiveAttributeClassMap<MockAttribute> = {
-    sm: {
-        sm: 'w-3 h-3',
-        md: 'md:w-3 md:h-3',
-        lg: 'lg:w-3 lg:h-3',
-    },
-    md: {
-        sm: 'w-4 h-4',
-        md: 'md:w-4 md:h-4',
-        lg: 'lg:w-4 lg:h-4',
-    },
-    lg: {
-        sm: 'w-5 h-5',
-        md: 'md:w-5 md:h-5',
-        lg: 'lg:w-5 lg:h-5',
-    },
-};
-
-describe('ResponsiveUtilities', () => {
+describe('responsive utils', () => {
     describe('generateClassNames', () => {
-        const testCases: TestCase[] = [
+        const classes: ResponsiveAttributeClassMap<'sm' | 'md' | 'lg'> = {
+            sm: {
+                sm: 'w-3 h-3',
+                md: 'md:w-3 md:h-3',
+                lg: 'lg:w-3 lg:h-3',
+                xl: 'xl:w-3 xl:h-3',
+                '2xl': '2xl:w-3 2xl:h-3',
+            },
+            md: {
+                sm: 'w-4 h-4',
+                md: 'md:w-4 md:h-4',
+                lg: 'lg:w-4 lg:h-4',
+                xl: 'xl:w-4 xl:h-4',
+                '2xl': '2xl:w-4 2xl:h-4',
+            },
+            lg: {
+                sm: 'w-5 h-5',
+                md: 'md:w-5 md:h-5',
+                lg: 'lg:w-5 lg:h-5',
+                xl: 'xl:w-5 xl:h-5',
+                '2xl': '2xl:w-5 2xl:h-5',
+            },
+        };
+
+        test.each([
             { size: 'sm', responsiveSize: {}, expected: 'w-3 h-3' },
             { size: 'sm', responsiveSize: { md: 'md' }, expected: 'w-3 h-3 md:w-4 md:h-4' },
             { size: 'sm', responsiveSize: { lg: 'lg' }, expected: 'w-3 h-3 lg:w-5 lg:h-5' },
             { size: 'sm', responsiveSize: { md: 'md', lg: 'lg' }, expected: 'w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5' },
+            { size: 'sm', responsiveSize: { xl: 'lg' }, expected: 'w-3 h-3 xl:w-5 xl:h-5' },
             { size: 'md', responsiveSize: {}, expected: 'w-4 h-4' },
             { size: 'md', responsiveSize: { sm: 'sm' }, expected: 'w-3 h-3' },
             { size: 'md', responsiveSize: { lg: 'lg' }, expected: 'w-4 h-4 lg:w-5 lg:h-5' },
@@ -41,19 +41,12 @@ describe('ResponsiveUtilities', () => {
             { size: 'lg', responsiveSize: { sm: 'sm' }, expected: 'w-3 h-3' },
             { size: 'lg', responsiveSize: { md: 'md' }, expected: 'w-5 h-5 md:w-4 md:h-4' },
             { size: 'lg', responsiveSize: { sm: 'sm', md: 'md' }, expected: 'w-3 h-3 md:w-4 md:h-4' },
-        ];
-
-        testCases.forEach((test) => {
-            it(`should return "${test.expected}" for size "${test.size}" with responsiveSize ${JSON.stringify(
-                test.responsiveSize,
-            )}`, () => {
-                const result = responsiveUtils.generateClassNames(
-                    test.size as MockAttribute,
-                    test.responsiveSize,
-                    classes,
-                );
-                expect(result).toBe(test.expected);
-            });
-        });
+        ] as const)(
+            'correctly builds the reponsive classnames for $size and $responsiveSize',
+            ({ size, responsiveSize, expected }) => {
+                const result = responsiveUtils.generateClassNames(size, responsiveSize, classes);
+                expect(result).toBe(expected);
+            },
+        );
     });
 });
