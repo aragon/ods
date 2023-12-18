@@ -25,4 +25,15 @@ export const Default: Story = {
     },
 };
 
+/**
+ * Usage example of the Spinner component with responsive size.
+ */
+export const ResponsiveSize: Story = {
+    args: {
+        variant: 'neutral',
+        size: 'sm',
+        responsiveSize: { lg: 'xl' },
+    },
+};
+
 export default meta;
