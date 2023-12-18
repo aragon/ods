@@ -1,9 +1,11 @@
 import classNames from 'classnames';
 import type { ButtonHTMLAttributes, MouseEvent } from 'react';
+import type { Breakpoint, ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../types';
+import { responsiveUtils } from '../../utils';
 import { Icon, type IconSize } from '../icon';
 import { Spinner } from '../spinner';
 import type { SpinnerSize, SpinnerVariant } from '../spinner/spinner';
-import type { ButtonSize, ButtonVariant, IButtonProps } from './button.api';
+import type { ButtonContext, ButtonSize, ButtonVariant, IButtonProps } from './button.api';
 
 // Using aria-disabled: instead of disabled: modifier in order to make the modifier work for buttons and links
 const variantToClassNames: Record<ButtonVariant, string[]> = {
@@ -60,25 +62,79 @@ const variantToSpinnerVariant: Record<ButtonVariant, SpinnerVariant> = {
     critical: 'critical',
 };
 
-const sizeToClassNames: Record<ButtonSize, Record<'onlyIcon' | 'default' | 'common', string>> = {
-    lg: {
-        common: 'h-[48px] text-base rounded-xl gap-1',
-        default: 'min-w-[112px] px-4',
-        onlyIcon: 'w-[48px]',
+const responsiveSizeClassNames: ResponsiveAttributeClassMap<ButtonSize> = {
+    sm: {
+        sm: 'h-[32px] text-sm rounded-lg gap-0.5',
+        md: 'md:h-[32px] md:text-sm md:rounded-lg md:gap-0.5',
+        lg: 'lg:h-[32px] lg:text-sm lg:rounded-lg lg:gap-0.5',
+        xl: 'xl:h-[32px] xl:text-sm xl:rounded-lg xl:gap-0.5',
+        '2xl': '2xl:h-[32px] 2xl:text-sm 2xl:rounded-lg 2xl:gap-0.5',
     },
     md: {
-        common: 'h-[40px] text-base rounded-xl gap-1',
-        default: 'min-w-[96px] px-3',
-        onlyIcon: 'w-[40px]',
+        sm: 'h-[40px] text-base rounded-xl gap-1',
+        md: 'md:h-[40px] md:text-base md:rounded-xl md:gap-1',
+        lg: 'lg:h-[40px] lg:text-base lg:rounded-xl lg:gap-1',
+        xl: 'xl:h-[40px] xl:text-base xl:rounded-xl xl:gap-1',
+        '2xl': '2xl:h-[40px] 2xl:text-base 2xl:rounded-xl 2xl:gap-1',
     },
-    sm: {
-        common: 'h-[32px] text-sm rounded-lg gap-0.5',
-        default: 'min-w-[80px] px-2',
-        onlyIcon: 'w-[32px]',
+    lg: {
+        sm: 'h-[48px] text-base rounded-xl gap-1',
+        md: 'md:h-[48px] md:text-base md:rounded-xl md:gap-1',
+        lg: 'lg:h-[48px] lg:text-base lg:rounded-xl lg:gap-1',
+        xl: 'xl:h-[48px] xl:text-base xl:rounded-xl xl:gap-1',
+        '2xl': '2xl:h-[48px] 2xl:text-base 2xl:rounded-xl 2xl:gap-1',
     },
 };
 
-const sizeToIconSize: Record<ButtonSize, Record<'onlyIcon' | 'default', IconSize>> = {
+const responsiveDefaultContextClassNames: ResponsiveAttributeClassMap<ButtonSize> = {
+    sm: {
+        sm: 'min-w-[80px] px-2',
+        md: 'md:min-w-[80px] md:px-2',
+        lg: 'lg:min-w-[80px] lg:px-2',
+        xl: 'xl:min-w-[80px] xl:px-2',
+        '2xl': '2xl:min-w-[80px] 2xl:px-2',
+    },
+    md: {
+        sm: 'min-w-[96px] px-3',
+        md: 'md:min-w-[96px] md:px-3',
+        lg: 'lg:min-w-[96px] lg:px-3',
+        xl: 'xl:min-w-[96px] xl:px-3',
+        '2xl': '2xl:min-w-[96px] 2xl:px-3',
+    },
+    lg: {
+        sm: 'min-w-[112px] px-4',
+        md: 'md:min-w-[112px] md:px-4',
+        lg: 'lg:min-w-[112px] lg:px-4',
+        xl: 'xl:min-w-[112px] xl:px-4',
+        '2xl': '2xl:min-w-[112px] 2xl:px-4',
+    },
+};
+
+const responsiveOnlyIconContextClassNames: ResponsiveAttributeClassMap<ButtonSize> = {
+    sm: {
+        sm: 'w-[32px]',
+        md: 'md:w-[32px]',
+        lg: 'lg:w-[32px]',
+        xl: 'xl:w-[32px]',
+        '2xl': '2xl:w-[32px]',
+    },
+    md: {
+        sm: 'w-[40px]',
+        md: 'md:w-[40px]',
+        lg: 'lg:w-[40px]',
+        xl: 'xl:w-[40px]',
+        '2xl': '2xl:w-[40px]',
+    },
+    lg: {
+        sm: 'w-[48px]',
+        md: 'md:w-[48px]',
+        lg: 'lg:w-[48px]',
+        xl: 'xl:w-[48px]',
+        '2xl': '2xl:w-[48px]',
+    },
+};
+
+const sizeToIconSize: Record<ButtonSize, Record<ButtonContext, IconSize>> = {
     lg: {
         default: 'md',
         onlyIcon: 'lg',
@@ -100,10 +156,21 @@ const sizeToSpinnerSize: Record<ButtonSize, SpinnerSize> = {
 };
 
 export const Button: React.FC<IButtonProps> = (props) => {
-    const { variant, size, iconRight, iconLeft, className, children, state, ...otherProps } = props;
+    const {
+        variant,
+        size,
+        responsiveSize = {},
+        iconRight,
+        iconLeft,
+        className,
+        children,
+        state,
+        ...otherProps
+    } = props;
 
     const isOnlyIcon = children == null || children === '';
     const isDisabled = state === 'disabled' || state === 'loading';
+    const buttonContext = isOnlyIcon ? 'onlyIcon' : 'default';
 
     const commonClasses = [
         'flex flex-row items-center justify-center', // Layout
@@ -126,19 +193,35 @@ export const Button: React.FC<IButtonProps> = (props) => {
         })
         .join(' ');
 
-    const sizeClasses = sizeToClassNames[size];
-
-    const classes = classNames(
-        commonClasses,
-        variantClasses,
-        sizeClasses.common,
-        className,
-        { [sizeClasses.default]: !isOnlyIcon },
-        { [sizeClasses.onlyIcon]: isOnlyIcon },
-        { 'cursor-progress': state === 'loading' },
+    const sizeClassNames = responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClassNames);
+    const contextClassNames = responsiveUtils.generateClassNames(
+        size,
+        responsiveSize,
+        isOnlyIcon ? responsiveOnlyIconContextClassNames : responsiveDefaultContextClassNames,
     );
 
-    const iconSize = sizeToIconSize[size][isOnlyIcon ? 'onlyIcon' : 'default'];
+    const classes = classNames(commonClasses, variantClasses, sizeClassNames, contextClassNames, className, {
+        'cursor-progress': state === 'loading',
+    });
+
+    const iconSize = sizeToIconSize[size][buttonContext];
+    const iconResponsiveSize = Object.keys(responsiveSize ?? {}).reduce<ResponsiveAttribute<IconSize>>(
+        (current, breakpoint) => ({
+            ...current,
+            [breakpoint]: sizeToIconSize[responsiveSize![breakpoint as Breakpoint]!][buttonContext],
+        }),
+        {},
+    );
+
+    const spinnerSize = sizeToSpinnerSize[size];
+    const spinnerResponsiveSize = Object.keys(responsiveSize ?? {}).reduce<ResponsiveAttribute<SpinnerSize>>(
+        (current, breakpoint) => ({
+            ...current,
+            [breakpoint]: sizeToSpinnerSize[responsiveSize![breakpoint as Breakpoint]!],
+        }),
+        {},
+    );
+
     const displayIconLeft = state !== 'loading' && iconLeft != null;
     const displayIconRight = state !== 'loading' && iconRight != null && !isOnlyIcon;
 
@@ -146,12 +229,16 @@ export const Button: React.FC<IButtonProps> = (props) => {
 
     const buttonContent = (
         <>
-            {displayIconLeft && <Icon icon={iconLeft} size={iconSize} />}
+            {displayIconLeft && <Icon icon={iconLeft} size={iconSize} responsiveSize={iconResponsiveSize} />}
             {state === 'loading' && (
-                <Spinner size={sizeToSpinnerSize[size]} variant={variantToSpinnerVariant[variant]} />
+                <Spinner
+                    size={spinnerSize}
+                    responsiveSize={spinnerResponsiveSize}
+                    variant={variantToSpinnerVariant[variant]}
+                />
             )}
             {!isOnlyIcon && <div className="px-1">{children}</div>}
-            {displayIconRight && <Icon icon={iconRight} size={iconSize} />}
+            {displayIconRight && <Icon icon={iconRight} size={iconSize} responsiveSize={iconResponsiveSize} />}
         </>
     );
 

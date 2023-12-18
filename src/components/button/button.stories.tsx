@@ -44,4 +44,16 @@ export const Link: Story = {
     },
 };
 
+/**
+ * Responsive button
+ */
+export const ResponsiveButton: Story = {
+    args: {
+        variant: 'primary',
+        size: 'md',
+        responsiveSize: { xl: 'lg' },
+        children: 'Responsive button',
+    },
+};
+
 export default meta;
