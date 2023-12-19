@@ -39,16 +39,22 @@ const responsiveSizeClasses: ResponsiveAttributeClassMap<AvatarIconSize> = {
         sm: 'w-6 h-6',
         md: 'md:w-6 md:h-6',
         lg: 'lg:w-6 lg:h-6',
+        xl: 'xl:w-6 xl:h-6',
+        '2xl': '2xl:w-6 2xl:h-6',
     },
     md: {
         sm: 'w-8 h-8',
         md: 'md:w-8 md:h-8',
         lg: 'lg:w-8 lg:h-8',
+        xl: 'xl:w-8 xl:h-8',
+        '2xl': '2xl:w-8 2xl:h-8',
     },
     lg: {
         sm: 'w-10 h-10',
         md: 'md:w-10 md:h-10',
         lg: 'lg:w-10 lg:h-10',
+        xl: 'xl:w-10 xl:h-10',
+        '2xl': '2xl:w-10 2xl:h-10',
     },
 };
 

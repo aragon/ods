@@ -1,7 +1,9 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react';
+import type { ResponsiveAttribute } from '../../types';
 import type { IconType } from '../icon';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'critical';
+export type ButtonContext = 'default' | 'onlyIcon';
 export type ButtonSize = 'lg' | 'md' | 'sm';
 export type ButtonState = 'disabled' | 'loading';
 
@@ -14,6 +16,10 @@ export interface IButtonBaseProps {
      * Size of the button.
      */
     size: ButtonSize;
+    /**
+     * Applies responsiveness to the size of the button.
+     */
+    responsiveSize?: ResponsiveAttribute<ButtonSize>;
     /**
      * State of the button.
      */
