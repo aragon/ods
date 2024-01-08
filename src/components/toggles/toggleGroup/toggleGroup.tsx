@@ -1,12 +1,19 @@
+import classNames from 'classnames';
+import { useMemo } from 'react';
 import { ToggleContextProvider } from '../toggleContext';
 import type { IToggleGroupProps, ToggleActiveValue } from './toggleGroup.api';
 
 export const ToggleGroup = <TValue extends ToggleActiveValue>(props: IToggleGroupProps<TValue>) => {
-    const { value, onChange, isMultiSelect, ...otherProps } = props;
+    const { value, onChange, isMultiSelect, className, ...otherProps } = props;
+
+    const contextValues = useMemo(
+        () => ({ isMultiSelect, value, onChange: onChange as (value: ToggleActiveValue) => void }),
+        [isMultiSelect, value, onChange],
+    );
 
     return (
-        <ToggleContextProvider value={{ isMultiSelect, value, onChange: onChange as () => void }}>
-            <div {...otherProps} />
+        <ToggleContextProvider value={contextValues}>
+            <div className={classNames('flex flex-row gap-3', className)} {...otherProps} />
         </ToggleContextProvider>
     );
 };

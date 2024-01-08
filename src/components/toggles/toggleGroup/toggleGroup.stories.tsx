@@ -21,10 +21,8 @@ type Story = StoryObj<typeof ToggleGroup>;
 const DefaultComponent = (props: Omit<IToggleGroupProps, 'value' | 'onChange'>) => {
     const [value, setValue] = useState<string>();
 
-    const handleChange = (value: string | undefined) => setValue(value);
-
     return (
-        <ToggleGroup value={value} onChange={handleChange} {...props}>
+        <ToggleGroup value={value} onChange={setValue} {...props}>
             <Toggle value="ethereum" label="Ethereum" />
             <Toggle value="polygon" label="Polygon" />
             <Toggle value="base" label="Base" />
@@ -42,13 +40,11 @@ export const Default: Story = {
 const MultiSelectComponent = (props: Omit<IToggleGroupProps, 'value' | 'onChange'>) => {
     const [value, setValue] = useState<string[]>();
 
-    const handleChange = (value: string[] | undefined) => setValue(value);
-
     return (
-        <ToggleGroup isMultiSelect={true} value={value} onChange={handleChange} {...props}>
-            <Toggle value="ethereum" label="Ethereum" />
-            <Toggle value="polygon" label="Polygon" />
-            <Toggle value="base" label="Base" />
+        <ToggleGroup isMultiSelect={true} value={value} onChange={setValue} {...props}>
+            <Toggle value="all" label="All DAOs" />
+            <Toggle value="member" label="Member" />
+            <Toggle value="following" label="Following" disabled={true} />
         </ToggleGroup>
     );
 };

@@ -17,13 +17,11 @@ const meta: Meta<typeof Toggle> = {
 
 type Story = StoryObj<typeof Toggle>;
 
-const DefaultComponent = (props: IToggleProps) => {
+const ToggleComponent = (props: IToggleProps) => {
     const [value, setValue] = useState<string>();
 
-    const handleChange = (value: string | undefined) => setValue(value);
-
     return (
-        <ToggleGroup value={value} onChange={handleChange}>
+        <ToggleGroup value={value} onChange={setValue}>
             <Toggle {...props} />
         </ToggleGroup>
     );
@@ -33,7 +31,7 @@ const DefaultComponent = (props: IToggleProps) => {
  * Default usage example of the Toggle component.
  */
 export const Default: Story = {
-    render: (props) => <DefaultComponent {...props} />,
+    render: (props) => <ToggleComponent {...props} />,
     args: {
         value: 'value',
         label: 'Label',
@@ -44,7 +42,7 @@ export const Default: Story = {
  * Disabled Toggle component.
  */
 export const Disabled: Story = {
-    render: (props) => <DefaultComponent {...props} />,
+    render: (props) => <ToggleComponent {...props} />,
     args: {
         disabled: true,
         label: 'Disabled',
