@@ -4,7 +4,7 @@
 const config = {
     testEnvironment: 'jsdom',
     collectCoverageFrom: ['./src/**/*.{ts,tsx}'],
-    coveragePathIgnorePatterns: ['.d.ts', '.api.ts', 'index.ts', '.stories.tsx'],
+    coveragePathIgnorePatterns: ['.d.ts', '.api.ts', 'index.ts', '.stories.tsx', './src/test/*'],
     setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
     transform: {
         '^.+\\.svg$': '<rootDir>/src/test/svgTransform.js',

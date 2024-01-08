@@ -5,5 +5,5 @@
 import '@testing-library/jest-dom';
 import { testLogger } from './utils';
 
-// Setup debug logger
+// Setup test logger
 testLogger.setup();
