@@ -86,7 +86,6 @@ export const Switch: React.FC<ISwitchProps> = (props) => {
         checked,
         disabled,
         defaultChecked,
-        'data-testid': 'Switch',
     };
 
     return (

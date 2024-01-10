@@ -10,7 +10,7 @@ describe('<Switch /> component', () => {
 
     it('renders with default props', () => {
         render(createTestComponent());
-        expect(screen.getByTestId('Switch')).toBeInTheDocument();
+        expect(screen.getByRole('switch')).toBeInTheDocument();
     });
 
     it('renders with custom props', () => {
@@ -18,7 +18,7 @@ describe('<Switch /> component', () => {
 
         render(createTestComponent(customProps));
 
-        const switchElement = screen.getByTestId('Switch');
+        const switchElement = screen.getByRole('switch');
         expect(switchElement).toBeInTheDocument();
         expect(switchElement).toHaveAttribute('data-state', 'checked');
         expect(switchElement).toHaveAttribute('aria-checked', customProps.checked.toString());
@@ -34,14 +34,14 @@ describe('<Switch /> component', () => {
 
     it('generates unique ID when no ID is provided', () => {
         render(createTestComponent());
-        expect(screen.getByTestId('Switch')).toHaveAttribute('id');
+        expect(screen.getByRole('switch')).toHaveAttribute('id');
     });
 
     it('invokes callback on state change and toggles state value', () => {
         const mockCallback = jest.fn();
         render(createTestComponent({ checked: true, onCheckedChanged: mockCallback }));
 
-        const switchElement = screen.getByTestId('Switch');
+        const switchElement = screen.getByRole('switch');
         fireEvent.click(switchElement);
 
         expect(mockCallback).toHaveBeenCalledWith(false);
@@ -51,7 +51,7 @@ describe('<Switch /> component', () => {
         const mockCallback = jest.fn();
         render(createTestComponent({ disabled: true, onCheckedChanged: mockCallback }));
 
-        const switchElement = screen.getByTestId('Switch');
+        const switchElement = screen.getByRole('switch');
         fireEvent.click(switchElement);
 
         expect(switchElement).toBeDisabled();
