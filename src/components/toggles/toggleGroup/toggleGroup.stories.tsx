@@ -26,6 +26,8 @@ const DefaultComponent = (props: Omit<IToggleGroupProps, 'value' | 'onChange'>) 
             <Toggle value="ethereum" label="Ethereum" />
             <Toggle value="polygon" label="Polygon" />
             <Toggle value="base" label="Base" />
+            <Toggle value="arbitrum" label="Arbitrum" />
+            <Toggle value="bsc" label="Binance Smart Chain" />
         </ToggleGroup>
     );
 };

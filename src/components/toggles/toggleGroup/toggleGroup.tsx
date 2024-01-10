@@ -13,7 +13,7 @@ export const ToggleGroup = <TValue extends ToggleActiveValue>(props: IToggleGrou
 
     return (
         <ToggleContextProvider value={contextValues}>
-            <div className={classNames('flex flex-row gap-3', className)} {...otherProps} />
+            <div className={classNames('flex flex-row flex-wrap gap-2 md:gap-3', className)} {...otherProps} />
         </ToggleContextProvider>
     );
 };
