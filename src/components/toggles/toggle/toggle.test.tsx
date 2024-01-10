@@ -17,13 +17,13 @@ describe('<Toggle /> component', () => {
         );
     };
 
-    it('renders a button with the specified label', () => {
+    it('renders a toggle with the specified label', () => {
         const label = 'Toggle Label';
         render(createTestComponent({ label }));
         expect(screen.getByRole('radio', { name: label })).toBeInTheDocument();
     });
 
-    it('renders the button as disabled when the disabled prop is set to true', () => {
+    it('renders the toggle as disabled when the disabled prop is set to true', () => {
         const disabled = true;
         render(createTestComponent({ disabled }));
         expect(screen.getByRole('radio')).toBeDisabled();
