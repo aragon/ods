@@ -23,16 +23,46 @@ const labelClassNames = classNames(
 );
 
 export interface ISwitchProps extends HtmlHTMLAttributes<HTMLDivElement> {
+    /**
+     * Indicates whether the switch is checked
+     */
     checked?: boolean;
+    /**
+     * CSS class name
+     */
     className?: string;
+    /**
+     * The default checked state of the switch
+     * @default false
+     */
     defaultChecked?: boolean;
+    /**
+     * Indicates whether the switch is disabled
+     * @default false
+     */
     disabled?: boolean;
+    /**
+     * The ID of the switch
+     */
     id?: string;
+    /**
+     * The label of the switch
+     */
     label?: string;
+    /**
+     * The name of the switch
+     */
     name?: string;
+    /**
+     * Event handler for when the checked state changes
+     * @param checked - The new checked state
+     */
     onCheckedChanged?: (checked: boolean) => void;
 }
 
+/**
+ * Switch component
+ */
 export const Switch: React.FC<ISwitchProps> = (props) => {
     const {
         checked,

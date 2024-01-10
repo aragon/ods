@@ -1,5 +1,6 @@
 import { useArgs } from '@storybook/preview-api';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { Switch } from './switch';
 
 const meta: Meta<typeof Switch> = {
@@ -16,27 +17,46 @@ const meta: Meta<typeof Switch> = {
 
 type Story = StoryObj<typeof Switch>;
 
-export const Default: Story = {
+/**
+ * `Spinner` used as an uncontrolled component
+ */
+export const Uncontrolled: Story = {
+    args: {
+        label: 'Show testnets',
+        name: 'testnet',
+        defaultChecked: true,
+        onCheckedChanged: undefined,
+    },
+};
+
+/**
+ * Controlled usage of the `Spinner` component
+ */
+export const Controlled: Story = {
+    decorators: [
+        (Story) => {
+            const [checked, setChecked] = useState(false);
+
+            const handleCheckedChanged = (newValue: boolean) => {
+                setChecked(newValue);
+            };
+
+            return <Story checked={checked} onCheckedChanged={handleCheckedChanged} />;
+        },
+    ],
+
     args: {
         label: 'Show testnets',
         name: 'testnet',
     },
-};
 
-export const Controlled: Story = {
-    args: {
-        label: 'Show testnets',
-        defaultChecked: true,
-        checked: false,
-    },
     render: function Component(args) {
         const [, setArgs] = useArgs();
 
-        const handleCheckedChanged = (checked: boolean) => {
-            args.onCheckedChanged?.(checked);
-            setArgs({ checked });
+        const handleCheckedChanged = (newValue: boolean) => {
+            args.onCheckedChanged?.(newValue);
+            setArgs({ checked: newValue });
         };
-
         return <Switch {...args} onCheckedChanged={handleCheckedChanged} />;
     },
 };
