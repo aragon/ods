@@ -18,7 +18,7 @@ const meta: Meta<typeof Switch> = {
 type Story = StoryObj<typeof Switch>;
 
 /**
- * `Spinner` used as an uncontrolled component
+ * `Switch` used as an uncontrolled component
  */
 export const Uncontrolled: Story = {
     args: {
@@ -30,7 +30,7 @@ export const Uncontrolled: Story = {
 };
 
 /**
- * Controlled usage of the `Spinner` component
+ * Controlled usage of the `Switch` component
  */
 export const Controlled: Story = {
     decorators: [
