@@ -1,2 +1,1 @@
-export { ToggleGroup } from './toggleGroup';
-export type { IToggleGroupProps, ToggleActiveValue } from './toggleGroup.api';
+export { ToggleGroup, type IToggleGroupProps } from './toggleGroup';

@@ -1,1 +1,1 @@
-export { Toggle, type IToggleProps, type ToggleValue } from './toggle';
+export { Toggle, type IToggleProps } from './toggle';
