@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Switch, type ISwitchProps } from '../switch';
+import { Switch, type ISwitchProps } from './switch';
 
 describe('<Switch /> component', () => {
     const createTestComponent = (props?: Partial<ISwitchProps>) => {
