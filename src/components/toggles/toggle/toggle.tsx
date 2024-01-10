@@ -1,60 +1,34 @@
+import { ToggleGroupItem as RadixToggle } from '@radix-ui/react-toggle-group';
 import classNames from 'classnames';
 import type { ComponentProps } from 'react';
-import { useToggleContext } from '../toggleContext';
 
-export type ToggleValue = string | number;
-
-export interface IToggleProps<TValue extends ToggleValue = ToggleValue>
-    extends Omit<ComponentProps<'button'>, 'value'> {
+export interface IToggleProps extends Omit<ComponentProps<'button'>, 'ref'> {
     /**
      * Value of the toggle.
      */
-    value: TValue;
+    value: string;
     /**
      * Label of the toggle.
      */
     label: string;
 }
 
-export const Toggle = <TValue extends ToggleValue>(props: IToggleProps<TValue>) => {
+export const Toggle: React.FC<IToggleProps> = (props) => {
     const { className, label, value, disabled, ...otherProps } = props;
-
-    const { value: currentValue, onChange, isMultiSelect } = useToggleContext();
-
-    const isActive =
-        isMultiSelect && Array.isArray(currentValue) ? currentValue.includes(value) : value === currentValue;
 
     const toggleClasses = classNames(
         'flex h-10 items-center rounded-[40px] border border-neutral-100 px-4', // Default
         'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // Focus state
         'hover:enabled:border-neutral-200 hover:enabled:shadow-primary-md', // Hover state
-        { 'bg-neutral-0 text-neutral-600': !isActive && !disabled }, // Default state
-        { 'bg-neutral-100 text-neutral-800': isActive && !disabled }, // Active state
-        { 'bg-neutral-100 text-neutral-300': disabled }, // Disabled state
+        'data-[state=off]:enabled:bg-neutral-0 data-[state=off]:enabled:text-neutral-600', // Default state
+        'data-[state=on]:enabled:bg-neutral-100 data-[state=on]:enabled:text-neutral-800', // Active state
+        'disabled:bg-neutral-100 disabled:text-neutral-300', // Disabled state
         className,
     );
 
-    const handleToggleClick = () => {
-        if (isMultiSelect) {
-            const parsedSelection = Array.isArray(currentValue)
-                ? currentValue
-                : currentValue != null
-                ? [currentValue]
-                : [];
-
-            const newSelection = parsedSelection.includes(value)
-                ? parsedSelection.filter((field) => field !== value)
-                : parsedSelection.concat(value);
-
-            onChange(newSelection);
-        } else {
-            onChange(currentValue === value ? undefined : value);
-        }
-    };
-
     return (
-        <button className={toggleClasses} onClick={handleToggleClick} disabled={disabled} {...otherProps}>
+        <RadixToggle className={toggleClasses} disabled={disabled} value={value} {...otherProps}>
             <p className="text-sm font-semibold leading-normal md:text-base">{label}</p>
-        </button>
+        </RadixToggle>
     );
 };

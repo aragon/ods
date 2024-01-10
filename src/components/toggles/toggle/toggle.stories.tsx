@@ -17,21 +17,36 @@ const meta: Meta<typeof Toggle> = {
 
 type Story = StoryObj<typeof Toggle>;
 
-const ToggleComponent = (props: IToggleProps) => {
+/**
+ * Default usage example of the Toggle component.
+ */
+export const Default: Story = {
+    render: (props) => (
+        <ToggleGroup isMultiSelect={false}>
+            <Toggle {...props} />
+        </ToggleGroup>
+    ),
+    args: {
+        value: 'value',
+        label: 'Label',
+    },
+};
+
+const ControllerComponent = (props: IToggleProps) => {
     const [value, setValue] = useState<string>();
 
     return (
-        <ToggleGroup value={value} onChange={setValue}>
+        <ToggleGroup isMultiSelect={false} value={value} onChange={setValue}>
             <Toggle {...props} />
         </ToggleGroup>
     );
 };
 
 /**
- * Default usage example of the Toggle component.
+ * Controlled usage example of the Toggle component.
  */
-export const Default: Story = {
-    render: (props) => <ToggleComponent {...props} />,
+export const Controlled: Story = {
+    render: (props) => <ControllerComponent {...props} />,
     args: {
         value: 'value',
         label: 'Label',
@@ -42,7 +57,11 @@ export const Default: Story = {
  * Disabled Toggle component.
  */
 export const Disabled: Story = {
-    render: (props) => <ToggleComponent {...props} />,
+    render: (props) => (
+        <ToggleGroup isMultiSelect={false}>
+            <Toggle {...props} />
+        </ToggleGroup>
+    ),
     args: {
         disabled: true,
         label: 'Disabled',

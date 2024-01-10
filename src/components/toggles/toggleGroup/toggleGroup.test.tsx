@@ -1,17 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import { Toggle } from '../toggle';
-import { ToggleGroup } from './toggleGroup';
-import type { IToggleGroupProps } from './toggleGroup.api';
+import { ToggleGroup, type IToggleGroupBaseProps, type IToggleGroupProps } from './toggleGroup';
 
 describe('<ToggleGroup /> component', () => {
-    const createTestComponent = (props?: Partial<IToggleGroupProps>) => {
-        const completeProps: IToggleGroupProps = {
-            value: undefined,
-            onChange: jest.fn(),
-            ...props,
-        };
+    const createTestComponent = (props: Partial<IToggleGroupProps> = {}) => {
+        if (props?.isMultiSelect) {
+            return <ToggleGroup isMultiSelect={true} {...props} />;
+        }
 
-        return <ToggleGroup {...completeProps} />;
+        const { isMultiSelect, ...otherProps } = props as IToggleGroupBaseProps<false>;
+
+        return <ToggleGroup isMultiSelect={false} {...otherProps} />;
     };
 
     it('renders the children components', () => {

@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Toggle } from '../toggle';
-import { ToggleGroup } from './toggleGroup';
-import { type IToggleGroupProps } from './toggleGroup.api';
+import { ToggleGroup, type IToggleGroupProps } from './toggleGroup';
 
 const meta: Meta<typeof Toggle> = {
     title: 'components/Toggles/ToggleGroup',
@@ -18,11 +17,23 @@ const meta: Meta<typeof Toggle> = {
 
 type Story = StoryObj<typeof ToggleGroup>;
 
-const DefaultComponent = (props: Omit<IToggleGroupProps, 'value' | 'onChange'>) => {
+/**
+ * Default usage example of the ToggleGroup component.
+ */
+export const Default: Story = {
+    render: (props) => (
+        <ToggleGroup {...props}>
+            <Toggle value="multisig" label="Multisig" />
+            <Toggle value="token-based" label="Token Based" />
+        </ToggleGroup>
+    ),
+};
+
+const ControlledComponent = (props: Omit<IToggleGroupProps, 'value' | 'onChange' | 'isMultiSelect'>) => {
     const [value, setValue] = useState<string>();
 
     return (
-        <ToggleGroup value={value} onChange={setValue} {...props}>
+        <ToggleGroup isMultiSelect={false} value={value} onChange={setValue} {...props}>
             <Toggle value="ethereum" label="Ethereum" />
             <Toggle value="polygon" label="Polygon" />
             <Toggle value="base" label="Base" />
@@ -33,13 +44,13 @@ const DefaultComponent = (props: Omit<IToggleGroupProps, 'value' | 'onChange'>) 
 };
 
 /**
- * Default usage example of the ToggleGroup component.
+ * Controlled usage example of the ToggleGroup component.
  */
-export const Default: Story = {
-    render: ({ value, onChange, ...props }) => <DefaultComponent {...props} />,
+export const Controlled: Story = {
+    render: ({ value, onChange, isMultiSelect, ...props }) => <ControlledComponent {...props} />,
 };
 
-const MultiSelectComponent = (props: Omit<IToggleGroupProps, 'value' | 'onChange'>) => {
+const MultiSelectComponent = (props: Omit<IToggleGroupProps, 'value' | 'onChange' | 'isMultiSelect'>) => {
     const [value, setValue] = useState<string[]>();
 
     return (
@@ -55,7 +66,7 @@ const MultiSelectComponent = (props: Omit<IToggleGroupProps, 'value' | 'onChange
  * ToggleGroup component used with multiple selection.
  */
 export const MultiSelect: Story = {
-    render: ({ value, onChange, ...props }) => <MultiSelectComponent {...props} />,
+    render: ({ value, onChange, isMultiSelect, ...props }) => <MultiSelectComponent {...props} />,
 };
 
 export default meta;
