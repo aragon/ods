@@ -19,7 +19,6 @@ const thumbClassNames = classNames(
 const labelClassNames = classNames(
     'text-sm/tight font-semibold text-neutral-600', // Default
     'peer-disabled:text-neutral-300 peer-disabled:peer-data-[state=checked]:text-neutral-600', // Disabled
-    'peer-focus:text-neutral-400 peer-focus:peer-data-[state=checked]:text-neutral-600', // Focus
 );
 
 export interface ISwitchProps extends HtmlHTMLAttributes<HTMLDivElement> {
