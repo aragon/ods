@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { Toggle } from '../toggle';
 import { ToggleGroup, type IToggleGroupProps } from './toggleGroup';
 
-const meta: Meta<typeof Toggle> = {
+const meta: Meta<typeof ToggleGroup> = {
     title: 'components/Toggles/ToggleGroup',
-    component: Toggle,
+    component: ToggleGroup,
     tags: ['autodocs'],
     parameters: {
         design: {

@@ -13,6 +13,11 @@ export interface IToggleProps extends Omit<ComponentProps<'button'>, 'ref'> {
     label: string;
 }
 
+/**
+ * The Toggle component is a button that handles the "on" and "off" states.
+ *
+ * **NOTE**: The component must be used inside a `<ToggleGroup />` component in order to work properly.
+ */
 export const Toggle: React.FC<IToggleProps> = (props) => {
     const { className, label, value, disabled, ...otherProps } = props;
 
