@@ -1,7 +1,6 @@
-import { useArgs } from '@storybook/preview-api';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Switch } from './switch';
+import { Switch, type ISwitchProps } from './switch';
 
 const meta: Meta<typeof Switch> = {
     title: 'components/Switch',
@@ -32,32 +31,17 @@ export const Uncontrolled: Story = {
 /**
  * Controlled usage of the `Switch` component
  */
+const ControlledComponent = (props: ISwitchProps) => {
+    const [checked, setChecked] = useState(false);
+
+    return <Switch checked={checked} onCheckedChanged={setChecked} {...props} />;
+};
+
 export const Controlled: Story = {
-    decorators: [
-        (Story) => {
-            const [checked, setChecked] = useState(false);
-
-            const handleCheckedChanged = (newValue: boolean) => {
-                setChecked(newValue);
-            };
-
-            return <Story checked={checked} onCheckedChanged={handleCheckedChanged} />;
-        },
-    ],
-
+    render: ({ onCheckedChanged, ...props }: ISwitchProps) => <ControlledComponent {...props} />,
     args: {
         label: 'Show testnets',
         name: 'testnet',
-    },
-
-    render: function Component(args) {
-        const [, setArgs] = useArgs();
-
-        const handleCheckedChanged = (newValue: boolean) => {
-            args.onCheckedChanged?.(newValue);
-            setArgs({ checked: newValue });
-        };
-        return <Switch {...args} onCheckedChanged={handleCheckedChanged} />;
     },
 };
 
