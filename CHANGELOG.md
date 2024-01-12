@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `Card`, `CardSummary`, and `Switch` components
+-   Implement `Card`, `CardSummary`, `Switch`, `Toggle` and `ToggleGroup` components
 
 ### Changed
 
