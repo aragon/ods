@@ -12,9 +12,6 @@ export interface IInputSearchProps extends IInputComponentProps {
     isLoading?: boolean;
 }
 
-// Needed to trigger a native onChange event on clear input click (see https://stackoverflow.com/a/46012210)
-const nativeValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
-
 export const InputSearch: React.FC<IInputSearchProps> = (props) => {
     const { isLoading, ...otherProps } = props;
     const { containerProps, inputProps } = useInputProps(otherProps);
@@ -40,7 +37,9 @@ export const InputSearch: React.FC<IInputSearchProps> = (props) => {
             return;
         }
 
-        nativeValueSetter?.call(inputRef.current, '');
+        // Needed to trigger a native onChange event on clear input click (see https://stackoverflow.com/a/46012210)
+        Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set?.call(inputRef.current, '');
+
         const event = new Event('input', { bubbles: true });
         inputRef.current.dispatchEvent(event);
 

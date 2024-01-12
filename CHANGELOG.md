@@ -16,6 +16,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update `Spinner` and `Button` components to handle responsive sizes
 -   Update `Icon` and `AvatarIcon` components to handle xl and 2xl responsive sizes
 
+### Fixed
+
+-   Update `InputSearch` component to fix server-side rendering
+
 ## [1.0.6] - 2023-12-13
 
 ### Added
