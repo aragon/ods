@@ -72,6 +72,7 @@ module.exports = {
                 800: 'var(--ods-color-critical-800)',
                 900: 'var(--ods-color-critical-900)',
             },
+            transparent: 'var(--ods-color-transparent)',
         },
         spacing: {
             0: 'var(--ods-space-0)', // 0px

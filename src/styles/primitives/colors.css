@@ -67,4 +67,7 @@
   --ods-color-critical-700: #b31b35;
   --ods-color-critical-800: #901132;
   --ods-color-critical-900: #770a30;
+
+  /* Transparent */
+  --ods-color-transparent: transparent;
 }
