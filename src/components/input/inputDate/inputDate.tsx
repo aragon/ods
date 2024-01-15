@@ -6,7 +6,7 @@ import { IconType } from '../../icon';
 import { InputContainer, type IInputComponentProps } from '../inputContainer';
 import { useInputProps } from '../useInputProps';
 
-export interface IInputDateProps extends IInputComponentProps {}
+export interface IInputDateProps extends Omit<IInputComponentProps, 'maxLength'> {}
 
 export const InputDate: React.FC<IInputDateProps> = forwardRef((props, ref) => {
     const { containerProps, inputProps } = useInputProps(props);
