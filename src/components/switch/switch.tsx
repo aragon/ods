@@ -10,7 +10,7 @@ const rootClassNames = classNames(
 );
 
 const thumbClassNames = classNames(
-    'block h-4 w-4 rounded-full bg-neutral-300 transition-transform duration-100 will-change-transform', // Default
+    'block size-4 rounded-full bg-neutral-300 transition-transform duration-100 will-change-transform', // Default
     'data-[state=checked]:translate-x-[14px] data-[state=checked]:bg-primary-400', // State is checked
     'group-disabled:bg-neutral-200 group-disabled:data-[state=checked]:bg-neutral-300', // Disabled
 );
