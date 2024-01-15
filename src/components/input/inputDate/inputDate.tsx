@@ -11,7 +11,7 @@ export interface IInputDateProps extends IInputComponentProps {}
 export const InputDate: React.FC<IInputDateProps> = forwardRef((props, ref) => {
     const { containerProps, inputProps } = useInputProps(props);
 
-    const { className: inputClassName, ...otherInputProps } = inputProps;
+    const { className: inputClassName, disabled, ...otherInputProps } = inputProps;
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -25,6 +25,7 @@ export const InputDate: React.FC<IInputDateProps> = forwardRef((props, ref) => {
                 type="date"
                 className={classNames('calendar-icon:hidden calendar-icon:appearance-none', inputClassName)}
                 ref={mergeRefs([inputRef, ref])}
+                disabled={disabled}
                 {...otherInputProps}
             />
             <Button
@@ -33,6 +34,7 @@ export const InputDate: React.FC<IInputDateProps> = forwardRef((props, ref) => {
                 iconLeft={IconType.CALENDAR}
                 className="mr-2"
                 onClick={handleCalendarClick}
+                state={disabled ? 'disabled' : undefined}
             />
         </InputContainer>
     );

@@ -27,6 +27,14 @@ describe('<InputDate /> component', () => {
         expect(dateInput.type).toEqual('date');
     });
 
+    it('renders the input as disabled when the isDisabled property is set to true', () => {
+        const isDisabled = true;
+        const label = 'test';
+        render(createTestComponent({ label, isDisabled }));
+        expect(screen.getByLabelText(label)).toBeDisabled();
+        expect(screen.getByRole('button')).toBeDisabled();
+    });
+
     it('renders a button which opens the date picker on click', () => {
         const showPicker = jest.fn();
         useRefMock.mockReturnValue({ current: { showPicker } });
