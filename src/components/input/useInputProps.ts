@@ -61,7 +61,7 @@ export const useInputProps = (props: IInputComponentProps): IUseInputPropsResult
     };
 
     const inputClasses = classNames(
-        'h-full w-full rounded-xl px-4 py-3 caret-neutral-500 outline-none', // Default
+        'size-full rounded-xl px-4 py-3 caret-neutral-500 outline-none', // Default
         'placeholder:text-base placeholder:font-normal placeholder:leading-tight placeholder:text-neutral-300', // Placeholder
         inputClassName, // Prop
     );

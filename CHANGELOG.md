@@ -7,6 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+-   Fix label size of `Switch` component
+
+### Changed
+
+-   Update minor and patch versions of dependencies
+
 ## [1.0.7] - 2024-01-12
 
 ### Added
