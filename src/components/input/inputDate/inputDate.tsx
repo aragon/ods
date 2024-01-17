@@ -11,6 +11,7 @@ export interface IInputDateProps extends Omit<IInputComponentProps, 'maxLength'>
 export const InputDate: React.FC<IInputDateProps> = forwardRef((props, ref) => {
     const { containerProps, inputProps } = useInputProps(props);
 
+    const { className: containerClassName, ...otherContainerProps } = containerProps;
     const { className: inputClassName, disabled, ...otherInputProps } = inputProps;
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -20,10 +21,12 @@ export const InputDate: React.FC<IInputDateProps> = forwardRef((props, ref) => {
     };
 
     return (
-        <InputContainer {...containerProps}>
+        // Using absolute and relative positions to hide native date-picker icon on Firefox as it cannot be customised
+        // (see Firefox bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1812397)
+        <InputContainer className={classNames('relative', containerClassName)} {...otherContainerProps}>
             <input
                 type="date"
-                className={classNames('calendar-icon:hidden calendar-icon:appearance-none', inputClassName)}
+                className={classNames('absolute calendar-icon:hidden calendar-icon:appearance-none', inputClassName)}
                 ref={mergeRefs([inputRef, ref])}
                 disabled={disabled}
                 {...otherInputProps}
@@ -32,7 +35,7 @@ export const InputDate: React.FC<IInputDateProps> = forwardRef((props, ref) => {
                 variant="tertiary"
                 size="sm"
                 iconLeft={IconType.CALENDAR}
-                className="mr-2"
+                className="absolute right-2"
                 onClick={handleCalendarClick}
                 state={disabled ? 'disabled' : undefined}
             />
