@@ -17,7 +17,7 @@ const thumbClassNames = classNames(
 
 // using `peer` since the parent div is not focusable nor able to be disabled
 const labelClassNames = classNames(
-    'text-sm/tight font-semibold text-neutral-600', // Default
+    'text-sm font-semibold leading-tight text-neutral-600 md:text-base', // Default
     'peer-disabled:text-neutral-300 peer-disabled:peer-data-[state=checked]:text-neutral-600', // Disabled
 );
 
