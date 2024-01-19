@@ -1,5 +1,6 @@
 import { useEffect, type ComponentProps } from 'react';
 import { useIMask } from 'react-imask';
+import { NumberFormat, formatterUtils } from '../../utils';
 
 export interface IUseNumberMaskProps extends Pick<ComponentProps<'input'>, 'min' | 'max' | 'value'> {
     /**
@@ -11,15 +12,31 @@ export interface IUseNumberMaskProps extends Pick<ComponentProps<'input'>, 'min'
 
 export interface IUseNumberMaskResult extends ReturnType<typeof useIMask<HTMLInputElement>> {}
 
+const getNumberSeparators = () => {
+    const match = formatterUtils
+        .formatNumber(100_000.1, { format: NumberFormat.TOKEN_AMOUNT_LONG })
+        ?.match(/([^0-9])/g);
+
+    const thousandsSeparator = match?.shift();
+    const radix = match?.pop();
+
+    return { thousandsSeparator, radix };
+};
+
+// The imask.js library requires us to set a "scale" property as max decimal places otherwise it defaults to 0.
+const maxDecimalPlaces = 30;
+
 export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult => {
     const { min, max, onChange, value } = props;
+
+    const { thousandsSeparator, radix } = getNumberSeparators();
 
     const result = useIMask<HTMLInputElement>(
         {
             mask: Number,
-            radix: '.', // formatter
-            thousandsSeparator: ' ', // formatter
-            scale: 100,
+            radix,
+            thousandsSeparator,
+            scale: maxDecimalPlaces,
             max: max ? Number(max) : undefined,
             min: min ? Number(min) : undefined,
         },
