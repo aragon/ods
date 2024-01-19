@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { InputNumberMax } from './inputNumberMax';
+import { useState } from 'react';
+import { InputNumberMax, type IInputNumberMaxProps } from './inputNumberMax';
 
 const meta: Meta<typeof InputNumberMax> = {
     title: 'components/Input/InputNumberMax',
@@ -21,7 +22,24 @@ type Story = StoryObj<typeof InputNumberMax>;
 export const Default: Story = {
     args: {
         placeholder: 'Placeholder',
-        max: 100,
+        max: 54120,
+    },
+};
+
+const ControlledComponent = (props: IInputNumberMaxProps) => {
+    const [value, setValue] = useState<string>();
+
+    return <InputNumberMax value={value} onChange={setValue} {...props} />;
+};
+
+/**
+ * Usage example of a controlled InputNumberMax component.
+ */
+export const Controlled: Story = {
+    render: ({ onChange, ...props }) => <ControlledComponent {...props} />,
+    args: {
+        placeholder: 'Controlled input',
+        max: 120500500.05,
     },
 };
 
