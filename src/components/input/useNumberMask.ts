@@ -17,8 +17,8 @@ export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult 
     const result = useIMask<HTMLInputElement>(
         {
             mask: Number,
-            radix: '.',
-            thousandsSeparator: ' ',
+            radix: '.', // formatter
+            thousandsSeparator: ' ', // formatter
             scale: 100,
             max: max ? Number(max) : undefined,
             min: min ? Number(min) : undefined,
