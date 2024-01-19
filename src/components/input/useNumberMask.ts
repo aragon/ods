@@ -3,7 +3,8 @@ import { useIMask } from 'react-imask';
 
 export interface IUseNumberMaskProps extends Pick<ComponentProps<'input'>, 'min' | 'max' | 'value'> {
     /**
-     * Callback called on value change.
+     * Callback called on value change. Override the default onChange callback to only emit the updated value because
+     * the library in use formats the user input and emit the valid number when valid.
      */
     onChange?: (value: string) => void;
 }
@@ -18,9 +19,9 @@ export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult 
             mask: Number,
             radix: '.',
             thousandsSeparator: ' ',
-            max: Number(max),
             scale: 100,
-            min: Number(min),
+            max: max ? Number(max) : undefined,
+            min: min ? Number(min) : undefined,
         },
         { onAccept: (_value, mask) => onChange?.(mask.unmaskedValue) },
     );

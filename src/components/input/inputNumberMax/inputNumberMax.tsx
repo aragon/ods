@@ -3,7 +3,7 @@ import { Button } from '../../button';
 import { type ButtonVariant } from '../../button/button.api';
 import { InputContainer, type IInputComponentProps, type InputVariant } from '../inputContainer';
 import { useInputProps } from '../useInputProps';
-import { useNumberMask } from '../useNumberMask';
+import { useNumberMask, type IUseNumberMaskProps } from '../useNumberMask';
 
 export interface IInputNumberMaxProps extends Omit<IInputComponentProps, 'maxLength' | 'onChange'> {
     /**
@@ -11,9 +11,9 @@ export interface IInputNumberMaxProps extends Omit<IInputComponentProps, 'maxLen
      */
     max: number;
     /**
-     * Callback called on input change.
+     * @see IUseNumberMaskProps['onChange']
      */
-    onChange?: (value: string) => void;
+    onChange?: IUseNumberMaskProps['onChange'];
 }
 
 const inputVariantToButtonVariant: Record<InputVariant, ButtonVariant> = {
@@ -29,7 +29,7 @@ export const InputNumberMax: React.FC<IInputNumberMaxProps> = (props) => {
     const { variant, ...otherContainerProps } = containerProps;
     const { className: inputClassName, value, min, ...otherInputProps } = inputProps;
 
-    const { ref, setValue } = useNumberMask({ min, max, value });
+    const { ref, setValue } = useNumberMask({ min, max, value, onChange });
 
     const handleMaxClick = () => setValue(max.toString());
 
@@ -40,6 +40,7 @@ export const InputNumberMax: React.FC<IInputNumberMaxProps> = (props) => {
                 ref={ref}
                 max={max}
                 min={min}
+                inputMode="decimal"
                 {...otherInputProps}
             />
             <Button
