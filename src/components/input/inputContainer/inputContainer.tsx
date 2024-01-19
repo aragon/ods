@@ -5,19 +5,19 @@ import type { IInputContainerProps, InputVariant } from './inputContainer.api';
 
 const variantToClassNames: Record<InputVariant | 'disabled', string[]> = {
     default: [
-        'border-neutral-100 bg-neutral-0 text-neutral-600', // Default state
+        'border-neutral-100 bg-neutral-0', // Default state
         'hover:border-neutral-200 hover:shadow-neutral-md', // Hover state
         'focus-within:outline-primary-400 focus-within:border-primary-400 focus-within:shadow-primary-md', // Focus state
         'focus-within:hover:border-primary-400 focus-within:hover:shadow-primary-md', // Focus + Hover state
     ],
     warning: [
-        'border-warning-500 bg-neutral-0 text-warning-800', // Default state
+        'border-warning-500 bg-neutral-0', // Default state
         'hover:border-warning-600 hover:shadow-warning-md', // Hover state
         'focus-within:outline-warning-600 focus-within:border-warning-600 focus-within:shadow-warning-md', // Focus state
         'focus-within:hover:border-warning-600 focus-within:hover:shadow-warning-md', // Focus + Hover state
     ],
     critical: [
-        'border-critical-500 bg-neutral-0 text-critical-800', // Default state
+        'border-critical-500 bg-neutral-0', // Default state
         'hover:border-critical-600 hover:shadow-critical-md', // Hover state
         'focus-within:outline-critical-600 focus-within:border-critical-600 focus-within:shadow-critical-md', // Focus state
         'focus-within:hover:border-critical-600 focus-within:hover:shadow-critical-md', // Focus + Hover state
@@ -48,7 +48,7 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
     const processedVariant = isDisabled ? 'disabled' : variant;
     const containerClasses = classNames(
         'flex h-12 w-full flex-row items-center', // Layout
-        'rounded-xl border transition-all', // Styling
+        'rounded-xl border text-neutral-600 transition-all', // Styling
         'outline-1 focus-within:outline', // Outline on focus
         'text-base font-normal leading-tight', // Typography
         variantToClassNames[processedVariant],
