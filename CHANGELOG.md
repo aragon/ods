@@ -17,7 +17,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
--   Fix input value colors on `warning` and `critical` variants
 -   Fix disabled input style on Firefox
 
 ## [1.0.8] - 2024-01-17
