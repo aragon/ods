@@ -10,7 +10,7 @@ describe('<AvatarIcon /> component', () => {
         return <AvatarIcon {...completeProps} />;
     };
 
-    it('renders the AvatarIcon component', () => {
+    it('renders the specified icon', () => {
         render(createTestComponent({ icon: IconType.APP_FINANCE }));
         expect(screen.getByTestId(IconType.APP_FINANCE)).toBeInTheDocument();
     });
