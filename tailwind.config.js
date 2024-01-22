@@ -72,6 +72,7 @@ module.exports = {
                 800: 'var(--ods-color-critical-800)',
                 900: 'var(--ods-color-critical-900)',
             },
+            transparent: 'var(--ods-color-transparent)',
         },
         spacing: {
             0: 'var(--ods-space-0)', // 0px
@@ -223,6 +224,7 @@ module.exports = {
     plugins: [
         require('tailwindcss/plugin')(({ addVariant }) => {
             addVariant('search-cancel', '&::-webkit-search-cancel-button');
+            addVariant('calendar-icon', ['&::-webkit-calendar-picker-indicator', '&::-webkit-inner-spin-button']);
         }),
     ],
 };

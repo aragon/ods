@@ -8,8 +8,9 @@ const config = {
     setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
     transform: {
         '^.+\\.svg$': '<rootDir>/src/test/svgTransform.js',
-        '^.+\\.tsx?$': 'ts-jest',
+        '^.+\\.m?[tj]sx?$': 'ts-jest',
     },
+    transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|react-merge-refs))'],
 };
 
 module.exports = config;

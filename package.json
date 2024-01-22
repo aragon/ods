@@ -47,7 +47,8 @@
     "@radix-ui/react-toggle-group": "^1.0.0",
     "classnames": "^2.0.0",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "react-merge-refs": "^2.0.0"
   },
   "peerDependencies": {
     "tailwindcss": "^3.4.0"
