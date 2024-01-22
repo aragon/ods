@@ -10,10 +10,24 @@ type AvatarIconSize = 'sm' | 'md' | 'lg';
 type AvatarIconVariant = 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'critical';
 
 export interface IAvatarIconProps extends HTMLAttributes<HTMLDivElement> {
-    size?: AvatarIconSize;
-    variant?: AvatarIconVariant;
-    responsiveSize?: ResponsiveAttribute<AvatarIconSize>;
+    /**
+     * The icon type
+     */
     icon: IconType;
+    /**
+     *  Responsive size attribute for the avatar.
+     */
+    responsiveSize?: ResponsiveAttribute<AvatarIconSize>;
+    /**
+     * The size of the avatar icon.
+     * @default sm
+     */
+    size?: AvatarIconSize;
+    /**
+     * The variant of the avatar.
+     * @default neutral
+     */
+    variant?: AvatarIconVariant;
 }
 
 const avatarVariantToIconClassNames: Record<AvatarIconVariant, string> = {
