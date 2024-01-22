@@ -1,18 +1,34 @@
 import * as RadixAvatar from '@radix-ui/react-avatar';
 import classNames from 'classnames';
 import type React from 'react';
-import { type HTMLAttributes, type ReactNode } from 'react';
+import { useState, type HTMLAttributes, type ReactNode } from 'react';
 import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../../types';
 import { responsiveUtils } from '../../../utils';
 
 type AvatarSize = 'sm' | 'md' | 'lg';
 
 export interface IAvatarProps extends HTMLAttributes<HTMLSpanElement> {
+    /**
+     *  Alternate text for the avatar image.
+     */
     alt?: string;
-    delayMs?: number;
+    /**
+     *  Fallback content to display when the image fails to load or
+     *  no image is provided.
+     */
     fallback?: ReactNode;
+    /**
+     *  Responsive size attribute for the avatar.
+     */
     responsiveSize?: ResponsiveAttribute<AvatarSize>;
+    /**
+     * The size of the avatar.
+     * @default sm
+     */
     size?: AvatarSize;
+    /**
+     *  The source URL for the avatar image.
+     */
     src?: string;
 }
 
@@ -40,22 +56,44 @@ const responsiveSizeClasses: ResponsiveAttributeClassMap<AvatarSize> = {
     },
 };
 
+/**
+ * Avatar component
+ */
 export const Avatar: React.FC<IAvatarProps> = (props) => {
-    const { alt, className, delayMs, fallback, responsiveSize = {}, size = 'sm', src, ...rest } = props;
+    const { alt = 'avatar', className, fallback, responsiveSize = {}, size = 'sm', src, ...rest } = props;
 
-    const defaultClasses = classNames(
-        'rounded-full',
+    const containerClassNames = classNames(
+        'flex items-center justify-center overflow-hidden rounded-full',
         responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClasses),
+        className,
     );
 
+    const [imgLoading, setImgLoading] = useState(true);
+
+    const handleOnLoadingStatusChange = (status: RadixAvatar.ImageLoadingStatus) => {
+        status === 'loading' ? setImgLoading(true) : setImgLoading(false);
+    };
+
+    const showFallback = !!fallback && !imgLoading;
     return (
-        <RadixAvatar.Root {...rest} className={classNames(defaultClasses, className)}>
-            <RadixAvatar.Image alt={alt} src={src} />
-            {fallback ? (
-                <RadixAvatar.Fallback delayMs={delayMs}>{fallback}</RadixAvatar.Fallback>
-            ) : (
-                <RadixAvatar.Fallback delayMs={delayMs} className={classNames(defaultClasses, 'bg-neutral-200')} />
-            )}
+        <RadixAvatar.Root {...rest} className={containerClassNames}>
+            <RadixAvatar.Image
+                alt={alt}
+                src={src}
+                className="size-full rounded-[inherit] object-cover"
+                onLoadingStatusChange={handleOnLoadingStatusChange}
+            />
+            <RadixAvatar.Fallback
+                data-testid="fallback"
+                className={classNames(
+                    'size-full rounded-[inherit]',
+                    { 'animate-pulse bg-neutral-200': imgLoading },
+                    { 'bg-neutral-200': !fallback },
+                    { 'flex items-center justify-center': showFallback },
+                )}
+            >
+                {showFallback && fallback}
+            </RadixAvatar.Fallback>
         </RadixAvatar.Root>
     );
 };
