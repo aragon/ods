@@ -1,17 +1,13 @@
 import * as RadixAvatar from '@radix-ui/react-avatar';
 import classNames from 'classnames';
 import type React from 'react';
-import { useState, type HTMLAttributes, type ReactNode } from 'react';
+import { useState, type ComponentPropsWithoutRef, type ReactNode } from 'react';
 import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../../types';
 import { responsiveUtils } from '../../../utils';
 
 type AvatarSize = 'sm' | 'md' | 'lg';
 
-export interface IAvatarProps extends HTMLAttributes<HTMLSpanElement> {
-    /**
-     *  Alternate text for the avatar image.
-     */
-    alt?: string;
+export interface IAvatarProps extends ComponentPropsWithoutRef<'img'> {
     /**
      *  Fallback content to display when the image fails to load or
      *  no image is provided.
@@ -26,10 +22,6 @@ export interface IAvatarProps extends HTMLAttributes<HTMLSpanElement> {
      * @default sm
      */
     size?: AvatarSize;
-    /**
-     *  The source URL for the avatar image.
-     */
-    src?: string;
 }
 
 const responsiveSizeClasses: ResponsiveAttributeClassMap<AvatarSize> = {
@@ -60,7 +52,7 @@ const responsiveSizeClasses: ResponsiveAttributeClassMap<AvatarSize> = {
  * Avatar component
  */
 export const Avatar: React.FC<IAvatarProps> = (props) => {
-    const { alt = 'avatar', className, fallback, responsiveSize = {}, size = 'sm', src, ...rest } = props;
+    const { alt = 'avatar', className, fallback, responsiveSize = {}, size = 'sm', ...imageProps } = props;
 
     const containerClassNames = classNames(
         'flex items-center justify-center overflow-hidden rounded-full',
@@ -71,15 +63,15 @@ export const Avatar: React.FC<IAvatarProps> = (props) => {
     const [imgLoading, setImgLoading] = useState(true);
 
     const handleOnLoadingStatusChange = (status: RadixAvatar.ImageLoadingStatus) => {
-        status === 'loading' ? setImgLoading(true) : setImgLoading(false);
+        setImgLoading(status === 'loading');
     };
 
     const showFallback = !!fallback && !imgLoading;
     return (
-        <RadixAvatar.Root {...rest} className={containerClassNames}>
+        <RadixAvatar.Root className={containerClassNames}>
             <RadixAvatar.Image
                 alt={alt}
-                src={src}
+                {...imageProps}
                 className="size-full rounded-[inherit] object-cover"
                 onLoadingStatusChange={handleOnLoadingStatusChange}
             />
