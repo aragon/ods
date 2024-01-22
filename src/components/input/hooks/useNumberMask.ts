@@ -37,8 +37,8 @@ export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult 
             radix,
             thousandsSeparator,
             scale: maxDecimalPlaces,
-            max: max ? Number(max) : undefined,
-            min: min ? Number(min) : undefined,
+            max: max != null ? Number(max) : undefined,
+            min: min != null ? Number(min) : undefined,
         },
         { onAccept: (_value, mask) => onChange?.(mask.unmaskedValue) },
     );
