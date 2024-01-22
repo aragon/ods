@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useEffect, useId, useState, type ChangeEvent, type InputHTMLAttributes } from 'react';
-import type { IInputComponentProps, IInputContainerProps } from './inputContainer';
+import type { IInputComponentProps, IInputContainerProps } from '../inputContainer';
 
 export interface IUseInputPropsResult {
     /**

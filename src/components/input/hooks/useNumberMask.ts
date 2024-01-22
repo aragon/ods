@@ -1,6 +1,6 @@
 import { useEffect, type ComponentProps } from 'react';
 import { useIMask } from 'react-imask';
-import { NumberFormat, formatterUtils } from '../../utils';
+import { NumberFormat, formatterUtils } from '../../../utils';
 
 export interface IUseNumberMaskProps extends Pick<ComponentProps<'input'>, 'min' | 'max' | 'value'> {
     /**

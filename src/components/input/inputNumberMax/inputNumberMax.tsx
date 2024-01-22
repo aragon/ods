@@ -1,9 +1,8 @@
 import classNames from 'classnames';
 import { Button } from '../../button';
 import { type ButtonVariant } from '../../button/button.api';
+import { useInputProps, useNumberMask, type IUseNumberMaskProps } from '../hooks';
 import { InputContainer, type IInputComponentProps, type InputVariant } from '../inputContainer';
-import { useInputProps } from '../useInputProps';
-import { useNumberMask, type IUseNumberMaskProps } from '../useNumberMask';
 
 export interface IInputNumberMaxProps extends Omit<IInputComponentProps, 'maxLength' | 'onChange'> {
     /**
