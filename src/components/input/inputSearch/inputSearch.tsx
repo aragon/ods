@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import { useRef, useState, type FocusEvent, type KeyboardEvent } from 'react';
 import { Icon, IconType } from '../../icon';
 import { Spinner } from '../../spinner';
+import { useInputProps } from '../hooks';
 import { InputContainer, type IInputComponentProps } from '../inputContainer';
-import { useInputProps } from '../useInputProps';
 
 export interface IInputSearchProps extends IInputComponentProps {
     /**
