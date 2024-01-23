@@ -11,7 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Minimum `tailwindcss` version required
 -   Fix disabled input style on Firefox
--   Max Length on inputs is restyle, only shows if no alert
+-   Max Length on inputs is restyled and only shows if no alert
+-   Fix `Toggle` component shadow styling
 
 ### Added
 
