@@ -225,6 +225,7 @@ module.exports = {
         require('tailwindcss/plugin')(({ addVariant }) => {
             addVariant('search-cancel', '&::-webkit-search-cancel-button');
             addVariant('calendar-icon', ['&::-webkit-calendar-picker-indicator', '&::-webkit-inner-spin-button']);
+            addVariant('spin-buttons', ['&::-webkit-inner-spin-button', '&::-webkit-outer-spin-button']);
         }),
     ],
 };
