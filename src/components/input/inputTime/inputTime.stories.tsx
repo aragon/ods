@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { InputTime } from './inputTime';
+import { useState, type ChangeEvent } from 'react';
+import { InputTime, type IInputTimeProps } from './inputTime';
 
 const meta: Meta<typeof InputTime> = {
     title: 'components/Input/InputTime',
@@ -16,10 +17,26 @@ const meta: Meta<typeof InputTime> = {
 type Story = StoryObj<typeof InputTime>;
 
 /**
- * Default usage example of the InputTime component.
+ * Default usage example of the `InputTime` component.
  */
 export const Default: Story = {
     args: {},
+};
+
+const ControlledComponent = (props: IInputTimeProps) => {
+    const [value, setValue] = useState<string>('13:00');
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value);
+
+    return <InputTime value={value} onChange={handleChange} {...props} />;
+};
+
+/**
+ * Usage example of a controlled `InputTime` component.
+ */
+export const Controlled: Story = {
+    args: { step: 130 },
+    render: (props) => <ControlledComponent {...props} />,
 };
 
 export default meta;
