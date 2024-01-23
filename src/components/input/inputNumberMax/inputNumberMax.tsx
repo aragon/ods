@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import { Button } from '../../button';
-import { type ButtonVariant } from '../../button/button.api';
 import { useInputProps, useNumberMask, type IUseNumberMaskProps } from '../hooks';
-import { InputContainer, type IInputComponentProps, type InputVariant } from '../inputContainer';
+import { InputContainer, type IInputComponentProps } from '../inputContainer';
 
 export interface IInputNumberMaxProps extends Omit<IInputComponentProps, 'maxLength' | 'onChange'> {
     /**
@@ -15,18 +14,12 @@ export interface IInputNumberMaxProps extends Omit<IInputComponentProps, 'maxLen
     onChange?: IUseNumberMaskProps['onChange'];
 }
 
-const inputVariantToButtonVariant: Record<InputVariant, ButtonVariant> = {
-    critical: 'critical',
-    default: 'tertiary',
-    warning: 'warning',
-};
-
 export const InputNumberMax: React.FC<IInputNumberMaxProps> = (props) => {
     const { max, onChange, ...otherProps } = props;
     const { containerProps, inputProps } = useInputProps(otherProps);
 
     const { variant, ...otherContainerProps } = containerProps;
-    const { className: inputClassName, value, min, ...otherInputProps } = inputProps;
+    const { className: inputClassName, value, min, disabled, ...otherInputProps } = inputProps;
 
     const { ref, setValue } = useNumberMask({ min, max, value, onChange });
 
@@ -40,17 +33,15 @@ export const InputNumberMax: React.FC<IInputNumberMaxProps> = (props) => {
                 max={max}
                 min={min}
                 inputMode="decimal"
+                disabled={disabled}
                 {...otherInputProps}
             />
-            <Button
-                size="sm"
-                variant={inputVariantToButtonVariant[variant ?? 'default']}
-                className="mr-2"
-                onClick={handleMaxClick}
-            >
-                {/* TODO: apply internationalisation to Max label [APP-2627] */}
-                Max
-            </Button>
+            {!disabled && (
+                <Button size="sm" variant="tertiary" className="mr-2" onClick={handleMaxClick}>
+                    {/* TODO: apply internationalisation to Max label [APP-2627] */}
+                    Max
+                </Button>
+            )}
         </InputContainer>
     );
 };
