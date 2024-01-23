@@ -73,6 +73,6 @@ describe('<InputContainer /> component', () => {
         expect(screen.getByRole('alert')).toBeInTheDocument();
         expect(screen.getByText(alert.message)).toBeInTheDocument();
 
-        expect(screen.queryByText(`${inputLength}/${maxLength}`)).toBeNull();
+        expect(screen.queryByText(`${inputLength}/${maxLength}`)).not.toBeInTheDocument();
     });
 });
