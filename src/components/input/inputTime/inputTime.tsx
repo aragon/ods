@@ -3,8 +3,8 @@ import { forwardRef, useRef } from 'react';
 import { mergeRefs } from 'react-merge-refs';
 import { Button } from '../../button';
 import { IconType } from '../../icon';
+import { useInputProps } from '../hooks';
 import { InputContainer, type IInputComponentProps } from '../inputContainer';
-import { useInputProps } from '../useInputProps';
 
 export interface IInputTimeProps extends Omit<IInputComponentProps, 'maxLength' | 'inputLength'> {}
 
