@@ -75,9 +75,9 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
                 </label>
             )}
             <div className={containerClasses}>{children}</div>
-            {maxLength != null && (
+            {maxLength != null && !alert && (
                 <p className={counterClasses}>
-                    [{inputLength}/{maxLength}]
+                    {inputLength}/{maxLength}
                 </p>
             )}
             {alert && <AlertInline variant={alert.variant} message={alert.message} />}
