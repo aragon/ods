@@ -51,6 +51,7 @@ import TxFailure from '../../assets/icons/tx-failure.svg';
 import TxSmartContract from '../../assets/icons/tx-smart-contract.svg';
 import TxWithdraw from '../../assets/icons/tx-withdraw.svg';
 import Update from '../../assets/icons/update.svg';
+import UpperRightArrow from '../../assets/icons/upper-right-arrow.svg';
 import Warning from '../../assets/icons/warning.svg';
 import WysiwygBold from '../../assets/icons/wysiwyg-bold.svg';
 import WysiwygItalic from '../../assets/icons/wysiwyg-italic.svg';
@@ -58,7 +59,6 @@ import WysiwygLinkSet from '../../assets/icons/wysiwyg-link-set.svg';
 import WysiwygLinkUnset from '../../assets/icons/wysiwyg-link-unset.svg';
 import WysiwygListOrdered from '../../assets/icons/wysiwyg-list-ordered.svg';
 import WysiwygListUnordered from '../../assets/icons/wysiwyg-list-unordered.svg';
-import UpperRightArrow from '../../assets/icons/upper-right-arrow.svg';
 import { IconType } from './iconType';
 
 type IconComponent = React.FC<SVGProps<SVGSVGElement>>;

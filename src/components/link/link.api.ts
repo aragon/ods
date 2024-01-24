@@ -11,15 +11,15 @@ export interface ILinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
     /**
      * Icon displayed on the right side of the link. Accepts any icon from src/components/icon/iconList.ts.
      */
-    iconRight?: IconType
-    /** 
-    * Icon size. Width is auto assuming most are square icons. 
-    */
+    iconRight?: IconType;
+    /**
+     * Icon size. Width is auto assuming most are square icons.
+     */
     iconHeight?: number;
     /**
      * Whether the link is disabled.
      */
- 
+
     disabled?: boolean;
     /**
      * Whether the link is external (opens in a new tab).
@@ -33,5 +33,4 @@ export interface ILinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
      * Optional description text.
      */
     description?: string;
-
 }
