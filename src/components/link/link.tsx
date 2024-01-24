@@ -24,7 +24,6 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>(
             disabled = false,
             external = true,
             variant = 'primary',
-            iconHeight = 12,
             description,
             label,
             href,

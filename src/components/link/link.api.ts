@@ -13,10 +13,6 @@ export interface ILinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
      */
     iconRight?: IconType;
     /**
-     * Icon size. Width is auto assuming most are square icons.
-     */
-    iconHeight?: number;
-    /**
      * Whether the link is disabled.
      */
 
