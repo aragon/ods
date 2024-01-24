@@ -41,7 +41,7 @@ export const Primary: Story = {
         variant: 'primary',
     },
     render: ({ showIconRight, ...props }) => (
-        <Link {...props} iconRight={showIconRight ? IconType.APP_GOVERNANCE : undefined} />
+        <Link {...props} iconRight={showIconRight ? IconType.UPPER_RIGHT_ARROW : undefined} />
     ),
 };
 

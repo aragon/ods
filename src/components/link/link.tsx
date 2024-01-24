@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import { iconList } from '../icon/iconList';
+import { Icon } from '../icon';
 import type { ILinkProps, LinkVariant } from './link.api';
 
 export const variantToLabelClassNames: Record<LinkVariant, string[]> = {
@@ -41,8 +41,6 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>(
             disabled ? disabledStyle : variantToLabelClassNames[variant],
             'test-focus',
         );
-        const IconComponent = iconRight ? iconList[iconRight] : null;
-        const iconSize: React.CSSProperties = { height: iconHeight ? `${iconHeight}px` : 'auto', width: 'auto' };
         const descriptionClassName = classNames('truncate', disabled ? disabledStyle : 'text-neutral-500');
 
         return (
@@ -58,7 +56,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>(
             >
                 <div className="flex items-center gap-x-2 truncate">
                     {label}
-                    {IconComponent && <IconComponent style={iconSize} />}
+                    {iconRight && <Icon icon={iconRight} size="sm" />}
                 </div>
                 {description && <p className={descriptionClassName}>{description}</p>}
             </a>

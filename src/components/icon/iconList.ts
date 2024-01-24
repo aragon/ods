@@ -61,7 +61,7 @@ import WysiwygListOrdered from '../../assets/icons/wysiwyg-list-ordered.svg';
 import WysiwygListUnordered from '../../assets/icons/wysiwyg-list-unordered.svg';
 import { IconType } from './iconType';
 
-type IconComponent = React.FC<SVGProps<SVGSVGElement>>;
+export type IconComponent = React.FC<SVGProps<SVGSVGElement>>;
 
 export const iconList: Record<IconType, IconComponent> = {
     [IconType.ADD]: Add,
