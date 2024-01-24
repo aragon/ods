@@ -7,14 +7,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.9] - 2024-01-23
+
 ### Fixed
 
 -   Minimum `tailwindcss` version required
 -   Fix disabled input style on Firefox
+-   Max Length on inputs is restyled and only shows if no alert
+-   Fix `Toggle` component shadow styling
 
 ### Added
 
--   Implement `InputDate` and `Avatar` components
+-   Implement `InputDate`, `Avatar` and `InputNumberMax` components
 -   Add `AvatarIcon` documentation and tests
 
 ## [1.0.8] - 2024-01-17

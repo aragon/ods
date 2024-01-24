@@ -1,6 +1,6 @@
 {
   "name": "@aragon/ods",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Implementation of the Aragon's Open Design System",
   "main": "dist/index.cjs.js",
   "types": "dist/types/src/index.d.ts",
@@ -49,6 +49,7 @@
     "classnames": "^2.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-imask": "^7.3.0",
     "react-merge-refs": "^2.0.0"
   },
   "peerDependencies": {

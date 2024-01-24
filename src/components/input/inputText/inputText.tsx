@@ -1,5 +1,5 @@
+import { useInputProps } from '../hooks';
 import { InputContainer, type IInputComponentProps } from '../inputContainer';
-import { useInputProps } from '../useInputProps';
 
 export interface IInputTextProps extends IInputComponentProps {}
 
