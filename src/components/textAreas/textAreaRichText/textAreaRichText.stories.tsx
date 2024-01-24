@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { TextAreaRichText, type ITextAreaRichTextProps } from './textAreaRichText';
 
 const meta: Meta<typeof TextAreaRichText> = {
@@ -20,22 +21,23 @@ type Story = StoryObj<typeof TextAreaRichText>;
  */
 export const Default: Story = {
     args: {
-        placeholder: 'Uncontrolled input',
+        placeholder: 'Placeholder',
     },
 };
 
 const ControlledComponent = (props: ITextAreaRichTextProps) => {
-    return <TextAreaRichText {...props} />;
+    const [value, setValue] = useState(
+        '<p>Hello <strong>dev</strong>, check this <a href="http://google.com" target="_blank">link</a>.</p>',
+    );
+
+    return <TextAreaRichText value={value} onChange={setValue} {...props} />;
 };
 
 /**
  * Usage example of a controlled TextAreaRichText component.
  */
 export const Controlled: Story = {
-    render: (props) => <ControlledComponent {...props} />,
-    args: {
-        placeholder: 'Controlled input',
-    },
+    render: ({ onChange, ...props }) => <ControlledComponent {...props} />,
 };
 
 export default meta;
