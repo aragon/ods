@@ -1,1 +1,2 @@
-export { Link, LinkProps, IconType, LINK_VARIANTS, LinkType, IconProps } from './link';
+export { Link } from './link';
+export { LinkProps, IconType, LINK_VARIANTS, LinkVariant, IconProps } from './link.api';

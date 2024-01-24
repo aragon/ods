@@ -58,6 +58,7 @@ import WysiwygLinkSet from '../../assets/icons/wysiwyg-link-set.svg';
 import WysiwygLinkUnset from '../../assets/icons/wysiwyg-link-unset.svg';
 import WysiwygListOrdered from '../../assets/icons/wysiwyg-list-ordered.svg';
 import WysiwygListUnordered from '../../assets/icons/wysiwyg-list-unordered.svg';
+import UpperRightArrow from '../../assets/icons/upper-right-arrow.svg';
 import { IconType } from './iconType';
 
 type IconComponent = React.FC<SVGProps<SVGSVGElement>>;
@@ -114,6 +115,7 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.TX_SMART_CONTRACT]: TxSmartContract,
     [IconType.TX_WITHDRAW]: TxWithdraw,
     [IconType.UPDATE]: Update,
+    [IconType.UPPER_RIGHT_ARROW]: UpperRightArrow,
     [IconType.WARNING]: Warning,
     [IconType.REMOVE]: Remove,
     [IconType.WYSIWYG_BOLD]: WysiwygBold,

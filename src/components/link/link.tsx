@@ -1,69 +1,69 @@
 import classNames from 'classnames';
 import React from 'react';
-import IconRightSVG from './iconRightSVG';
+import { iconList } from '../icon/iconList';
+import type { ILinkProps, LinkVariant } from './link.api';
 
-const variantToClassNames: Record<LinkType, string[]> = {
+export const variantToLabelClassNames: Record<LinkVariant, string[]> = {
     primary: [
-        'text-primary-400 hover:text-primary-600 active:text-primary-800 focus-visible:ring focus-visible:ring-primary-200',
+        'text-primary-400 cursor-pointer', // Default
+        'hover:text-primary-600', // Hover state
+        'active:text-primary-800', // Active state
     ],
     neutral: [
-        'text-neutral-600 hover:text-neutral-800 active:text-neutral-800 focus-visible:ring focus-visible:ring-primary-200',
+        'text-neutral-500 cursor-pointer', // Default
+        'hover:text-neutral-800', // Hover state
+        'active:text-neutral-800', // Active state
     ],
-    inverted: ['text-white hover:text-gray-100 active:text-gray-200 focus-visible:ring focus-visible:ring-primary-200'],
 };
 
-export type IconProps = React.SVGProps<SVGSVGElement> & {
-    height?: number;
-    width?: number;
-};
+const disabledStyle = 'truncate text-neutral-300 cursor-not-allowed';
 
-export type IconType = React.FunctionComponent<IconProps>;
-
-export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-    disabled?: boolean;
-    external?: boolean;
-    label: string;
-    description?: string;
-    type?: LinkType;
-};
-
-export const LINK_VARIANTS = ['primary', 'neutral', 'inverted'] as const;
-export type LinkType = (typeof LINK_VARIANTS)[number];
-
-export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
-    ({ disabled = false, external = true, type = 'primary', description, label, href, ...props }, ref) => {
-        const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-            if (disabled) {
-                e.preventDefault();
-            }
-        };
-
-        const className = classNames(
-            'inline-flex max-w-full cursor-pointer flex-col gap-y-1 rounded',
-            disabled ? disabledStyle : variantToClassNames[type],
+export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>(
+    (
+        {
+            disabled = false,
+            external = true,
+            variant = 'primary',
+            iconHeight = 12,
+            description,
+            label,
+            href,
+            iconRight,
+            onClick,
+            ...props
+        },
+        ref,
+    ) => {
+        // disabling eslint rule to throw in custom class for focus ring test on tab selection
+        // eslint-disable-next-line tailwindcss/no-custom-classname
+        const linkClassName = classNames(
+            'inline-flex max-w-fit flex-col gap-y-1 truncate rounded text-sm focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset md:text-base',
+            disabled ? disabledStyle : variantToLabelClassNames[variant],
+            'test-focus',
         );
+        const IconComponent = iconRight ? iconList[iconRight] : null;
+        const iconSize: React.CSSProperties = { height: iconHeight ? `${iconHeight}px` : 'auto', width: 'auto' };
+        const descriptionClassName = classNames('truncate', disabled ? disabledStyle : 'text-neutral-500');
 
         return (
             <a
                 ref={ref}
-                onClick={handleClick}
+                onClick={!disabled ? onClick : undefined}
                 href={disabled ? undefined : href}
-                rel="noopener noreferrer"
-                className={className}
-                {...(external && { target: '_blank' })}
+                className={linkClassName}
+                {...(disabled && { tabIndex: -1, 'aria-disabled': 'true' })}
+                {...(external && !disabled && { target: '_blank', rel: 'noopener noreferrer' })}
                 {...props}
                 data-testid="link"
             >
-                <div className="flex items-center gap-x-2">
-                    <span className="truncate font-semibold">{label}</span>
-                    {external && <IconRightSVG />}
+                <div className="flex items-center gap-x-2 truncate">
+                    {label}
+                    {IconComponent && <IconComponent style={iconSize} />}
                 </div>
-                {description && <p className="truncate text-sm text-neutral-600">{description}</p>}
+                {description && <p className={descriptionClassName}>{description}</p>}
             </a>
         );
     },
 );
 
 Link.displayName = 'Link';
-
-const disabledStyle = 'text-neutral-300 cursor-not-allowed';

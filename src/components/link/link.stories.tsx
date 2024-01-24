@@ -1,98 +1,66 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { LINK_VARIANTS, Link, type IconProps, type LinkProps } from './link';
+import { IconType } from '../icon';
+import { Link } from './link';
+import { type ILinkProps } from './link.api';
 
-const CircleIcon: React.FC<IconProps> = ({ height = 24, width = 24, ...props }) => (
-    <svg height={height} width={width} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-    </svg>
-);
+/** bolting on a new prop to the LinkProps type
+ * for the purposes of testing the iconRight prop
+ * with hardcoded example from design spec
+ * while component should be able to accept any icon
+ */
+type LinkStoryProps = ILinkProps & { showIconRight: boolean };
 
-const LinkTemplate: React.FC<LinkIconStoryArgs> = ({ withIcon, ...args }) => (
-    <Link {...args} iconRight={withIcon ? <CircleIcon /> : undefined} />
-);
-
-type LinkIconStoryArgs = LinkProps & {
-    withIcon?: boolean;
-};
-
-const meta: Meta<LinkIconStoryArgs> = {
+const meta: Meta<LinkStoryProps> = {
     title: 'components/Link',
     component: Link,
     argTypes: {
-        disabled: { control: 'boolean', defaultValue: false },
-        external: { control: 'boolean', defaultValue: false },
+        disabled: { control: 'boolean' },
+        external: { control: 'boolean' },
         label: { control: 'text' },
         description: { control: 'text' },
-        type: {
-            control: { type: 'select', options: LINK_VARIANTS },
+        variant: {
+            control: { type: 'select', options: ['primary', 'neutral'] },
         },
-        withIcon: {
-            control: 'boolean',
-            name: 'With Icon',
-            defaultValue: false,
-        },
+    },
+    args: {
+        label: 'Label',
+        description: 'Description',
+        disabled: false,
+        external: true,
+        variant: 'primary',
+        showIconRight: true,
+        href: '#',
     },
 };
 
-type Story = StoryObj<LinkProps>;
+type Story = StoryObj<LinkStoryProps>;
 
+// can swap out the IconType for any icon in the iconList
 export const Primary: Story = {
     args: {
-        label: 'Primary Link',
-        type: 'primary',
-        href: 'https://app.aragon.org',
+        variant: 'primary',
     },
-    render: (args) => <LinkTemplate {...args} />,
+    render: ({ showIconRight, ...props }) => (
+        <Link {...props} iconRight={showIconRight ? IconType.APP_GOVERNANCE : undefined} />
+    ),
 };
 
 export const Neutral: Story = {
     args: {
-        label: 'Neutral Link',
-        type: 'neutral',
+        variant: 'neutral',
     },
-    render: (args) => <LinkTemplate {...args} />,
-};
-
-export const Inverted: Story = {
-    args: {
-        label: 'Inverted Link',
-        type: 'inverted',
-    },
-    render: (args) => <LinkTemplate {...args} />,
+    render: ({ showIconRight, ...props }) => (
+        <Link {...props} iconRight={showIconRight ? IconType.UPPER_RIGHT_ARROW : undefined} />
+    ),
 };
 
 export const Disabled: Story = {
     args: {
-        label: 'Disabled Link',
         disabled: true,
     },
-    render: (args) => <LinkTemplate {...args} />,
-};
-
-export const WithDescription: Story = {
-    args: {
-        label: 'Link with Description',
-        description: 'This is a link with a description',
-    },
-    render: (args) => <LinkTemplate {...args} />,
-};
-
-export const External: Story = {
-    args: {
-        label: 'External Link',
-        external: true,
-        href: 'https://app.aragon.org',
-    },
-    render: (args) => <LinkTemplate {...args} />,
-};
-
-export const WithIcon: Story = {
-    args: {
-        label: 'Link with Icon',
-        iconRight: <CircleIcon />,
-        href: '#',
-    },
-    render: (args) => <LinkTemplate {...args} />,
+    render: ({ showIconRight, ...props }) => (
+        <Link {...props} iconRight={showIconRight ? IconType.UPPER_RIGHT_ARROW : undefined} />
+    ),
 };
 
 export default meta;
