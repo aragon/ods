@@ -66,9 +66,11 @@ export interface IInputContainerProps {
     wrapperClassName?: string;
 }
 
-export interface IInputComponentProps
+export type IInputComponentElement = HTMLInputElement | HTMLTextAreaElement;
+
+export interface IInputComponentProps<TElement extends IInputComponentElement = HTMLInputElement>
     extends Omit<IInputContainerProps, 'children' | 'id' | 'inputLength'>,
-        Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+        Omit<InputHTMLAttributes<TElement>, 'type'> {
     /**
      * Classes for the input element.
      */

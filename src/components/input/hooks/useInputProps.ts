@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { useEffect, useId, useState, type ChangeEvent, type InputHTMLAttributes } from 'react';
-import type { IInputComponentProps, IInputContainerProps } from '../inputContainer';
+import type { IInputComponentElement, IInputComponentProps, IInputContainerProps } from '../inputContainer';
 
-export interface IUseInputPropsResult {
+export interface IUseInputPropsResult<TElement extends IInputComponentElement> {
     /**
      * Properties for the InputContainer component.
      */
@@ -10,7 +10,7 @@ export interface IUseInputPropsResult {
     /**
      * Properties for the input element.
      */
-    inputProps: InputHTMLAttributes<HTMLInputElement>;
+    inputProps: InputHTMLAttributes<TElement>;
 }
 
 /**
@@ -18,7 +18,9 @@ export interface IUseInputPropsResult {
  * @param props The InputComponent properties
  * @returns The InputContainer and input element properties.
  */
-export const useInputProps = (props: IInputComponentProps): IUseInputPropsResult => {
+export const useInputProps = <TElement extends IInputComponentElement>(
+    props: IInputComponentProps<TElement>,
+): IUseInputPropsResult<TElement> => {
     const {
         label,
         variant,
@@ -42,7 +44,7 @@ export const useInputProps = (props: IInputComponentProps): IUseInputPropsResult
 
     const [inputLength, setInputLength] = useState(0);
 
-    const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleOnChange = (event: ChangeEvent<TElement>) => {
         setInputLength(event.target.value.length);
         onChange?.(event);
     };
