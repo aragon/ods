@@ -26,10 +26,10 @@ const meta: Meta<LinkStoryProps> = {
     },
     args: {
         label: 'Label',
+        variant: 'primary',
         description: 'Description',
         disabled: false,
         external: true,
-        variant: 'primary',
         href: '#',
         /** only used for testing the icon right prop */
         showIconRight: true,
@@ -54,30 +54,10 @@ const meta: Meta<LinkStoryProps> = {
 type Story = StoryObj<LinkStoryProps>;
 
 // can swap out the IconType for any icon in the iconList
-export const Primary: Story = {
+export const Default: Story = {
     args: {
         variant: 'primary',
-        iconRight: IconType.UPPER_RIGHT_ARROW, // Set default icon
-    },
-    render: ({ showIconRight, iconRight, ...props }) => (
-        <Link {...props} iconRight={showIconRight ? iconRight : undefined} />
-    ),
-};
-
-export const Neutral: Story = {
-    args: {
-        variant: 'neutral',
-        iconRight: IconType.UPPER_RIGHT_ARROW, // Set default icon
-    },
-    render: ({ showIconRight, iconRight, ...props }) => (
-        <Link {...props} iconRight={showIconRight ? iconRight : undefined} />
-    ),
-};
-
-export const Disabled: Story = {
-    args: {
-        disabled: true,
-        iconRight: IconType.UPPER_RIGHT_ARROW, // Set default icon
+        iconRight: IconType.UPPER_RIGHT_ARROW,
     },
     render: ({ showIconRight, iconRight, ...props }) => (
         <Link {...props} iconRight={showIconRight ? iconRight : undefined} />
