@@ -37,7 +37,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>(
         // disabling eslint rule to throw in custom 'test-focs' class for focus ring test on tab selection
         // eslint-disable-next-line tailwindcss/no-custom-classname
         const linkClassName = classNames(
-            'inline-flex max-w-fit flex-col gap-y-1/2 truncate rounded text-sm leading-tight focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset md:gap-y-1 md:text-base',
+            'gap-y-1/2 inline-flex max-w-fit flex-col truncate rounded text-sm leading-tight focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset md:gap-y-1 md:text-base',
             className,
             disabled ? disabledStyle : variantToLabelClassNames[variant],
             'test-focus',
