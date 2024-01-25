@@ -1,6 +1,9 @@
 import type { AnchorHTMLAttributes } from 'react';
 import { type IconType } from '../icon';
-
+/**
+ * Variant of the link.
+ * @default 'primary'
+ */
 export type LinkVariant = 'primary' | 'neutral';
 
 export interface ILinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
