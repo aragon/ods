@@ -2,10 +2,10 @@ import { type HTMLAttributes } from 'react';
 
 export interface IProgressProps extends HTMLAttributes<HTMLDivElement> {
     /**
-     * Visual variant.
+     * Size of progress component.
      * @default md
      */
-    variant?: 'md' | 'sm';
+    size?: 'md' | 'sm';
     /**
      * Current progress to be rendered.
      */

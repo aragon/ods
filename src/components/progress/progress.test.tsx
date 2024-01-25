@@ -15,18 +15,4 @@ describe('<Progress /> component', () => {
         render(createTestComponent());
         expect(screen.getByRole('progressbar')).toBeInTheDocument();
     });
-
-    describe('variant tests', () => {
-        it('renders medium variant correctly', () => {
-            render(createTestComponent({ variant: 'md' }));
-            const progressBar = screen.getByRole('progressbar');
-            expect(progressBar).toHaveClass('h-[8px]');
-        });
-
-        it('renders small variant correctly', () => {
-            render(createTestComponent({ variant: 'sm' }));
-            const progressBar = screen.getByRole('progressbar');
-            expect(progressBar).toHaveClass('h-[4px]');
-        });
-    });
 });

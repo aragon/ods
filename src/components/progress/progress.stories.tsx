@@ -7,7 +7,12 @@ const meta: Meta<typeof Progress> = {
     component: Progress,
     tags: ['autodocs'],
     args: {
-        variant: 'md',
+        size: 'md',
+    },
+    argTypes: {
+        value: {
+            control: false,
+        },
     },
     parameters: {
         design: {
@@ -20,57 +25,34 @@ const meta: Meta<typeof Progress> = {
 type Story = StoryObj<typeof Progress>;
 
 /**
- * Default usage example of the Progress component.
- */
-export const MD: Story = {
-    args: {
-        value: 10,
-        variant: 'md',
-    },
-};
-
-/**
- * Thin usage example of the Progress component.
- */
-export const SM: Story = {
-    args: {
-        value: 10,
-        variant: 'sm',
-    },
-};
-
-/**
  * Separate functional component for animated progress.
  */
-const AnimatedProgress: React.FC<IProgressProps> = ({ variant }) => {
-    const [value, setValue] = useState(0);
+const AnimatedProgress: React.FC<IProgressProps> = ({ value, ...otherProps }) => {
+    const [currentValue, setCurrentValue] = useState(0);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setValue((currentValue) => {
-                let newValue = 0;
-
-                if (currentValue !== 100) {
-                    const randomValue = Math.random() * 20;
-                    newValue = Math.min(100, currentValue + randomValue);
+            setCurrentValue((prevValue) => {
+                if (prevValue >= 100) {
+                    return prevValue;
                 }
-
-                return newValue;
+                const increment = Math.random() * 20;
+                return Math.min(prevValue + increment, 100);
             });
         }, 1000);
 
         return () => clearInterval(intervalId);
     }, []);
 
-    return <Progress value={value} variant={variant} />;
+    return <Progress value={currentValue} {...otherProps} />;
 };
 
 /**
  * Animation example of the Progress component with variant control.
  */
 export const Animation: Story = {
-    render: ({ variant, value }: IProgressProps) => {
-        return <AnimatedProgress value={value} variant={variant} />;
+    render: (props) => {
+        return <AnimatedProgress {...props} />;
     },
 };
 
