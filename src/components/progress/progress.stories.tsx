@@ -7,13 +7,10 @@ const meta: Meta<typeof Progress> = {
     component: Progress,
     tags: ['autodocs'],
     args: {
+        value: 50,
         size: 'md',
     },
-    argTypes: {
-        value: {
-            control: false,
-        },
-    },
+
     parameters: {
         design: {
             type: 'figma',
@@ -24,6 +21,14 @@ const meta: Meta<typeof Progress> = {
 
 type Story = StoryObj<typeof Progress>;
 
+/**
+ * Default example of the Progress component.
+ */
+export const Default: Story = {
+    render: (props) => {
+        return <Progress {...props} />;
+    },
+};
 /**
  * Separate functional component for animated progress.
  */
