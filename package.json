@@ -124,10 +124,17 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.cjs.js"
+      "import": {
+        "types": "./dist/types/src/index.d.ts",
+        "default": "./dist/index.es.js"
+      },
+      "require": {
+        "types": "./dist/types/src/index.d.ts",
+        "default": "./dist/index.cjs.js"
+      }
     },
     "./index.css": "./index.css",
+    "./build.css": "./build.css",
     "./tailwind.config": "./tailwind.config.js"
   }
 }
