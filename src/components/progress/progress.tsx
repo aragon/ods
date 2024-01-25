@@ -1,28 +1,25 @@
 import * as RadixProgress from '@radix-ui/react-progress';
 import classNames from 'classnames';
-import type { HTMLAttributes } from 'react';
+import { type IProgressProps } from './progress.api';
 
-export interface IProgressProps extends HTMLAttributes<HTMLDivElement> {
-    /**
-     * Current progress to be rendered.
-     */
-    value: number;
-}
+const variantToClassNames = {
+    default: ['h-[8px]'],
+    thick: ['h-[20px]'],
+    thin: ['h-[4px]'],
+};
 
 export const Progress: React.FC<IProgressProps> = (props) => {
-    const { value, className, ...otherProps } = props;
+    const { value, variant = 'default', className, ...otherProps } = props;
 
     const processedValue = Math.min(Math.max(1, value), 100);
 
+    const containerClassNames = classNames(
+        'relative w-[320px] overflow-hidden rounded-xl border border-neutral-200 bg-neutral-100',
+        variantToClassNames[variant],
+    );
+
     return (
-        <RadixProgress.Root
-            value={value}
-            className={classNames(
-                'relative h-[20px] w-[320px] overflow-hidden rounded-xl border border-neutral-200 bg-neutral-100 p-1',
-                className,
-            )}
-            {...otherProps}
-        >
+        <RadixProgress.Root value={value} className={classNames(containerClassNames, className)} {...otherProps}>
             <RadixProgress.Indicator
                 className={classNames(
                     'h-full rounded-l-xl bg-primary-400 transition-[border-radius,width] duration-500 ease-in-out',

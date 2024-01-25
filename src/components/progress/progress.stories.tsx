@@ -1,11 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useEffect, useState } from 'react';
-import { Progress } from './progress';
+import { Progress, type IProgressProps } from '.';
 
 const meta: Meta<typeof Progress> = {
     title: 'components/Progress',
     component: Progress,
     tags: ['autodocs'],
+    args: {
+        variant: 'default',
+    },
     parameters: {
         design: {
             type: 'figma',
@@ -22,14 +25,38 @@ type Story = StoryObj<typeof Progress>;
 export const Default: Story = {
     args: {
         value: 10,
+        variant: 'default',
     },
 };
 
-export const Animation = () => {
+/**
+ * Thick usage example of the Progress component.
+ */
+export const Thick: Story = {
+    args: {
+        value: 10,
+        variant: 'thick',
+    },
+};
+
+/**
+ * Thin usage example of the Progress component.
+ */
+export const Thin: Story = {
+    args: {
+        value: 10,
+        variant: 'thin',
+    },
+};
+
+/**
+ * Separate functional component for animated progress.
+ */
+const AnimatedProgress: React.FC<IProgressProps> = ({ variant }) => {
     const [value, setValue] = useState(0);
 
     useEffect(() => {
-        setInterval(() => {
+        const intervalId = setInterval(() => {
             setValue((currentValue) => {
                 let newValue = 0;
 
@@ -41,9 +68,20 @@ export const Animation = () => {
                 return newValue;
             });
         }, 1000);
+
+        return () => clearInterval(intervalId);
     }, []);
 
-    return <Progress value={value} />;
+    return <Progress value={value} variant={variant} />;
+};
+
+/**
+ * Animation example of the Progress component with variant control.
+ */
+export const Animation: Story = {
+    render: ({ variant, value }: IProgressProps) => {
+        return <AnimatedProgress value={value} variant={variant} />;
+    },
 };
 
 export default meta;
