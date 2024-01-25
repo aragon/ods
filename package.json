@@ -121,5 +121,13 @@
   "engines": {
     "node": ">=18",
     "npm": "please-use-yarn"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./index.css": "./index.css",
+    "./tailwind.config": "./tailwind.config.js"
   }
 }
