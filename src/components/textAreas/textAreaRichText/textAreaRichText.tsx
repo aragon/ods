@@ -3,12 +3,12 @@ import { Placeholder } from '@tiptap/extension-placeholder';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import classNames from 'classnames';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { Button } from '../../button';
 import { IconType } from '../../icon';
 import { InputContainer, type IInputContainerProps } from '../../input';
 
-export interface ITextAreaRichTextProps extends IInputContainerProps {
+export interface ITextAreaRichTextProps extends Omit<IInputContainerProps, 'maxLength' | 'inputLength'> {
     /**
      * Current value of the input.
      */
@@ -89,20 +89,38 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
         return actions.filter((action) => !action.hidden);
     }, [editor, setLink, unsetLink]);
 
+    // Update editable setting on Tiptap editor on isDisabled property change
+    useEffect(() => {
+        editor?.setEditable(!isDisabled);
+    }, [editor, isDisabled]);
+
     return (
         <InputContainer isDisabled={isDisabled} {...containerProps}>
             <div className="flex grow flex-col">
-                <div className="flex flex-row gap-3 px-4 py-3">
-                    {richTextActions.map(({ icon, action }) => (
-                        <Button
-                            key={icon}
-                            variant="tertiary"
-                            size="md"
-                            iconLeft={icon}
-                            onClick={action}
-                            state={isDisabled ? 'disabled' : undefined}
-                        />
-                    ))}
+                <div
+                    className={classNames('flex flex-row justify-between rounded-xl px-4 py-3', {
+                        'bg-gradient-to-b from-neutral-50': !isDisabled,
+                    })}
+                >
+                    <div className="flex flex-row gap-3">
+                        {richTextActions.map(({ icon, action }) => (
+                            <Button
+                                key={icon}
+                                variant="tertiary"
+                                size="md"
+                                iconLeft={icon}
+                                onClick={action}
+                                state={isDisabled ? 'disabled' : undefined}
+                            />
+                        ))}
+                    </div>
+                    <Button
+                        variant="tertiary"
+                        size="md"
+                        iconLeft={IconType.EXPAND}
+                        onClick={() => null}
+                        state={isDisabled ? 'disabled' : undefined}
+                    />
                 </div>
                 <EditorContent editor={editor} />
             </div>
