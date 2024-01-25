@@ -7,7 +7,7 @@ const meta: Meta<typeof Progress> = {
     component: Progress,
     tags: ['autodocs'],
     args: {
-        variant: 'default',
+        variant: 'md',
     },
     parameters: {
         design: {
@@ -22,30 +22,20 @@ type Story = StoryObj<typeof Progress>;
 /**
  * Default usage example of the Progress component.
  */
-export const Default: Story = {
+export const MD: Story = {
     args: {
         value: 10,
-        variant: 'default',
-    },
-};
-
-/**
- * Thick usage example of the Progress component.
- */
-export const Thick: Story = {
-    args: {
-        value: 10,
-        variant: 'thick',
+        variant: 'md',
     },
 };
 
 /**
  * Thin usage example of the Progress component.
  */
-export const Thin: Story = {
+export const SM: Story = {
     args: {
         value: 10,
-        variant: 'thin',
+        variant: 'sm',
     },
 };
 

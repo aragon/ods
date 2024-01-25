@@ -3,13 +3,12 @@ import classNames from 'classnames';
 import { type IProgressProps } from './progress.api';
 
 const variantToClassNames = {
-    default: ['h-[8px]'],
-    thick: ['h-[20px]'],
-    thin: ['h-[4px]'],
+    md: ['h-[8px]'],
+    sm: ['h-[4px]'],
 };
 
 export const Progress: React.FC<IProgressProps> = (props) => {
-    const { value, variant = 'default', className, ...otherProps } = props;
+    const { value, variant = 'md', className, ...otherProps } = props;
 
     const processedValue = Math.min(Math.max(1, value), 100);
 

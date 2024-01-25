@@ -3,9 +3,9 @@ import { type HTMLAttributes } from "react";
 export interface IProgressProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Visual variant.
-   * @default default
+   * @default md
    */
-  variant?: 'default' | 'thick' | 'thin';
+  variant?: 'md' | 'sm' ;
   /**
    * Current progress to be rendered.
    */
