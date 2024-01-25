@@ -6,10 +6,6 @@ const meta: Meta<typeof Progress> = {
     title: 'components/Progress',
     component: Progress,
     tags: ['autodocs'],
-    args: {
-        value: 50,
-        size: 'md',
-    },
     parameters: {
         design: {
             type: 'figma',
@@ -24,6 +20,9 @@ type Story = StoryObj<typeof Progress>;
  * Default example of the Progress component.
  */
 export const Default: Story = {
+    args: {
+        value: 50,
+    },
     render: (props) => {
         return <Progress {...props} />;
     },
