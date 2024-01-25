@@ -10,7 +10,6 @@ const meta: Meta<typeof Progress> = {
         value: 50,
         size: 'md',
     },
-
     parameters: {
         design: {
             type: 'figma',
@@ -53,7 +52,7 @@ const AnimatedProgress: React.FC<IProgressProps> = ({ value, ...otherProps }) =>
 };
 
 /**
- * Animation example of the Progress component with variant control.
+ * Animation example of the Progress component.
  */
 export const Animation: Story = {
     render: (props) => {
