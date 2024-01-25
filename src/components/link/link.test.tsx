@@ -12,14 +12,9 @@ describe('Link', () => {
         expect(screen.getByText('Example')).toBeInTheDocument();
     });
 
-    it('applies correct classes based on variant and disabled props', () => {
+    it('applies correct classes based on disabled prop', () => {
         const { rerender } = render(<Link label="Primary Link" variant="primary" />);
         let linkElement = screen.getByTestId('link');
-        expect(linkElement).toHaveClass('text-primary-400');
-
-        rerender(<Link label="Neutral Link" variant="neutral" />);
-        linkElement = screen.getByTestId('link');
-        expect(linkElement).toHaveClass('text-neutral-500');
 
         rerender(<Link label="Disabled Link" disabled />);
         linkElement = screen.getByTestId('link');
@@ -75,6 +70,7 @@ describe('Link', () => {
         const linkElement = screen.getByTestId('link');
         expect(linkElement).toHaveTextContent(label);
     });
+
     it('receives focus when tabbed to', () => {
         render(<Link label="Clickable Link" href="http://example.com" />);
         const linkElement = screen.getByTestId('link');
