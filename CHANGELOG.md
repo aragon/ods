@@ -9,11 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-<<<<<<< HEAD
 -   Implement `Link` Component
-=======
 -   Implement `InputTime` component
->>>>>>> 43fd497c6e09883557d7e9909d0933211e20392b
 
 ## [1.0.9] - 2024-01-23
 
