@@ -67,11 +67,11 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
 
     return (
         <div
-            className={classNames('flex flex-row justify-between px-4 py-3', {
+            className={classNames('flex flex-row justify-between gap-3 px-4 py-3', {
                 'bg-gradient-to-b from-neutral-50': !isDisabled,
             })}
         >
-            <div className="flex flex-row gap-3">
+            <div className="flex flex-row flex-wrap gap-3">
                 {richTextActions.map(({ icon, action }) => (
                     <Button
                         key={icon}

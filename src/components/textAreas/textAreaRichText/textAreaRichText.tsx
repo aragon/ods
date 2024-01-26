@@ -53,7 +53,14 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
         onUpdate: ({ editor }) => onChange?.(editor.getHTML()),
     });
 
-    const toggleExpanded = () => setIsExpanded((current) => !current);
+    const toggleExpanded = () => {
+        setIsExpanded((current) => {
+            const expanded = !current;
+            document.body.style.overflow = expanded ? 'hidden' : 'auto';
+
+            return expanded;
+        });
+    };
 
     // Update editable setting on Tiptap editor on isDisabled property change
     useEffect(() => {
@@ -62,8 +69,8 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
 
     // Add keydown listener to reset expanded state on ESC key down
     useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
+        const handleKeyDown = ({ key }: KeyboardEvent) => {
+            if (key === 'Escape') {
                 setIsExpanded(false);
             }
         };
@@ -76,11 +83,11 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
     const textAreaRichText = (
         <InputContainer
             isDisabled={isDisabled}
-            className={classNames(className, { 'fixed left-0 top-0 z-10 size-full': isExpanded })}
-            wrapperClassName={classNames('overflow-hidden', { 'rounded-none': isExpanded })}
+            className={classNames(className, { 'fixed left-0 top-0 z-10 h-screen w-full': isExpanded })}
+            wrapperClassName={classNames('overflow-hidden', { 'rounded-none ': isExpanded })}
             {...containerProps}
         >
-            <div className="flex h-full grow flex-col self-start">
+            <div className="flex h-full grow flex-col self-start overflow-auto">
                 <TextAreaRichTextActions editor={editor} isDisabled={isDisabled} onExpandClick={toggleExpanded} />
                 <EditorContent editor={editor} className="h-full" />
             </div>
