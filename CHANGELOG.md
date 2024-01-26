@@ -9,7 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `Link` Component
+-   Implement `Link` component
+-   Handle size property on `Progress` component
 -   Implement `InputTime` component
 
 ## [1.0.9] - 2024-01-23
