@@ -51,7 +51,6 @@ import TxFailure from '../../assets/icons/tx-failure.svg';
 import TxSmartContract from '../../assets/icons/tx-smart-contract.svg';
 import TxWithdraw from '../../assets/icons/tx-withdraw.svg';
 import Update from '../../assets/icons/update.svg';
-import UpperRightArrow from '../../assets/icons/upper-right-arrow.svg';
 import Warning from '../../assets/icons/warning.svg';
 import WysiwygBold from '../../assets/icons/wysiwyg-bold.svg';
 import WysiwygItalic from '../../assets/icons/wysiwyg-italic.svg';
@@ -61,7 +60,7 @@ import WysiwygListOrdered from '../../assets/icons/wysiwyg-list-ordered.svg';
 import WysiwygListUnordered from '../../assets/icons/wysiwyg-list-unordered.svg';
 import { IconType } from './iconType';
 
-export type IconComponent = React.FC<SVGProps<SVGSVGElement>>;
+type IconComponent = React.FC<SVGProps<SVGSVGElement>>;
 
 export const iconList: Record<IconType, IconComponent> = {
     [IconType.ADD]: Add,
@@ -115,7 +114,6 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.TX_SMART_CONTRACT]: TxSmartContract,
     [IconType.TX_WITHDRAW]: TxWithdraw,
     [IconType.UPDATE]: Update,
-    [IconType.UPPER_RIGHT_ARROW]: UpperRightArrow,
     [IconType.WARNING]: Warning,
     [IconType.REMOVE]: Remove,
     [IconType.WYSIWYG_BOLD]: WysiwygBold,

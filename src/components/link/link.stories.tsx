@@ -25,12 +25,13 @@ const meta: Meta<LinkStoryProps> = {
         },
     },
     args: {
-        label: 'Label',
+        children: 'Label',
         variant: 'primary',
         description: 'Description',
         disabled: false,
         external: true,
         href: '#',
+        iconRight: IconType.LINK_EXTERNAL,
         /** only used for testing the icon right prop */
         showIconRight: true,
     },
@@ -56,11 +57,12 @@ type Story = StoryObj<LinkStoryProps>;
 // can swap out the IconType for any icon in the iconList
 export const Default: Story = {
     args: {
-        variant: 'primary',
-        iconRight: IconType.UPPER_RIGHT_ARROW,
+        children: 'Label',
     },
-    render: ({ showIconRight, iconRight, ...props }) => (
-        <Link {...props} iconRight={showIconRight ? iconRight : undefined} />
+    render: ({ showIconRight, iconRight, children, ...props }) => (
+        <Link {...props} iconRight={showIconRight ? iconRight : undefined}>
+            {children}
+        </Link>
     ),
 };
 

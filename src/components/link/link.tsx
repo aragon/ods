@@ -21,28 +21,26 @@ const disabledStyle = 'truncate text-neutral-300 cursor-not-allowed';
 export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>(
     (
         {
+            children,
             disabled = false,
-            external = true,
             variant = 'primary',
             description,
-            label,
             href,
             iconRight,
             onClick,
             className,
+            target,
             ...props
         },
         ref,
     ) => {
-        // disabling eslint rule to throw in custom 'test-focs' class for focus ring test on tab selection
-        // eslint-disable-next-line tailwindcss/no-custom-classname
         const linkClassName = classNames(
-            'gap-y-1/2 inline-flex max-w-fit flex-col truncate rounded text-sm leading-tight focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset md:gap-y-1 md:text-base',
+            'inline-flex max-w-fit flex-col gap-y-0.5 truncate rounded text-sm leading-tight focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset md:gap-y-1 md:text-base',
             className,
             disabled ? disabledStyle : variantToLabelClassNames[variant],
-            'test-focus',
         );
         const descriptionClassName = classNames('truncate', disabled ? disabledStyle : 'text-neutral-500');
+        const linkRel = target === '_blank' ? 'noopener noreferrer' : '';
 
         return (
             <a
@@ -51,12 +49,13 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>(
                 href={disabled ? undefined : href}
                 className={linkClassName}
                 {...(disabled && { tabIndex: -1, 'aria-disabled': 'true' })}
-                {...(external && !disabled && { target: '_blank', rel: 'noopener noreferrer' })}
+                target={target}
+                rel={linkRel}
+                aria-label={children}
                 {...props}
-                data-testid="link"
             >
                 <div className="flex items-center gap-x-2 truncate">
-                    {label}
+                    {children}
                     {iconRight && <Icon icon={iconRight} size="sm" />}
                 </div>
                 {description && <p className={descriptionClassName}>{description}</p>}

@@ -18,16 +18,15 @@ export interface ILinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
     /**
      * Whether the link is disabled.
      */
-
     disabled?: boolean;
     /**
      * Whether the link is external (opens in a new tab).
      */
     external?: boolean;
     /**
-     * The label or text content of the link. The only required prop
+     * This effectivly label or text content of the link. The only required prop and must be a string.
      */
-    label: string;
+    children: string;
     /**
      * Optional description text.
      */
