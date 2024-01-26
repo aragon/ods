@@ -130,6 +130,7 @@ module.exports = {
             '2xl': 'var(--ods-border-rounded-2xl)',
             '3xl': 'var(--ods-border-rounded-3xl)',
             full: 'var(--ods-border-rounded-full)',
+            none: 'var(--ods-border-rounded-none)',
         },
         boxShadow: {
             'neutral-sm': 'var(--ods-shadow-neutral-sm)',

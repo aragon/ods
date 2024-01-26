@@ -3,12 +3,13 @@ import { Placeholder } from '@tiptap/extension-placeholder';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import classNames from 'classnames';
-import { useCallback, useEffect, useMemo } from 'react';
-import { Button } from '../../button';
-import { IconType } from '../../icon';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { InputContainer, type IInputContainerProps } from '../../input';
+import { TextAreaRichTextActions } from './textAreaRichTextActions';
 
-export interface ITextAreaRichTextProps extends Omit<IInputContainerProps, 'maxLength' | 'inputLength'> {
+export interface ITextAreaRichTextProps
+    extends Omit<IInputContainerProps, 'maxLength' | 'inputLength' | 'value' | 'onChange'> {
     /**
      * Current value of the input.
      */
@@ -23,21 +24,8 @@ export interface ITextAreaRichTextProps extends Omit<IInputContainerProps, 'maxL
     placeholder?: string;
 }
 
-interface ITextAreaRichTextAction {
-    /**
-     * Icon of the action.
-     */
-    icon: IconType;
-    /**
-     * TipTap command or callback called on action click.
-     */
-    action?: () => unknown;
-    /**
-     * Hides the action when set to true.
-     */
-    hidden?: boolean;
-}
-
+// Classes to properly style the TipTap placeholder
+// (see https://tiptap.dev/docs/editor/api/extensions/placeholder#additional-setup)
 const placeholderClasses = classNames(
     'first:before:pointer-events-none first:before:absolute first:before:top-5', // General
     'first:before:text-base/tight first:before:font-normal first:before:text-neutral-300', // Typography
@@ -45,85 +33,63 @@ const placeholderClasses = classNames(
 );
 
 export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
-    const { value, onChange, placeholder, isDisabled, ...containerProps } = props;
+    const { value, onChange, placeholder, isDisabled, ref, className, ...containerProps } = props;
+
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const extensions = [
+        StarterKit,
+        Placeholder.configure({ placeholder, emptyNodeClass: placeholderClasses, showOnlyWhenEditable: false }),
+        Link,
+    ];
 
     const editor = useEditor({
-        extensions: [
-            StarterKit,
-            Placeholder.configure({ placeholder, emptyNodeClass: placeholderClasses, showOnlyWhenEditable: false }),
-            Link,
-        ],
+        extensions,
         content: value,
         editable: !isDisabled,
         editorProps: {
-            attributes: { class: 'outline-none p-4 prose prose-neutral min-h-[144px] max-w-auto' },
+            attributes: { class: 'outline-none p-4 prose prose-neutral min-h-[144px] h-full max-w-none' },
         },
         onUpdate: ({ editor }) => onChange?.(editor.getHTML()),
     });
 
-    const unsetLink = useCallback(() => editor?.chain().focus().extendMarkRange('link').unsetLink().run(), [editor]);
-
-    const setLink = useCallback(() => {
-        const previousUrl = editor?.getAttributes('link').href;
-        const url = window.prompt('URL', previousUrl);
-
-        if (url == null || url === '') {
-            unsetLink();
-
-            return;
-        }
-
-        editor?.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
-    }, [editor, unsetLink]);
-
-    const richTextActions = useMemo(() => {
-        const actions: ITextAreaRichTextAction[] = [
-            { icon: IconType.WYSIWYG_BOLD, action: () => editor?.chain().focus().toggleBold().run() },
-            { icon: IconType.WYSIWYG_ITALIC, action: () => editor?.chain().focus().toggleItalic().run() },
-            { icon: IconType.WYSIWYG_LINK_SET, action: setLink, hidden: editor?.isActive('link') },
-            { icon: IconType.WYSIWYG_LINK_UNSET, action: unsetLink, hidden: !editor?.isActive('link') },
-            { icon: IconType.WYSIWYG_LIST_UNORDERED, action: () => editor?.chain().focus().toggleBulletList().run() },
-            { icon: IconType.WYSIWYG_LIST_ORDERED, action: () => editor?.chain().focus().toggleOrderedList().run() },
-        ];
-
-        return actions.filter((action) => !action.hidden);
-    }, [editor, setLink, unsetLink]);
+    const toggleExpanded = () => setIsExpanded((current) => !current);
 
     // Update editable setting on Tiptap editor on isDisabled property change
     useEffect(() => {
         editor?.setEditable(!isDisabled);
     }, [editor, isDisabled]);
 
-    return (
-        <InputContainer isDisabled={isDisabled} {...containerProps}>
-            <div className="flex grow flex-col">
-                <div
-                    className={classNames('flex flex-row justify-between rounded-xl px-4 py-3', {
-                        'bg-gradient-to-b from-neutral-50': !isDisabled,
-                    })}
-                >
-                    <div className="flex flex-row gap-3">
-                        {richTextActions.map(({ icon, action }) => (
-                            <Button
-                                key={icon}
-                                variant="tertiary"
-                                size="md"
-                                iconLeft={icon}
-                                onClick={action}
-                                state={isDisabled ? 'disabled' : undefined}
-                            />
-                        ))}
-                    </div>
-                    <Button
-                        variant="tertiary"
-                        size="md"
-                        iconLeft={IconType.EXPAND}
-                        onClick={() => null}
-                        state={isDisabled ? 'disabled' : undefined}
-                    />
-                </div>
-                <EditorContent editor={editor} />
+    // Add keydown listener to reset expanded state on ESC key down
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setIsExpanded(false);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
+    const textAreaRichText = (
+        <InputContainer
+            isDisabled={isDisabled}
+            className={classNames(className, { 'fixed left-0 top-0 z-10 size-full': isExpanded })}
+            wrapperClassName={classNames('overflow-hidden', { 'rounded-none': isExpanded })}
+            {...containerProps}
+        >
+            <div className="flex h-full grow flex-col self-start">
+                <TextAreaRichTextActions editor={editor} isDisabled={isDisabled} onExpandClick={toggleExpanded} />
+                <EditorContent editor={editor} className="h-full" />
             </div>
         </InputContainer>
     );
+
+    if (isExpanded) {
+        return createPortal(textAreaRichText, document.body);
+    }
+
+    return textAreaRichText;
 };
