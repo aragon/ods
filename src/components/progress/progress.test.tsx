@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Progress, type IProgressProps } from './progress';
+import { Progress, type IProgressProps } from '.';
 
 describe('<Progress /> component', () => {
     const createTestComponent = (props?: Partial<IProgressProps>) => {

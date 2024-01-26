@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useEffect, useState } from 'react';
-import { Progress } from './progress';
+import { Progress, type IProgressProps } from '.';
 
 const meta: Meta<typeof Progress> = {
     title: 'components/Progress',
@@ -17,33 +17,46 @@ const meta: Meta<typeof Progress> = {
 type Story = StoryObj<typeof Progress>;
 
 /**
- * Default usage example of the Progress component.
+ * Default example of the Progress component.
  */
 export const Default: Story = {
     args: {
-        value: 10,
+        value: 50,
+    },
+    render: (props) => {
+        return <Progress {...props} />;
     },
 };
-
-export const Animation = () => {
-    const [value, setValue] = useState(0);
+/**
+ * Separate functional component for animated progress.
+ */
+const AnimatedProgress: React.FC<IProgressProps> = ({ value, ...otherProps }) => {
+    const [currentValue, setCurrentValue] = useState(0);
 
     useEffect(() => {
-        setInterval(() => {
-            setValue((currentValue) => {
-                let newValue = 0;
-
-                if (currentValue !== 100) {
-                    const randomValue = Math.random() * 20;
-                    newValue = Math.min(100, currentValue + randomValue);
+        const intervalId = setInterval(() => {
+            setCurrentValue((prevValue) => {
+                if (prevValue >= 100) {
+                    return prevValue;
                 }
-
-                return newValue;
+                const increment = Math.random() * 20;
+                return Math.min(prevValue + increment, 100);
             });
         }, 1000);
+
+        return () => clearInterval(intervalId);
     }, []);
 
-    return <Progress value={value} />;
+    return <Progress value={currentValue} {...otherProps} />;
+};
+
+/**
+ * Animation example of the Progress component.
+ */
+export const Animation: Story = {
+    render: (props) => {
+        return <AnimatedProgress {...props} />;
+    },
 };
 
 export default meta;

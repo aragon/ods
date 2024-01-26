@@ -1,1 +1,2 @@
-export { Progress, type IProgressProps } from './progress';
+export { Progress } from './progress';
+export type { IProgressProps } from './progress.api';
