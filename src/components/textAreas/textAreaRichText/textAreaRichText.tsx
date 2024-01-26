@@ -3,17 +3,21 @@ import { Placeholder } from '@tiptap/extension-placeholder';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { InputContainer, type IInputContainerProps } from '../../input';
 import { TextAreaRichTextActions } from './textAreaRichTextActions';
 
 export interface ITextAreaRichTextProps
-    extends Omit<IInputContainerProps, 'maxLength' | 'inputLength' | 'value' | 'onChange'> {
+    extends Omit<IInputContainerProps, 'maxLength' | 'inputLength' | 'value' | 'onChange' | 'id'> {
     /**
      * Current value of the input.
      */
     value?: string;
+    /**
+     * Id of the input.
+     */
+    id?: string;
     /**
      * Callback called on value change.
      */
@@ -33,9 +37,13 @@ const placeholderClasses = classNames(
 );
 
 export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
-    const { value, onChange, placeholder, isDisabled, ref, className, ...containerProps } = props;
+    const { value, onChange, placeholder, isDisabled, className, id, ...containerProps } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
+
+    // Use random-id when id property is not specified for the input.
+    const randomId = useId();
+    const processedId = id ?? randomId;
 
     const extensions = [
         StarterKit,
@@ -48,7 +56,11 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
         content: value,
         editable: !isDisabled,
         editorProps: {
-            attributes: { class: 'outline-none p-4 prose prose-neutral min-h-[144px] h-full max-w-none' },
+            attributes: {
+                class: 'outline-none p-4 prose prose-neutral min-h-[144px] h-full max-w-none',
+                role: 'textbox',
+                'aria-labelledby': processedId,
+            },
         },
         onUpdate: ({ editor }) => onChange?.(editor.getHTML()),
     });
@@ -71,7 +83,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
     useEffect(() => {
         const handleKeyDown = ({ key }: KeyboardEvent) => {
             if (key === 'Escape') {
-                setIsExpanded(false);
+                toggleExpanded();
             }
         };
 
@@ -85,6 +97,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
             isDisabled={isDisabled}
             className={classNames(className, { 'fixed left-0 top-0 z-10 h-screen w-full': isExpanded })}
             wrapperClassName={classNames('overflow-hidden', { 'rounded-none ': isExpanded })}
+            id={processedId}
             {...containerProps}
         >
             <div className="flex h-full grow flex-col self-start overflow-auto">
