@@ -12,35 +12,29 @@ export interface IInputNumberProps extends Omit<IInputComponentProps, 'onChange'
      */
     suffix?: string;
     /**
-     * Disables the increment spin button
-     */
-    disableIncrement?: boolean;
-    /**
-     * Disables the decrement spin button
-     */
-    disableDecrement?: boolean;
-    /**
      * @see IUseNumberMaskProps['onChange']
      */
     onChange?: IUseNumberMaskProps['onChange'];
 }
 
 export const InputNumber: React.FC<IInputNumberProps> = (props) => {
-    const { suffix, onChange, disableDecrement, disableIncrement, ...otherProps } = props;
+    const { suffix, onChange, ...otherProps } = props;
     const { containerProps, inputProps } = useInputProps(otherProps);
 
     const { className: containerClassName, isDisabled, ...otherContainerProps } = containerProps;
     const {
-        max,
-        min,
-        value,
+        max: inputMax,
+        min: inputMin,
         step: inputStep,
+        value: inputValue,
         onBlur,
         onFocus,
         onKeyDown,
         className: inputClassName,
         ...otherInputProps
     } = inputProps;
+
+    const { step, min, max, value } = parseInputs(inputValue, inputStep, inputMin, inputMax);
 
     const [isFocused, setIsFocused] = useState(false);
     const {
@@ -49,17 +43,11 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
         unmaskedValue,
         setValue,
     } = useNumberMask({
-        min: min ?? Number.MIN_SAFE_INTEGER,
-        max: max ?? Number.MAX_SAFE_INTEGER,
+        min,
+        max,
         value,
         onChange,
     });
-
-    // ignore all values less zero one and use the default step value of one
-    let step = Number(inputStep ?? 1);
-    if (isNaN(step) || step <= 0) {
-        step = 1;
-    }
 
     const suffixedValue = maskedValue && suffix ? maskedValue + suffix : maskedValue;
 
@@ -84,17 +72,17 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
     };
 
     const handleIncrement = () => {
-        const { parsedMax, parsedMin, parsedValue } = parseInputs(unmaskedValue, min, max);
+        const parsedValue = Number(unmaskedValue ?? 0);
 
         // return the input value if it's bigger than the max
-        if (parsedValue > parsedMax) {
+        if (parsedValue > max) {
             setValue(parsedValue.toString());
             return;
         }
 
         // increment directly to the minimum if value is less than the minimum
-        if (parsedValue < parsedMin) {
-            setValue(parsedMin.toString());
+        if (parsedValue < min) {
+            setValue(min.toString());
             return;
         }
 
@@ -111,15 +99,15 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
         }
 
         // ensure the new value is within the min and max range
-        newValue = Math.max(parsedMin, Math.min(parsedMax, newValue));
+        newValue = Math.max(min, Math.min(max, newValue));
         setValue(newValue.toString());
     };
 
     const handleDecrement = () => {
-        const { parsedMax, parsedMin, parsedValue } = parseInputs(unmaskedValue, min, max);
+        const parsedValue = Number(unmaskedValue ?? 0);
 
         // if the current value is less than the min, don't decrement
-        if (parsedValue < parsedMin) {
+        if (parsedValue < min) {
             setValue(parsedValue.toString());
         }
 
@@ -133,7 +121,7 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
         }
 
         // ensure the new value is within the min and max range
-        newValue = Math.max(parsedMin, Math.min(parsedMax, newValue));
+        newValue = Math.max(min, Math.min(max, newValue));
         setValue(newValue.toString());
     };
 
@@ -146,7 +134,6 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
             {!isDisabled && (
                 <Button
                     size="sm"
-                    state={disableDecrement ? 'disabled' : undefined}
                     variant="tertiary"
                     onClick={handleDecrement}
                     iconLeft={IconType.REMOVE}
@@ -170,7 +157,6 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
             {!isDisabled && (
                 <Button
                     size="sm"
-                    state={disableIncrement ? 'disabled' : undefined}
                     variant="tertiary"
                     iconLeft={IconType.ADD}
                     onClick={handleIncrement}
@@ -182,7 +168,7 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
 };
 
 /**
- * Parses the input values and returns an object with the parsed values as numbers.
+ * Parses the input values and returns an object with the parsed values.
  *
  * @param value - The value of the number input. Defaults to '0'.
  * @param min - The minimum value of the number input. Defaults to Number.MIN_SAFE_INTEGER.
@@ -190,13 +176,30 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
  * @returns  An object with the parsed values.
  */
 function parseInputs(
-    value: string | number = '0',
-    min: string | number = Number.MIN_SAFE_INTEGER,
-    max: string | number = Number.MAX_SAFE_INTEGER,
+    value: IInputNumberProps['value'] = '',
+    step: IInputNumberProps['step'] = 1,
+    min: IInputNumberProps['min'] = Number.MIN_SAFE_INTEGER,
+    max: IInputNumberProps['max'] = Number.MAX_SAFE_INTEGER,
 ) {
-    const parsedMax = Number(max);
-    const parsedMin = Number(min);
-    const parsedValue = Number(value);
+    let parsedMax = Number(max);
+    if (isNaN(parsedMax)) {
+        parsedMax = Number.MAX_SAFE_INTEGER;
+    }
 
-    return { parsedValue, parsedMin, parsedMax };
+    let parsedMin = Number(min);
+    if (isNaN(parsedMin)) {
+        parsedMin = Number.MIN_SAFE_INTEGER;
+    }
+
+    // ignore all values less zero one and use the default step value of one
+    let parsedStep = Number(step);
+    if (isNaN(parsedStep) || parsedStep <= 0) {
+        parsedStep = 1;
+    }
+
+    let parsedValue: string | number = Number(value);
+    if (isNaN(parsedValue)) {
+        parsedValue = '';
+    }
+    return { step: parsedStep, min: parsedMin, max: parsedMax, value: parsedValue };
 }
