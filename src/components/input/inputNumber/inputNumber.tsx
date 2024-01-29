@@ -197,9 +197,8 @@ function parseInputs(
         parsedStep = 1;
     }
 
-    let parsedValue: string | number = Number(value);
-    if (isNaN(parsedValue)) {
-        parsedValue = '';
-    }
+    let parsedValue: IInputNumberProps['value'] = Number(value);
+    parsedValue = isNaN(parsedValue) ? '' : value;
+
     return { step: parsedStep, min: parsedMin, max: parsedMax, value: parsedValue };
 }
