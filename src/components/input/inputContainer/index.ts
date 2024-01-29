@@ -1,7 +1,7 @@
 export { InputContainer } from './inputContainer';
 export type {
-    IInputComponentElement,
     IInputComponentProps,
     IInputContainerProps,
+    InputComponentElement,
     InputVariant,
 } from './inputContainer.api';

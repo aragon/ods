@@ -27,7 +27,7 @@ export const Default: Story = {
 
 const ControlledComponent = (props: ITextAreaRichTextProps) => {
     const [value, setValue] = useState(
-        '<p>Hello <strong>dev</strong>, check this <a href="http://google.com" target="_blank">link</a>.</p>',
+        '<p>Hello <strong>dev</strong>, check this <a href="https://aragon.org" target="_blank">link</a>.</p>',
     );
 
     return <TextAreaRichText value={value} onChange={setValue} {...props} />;

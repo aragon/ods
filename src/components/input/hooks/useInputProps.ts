@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { useEffect, useId, useState, type ChangeEvent, type InputHTMLAttributes } from 'react';
-import type { IInputComponentElement, IInputComponentProps, IInputContainerProps } from '../inputContainer';
+import type { IInputComponentProps, IInputContainerProps, InputComponentElement } from '../inputContainer';
 
-export interface IUseInputPropsResult<TElement extends IInputComponentElement> {
+export interface IUseInputPropsResult<TElement extends InputComponentElement> {
     /**
      * Properties for the InputContainer component.
      */
@@ -18,7 +18,7 @@ export interface IUseInputPropsResult<TElement extends IInputComponentElement> {
  * @param props The InputComponent properties
  * @returns The InputContainer and input element properties.
  */
-export const useInputProps = <TElement extends IInputComponentElement>(
+export const useInputProps = <TElement extends InputComponentElement>(
     props: IInputComponentProps<TElement>,
 ): IUseInputPropsResult<TElement> => {
     const {

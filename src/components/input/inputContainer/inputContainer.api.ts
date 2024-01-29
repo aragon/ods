@@ -68,9 +68,9 @@ export interface IInputContainerBaseProps {
 
 export interface IInputContainerProps extends IInputContainerBaseProps, Omit<ComponentPropsWithRef<'div'>, 'id'> {}
 
-export type IInputComponentElement = HTMLInputElement | HTMLTextAreaElement;
+export type InputComponentElement = HTMLInputElement | HTMLTextAreaElement;
 
-export interface IInputComponentProps<TElement extends IInputComponentElement = HTMLInputElement>
+export interface IInputComponentProps<TElement extends InputComponentElement = HTMLInputElement>
     extends Omit<IInputContainerBaseProps, 'children' | 'id' | 'inputLength'>,
         Omit<InputHTMLAttributes<TElement>, 'type'> {
     /**
