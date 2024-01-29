@@ -33,8 +33,8 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
     const {
         max,
         min,
-        step,
         value,
+        step: inputStep,
         onBlur,
         onFocus,
         onKeyDown,
@@ -47,12 +47,19 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
         ref: numberMaskRef,
         value: maskedValue,
         unmaskedValue,
+        setValue,
     } = useNumberMask({
-        min,
-        max,
+        min: min ?? Number.MIN_SAFE_INTEGER,
+        max: max ?? Number.MAX_SAFE_INTEGER,
         value,
         onChange,
     });
+
+    // ignore all values less zero one and use the default step value of one
+    let step = Number(inputStep ?? 1);
+    if (isNaN(step) || step <= 0) {
+        step = 1;
+    }
 
     const suffixedValue = maskedValue && suffix ? maskedValue + suffix : maskedValue;
 
@@ -77,49 +84,57 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
     };
 
     const handleIncrement = () => {
-        const { parsedMax, parsedMin, parsedStep, parsedValue } = parseInputs(unmaskedValue, step, min, max);
+        const { parsedMax, parsedMin, parsedValue } = parseInputs(unmaskedValue, min, max);
 
         // return the input value if it's bigger than the max
         if (parsedValue > parsedMax) {
-            // Note: dispatching event instead of setting value via imask 'setValue'
-            // function to avoid noticeable rerender
-            dispatchChangeEvent(numberMaskRef.current, parsedValue);
+            setValue(parsedValue.toString());
+            return;
         }
 
-        // increment value with step
-        let newValue = parsedValue + parsedStep;
+        // increment directly to the minimum if value is less than the minimum
+        if (parsedValue < parsedMin) {
+            setValue(parsedMin.toString());
+            return;
+        }
 
         // round down to the nearest multiple of the step when the value
         // is not already a multiple of the step
-        if (parsedValue % parsedStep !== 0) {
-            newValue = Math.floor(parsedValue / parsedStep) * parsedStep;
+        let newValue = parsedValue + step;
+        if (parsedValue % step !== 0) {
+            newValue = Math.floor(parsedValue / step) * step;
+        }
+
+        // increment value with step if it's smaller than the initial value
+        if (newValue < parsedValue) {
+            newValue += step;
         }
 
         // ensure the new value is within the min and max range
         newValue = Math.max(parsedMin, Math.min(parsedMax, newValue));
-        dispatchChangeEvent(numberMaskRef.current, newValue);
+        setValue(newValue.toString());
     };
 
     const handleDecrement = () => {
-        const { parsedMax, parsedMin, parsedStep, parsedValue } = parseInputs(unmaskedValue, step, min, max);
+        const { parsedMax, parsedMin, parsedValue } = parseInputs(unmaskedValue, min, max);
 
         // if the current value is less than the min, don't decrement
         if (parsedValue < parsedMin) {
-            dispatchChangeEvent(numberMaskRef.current, parsedValue);
+            setValue(parsedValue.toString());
         }
 
         // decrement value by the step
-        let newValue = parsedValue - parsedStep;
+        let newValue = parsedValue - step;
 
         // if the value is not a multiple of the step,
         // decrement to the biggest multiple of the step that is less than the value
-        if (parsedValue % parsedStep !== 0) {
-            newValue = Math.floor(parsedValue / parsedStep) * parsedStep;
+        if (parsedValue % step !== 0) {
+            newValue = Math.floor(parsedValue / step) * step;
         }
 
         // ensure the new value is within the min and max range
         newValue = Math.max(parsedMin, Math.min(parsedMax, newValue));
-        dispatchChangeEvent(numberMaskRef.current, newValue);
+        setValue(newValue.toString());
     };
 
     return (
@@ -142,13 +157,14 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
                 ref={numberMaskRef}
                 min={min}
                 max={max}
+                step={step}
                 value={isFocused ? maskedValue : suffixedValue}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
                 disabled={isDisabled}
                 inputMode="numeric"
                 onKeyDown={handleKeyDown}
-                className={classNames('text-center spin-buttons:appearance-none', inputClassName, 'rounded-[0px]')}
+                className={classNames('text-center spin-buttons:appearance-none', inputClassName)}
                 {...otherInputProps}
             />
             {!isDisabled && (
@@ -166,40 +182,21 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
 };
 
 /**
- * Triggers an 'input' event on the given HTMLInputElement with a new value.
- *
- * @param inputElement - The input element to dispatch the event on.
- * @param value - The new value for the input element.
- */
-function dispatchChangeEvent(inputElement: HTMLInputElement | null, value: number) {
-    if (inputElement) {
-        Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set?.call(inputElement, value);
-        inputElement.dispatchEvent(new Event('input', { bubbles: true }));
-    }
-}
-
-/**
  * Parses the input values and returns an object with the parsed values as numbers.
  *
  * @param value - The value of the number input. Defaults to '0'.
- * @param step - The step value of the number input. Defaults to 1.
  * @param min - The minimum value of the number input. Defaults to Number.MIN_SAFE_INTEGER.
  * @param max - The maximum value of the number input. Defaults to Number.MAX_SAFE_INTEGER.
  * @returns  An object with the parsed values.
  */
 function parseInputs(
     value: string | number = '0',
-    step: string | number = 1,
     min: string | number = Number.MIN_SAFE_INTEGER,
     max: string | number = Number.MAX_SAFE_INTEGER,
 ) {
-    let parsedStep = Number(step) || 1;
     const parsedMax = Number(max);
     const parsedMin = Number(min);
     const parsedValue = Number(value);
 
-    // ignore all values less than one and use the default step value of one
-    parsedStep = parsedStep <= 0 ? 1 : parsedStep;
-
-    return { parsedValue, parsedStep, parsedMin, parsedMax };
+    return { parsedValue, parsedMin, parsedMax };
 }

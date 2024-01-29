@@ -9,7 +9,7 @@ const meta: Meta<typeof InputNumber> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Aragon-ODS?type=design&node-id=10080-1869&mode=design&t=DMhjcmSjhuHsGH3N-0',
+            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Aragon-ODS?type=design&node-id=10074-6967&mode=design&t=LRQNgdDVgpUu0QIo-0',
         },
     },
 };
@@ -26,7 +26,7 @@ export const Default: Story = {
 };
 
 const ControlledComponent = (props: IInputNumberProps) => {
-    const [value, setValue] = useState<string>('');
+    const [value, setValue] = useState<string>('1');
 
     return <InputNumber value={value} onChange={setValue} {...props} />;
 };
