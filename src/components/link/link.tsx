@@ -51,7 +51,6 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>(
                 {...(disabled && { tabIndex: -1, 'aria-disabled': 'true' })}
                 target={target}
                 rel={linkRel}
-                aria-label={children}
                 {...props}
             >
                 <div className="flex items-center gap-x-2 truncate">

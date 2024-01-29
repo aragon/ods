@@ -1,14 +1,12 @@
 import type { AnchorHTMLAttributes } from 'react';
 import { type IconType } from '../icon';
-/**
- * Variant of the link.
- * @default 'primary'
- */
+
 export type LinkVariant = 'primary' | 'neutral';
 
 export interface ILinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
     /**
      * Variant of the link.
+     * @default 'primary'
      */
     variant?: LinkVariant;
     /**
@@ -19,14 +17,6 @@ export interface ILinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
      * Whether the link is disabled.
      */
     disabled?: boolean;
-    /**
-     * Whether the link is external (opens in a new tab).
-     */
-    external?: boolean;
-    /**
-     * This effectivly label or text content of the link. The only required prop and must be a string.
-     */
-    children: string;
     /**
      * Optional description text.
      */

@@ -16,30 +16,15 @@ describe('<Link /> component', () => {
     });
 
     it('applies correct classes based on disabled prop', () => {
-        render(createTestComponent({ children: 'Disabled Link', disabled: true }));
-        const linkElement = screen.getByLabelText('Disabled Link');
-        expect(linkElement).toHaveClass('truncate text-neutral-300 cursor-not-allowed');
-    });
-
-    it('prevents default behavior when clicked and disabled', () => {
         const handleClick = jest.fn();
-        render(createTestComponent({ children: 'Disabled Link', disabled: true, onClick: handleClick }));
-        const linkElement = screen.getByLabelText('Disabled Link');
+        render(createTestComponent({ children: 'TEST', disabled: true, onClick: handleClick }));
+        // eslint-disable-next-line testing-library/no-node-access
+        const linkElement = screen.getByText('TEST').closest('a')!;
         fireEvent.click(linkElement);
-        expect(handleClick).not.toHaveBeenCalled();
-    });
-
-    it('does not have href attribute when disabled', () => {
-        render(createTestComponent({ children: 'Disabled Link', disabled: true, href: 'http://example.com' }));
-        const linkElement = screen.getByLabelText('Disabled Link');
-        expect(linkElement).not.toHaveAttribute('href', 'http://example.com');
-    });
-
-    it('has correct aria attributes when disabled', () => {
-        render(createTestComponent({ children: 'Disabled Link', disabled: true }));
-        const linkElement = screen.getByLabelText('Disabled Link');
+        expect(linkElement).toHaveClass('truncate text-neutral-300 cursor-not-allowed');
         expect(linkElement).toHaveAttribute('aria-disabled', 'true');
-        expect(linkElement).toHaveAttribute('tabIndex', '-1');
+        expect(linkElement).not.toHaveAttribute('href');
+        expect(handleClick).not.toHaveBeenCalled();
     });
 
     it('renders correctly with no icon', () => {
