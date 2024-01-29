@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update minor and patch versions of dependencies
 -   Update `husky` to v9
 -   Add `wrapperClassName` property to `InputContainer` component to customise the input wrapper
+-   Update `InputContainer` props to accept any HTML div property and support textarea elements
 
 ## [1.0.9] - 2024-01-23
 
