@@ -28,6 +28,19 @@ describe('<InputNumber /> component', () => {
         expect(screen.queryAllByRole('button').length).toEqual(0);
     });
 
+    it('should show suffix & prefix only when there is a value', () => {
+        let value = '';
+        const prefix = '~';
+        const suffix = '%';
+
+        const { rerender } = render(createTestComponent({ prefix, suffix }));
+        expect(screen.queryByDisplayValue(prefix + value + suffix)).not.toBeInTheDocument();
+
+        value = 'test';
+        rerender(createTestComponent({ value, prefix, suffix }));
+        expect(screen.getByDisplayValue(prefix + value + suffix)).toBeInTheDocument();
+    });
+
     it('should default step to 1 when given value less than zero', () => {
         const step = -15;
         render(createTestComponent({ step }));

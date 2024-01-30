@@ -16,17 +16,21 @@ export interface IInputNumberProps extends Omit<IInputComponentProps, 'onChange'
      */
     max?: number;
     /**
+     * Optional string prepended to the input value.
+     */
+    prefix?: string;
+    /**
      * Specifies the granularity of the intervals for the input value
      */
     step?: number;
     /**
-     * The value of the number input.
-     */
-    value?: string | number;
-    /**
      * Optional string appended to the input value.
      */
     suffix?: string;
+    /**
+     * The value of the number input.
+     */
+    value?: string | number;
     /**
      * @see IUseNumberMaskProps['onChange']
      */
@@ -35,12 +39,13 @@ export interface IInputNumberProps extends Omit<IInputComponentProps, 'onChange'
 
 export const InputNumber: React.FC<IInputNumberProps> = (props) => {
     const {
-        suffix,
-        onChange,
         max = Number.MAX_SAFE_INTEGER,
         min = Number.MIN_SAFE_INTEGER,
         step: inputStep = 1,
         value,
+        prefix = '',
+        suffix = '',
+        onChange,
         ...otherProps
     } = props;
 
@@ -52,7 +57,7 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
 
     const [isFocused, setIsFocused] = useState(false);
     const {
-        ref: numberMaskRef,
+        ref,
         value: maskedValue,
         unmaskedValue,
         setValue,
@@ -63,7 +68,7 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
         onChange,
     });
 
-    const suffixedValue = maskedValue && suffix ? maskedValue + suffix : maskedValue;
+    const augmentedValue = maskedValue ? `${prefix}${maskedValue}${suffix}` : maskedValue;
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'ArrowUp') {
@@ -129,17 +134,17 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
                 />
             )}
             <input
-                ref={numberMaskRef}
-                min={min}
-                max={max}
+                ref={ref}
                 step={step}
-                value={isFocused ? maskedValue : suffixedValue}
+                max={props.max ?? max}
+                min={props.min ?? min}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
                 inputMode="numeric"
                 onKeyDown={handleKeyDown}
                 className={classNames('text-center spin-buttons:appearance-none', inputClassName)}
                 {...otherInputProps}
+                value={isFocused ? maskedValue : augmentedValue}
             />
             {!isDisabled && (
                 <Button
