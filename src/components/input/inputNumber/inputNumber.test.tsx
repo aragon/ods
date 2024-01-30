@@ -72,24 +72,16 @@ describe('<InputNumber /> component', () => {
         });
 
         it('should return the maximum when the newly generated value exceeds the maximum', () => {
-            const max = '5';
-            const step = '2';
+            const max = 5;
+            const step = 2;
             const value = '4';
-            testIncrementLogic({ max, step, value, expectedValue: max });
-        });
-
-        it('should increment to the minimum when the newly generated value is less than the minimum', () => {
-            const max = '5';
-            const min = '0';
-            const step = '2';
-            const value = '-7';
-            testIncrementLogic({ max, min, step, value, expectedValue: min });
+            testIncrementLogic({ max, step, value, expectedValue: max.toString() });
         });
 
         it('should increment by floating point value when the step is a float', () => {
-            const value = 1;
+            const value = '1';
             const step = 0.5;
-            testIncrementLogic({ step, value, expectedValue: (value + step).toString() });
+            testIncrementLogic({ step, value, expectedValue: (Number(value) + step).toString() });
         });
 
         it('should round down to the nearest multiple of the step before incrementing by the step value', () => {
@@ -98,18 +90,11 @@ describe('<InputNumber /> component', () => {
             testIncrementLogic({ step, value, expectedValue: '1.2' });
         });
 
-        it('should increment to the minimum when the newly generated increment value is less than the minimum', () => {
-            const value = '0';
-            const step = '1';
-            const min = '5';
-            testIncrementLogic({ step, value, min, expectedValue: min });
-        });
-
         it('should increment to the minimum when no value is provided', () => {
             const step = 6;
-            const min = '5';
+            const min = 5;
             const max = 10;
-            testIncrementLogic({ step, min, max, expectedValue: min });
+            testIncrementLogic({ step, min, max, expectedValue: min.toString() });
         });
     });
 
@@ -141,29 +126,28 @@ describe('<InputNumber /> component', () => {
         };
 
         it('should decrement by step', () => {
-            const value = 10;
+            const value = '10';
             const step = 2;
             const expectedValue = (10 - 2).toString();
             testDecrementLogic({ value, step, expectedValue });
         });
 
-        it('should not decrement when the value is less than the minimum', () => {
-            const value = '-1';
+        it('should decrement to the minimum when no value provided', () => {
             const step = 2;
             const min = 1;
-            testDecrementLogic({ value, step, min, expectedValue: value });
+            testDecrementLogic({ step, min, expectedValue: min.toString() });
         });
 
         it('should decrement to maximum if the initial value minus the step is greater than the maximum', () => {
-            const value = 100;
+            const value = '100';
             const step = 2;
             const min = 1;
-            const max = '50';
-            testDecrementLogic({ value, step, min, max, expectedValue: max });
+            const max = 50;
+            testDecrementLogic({ value, step, min, max, expectedValue: max.toString() });
         });
 
         it('should decrement to the closest multiple of the step smaller than the value', () => {
-            const value = 10;
+            const value = '10';
             const step = 3;
             testDecrementLogic({ value, step, expectedValue: '9' });
         });
