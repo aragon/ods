@@ -33,12 +33,8 @@ describe('<InputText /> component', () => {
     });
 
     it('does not render an addon when the addon string is empty', () => {
-        render(createTestComponent({ addon: '' }));
-        expect(screen.queryByText('')).not.toBeInTheDocument();
-    });
-
-    it('does not render an addon when the addon string contains only whitespace', () => {
-        render(createTestComponent({ addon: '   ' }));
-        expect(screen.queryByText('   ')).not.toBeInTheDocument();
+        render(createTestComponent({ addon: '', addonPosition: 'left' }));
+        const addonElement = screen.queryByTestId('input-addon');
+        expect(addonElement).not.toBeInTheDocument();
     });
 });

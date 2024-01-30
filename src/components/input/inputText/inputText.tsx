@@ -29,7 +29,11 @@ export const InputText: React.FC<IInputTextProps> = ({ addonPosition = 'left', a
 
     return (
         <InputContainer wrapperClassName="overflow-hidden" {...containerProps}>
-            {showAddon && <div className={addonClasses}>{addon}</div>}
+            {showAddon && (
+                <div className={addonClasses} data-testid="input-addon">
+                    {addon}
+                </div>
+            )}
             <input type="text" {...inputProps} />
         </InputContainer>
     );
