@@ -7,8 +7,17 @@ import { useInputProps, useNumberMask, type IUseNumberMaskProps } from '../hooks
 import { InputContainer, type IInputComponentProps } from '../inputContainer';
 
 export interface IInputNumberProps extends Omit<IInputComponentProps, 'onChange' | 'value' | 'step' | 'min' | 'max'> {
+    /**
+     * The minimum value that the number input accepts
+     */
     min?: number;
+    /**
+     * The maximum value that the number input accepts
+     */
     max?: number;
+    /**
+     * Specifies the granularity of the intervals for the input value
+     */
     step?: number;
     /**
      * The value of the number input.
