@@ -1,13 +1,7 @@
 import classNames from 'classnames';
+import type { IInputTextProps } from '.';
 import { useInputProps } from '../hooks';
-import { InputContainer, type IInputComponentProps, type InputVariant } from '../inputContainer';
-
-type BaseProps = Omit<IInputComponentProps, 'addonLeft' | 'addonRight'>;
-type NoAddonProps = BaseProps & { addonLeft?: never; addonRight?: never };
-type LeftAddonProps = BaseProps & { addonLeft: string; addonRight?: never };
-type RightAddonProps = BaseProps & { addonLeft?: never; addonRight: string };
-
-export type IInputTextProps = LeftAddonProps | RightAddonProps | NoAddonProps;
+import { InputContainer, type InputVariant } from '../inputContainer';
 
 /**
  * TO-DO: border will look too dark here until we adjust inputContainer.tsx to new design specs for border-{variant}-200
@@ -20,23 +14,24 @@ const variantToClassNames: Record<InputVariant | 'disabled', string[]> = {
     disabled: ['bg-neutral-50 border-neutral-200'],
 };
 
-export const InputText: React.FC<IInputTextProps> = ({ children, addonLeft, addonRight, ...otherProps }) => {
+export const InputText: React.FC<IInputTextProps> = ({ children, addonPos, addon, ...otherProps }) => {
     const { containerProps, inputProps } = useInputProps(otherProps);
     const variant = otherProps.variant ?? 'default';
     const processedVariant = otherProps.isDisabled ? 'disabled' : variant;
+    const showAddon = addon && addon.trim() !== '';
 
     const addonClasses = classNames(
         'flex h-full shrink-0 items-center justify-center px-3 text-base font-normal leading-tight',
         variantToClassNames[processedVariant],
-        addonLeft && 'border-r-[1px]',
-        addonRight && 'border-l-[1px]',
+        addonPos === 'left' && 'border-r-[1px]',
+        addonPos === 'right' && 'border-l-[1px]',
     );
 
     return (
         <InputContainer wrapperClassName="overflow-hidden" {...containerProps}>
-            {addonLeft && !addonRight && <div className={addonClasses}>{addonLeft}</div>}
+            {showAddon && addonPos === 'left' && <div className={addonClasses}>{addon}</div>}
             <input type="text" {...inputProps} />
-            {addonRight && !addonLeft && <div className={addonClasses}>{addonRight}</div>}
+            {showAddon && addonPos === 'right' && <div className={addonClasses}>{addon}</div>}
         </InputContainer>
     );
 };

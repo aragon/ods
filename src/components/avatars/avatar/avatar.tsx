@@ -4,6 +4,7 @@ import type React from 'react';
 import { useState, type ComponentPropsWithoutRef, type ReactNode } from 'react';
 import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../../types';
 import { responsiveUtils } from '../../../utils';
+import { InputText } from '../../input';
 
 type AvatarSize = 'sm' | 'md' | 'lg';
 
@@ -84,6 +85,7 @@ export const Avatar: React.FC<IAvatarProps> = (props) => {
                     { 'flex items-center justify-center': showFallback },
                 )}
             >
+                <InputText addon="" addonPos="left" />
                 {showFallback && fallback}
             </RadixAvatar.Fallback>
         </RadixAvatar.Root>
