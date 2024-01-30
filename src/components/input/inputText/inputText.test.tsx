@@ -24,4 +24,27 @@ describe('<InputText /> component', () => {
         render(createTestComponent({ inputClassName }));
         expect(screen.getByRole('textbox').className).toContain(inputClassName);
     });
+
+    it('renders with a left addon when addonLeft is provided', () => {
+        const addonLeft = 'Left Addon';
+        render(createTestComponent({ addonLeft }));
+        expect(screen.getByText(addonLeft)).toBeInTheDocument();
+    });
+
+    it('renders with a right addon when addonRight is provided', () => {
+        const addonRight = 'Right Addon';
+        render(createTestComponent({ addonRight }));
+        expect(screen.getByText(addonRight)).toBeInTheDocument();
+    });
+
+    it('does not render both addonLeft and addonRight when both are provided', () => {
+        const addonLeft = 'Left Addon';
+        const addonRight = 'Right Addon';
+        // using unknown as Partial<IInputTextProps> to avoid TS error when forcing both addonLeft and addonRight
+        render(createTestComponent({ addonLeft, addonRight } as unknown as Partial<IInputTextProps>));
+        const leftAddonElement = screen.queryByText(addonLeft);
+        const rightAddonElement = screen.queryByText(addonRight);
+        expect(leftAddonElement).not.toBeInTheDocument();
+        expect(rightAddonElement).not.toBeInTheDocument();
+    });
 });
