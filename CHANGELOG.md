@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+-   Implement 'Addon' element for `InputText` component
 -   Implement `Link` component
 -   Handle size property on `Progress` component
 -   Implement `InputTime` component
