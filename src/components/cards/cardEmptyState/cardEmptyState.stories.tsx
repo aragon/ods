@@ -21,23 +21,25 @@ type Story = StoryObj<typeof CardEmptyState>;
  */
 export const Default: Story = {
     args: {
-        value: '5',
-        description: 'Proposals created',
-        action: { label: 'Create proposal', onClick: () => alert('Click') },
-        icon: IconType.APP_GOVERNANCE,
-    },
-};
-
-/**
- * Set the `isStacked` property to false to render a CardSummary component with a horizontal layout (only rendered on screens > MD).
- */
-export const HorizontalLayout: Story = {
-    args: {
-        value: '22',
-        description: 'Members',
-        action: { label: 'Delegate', onClick: () => alert('Click') },
-        icon: IconType.APP_COMMUNITY,
-        isStacked: false,
+        title: 'Title',
+        description: `Description`,
+        primaryButton: {
+            children: 'Label',
+            variant: 'primary',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+            size: 'lg',
+            className: '!w-full',
+        },
+        secondaryButton: {
+            children: 'Label',
+            variant: 'secondary',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+            size: 'lg',
+            className: '!w-full',
+        },
+        illustration: 'LIGHTBULB',
     },
 };
 
