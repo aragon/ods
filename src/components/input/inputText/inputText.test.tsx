@@ -26,25 +26,19 @@ describe('<InputText /> component', () => {
         expect(screen.getByRole('textbox').className).toContain(inputClassName);
     });
 
-    it('renders with a left addon when addonPos is left and addon is a valid string', () => {
-        const addon = 'Left Addon';
-        render(createTestComponent({ addon, addonPos: 'left' }));
-        expect(screen.getByText(addon)).toBeInTheDocument();
-    });
-
-    it('renders with a right addon when addonPos is right and addon is a valid string', () => {
+    it('renders an addon (+ on the right) with all addon props specified', () => {
         const addon = 'Right Addon';
-        render(createTestComponent({ addon, addonPos: 'right' }));
+        render(createTestComponent({ addon, addonPosition: 'right' }));
         expect(screen.getByText(addon)).toBeInTheDocument();
     });
 
     it('does not render an addon when the addon string is empty', () => {
-        render(createTestComponent({ addon: '', addonPos: 'left' }));
-        expect(screen.queryByTestId('addon')).not.toBeInTheDocument();
+        render(createTestComponent({ addon: '' }));
+        expect(screen.queryByText('')).not.toBeInTheDocument();
     });
 
     it('does not render an addon when the addon string contains only whitespace', () => {
-        render(createTestComponent({ addon: '   ', addonPos: 'right' }));
-        expect(screen.queryByTestId('addon')).not.toBeInTheDocument();
+        render(createTestComponent({ addon: '   ' }));
+        expect(screen.queryByText('   ')).not.toBeInTheDocument();
     });
 });

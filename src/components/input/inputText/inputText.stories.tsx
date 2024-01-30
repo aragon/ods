@@ -45,12 +45,11 @@ export const Controlled: Story = {
 };
 
 /**
- * Usage example of an input an addon element.
+ * Usage example of an input with an addon element.
  */
 export const Addon: Story = {
     args: {
         addon: 'Addon',
-        addonPos: 'left',
         placeholder: 'Input with addon',
     },
 };
