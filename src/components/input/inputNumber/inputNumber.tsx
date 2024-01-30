@@ -97,19 +97,24 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
         // ensure value is multiple of step
         const newValue = (Math.floor(parsedValue / step) + 1) * step;
 
-        // ensure the new value is than the
+        // ensure the new value is than the max
         setValue(Math.min(max, newValue).toString());
     };
 
     const handleDecrement = () => {
         const parsedValue = Number(unmaskedValue ?? 0);
 
-        // decrement value by the step
-        let newValue = parsedValue % step !== 0 ? Math.floor(parsedValue / step) * step : parsedValue - step;
+        // decrement directly to the maximum if value is greater than the maximum
+        if (parsedValue > max) {
+            setValue(max.toString());
+            return;
+        }
 
-        // ensure the new value is within the min and max range
-        newValue = Math.max(min, Math.min(max, newValue));
-        setValue(newValue.toString());
+        // ensure value is multiple of step
+        const newValue = (Math.ceil(parsedValue / step) - 1) * step;
+
+        // ensure the new value is than the max
+        setValue(Math.max(min, newValue).toString());
     };
 
     return (

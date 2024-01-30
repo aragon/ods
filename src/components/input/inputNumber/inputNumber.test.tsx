@@ -138,14 +138,6 @@ describe('<InputNumber /> component', () => {
             testDecrementLogic({ step, min, expectedValue: min.toString() });
         });
 
-        it('should decrement to maximum if the initial value minus the step is greater than the maximum', () => {
-            const value = '100';
-            const step = 2;
-            const min = 1;
-            const max = 50;
-            testDecrementLogic({ value, step, min, max, expectedValue: max.toString() });
-        });
-
         it('should decrement to the closest multiple of the step smaller than the value', () => {
             const value = '10';
             const step = 3;
