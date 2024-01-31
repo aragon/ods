@@ -45,7 +45,6 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
         className,
         wrapperClassName,
         id,
-        wrapperClassName,
         ...otherProps
     } = props;
 
