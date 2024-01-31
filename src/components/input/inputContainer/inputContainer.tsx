@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { forwardRef } from 'react';
 import { AlertInline } from '../../alerts';
 import { Tag } from '../../tag';
 import type { IInputContainerProps, InputVariant } from './inputContainer.api';
@@ -30,7 +31,7 @@ const variantToClassNames: Record<InputVariant | 'disabled', string[]> = {
  * as `InputText`, `InputNumber` and others. It also manages properties that are shared across all input components,
  * including `label`, `helpText` and more.
  */
-export const InputContainer: React.FC<IInputContainerProps> = (props) => {
+export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((props, ref) => {
     const {
         label,
         variant = 'default',
@@ -44,11 +45,12 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
         className,
         wrapperClassName,
         id,
+        ...otherProps
     } = props;
 
     const processedVariant = isDisabled ? 'disabled' : variant;
     const containerClasses = classNames(
-        'flex h-12 w-full flex-row items-center', // Layout
+        'flex min-h-12 w-full flex-row items-center', // Layout
         'rounded-xl border text-neutral-600 transition-all', // Styling
         'outline-1 focus-within:outline', // Outline on focus
         'text-base font-normal leading-tight', // Typography
@@ -61,7 +63,7 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
     });
 
     return (
-        <div className={classNames('flex grow flex-col gap-2 md:gap-3', className)}>
+        <div className={classNames('flex grow flex-col gap-2 md:gap-3', className)} ref={ref} {...otherProps}>
             {(label != null || helpText != null) && (
                 <label className="flex flex-col gap-0.5 md:gap-1" htmlFor={id}>
                     {label && (
@@ -85,4 +87,6 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
             {alert && <AlertInline variant={alert.variant} message={alert.message} />}
         </div>
     );
-};
+});
+
+InputContainer.displayName = 'InputContainer';

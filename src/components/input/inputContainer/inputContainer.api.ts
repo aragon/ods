@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes, ReactNode } from 'react';
+import type { ComponentPropsWithRef, InputHTMLAttributes, ReactNode } from 'react';
 import type { AlertVariant } from '../../alerts/utils';
 
 export type InputVariant = 'default' | 'warning' | 'critical';
@@ -14,7 +14,7 @@ export interface IInputContainerAlert {
     variant: Exclude<AlertVariant, 'info' | 'success'>;
 }
 
-export interface IInputContainerProps {
+export interface IInputContainerBaseProps {
     /**
      * Label of the input.
      */
@@ -66,9 +66,13 @@ export interface IInputContainerProps {
     wrapperClassName?: string;
 }
 
-export interface IInputComponentProps
-    extends Omit<IInputContainerProps, 'children' | 'id' | 'inputLength'>,
-        Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+export interface IInputContainerProps extends IInputContainerBaseProps, Omit<ComponentPropsWithRef<'div'>, 'id'> {}
+
+export type InputComponentElement = HTMLInputElement | HTMLTextAreaElement;
+
+export interface IInputComponentProps<TElement extends InputComponentElement = HTMLInputElement>
+    extends Omit<IInputContainerBaseProps, 'children' | 'id' | 'inputLength'>,
+        Omit<InputHTMLAttributes<TElement>, 'type'> {
     /**
      * Classes for the input element.
      */
