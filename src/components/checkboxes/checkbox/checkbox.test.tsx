@@ -1,0 +1,5 @@
+describe('<Checkbox /> component', () => {
+    it('', () => {
+        //
+    });
+});
