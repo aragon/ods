@@ -65,14 +65,12 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
         onUpdate: ({ editor }) => onChange?.(editor.getHTML()),
     });
 
-    const toggleExpanded = () => {
-        setIsExpanded((current) => {
-            const expanded = !current;
-            document.body.style.overflow = expanded ? 'hidden' : 'auto';
+    const toggleExpanded = () => setIsExpanded((current) => !current);
 
-            return expanded;
-        });
-    };
+    // Hide page overflow when component is expanded
+    useEffect(() => {
+        document.body.style.overflow = isExpanded ? 'hidden' : 'auto';
+    }, [isExpanded]);
 
     // Update editable setting on Tiptap editor on isDisabled property change
     useEffect(() => {
@@ -83,7 +81,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
     useEffect(() => {
         const handleKeyDown = ({ key }: KeyboardEvent) => {
             if (key === 'Escape') {
-                toggleExpanded();
+                setIsExpanded(false);
             }
         };
 
