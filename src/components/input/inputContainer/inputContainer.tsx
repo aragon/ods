@@ -51,7 +51,7 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
 
     const processedVariant = isDisabled ? 'disabled' : variant;
     const containerClasses = classNames(
-        'flex min-h-12 w-full grow flex-row items-center', // Layout
+        'flex min-h-12 w-full flex-row items-center', // Layout
         'rounded-xl border text-neutral-600 transition-all', // Styling
         'outline-1 focus-within:outline', // Outline on focus
         'text-base font-normal leading-tight', // Typography
