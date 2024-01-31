@@ -31,7 +31,7 @@ const variantToClassNames: Record<InputVariant | 'disabled', string[]> = {
  * as `InputText`, `InputNumber` and others. It also manages properties that are shared across all input components,
  * including `label`, `helpText` and more.
  */
-export const InputContainer: React.FC<IInputContainerProps> = forwardRef((props, ref) => {
+export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((props, ref) => {
     const {
         label,
         variant = 'default',
