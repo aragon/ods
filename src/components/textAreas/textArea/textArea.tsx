@@ -9,7 +9,7 @@ export const TextArea: React.FC<ITextAreaProps> = (props: ITextAreaProps) => {
     const { className: inputClassName, ...otherInputProps } = inputProps;
 
     return (
-        <InputContainer {...containerProps}>
+        <InputContainer wrapperClassName="grow" {...containerProps}>
             <textarea type="text" className={classNames('min-h-[144px]', inputClassName)} {...otherInputProps} />
         </InputContainer>
     );
