@@ -29,7 +29,6 @@ export const Default: Story = {
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
             size: 'lg',
-            className: '!w-full',
         },
         secondaryButton: {
             children: 'Label',
@@ -37,7 +36,6 @@ export const Default: Story = {
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
             size: 'lg',
-            className: '!w-full',
         },
         illustration: 'LIGHTBULB',
     },

@@ -6,6 +6,6 @@ export interface ICardEmptyStateProps extends ICardProps {
     illustration: IllustrationObjectType;
     title: string;
     description: string;
-    primaryButton: IButtonProps;
+    primaryButton?: IButtonProps;
     secondaryButton?: IButtonProps;
 }
