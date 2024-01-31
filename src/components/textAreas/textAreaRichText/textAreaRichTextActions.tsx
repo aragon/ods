@@ -1,6 +1,5 @@
 import type { Editor } from '@tiptap/react';
 import classNames from 'classnames';
-import { useCallback, useMemo } from 'react';
 import { Button } from '../../button';
 import { IconType } from '../../icon';
 
@@ -37,9 +36,9 @@ export interface ITextAreaRichTextActionsProps {
 export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = (props) => {
     const { editor, isDisabled, onExpandClick } = props;
 
-    const unsetLink = useCallback(() => editor?.chain().focus().extendMarkRange('link').unsetLink().run(), [editor]);
+    const unsetLink = () => editor?.chain().focus().extendMarkRange('link').unsetLink().run();
 
-    const setLink = useCallback(() => {
+    const setLink = () => {
         const previousUrl = editor?.getAttributes('link').href;
         const url = window.prompt('URL', previousUrl);
 
@@ -50,9 +49,9 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
         }
 
         editor?.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
-    }, [editor, unsetLink]);
+    };
 
-    const richTextActions = useMemo(() => {
+    const getRichTextActions = () => {
         const actions: ITextAreaRichTextAction[] = [
             { icon: IconType.WYSIWYG_BOLD, action: () => editor?.chain().focus().toggleBold().run() },
             { icon: IconType.WYSIWYG_ITALIC, action: () => editor?.chain().focus().toggleItalic().run() },
@@ -63,7 +62,7 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
         ];
 
         return actions.filter((action) => !action.hidden);
-    }, [editor, setLink, unsetLink]);
+    };
 
     return (
         <div
@@ -72,7 +71,7 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
             })}
         >
             <div className="flex flex-row flex-wrap gap-3">
-                {richTextActions.map(({ icon, action }) => (
+                {getRichTextActions().map(({ icon, action }) => (
                     <Button
                         key={icon}
                         variant="tertiary"
