@@ -57,7 +57,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
         editable: !isDisabled,
         editorProps: {
             attributes: {
-                class: 'outline-none p-4 prose prose-neutral min-h-[144px] h-full max-w-none',
+                class: 'outline-none p-4 ![overflow-wrap:anywhere] prose prose-neutral min-h-[144px] h-full max-w-none',
                 role: 'textbox',
                 'aria-labelledby': processedId,
             },
