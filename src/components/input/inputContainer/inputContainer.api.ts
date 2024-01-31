@@ -60,6 +60,10 @@ export interface IInputContainerProps {
      * Classes for the component.
      */
     className?: string;
+    /**
+     * Classes for the input wrapper.
+     */
+    wrapperClassName?: string;
 }
 
 export interface IInputComponentProps

@@ -42,6 +42,7 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
         isDisabled,
         children,
         className,
+        wrapperClassName,
         id,
     } = props;
 
@@ -52,6 +53,7 @@ export const InputContainer: React.FC<IInputContainerProps> = (props) => {
         'outline-1 focus-within:outline', // Outline on focus
         'text-base font-normal leading-tight', // Typography
         variantToClassNames[processedVariant],
+        wrapperClassName,
     );
 
     const counterClasses = classNames('text-sm font-normal leading-tight text-neutral-600', {
