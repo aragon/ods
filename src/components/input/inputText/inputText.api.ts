@@ -2,12 +2,12 @@ import type { IInputComponentProps } from '../inputContainer';
 
 export interface IInputTextProps extends IInputComponentProps {
     /**
-     * @property {string} [addon] - Text to be rendered inside the addon. If empty or undefined, no addon will be rendered.
+     * Text to be rendered beside the input field.
      */
     addon?: string;
 
     /**
-     * @property {string} [addonPos] - Position of the addon. Must be selected if addon is anything but undefined.
+     * Position of the addon element in relation to the input field.
      * @default 'left'
      */
     addonPosition?: 'left' | 'right';
