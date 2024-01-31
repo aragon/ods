@@ -20,14 +20,6 @@ const meta: Meta<typeof EmptyState> = {
         illustrationType: 'object',
         isStacked: true,
     },
-    argTypes: {
-        illustrationType: {
-            control: { type: 'select', options: ['object', 'human'] },
-        },
-        isStacked: {
-            control: { type: 'boolean' },
-        },
-    },
 };
 
 type Story = StoryObj<typeof EmptyState>;
@@ -49,12 +41,8 @@ export const Default: Story = {
     },
 };
 
-export const EmptyStateWithCard: Story = {
+export const EmptyStateWithCardObject: Story = {
     args: {
-        title: 'Title',
-        description: 'Description',
-        illustrationType: 'object',
-        isStacked: true,
         primaryButton: {
             children: 'Label',
             variant: 'primary',
@@ -71,16 +59,42 @@ export const EmptyStateWithCard: Story = {
         },
     },
     render: (args) => {
-        let illustration: IllustrationObjectType | IIllustrationHumanProps = 'LIGHTBULB'; // Default object illustration
-        if (args.illustrationType === 'human' && args.isStacked) {
-            illustration = {
-                body: 'VOTING',
-                hairs: 'MIDDLE',
-                accessory: 'EARRINGS_RHOMBUS',
-                sunglasses: 'BIG_ROUNDED',
-                expression: 'SMILE',
-            } as IIllustrationHumanProps; // Human illustration for stacked mode
-        }
+        const illustration = 'LIGHTBULB';
+
+        return (
+            <Card>
+                <EmptyState {...args} illustration={illustration} />
+            </Card>
+        );
+    },
+};
+
+export const EmptyStateWithCardHuman: Story = {
+    args: {
+        illustrationType: 'human',
+        primaryButton: {
+            children: 'Label',
+            variant: 'primary',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+            size: 'lg',
+        },
+        secondaryButton: {
+            children: 'Label',
+            variant: 'secondary',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+            size: 'lg',
+        },
+    },
+    render: (args) => {
+        const illustration = {
+            body: 'VOTING',
+            hairs: 'MIDDLE',
+            accessory: 'EARRINGS_RHOMBUS',
+            sunglasses: 'BIG_ROUNDED',
+            expression: 'SMILE',
+        } as IIllustrationHumanProps; // Human illustration for stacked mode
 
         return (
             <Card>

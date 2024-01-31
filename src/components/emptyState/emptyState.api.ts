@@ -1,13 +1,14 @@
 import type { IButtonProps } from '../button/button.api';
+import { ICardProps } from '../cards';
 import type { IIllustrationHumanProps, IllustrationObjectType } from '../illustrations';
 
-export interface IEmptyStateProps extends HTMLDivElement {
+export interface IEmptyStateProps extends ICardProps {
     /**
      * Type of illustration to be used in the empty state.
      */
     illustrationType: 'object' | 'human';
     /**
-     * Type of illustration props to be used based on tye
+     * Type of illustration props to be used based on type.
      */
     illustration: IllustrationObjectType | IIllustrationHumanProps;
     /**
