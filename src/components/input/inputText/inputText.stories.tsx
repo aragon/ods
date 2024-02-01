@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ChangeEvent } from 'react';
-import { InputText, type IInputTextProps } from './inputText';
+import { InputText } from './inputText';
+import type { IInputTextProps } from './inputText.api';
 
 const meta: Meta<typeof InputText> = {
     title: 'components/Input/InputText',
@@ -40,6 +41,16 @@ export const Controlled: Story = {
     render: (props) => <ControlledComponent {...props} />,
     args: {
         placeholder: 'Controlled input',
+    },
+};
+
+/**
+ * Usage example of an input with an addon element.
+ */
+export const Addon: Story = {
+    args: {
+        addon: 'Addon',
+        placeholder: 'Input with addon',
     },
 };
 
