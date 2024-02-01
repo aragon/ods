@@ -70,6 +70,8 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                 <IllustrationHuman
                     className={illustrationHumanClassNames}
                     {...(illustration as IIllustrationHumanProps)}
+                    role="img"
+                    aria-label="Human Illustration"
                 />
             );
         } else {
@@ -77,6 +79,9 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                 <IllustrationObject
                     className={illustrationObjectClassNames}
                     object={illustration as IllustrationObjectType}
+                    alt-text="Illustration of an object"
+                    role="img"
+                    aria-label="Object Illustration"
                 />
             );
         }

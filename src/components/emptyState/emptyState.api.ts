@@ -44,7 +44,7 @@ type ButtonPropsForEmptyState = Omit<IButtonProps, 'variant' | 'size'> & {
     iconRight?: IconType;
 };
 
-type IEmptyStateStacked = ICardProps &
+export type IEmptyStateStacked = ICardProps &
     (HumanIllustrationProps | ObjectIllustrationProps) & {
         /**
          * Renders the empty state as horizontal view when false.
@@ -72,7 +72,7 @@ type IEmptyStateStacked = ICardProps &
         secondaryButton?: ButtonPropsForEmptyState;
     };
 
-type IEmptyStateNonStacked = ICardProps &
+export type IEmptyStateNonStacked = ICardProps &
     ObjectIllustrationProps & {
         /**
          * Renders the empty state as horizontal view when false.
