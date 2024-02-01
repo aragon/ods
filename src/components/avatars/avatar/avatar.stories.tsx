@@ -8,7 +8,7 @@ const meta: Meta<typeof Avatar> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Aragon-ODS?node-id=11953%3A12188&mode=dev',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?node-id=11953-12188&t=RVJHJFTrLMnhgYnJ-4',
         },
     },
 };

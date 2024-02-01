@@ -8,7 +8,7 @@ const meta: Meta<typeof AlertCard> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=718-9005&mode=design&t=SszxFX4rPdpRifNQ-4',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?node-id=718-9005&t=RVJHJFTrLMnhgYnJ-4',
         },
     },
 };

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { AlertInline } from './alertInline';
 
 const meta: Meta<typeof AlertInline> = {
@@ -8,7 +9,7 @@ const meta: Meta<typeof AlertInline> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=22-208&mode=design&t=SszxFX4rPdpRifNQ-4',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?node-id=22-208&t=RVJHJFTrLMnhgYnJ-4',
         },
     },
 };
