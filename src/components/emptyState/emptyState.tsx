@@ -16,7 +16,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
     primaryButton,
     secondaryButton,
     className,
-    isStacked = true,
+    isStacked,
 }) => {
     const containerClassNames = classNames(
         'grid w-[320px] md:w-[640px]',

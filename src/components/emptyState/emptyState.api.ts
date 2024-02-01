@@ -1,40 +1,84 @@
 import type { IButtonProps } from '../button/button.api';
-import { ICardProps } from '../cards';
+import type { ICardProps } from '../cards';
 import type { IIllustrationHumanProps, IllustrationObjectType } from '../illustrations';
 
-export interface IEmptyStateProps extends ICardProps {
+type HumanIllustrationProps = {
     /**
      * Type of illustration to be used in the empty state.
      */
-    illustrationType: 'object' | 'human';
+    illustrationType: 'human';
     /**
-     * Type of illustration props to be used based on type.
+     * Illustration details to be used based on type. Must be an object.
+     * Minimum required props are: body and expression.
      */
-    illustration: IllustrationObjectType | IIllustrationHumanProps;
-    /**
-     * Title to be rendered in the empty state.
-     */
-    title: string;
+    illustration: IIllustrationHumanProps;
+};
 
+type ObjectIllustrationProps = {
     /**
-     * Description or content of the empty state.
+     * Type of illustration to be used in the empty state.
      */
-    description: string;
+    illustrationType: 'object';
+    /**
+     * Illustration details to be used based on type.
+     * Must be a capitalized string from list. eg: 'LIGHTBULB'
+     */
+    illustration: IllustrationObjectType;
+};
 
-    /**
-     * Optional primary button configuration.
-     * See <Button /> component for more details.
-     */
-    primaryButton?: IButtonProps;
+type IEmptyStateStacked = ICardProps &
+    (HumanIllustrationProps | ObjectIllustrationProps) & {
+        /**
+         * Renders the empty state as horizontal view when false.
+         * @default true
+         */
+        isStacked: true;
+        /**
+         * Title to be rendered in the empty state.
+         */
+        title: string;
+        /**
+         * Description or content of the empty state.
+         */
+        description: string;
+        /**
+         * Optional primary button configuration.
+         * See <Button /> component for more details.
+         */
+        primaryButton?: IButtonProps;
 
-    /**
-     * Optional secondary button configuration.
-     * See <Button /> component for more details.
-     */
-    secondaryButton?: IButtonProps;
-    /**
-     * Renders the empty state as horizontal view when false.
-     * @default true
-     */
-    isStacked?: boolean;
-}
+        /**
+         * Optional secondary button configuration.
+         * See <Button /> component for more details.
+         */
+        secondaryButton?: IButtonProps;
+    };
+
+type IEmptyStateNonStacked = ICardProps &
+    ObjectIllustrationProps & {
+        /**
+         * Renders the empty state as horizontal view when false.
+         * @default true
+         */
+        isStacked: false;
+        /**
+         * Title to be rendered in the empty state.
+         */
+        title: string;
+        /**
+         * Description or content of the empty state.
+         */
+        description: string;
+        /**
+         * Primary button is not supported in non-stacked empty state.
+         * Only available when isStacked is true.
+         */
+        primaryButton?: never;
+        /**
+         * Optional secondary button configuration.
+         * See <Button /> component for more details.
+         */
+        secondaryButton?: IButtonProps;
+    };
+
+export type IEmptyStateProps = IEmptyStateStacked | IEmptyStateNonStacked;
