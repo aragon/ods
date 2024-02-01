@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { EmptyState } from '.';
 import { Card } from '../cards';
 import { IconType } from '../icon';
-import type { IIllustrationHumanProps, IllustrationObjectType } from '../illustrations';
 
 const meta: Meta<typeof EmptyState> = {
     title: 'components/EmptyState',
@@ -14,94 +13,83 @@ const meta: Meta<typeof EmptyState> = {
             url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=10157-27206&mode=dev',
         },
     },
-    args: {
-        title: 'Title',
-        description: 'Description',
-        illustrationType: 'object',
-        isStacked: true,
-    },
 };
 
 type Story = StoryObj<typeof EmptyState>;
 
 export const Default: Story = {
-    render: (args) => {
-        let illustration: IllustrationObjectType | IIllustrationHumanProps = 'LIGHTBULB'; // Default object illustration
-        if (args.illustrationType === 'human' && args.isStacked) {
-            illustration = {
-                body: 'VOTING',
-                hairs: 'MIDDLE',
-                accessory: 'EARRINGS_RHOMBUS',
-                sunglasses: 'BIG_ROUNDED',
-                expression: 'SMILE',
-            } as IIllustrationHumanProps; // Human illustration for stacked mode
-        }
-
-        return <EmptyState {...args} illustration={illustration} />;
+    args: {
+        title: 'Title',
+        description: 'Description',
+        illustrationType: 'object',
+        illustration: 'LIGHTBULB', // Default object illustration
     },
 };
 
-export const EmptyStateWithCardObject: Story = {
+export const StackedWithObject: Story = {
     args: {
+        title: 'Title',
+        description: 'Description',
+        illustrationType: 'object',
+        illustration: 'LIGHTBULB',
         primaryButton: {
-            children: 'Label',
-            variant: 'primary',
+            label: 'Primary Action',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
-            size: 'lg',
         },
         secondaryButton: {
-            children: 'Label',
-            variant: 'secondary',
+            label: 'Secondary Action',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
-            size: 'lg',
         },
     },
-    render: (args) => {
-        const illustration = 'LIGHTBULB';
-
-        return (
-            <Card>
-                <EmptyState {...args} illustration={illustration} />
-            </Card>
-        );
-    },
+    render: (args) => <EmptyState {...args} />,
 };
 
-export const EmptyStateWithCardHuman: Story = {
+export const NonStackedWithObject: Story = {
     args: {
+        title: 'Title',
+        description: 'Description',
+        isStacked: false,
+        illustrationType: 'object',
+        illustration: 'LIGHTBULB',
+        secondaryButton: {
+            label: 'Secondary Action',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+        },
+    },
+    render: (args) => (
+        <Card>
+            <EmptyState {...args} />
+        </Card>
+    ),
+};
+
+export const StackedWithHuman: Story = {
+    args: {
+        title: 'Title',
+        description: 'Description',
         illustrationType: 'human',
-        primaryButton: {
-            children: 'Label',
-            variant: 'primary',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-            size: 'lg',
-        },
-        secondaryButton: {
-            children: 'Label',
-            variant: 'secondary',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-            size: 'lg',
-        },
-    },
-    render: (args) => {
-        const illustration = {
+        illustration: {
             body: 'VOTING',
             hairs: 'MIDDLE',
             accessory: 'EARRINGS_RHOMBUS',
             sunglasses: 'BIG_ROUNDED',
             expression: 'SMILE',
-        } as IIllustrationHumanProps; // Human illustration for stacked mode
-
-        return (
-            <Card>
-                <EmptyState {...args} illustration={illustration} />
-            </Card>
-        );
+        },
+        primaryButton: {
+            label: 'Primary Action',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+        },
+        secondaryButton: {
+            label: 'Secondary Action',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+        },
     },
+    render: (args) => <EmptyState {...args} />,
 };
 
 export default meta;
