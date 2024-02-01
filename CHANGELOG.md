@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `Link`, `InputNumber` `InputTime` and `TextAreaRichText` components
+-   Implement `Link`, `InputNumber` `InputTime` and `TextAreaRichText`, `EmptyState` components
 -   Implement Addon element for `InputText` component
 -   Handle size property on `Progress` component
 -   `border-none` Tailwind CSS utility class
