@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { EmptyState } from '.';
 import { IconType } from '../icon';
-import { IIllustrationHumanProps, IllustrationObjectType } from '../illustrations';
+import type { IIllustrationHumanProps, IllustrationObjectType } from '../illustrations';
 
 const meta: Meta<typeof EmptyState> = {
     title: 'components/EmptyState',
