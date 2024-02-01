@@ -20,7 +20,7 @@ type Story = StoryObj<typeof Avatar>;
  */
 export const Default: Story = {
     args: {
-        src: '/icons/person.svg',
+        src: 'https://cdn.discordapp.com/icons/672466989217873929/acffa3e9e09ac5962ff803a5f8649040.webp?size=240',
         size: 'sm',
     },
 };

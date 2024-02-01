@@ -1,25 +1,31 @@
 import classNames from 'classnames';
 import type React from 'react';
 import { type HTMLAttributes } from 'react';
-
 import { Icon } from '../../icon';
 import { alertVariantToIconType, type AlertVariant } from '../alertUtils';
 
 export interface IAlertCardProps extends HTMLAttributes<HTMLDivElement> {
-    /** The main alert message. */
+    /**
+     * The alert message.
+     */
     message: string;
-    /** Optional description for the alert. */
+    /**
+     * Optional description for the alert.
+     */
     description?: string;
-    /** Specifies the variant of the alert. */
-    variant: AlertVariant;
+    /**
+     * Variant of the alert.
+     * @default info
+     */
+    variant?: AlertVariant;
 }
 
 // Maps alert variants to container class names.
 const alertVariantToContainerClassNames: Record<AlertVariant, string> = {
-    critical: 'border-critical-400 bg-critical-100',
-    info: 'border-info-400 bg-info-100',
-    success: 'border-success-400 bg-success-100',
-    warning: 'border-warning-400 bg-warning-100',
+    critical: 'border-critical-400 shadow-critical',
+    info: 'border-info-400 shadow-info',
+    success: 'border-success-400 shadow-success',
+    warning: 'border-warning-400 shadow-warning',
 };
 
 // Maps alert variants to icon class names.
@@ -38,14 +44,6 @@ const alertVariantToMessageClassNames: Record<AlertVariant, string> = {
     warning: 'text-warning-800',
 };
 
-// Maps alert variants to description class names.
-const alertVariantToDescriptionClassNames: Record<AlertVariant, string> = {
-    critical: 'text-neutral-600',
-    info: 'text-neutral-600',
-    success: 'text-neutral-500',
-    warning: 'text-neutral-600',
-};
-
 /**
  * AlertCard Component
  *
@@ -54,16 +52,18 @@ const alertVariantToDescriptionClassNames: Record<AlertVariant, string> = {
  * @param {IAlertCardProps} props - Component properties.
  * @returns {React.ReactElement} Rendered AlertCard component.
  */
-export const AlertCard: React.FC<IAlertCardProps> = ({ className, description, message, variant, ...rest }) => {
+export const AlertCard: React.FC<IAlertCardProps> = (props) => {
+    const { className, description, message, variant = 'info', ...otherProps } = props;
+
     return (
         <div
             role="alert"
             className={classNames(
-                'w-full space-y-0.5 rounded-xl border px-4 py-3 md:space-y-1 md:px-6 md:py-5',
+                'w-full rounded-xl border bg-neutral-0 px-4 py-3 md:px-6 md:py-5',
                 alertVariantToContainerClassNames[variant],
                 className,
             )}
-            {...rest}
+            {...otherProps}
         >
             <div className="flex items-center gap-x-2 md:gap-x-3">
                 <Icon icon={alertVariantToIconType[variant]} className={alertVariantToIconClassNames[variant]} />
@@ -77,12 +77,7 @@ export const AlertCard: React.FC<IAlertCardProps> = ({ className, description, m
                 </p>
             </div>
             {description && (
-                <p
-                    className={classNames(
-                        'ml-6 text-sm leading-normal md:ml-7 md:text-base',
-                        alertVariantToDescriptionClassNames[variant],
-                    )}
-                >
+                <p className="ml-6 text-sm font-normal leading-normal text-neutral-500 md:ml-7 md:text-base">
                     {description}
                 </p>
             )}

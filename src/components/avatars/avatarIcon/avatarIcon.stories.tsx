@@ -16,10 +16,7 @@ type Story = StoryObj<typeof AvatarIcon>;
  */
 export const Default: Story = {
     args: {
-        size: 'md',
-        variant: 'info',
         icon: IconType.APP_GOVERNANCE,
-        responsiveSize: { lg: 'sm' },
     },
     parameters: {
         design: {

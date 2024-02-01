@@ -12,8 +12,9 @@ export interface IAlertInlineProps extends HTMLAttributes<HTMLDivElement> {
     message: string;
     /**
      * Defines the variant of the alert.
+     * @default info
      */
-    variant: AlertVariant;
+    variant?: AlertVariant;
 }
 
 const variantToIconClassNames: Record<AlertVariant, string> = {
@@ -32,7 +33,7 @@ const variantToTextClassNames: Record<AlertVariant, string> = {
 
 /** AlertInline UI Component */
 export const AlertInline: React.FC<IAlertInlineProps> = (props) => {
-    const { className, message, variant, ...rest } = props;
+    const { className, message, variant = 'info', ...rest } = props;
 
     return (
         <div role="alert" className={classNames('inline-flex items-center gap-x-2 rounded', className)} {...rest}>
@@ -44,7 +45,7 @@ export const AlertInline: React.FC<IAlertInlineProps> = (props) => {
             />
             <p
                 className={classNames(
-                    'text-xs font-semibold leading-tight md:text-base',
+                    'text-xs font-normal leading-tight md:text-base',
                     variantToTextClassNames[variant],
                 )}
             >
