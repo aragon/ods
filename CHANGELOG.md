@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+-   Fixed styling conflict in `InputText` introduced by Addon element
 -   Update minor and patch versions of dependencies
 -   Update `husky` to v9
 -   Add `wrapperClassName` property to `InputContainer` component to customise the input wrapper
