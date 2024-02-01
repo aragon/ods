@@ -1,5 +1,6 @@
 import type { IButtonProps } from '../button/button.api';
 import type { ICardProps } from '../cards';
+import type { IconType } from '../icon';
 import type { IIllustrationHumanProps, IllustrationObjectType } from '../illustrations';
 
 type HumanIllustrationProps = {
@@ -26,6 +27,23 @@ type ObjectIllustrationProps = {
     illustration: IllustrationObjectType;
 };
 
+type ButtonPropsForEmptyState = Omit<IButtonProps, 'variant' | 'size'> & {
+    /**
+     * Button label to be rendered.
+     */
+    label: string;
+    /**
+     * Icon to be rendered on the left side of label.
+     * eg: IconType.ADD
+     */
+    iconLeft?: IconType;
+    /**
+     * Icon to be rendered on the right side of label.
+     * eg: IconType.RIGHT_CHEVRON
+     */
+    iconRight?: IconType;
+};
+
 type IEmptyStateStacked = ICardProps &
     (HumanIllustrationProps | ObjectIllustrationProps) & {
         /**
@@ -45,13 +63,13 @@ type IEmptyStateStacked = ICardProps &
          * Optional primary button configuration.
          * See <Button /> component for more details.
          */
-        primaryButton?: IButtonProps;
+        primaryButton?: ButtonPropsForEmptyState;
 
         /**
          * Optional secondary button configuration.
          * See <Button /> component for more details.
          */
-        secondaryButton?: IButtonProps;
+        secondaryButton?: ButtonPropsForEmptyState;
     };
 
 type IEmptyStateNonStacked = ICardProps &
@@ -78,7 +96,7 @@ type IEmptyStateNonStacked = ICardProps &
          * Optional secondary button configuration.
          * See <Button /> component for more details.
          */
-        secondaryButton?: IButtonProps;
+        secondaryButton?: ButtonPropsForEmptyState;
     };
 
 export type IEmptyStateProps = IEmptyStateStacked | IEmptyStateNonStacked;

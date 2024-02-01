@@ -100,7 +100,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                             iconLeft={primaryButton.iconLeft}
                             iconRight={primaryButton.iconRight}
                         >
-                            {primaryButton.children}
+                            {primaryButton.label}
                         </Button>
                     )}
                     {secondaryButton && (
@@ -111,7 +111,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                             iconLeft={secondaryButton.iconLeft}
                             iconRight={secondaryButton.iconRight}
                         >
-                            {secondaryButton.children}
+                            {secondaryButton.label}
                         </Button>
                     )}
                 </div>
