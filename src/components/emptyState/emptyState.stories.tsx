@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { EmptyState } from '.';
 import { IconType } from '../icon';
+import { IIllustrationHumanProps, IllustrationObjectType } from '../illustrations';
 
 const meta: Meta<typeof EmptyState> = {
     title: 'components/EmptyState',
@@ -16,15 +17,39 @@ const meta: Meta<typeof EmptyState> = {
 
 type Story = StoryObj<typeof EmptyState>;
 
+/**
+ * Default EmptyState component with minimum props.
+ */
 export const Default: Story = {
     args: {
         title: 'Title',
         description: 'Description',
         illustrationType: 'object',
-        illustration: 'LIGHTBULB', // Default object illustration
+    },
+    render: (args) => {
+        const getIllustration = (type: 'object' | 'human'): IllustrationObjectType | IIllustrationHumanProps => {
+            if (type === 'human') {
+                return {
+                    body: 'VOTING',
+                    hairs: 'MIDDLE',
+                    accessory: 'EARRINGS_RHOMBUS',
+                    sunglasses: 'BIG_ROUNDED',
+                    expression: 'SMILE',
+                } as IIllustrationHumanProps;
+            } else {
+                return 'LIGHTBULB';
+            }
+        };
+
+        const illustration = getIllustration(args.illustrationType);
+        //@ts-expect-error can't resolve more complicated union types in Storybook for illustation control purposes
+        return <EmptyState {...args} illustration={illustration} />;
     },
 };
 
+/**
+ * Stacked EmptyState component with full props examples for Object Illustration.
+ */
 export const StackedFullWithObject: Story = {
     args: {
         title: 'Title',
@@ -44,7 +69,10 @@ export const StackedFullWithObject: Story = {
     },
     render: (args) => <EmptyState {...args} />,
 };
-
+/**
+ * Non-Stacked EmptyState component with full props examples for Object Illustration. <br />
+ * **Note:** Human illustration, Primary Button are not available in non-stacked mode.
+ */
 export const NonStackedFullWithObject: Story = {
     args: {
         title: 'Title',
@@ -60,7 +88,9 @@ export const NonStackedFullWithObject: Story = {
     },
     render: (args) => <EmptyState {...args} />,
 };
-
+/**
+ * Stacked EmptyState component with full props examples for Human Illustation.
+ */
 export const StackedFullWithHuman: Story = {
     args: {
         title: 'Title',
