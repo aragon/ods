@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { EmptyState } from '.';
-import { Card } from '../cards';
 import { IconType } from '../icon';
 
 const meta: Meta<typeof EmptyState> = {
@@ -26,7 +25,7 @@ export const Default: Story = {
     },
 };
 
-export const StackedWithObject: Story = {
+export const StackedFullWithObject: Story = {
     args: {
         title: 'Title',
         description: 'Description',
@@ -46,7 +45,7 @@ export const StackedWithObject: Story = {
     render: (args) => <EmptyState {...args} />,
 };
 
-export const NonStackedWithObject: Story = {
+export const NonStackedFullWithObject: Story = {
     args: {
         title: 'Title',
         description: 'Description',
@@ -59,14 +58,10 @@ export const NonStackedWithObject: Story = {
             iconRight: IconType.CHEVRON_RIGHT,
         },
     },
-    render: (args) => (
-        <Card>
-            <EmptyState {...args} />
-        </Card>
-    ),
+    render: (args) => <EmptyState {...args} />,
 };
 
-export const StackedWithHuman: Story = {
+export const StackedFullWithHuman: Story = {
     args: {
         title: 'Title',
         description: 'Description',
