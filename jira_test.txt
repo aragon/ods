@@ -1,3 +1,0 @@
-I will use this file to test the movement of jira issues.
-
-Test edit 3
