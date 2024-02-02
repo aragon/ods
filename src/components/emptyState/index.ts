@@ -1,2 +1,8 @@
 export { EmptyState } from './emptyState';
-export type { IEmptyStateProps } from './emptyState.api';
+export type {
+    HumanIllustrationProps,
+    IEmptyStateNonStacked,
+    IEmptyStateProps,
+    IEmptyStateStacked,
+    ObjectIllustrationProps,
+} from './emptyState.api';
