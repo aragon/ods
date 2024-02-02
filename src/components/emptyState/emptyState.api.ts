@@ -3,7 +3,7 @@ import type { ICardProps } from '../cards';
 import type { IconType } from '../icon';
 import type { IIllustrationHumanProps, IllustrationObjectType } from '../illustrations';
 
-type HumanIllustrationProps = {
+export type HumanIllustrationProps = {
     /**
      * Type of illustration to be used in the empty state.
      */
@@ -15,7 +15,7 @@ type HumanIllustrationProps = {
     illustration: IIllustrationHumanProps;
 };
 
-type ObjectIllustrationProps = {
+export type ObjectIllustrationProps = {
     /**
      * Type of illustration to be used in the empty state.
      */
@@ -27,7 +27,7 @@ type ObjectIllustrationProps = {
     illustration: IllustrationObjectType;
 };
 
-type ButtonPropsForEmptyState = Omit<IButtonProps, 'variant' | 'size'> & {
+export type ButtonPropsForEmptyState = Omit<IButtonProps, 'variant' | 'size'> & {
     /**
      * Button label to be rendered.
      */
