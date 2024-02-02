@@ -65,7 +65,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
     });
 
     const renderIllustration = () => {
-        if (illustrationType === 'human') {
+        if (illustrationType === 'human' && isStacked) {
             return (
                 <IllustrationHuman
                     className={illustrationHumanClassNames}
@@ -97,7 +97,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                     <p className={descriptionClassNames}>{description}</p>
                 </div>
                 <div className={buttonContainerClassNames}>
-                    {primaryButton && (
+                    {primaryButton && isStacked && (
                         <Button
                             size={isStacked ? 'lg' : 'sm'}
                             responsiveSize={isStacked ? { md: 'lg' } : { md: 'md' }}
