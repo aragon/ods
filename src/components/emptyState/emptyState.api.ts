@@ -54,7 +54,7 @@ export type IEmptyStateStacked = ICardProps &
         /**
          * Title to be rendered in the empty state.
          */
-        title: string;
+        heading: string;
         /**
          * Description or content of the empty state.
          */
@@ -82,7 +82,7 @@ export type IEmptyStateNonStacked = ICardProps &
         /**
          * Title to be rendered in the empty state.
          */
-        title: string;
+        heading: string;
         /**
          * Description or content of the empty state.
          */

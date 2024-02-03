@@ -11,7 +11,7 @@ import {
 export const EmptyState: React.FC<IEmptyStateProps> = ({
     illustration,
     illustrationType,
-    title,
+    heading,
     description,
     primaryButton,
     secondaryButton,
@@ -54,7 +54,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
         'items-start space-y-0.5 md:space-y-1': !isStacked,
     });
 
-    const titleClassNames = classNames('font-normal leading-tight text-neutral-800', {
+    const headingClassNames = classNames('font-normal leading-tight text-neutral-800', {
         'text-xl md:text-2xl': isStacked,
         'text-base md:text-lg': !isStacked,
     });
@@ -93,7 +93,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
 
             <div className={detailsAndButtonsClassNames}>
                 <div className={detailsClassNames}>
-                    <p className={titleClassNames}>{title}</p>
+                    <p className={headingClassNames}>{heading}</p>
                     <p className={descriptionClassNames}>{description}</p>
                 </div>
                 <div className={buttonContainerClassNames}>

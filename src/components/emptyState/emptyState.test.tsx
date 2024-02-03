@@ -6,7 +6,7 @@ describe('<EmptyState /> component', () => {
     const defaultStackedProps = {
         illustrationType: 'object',
         illustration: 'LIGHTBULB',
-        title: 'Default Title',
+        heading: 'Default Heading',
         description: 'Default description',
         isStacked: true,
         primaryButton: { label: 'Primary', iconLeft: IconType.ADD, iconRight: IconType.CHEVRON_RIGHT },
@@ -16,7 +16,7 @@ describe('<EmptyState /> component', () => {
     const defaultNonStackedProps = {
         illustrationType: 'object',
         illustration: 'LIGHTBULB',
-        title: 'Default Title',
+        heading: 'Default Heading',
         description: 'Default description',
         isStacked: false,
         secondaryButton: { label: 'Secondary', iconLeft: IconType.CHEVRON_LEFT, iconRight: IconType.CHEVRON_RIGHT },
@@ -30,7 +30,7 @@ describe('<EmptyState /> component', () => {
 
     it('renders correctly', () => {
         render(createTestComponent());
-        expect(screen.getByText('Default Title')).toBeInTheDocument();
+        expect(screen.getByText('Default Heading')).toBeInTheDocument();
         expect(screen.getByText('Default description')).toBeInTheDocument();
         expect(screen.getByText('Primary')).toBeInTheDocument();
         expect(screen.getByText('Secondary')).toBeInTheDocument();
@@ -38,7 +38,7 @@ describe('<EmptyState /> component', () => {
 
     it('renders correctly with isStacked false', () => {
         render(createTestComponent({ isStacked: false }));
-        expect(screen.getByText('Default Title')).toBeInTheDocument();
+        expect(screen.getByText('Default Heading')).toBeInTheDocument();
         expect(screen.getByText('Default description')).toBeInTheDocument();
         expect(screen.getByText('Secondary')).toBeInTheDocument();
     });
