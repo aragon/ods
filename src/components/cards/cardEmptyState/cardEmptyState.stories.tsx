@@ -20,7 +20,7 @@ type Story = StoryObj<typeof CardEmptyState>;
 
 export const Default: Story = {
     args: {
-        title: 'Title',
+        heading: 'Title',
         description: 'Description',
         illustrationType: 'object',
     },
@@ -50,7 +50,7 @@ export const Default: Story = {
  */
 export const StackedFullWithObject: Story = {
     args: {
-        title: 'Title',
+        heading: 'Title',
         description: 'Description',
         illustrationType: 'object',
         illustration: 'LIGHTBULB',
@@ -73,7 +73,7 @@ export const StackedFullWithObject: Story = {
  */
 export const NonStackedFullWithObject: Story = {
     args: {
-        title: 'Title',
+        heading: 'Title',
         description: 'Description',
         isStacked: false,
         illustrationType: 'object',
@@ -91,7 +91,7 @@ export const NonStackedFullWithObject: Story = {
  */
 export const StackedFullWithHuman: Story = {
     args: {
-        title: 'Title',
+        heading: 'Title',
         description: 'Description',
         illustrationType: 'human',
         illustration: {
