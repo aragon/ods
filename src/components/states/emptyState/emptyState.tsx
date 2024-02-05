@@ -22,7 +22,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
         'grid w-[320px] md:w-[640px]',
         { 'grid-cols-1 justify-items-center p-6 md:p-12 gap-4 md:gap-6': isStacked },
         {
-            'grid-cols-[max-content_auto] p-4 md:p-5': !isStacked,
+            'grid-cols-[192px_max-content] md:grid-cols-[480px_max-content] gap-4 p-4 md:px-6 md:py-5': !isStacked,
         },
         className,
     );
@@ -93,7 +93,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                     className={classNames({
                         'border-w-full flex flex-col items-stretch space-x-0 space-y-3 md:flex-row md:justify-center md:space-x-4 md:space-y-0':
                             isStacked,
-                        'flex flex-row space-x-1 md:flex-row ': !isStacked,
+                        'flex flex-row flex-wrap gap-3': !isStacked,
                     })}
                 >
                     {primaryButton && (
@@ -102,6 +102,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                             size={isStacked ? 'lg' : 'sm'}
                             responsiveSize={isStacked ? { md: 'lg' } : { md: 'md' }}
                             variant="primary"
+                            className="max-w-[192px] md:max-w-[480px]"
                         >
                             {primaryButton.label}
                         </Button>
@@ -112,6 +113,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                             size={isStacked ? 'lg' : 'sm'}
                             responsiveSize={isStacked ? { md: 'lg' } : { md: 'md' }}
                             variant="secondary"
+                            className="max-w-[192px] md:max-w-[480px]"
                         >
                             {secondaryButton.label}
                         </Button>
