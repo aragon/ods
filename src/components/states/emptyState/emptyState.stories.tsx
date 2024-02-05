@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { EmptyState } from '.';
-import { IconType } from '../icon';
-import type { IIllustrationHumanProps, IllustrationObjectType } from '../illustrations';
+import { IconType } from '../../icon';
 
 const meta: Meta<typeof EmptyState> = {
-    title: 'components/EmptyState',
+    title: 'components/States/EmptyState',
     component: EmptyState,
     tags: ['autodocs'],
     parameters: {
@@ -24,26 +23,7 @@ export const Default: Story = {
     args: {
         title: 'Title',
         description: 'Description',
-        illustrationType: 'object',
-    },
-    render: (args) => {
-        const getIllustration = (type: 'object' | 'human'): IllustrationObjectType | IIllustrationHumanProps => {
-            if (type === 'human') {
-                return {
-                    body: 'VOTING',
-                    hairs: 'MIDDLE',
-                    accessory: 'EARRINGS_RHOMBUS',
-                    sunglasses: 'BIG_ROUNDED',
-                    expression: 'SMILE',
-                } as IIllustrationHumanProps;
-            } else {
-                return 'LIGHTBULB';
-            }
-        };
-
-        const illustration = getIllustration(args.illustrationType);
-        //@ts-expect-error can't resolve more complicated union types in Storybook for illustation control purposes
-        return <EmptyState {...args} illustration={illustration} />;
+        illustrationProps: { object: 'LIGHTBULB' },
     },
 };
 
@@ -54,8 +34,7 @@ export const StackedFullWithObject: Story = {
     args: {
         title: 'Title',
         description: 'Description',
-        illustrationType: 'object',
-        illustration: 'LIGHTBULB',
+        illustrationProps: { object: 'LIGHTBULB' },
         primaryButton: {
             label: 'Primary Action',
             iconLeft: IconType.ADD,
@@ -78,12 +57,18 @@ export const NonStackedFullWithObject: Story = {
         title: 'Title',
         description: 'Description',
         isStacked: false,
-        illustrationType: 'object',
-        illustration: 'LIGHTBULB',
+        illustrationProps: { object: 'LIGHTBULB' },
+        primaryButton: {
+            label: 'Primary Action',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Primary Button Clicked'),
+        },
         secondaryButton: {
             label: 'Secondary Action',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Secondary Button Clicked'),
         },
     },
     render: (args) => <EmptyState {...args} />,
@@ -95,8 +80,7 @@ export const StackedFullWithHuman: Story = {
     args: {
         title: 'Title',
         description: 'Description',
-        illustrationType: 'human',
-        illustration: {
+        illustrationProps: {
             body: 'VOTING',
             hairs: 'MIDDLE',
             accessory: 'EARRINGS_RHOMBUS',
@@ -107,11 +91,13 @@ export const StackedFullWithHuman: Story = {
             label: 'Primary Action',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Primary Button Clicked'),
         },
         secondaryButton: {
             label: 'Secondary Action',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Secondary Button Clicked'),
         },
     },
     render: (args) => <EmptyState {...args} />,
