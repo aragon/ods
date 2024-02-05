@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.10] - 2024-02-05
+
 ### Added
 
 -   Implement `Link`, `InputNumber` `InputTime`, `TextArea` and `TextAreaRichText` components
