@@ -5,7 +5,7 @@ import type { IEmptyStateBaseProps, IEmptyStateButton, IEmptyStateProps } from '
 
 describe('<EmptyState /> component', () => {
     const defaultBaseProps: IEmptyStateBaseProps = {
-        title: 'Default Title',
+        heading: 'Default Heading',
         description: 'Default Description',
         isStacked: true,
     };
@@ -48,7 +48,7 @@ describe('<EmptyState /> component', () => {
 
     it('renders the EmptyState component with default props', () => {
         render(createTestComponent(defaultBaseProps));
-        expect(screen.getByText(defaultBaseProps.title)).toBeInTheDocument();
+        expect(screen.getByText(defaultBaseProps.heading)).toBeInTheDocument();
         expect(screen.getByLabelText('Object Illustration')).toBeInTheDocument();
     });
 

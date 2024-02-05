@@ -10,7 +10,7 @@ import {
 import type { IEmptyStateButton } from './emptyState.api';
 
 export const EmptyState: React.FC<IEmptyStateProps> = ({
-    title,
+    heading,
     description,
     primaryButton,
     secondaryButton,
@@ -78,7 +78,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                             'text-base md:text-lg': !isStacked,
                         })}
                     >
-                        {title}
+                        {heading}
                     </p>
                     <p
                         className={classNames('font-normal leading-tight text-neutral-500', {

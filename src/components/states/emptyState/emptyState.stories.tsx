@@ -9,7 +9,7 @@ const meta: Meta<typeof EmptyState> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=10157-27206&mode=dev',
+            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Aragon-ODS?type=design&node-id=10095%3A21633&mode=dev&t=FtMO7nBXAzYBFGaW-1',
         },
     },
 };
@@ -21,7 +21,7 @@ type Story = StoryObj<typeof EmptyState>;
  */
 export const Default: Story = {
     args: {
-        title: 'Title',
+        heading: 'Heading',
         description: 'Description',
         illustrationProps: { object: 'LIGHTBULB' },
     },
@@ -32,7 +32,7 @@ export const Default: Story = {
  */
 export const StackedFullWithObject: Story = {
     args: {
-        title: 'Title',
+        heading: 'Heading',
         description: 'Description',
         illustrationProps: { object: 'LIGHTBULB' },
         primaryButton: {
@@ -54,7 +54,7 @@ export const StackedFullWithObject: Story = {
  */
 export const NonStackedFullWithObject: Story = {
     args: {
-        title: 'Title',
+        heading: 'Heading',
         description: 'Description',
         isStacked: false,
         illustrationProps: { object: 'LIGHTBULB' },
@@ -78,7 +78,7 @@ export const NonStackedFullWithObject: Story = {
  */
 export const StackedFullWithHuman: Story = {
     args: {
-        title: 'Title',
+        heading: 'Heading',
         description: 'Description',
         illustrationProps: {
             body: 'VOTING',

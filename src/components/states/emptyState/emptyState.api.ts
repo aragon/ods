@@ -5,7 +5,7 @@ export interface IEmptyStateBaseProps {
     /**
      * Title of the empty state.
      */
-    title: string;
+    heading: string;
     /**
      * Description of the empty state.
      */
