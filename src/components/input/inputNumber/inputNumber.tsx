@@ -6,13 +6,15 @@ import { IconType } from '../../icon';
 import { useInputProps, useNumberMask, type IUseNumberMaskProps } from '../hooks';
 import { InputContainer, type IInputComponentProps } from '../inputContainer';
 
-export interface IInputNumberProps extends Omit<IInputComponentProps, 'onChange' | 'value' | 'step' | 'min' | 'max'> {
+export interface IInputNumberProps extends Omit<IInputComponentProps, 'onChange' | 'step' | 'min' | 'max'> {
     /**
-     * The minimum value that the number input accepts
+     * The minimum value that the number input accepts.
+     * @default Number.MIN_SAFE_INTEGER
      */
     min?: number;
     /**
-     * The maximum value that the number input accepts
+     * The maximum value that the number input accepts.
+     * @default Number.MAX_SAFE_INTEGER
      */
     max?: number;
     /**
@@ -28,10 +30,6 @@ export interface IInputNumberProps extends Omit<IInputComponentProps, 'onChange'
      */
     suffix?: string;
     /**
-     * The value of the number input.
-     */
-    value?: string | number;
-    /**
      * @see IUseNumberMaskProps['onChange']
      */
     onChange?: IUseNumberMaskProps['onChange'];
@@ -42,7 +40,6 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
         max = Number.MAX_SAFE_INTEGER,
         min = Number.MIN_SAFE_INTEGER,
         step: inputStep = 1,
-        value,
         prefix = '',
         suffix = '',
         onChange,
@@ -53,7 +50,7 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
     const { containerProps, inputProps } = useInputProps(otherProps);
 
     const { className: containerClassName, isDisabled, ...otherContainerProps } = containerProps;
-    const { onBlur, onFocus, onKeyDown, className: inputClassName, ...otherInputProps } = inputProps;
+    const { onBlur, onFocus, onKeyDown, className: inputClassName, value, ...otherInputProps } = inputProps;
 
     const [isFocused, setIsFocused] = useState(false);
     const {
@@ -123,7 +120,7 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
     };
 
     return (
-        <InputContainer className={containerClassName} {...otherContainerProps} isDisabled={isDisabled}>
+        <InputContainer className={containerClassName} isDisabled={isDisabled} {...otherContainerProps}>
             {!isDisabled && (
                 <Button
                     size="sm"
@@ -136,15 +133,15 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
             <input
                 ref={ref}
                 step={step}
-                max={props.max ?? max}
-                min={props.min ?? min}
+                max={max}
+                min={min}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
                 inputMode="numeric"
                 onKeyDown={handleKeyDown}
                 className={classNames('text-center spin-buttons:appearance-none', inputClassName)}
-                {...otherInputProps}
                 value={isFocused ? maskedValue : augmentedValue}
+                {...otherInputProps}
             />
             {!isDisabled && (
                 <Button

@@ -89,7 +89,7 @@ export const Switch: React.FC<ISwitchProps> = (props) => {
 
     return (
         <div className={classNames('inline-flex items-center gap-x-2 md:gap-x-3', className)} {...otherProps}>
-            <RadixSwitch.Root {...switchProps} className={rootClassNames} onCheckedChange={onCheckedChanged}>
+            <RadixSwitch.Root className={rootClassNames} onCheckedChange={onCheckedChanged} {...switchProps}>
                 <RadixSwitch.Thumb className={thumbClassNames} />
             </RadixSwitch.Root>
             {label && (

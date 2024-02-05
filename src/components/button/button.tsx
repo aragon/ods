@@ -177,21 +177,19 @@ export const Button: React.FC<IButtonProps> = (props) => {
         'leading-tight font-semibold', // Typography
         'border cursor:pointer', // Commons
         'focus:outline-none focus-visible:ring focus-visible:ring-offset aria-disabled:cursor-not-allowed', // States
-    ].join(' ');
+    ];
 
-    const variantClasses = variantToClassNames[variant]
-        .filter((classes) => {
-            // Do not apply specific state classes when button is on a disabled or loading state. Even though this
-            // might be done through the tailwind enabled: modifier, it won't work when the button is a link.
-            if (state === 'disabled') {
-                return !classes.includes('hover');
-            } else if (state === 'loading') {
-                return !classes.includes('disabled') && !classes.includes('hover') && !classes.includes('active');
-            }
+    const variantClasses = variantToClassNames[variant].filter((classes) => {
+        // Do not apply specific state classes when button is on a disabled or loading state. Even though this
+        // might be done through the tailwind enabled: modifier, it won't work when the button is a link.
+        if (state === 'disabled') {
+            return !classes.includes('hover');
+        } else if (state === 'loading') {
+            return !classes.includes('disabled') && !classes.includes('hover') && !classes.includes('active');
+        }
 
-            return true;
-        })
-        .join(' ');
+        return true;
+    });
 
     const sizeClassNames = responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClassNames);
     const contextClassNames = responsiveUtils.generateClassNames(
