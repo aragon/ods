@@ -93,10 +93,10 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                     className={classNames({
                         'border-w-full flex flex-col items-stretch space-x-0 space-y-3 md:flex-row md:justify-center md:space-x-4 md:space-y-0':
                             isStacked,
-                        'flex flex-col space-x-0 space-y-1 md:flex-row md:space-x-1 md:space-y-0': !isStacked,
+                        'flex flex-row space-x-1 md:flex-row ': !isStacked,
                     })}
                 >
-                    {primaryButton && isStacked && (
+                    {primaryButton && (
                         <Button
                             {...(primaryButton as IEmptyStateButton & IButtonProps)}
                             size={isStacked ? 'lg' : 'sm'}
