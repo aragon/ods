@@ -14,12 +14,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 -   Storybook stories to only use the component's required properties on `default` stories
+-   `Button` component to render a button element when the `href` property is set to `undefined`
 
 ### Changed
 
 -   Handle style transitions on `ActionItem` component
 -   Implement new style for `AlertCard` component
 -   Mark variant property of `AlertInline` and `AlertCard` components as optional and set it to `info` by default
+-   Remove border color from `Card` component, update style of `CardSummary` component as for new design
+-   Set default properties to `Button` component and handle color transitions
 
 ## [Unreleased]
 

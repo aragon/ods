@@ -157,8 +157,8 @@ const sizeToSpinnerSize: Record<ButtonSize, SpinnerSize> = {
 
 export const Button: React.FC<IButtonProps> = (props) => {
     const {
-        variant,
-        size,
+        variant = 'primary',
+        size = 'lg',
         responsiveSize = {},
         iconRight,
         iconLeft,
@@ -175,7 +175,7 @@ export const Button: React.FC<IButtonProps> = (props) => {
     const commonClasses = [
         'flex flex-row items-center justify-center', // Layout
         'leading-tight font-semibold', // Typography
-        'border cursor:pointer', // Commons
+        'border transition-all cursor:pointer', // Commons
         'focus:outline-none focus-visible:ring focus-visible:ring-offset aria-disabled:cursor-not-allowed', // States
     ];
 
@@ -249,9 +249,8 @@ export const Button: React.FC<IButtonProps> = (props) => {
             }
         };
 
-    if ('href' in otherProps && otherProps.href !== '') {
+    if ('href' in otherProps && otherProps.href != null && otherProps.href !== '') {
         const { onClick, href, ...linkProps } = otherProps;
-
         return (
             <a href={href} onClick={handleLinkClick(onClick)} {...commonProps} {...linkProps}>
                 {buttonContent}

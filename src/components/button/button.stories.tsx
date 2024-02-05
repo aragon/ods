@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { IconType } from '../icon';
 import { Button } from './button';
 
 const meta: Meta<typeof Button> = {
@@ -23,10 +24,17 @@ type Story = StoryObj<typeof Button>;
  */
 export const Default: Story = {
     args: {
-        variant: 'primary',
-        size: 'lg',
         children: 'Button label',
         onClick: () => alert('click'),
+    },
+};
+
+/**
+ * Set the `iconLeft` property when rendering only an icon inside the Button component.
+ */
+export const OnlyIcon: Story = {
+    args: {
+        iconLeft: IconType.ADD,
     },
 };
 
@@ -35,8 +43,6 @@ export const Default: Story = {
  */
 export const Link: Story = {
     args: {
-        variant: 'primary',
-        size: 'lg',
         children: 'Link label',
         onClick: () => alert('click'),
         href: 'https://www.google.com',
@@ -49,7 +55,6 @@ export const Link: Story = {
  */
 export const ResponsiveButton: Story = {
     args: {
-        variant: 'primary',
         size: 'md',
         responsiveSize: { xl: 'lg' },
         children: 'Responsive button',

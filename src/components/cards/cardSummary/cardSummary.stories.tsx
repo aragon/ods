@@ -23,7 +23,7 @@ export const Default: Story = {
     args: {
         value: '5',
         description: 'Proposals created',
-        action: { label: 'Create proposal', onClick: () => alert('Click') },
+        action: { label: 'Proposal', onClick: () => alert('Click') },
         icon: IconType.APP_GOVERNANCE,
     },
 };

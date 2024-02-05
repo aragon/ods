@@ -40,6 +40,7 @@ export const CardSummary: React.FC<ICardSummaryProps> = (props) => {
                     responsiveSize={{ md: 'lg' }}
                     iconLeft={IconType.ADD}
                     onClick={action.onClick}
+                    href={action.href}
                 >
                     {action.label}
                 </Button>
@@ -50,8 +51,8 @@ export const CardSummary: React.FC<ICardSummaryProps> = (props) => {
                         { 'flex-col md:col-start-2 md:flex-row md:items-baseline': !isStacked },
                     )}
                 >
-                    <p className="text-2xl font-semibold leading-tight text-neutral-800 md:text-3xl">{value}</p>
-                    <p className="text-base font-normal leading-tight text-neutral-400">{description}</p>
+                    <p className="text-2xl font-normal leading-tight text-neutral-800 md:text-3xl">{value}</p>
+                    <p className="text-base font-normal leading-tight text-neutral-500">{description}</p>
                 </div>
             </div>
         </Card>

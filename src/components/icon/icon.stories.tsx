@@ -22,7 +22,6 @@ type Story = StoryObj<typeof Icon>;
 export const Default: Story = {
     args: {
         icon: IconType.ADD,
-        responsiveSize: { md: 'lg' },
     },
 };
 

@@ -10,6 +10,10 @@ export interface ICardSummaryAction {
      * Callback called on summary action click.
      */
     onClick?: () => void;
+    /**
+     * Link of the action summary.
+     */
+    href?: string;
 }
 
 export interface ICardSummaryProps extends ICardProps {
