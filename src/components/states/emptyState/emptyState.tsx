@@ -102,7 +102,6 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                             size={isStacked ? 'lg' : 'sm'}
                             responsiveSize={isStacked ? { md: 'lg' } : { md: 'md' }}
                             variant="primary"
-                            className="max-w-[192px] md:max-w-[480px]"
                         >
                             {primaryButton.label}
                         </Button>
@@ -113,7 +112,6 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                             size={isStacked ? 'lg' : 'sm'}
                             responsiveSize={isStacked ? { md: 'lg' } : { md: 'md' }}
                             variant="secondary"
-                            className="max-w-[192px] md:max-w-[480px]"
                         >
                             {secondaryButton.label}
                         </Button>

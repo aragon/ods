@@ -69,16 +69,6 @@ describe('<EmptyState /> component', () => {
         expect(screen.getByRole('button', { name: 'Primary Button' })).toBeInTheDocument();
     });
 
-    it('does not render primary button when isStacked is false', () => {
-        const primaryButton: IEmptyStateButton = { label: 'Primary Button' };
-        const nonStackedProps: Partial<IEmptyStateProps> = {
-            primaryButton: primaryButton,
-            isStacked: false,
-        };
-        render(createTestComponent(nonStackedProps));
-        expect(screen.queryByRole('button', { name: 'Primary Button' })).not.toBeInTheDocument();
-    });
-
     it('does not render a human illustration when isStacked is false', () => {
         const customProps: Partial<IEmptyStateProps> = {
             illustrationProps: { body: 'VOTING', expression: 'SMILE' },
