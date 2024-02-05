@@ -7,6 +7,7 @@ export * from './icon';
 export * from './illustrations';
 export * from './input';
 export * from './progress';
+export * from './radioGroup';
 export * from './spinner';
 export * from './switch';
 export * from './tag';
