@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### Temp Review Updates
+
+### Added
+
+-   `shadow-info` Tailwind CSS utility class and documentation
+
+### Fixed
+
+-   Storybook stories to only use the component's required properties on `default` stories
+
+### Changed
+
+-   Handle style transitions on `ActionItem` component
+-   Implement new style for `AlertCard` component
+-   Mark variant property of `AlertInline` and `AlertCard` components as optional and set it to `info` by default
+
 ## [Unreleased]
 
 ### Added
