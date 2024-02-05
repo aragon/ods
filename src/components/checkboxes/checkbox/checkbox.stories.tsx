@@ -1,10 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Checkbox } from './checkbox';
+import { useState } from 'react';
+import { Checkbox, type CheckboxState, type ICheckboxProps } from './checkbox';
 
 const meta: Meta<typeof Checkbox> = {
     title: 'components/Checkboxes/Checkbox',
     component: Checkbox,
     tags: ['autodocs'],
+    argTypes: {
+        disabled: { type: 'boolean' },
+    },
     parameters: {
         design: {
             type: 'figma',
@@ -15,10 +19,17 @@ const meta: Meta<typeof Checkbox> = {
 
 type Story = StoryObj<typeof Checkbox>;
 
+const ControlledComponent = (props: ICheckboxProps) => {
+    const [checked, setChecked] = useState<CheckboxState>(false);
+
+    return <Checkbox checked={checked} onCheckedChange={setChecked} {...props} />;
+};
+
 /**
  * Default usage example of the Checkbox component.
  */
-export const Default: Story = {
+export const Controlled: Story = {
+    render: (props) => <ControlledComponent {...props} />,
     args: {},
 };
 
