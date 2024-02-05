@@ -1,6 +1,6 @@
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
 import classNames from 'classnames';
-import { useId } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { Icon, IconType } from '../../icon';
 
 export type CheckboxState = RadixCheckbox.CheckedState;
@@ -18,17 +18,38 @@ export interface ICheckboxProps extends RadixCheckbox.CheckboxProps {
 }
 
 export const Checkbox: React.FC<ICheckboxProps> = (props) => {
-    const { label, labelPosition = 'right', id, className, checked, disabled, ...otherProps } = props;
+    const {
+        label,
+        labelPosition = 'right',
+        id,
+        className,
+        checked: checkedProp,
+        defaultChecked,
+        onCheckedChange,
+        disabled,
+        ...otherProps
+    } = props;
+
+    const [checked, setIsChecked] = useState(checkedProp ?? defaultChecked);
 
     // Generate random id if id property is not set
     const randomId = useId();
     const processedId = id ?? randomId;
 
+    const handleCheckedChange = (newValue: CheckboxState) => {
+        setIsChecked(newValue);
+        onCheckedChange?.(newValue);
+    };
+
+    // Update internal checked value on checked property change
+    useEffect(() => {
+        setIsChecked(checkedProp);
+    }, [checkedProp]);
+
     return (
         <div
             className={classNames(
-                'flex items-center gap-2 rounded-[4px] outline-1', // Defaults
-                '[&:has(:focus-visible)]:ring [&:has(:focus-visible)]:ring-primary [&:has(:focus-visible)]:ring-offset', // Focus
+                'flex items-center gap-2',
                 { 'text-neutral-400 hover:text-primary-400': !disabled },
                 { 'text-neutral-300': disabled },
                 { 'flex-row': labelPosition === 'right' },
@@ -37,18 +58,22 @@ export const Checkbox: React.FC<ICheckboxProps> = (props) => {
             )}
         >
             <RadixCheckbox.Root
-                className="focus:outline-none"
+                className="rounded-[4px] focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset"
                 id={processedId}
                 checked={checked}
+                defaultChecked={defaultChecked}
+                onCheckedChange={handleCheckedChange}
                 disabled={disabled}
                 {...otherProps}
             >
-                {!checked && <Icon icon={IconType.CHECKBOX_DEFAULT} size="md" />}
-                <RadixCheckbox.Indicator>
+                <RadixCheckbox.Indicator forceMount={true}>
                     <Icon
-                        className={disabled ? 'text-neutral-300' : 'text-primary-400'}
-                        icon={IconType.CHECKBOX_SELECTED}
+                        icon={checked ? IconType.CHECKBOX_SELECTED : IconType.CHECKBOX_DEFAULT}
                         size="md"
+                        className={classNames(
+                            { 'text-neutral-300': checked && disabled },
+                            { 'text-primary-400': checked && !disabled },
+                        )}
                     />
                 </RadixCheckbox.Indicator>
             </RadixCheckbox.Root>

@@ -19,6 +19,13 @@ const meta: Meta<typeof Checkbox> = {
 
 type Story = StoryObj<typeof Checkbox>;
 
+/**
+ * Default uncontrolled usage example of the Checkbox component.
+ */
+export const Default: Story = {
+    args: { label: 'Default' },
+};
+
 const ControlledComponent = (props: ICheckboxProps) => {
     const [checked, setChecked] = useState<CheckboxState>(false);
 
@@ -26,11 +33,11 @@ const ControlledComponent = (props: ICheckboxProps) => {
 };
 
 /**
- * Default usage example of the Checkbox component.
+ * Usage example of a controlled Checkbox component.
  */
 export const Controlled: Story = {
     render: (props) => <ControlledComponent {...props} />,
-    args: {},
+    args: { label: 'Controlled' },
 };
 
 export default meta;
