@@ -23,7 +23,7 @@ export const Default: Story = {
     args: {
         heading: 'Heading',
         description: 'Description',
-        illustrationProps: { object: 'LIGHTBULB' },
+        objectIllustration: { object: 'LIGHTBULB' },
     },
 };
 
@@ -34,7 +34,7 @@ export const StackedFullWithObject: Story = {
     args: {
         heading: 'Heading',
         description: 'Description',
-        illustrationProps: { object: 'LIGHTBULB' },
+        objectIllustration: { object: 'LIGHTBULB' },
         primaryButton: {
             label: 'Label',
             iconLeft: IconType.ADD,
@@ -50,16 +50,13 @@ export const StackedFullWithObject: Story = {
     },
     render: (args) => <EmptyState {...args} />,
 };
-/**
- * Non-Stacked EmptyState component with full props examples for Object Illustration. <br />
- * **Note:** Human illustration, Primary Button are not available in non-stacked mode.
- */
+
 export const NonStackedFullWithObject: Story = {
     args: {
         heading: 'Heading',
         description: 'Description',
         isStacked: false,
-        illustrationProps: { object: 'LIGHTBULB' },
+        objectIllustration: { object: 'LIGHTBULB' },
         primaryButton: {
             label: 'Label',
             iconLeft: IconType.ADD,
@@ -82,7 +79,35 @@ export const StackedFullWithHuman: Story = {
     args: {
         heading: 'Heading',
         description: 'Description',
-        illustrationProps: {
+        humanIllustration: {
+            body: 'VOTING',
+            hairs: 'MIDDLE',
+            accessory: 'EARRINGS_RHOMBUS',
+            sunglasses: 'BIG_ROUNDED',
+            expression: 'SMILE',
+        },
+        primaryButton: {
+            label: 'Label',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Primary Button Clicked'),
+        },
+        secondaryButton: {
+            label: 'Label',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Secondary Button Clicked'),
+        },
+    },
+    render: (args) => <EmptyState {...args} />,
+};
+
+export const NonStackedFullWithHuman: Story = {
+    args: {
+        isStacked: false,
+        heading: 'Heading',
+        description: 'Description',
+        humanIllustration: {
             body: 'VOTING',
             hairs: 'MIDDLE',
             accessory: 'EARRINGS_RHOMBUS',

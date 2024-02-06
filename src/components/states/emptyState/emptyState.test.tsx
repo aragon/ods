@@ -1,80 +1,71 @@
 import { render, screen } from '@testing-library/react';
 import { EmptyState } from '.';
-import type { IIllustrationHumanProps, IIllustrationObjectProps } from '../../illustrations';
-import type { IEmptyStateBaseProps, IEmptyStateButton, IEmptyStateProps } from './emptyState.api';
+import { IconType } from '../../icon';
+import type { IEmptyStateBaseProps, IEmptyStateHumanIllustrationProps, IEmptyStateProps } from './emptyState.api';
 
 describe('<EmptyState /> component', () => {
-    const defaultBaseProps: IEmptyStateBaseProps = {
+    const fullBaseProps: IEmptyStateBaseProps = {
         heading: 'Default Heading',
-        description: 'Default Description',
-        isStacked: true,
+        primaryButton: {
+            label: 'Label',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Primary Button Clicked'),
+        },
+        secondaryButton: {
+            label: 'Label',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Secondary Button Clicked'),
+        },
     };
 
-    const defaultHumanIllustrationProps: IIllustrationHumanProps = {
-        body: 'VOTING',
-        expression: 'SMILE',
+    const humanIllustrationProps: IEmptyStateHumanIllustrationProps = {
+        ...fullBaseProps,
+        humanIllustration: {
+            body: 'VOTING',
+            expression: 'SMILE',
+        },
     };
 
-    const defaultObjectIllustrationProps: IIllustrationObjectProps = {
-        object: 'LIGHTBULB',
+    const objectIllustrationProps: IEmptyStateProps = {
+        ...fullBaseProps,
+        objectIllustration: {
+            object: 'LIGHTBULB',
+        },
     };
 
-    const createTestComponent = (customProps: Partial<IEmptyStateProps>) => {
-        if (customProps.illustrationProps && 'expression' in customProps.illustrationProps) {
-            const props: IEmptyStateProps = {
-                ...defaultBaseProps,
-                ...customProps,
-                illustrationProps: { ...defaultHumanIllustrationProps, ...customProps.illustrationProps },
-            };
-            return <EmptyState {...props} />;
-        } else if (customProps.illustrationProps) {
-            // Check if illustrationProps is defined and is of object type
-            const props: IEmptyStateProps = {
-                ...defaultBaseProps,
-                ...customProps,
-                illustrationProps: { ...defaultObjectIllustrationProps, ...customProps.illustrationProps },
-            };
-            return <EmptyState {...props} />;
-        } else {
-            // Use default object illustration props if illustrationProps is undefined
-            const props: IEmptyStateProps = {
-                ...defaultBaseProps,
-                ...customProps,
-                illustrationProps: defaultObjectIllustrationProps,
-            };
-            return <EmptyState {...props} />;
-        }
-    };
-
-    it('renders the EmptyState component with default props', () => {
-        render(createTestComponent(defaultBaseProps));
-        expect(screen.getByText(defaultBaseProps.heading)).toBeInTheDocument();
+    it('renders the EmptyState component stacked with full props and object illustration', () => {
+        render(<EmptyState {...objectIllustrationProps} />);
+        expect(screen.getByText(fullBaseProps.heading)).toBeInTheDocument();
+        const buttons = screen.getAllByRole('button', { name: 'Label' });
+        expect(buttons).toHaveLength(2);
         expect(screen.getByLabelText('Object Illustration')).toBeInTheDocument();
     });
 
-    it('renders with a human illustration', () => {
-        const humanProps: Partial<IEmptyStateProps> = {
-            illustrationProps: { body: 'VOTING', expression: 'SMILE' },
-        };
-        render(createTestComponent(humanProps));
+    it('renders the EmptyState component stacked with full props and human illustration', () => {
+        render(<EmptyState {...humanIllustrationProps} />);
+        expect(screen.getByText(fullBaseProps.heading)).toBeInTheDocument();
         expect(screen.getByLabelText('Human Illustration')).toBeInTheDocument();
+        const buttons = screen.getAllByRole('button', { name: 'Label' });
+        expect(buttons).toHaveLength(2);
     });
 
-    it('renders primary button when isStacked is true', () => {
-        const primaryButton: IEmptyStateButton = { label: 'Primary Button' };
-        const stackedProps: Partial<IEmptyStateProps> = {
-            primaryButton: primaryButton,
-        };
-        render(createTestComponent(stackedProps));
-        expect(screen.getByRole('button', { name: 'Primary Button' })).toBeInTheDocument();
+    it('renders the EmptyState component unstacked with full props and object illustration', () => {
+        render(<EmptyState isStacked={false} {...objectIllustrationProps} />);
+        expect(screen.getByText(fullBaseProps.heading)).toBeInTheDocument();
+        const buttons = screen.getAllByRole('button', { name: 'Label' });
+        expect(buttons).toHaveLength(2);
+        const objectIllustration = screen.getByLabelText('Object Illustration');
+        expect(objectIllustration).toHaveClass('order-last');
     });
 
-    it('does not render a human illustration when isStacked is false', () => {
-        const customProps: Partial<IEmptyStateProps> = {
-            illustrationProps: { body: 'VOTING', expression: 'SMILE' },
-            isStacked: false,
-        };
-        render(createTestComponent(customProps));
-        expect(screen.queryByLabelText('Human Illustration')).not.toBeInTheDocument();
+    it('renders the EmptyState component unstacked with full props and human illustration', () => {
+        render(<EmptyState isStacked={false} {...humanIllustrationProps} />);
+        expect(screen.getByText(fullBaseProps.heading)).toBeInTheDocument();
+        const buttons = screen.getAllByRole('button', { name: 'Label' });
+        expect(buttons).toHaveLength(2);
+        const humanIllustration = screen.getByLabelText('Human Illustration');
+        expect(humanIllustration).toHaveClass('order-last');
     });
 });

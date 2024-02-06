@@ -9,7 +9,7 @@ export interface IEmptyStateBaseProps {
     /**
      * Description of the empty state.
      */
-    description: string;
+    description?: string;
     /**
      * Renders the state as horitontal when set to false.
      * @default true
@@ -36,18 +36,20 @@ export interface IEmptyStateButton extends Omit<IButtonProps, 'variant' | 'size'
     label: string;
 }
 
-export type IEmptyStateProps =
+export interface IEmptyStateHumanIllustrationProps extends IEmptyStateBaseProps {
     /**
      * @see IIllustrationHumanProps
-     * Empty state with human illustration.
      */
-    | (IEmptyStateBaseProps & {
-          illustrationProps: IIllustrationHumanProps;
-      })
+    humanIllustration: IIllustrationHumanProps;
+    objectIllustration?: never;
+}
+
+export interface IEmptyStateObjectIllustrationProps extends IEmptyStateBaseProps {
     /**
      * @see IIllustrationObjectProps
-     * Empty state with object illustration.
      */
-    | (IEmptyStateBaseProps & {
-          illustrationProps: IIllustrationObjectProps;
-      });
+    objectIllustration: IIllustrationObjectProps;
+    humanIllustration?: never;
+}
+
+export type IEmptyStateProps = IEmptyStateHumanIllustrationProps | IEmptyStateObjectIllustrationProps;

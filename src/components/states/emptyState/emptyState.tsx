@@ -1,12 +1,7 @@
 import classNames from 'classnames';
 import type { IEmptyStateProps } from '.';
 import { Button, type IButtonProps } from '../../button';
-import {
-    IllustrationHuman,
-    IllustrationObject,
-    type IIllustrationHumanProps,
-    type IIllustrationObjectProps,
-} from '../../illustrations';
+import { IllustrationHuman, IllustrationObject } from '../../illustrations';
 import type { IEmptyStateButton } from './emptyState.api';
 
 export const EmptyState: React.FC<IEmptyStateProps> = ({
@@ -16,39 +11,34 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
     secondaryButton,
     className,
     isStacked = true,
-    illustrationProps,
+    objectIllustration,
+    humanIllustration,
 }) => {
     const containerClassNames = classNames(
         'grid w-[320px] md:w-[640px]',
         { 'grid-cols-1 justify-items-center p-6 md:p-12 gap-4 md:gap-6': isStacked },
         {
-            'grid-cols-[192px_max-content] md:grid-cols-[480px_max-content] gap-4 p-4 md:px-6 md:py-5': !isStacked,
+            'grid-cols-[192px_max-content] md:grid-cols-[auto_max-content] gap-4 p-4 md:px-6 md:py-5': !isStacked,
         },
         className,
     );
 
-    const isHumanIllustration = () => {
-        if ('expression' in illustrationProps) {
-            return true;
-        }
-        return false;
-    };
-
     return (
         <div className={containerClassNames}>
-            {isHumanIllustration() && isStacked && (
+            {humanIllustration && !objectIllustration && (
                 <IllustrationHuman
                     className={classNames({
                         'mb-4 h-auto !w-[295px] md:mb-6 md:!w-[400px]': isStacked,
+                        'order-last h-auto !w-[80px] justify-self-end rounded-full bg-neutral-50 md:!w-[96px]':
+                            !isStacked,
                     })}
-                    {...(illustrationProps as IIllustrationHumanProps)}
                     role="img"
                     aria-label="Human Illustration"
+                    {...humanIllustration}
                 />
             )}
-            {!isHumanIllustration() && (
+            {objectIllustration && !humanIllustration && (
                 <IllustrationObject
-                    {...(illustrationProps as IIllustrationObjectProps)}
                     className={classNames({
                         'h-auto w-[160px]': isStacked,
                         'order-last h-auto w-[80px] justify-self-end rounded-full bg-neutral-50 md:w-[96px]':
@@ -56,6 +46,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                     })}
                     role="img"
                     aria-label="Object Illustration"
+                    {...objectIllustration}
                 />
             )}
 
