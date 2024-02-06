@@ -54,8 +54,7 @@
     "classnames": "^2.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-imask": "^7.3.0",
-    "react-merge-refs": "^2.0.0"
+    "react-imask": "^7.3.0"
   },
   "peerDependencies": {
     "@tailwindcss/typography": "^0.5.0",
@@ -121,5 +120,20 @@
   "engines": {
     "node": ">=18",
     "npm": "please-use-yarn"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/src/index.d.ts",
+        "default": "./dist/index.es.js"
+      },
+      "require": {
+        "types": "./dist/types/src/index.d.ts",
+        "default": "./dist/index.cjs.js"
+      }
+    },
+    "./index.css": "./index.css",
+    "./build.css": "./build.css",
+    "./tailwind.config": "./tailwind.config.js"
   }
 }
