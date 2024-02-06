@@ -4,7 +4,7 @@ import type React from 'react';
 import { useId, type ComponentPropsWithoutRef } from 'react';
 import { Icon, IconType } from '../../icon';
 
-export interface IInputRadioProps extends ComponentPropsWithoutRef<'button'> {
+export interface IRadioProps extends ComponentPropsWithoutRef<'button'> {
     /**
      * Radio label
      */
@@ -29,7 +29,7 @@ export interface IInputRadioProps extends ComponentPropsWithoutRef<'button'> {
  *
  * **NOTE**: The component must be used inside a `<RadioGroup />` component in order to work properly.
  */
-export const InputRadio: React.FC<IInputRadioProps> = ({ label, variant = 'right', id, value, className, ...rest }) => {
+export const Radio: React.FC<IRadioProps> = ({ label, variant = 'right', id, value, className, ...rest }) => {
     const randomId = useId();
     const processedId = id ?? randomId;
 

@@ -2,7 +2,7 @@ import * as RadixRadioGroup from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
 import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 
-export interface IInputRadioGroupProps extends Omit<ComponentPropsWithoutRef<'div'>, 'dir' | 'onChange'> {
+export interface IRadioGroupProps extends Omit<ComponentPropsWithoutRef<'div'>, 'dir' | 'onChange'> {
     /**
      * Default value of the radio group. This value is used when the component is initially
      * rendered and no `value` prop is provided.
@@ -34,10 +34,10 @@ export interface IInputRadioGroupProps extends Omit<ComponentPropsWithoutRef<'di
 }
 
 /**
- * `InputRadioGroup` component
+ * `RadioGroup` component
  */
-export const InputRadioGroup = forwardRef<HTMLDivElement, IInputRadioGroupProps>(({ className, ...rest }, ref) => {
+export const RadioGroup = forwardRef<HTMLDivElement, IRadioGroupProps>(({ className, ...rest }, ref) => {
     return <RadixRadioGroup.Root {...rest} ref={ref} className={classNames('flex flex-col gap-2.5', className)} />;
 });
 
-InputRadioGroup.displayName = 'RadioGroup';
+RadioGroup.displayName = 'RadioGroup';

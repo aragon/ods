@@ -1,16 +1,16 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IconType } from '../../icon';
-import { InputRadioGroup } from '../inputRadioGroup';
-import { InputRadio, type IInputRadioProps } from './inputRadio';
+import { RadioGroup } from '../radioGroup';
+import { Radio, type IRadioProps } from './radio';
 
-describe('InputRadio', () => {
-    const createTestComponent = (props?: Partial<IInputRadioProps>) => {
+describe('Radio', () => {
+    const createTestComponent = (props?: Partial<IRadioProps>) => {
         const completeProps = { label: 'test label', value: 'test value', ...props };
 
         return (
-            <InputRadioGroup name="Test Group">
-                <InputRadio {...completeProps} />;
-            </InputRadioGroup>
+            <RadioGroup name="Test Group">
+                <Radio {...completeProps} />;
+            </RadioGroup>
         );
     };
 

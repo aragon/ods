@@ -1,14 +1,14 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { InputRadio } from './inputRadio';
-import { InputRadioGroup, type IInputRadioGroupProps } from './inputRadioGroup';
+import { Radio } from './radio';
+import { RadioGroup, type IRadioGroupProps } from './radioGroup';
 
-describe('InputRadioGroup', () => {
-    const createTestComponent = (props?: Partial<IInputRadioGroupProps>) => {
-        return <InputRadioGroup {...props} />;
+describe('RadioGroup', () => {
+    const createTestComponent = (props?: Partial<IRadioGroupProps>) => {
+        return <RadioGroup {...props} />;
     };
 
     it('should render the radio group correctly', () => {
-        const children = [<InputRadio value="1" label="1" key={1} />, <InputRadio value="2" label="2" key={2} />];
+        const children = [<Radio value="1" label="1" key={1} />, <Radio value="2" label="2" key={2} />];
 
         render(createTestComponent({ children }));
 
@@ -22,7 +22,7 @@ describe('InputRadioGroup', () => {
     });
 
     it('should disable all radio buttons when disabled prop is true', () => {
-        const children = [<InputRadio value="1" label="1" key={1} />, <InputRadio value="2" label="2" key={2} />];
+        const children = [<Radio value="1" label="1" key={1} />, <Radio value="2" label="2" key={2} />];
 
         render(createTestComponent({ children, disabled: true }));
 
@@ -34,10 +34,7 @@ describe('InputRadioGroup', () => {
     it('should set the radio group value correctly', () => {
         const name = '1';
         const value = '1';
-        const children = [
-            <InputRadio value={value} label="1" key={1} name={name} />,
-            <InputRadio value="2" label="2" key={2} />,
-        ];
+        const children = [<Radio value={value} label="1" key={1} name={name} />, <Radio value="2" label="2" key={2} />];
 
         render(createTestComponent({ children, value }));
         const inputRadioElement = screen.getByRole('radio', { name });
@@ -49,10 +46,7 @@ describe('InputRadioGroup', () => {
         const handleValueChange = jest.fn();
         const name = '1';
         const value = '1';
-        const children = [
-            <InputRadio value={value} label="1" key={1} name={name} />,
-            <InputRadio value="2" label="2" key={2} />,
-        ];
+        const children = [<Radio value={value} label="1" key={1} name={name} />, <Radio value="2" label="2" key={2} />];
 
         render(createTestComponent({ children, onValueChange: handleValueChange }));
 
