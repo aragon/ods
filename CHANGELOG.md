@@ -5,10 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### Temp Review Updates
+## [Unreleased]
 
 ### Added
 
+-   Implement `CardEmptyState`, `EmptyState`, `Checkbox`, `CheckboxGroup`, `CheckboxCard`, `RadioGroup`, `Radio`, and
+    `RadioCard` components
+-   Export all component types
 -   `shadow-info` Tailwind CSS utility class and documentation
 
 ### Fixed
@@ -27,14 +30,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update focus style and label sizes of `InputContainer` component
 -   Hide date picker indicator when `InputDate` component is disabled
 -   Update `InputNumber` component to handle prefix and suffix properties through `react-imask`
-
-## [Unreleased]
-
-### Added
-
--   Implement `CardEmptyState`, `EmptyState`, `Checkbox`, `CheckboxGroup`, `CheckboxCard`, `RadioGroup`, `Radio`, and
-    `RadioCard` components
--   Export all component types
 
 ## [1.0.11] - 2024-02-06
 
