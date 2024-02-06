@@ -1,8 +1,7 @@
 import classNames from 'classnames';
-import type { IEmptyStateProps } from '.';
+import type { IEmptyStateButton, IEmptyStateProps } from '.';
 import { Button, type IButtonProps } from '../../button';
 import { IllustrationHuman, IllustrationObject } from '../../illustrations';
-import type { IEmptyStateButton } from './emptyState.api';
 
 export const EmptyState: React.FC<IEmptyStateProps> = ({
     heading,

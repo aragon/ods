@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
+import type { IEmptyStateBaseProps, IEmptyStateHumanIllustrationProps, IEmptyStateObjectIllustrationProps } from '.';
 import { EmptyState } from '.';
 import { IconType } from '../../icon';
-import type { IEmptyStateBaseProps, IEmptyStateHumanIllustrationProps, IEmptyStateProps } from './emptyState.api';
 
 describe('<EmptyState /> component', () => {
     const fullBaseProps: IEmptyStateBaseProps = {
@@ -28,7 +28,7 @@ describe('<EmptyState /> component', () => {
         },
     };
 
-    const objectIllustrationProps: IEmptyStateProps = {
+    const objectIllustrationProps: IEmptyStateObjectIllustrationProps = {
         ...fullBaseProps,
         objectIllustration: {
             object: 'LIGHTBULB',

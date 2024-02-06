@@ -50,7 +50,9 @@ export const StackedFullWithObject: Story = {
     },
     render: (args) => <EmptyState {...args} />,
 };
-
+/**
+ * Non-Stacked EmptyState component with full props examples for Object Illustration.
+ */
 export const NonStackedFullWithObject: Story = {
     args: {
         heading: 'Heading',
@@ -101,7 +103,9 @@ export const StackedFullWithHuman: Story = {
     },
     render: (args) => <EmptyState {...args} />,
 };
-
+/**
+ * Non-Stacked EmptyState component with full props examples for Human Illustation
+ */
 export const NonStackedFullWithHuman: Story = {
     args: {
         isStacked: false,
