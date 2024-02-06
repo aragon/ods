@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { forwardRef, useRef } from 'react';
-import { mergeRefs } from 'react-merge-refs';
+import { mergeRefs } from '../../../utils';
 import { Button } from '../../button';
 import { IconType } from '../../icon';
 import { useInputProps } from '../hooks';
