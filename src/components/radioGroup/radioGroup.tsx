@@ -37,7 +37,13 @@ export interface IRadioGroupProps extends Omit<ComponentPropsWithoutRef<'div'>, 
  * `RadioGroup` component
  */
 export const RadioGroup = forwardRef<HTMLDivElement, IRadioGroupProps>(({ className, ...rest }, ref) => {
-    return <RadixRadioGroup.Root {...rest} ref={ref} className={classNames('flex flex-col gap-2.5', className)} />;
+    return (
+        <RadixRadioGroup.Root
+            {...rest}
+            ref={ref}
+            className={classNames('flex min-w-0 flex-col gap-y-2 md:gap-y-3', className)}
+        />
+    );
 });
 
 RadioGroup.displayName = 'RadioGroup';
