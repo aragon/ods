@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { RadioGroup } from '../radioGroup';
+import { InputRadioGroup } from '../inputRadioGroup';
 import { InputRadio } from './inputRadio';
 
 const meta: Meta<typeof InputRadio> = {
-    title: 'components/RadioGroup/InputRadio',
+    title: 'components/InputRadioGroup/InputRadio',
     component: InputRadio,
     tags: ['autodocs'],
     parameters: {
@@ -16,11 +16,14 @@ const meta: Meta<typeof InputRadio> = {
 
 type Story = StoryObj<typeof InputRadio>;
 
+/**
+ * Default usage of the `InputRadio` component
+ */
 export const Default: Story = {
     render: (props) => (
-        <RadioGroup>
+        <InputRadioGroup name="bob">
             <InputRadio {...props} />
-        </RadioGroup>
+        </InputRadioGroup>
     ),
     args: {
         value: '1',

@@ -34,14 +34,14 @@ export const InputRadio: React.FC<IInputRadioProps> = ({ label, variant = 'right
     const processedId = id ?? randomId;
 
     const itemClasses = classNames(
-        'group peer rounded-full outline-none',
-        'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // Focus state'
+        'group peer rounded-full outline-none', // default
+        'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
         { 'order-2': variant === 'left' },
     );
 
     const labelClasses = classNames(
         'text-base leading-tight text-neutral-500', // default
-        'peer-data-[state=checked]:text-neutral-800', // checked
+        'hover:text-neutral-800', // hover
         'peer-disabled:peer-data-[state=unchecked]:text-neutral-300', // unchecked and disabled
     );
 
