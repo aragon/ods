@@ -18,7 +18,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
         'grid w-[320px] md:w-[640px]',
         { 'grid-cols-1 justify-items-center p-6 md:p-12 gap-4 md:gap-6': isStacked },
         {
-            'grid-cols-[192px_max-content] md:grid-cols-[auto_max-content] gap-4 p-4 md:px-6 md:py-5': !isStacked,
+            'grid-cols-[auto_max-content] md:grid-cols-[auto_max-content] gap-4 p-4 md:px-6 md:py-5': !isStacked,
         },
         className,
     );
@@ -29,8 +29,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                 <IllustrationHuman
                     className={classNames({
                         'mb-4 h-auto !w-[295px] md:mb-6 md:!w-[400px]': isStacked,
-                        'order-last h-auto !w-[80px] justify-self-end rounded-full bg-neutral-50 md:!w-[96px]':
-                            !isStacked,
+                        'align-self-center order-last !w-[80px] justify-self-end md:!w-[172px]': !isStacked,
                     })}
                     role="img"
                     aria-label="Human Illustration"
