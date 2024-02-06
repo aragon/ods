@@ -1,2 +1,2 @@
-export * from './inputFileAvatar';
-export { default } from './inputFileAvatar';
+export { InputFileAvatar } from './inputFileAvatar';
+export { SelectState, type IInputFileAvatarProps } from './inputFileAvatar.api';

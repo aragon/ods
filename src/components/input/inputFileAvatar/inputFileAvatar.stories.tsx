@@ -5,6 +5,7 @@ const meta: Meta<typeof InputFileAvatar> = {
     title: 'components/Input/InputFileAvatar',
     component: InputFileAvatar,
     tags: ['autodocs'],
+
     parameters: {
         design: {
             type: 'figma',
@@ -16,10 +17,13 @@ const meta: Meta<typeof InputFileAvatar> = {
 type Story = StoryObj<typeof InputFileAvatar>;
 
 /**
- * Default usage example of the InputContainer component.
+ * Default usage example of the InputFileAvatar component.
  */
 export const Default: Story = {
-    args: {},
+    args: {
+        id: 'input-file-avatar',
+    },
+    render: (args) => <InputFileAvatar {...args} />,
 };
 
 export default meta;

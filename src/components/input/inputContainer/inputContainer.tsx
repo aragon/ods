@@ -45,6 +45,7 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
         className,
         wrapperClassName,
         id,
+        invisible,
         ...otherProps
     } = props;
 
@@ -78,7 +79,7 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
                     {helpText && <p className="text-sm font-normal leading-normal text-neutral-800">{helpText}</p>}
                 </label>
             )}
-            <div className={containerClasses}>{children}</div>
+            <div className={classNames({ [containerClasses]: !invisible, ['']: invisible })}>{children}</div>
             {maxLength != null && !alert && (
                 <p className={counterClasses}>
                     {inputLength}/{maxLength}
