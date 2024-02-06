@@ -17,7 +17,13 @@ export const InputSearch: React.FC<IInputSearchProps> = (props) => {
     const { containerProps, inputProps } = useInputProps(otherProps);
 
     const { inputLength = 0, ...otherContainerProps } = containerProps;
-    const { className: inputClassName, onFocus: onInputFocus, onBlur: onInputBlur, ...otherInputProps } = inputProps;
+    const {
+        className: inputClassName,
+        onFocus: onInputFocus,
+        onBlur: onInputBlur,
+        disabled,
+        ...otherInputProps
+    } = inputProps;
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [isFocused, setIsFocused] = useState(false);
@@ -52,7 +58,7 @@ export const InputSearch: React.FC<IInputSearchProps> = (props) => {
         }
     };
 
-    const displayClearIcon = inputLength > 0;
+    const displayClearIcon = inputLength > 0 && !disabled;
 
     return (
         <InputContainer inputLength={inputLength} {...otherContainerProps}>
@@ -70,6 +76,7 @@ export const InputSearch: React.FC<IInputSearchProps> = (props) => {
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 ref={inputRef}
+                disabled={disabled}
                 {...otherInputProps}
             />
             <Icon

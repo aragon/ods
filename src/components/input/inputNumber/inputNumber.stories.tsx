@@ -35,8 +35,7 @@ const ControlledComponent = (props: IInputNumberProps) => {
  * Usage example of a controlled `InputNumber` component.
  */
 export const Controlled: Story = {
-    args: { suffix: '%' },
-    render: (props) => <ControlledComponent {...props} />,
+    render: ({ onChange, ...props }) => <ControlledComponent {...props} />,
 };
 
 export default meta;

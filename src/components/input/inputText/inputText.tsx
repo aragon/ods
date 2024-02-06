@@ -8,10 +8,10 @@ import { InputContainer, type InputVariant } from '../inputContainer';
  * re: QA -- also needs variant specific focus rings on the container
  **/
 const variantToAddonClassNames: Record<InputVariant | 'disabled', string[]> = {
-    default: ['bg-neutral-100 border-neutral-200 text-neutral-600'],
+    default: ['bg-neutral-50 border-neutral-100 text-neutral-500'],
     warning: ['bg-warning-100 border-warning-600 text-warning-600'],
     critical: ['bg-critical-100 border-critical-600 text-critical-600'],
-    disabled: ['bg-neutral-50 border-neutral-200'],
+    disabled: ['bg-neutral-50 border-neutral-200 text-neutral-500'],
 };
 
 export const InputText: React.FC<IInputTextProps> = ({ addonPosition = 'left', addon, ...otherProps }) => {

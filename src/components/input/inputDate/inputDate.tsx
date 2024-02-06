@@ -31,14 +31,15 @@ export const InputDate: React.FC<IInputDateProps> = forwardRef((props, ref) => {
                 disabled={disabled}
                 {...otherInputProps}
             />
-            <Button
-                variant="tertiary"
-                size="sm"
-                iconLeft={IconType.CALENDAR}
-                className="absolute right-2"
-                onClick={handleCalendarClick}
-                state={disabled ? 'disabled' : undefined}
-            />
+            {!disabled && (
+                <Button
+                    variant="tertiary"
+                    size="sm"
+                    iconLeft={IconType.CALENDAR}
+                    className="absolute right-2"
+                    onClick={handleCalendarClick}
+                />
+            )}
         </InputContainer>
     );
 });

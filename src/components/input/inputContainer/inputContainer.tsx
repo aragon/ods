@@ -51,14 +51,14 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
     const processedVariant = isDisabled ? 'disabled' : variant;
     const containerClasses = classNames(
         'flex min-h-12 w-full flex-row items-center', // Layout
-        'rounded-xl border text-neutral-600 transition-all', // Styling
+        'rounded-xl border text-neutral-500 transition-all', // Styling
         'focus-within:ring focus-within:ring-offset', // Ring on focus
         'text-base font-normal leading-tight', // Typography
         variantToClassNames[processedVariant],
         wrapperClassName,
     );
 
-    const counterClasses = classNames('text-sm font-normal leading-tight text-neutral-600', {
+    const counterClasses = classNames('text-xs font-normal leading-tight text-neutral-500 md:text-sm', {
         'animate-shake': inputLength === maxLength,
     });
 
@@ -68,14 +68,14 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
                 <label className="flex flex-col gap-0.5 md:gap-1" htmlFor={id}>
                     {label && (
                         <div className="flex flex-row items-center gap-3">
-                            <p className="text-base font-semibold leading-normal text-neutral-600 md:text-lg md:leading-tight">
-                                {label}
-                            </p>
+                            <p className="text-base font-normal leading-tight text-neutral-800 md:text-lg">{label}</p>
                             {/* TODO: apply internationalisation to Optional label [APP-2627] */}
                             {isOptional && <Tag variant="neutral" label="Optional" />}
                         </div>
                     )}
-                    {helpText && <p className="text-sm font-normal leading-normal text-neutral-800">{helpText}</p>}
+                    {helpText && (
+                        <p className="text-sm font-normal leading-normal text-neutral-500 md:text-base">{helpText}</p>
+                    )}
                 </label>
             )}
             <div className={containerClasses}>{children}</div>

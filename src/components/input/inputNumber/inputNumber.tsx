@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import type React from 'react';
-import { useState } from 'react';
 import { Button } from '../../button';
 import { IconType } from '../../icon';
 import { useInputProps, useNumberMask, type IUseNumberMaskProps } from '../hooks';
@@ -40,8 +39,8 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
         max = Number.MAX_SAFE_INTEGER,
         min = Number.MIN_SAFE_INTEGER,
         step: inputStep = 1,
-        prefix = '',
-        suffix = '',
+        prefix,
+        suffix,
         onChange,
         ...otherProps
     } = props;
@@ -50,22 +49,16 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
     const { containerProps, inputProps } = useInputProps(otherProps);
 
     const { className: containerClassName, isDisabled, ...otherContainerProps } = containerProps;
-    const { onBlur, onFocus, onKeyDown, className: inputClassName, value, ...otherInputProps } = inputProps;
+    const { onKeyDown, className: inputClassName, value, ...otherInputProps } = inputProps;
 
-    const [isFocused, setIsFocused] = useState(false);
-    const {
-        ref,
-        value: maskedValue,
-        unmaskedValue,
-        setValue,
-    } = useNumberMask({
+    const { ref, unmaskedValue, setValue } = useNumberMask({
         min,
         max,
         value,
         onChange,
+        suffix,
+        prefix,
     });
-
-    const augmentedValue = maskedValue ? `${prefix}${maskedValue}${suffix}` : maskedValue;
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'ArrowUp') {
@@ -75,16 +68,6 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
         }
 
         onKeyDown?.(e);
-    };
-
-    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-        setIsFocused(true);
-        onFocus?.(e);
-    };
-
-    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-        setIsFocused(false);
-        onBlur?.(e);
     };
 
     const handleIncrement = () => {
@@ -135,12 +118,9 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
                 step={step}
                 max={max}
                 min={min}
-                onBlur={handleBlur}
-                onFocus={handleFocus}
                 inputMode="numeric"
                 onKeyDown={handleKeyDown}
                 className={classNames('text-center spin-buttons:appearance-none', inputClassName)}
-                value={isFocused ? maskedValue : augmentedValue}
                 {...otherInputProps}
             />
             {!isDisabled && (

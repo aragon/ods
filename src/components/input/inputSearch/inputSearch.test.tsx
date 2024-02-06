@@ -15,11 +15,19 @@ describe('<InputSearch /> component', () => {
         expect(screen.getByTestId(IconType.SEARCH)).toBeInTheDocument();
     });
 
-    it('only renders a clear icon when input length is greater than 0', () => {
-        const { rerender } = render(createTestComponent({ value: '' }));
-        expect(screen.queryByRole('button')).not.toBeInTheDocument();
-        rerender(createTestComponent({ value: 'search' }));
+    it('renders a clear icon when input length is greater than 0', () => {
+        render(createTestComponent({ value: 'search' }));
         expect(screen.getByRole('button')).toBeInTheDocument();
+    });
+
+    it('hides the clear icon when input is empty', () => {
+        render(createTestComponent({ value: '' }));
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    });
+
+    it('hides the clear icon when input is disabled', () => {
+        render(createTestComponent({ isDisabled: true }));
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
 
     it('renders a loading indicator when the isLoading property is set to true', () => {

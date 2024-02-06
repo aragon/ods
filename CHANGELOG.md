@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Storybook stories to only use the component's required properties on `default` stories
 -   `Button` component to render a button element when the `href` property is set to `undefined`
+-   Hide clear icon on `InputSearch` component when disabled
 
 ### Changed
 
@@ -23,6 +24,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Mark variant property of `AlertInline` and `AlertCard` components as optional and set it to `info` by default
 -   Remove border color from `Card` component, update style of `CardSummary` component as for new design
 -   Set default properties to `Button` component and handle color transitions
+-   Update focus style and label sizes of `InputContainer` component
+-   Hide date picker indicator when `InputDate` component is disabled
+-   Update `InputNumber` component to handle prefix and suffix properties through `react-imask`
 
 ## [Unreleased]
 
