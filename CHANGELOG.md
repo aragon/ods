@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
--   Properly export ESM/CJS library depending on current environment
+-   Properly export ESM/CJS library depending on current environment and fix CJS build
 
 ## [1.0.10] - 2024-02-05
 
