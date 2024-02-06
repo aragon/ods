@@ -1,2 +1,2 @@
 export * from './inputRadio';
-export * from './inputRadioGroup';
+export { InputRadioGroup, type IInputRadioGroupProps } from './inputRadioGroup';
