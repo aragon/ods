@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import { Button, type IButtonProps } from '../../button';
+import { Button } from '../../button';
 import { IllustrationHuman, IllustrationObject } from '../../illustrations';
-import type { IEmptyStateButton, IEmptyStateProps } from './emptyState.api';
+import type { IEmptyStateProps } from './emptyState.api';
 
 export const EmptyState: React.FC<IEmptyStateProps> = ({
     heading,
@@ -84,7 +84,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                 >
                     {primaryButton && (
                         <Button
-                            {...(primaryButton as IEmptyStateButton & IButtonProps)}
+                            {...primaryButton}
                             size={isStacked ? 'lg' : 'sm'}
                             responsiveSize={isStacked ? { md: 'lg' } : { md: 'md' }}
                             variant="primary"
@@ -94,7 +94,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                     )}
                     {secondaryButton && (
                         <Button
-                            {...(secondaryButton as IEmptyStateButton & IButtonProps)}
+                            {...secondaryButton}
                             size={isStacked ? 'lg' : 'sm'}
                             responsiveSize={isStacked ? { md: 'lg' } : { md: 'md' }}
                             variant="secondary"

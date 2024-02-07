@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { IconType } from '../../icon';
 import { EmptyState } from './emptyState';
 import type { IEmptyStateProps } from './emptyState.api';
 
@@ -20,16 +19,8 @@ describe('<EmptyState /> component', () => {
 
     it('renders the EmptyState component stacked with full props and object illustration', () => {
         const objectIllustration = { object: 'LIGHTBULB' } as const;
-        const primaryButton = {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-        } as const;
-        const secondaryButton = {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-        } as const;
+        const primaryButton = { label: 'Label' };
+        const secondaryButton = { label: 'Label' };
         render(createTestComponent({ objectIllustration, primaryButton, secondaryButton }));
 
         expect(screen.getByText('test-heading')).toBeInTheDocument();
@@ -40,16 +31,8 @@ describe('<EmptyState /> component', () => {
 
     it('renders the EmptyState component stacked with full props and human illustration', () => {
         const humanIllustration = { body: 'VOTING', expression: 'SMILE' } as const;
-        const primaryButton = {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-        } as const;
-        const secondaryButton = {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-        } as const;
+        const primaryButton = { label: 'Label' };
+        const secondaryButton = { label: 'Label' };
         render(createTestComponent({ humanIllustration, primaryButton, secondaryButton }));
 
         expect(screen.getByText('test-heading')).toBeInTheDocument();
@@ -60,16 +43,8 @@ describe('<EmptyState /> component', () => {
 
     it('renders the EmptyState component unstacked with full props and object illustration', () => {
         const objectIllustration = { object: 'LIGHTBULB' } as const;
-        const primaryButton = {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-        } as const;
-        const secondaryButton = {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-        } as const;
+        const primaryButton = { label: 'Label' };
+        const secondaryButton = { label: 'Label' };
         const isStacked = false;
         render(createTestComponent({ isStacked, objectIllustration, primaryButton, secondaryButton }));
 
@@ -82,16 +57,8 @@ describe('<EmptyState /> component', () => {
 
     it('renders the EmptyState component unstacked with full props and human illustration', () => {
         const humanIllustration = { body: 'VOTING', expression: 'SMILE' } as const;
-        const primaryButton = {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-        } as const;
-        const secondaryButton = {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-        } as const;
+        const primaryButton = { label: 'Label' };
+        const secondaryButton = { label: 'Label' };
         const isStacked = false;
         render(createTestComponent({ isStacked, humanIllustration, primaryButton, secondaryButton }));
 
