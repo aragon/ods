@@ -3,7 +3,7 @@ export * from './alerts';
 export * from './avatars';
 export * from './button';
 export * from './cards';
-export * from './checkboxes';
+export * from './checkbox';
 export * from './icon';
 export * from './illustrations';
 export * from './input';
