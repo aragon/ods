@@ -1,12 +1,12 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import React from 'react';
-import * as MergeRefs from 'react-merge-refs';
+import * as Utils from '../../../utils';
 import { IconType } from '../../icon';
 import { InputTime, type IInputTimeProps } from './inputTime';
 
 describe('<InputTime /> component', () => {
     const useRefMock = jest.spyOn(React, 'useRef');
-    const mergeRefMock = jest.spyOn(MergeRefs, 'mergeRefs');
+    const mergeRefMock = jest.spyOn(Utils, 'mergeRefs');
 
     afterEach(() => {
         useRefMock.mockReset();
