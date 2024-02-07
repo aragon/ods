@@ -16,7 +16,7 @@ export interface IRadioProps extends RadioGroupItemProps {
 }
 
 /**
- * Input Radio component
+ * `Radio` component
  *
  * This component is based on the Radix-UI radio implementation.
  * An exhaustive list of its properties can be found in the corresponding Radix primitive
