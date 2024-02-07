@@ -1,6 +1,6 @@
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
 import classNames from 'classnames';
-import { useId } from 'react';
+import { forwardRef, useId } from 'react';
 import { Icon, IconType } from '../../icon';
 
 export type CheckboxState = RadixCheckbox.CheckedState;
@@ -17,7 +17,7 @@ export interface ICheckboxProps extends Omit<RadixCheckbox.CheckboxProps, 'asChi
     labelPosition?: 'right' | 'left';
 }
 
-export const Checkbox: React.FC<ICheckboxProps> = (props) => {
+export const Checkbox = forwardRef<HTMLButtonElement, ICheckboxProps>((props, ref) => {
     const { label, labelPosition = 'right', id, className, ...otherProps } = props;
 
     // Generate random id if id property is not set
@@ -39,6 +39,7 @@ export const Checkbox: React.FC<ICheckboxProps> = (props) => {
                     'group/checkbox peer rounded',
                     'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
                 )}
+                ref={ref}
                 {...otherProps}
             >
                 <Icon
@@ -76,4 +77,6 @@ export const Checkbox: React.FC<ICheckboxProps> = (props) => {
             </label>
         </div>
     );
-};
+});
+
+Checkbox.displayName = 'Checkbox';
