@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Radio } from '../radio';
+import { RadioCard } from '../radioCard';
 import { RadioGroup, type IRadioGroupProps } from './radioGroup';
 
 const meta: Meta<typeof RadioGroup> = {
@@ -26,6 +27,43 @@ export const Default: Story = {
             <Radio label="Option one" value="1" />
             <Radio label="Option two" value="2" />
             <Radio label="Option three" value="3" />
+        </RadioGroup>
+    ),
+    args: {
+        defaultValue: '2',
+        name: 'Options',
+        disabled: false,
+        onValueChange: undefined,
+    },
+};
+
+/**
+ * Default usage of the `RadioGroup` component with the RadioCard
+ */
+export const RadioCardVariant: Story = {
+    render: (props) => (
+        <RadioGroup {...props}>
+            <RadioCard
+                label="Option one"
+                description="The best option"
+                value="1"
+                avatar="gold"
+                tag={{ label: 'Gold', variant: 'success' }}
+            />
+            <RadioCard
+                label="Option two"
+                description="The 2nd best option"
+                value="2"
+                avatar="silver"
+                tag={{ label: 'Silver' }}
+            />
+            <RadioCard
+                label="Option three"
+                description="The 3rd best option"
+                value="3"
+                avatar="bronze"
+                tag={{ label: 'Bronze', variant: 'warning' }}
+            />
         </RadioGroup>
     ),
     args: {
