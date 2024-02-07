@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Implement `CardEmptyState`, `EmptyState`, `Checkbox`, `CheckboxGroup`, `CheckboxCard`, `RadioGroup`, `Radio`, and
     `RadioCard` components
 -   Export all component types
+-   Handle style transitions on `ActionItem` and `Button` components
+-   Property `defaultValue` to `ToggleGroup` component to set an initial value for uncontrolled usage
 -   `shadow-info` Tailwind CSS utility class and documentation
 
 ### Fixed
@@ -22,11 +24,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
--   Handle style transitions on `ActionItem` component
 -   Implement new style for `AlertCard` component
 -   Mark variant property of `AlertInline` and `AlertCard` components as optional and set it to `info` by default
 -   Remove border color from `Card` component, update style of `CardSummary` component as for new design
--   Set default properties to `Button` component and handle color transitions
+-   Set default properties to `Button` component
 -   Update focus style and label sizes of `InputContainer` component
 -   Hide date picker indicator when `InputDate` component is disabled
 -   Update `InputNumber` component to handle prefix and suffix properties through `react-imask`
