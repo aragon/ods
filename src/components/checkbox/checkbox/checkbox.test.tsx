@@ -26,7 +26,7 @@ describe('<Checkbox /> component', () => {
     it('renders the unchecked state when the checkbox is not checked', () => {
         const checked = false;
         render(createTestComponent({ checked }));
-        expect(screen.getByTestId(IconType.CHECKBOX_DEFAULT)).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.CHECKBOX_DEFAULT)).toBeVisible();
         expect(screen.queryByTestId(IconType.CHECKBOX_MULTI)).not.toBeInTheDocument();
         expect(screen.queryByTestId(IconType.CHECKBOX_SELECTED)).not.toBeInTheDocument();
     });
@@ -34,12 +34,12 @@ describe('<Checkbox /> component', () => {
     it('renders the checked state when the checkbox is checked', () => {
         const checked = true;
         render(createTestComponent({ checked }));
-        expect(screen.getByTestId(IconType.CHECKBOX_SELECTED)).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.CHECKBOX_SELECTED)).toBeVisible();
     });
 
     it('renders the indeterminate state when the checked property is set to indeterminate', () => {
         const checked = 'indeterminate';
         render(createTestComponent({ checked }));
-        expect(screen.getByTestId(IconType.CHECKBOX_MULTI)).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.CHECKBOX_MULTI)).toBeVisible();
     });
 });
