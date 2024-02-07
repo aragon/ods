@@ -49,16 +49,16 @@ export const Checkbox: React.FC<ICheckboxProps> = (props) => {
                         'group-hover/root:text-primary-400 group-data-[disabled]/checkbox:text-neutral-300',
                     )}
                 />
-                <RadixCheckbox.Indicator>
+                <RadixCheckbox.Indicator className="text-primary-400 group-data-[disabled]/checkbox:text-neutral-300">
                     <Icon
                         icon={IconType.CHECKBOX_SELECTED}
                         size="md"
-                        className="hidden text-primary-400 group-data-[state=checked]/checkbox:block group-data-[disabled]/checkbox:text-neutral-300"
+                        className="hidden group-data-[state=checked]/checkbox:block"
                     />
                     <Icon
                         icon={IconType.CHECKBOX_MULTI}
                         size="md"
-                        className="hidden text-primary-400 group-data-[state=indeterminate]/checkbox:block group-data-[disabled]/checkbox:text-neutral-300"
+                        className="hidden group-data-[state=indeterminate]/checkbox:block"
                     />
                 </RadixCheckbox.Indicator>
             </RadixCheckbox.Root>
