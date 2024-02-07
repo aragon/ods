@@ -43,6 +43,7 @@
   "author": "Aragon Association",
   "dependencies": {
     "@radix-ui/react-avatar": "^1.0.0",
+    "@radix-ui/react-checkbox": "^1.0.0",
     "@radix-ui/react-progress": "^1.0.0",
     "@radix-ui/react-radio-group": "1.1.0",
     "@radix-ui/react-switch": "^1.0.0",

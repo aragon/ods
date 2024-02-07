@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `RadioGroup`, `Radio`, and `RadioCard` components
+-   Implement `Checkbox`, `CheckboxGroup`, `RadioGroup`, `Radio`, and `RadioCard` components
 
 ## [1.0.11] - 2024-02-06
 
