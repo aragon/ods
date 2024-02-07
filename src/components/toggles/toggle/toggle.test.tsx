@@ -32,6 +32,6 @@ describe('<Toggle /> component', () => {
     it('renders the toggle as active when clicked', () => {
         render(createTestComponent());
         fireEvent.click(screen.getByRole('radio'));
-        expect(screen.getByRole('radio').className).toContain('text-neutral-800');
+        expect(screen.getByRole('radio')).toBeChecked();
     });
 });
