@@ -54,29 +54,23 @@ describe('<Radio/> component', () => {
     });
 
     it('sets the radio button value correctly', () => {
-        const label = 'Test label';
         const value = 'Test value';
 
-        render(createTestComponent({ label, value }));
+        render(createTestComponent({ value }));
 
         expect(screen.getByRole('radio')).toHaveValue(value);
     });
 
     it('sets the label position correctly when variant is left', () => {
-        const label = 'Test label';
-        const value = 'Test value';
-        const variant = 'left';
+        const labelPosition = 'left';
 
-        render(createTestComponent({ label, value, labelPosition: variant }));
+        render(createTestComponent({ labelPosition }));
 
         expect(screen.getByRole('radio')).toHaveClass('order-2');
     });
 
     it('sets the label position to right by default', () => {
-        const label = 'Test label';
-        const value = 'Test value';
-
-        render(createTestComponent({ label, value }));
+        render(createTestComponent());
 
         expect(screen.getByRole('radio')).not.toHaveClass('order-2');
     });
