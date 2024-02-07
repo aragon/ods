@@ -1,13 +1,13 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Radio } from './radio';
-import { RadioGroup, type IRadioGroupProps } from './radioGroup';
+import { RadioGroup, type IRadioGroupProps } from '..';
+import { Radio } from '../radio';
 
-describe('RadioGroup', () => {
+describe('<RadioGroup /> component', () => {
     const createTestComponent = (props?: Partial<IRadioGroupProps>) => {
         return <RadioGroup {...props} />;
     };
 
-    it('should render the radio group correctly', () => {
+    it('renders the radio group correctly', () => {
         const children = [<Radio value="1" label="1" key={1} />, <Radio value="2" label="2" key={2} />];
 
         render(createTestComponent({ children }));
@@ -21,7 +21,7 @@ describe('RadioGroup', () => {
         });
     });
 
-    it('should disable all radio buttons when disabled prop is true', () => {
+    it('disables all radio buttons when disabled prop is true', () => {
         const children = [<Radio value="1" label="1" key={1} />, <Radio value="2" label="2" key={2} />];
 
         render(createTestComponent({ children, disabled: true }));
@@ -31,26 +31,24 @@ describe('RadioGroup', () => {
         });
     });
 
-    it('should set the radio group value correctly', () => {
-        const name = '1';
+    it('set the radio group value correctly', () => {
         const value = '1';
-        const children = [<Radio value={value} label="1" key={1} name={name} />, <Radio value="2" label="2" key={2} />];
+        const children = [<Radio value={value} label="1" key={1} />, <Radio value="2" label="2" key={2} />];
 
         render(createTestComponent({ children, value }));
-        const inputRadioElement = screen.getByRole('radio', { name });
+        const inputRadioElement = screen.getByRole('radio', { checked: true });
 
-        expect(inputRadioElement).toBeChecked();
+        expect(inputRadioElement).toHaveValue(value);
     });
 
-    it('should call `onValueChange` when a radio button is clicked', () => {
+    it('calls `onValueChange` when a radio button is clicked', () => {
         const handleValueChange = jest.fn();
-        const name = '1';
         const value = '1';
-        const children = [<Radio value={value} label="1" key={1} name={name} />, <Radio value="2" label="2" key={2} />];
+        const children = [<Radio value={value} label="1" key={1} />];
 
         render(createTestComponent({ children, onValueChange: handleValueChange }));
 
-        fireEvent.click(screen.getByRole('radio', { name }));
+        fireEvent.click(screen.getByRole('radio'));
         expect(handleValueChange).toHaveBeenCalledWith(value);
     });
 });
