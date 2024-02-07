@@ -5,11 +5,11 @@ import { Icon, IconType } from '../../icon';
 
 export type CheckboxState = RadixCheckbox.CheckedState;
 
-export interface ICheckboxProps extends RadixCheckbox.CheckboxProps {
+export interface ICheckboxProps extends Omit<RadixCheckbox.CheckboxProps, 'asChild'> {
     /**
      * Label of the checkbox.
      */
-    label?: string;
+    label: string;
     /**
      * Position of the label.
      * @default right
@@ -53,22 +53,27 @@ export const Checkbox: React.FC<ICheckboxProps> = (props) => {
                     <Icon
                         icon={IconType.CHECKBOX_SELECTED}
                         size="md"
-                        className="text-primary-400 group-data-[disabled]/checkbox:text-neutral-300"
+                        className="hidden text-primary-400 group-data-[state=checked]/checkbox:block group-data-[disabled]/checkbox:text-neutral-300"
+                    />
+                    <Icon
+                        icon={IconType.CHECKBOX_MULTI}
+                        size="md"
+                        className="hidden text-primary-400 group-data-[state=indeterminate]/checkbox:block group-data-[disabled]/checkbox:text-neutral-300"
                     />
                 </RadixCheckbox.Indicator>
             </RadixCheckbox.Root>
-            {label && (
-                <label
-                    htmlFor={processedId}
-                    className={classNames(
-                        'cursor-pointer pl-2 text-sm font-normal leading-tight text-neutral-500 md:text-base',
-                        'group-hover/root:text-neutral-800',
-                        'peer-data-[disabled]:peer-data-[state=unchecked]:text-neutral-300 peer-data-[disabled]:text-neutral-500',
-                    )}
-                >
-                    {label}
-                </label>
-            )}
+            <label
+                htmlFor={processedId}
+                className={classNames(
+                    'text-sm font-normal leading-tight text-neutral-500 md:text-base',
+                    'group-hover/root:text-neutral-800',
+                    'peer-data-[disabled]:peer-data-[state=unchecked]:text-neutral-300 peer-data-[disabled]:text-neutral-500',
+                    { 'pl-2 md:pl-3': labelPosition === 'right' },
+                    { 'pr-2 md:pr-3': labelPosition === 'left' },
+                )}
+            >
+                {label}
+            </label>
         </div>
     );
 };

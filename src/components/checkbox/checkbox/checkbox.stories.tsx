@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Checkbox, type CheckboxState, type ICheckboxProps } from './checkbox';
 
 const meta: Meta<typeof Checkbox> = {
-    title: 'components/Checkboxes/Checkbox',
+    title: 'components/Checkbox/Checkbox',
     component: Checkbox,
     tags: ['autodocs'],
     argTypes: {
@@ -20,7 +20,7 @@ const meta: Meta<typeof Checkbox> = {
 type Story = StoryObj<typeof Checkbox>;
 
 /**
- * Default uncontrolled usage example of the Checkbox component.
+ * Default uncontrolled usage of the Checkbox component.
  */
 export const Default: Story = {
     args: { label: 'Default' },
@@ -33,11 +33,18 @@ const ControlledComponent = (props: ICheckboxProps) => {
 };
 
 /**
- * Usage example of a controlled Checkbox component.
+ * Usage of a controlled Checkbox component.
  */
 export const Controlled: Story = {
     render: (props) => <ControlledComponent {...props} />,
     args: { label: 'Controlled' },
+};
+
+/**
+ * The Checkbox component handles an indeterminate state when the checked property is set to "indeterminate".
+ */
+export const IndeterminateState: Story = {
+    args: { checked: 'indeterminate', label: 'Indeterminate' },
 };
 
 export default meta;
