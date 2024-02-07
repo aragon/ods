@@ -48,7 +48,6 @@ export const StackedFullWithObject: Story = {
             onClick: () => alert('Secondary Button Clicked'),
         },
     },
-    render: (args) => <EmptyState {...args} />,
 };
 /**
  * Non-Stacked EmptyState component with full props examples for Object Illustration. <br />
@@ -74,7 +73,6 @@ export const NonStackedFullWithObject: Story = {
             onClick: () => alert('Secondary Button Clicked'),
         },
     },
-    render: (args) => <EmptyState {...args} />,
 };
 /**
  * Stacked EmptyState component with full props examples for Human Illustation.
@@ -103,7 +101,6 @@ export const StackedFullWithHuman: Story = {
             onClick: () => alert('Secondary Button Clicked'),
         },
     },
-    render: (args) => <EmptyState {...args} />,
 };
 
 export default meta;
