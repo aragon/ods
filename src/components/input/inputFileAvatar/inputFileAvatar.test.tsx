@@ -12,6 +12,8 @@ describe('<InputFileAvatar /> component', () => {
     };
 
     const originalGlobalImage = global.Image;
+    const originalCreateObjectURL = URL.createObjectURL;
+    const originalRevokeObjectURL = URL.revokeObjectURL;
 
     beforeAll(() => {
         (window.Image as unknown) = class MockImage {
@@ -24,19 +26,27 @@ describe('<InputFileAvatar /> component', () => {
             }
         };
 
-        global.URL.createObjectURL = jest.fn(() => 'mock-url');
-        global.URL.revokeObjectURL = jest.fn();
+        Object.defineProperty(URL, 'createObjectURL', {
+            value: jest.fn(() => 'mock-url'),
+            configurable: true,
+        });
+        Object.defineProperty(URL, 'revokeObjectURL', {
+            value: jest.fn(),
+            configurable: true,
+        });
     });
 
     afterAll(() => {
         global.Image = originalGlobalImage;
 
-        if ('createObjectURL' in URL) {
-            delete (URL as any).createObjectURL;
-        }
-        if ('revokeObjectURL' in URL) {
-            delete (URL as any).revokeObjectURL;
-        }
+        Object.defineProperty(URL, 'createObjectURL', {
+            value: originalCreateObjectURL,
+            configurable: true,
+        });
+        Object.defineProperty(URL, 'revokeObjectURL', {
+            value: originalRevokeObjectURL,
+            configurable: true,
+        });
     });
 
     it('renders without crashing', () => {
