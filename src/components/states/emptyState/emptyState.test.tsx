@@ -1,71 +1,105 @@
 import { render, screen } from '@testing-library/react';
-import type { IEmptyStateBaseProps, IEmptyStateHumanIllustrationProps, IEmptyStateObjectIllustrationProps } from '.';
-import { EmptyState } from '.';
 import { IconType } from '../../icon';
+import { EmptyState } from './emptyState';
+import type { IEmptyStateProps } from './emptyState.api';
 
 describe('<EmptyState /> component', () => {
-    const fullBaseProps: IEmptyStateBaseProps = {
-        heading: 'Default Heading',
-        primaryButton: {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-            onClick: () => alert('Primary Button Clicked'),
-        },
-        secondaryButton: {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-            onClick: () => alert('Secondary Button Clicked'),
-        },
-    };
+    const createTestComponent = (props?: Partial<IEmptyStateProps>) => {
+        const commonProps = {
+            heading: 'test-heading',
+        };
 
-    const humanIllustrationProps: IEmptyStateHumanIllustrationProps = {
-        ...fullBaseProps,
-        humanIllustration: {
-            body: 'VOTING',
-            expression: 'SMILE',
-        },
-    };
+        if (props?.humanIllustration) {
+            return <EmptyState humanIllustration={props.humanIllustration} {...commonProps} {...props} />;
+        } else {
+            const { humanIllustration, objectIllustration = { object: 'ACTION' }, ...otherProps } = props ?? {};
 
-    const objectIllustrationProps: IEmptyStateObjectIllustrationProps = {
-        ...fullBaseProps,
-        objectIllustration: {
-            object: 'LIGHTBULB',
-        },
+            return <EmptyState objectIllustration={objectIllustration} {...commonProps} {...otherProps} />;
+        }
     };
 
     it('renders the EmptyState component stacked with full props and object illustration', () => {
-        render(<EmptyState {...objectIllustrationProps} />);
-        expect(screen.getByText(fullBaseProps.heading)).toBeInTheDocument();
+        const objectIllustration = { object: 'LIGHTBULB' } as const;
+        const primaryButton = {
+            label: 'Label',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+        } as const;
+        const secondaryButton = {
+            label: 'Label',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+        } as const;
+        render(createTestComponent({ objectIllustration, primaryButton, secondaryButton }));
+
+        expect(screen.getByText('test-heading')).toBeInTheDocument();
         const buttons = screen.getAllByRole('button', { name: 'Label' });
         expect(buttons).toHaveLength(2);
-        expect(screen.getByLabelText('Object Illustration')).toBeInTheDocument();
+        expect(screen.getByTestId('LIGHTBULB')).toBeInTheDocument();
     });
 
     it('renders the EmptyState component stacked with full props and human illustration', () => {
-        render(<EmptyState {...humanIllustrationProps} />);
-        expect(screen.getByText(fullBaseProps.heading)).toBeInTheDocument();
-        expect(screen.getByLabelText('Human Illustration')).toBeInTheDocument();
+        const humanIllustration = { body: 'VOTING', expression: 'SMILE' } as const;
+        const primaryButton = {
+            label: 'Label',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+        } as const;
+        const secondaryButton = {
+            label: 'Label',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+        } as const;
+        render(createTestComponent({ humanIllustration, primaryButton, secondaryButton }));
+
+        expect(screen.getByText('test-heading')).toBeInTheDocument();
         const buttons = screen.getAllByRole('button', { name: 'Label' });
         expect(buttons).toHaveLength(2);
+        expect(screen.getByTestId('VOTING')).toBeInTheDocument();
     });
 
     it('renders the EmptyState component unstacked with full props and object illustration', () => {
-        render(<EmptyState isStacked={false} {...objectIllustrationProps} />);
-        expect(screen.getByText(fullBaseProps.heading)).toBeInTheDocument();
+        const objectIllustration = { object: 'LIGHTBULB' } as const;
+        const primaryButton = {
+            label: 'Label',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+        } as const;
+        const secondaryButton = {
+            label: 'Label',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+        } as const;
+        const isStacked = false;
+        render(createTestComponent({ isStacked, objectIllustration, primaryButton, secondaryButton }));
+
+        expect(screen.getByText('test-heading')).toBeInTheDocument();
         const buttons = screen.getAllByRole('button', { name: 'Label' });
         expect(buttons).toHaveLength(2);
-        const objectIllustration = screen.getByLabelText('Object Illustration');
-        expect(objectIllustration).toHaveClass('order-last');
+        const objectImage = screen.getByTestId('LIGHTBULB');
+        expect(objectImage).toHaveClass('order-last');
     });
 
     it('renders the EmptyState component unstacked with full props and human illustration', () => {
-        render(<EmptyState isStacked={false} {...humanIllustrationProps} />);
-        expect(screen.getByText(fullBaseProps.heading)).toBeInTheDocument();
+        const humanIllustration = { body: 'VOTING', expression: 'SMILE' } as const;
+        const primaryButton = {
+            label: 'Label',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+        } as const;
+        const secondaryButton = {
+            label: 'Label',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+        } as const;
+        const isStacked = false;
+        render(createTestComponent({ isStacked, humanIllustration, primaryButton, secondaryButton }));
+
+        expect(screen.getByText('test-heading')).toBeInTheDocument();
         const buttons = screen.getAllByRole('button', { name: 'Label' });
         expect(buttons).toHaveLength(2);
-        const humanIllustration = screen.getByLabelText('Human Illustration');
-        expect(humanIllustration).toHaveClass('order-last');
+        const humanImage = screen.getByTestId('VOTING');
+        // eslint-disable-next-line testing-library/no-node-access  -- testid for SVG is nearest accessible attribute and reliable to the illustration
+        expect(humanImage.parentElement).toHaveClass('order-last');
     });
 });

@@ -1,4 +1,5 @@
-import type { IButtonProps } from '../../button/button.api';
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react';
+import type { IButtonBaseProps } from '../../button/button.api';
 import type { IIllustrationHumanProps, IIllustrationObjectProps } from '../../illustrations';
 
 export interface IEmptyStateBaseProps {
@@ -29,12 +30,17 @@ export interface IEmptyStateBaseProps {
     className?: string;
 }
 
-export interface IEmptyStateButton extends Omit<IButtonProps, 'variant' | 'size' | 'children'> {
-    /**
-     * Button label to be rendered.
-     */
-    label: string;
-}
+export type IButtonElementProps = ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttributes<HTMLAnchorElement>;
+
+export type IButtonProps = IButtonBaseProps & IButtonElementProps;
+
+export type IEmptyStateButton = Omit<IButtonBaseProps, 'variant' | 'size' | 'children'> &
+    IButtonElementProps & {
+        /**
+         * Button label to be rendered.
+         */
+        label: string;
+    };
 
 export interface IEmptyStateHumanIllustrationProps extends IEmptyStateBaseProps {
     /**

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import type { IEmptyStateButton, IEmptyStateProps } from '.';
-import { Button, type IButtonProps } from '../../button';
+import { Button } from '../../button';
 import { IllustrationHuman, IllustrationObject } from '../../illustrations';
+import type { IButtonProps, IEmptyStateButton, IEmptyStateProps } from './emptyState.api';
 
 export const EmptyState: React.FC<IEmptyStateProps> = ({
     heading,
@@ -25,26 +25,22 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
 
     return (
         <div className={containerClassNames}>
-            {humanIllustration && !objectIllustration && (
+            {humanIllustration && (
                 <IllustrationHuman
                     className={classNames({
                         'mb-4 h-auto !w-[295px] md:mb-6 md:!w-[400px]': isStacked,
                         'align-self-center order-last !w-[80px] justify-self-end md:!w-[172px]': !isStacked,
                     })}
-                    role="img"
-                    aria-label="Human Illustration"
                     {...humanIllustration}
                 />
             )}
-            {objectIllustration && !humanIllustration && (
+            {objectIllustration && (
                 <IllustrationObject
                     className={classNames({
                         'h-auto w-[160px]': isStacked,
                         'order-last h-auto w-[80px] justify-self-end rounded-full bg-neutral-50 md:w-[96px]':
                             !isStacked,
                     })}
-                    role="img"
-                    aria-label="Object Illustration"
                     {...objectIllustration}
                 />
             )}
