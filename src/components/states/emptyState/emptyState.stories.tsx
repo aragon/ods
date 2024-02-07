@@ -1,16 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { EmptyState } from '.';
-import { IconType } from '../icon';
-import type { IIllustrationHumanProps, IllustrationObjectType } from '../illustrations';
+import { IconType } from '../../icon';
+import { EmptyState } from './emptyState';
 
 const meta: Meta<typeof EmptyState> = {
-    title: 'components/EmptyState',
+    title: 'components/States/EmptyState',
     component: EmptyState,
     tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=10157-27206&mode=dev',
+            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Aragon-ODS?type=design&node-id=10095%3A21633&mode=dev&t=FtMO7nBXAzYBFGaW-1',
         },
     },
 };
@@ -24,26 +23,7 @@ export const Default: Story = {
     args: {
         heading: 'Heading',
         description: 'Description',
-        illustrationType: 'object',
-    },
-    render: (args) => {
-        const getIllustration = (type: 'object' | 'human'): IllustrationObjectType | IIllustrationHumanProps => {
-            if (type === 'human') {
-                return {
-                    body: 'VOTING',
-                    hairs: 'MIDDLE',
-                    accessory: 'EARRINGS_RHOMBUS',
-                    sunglasses: 'BIG_ROUNDED',
-                    expression: 'SMILE',
-                } as IIllustrationHumanProps;
-            } else {
-                return 'LIGHTBULB';
-            }
-        };
-
-        const illustration = getIllustration(args.illustrationType);
-        //@ts-expect-error can't resolve more complicated union types in Storybook for illustation control purposes
-        return <EmptyState {...args} illustration={illustration} />;
+        objectIllustration: { object: 'LIGHTBULB' },
     },
 };
 
@@ -54,42 +34,45 @@ export const StackedFullWithObject: Story = {
     args: {
         heading: 'Heading',
         description: 'Description',
-        illustrationType: 'object',
-        illustration: 'LIGHTBULB',
+        objectIllustration: { object: 'LIGHTBULB' },
         primaryButton: {
-            label: 'Primary Action',
+            label: 'Label',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Primary Button Clicked'),
         },
         secondaryButton: {
-            label: 'Secondary Action',
+            label: 'Label',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Secondary Button Clicked'),
         },
     },
-    argTypes: {
-        illustrationType: { control: false },
-    },
-    render: (args) => <EmptyState {...args} />,
 };
 /**
  * Non-Stacked EmptyState component with full props examples for Object Illustration. <br />
- * **Note:** Human illustration, Primary Button are not available in non-stacked mode.
+ * **Warning:** Non-Stacked EmptyState with Human Illustration is not supported visually.
+ * As displayed, use an object illustration instead for best layout.
  */
 export const NonStackedFullWithObject: Story = {
     args: {
         heading: 'Heading',
         description: 'Description',
         isStacked: false,
-        illustrationType: 'object',
-        illustration: 'LIGHTBULB',
-        secondaryButton: {
-            label: 'Secondary Action',
+        objectIllustration: { object: 'LIGHTBULB' },
+        primaryButton: {
+            label: 'Label',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Primary Button Clicked'),
+        },
+        secondaryButton: {
+            label: 'Label',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Secondary Button Clicked'),
         },
     },
-    render: (args) => <EmptyState {...args} />,
 };
 /**
  * Stacked EmptyState component with full props examples for Human Illustation.
@@ -98,8 +81,7 @@ export const StackedFullWithHuman: Story = {
     args: {
         heading: 'Heading',
         description: 'Description',
-        illustrationType: 'human',
-        illustration: {
+        humanIllustration: {
             body: 'VOTING',
             hairs: 'MIDDLE',
             accessory: 'EARRINGS_RHOMBUS',
@@ -107,20 +89,18 @@ export const StackedFullWithHuman: Story = {
             expression: 'SMILE',
         },
         primaryButton: {
-            label: 'Primary Action',
+            label: 'Label',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Primary Button Clicked'),
         },
         secondaryButton: {
-            label: 'Secondary Action',
+            label: 'Label',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Secondary Button Clicked'),
         },
     },
-    argTypes: {
-        illustrationType: { control: false },
-    },
-    render: (args) => <EmptyState {...args} />,
 };
 
 export default meta;

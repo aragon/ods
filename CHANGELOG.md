@@ -9,8 +9,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `Link`, `InputNumber` `InputTime`, `TextArea`, `EmptyState`, `CardEmptyState` and `TextAreaRichText`
+-   Implement `EmptyState`, `CardEmptyState`, `Checkbox`, `CheckboxGroup`, `RadioGroup`, `Radio`, and `RadioCard`
     components
+
+## [1.0.11] - 2024-02-06
+
+### Fixed
+
+-   Properly export ESM/CJS library depending on current environment and fix CJS build
+
+## [1.0.10] - 2024-02-05
+
+### Added
+
+-   Implement `Link`, `InputNumber`, `InputTime`, `TextArea` and `TextAreaRichText` components
 -   Implement Addon element for `InputText` component
 -   Handle size property on `Progress` component
 -   `border-none` Tailwind CSS utility class
@@ -21,6 +33,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update `husky` to v9
 -   Add `wrapperClassName` property to `InputContainer` component to customise the input wrapper
 -   Update `InputContainer` props to accept any HTML div property and support textarea elements
+
+### Fixed
+
+-   Fix styling conflict in `InputText` introduced by Addon element
 
 ## [1.0.9] - 2024-01-23
 

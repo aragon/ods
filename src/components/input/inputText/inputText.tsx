@@ -19,6 +19,7 @@ export const InputText: React.FC<IInputTextProps> = ({ addonPosition = 'left', a
     const variant = otherProps.variant ?? 'default';
     const processedVariant = otherProps.isDisabled ? 'disabled' : variant;
     const showAddon = addon && addon.trim() !== '';
+    const { wrapperClassName: containerWrapperClassName, ...otherContainerProps } = containerProps;
 
     const addonClasses = classNames(
         'flex h-full shrink-0 items-center justify-center px-3 text-base font-normal leading-tight',
@@ -28,7 +29,10 @@ export const InputText: React.FC<IInputTextProps> = ({ addonPosition = 'left', a
     );
 
     return (
-        <InputContainer wrapperClassName="overflow-hidden" {...containerProps}>
+        <InputContainer
+            wrapperClassName={classNames('overflow-hidden', containerWrapperClassName)}
+            {...otherContainerProps}
+        >
             {showAddon && (
                 <div className={addonClasses} data-testid="input-addon">
                     {addon}

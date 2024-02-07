@@ -1,2 +1,1 @@
-export { CardEmptyState } from './cardEmptyState';
-export type { ICardEmptyStateProps } from './cardEmptyState';
+export { CardEmptyState, type CardEmptyStateProps } from './cardEmptyState';

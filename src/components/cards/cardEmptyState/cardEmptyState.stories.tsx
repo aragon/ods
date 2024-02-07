@@ -2,7 +2,6 @@ import { type Meta, type StoryObj } from '@storybook/react';
 
 import { CardEmptyState } from '.';
 import { IconType } from '../../icon';
-import type { IIllustrationHumanProps, IllustrationObjectType } from '../../illustrations';
 
 const meta: Meta<typeof CardEmptyState> = {
     title: 'components/Cards/CardEmptyState',
@@ -18,30 +17,14 @@ const meta: Meta<typeof CardEmptyState> = {
 
 type Story = StoryObj<typeof CardEmptyState>;
 
+/**
+ * Default EmptyState component with minimum props.
+ */
 export const Default: Story = {
     args: {
-        heading: 'Title',
+        heading: 'Heading',
         description: 'Description',
-        illustrationType: 'object',
-    },
-    render: (args) => {
-        const getIllustration = (type: 'object' | 'human'): IllustrationObjectType | IIllustrationHumanProps => {
-            if (type === 'human') {
-                return {
-                    body: 'VOTING',
-                    hairs: 'MIDDLE',
-                    accessory: 'EARRINGS_RHOMBUS',
-                    sunglasses: 'BIG_ROUNDED',
-                    expression: 'SMILE',
-                } as IIllustrationHumanProps;
-            } else {
-                return 'LIGHTBULB';
-            }
-        };
-
-        const illustration = getIllustration(args.illustrationType);
-
-        return <CardEmptyState {...args} illustration={illustration} />;
+        objectIllustration: { object: 'LIGHTBULB' },
     },
 };
 
@@ -50,51 +33,56 @@ export const Default: Story = {
  */
 export const StackedFullWithObject: Story = {
     args: {
-        heading: 'Title',
+        heading: 'Heading',
         description: 'Description',
-        illustrationType: 'object',
-        illustration: 'LIGHTBULB',
+        objectIllustration: { object: 'LIGHTBULB' },
         primaryButton: {
-            label: 'Primary Action',
+            label: 'Label',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Primary Button Clicked'),
         },
         secondaryButton: {
-            label: 'Secondary Action',
+            label: 'Label',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Secondary Button Clicked'),
         },
     },
-    render: (args) => <CardEmptyState {...args} />,
 };
 /**
  * Non-Stacked EmptyState component with full props examples for Object Illustration. <br />
- * **Note:** Human illustration, Primary Button are not available in non-stacked mode.
+ * **Warning:** Non-Stacked EmptyState with Human Illustration is not supported visually.
+ * As displayed, use an object illustration instead for best layout.
  */
 export const NonStackedFullWithObject: Story = {
     args: {
-        heading: 'Title',
+        heading: 'Heading',
         description: 'Description',
         isStacked: false,
-        illustrationType: 'object',
-        illustration: 'LIGHTBULB',
-        secondaryButton: {
-            label: 'Secondary Action',
+        objectIllustration: { object: 'LIGHTBULB' },
+        primaryButton: {
+            label: 'Label',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Primary Button Clicked'),
+        },
+        secondaryButton: {
+            label: 'Label',
+            iconLeft: IconType.ADD,
+            iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Secondary Button Clicked'),
         },
     },
-    render: (args) => <CardEmptyState {...args} />,
 };
 /**
  * Stacked EmptyState component with full props examples for Human Illustation.
  */
 export const StackedFullWithHuman: Story = {
     args: {
-        heading: 'Title',
+        heading: 'Heading',
         description: 'Description',
-        illustrationType: 'human',
-        illustration: {
+        humanIllustration: {
             body: 'VOTING',
             hairs: 'MIDDLE',
             accessory: 'EARRINGS_RHOMBUS',
@@ -102,17 +90,18 @@ export const StackedFullWithHuman: Story = {
             expression: 'SMILE',
         },
         primaryButton: {
-            label: 'Primary Action',
+            label: 'Label',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Primary Button Clicked'),
         },
         secondaryButton: {
-            label: 'Secondary Action',
+            label: 'Label',
             iconLeft: IconType.ADD,
             iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Secondary Button Clicked'),
         },
     },
-    render: (args) => <CardEmptyState {...args} />,
 };
 
 export default meta;
