@@ -3,6 +3,10 @@ import { RadioGroup } from '..';
 import { IconType } from '../../icon';
 import { RadioCard, type IRadioCardProps } from './radioCard';
 
+jest.mock('../../avatars', () => ({
+    Avatar: () => <div data-testid="avatar" />,
+}));
+
 describe('<RadioCard/> component', () => {
     const createTestComponent = (props?: Partial<IRadioCardProps>) => {
         const completeProps = { label: 'test label', value: 'test value', description: 'test description', ...props };
@@ -13,24 +17,6 @@ describe('<RadioCard/> component', () => {
             </RadioGroup>
         );
     };
-
-    const originalGlobalImage = global.Image;
-
-    beforeAll(() => {
-        (window.Image as unknown) = class MockImage {
-            onload: () => void = () => {};
-            src: string = '';
-            constructor() {
-                setTimeout(() => {
-                    this.onload();
-                }, 100);
-            }
-        };
-    });
-
-    afterAll(() => {
-        global.Image = originalGlobalImage;
-    });
 
     it('renders with avatar, label, description, tag, and unchecked radio button', async () => {
         const avatar = 'avatar';
@@ -47,7 +33,7 @@ describe('<RadioCard/> component', () => {
         expect(screen.getByText(label)).toBeInTheDocument();
         expect(screen.getByText(description)).toBeInTheDocument();
         expect(screen.getByText(tag.label)).toBeInTheDocument();
-        expect(await screen.findByRole('img')).toBeInTheDocument();
+        expect(screen.getByTestId('avatar')).toBeInTheDocument();
     });
 
     it('renders the RADIO_DEFAULT icon when unchecked', () => {

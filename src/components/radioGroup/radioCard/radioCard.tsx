@@ -38,6 +38,7 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
 
     const randomId = useId();
     const processedId = id ?? randomId;
+    const labelId = `${processedId}-label`;
 
     const containerClasses = classNames(
         'group h-16 rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 md:h-20 md:rounded-2xl md:px-6 md:py-4', // default
@@ -58,14 +59,21 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
     );
 
     return (
-        <RadioGroupItem className={containerClasses} id={processedId} ref={ref} value={value} {...rest}>
+        <RadioGroupItem
+            id={processedId}
+            ref={ref}
+            value={value}
+            className={containerClasses}
+            aria-labelledby={labelId}
+            {...rest}
+        >
             <div className="flex h-full items-center gap-x-3 md:gap-x-4">
                 {avatar && <Avatar responsiveSize={{ sm: 'sm', md: 'md' }} src={avatar} className="" />}
                 <div className="flex min-w-0 flex-1 gap-x-0.5 md:gap-x-4">
                     <div className="flex min-w-0 flex-1 flex-col gap-y-0.5 md:gap-y-1">
-                        <label className={labelClasses} htmlFor={processedId}>
+                        <p className={labelClasses} id={labelId}>
                             {label}
-                        </label>
+                        </p>
                         <p className={baseTextClasses}>{description}</p>
                     </div>
                     {tag?.label && <Tag {...tag} />}
