@@ -5,7 +5,8 @@ import { IconType } from '../../icon';
 import { useInputProps, useNumberMask, type IUseNumberMaskProps } from '../hooks';
 import { InputContainer, type IInputComponentProps } from '../inputContainer';
 
-export interface IInputNumberProps extends Omit<IInputComponentProps, 'onChange' | 'step' | 'min' | 'max'> {
+export interface IInputNumberProps
+    extends Omit<IInputComponentProps, 'onChange' | 'step' | 'min' | 'max' | 'maxLength'> {
     /**
      * The minimum value that the number input accepts.
      * @default Number.MIN_SAFE_INTEGER
