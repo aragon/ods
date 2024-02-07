@@ -65,9 +65,9 @@ export const Checkbox: React.FC<ICheckboxProps> = (props) => {
             <label
                 htmlFor={processedId}
                 className={classNames(
-                    'text-sm font-normal leading-tight text-neutral-500 md:text-base',
+                    'cursor-pointer text-sm font-normal leading-tight text-neutral-500 md:text-base',
                     'group-hover/root:text-neutral-800',
-                    'peer-data-[disabled]:peer-data-[state=unchecked]:text-neutral-300 peer-data-[disabled]:text-neutral-500',
+                    'peer-data-[disabled]:cursor-default peer-data-[disabled]:peer-data-[state=unchecked]:text-neutral-300 peer-data-[disabled]:text-neutral-500',
                     { 'pl-2 md:pl-3': labelPosition === 'right' },
                     { 'pr-2 md:pr-3': labelPosition === 'left' },
                 )}
