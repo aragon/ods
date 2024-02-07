@@ -36,7 +36,7 @@ export const Checkbox: React.FC<ICheckboxProps> = (props) => {
             <RadixCheckbox.Root
                 id={processedId}
                 className={classNames(
-                    'group/checkbox peer rounded-[4px]',
+                    'group/checkbox peer rounded',
                     'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
                 )}
                 {...otherProps}
