@@ -4,7 +4,7 @@ import { useId, type HtmlHTMLAttributes } from 'react';
 
 const rootClassNames = classNames(
     'group peer w-10 cursor-default rounded-[40px] border border-neutral-200 bg-neutral-0 p-1', // Default
-    'data-[state=checked]:border-primary-400 data-[state=checked]:shadow-primary-md', // State is checked
+    'data-[state=checked]:border-primary-400 data-[state=checked]:shadow-primary', // State is checked
     'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // Focus
     'disabled:bg-neutral-100 disabled:data-[state=checked]:border-neutral-200 disabled:data-[state=checked]:shadow-none', // Disabled
 );
@@ -17,8 +17,8 @@ const thumbClassNames = classNames(
 
 // using `peer` since the parent div is not focusable nor able to be disabled
 const labelClassNames = classNames(
-    'text-sm font-semibold leading-tight text-neutral-600 md:text-base', // Default
-    'peer-disabled:text-neutral-300 peer-disabled:peer-data-[state=checked]:text-neutral-600', // Disabled
+    'text-sm font-normal leading-tight text-neutral-500 peer-data-[state=checked]:text-neutral-800 md:text-base', // Default
+    'peer-disabled:text-neutral-300 peer-disabled:peer-data-[state=checked]:text-neutral-800', // Disabled
 );
 
 export interface ISwitchProps extends HtmlHTMLAttributes<HTMLDivElement> {

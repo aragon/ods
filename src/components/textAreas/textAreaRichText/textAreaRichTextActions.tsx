@@ -66,16 +66,17 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
 
     return (
         <div
-            className={classNames('flex flex-row justify-between gap-3 px-4 py-3', {
+            className={classNames('flex flex-row justify-between gap-2 px-4 py-3 md:gap-3', {
                 'bg-gradient-to-b from-neutral-50': !isDisabled,
             })}
         >
-            <div className="flex flex-row flex-wrap gap-3">
+            <div className="flex flex-row flex-wrap gap-2 md:gap-3">
                 {getRichTextActions().map(({ icon, action }) => (
                     <Button
                         key={icon}
                         variant="tertiary"
-                        size="md"
+                        size="sm"
+                        responsiveSize={{ md: 'md' }}
                         iconLeft={icon}
                         onClick={action}
                         state={isDisabled ? 'disabled' : undefined}
@@ -84,7 +85,8 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
             </div>
             <Button
                 variant="tertiary"
-                size="md"
+                size="sm"
+                responsiveSize={{ md: 'md' }}
                 iconLeft={IconType.EXPAND}
                 onClick={onExpandClick}
                 state={isDisabled ? 'disabled' : undefined}

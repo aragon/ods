@@ -31,8 +31,14 @@ export const Tag: React.FC<ITagProps> = (props) => {
     const { label, variant = 'neutral', className } = props;
 
     return (
-        <div className={classNames('flex h-5 items-center rounded px-1', variantToClassName[variant], className)}>
-            <p className="text-sm font-semibold leading-tight md:text-base">{label}</p>
+        <div
+            className={classNames(
+                'flex h-5 items-center rounded-full px-1.5 md:h-6 md:px-2',
+                variantToClassName[variant],
+                className,
+            )}
+        >
+            <p className="text-sm font-normal leading-tight md:text-base">{label}</p>
         </div>
     );
 };

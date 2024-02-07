@@ -12,10 +12,14 @@ export const TextArea: React.FC<ITextAreaProps> = (props: ITextAreaProps) => {
 
     return (
         <InputContainer
-            wrapperClassName={classNames('grow overflow-auto', containerWrapperClassName)}
+            wrapperClassName={classNames('grow overflow-auto rounded-br-none', containerWrapperClassName)}
             {...otherContainerProps}
         >
-            <textarea type="text" className={classNames('min-h-[144px]', inputClassName)} {...otherInputProps} />
+            <textarea
+                type="text"
+                className={classNames('min-h-[160px] leading-normal', inputClassName)}
+                {...otherInputProps}
+            />
         </InputContainer>
     );
 };

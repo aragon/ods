@@ -24,14 +24,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
--   Implement new style for `AlertCard` component
+-   Implement new style for `AlertCard`, `Spinner`, `Switch`, `InputContainer`, `Toggle` and `Tag` components
 -   Mark variant property of `AlertInline` and `AlertCard` components as optional and set it to `info` by default
 -   Remove border color from `Card` component, update style of `CardSummary` component as for new design
--   Set default properties to `Button` component
--   Update focus style and label sizes of `InputContainer` component
+-   Set default properties to `Button` and `Spinner` components
 -   Hide date picker indicator when `InputDate` component is disabled
 -   Update `InputNumber` component to handle prefix and suffix properties through `react-imask`
 -   Align cursor style of disabled components
+-   Update line-height and height of `TextArea` and `TextAreaRichText` components
 
 ## [1.0.11] - 2024-02-06
 
