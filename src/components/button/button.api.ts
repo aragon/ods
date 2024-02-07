@@ -34,5 +34,6 @@ export interface IButtonBaseProps {
     iconLeft?: IconType;
 }
 
-export type IButtonProps = IButtonBaseProps &
-    (ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttributes<HTMLAnchorElement>);
+export type IButtonElementProps = ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttributes<HTMLAnchorElement>;
+
+export type IButtonProps = IButtonBaseProps & IButtonElementProps;
