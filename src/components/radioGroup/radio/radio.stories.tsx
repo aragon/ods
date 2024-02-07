@@ -28,6 +28,7 @@ export const Default: Story = {
     args: {
         value: '1',
         label: 'Number one',
+        disabled: false,
     },
 };
 
