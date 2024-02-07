@@ -16,7 +16,7 @@ const variantToLabelClassNames: Record<LinkVariant, string[]> = {
     ],
 };
 
-const disabledStyle = 'truncate text-neutral-300 cursor-not-allowed';
+const disabledStyle = 'truncate text-neutral-300';
 
 export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref) => {
     const {

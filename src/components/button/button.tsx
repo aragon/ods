@@ -176,7 +176,7 @@ export const Button: React.FC<IButtonProps> = (props) => {
         'flex flex-row items-center justify-center', // Layout
         'leading-tight font-semibold', // Typography
         'border transition-all cursor:pointer', // Commons
-        'focus:outline-none focus-visible:ring focus-visible:ring-offset aria-disabled:cursor-not-allowed', // States
+        'focus:outline-none focus-visible:ring focus-visible:ring-offset', // States
     ];
 
     const variantClasses = variantToClassNames[variant].filter((classes) => {

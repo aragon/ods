@@ -30,6 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update focus style and label sizes of `InputContainer` component
 -   Hide date picker indicator when `InputDate` component is disabled
 -   Update `InputNumber` component to handle prefix and suffix properties through `react-imask`
+-   Align cursor style of disabled components
 
 ## [1.0.11] - 2024-02-06
 
