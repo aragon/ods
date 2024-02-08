@@ -68,7 +68,7 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
             {...rest}
         >
             <div className="flex h-full items-center gap-x-3 md:gap-x-4">
-                {avatar && <Avatar responsiveSize={{ sm: 'sm', md: 'md' }} src={avatar} className="" />}
+                {avatar && <Avatar size="sm" responsiveSize={{ md: 'md' }} src={avatar} />}
                 <div className="flex min-w-0 flex-1 gap-x-0.5 md:gap-x-4">
                     <div className="flex min-w-0 flex-1 flex-col gap-y-0.5 md:gap-y-1">
                         <p className={labelClasses} id={labelId}>
@@ -76,7 +76,7 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
                         </p>
                         <p className={baseTextClasses}>{description}</p>
                     </div>
-                    {tag?.label && <Tag {...tag} />}
+                    {tag && <Tag {...tag} />}
                 </div>
                 <span className="h-full">
                     <Icon
