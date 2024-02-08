@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import { useRef, useState, type FocusEvent, type KeyboardEvent } from 'react';
+import { forwardRef, useRef, useState, type FocusEvent } from 'react';
+import { mergeRefs } from '../../../utils';
 import { Icon, IconType } from '../../icon';
 import { Spinner } from '../../spinner';
 import { useInputProps } from '../hooks';
@@ -12,7 +13,7 @@ export interface IInputSearchProps extends IInputComponentProps {
     isLoading?: boolean;
 }
 
-export const InputSearch: React.FC<IInputSearchProps> = (props) => {
+export const InputSearch = forwardRef<HTMLInputElement, IInputSearchProps>((props, ref) => {
     const { isLoading, ...otherProps } = props;
     const { containerProps, inputProps } = useInputProps(otherProps);
 
@@ -52,12 +53,6 @@ export const InputSearch: React.FC<IInputSearchProps> = (props) => {
         inputRef.current.focus();
     };
 
-    const handleClearKeyDown = (event: KeyboardEvent<SVGSVGElement>) => {
-        if (event.key === 'Enter') {
-            handleClear();
-        }
-    };
-
     const displayClearIcon = inputLength > 0 && !disabled;
 
     return (
@@ -75,19 +70,17 @@ export const InputSearch: React.FC<IInputSearchProps> = (props) => {
                 className={classNames('search-cancel:appearance-none', inputClassName)}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                ref={inputRef}
+                ref={mergeRefs([inputRef, ref])}
                 disabled={disabled}
                 {...otherInputProps}
             />
-            <Icon
-                role="button"
-                tabIndex={displayClearIcon ? 0 : -1}
-                icon={IconType.CLOSE}
-                aria-hidden={!displayClearIcon}
-                className={classNames('mr-4 cursor-pointer text-neutral-600', { invisible: !displayClearIcon })}
-                onClick={handleClear}
-                onKeyDown={handleClearKeyDown}
-            />
+            {displayClearIcon && (
+                <button className="mr-4" onClick={handleClear}>
+                    <Icon icon={IconType.CLOSE} className="text-neutral-600" />
+                </button>
+            )}
         </InputContainer>
     );
-};
+});
+
+InputSearch.displayName = 'InputSearch';

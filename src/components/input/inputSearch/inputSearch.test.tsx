@@ -59,11 +59,4 @@ describe('<InputSearch /> component', () => {
         fireEvent.click(screen.getByRole('button'));
         expect(screen.getByRole<HTMLInputElement>('searchbox').value).toEqual('');
     });
-
-    it('clears input value on clear icon enter press', () => {
-        render(createTestComponent());
-        fireEvent.change(screen.getByRole('searchbox'), { target: { value: 'test' } });
-        fireEvent.keyDown(screen.getByRole('button'), { key: 'Enter' });
-        expect(screen.getByRole<HTMLInputElement>('searchbox').value).toEqual('');
-    });
 });

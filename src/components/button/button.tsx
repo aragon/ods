@@ -206,7 +206,7 @@ export const Button: React.FC<IButtonProps> = (props) => {
     const iconResponsiveSize = Object.keys(responsiveSize ?? {}).reduce<ResponsiveAttribute<IconSize>>(
         (current, breakpoint) => ({
             ...current,
-            [breakpoint]: sizeToIconSize[responsiveSize![breakpoint as Breakpoint]!][buttonContext],
+            [breakpoint]: sizeToIconSize[responsiveSize[breakpoint as Breakpoint]!][buttonContext],
         }),
         {},
     );
@@ -215,7 +215,7 @@ export const Button: React.FC<IButtonProps> = (props) => {
     const spinnerResponsiveSize = Object.keys(responsiveSize ?? {}).reduce<ResponsiveAttribute<SpinnerSize>>(
         (current, breakpoint) => ({
             ...current,
-            [breakpoint]: sizeToSpinnerSize[responsiveSize![breakpoint as Breakpoint]!],
+            [breakpoint]: sizeToSpinnerSize[responsiveSize[breakpoint as Breakpoint]!],
         }),
         {},
     );

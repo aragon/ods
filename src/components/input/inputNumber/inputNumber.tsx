@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 import type React from 'react';
+import { forwardRef } from 'react';
+import { mergeRefs } from '../../../utils';
 import { Button } from '../../button';
 import { IconType } from '../../icon';
 import { useInputProps, useNumberMask, type IUseNumberMaskProps } from '../hooks';
@@ -35,7 +37,7 @@ export interface IInputNumberProps
     onChange?: IUseNumberMaskProps['onChange'];
 }
 
-export const InputNumber: React.FC<IInputNumberProps> = (props) => {
+export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((props, ref) => {
     const {
         max = Number.MAX_SAFE_INTEGER,
         min = Number.MIN_SAFE_INTEGER,
@@ -52,7 +54,11 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
     const { className: containerClassName, isDisabled, ...otherContainerProps } = containerProps;
     const { onKeyDown, className: inputClassName, value, ...otherInputProps } = inputProps;
 
-    const { ref, unmaskedValue, setValue } = useNumberMask({
+    const {
+        ref: maskRef,
+        unmaskedValue,
+        setValue,
+    } = useNumberMask({
         min,
         max,
         value,
@@ -115,7 +121,7 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
                 />
             )}
             <input
-                ref={ref}
+                ref={mergeRefs([maskRef, ref])}
                 step={step}
                 max={max}
                 min={min}
@@ -135,4 +141,6 @@ export const InputNumber: React.FC<IInputNumberProps> = (props) => {
             )}
         </InputContainer>
     );
-};
+});
+
+InputNumber.displayName = 'InputNumber';
