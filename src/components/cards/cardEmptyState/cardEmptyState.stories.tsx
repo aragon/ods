@@ -15,7 +15,6 @@ const meta: Meta<typeof CardEmptyState> = {
 };
 
 type Story = StoryObj<typeof CardEmptyState>;
-
 /**
  * Default EmptyStateCard component with minimum props.
  *
@@ -25,7 +24,12 @@ export const Default: Story = {
     args: {
         heading: 'Heading',
         description: 'Description',
-        objectIllustration: { object: 'LIGHTBULB' },
+        humanIllustration: {
+            body: 'VOTING',
+            expression: 'SMILE',
+        },
+        classNameEmptyState: 'bg-critical-100 rounded-full',
+        classNameCard: 'bg-success-100 p-20',
     },
 };
 
