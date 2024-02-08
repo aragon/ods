@@ -1,9 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { CardEmptyState } from '.';
-import type { CardEmptyStateProps } from './cardEmptyState';
+import { CardEmptyState, type ICardEmptyStateProps } from './cardEmptyState';
 
 describe('<CardEmptyState /> component', () => {
-    const createTestComponent = (props?: Partial<CardEmptyStateProps>) => {
+    const createTestComponent = (props?: Partial<ICardEmptyStateProps>) => {
         const commonProps = {
             heading: 'test-heading',
         };
