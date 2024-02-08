@@ -16,3 +16,4 @@ export * from './switch';
 export * from './tag';
 export * from './textAreas';
 export * from './toggles';
+export * from './tooltip';
