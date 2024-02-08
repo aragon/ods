@@ -1,7 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 
 import { CardEmptyState } from '.';
-import { IconType } from '../../icon';
 
 const meta: Meta<typeof CardEmptyState> = {
     title: 'components/Cards/CardEmptyState',
@@ -18,89 +17,15 @@ const meta: Meta<typeof CardEmptyState> = {
 type Story = StoryObj<typeof CardEmptyState>;
 
 /**
- * Default EmptyState component with minimum props.
+ * Default EmptyStateCard component with minimum props.
+ *
+ * **Note:** see <EmptyState /> for more details on implementation of layout.
  */
 export const Default: Story = {
     args: {
         heading: 'Heading',
         description: 'Description',
         objectIllustration: { object: 'LIGHTBULB' },
-    },
-};
-
-/**
- * Stacked EmptyState component with full props examples for Object Illustration.
- */
-export const StackedFullWithObject: Story = {
-    args: {
-        heading: 'Heading',
-        description: 'Description',
-        objectIllustration: { object: 'LIGHTBULB' },
-        primaryButton: {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-            onClick: () => alert('Primary Button Clicked'),
-        },
-        secondaryButton: {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-            onClick: () => alert('Secondary Button Clicked'),
-        },
-    },
-};
-/**
- * Non-Stacked EmptyState component with full props examples for Object Illustration. <br />
- * **Warning:** Non-Stacked EmptyState with Human Illustration is not supported visually.
- * As displayed, use an object illustration instead for best layout.
- */
-export const NonStackedFullWithObject: Story = {
-    args: {
-        heading: 'Heading',
-        description: 'Description',
-        isStacked: false,
-        objectIllustration: { object: 'LIGHTBULB' },
-        primaryButton: {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-            onClick: () => alert('Primary Button Clicked'),
-        },
-        secondaryButton: {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-            onClick: () => alert('Secondary Button Clicked'),
-        },
-    },
-};
-/**
- * Stacked EmptyState component with full props examples for Human Illustation.
- */
-export const StackedFullWithHuman: Story = {
-    args: {
-        heading: 'Heading',
-        description: 'Description',
-        humanIllustration: {
-            body: 'VOTING',
-            hairs: 'MIDDLE',
-            accessory: 'EARRINGS_RHOMBUS',
-            sunglasses: 'BIG_ROUNDED',
-            expression: 'SMILE',
-        },
-        primaryButton: {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-            onClick: () => alert('Primary Button Clicked'),
-        },
-        secondaryButton: {
-            label: 'Label',
-            iconLeft: IconType.ADD,
-            iconRight: IconType.CHEVRON_RIGHT,
-            onClick: () => alert('Secondary Button Clicked'),
-        },
     },
 };
 
