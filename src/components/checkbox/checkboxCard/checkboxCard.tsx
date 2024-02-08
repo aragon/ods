@@ -30,11 +30,13 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
     // Generate random id if id property is not set
     const randomId = useId();
     const processedId = id ?? randomId;
+    const labelId = `${processedId}-label`;
 
     return (
         <RadixCheckbox.Root
             id={processedId}
             ref={ref}
+            aria-labelledby={labelId}
             className={classNames(
                 'group flex h-16 grow flex-row items-center gap-3 md:h-20', // Layout
                 'rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 md:gap-4 md:px-6 md:py-4', // Style
@@ -49,14 +51,15 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
         >
             {avatar && <Avatar size="sm" responsiveSize={{ md: 'md' }} src={avatar} />}
             <div className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-sm font-normal leading-tight md:gap-1 md:text-base">
-                <label
+                <p
+                    id={processedId}
                     className={classNames(
                         'max-w-full cursor-pointer truncate text-neutral-800 group-data-[state=unchecked]:text-neutral-500',
                         'group-data-[disabled]:cursor-default group-data-[disabled]:group-data-[state=unchecked]:text-neutral-300',
                     )}
                 >
                     {label}
-                </label>
+                </p>
                 <p className="max-w-full truncate text-neutral-500 group-data-[disabled]:text-neutral-300">
                     {description}
                 </p>
