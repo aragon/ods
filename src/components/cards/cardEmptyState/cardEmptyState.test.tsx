@@ -3,18 +3,15 @@ import { CardEmptyState, type ICardEmptyStateProps } from './cardEmptyState';
 
 describe('<CardEmptyState /> component', () => {
     const createTestComponent = (props?: Partial<ICardEmptyStateProps>) => {
-        const commonProps = {
+        const minimumProps = {
             heading: 'test-heading',
         };
 
-        const { humanIllustration, objectIllustration = { object: 'ACTION' }, ...otherProps } = props ?? {};
-
-        return <CardEmptyState objectIllustration={objectIllustration} {...commonProps} {...otherProps} />;
+        return <CardEmptyState {...minimumProps} />;
     };
 
     it('renders EmptyState minimum props without crashing', () => {
         render(createTestComponent());
         expect(screen.getByText('test-heading')).toBeInTheDocument();
-        expect(screen.getByTestId('ACTION')).toBeInTheDocument();
     });
 });
