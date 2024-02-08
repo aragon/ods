@@ -19,7 +19,7 @@ export interface ITagProps {
 }
 
 const variantToClassName: Record<TagVariant, string> = {
-    neutral: 'bg-neutral-100 text-neutral-600',
+    neutral: 'bg-neutral-100 text-neutral-800',
     info: 'bg-info-200 text-info-800',
     warning: 'bg-warning-200 text-warning-800',
     critical: 'bg-critical-200 text-critical-800',
