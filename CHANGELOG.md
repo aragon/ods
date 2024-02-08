@@ -14,7 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Export all component types
 -   Handle style transitions on `ActionItem` and `Button` components
 -   Property `defaultValue` to `ToggleGroup` component to set an initial value for uncontrolled usage
--   `shadow-info` Tailwind CSS utility class and documentation
+-   `shadow-info` Tailwind CSS utility class and documentationonents
+-   Ref forwarding to `InputNumber`, `InputSearch`, `InputText` and `TextArea` components
 
 ### Fixed
 
