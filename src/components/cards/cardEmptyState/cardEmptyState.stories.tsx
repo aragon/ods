@@ -9,7 +9,7 @@ const meta: Meta<typeof CardEmptyState> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=10055-28606&mode=design&t=dehPZplRn0YEdOuB-4',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=10157-27012',
         },
     },
 };
@@ -23,7 +23,6 @@ type Story = StoryObj<typeof CardEmptyState>;
 export const Default: Story = {
     args: {
         heading: 'Heading',
-        objectIllustration: { object: 'LIGHTBULB' },
     },
 };
 
