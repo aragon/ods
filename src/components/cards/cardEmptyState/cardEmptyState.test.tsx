@@ -7,7 +7,7 @@ describe('<CardEmptyState /> component', () => {
             heading: 'test-heading',
         };
 
-        return <CardEmptyState {...minimumProps} />;
+        return <CardEmptyState {...minimumProps} {...props} />;
     };
 
     it('renders EmptyState minimum props without crashing', () => {
