@@ -9,8 +9,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+<<<<<<< HEAD
+
 -   Implement `CardEmptyState`, `EmptyState`, `Checkbox`, `CheckboxGroup`, `RadioGroup`, `Radio`, and `RadioCard`
-    components
+    components =======
+-   Implement `CardEmptyState`, `EmptyState`, `Checkbox`, `CheckboxGroup`, `CheckboxCard`, `RadioGroup`, `Radio`, and
+    `RadioCard` components
+-   Export all component types
+    > > > > > > > b580ea78bcc884eead9b44c5af3d350e3bb7b8df
 
 ## [1.0.11] - 2024-02-06
 

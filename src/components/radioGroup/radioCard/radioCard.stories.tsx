@@ -6,6 +6,9 @@ const meta: Meta<typeof RadioCard> = {
     title: 'components/RadioGroup/RadioCard',
     component: RadioCard,
     tags: ['autodocs'],
+    argTypes: {
+        disabled: { control: 'boolean' },
+    },
     parameters: {
         design: {
             type: 'figma',
