@@ -3,7 +3,7 @@ import type React from 'react';
 import { type HTMLAttributes } from 'react';
 
 import { Icon } from '../../icon';
-import { alertVariantToIconType, type AlertVariant } from '../utils';
+import { alertVariantToIconType, type AlertVariant } from '../alertUtils';
 
 export interface IAlertInlineProps extends HTMLAttributes<HTMLDivElement> {
     /**

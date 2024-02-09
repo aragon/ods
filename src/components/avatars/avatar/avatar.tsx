@@ -5,7 +5,7 @@ import { useState, type ComponentPropsWithoutRef, type ReactNode } from 'react';
 import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../../types';
 import { responsiveUtils } from '../../../utils';
 
-type AvatarSize = 'sm' | 'md' | 'lg';
+export type AvatarSize = 'sm' | 'md' | 'lg';
 
 export interface IAvatarProps extends ComponentPropsWithoutRef<'img'> {
     /**

@@ -6,8 +6,8 @@ import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../.
 import { responsiveUtils } from '../../../utils';
 import { Icon, type IconType } from '../../icon';
 
-type AvatarIconSize = 'sm' | 'md' | 'lg';
-type AvatarIconVariant = 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'critical';
+export type AvatarIconSize = 'sm' | 'md' | 'lg';
+export type AvatarIconVariant = 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'critical';
 
 export interface IAvatarIconProps extends HTMLAttributes<HTMLDivElement> {
     /**
