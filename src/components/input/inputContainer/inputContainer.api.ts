@@ -1,5 +1,5 @@
 import type { ComponentPropsWithRef, InputHTMLAttributes, ReactNode } from 'react';
-import type { AlertVariant } from '../../alerts/utils';
+import type { AlertVariant } from '../../alerts';
 
 export type InputVariant = 'default' | 'warning' | 'critical';
 

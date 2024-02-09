@@ -45,7 +45,7 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
         'data-[state=checked]:border-primary-400 data-[state=checked]:shadow-primary', // checked
         'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
         'hover:border-neutral-200 hover:shadow-neutral-md hover:data-[state=checked]:shadow-primary-md', // hover
-        'disabled:border-neutral-300 disabled:bg-neutral-100 disabled:shadow-none', // disabled
+        'disabled:border-neutral-200 disabled:bg-neutral-100 disabled:shadow-none', // disabled
         'disabled:data-[state=checked]:border-neutral-300 disabled:data-[state=checked]:shadow-none', // disabled & checked
         className,
     );
@@ -68,7 +68,7 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
             {...rest}
         >
             <div className="flex h-full items-center gap-x-3 md:gap-x-4">
-                {avatar && <Avatar responsiveSize={{ sm: 'sm', md: 'md' }} src={avatar} className="" />}
+                {avatar && <Avatar size="sm" responsiveSize={{ md: 'md' }} src={avatar} />}
                 <div className="flex min-w-0 flex-1 gap-x-0.5 md:gap-x-4">
                     <div className="flex min-w-0 flex-1 flex-col gap-y-0.5 md:gap-y-1">
                         <p className={labelClasses} id={labelId}>
@@ -76,7 +76,7 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
                         </p>
                         <p className={baseTextClasses}>{description}</p>
                     </div>
-                    {tag?.label && <Tag {...tag} />}
+                    {tag && <Tag {...tag} />}
                 </div>
                 <span className="h-full">
                     <Icon

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Checkbox } from '../checkbox';
+import { CheckboxCard } from '../checkboxCard';
 import { CheckboxGroup } from './checkboxGroup';
 
 const meta: Meta<typeof CheckboxGroup> = {
@@ -25,6 +26,34 @@ export const Default: Story = {
             <Checkbox label="First" />
             <Checkbox label="Second" />
             <Checkbox label="Third" />
+        </CheckboxGroup>
+    ),
+};
+
+/**
+ * Usage of the CheckboxGroup component with CheckboxCard variant.
+ */
+export const CheckboxCardVariant: Story = {
+    render: (props) => (
+        <CheckboxGroup {...props}>
+            <CheckboxCard
+                label="First label"
+                description="First description"
+                avatar="first"
+                tag={{ label: 'First', variant: 'info' }}
+            />
+            <CheckboxCard
+                label="Second label"
+                description="Longer description for second checkbox"
+                avatar="second"
+                tag={{ label: 'Second', variant: 'warning' }}
+            />
+            <CheckboxCard
+                label="Third label"
+                description="First description"
+                avatar="third"
+                tag={{ label: 'First', variant: 'primary' }}
+            />
         </CheckboxGroup>
     ),
 };
