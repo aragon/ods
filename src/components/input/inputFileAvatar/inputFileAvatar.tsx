@@ -1,98 +1,120 @@
 import classNames from 'classnames';
-import { useCallback, useRef, useState } from 'react';
-import { SelectState, type IInputFileAvatarProps } from '.';
+import { useCallback, useState } from 'react';
+import { ErrorCode, useDropzone, type FileRejection } from 'react-dropzone';
 import { Avatar } from '../../avatars';
 import { Icon, IconType } from '../../icon';
 import { Spinner } from '../../spinner';
 import { useInputProps } from '../hooks';
 import { InputContainer } from '../inputContainer';
 import { type IInputContainerAlert } from '../inputContainer/inputContainer.api';
+import { SelectState, type IInputFileAvatarProps } from './inputFileAvatar.api';
 
-export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({ onFileSelect, ...otherProps }) => {
+export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
+    onFileSelect,
+    maxFileSize = 2,
+    minDimension = 100,
+    maxDimension = 1000,
+    onlySquare = true,
+    ...otherProps
+}) => {
     const [selectState, setSelectState] = useState<SelectState>(SelectState.IDLE);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [selectError, setSelectError] = useState<IInputContainerAlert | undefined>(undefined);
 
-    const fileInputRef = useRef<HTMLInputElement>(null);
-
     const { containerProps } = useInputProps(otherProps);
     const { id, alert, isDisabled, ...otherContainerProps } = containerProps;
 
-    /**
-     * adjust the first nubmer to change the max file size by megabyte
-     */
-    const MAX_FILE_SIZE = 2 * 1024 ** 2;
-    const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'image/gif'];
+    const MAX_FILE_SIZE = maxFileSize * 1024 ** 2;
+    const ALLOWED_FILE_TYPES = { 'image/*': ['.png', '.jpeg', '.jpg'] };
     const ERROR_MESSAGES = {
-        TOO_LARGE: 'File is too large. Max size is 2 MiB.',
-        FILE_TYPE: 'Invalid file type. Only JPEG and PNG are allowed.',
-        FAILED: 'Selection failed. Please try again.',
+        TOO_LARGE: `Max file size is ${maxFileSize} MiB.`,
+        FILE_TYPE: 'Only JPEG and PNG accepted.',
+        QUANTITY: 'Only one file can be uploaded at a time.',
+        WRONG_DIMENSION: 'Image must be square, 100px ↔ 1000px.',
+        FAILED: 'Image selection failed. Please try again.',
     };
+
     const setCriticalSelectError = (message: string) => {
         setSelectError({ message, variant: 'critical' });
     };
 
-    const handleAvatarClick = useCallback(() => {
-        /** remove success state to route user to cancel button
-         * as only means to reselect after success
-         * see below regarding event propogation
-         */
-        if (
-            selectState === SelectState.IDLE ||
-            selectState === SelectState.ERROR ||
-            selectState === SelectState.SUCCESS
-        ) {
-            fileInputRef.current?.click();
-        }
-    }, [selectState]);
-
-    const handleFileChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (!file) {
-            if (event.target) {
-                event.target.value = '';
+    const onDrop = useCallback(
+        (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
+            if (acceptedFiles.length > 1 || rejectedFiles.length > 1) {
+                setCriticalSelectError(ERROR_MESSAGES.QUANTITY);
+                setSelectState(SelectState.ERROR);
+                return;
             }
-            return;
-        }
 
-        if (file.size > MAX_FILE_SIZE) {
-            setCriticalSelectError(ERROR_MESSAGES.TOO_LARGE);
-            setSelectState(SelectState.ERROR);
-            return;
-        }
+            let errorMessage = '';
 
-        if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-            setCriticalSelectError(ERROR_MESSAGES.FILE_TYPE);
-            setSelectState(SelectState.ERROR);
-            return;
-        }
+            if (rejectedFiles.length > 0) {
+                const errors = rejectedFiles[0].errors;
 
-        onFileSelect?.(file);
+                if (errors.some((error) => error.code === ErrorCode.FileInvalidType)) {
+                    errorMessage = ERROR_MESSAGES.FILE_TYPE;
+                } else if (errors.some((error) => error.code === ErrorCode.FileTooLarge)) {
+                    errorMessage = ERROR_MESSAGES.TOO_LARGE;
+                } else {
+                    errorMessage = ERROR_MESSAGES.FAILED;
+                }
 
-        const previewUrl = URL.createObjectURL(file);
-        setImagePreview(previewUrl);
+                if (errorMessage !== '') {
+                    setCriticalSelectError(errorMessage);
+                    setSelectState(SelectState.ERROR);
+                    return;
+                }
+            }
 
-        setSelectState(SelectState.SELECTING);
-        setSelectError(undefined);
-        // TODO: Implement the file select logic
-        // Simulate select process
+            const file = acceptedFiles[0];
 
-        setSelectState(SelectState.SUCCESS);
-        setSelectError(undefined);
+            setSelectState(SelectState.SELECTING);
+            const image = new Image();
+            const onImageLoad = () => {
+                if (
+                    (maxDimension && (image.width > maxDimension || image.height > maxDimension)) ||
+                    (minDimension && (image.width < minDimension || image.height < minDimension)) ||
+                    (onlySquare && image.height !== image.width)
+                ) {
+                    setCriticalSelectError(ERROR_MESSAGES.WRONG_DIMENSION);
+                    setSelectState(SelectState.ERROR);
+                } else {
+                    setImagePreview(image.src);
+                    setSelectState(SelectState.SUCCESS);
+                    setSelectError(undefined);
+                    onFileSelect?.(file);
+                }
+            };
 
-        event.target.value = '';
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+            image.addEventListener('load', onImageLoad);
+            image.addEventListener('error', () => {
+                setCriticalSelectError(ERROR_MESSAGES.FAILED);
+                setSelectState(SelectState.ERROR);
+            });
+
+            image.src = URL.createObjectURL(file);
+        },
+        [
+            ERROR_MESSAGES.FAILED,
+            ERROR_MESSAGES.FILE_TYPE,
+            ERROR_MESSAGES.QUANTITY,
+            ERROR_MESSAGES.TOO_LARGE,
+            ERROR_MESSAGES.WRONG_DIMENSION,
+            maxDimension,
+            minDimension,
+            onFileSelect,
+            onlySquare,
+        ],
+    );
+
+    const { getRootProps, getInputProps } = useDropzone({
+        accept: ALLOWED_FILE_TYPES,
+        ...(maxFileSize > 0 && { maxSize: MAX_FILE_SIZE }),
+        disabled: isDisabled ?? selectState === SelectState.SELECTING,
+    });
 
     const handleCancel = (event: React.MouseEvent<HTMLButtonElement>) => {
-        /** Prevent the file input from opening on cancel after success,
-         * we can adjust for UX, but avatar is optional currently,
-         * see above regarding success state for direct retry  */
         event.stopPropagation();
-
-        if (fileInputRef.current) {
-            fileInputRef.current.value = '';
-        }
         setImagePreview(null);
         setSelectState(SelectState.IDLE);
         if (imagePreview) {
@@ -117,13 +139,16 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({ onFileSelect,
     return (
         <>
             <InputContainer id={id} alert={selectError} invisible {...otherContainerProps}>
-                <button className={selecterVariantStateClasses} onClick={handleAvatarClick} aria-label="Select File">
+                <div {...getRootProps()} className={selecterVariantStateClasses} aria-label="Select File">
+                    <input {...getInputProps()} id={id} type="file" className="hidden" />
                     {selectState === SelectState.SUCCESS && imagePreview ? (
                         <div className="relative">
-                            <Avatar src={imagePreview} size="lg" />
+                            <Avatar src={imagePreview} size="lg" className="cursor-pointer" />
                             <button
                                 onClick={handleCancel}
-                                className="absolute -right-1 -top-1 cursor-pointer rounded-full bg-neutral-0 p-1 shadow-neutral focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset"
+                                className={classNames(
+                                    'absolute -right-1 -top-1 cursor-pointer rounded-full bg-neutral-0 p-1 shadow-neutral focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
+                                )}
                                 aria-label="Cancel Selection"
                             >
                                 <Icon icon={IconType.CLOSE} size="sm" />
@@ -148,16 +173,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({ onFileSelect,
                             )}
                         </>
                     )}
-                </button>
-                <input
-                    id={id}
-                    type="file"
-                    aria-label="Avatar Image Select"
-                    className="hidden"
-                    ref={fileInputRef}
-                    onChange={handleFileChange}
-                    disabled={selectState === 'selecting' || isDisabled}
-                />
+                </div>
             </InputContainer>
         </>
     );
