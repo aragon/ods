@@ -4,6 +4,7 @@ export * from './avatars';
 export * from './button';
 export * from './cards';
 export * from './checkbox';
+export * from './dropdown';
 export * from './icon';
 export * from './illustrations';
 export * from './input';
