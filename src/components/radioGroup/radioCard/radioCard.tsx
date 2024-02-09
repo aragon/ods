@@ -45,7 +45,7 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
         'data-[state=checked]:border-primary-400 data-[state=checked]:shadow-primary', // checked
         'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
         'hover:border-neutral-200 hover:shadow-neutral-md hover:data-[state=checked]:shadow-primary-md', // hover
-        'disabled:border-neutral-300 disabled:bg-neutral-100 disabled:shadow-none', // disabled
+        'disabled:border-neutral-200 disabled:bg-neutral-100 disabled:shadow-none', // disabled
         'disabled:data-[state=checked]:border-neutral-300 disabled:data-[state=checked]:shadow-none', // disabled & checked
         className,
     );

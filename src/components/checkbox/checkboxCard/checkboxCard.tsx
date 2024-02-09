@@ -39,12 +39,13 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
             aria-labelledby={labelId}
             className={classNames(
                 'group flex h-16 grow flex-row items-center gap-3 md:h-20', // Layout
-                'rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 md:gap-4 md:px-6 md:py-4', // Style
+                'rounded-xl border bg-neutral-0 px-4 py-3 md:gap-4 md:px-6 md:py-4', // Style
                 'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // Focus
-                'hover:border-neutral-200 hover:shadow-neutral-md', // Hover
-                'data-[state=checked]:enabled:border-primary-400 data-[state=checked]:enabled:shadow-primary', // Checked
-                'data-[state=checked]:hover:enabled:shadow-primary-md', // Checked hover
-                'disabled:border-neutral-200 disabled:bg-neutral-100 disabled:shadow-none', // Disabled
+                'border-primary-400 shadow-primary hover:shadow-primary-md', // Checked/indeterminate & hover
+                'data-[state=unchecked]:enabled:border-neutral-100 data-[state=unchecked]:enabled:shadow-none', // Unchecked
+                'data-[state=unchecked]:enabled:hover:shadow-neutral-md', // Unchecked hover
+                'disabled:border-neutral-300 disabled:bg-neutral-100 disabled:shadow-none', // Checked/indeterminate & disabled
+                'disabled:data-[state=unchecked]:border-neutral-200', // Disabled & unchecked
                 className,
             )}
             {...otherProps}
