@@ -21,7 +21,9 @@ type Story = StoryObj<typeof Dropdown.Container>;
 export const Default: Story = {
     render: (props: IDropdownContainerProps) => (
         <Dropdown.Container {...props}>
-            <Dropdown.Item />
+            <Dropdown.Item>First item</Dropdown.Item>
+            <Dropdown.Item>Second item</Dropdown.Item>
+            <Dropdown.Item>Third item with a longer label</Dropdown.Item>
         </Dropdown.Container>
     ),
     args: {

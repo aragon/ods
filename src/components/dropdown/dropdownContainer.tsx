@@ -10,13 +10,37 @@ export interface IDropdownContainerProps extends RadixDropdown.DropdownMenuProps
      */
     size?: IButtonProps['size'];
     /**
+     * Size of the dropdown trigger depending on the current breakpoint.
+     */
+    responsiveSize?: IButtonProps['responsiveSize'];
+    /**
      * Label of the dropdown trigger.
      */
-    label: string;
+    label?: string;
+    /**
+     * Hides the dropdown trigger icon when set to true. This property has no effect when the label property
+     * is not set or is empty.
+     */
+    hideIcon?: boolean;
+    /**
+     * Disabled the dropdown when set to true.
+     */
+    disabled?: boolean;
 }
 
 export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
-    const { children, size = 'lg', label, defaultOpen, open, onOpenChange, ...otherProps } = props;
+    const {
+        children,
+        size = 'lg',
+        responsiveSize,
+        label,
+        defaultOpen,
+        hideIcon,
+        open,
+        onOpenChange,
+        disabled,
+        ...otherProps
+    } = props;
 
     const [isOpen, setIsOpen] = useState(open ?? defaultOpen);
 
@@ -25,20 +49,32 @@ export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
         onOpenChange?.(open);
     };
 
+    const triggerIcon = isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN;
+    const hasLabel = label != null && label.length > 0;
+
     return (
         <RadixDropdown.Root open={open} defaultOpen={defaultOpen} onOpenChange={handleOpenChange} {...otherProps}>
-            <RadixDropdown.Trigger className="group" asChild={true}>
+            <RadixDropdown.Trigger className="group" asChild={true} disabled={disabled}>
                 <Button
-                    className="group-[state=open]:hidden"
                     variant="tertiary"
                     size={size}
-                    iconRight={isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN}
+                    responsiveSize={responsiveSize}
+                    iconLeft={!hasLabel ? triggerIcon : undefined}
+                    iconRight={hideIcon ? undefined : triggerIcon}
+                    state={disabled ? 'disabled' : undefined}
+                    className={isOpen ? 'border-neutral-300' : undefined}
                 >
                     {label}
                 </Button>
             </RadixDropdown.Trigger>
             <RadixDropdown.Portal>
-                <RadixDropdown.Content>{children}</RadixDropdown.Content>
+                <RadixDropdown.Content
+                    className="min-w-60 rounded-xl border border-neutral-100 bg-neutral-0 p-2 shadow-neutral-sm"
+                    align="start"
+                    sideOffset={hasLabel ? 0 : 4}
+                >
+                    {children}
+                </RadixDropdown.Content>
             </RadixDropdown.Portal>
         </RadixDropdown.Root>
     );
