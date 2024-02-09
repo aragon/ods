@@ -1,11 +1,20 @@
-import { Arrow, Content, Portal, Provider, Root, Trigger, type TooltipProps } from '@radix-ui/react-tooltip';
+import {
+    Arrow,
+    Content,
+    Portal,
+    Provider,
+    Root,
+    Trigger,
+    type TooltipContentProps,
+    type TooltipProps,
+} from '@radix-ui/react-tooltip';
 import classNames from 'classnames';
 import type React from 'react';
 import { type ReactNode } from 'react';
 
 export type TooltipVariant = 'neutral' | 'info' | 'warning' | 'critical' | 'success';
 
-export interface ITooltipProps extends Omit<TooltipProps, 'disableHoverableContent'> {
+export interface ITooltipProps extends Omit<TooltipProps, 'asChild'>, Omit<TooltipContentProps, 'content' | 'asChild'> {
     /**
      * Content of the tooltip
      */
@@ -34,24 +43,48 @@ const variantToContentClassName: Record<TooltipVariant, string> = {
     warning: 'bg-warning-300 text-warning-900 shadow-warning-md',
 };
 
+/**
+ * `Tooltip` component
+ *
+ * This component is based on the Radix-UI tooltip implementation.
+ * An exhaustive list of its properties can be found in the corresponding Radix primitive
+ * [documentation](https://www.radix-ui.com/primitives/docs/components/tooltip).
+ */
 export const Tooltip: React.FC<ITooltipProps> = (props) => {
-    const { children, content, open, defaultOpen, variant = 'neutral', onOpenChange, ...contentProps } = props;
+    const {
+        children,
+        content,
+        open,
+        defaultOpen,
+        delayDuration,
+        disableHoverableContent,
+        variant = 'neutral',
+        onOpenChange,
+        ...contentProps
+    } = props;
 
     return (
         <Provider>
-            <Root open={true} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
+            <Root
+                open={true}
+                defaultOpen={defaultOpen}
+                onOpenChange={onOpenChange}
+                delayDuration={delayDuration}
+                disableHoverableContent={disableHoverableContent}
+            >
                 <Trigger>{children}</Trigger>
                 <Portal>
                     <Content
                         className={classNames(
                             variantToContentClassName[variant],
                             'flex min-h-6 items-center rounded px-1.5 text-sm font-semibold leading-tight',
+                            contentProps.className,
                         )}
                         sideOffset={1}
                         {...contentProps}
                     >
                         {content}
-                        <Arrow className={classNames(variantToArrowFill[variant], 'h-1 w-3 shadow-neutral-md')} />
+                        <Arrow className={classNames(variantToArrowFill[variant], 'h-1 w-3')} />
                     </Content>
                 </Portal>
             </Root>
