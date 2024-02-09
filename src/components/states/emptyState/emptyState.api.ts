@@ -1,4 +1,4 @@
-import type { IButtonBaseProps, IButtonElementProps } from '../../button/button.api';
+import type { IButtonBaseProps, IButtonElementProps } from '../../button';
 import type { IIllustrationHumanProps, IIllustrationObjectProps } from '../../illustrations';
 
 export interface IEmptyStateBaseProps {

@@ -1,2 +1,10 @@
 export { Button } from './button';
-export type { IButtonProps } from './button.api';
+export type {
+    ButtonContext,
+    ButtonSize,
+    ButtonState,
+    ButtonVariant,
+    IButtonBaseProps,
+    IButtonElementProps,
+    IButtonProps,
+} from './button.api';

@@ -1,1 +1,1 @@
-export * from './avatar';
+export { Avatar, type AvatarSize, type IAvatarProps } from './avatar';
