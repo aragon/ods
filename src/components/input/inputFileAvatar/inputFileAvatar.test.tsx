@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useDropzone } from 'react-dropzone';
 import { InputFileAvatar } from './inputFileAvatar';
 import { type IInputFileAvatarProps } from './inputFileAvatar.api';
@@ -121,6 +121,31 @@ describe('<InputFileAvatar /> Integration with react-dropzone', () => {
 
         await waitFor(() => {
             expect(screen.getByText(/Only JPEG and PNG images accepted./i)).toBeInTheDocument();
+        });
+    });
+
+    it('properly cancels the file selection and returns to the initial state', async () => {
+        // Render the component
+        render(createTestComponent());
+
+        // Simulate selecting a valid file to get into a success or error state
+        const file = new File(['(⌐□_□)'], 'chucknorris.png', { type: 'image/png' });
+        const mockOnDrop = (useDropzone as jest.Mock).mock.calls[0][0].onDrop;
+        mockOnDrop([file], []);
+
+        // Wait for the file preview to be displayed indicating a successful selection
+        await waitFor(() => {
+            expect(screen.getByTestId('avatar')).toHaveAttribute('src', expect.stringContaining('mock-url'));
+        });
+
+        await waitFor(() => {
+            expect(screen.getByLabelText('Cancel Selection')).toBeInTheDocument();
+        });
+
+        fireEvent.click(screen.getByLabelText('Cancel Selection'));
+
+        await waitFor(() => {
+            expect(screen.queryByTestId('avatar')).not.toBeInTheDocument(); // Ensure the avatar preview is removed
         });
     });
 });
