@@ -24,7 +24,7 @@ export interface IInputFileAvatarProps
     /**
      * Function that is called when a file is selected. Passes the file to the parent component.
      * If the file is rejected, the function is not called.
-     * If the file is accepted, the function is called with the file as an argument
+     * If the file is accepted, the function is called with the file as an argument.
      */
     onFileSelect?: (file: File) => void;
     /**
@@ -32,11 +32,11 @@ export interface IInputFileAvatarProps
      */
     maxFileSize?: number;
     /**
-     * Minimum dimension of the image in pixels. Default is 100.
+     * Minimum dimension of the image in pixels. Default is 100. Set to 0 to disable min dimension validation.
      */
     minDimension?: number;
     /**
-     * Maximum dimension of the image in pixels. Default is 1000.
+     * Maximum dimension of the image in pixels. Default is 1000. Set to 0 to disable max dimension validation.
      */
     maxDimension?: number;
     /**

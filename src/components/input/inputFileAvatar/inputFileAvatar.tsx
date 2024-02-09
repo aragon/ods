@@ -28,9 +28,10 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
     const ALLOWED_FILE_TYPES = { 'image/*': ['.png', '.jpeg', '.jpg'] };
     const ERROR_MESSAGES = {
         TOO_LARGE: `Max file size is ${maxFileSize} MiB.`,
-        FILE_TYPE: 'Only JPEG and PNG accepted.',
+        FILE_TYPE: 'Only JPEG and PNG images accepted.',
         QUANTITY: 'Only one file can be uploaded at a time.',
-        WRONG_DIMENSION: 'Image must be square, 100px ↔ 1000px.',
+        ONLY_SQUARE: `Must be square dimensions, ${minDimension}px ↔ ${maxDimension}px`,
+        WRONG_DIMENSION: `Either dimension must be ${minDimension}px ↔ ${maxDimension}px.`,
         FAILED: 'Image selection failed. Please try again.',
     };
 
@@ -68,14 +69,16 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
 
             const file = acceptedFiles[0];
 
-            setSelectState(SelectState.SELECTING);
             const image = new Image();
             const onImageLoad = () => {
-                if (
-                    (maxDimension && (image.width > maxDimension || image.height > maxDimension)) ||
-                    (minDimension && (image.width < minDimension || image.height < minDimension)) ||
-                    (onlySquare && image.height !== image.width)
-                ) {
+                const isBelowMinDimension =
+                    minDimension > 0 && (image.width < minDimension || image.height < minDimension);
+                const isAboveMaxDimension =
+                    maxDimension > 0 && (image.width > maxDimension || image.height > maxDimension);
+                if (onlySquare && image.height !== image.width) {
+                    setCriticalSelectError(ERROR_MESSAGES.ONLY_SQUARE);
+                    setSelectState(SelectState.ERROR);
+                } else if (isBelowMinDimension || isAboveMaxDimension) {
                     setCriticalSelectError(ERROR_MESSAGES.WRONG_DIMENSION);
                     setSelectState(SelectState.ERROR);
                 } else {
@@ -91,7 +94,6 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
                 setCriticalSelectError(ERROR_MESSAGES.FAILED);
                 setSelectState(SelectState.ERROR);
             });
-
             image.src = URL.createObjectURL(file);
         },
         [
@@ -100,6 +102,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
             ERROR_MESSAGES.QUANTITY,
             ERROR_MESSAGES.TOO_LARGE,
             ERROR_MESSAGES.WRONG_DIMENSION,
+            ERROR_MESSAGES.ONLY_SQUARE,
             maxDimension,
             minDimension,
             onFileSelect,
@@ -111,6 +114,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
         accept: ALLOWED_FILE_TYPES,
         ...(maxFileSize > 0 && { maxSize: MAX_FILE_SIZE }),
         disabled: isDisabled ?? selectState === SelectState.SELECTING,
+        onDrop,
     });
 
     const handleCancel = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -140,10 +144,10 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
         <>
             <InputContainer id={id} alert={selectError} invisible {...otherContainerProps}>
                 <div {...getRootProps()} className={selecterVariantStateClasses} aria-label="Select File">
-                    <input {...getInputProps()} id={id} type="file" className="hidden" />
+                    <input {...getInputProps()} id={id} type="file" aria-label="Avatar Image Select" />
                     {selectState === SelectState.SUCCESS && imagePreview ? (
                         <div className="relative">
-                            <Avatar src={imagePreview} size="lg" className="cursor-pointer" />
+                            <Avatar src={imagePreview} size="lg" className="cursor-pointer" data-testid="avatar" />
                             <button
                                 onClick={handleCancel}
                                 className={classNames(
