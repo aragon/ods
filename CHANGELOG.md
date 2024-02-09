@@ -9,7 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `EmptyState`, `Checkbox`, `CheckboxGroup`, `RadioGroup`, `Radio`, and `RadioCard` components
+-   Implement `EmptyState`, `Checkbox`, `CheckboxGroup`, `CheckboxCard`, `RadioGroup`, `Radio`, and `RadioCard`
+    components
 -   Export all component types
 
 ## [1.0.11] - 2024-02-06
