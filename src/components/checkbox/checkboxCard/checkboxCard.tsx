@@ -38,7 +38,7 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
             ref={ref}
             aria-labelledby={labelId}
             className={classNames(
-                'group flex h-16 flex-row items-center gap-3 md:h-20', // Layout
+                'group flex h-16 min-w-0 flex-row items-center gap-3 md:h-20', // Layout
                 'rounded-xl border bg-neutral-0 px-4 py-3 md:gap-4 md:px-6 md:py-4', // Style
                 'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // Focus
                 'border-primary-400 shadow-primary hover:shadow-primary-md', // Checked/indeterminate & hover
