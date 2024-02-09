@@ -14,7 +14,16 @@ type Story = StoryObj<typeof Tooltip>;
  */
 export const Default: Story = {
     args: {
-        label: 'Label',
+        content: 'Message',
+    },
+    render: (props) => {
+        return (
+            <div className="flex w-full justify-center">
+                <Tooltip {...props}>
+                    <p className="border p-2 text-primary-300">Hover over me!</p>
+                </Tooltip>
+            </div>
+        );
     },
     parameters: {
         design: {
