@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { CheckboxGroup } from '../checkboxGroup';
 import { CheckboxCard } from './checkboxCard';
 
 const meta: Meta<typeof CheckboxCard> = {
@@ -23,16 +22,25 @@ type Story = StoryObj<typeof CheckboxCard>;
  * Default usage of the CheckboxCard component
  */
 export const Default: Story = {
-    render: (props) => (
-        <CheckboxGroup>
-            <CheckboxCard {...props} />
-        </CheckboxGroup>
-    ),
+    render: (props) => <CheckboxCard {...props} />,
     args: {
         avatar: 'https://assets-global.website-files.com/5e997428d0f2eb13a90aec8c/63f47db62df04b569e4e004e_icon_aragon.svg',
         label: 'Checkbox label',
         description: 'Checkbox description',
         tag: { label: 'Tag', variant: 'info' },
+    },
+};
+
+/**
+ * CheckboxCard in indeterminate state
+ */
+export const IndeterminateState: Story = {
+    args: {
+        checked: 'indeterminate',
+        avatar: 'https://assets-global.website-files.com/5e997428d0f2eb13a90aec8c/63f47db62df04b569e4e004e_icon_aragon.svg',
+        label: 'Label',
+        description: 'Indeterminate checkbox',
+        tag: { label: 'Tag', variant: 'warning' },
     },
 };
 
