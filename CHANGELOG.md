@@ -11,8 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `CardEmptyState`, `EmptyState`, `Checkbox`, `CheckboxGroup`, `CheckboxCard`, `RadioGroup`, `Radio`, and
-    `RadioCard` components
+-   Implement `CardEmptyState`, `EmptyState`, `Checkbox`, `CheckboxGroup`, `CheckboxCard`, `RadioGroup`, `Radio`,
+    `RadioCard`, and `Tooltip` components
 -   Export all component types
 -   Handle style transitions on `ActionItem`, `Button` and `Toggle` components
 -   Property `defaultValue` to `ToggleGroup` component to set an initial value for uncontrolled usage
