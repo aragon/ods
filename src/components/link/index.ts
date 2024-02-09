@@ -1,2 +1,2 @@
 export { Link } from './link';
-export { ILinkProps, LinkVariant } from './link.api';
+export { type ILinkProps, type LinkVariant } from './link.api';

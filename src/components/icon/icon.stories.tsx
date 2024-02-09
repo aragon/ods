@@ -34,7 +34,9 @@ export const AvailableIcons: Story = {
         return (
             <div className="flex flex-row flex-wrap gap-5">
                 {Object.keys(IconType).map((iconType) => (
-                    <Icon key={iconType} icon={iconType as IconType} size="lg" />
+                    <div key={iconType} title={iconType}>
+                        <Icon icon={iconType as IconType} size="lg" />
+                    </div>
                 ))}
             </div>
         );
