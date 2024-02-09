@@ -66,7 +66,7 @@ export const Tooltip: React.FC<ITooltipProps> = (props) => {
     return (
         <Provider>
             <Root
-                open={true}
+                open={open}
                 defaultOpen={defaultOpen}
                 onOpenChange={onOpenChange}
                 delayDuration={delayDuration}
