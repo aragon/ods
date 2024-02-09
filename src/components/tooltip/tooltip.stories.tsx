@@ -6,6 +6,12 @@ const meta: Meta<typeof Tooltip> = {
     title: 'components/Tooltip',
     component: Tooltip,
     tags: ['autodocs'],
+    parameters: {
+        design: {
+            type: 'figma',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=12848-9526&mode=design&t=2jQprkV9RMKUhSN3-4',
+        },
+    },
 };
 
 type Story = StoryObj<typeof Tooltip>;
@@ -26,12 +32,6 @@ export const Default: Story = {
             </div>
         );
     },
-    parameters: {
-        design: {
-            type: 'figma',
-            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=12848-9526&mode=design&t=2jQprkV9RMKUhSN3-4',
-        },
-    },
 };
 
 const ControlledComponent = (props: ITooltipProps) => {
@@ -46,18 +46,15 @@ const ControlledComponent = (props: ITooltipProps) => {
     );
 };
 
+/**
+ * Controlled usage of the `Tooltip` component
+ */
 export const Controlled: Story = {
     args: {
         content: 'Message',
     },
     render: (props) => {
         return <ControlledComponent {...props} />;
-    },
-    parameters: {
-        design: {
-            type: 'figma',
-            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=12848-9526&mode=design&t=2jQprkV9RMKUhSN3-4',
-        },
     },
 };
 
