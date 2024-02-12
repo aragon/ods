@@ -69,7 +69,7 @@ export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
             </RadixDropdown.Trigger>
             <RadixDropdown.Portal>
                 <RadixDropdown.Content
-                    className="min-w-60 rounded-xl border border-neutral-100 bg-neutral-0 p-2 shadow-neutral-sm"
+                    className="flex min-w-60 flex-col gap-1.5 rounded-xl border border-neutral-100 bg-neutral-0 p-2 shadow-neutral-sm"
                     align="start"
                     sideOffset={hasLabel ? 0 : 4}
                 >

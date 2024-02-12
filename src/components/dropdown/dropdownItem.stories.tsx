@@ -2,9 +2,12 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Dropdown, type IDropdownItemProps } from './index';
 
 const meta: Meta<typeof Dropdown.Item> = {
-    title: 'components/Dropdown/DropdownItem',
+    title: 'components/Dropdown/Dropdown.Item',
     component: Dropdown.Item,
     tags: ['autodocs'],
+    argTypes: {
+        disabled: { control: 'boolean' },
+    },
     parameters: {
         design: {
             type: 'figma',
@@ -24,6 +27,9 @@ export const Default: Story = {
             <Dropdown.Item {...props} />
         </Dropdown.Container>
     ),
+    args: {
+        children: 'Dropdown item label',
+    },
 };
 
 export default meta;

@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { Dropdown, type IDropdownContainerProps } from './index';
 
 const meta: Meta<typeof Dropdown.Container> = {
-    title: 'components/Dropdown/DropdownContainer',
+    title: 'components/Dropdown/Dropdown.Container',
     component: Dropdown.Container,
     tags: ['autodocs'],
     parameters: {
@@ -28,6 +29,64 @@ export const Default: Story = {
     ),
     args: {
         label: 'Dropdown',
+    },
+};
+
+export const OnlyIcon: Story = {
+    render: (props: IDropdownContainerProps) => (
+        <Dropdown.Container {...props}>
+            <Dropdown.Item>Only icon item</Dropdown.Item>
+        </Dropdown.Container>
+    ),
+};
+
+const ControlledComponent = (props: IDropdownContainerProps) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <Dropdown.Container open={isOpen} onOpenChange={setIsOpen} {...props}>
+            <Dropdown.Item>Controlled item</Dropdown.Item>
+        </Dropdown.Container>
+    );
+};
+
+/**
+ * Controlled usage of the DropdownContainer component.
+ */
+export const Controlled: Story = {
+    render: (props: IDropdownContainerProps) => <ControlledComponent {...props} />,
+    args: {
+        label: 'Controlled dropdown',
+    },
+};
+
+const SelectionComponent = (props: IDropdownContainerProps) => {
+    const items = [
+        { id: 'all-daos', label: 'All DAOs' },
+        { id: 'members', label: 'Member of' },
+        { id: 'favourites', label: 'Favourites' },
+    ];
+
+    const [selectedItem, setSelectedItem] = useState(items[0].id);
+
+    return (
+        <Dropdown.Container {...props}>
+            {items.map(({ id, label }) => (
+                <Dropdown.Item key={id} active={selectedItem === id} onSelect={() => setSelectedItem(id)}>
+                    {label}
+                </Dropdown.Item>
+            ))}
+        </Dropdown.Container>
+    );
+};
+
+/**
+ * Use the `active` and `onSelect` properties of the <Dropdown.Item /> component to implement a selection dropdown.
+ */
+export const Selection: Story = {
+    render: (props: IDropdownContainerProps) => <SelectionComponent {...props} />,
+    args: {
+        label: 'Selection dropdown',
     },
 };
 
