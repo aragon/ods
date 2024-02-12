@@ -28,6 +28,10 @@ export interface IInputFileAvatarProps
      */
     onFileSelect?: (file: File) => void;
     /**
+     * Allowed file extensions. Default ['jpg', 'jpeg', 'png']
+     */
+    acceptedFileTypes?: Array<`.${string}`>;
+    /**
      * Maximum file size in MiB. The default 0 is unconstrained.
      */
     maxFileSize?: number;

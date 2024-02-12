@@ -15,6 +15,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
     minDimension = 0,
     maxDimension = 0,
     onlySquare = true,
+    acceptedFileTypes = ['.png', '.jpg', '.jpeg'],
     ...otherProps
 }) => {
     const [selectState, setSelectState] = useState<SelectState>(SelectState.IDLE);
@@ -24,11 +25,32 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
     const { containerProps } = useInputProps(otherProps);
     const { id, alert, isDisabled, ...otherContainerProps } = containerProps;
 
-    const MAX_FILE_SIZE = maxFileSize * 1024 ** 2;
-    const ALLOWED_FILE_TYPES = { 'image/*': ['.png', '.jpeg', '.jpg'] };
+    const MAX_FILE_SIZE_CALC = maxFileSize * 1024 ** 2;
+
+    const acceptableAvatarExtensions = (extensions: Array<`.${string}`>): Record<string, string[]> => {
+        const mimeTypes: Record<string, string[]> = {};
+
+        extensions.forEach((ext) => {
+            const normalizedExt = ext.substring(1).toLowerCase();
+
+            if (normalizedExt === 'jpg' || normalizedExt === 'jpeg') {
+                mimeTypes['image/jpeg'] = [];
+            } else {
+                mimeTypes[`image/${normalizedExt}`] = [];
+            }
+        });
+
+        return mimeTypes;
+    };
+
+    const generateFileTypeErrorMessage = (acceptedFileTypes: Array<`.${string}`>): string => {
+        const readableFileTypes = acceptedFileTypes.join(', ');
+        return `Only ${readableFileTypes} images accepted.`;
+    };
+
     const ERROR_MESSAGES = {
         TOO_LARGE: `Max file size is ${maxFileSize} MiB.`,
-        FILE_TYPE: 'Only JPEG and PNG images accepted.',
+        FILE_TYPE: generateFileTypeErrorMessage(acceptedFileTypes),
         QUANTITY: 'Only one file can be uploaded at a time.',
         ONLY_SQUARE: `Must be square dimensions.`,
         WRONG_DIMENSION: `Either dimension must be ${minDimension === 0 ? '0' : minDimension}px ↔ ${maxDimension === 0 ? 'unlimited ' : maxDimension}px.`,
@@ -111,8 +133,8 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
     );
 
     const { getRootProps, getInputProps } = useDropzone({
-        accept: ALLOWED_FILE_TYPES,
-        ...(maxFileSize > 0 && { maxSize: MAX_FILE_SIZE }),
+        accept: acceptableAvatarExtensions(acceptedFileTypes),
+        ...(maxFileSize > 0 && { maxSize: MAX_FILE_SIZE_CALC }),
         disabled: isDisabled ?? selectState === SelectState.SELECTING,
         onDrop,
     });

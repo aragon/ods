@@ -101,7 +101,7 @@ describe('<InputFileAvatar /> Integration with react-dropzone', () => {
     });
 
     it('shows correct error when an unsupported file is too large', async () => {
-        render(createTestComponent());
+        render(createTestComponent({ maxFileSize: 2 }));
 
         const oversizedFile = new File([new ArrayBuffer(20 * 1024 * 1024)], 'big-image.png', { type: 'image/png' });
         const mockOnDrop = (useDropzone as jest.Mock).mock.calls[0][0].onDrop;
@@ -115,12 +115,12 @@ describe('<InputFileAvatar /> Integration with react-dropzone', () => {
     it('shows correct error when a file is wrong type', async () => {
         render(createTestComponent());
 
-        const file = new File(['(⌐□_□)'], 'chucknorris.png', { type: 'image/gif' });
+        const file = new File(['(⌐□_□)'], 'chucknorris.gif', { type: 'image/gif' });
         const mockOnDrop = (useDropzone as jest.Mock).mock.calls[0][0].onDrop;
         mockOnDrop([], [{ file, errors: [{ code: 'file-invalid-type', message: 'Invalid file type.' }] }]);
 
         await waitFor(() => {
-            expect(screen.getByText(/Only JPEG and PNG images accepted./i)).toBeInTheDocument();
+            expect(screen.getByText(/Only .png, .jpg, .jpeg images accepted./i)).toBeInTheDocument();
         });
     });
 
