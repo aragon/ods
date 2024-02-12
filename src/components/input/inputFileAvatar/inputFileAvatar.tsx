@@ -11,9 +11,9 @@ import { SelectState, type IInputFileAvatarProps } from './inputFileAvatar.api';
 
 export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
     onFileSelect,
-    maxFileSize = 2,
-    minDimension = 100,
-    maxDimension = 1000,
+    maxFileSize = 0,
+    minDimension = 0,
+    maxDimension = 0,
     onlySquare = true,
     ...otherProps
 }) => {
@@ -30,8 +30,8 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
         TOO_LARGE: `Max file size is ${maxFileSize} MiB.`,
         FILE_TYPE: 'Only JPEG and PNG images accepted.',
         QUANTITY: 'Only one file can be uploaded at a time.',
-        ONLY_SQUARE: `Must be square dimensions, ${minDimension}px ↔ ${maxDimension}px`,
-        WRONG_DIMENSION: `Either dimension must be ${minDimension}px ↔ ${maxDimension}px.`,
+        ONLY_SQUARE: `Must be square dimensions.`,
+        WRONG_DIMENSION: `Either dimension must be ${minDimension === 0 ? '0' : minDimension}px ↔ ${maxDimension === 0 ? 'unlimited ' : maxDimension}px.`,
         FAILED: 'Image selection failed. Please try again.',
     };
 

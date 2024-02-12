@@ -28,15 +28,15 @@ export interface IInputFileAvatarProps
      */
     onFileSelect?: (file: File) => void;
     /**
-     * Maximum file size in MiB. Default is 2. Set to 0 to disable file size validation.
+     * Maximum file size in MiB. The default 0 is unconstrained.
      */
     maxFileSize?: number;
     /**
-     * Minimum dimension of the image in pixels. Default is 100. Set to 0 to disable min dimension validation.
+     * Minimum dimension of the image in pixels. The default 0 is unconstrained.
      */
     minDimension?: number;
     /**
-     * Maximum dimension of the image in pixels. Default is 1000. Set to 0 to disable max dimension validation.
+     * Maximum dimension of the image in pixels. The default 0 is unconstrained.
      */
     maxDimension?: number;
     /**
