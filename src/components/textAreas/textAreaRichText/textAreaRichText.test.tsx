@@ -19,10 +19,10 @@ describe('<TextAreaRichText /> component', () => {
         return <TextAreaRichText {...completeProps} />;
     };
 
-    it('renders a textbox with the specified id', () => {
+    it('renders a textbox with the specified id', async () => {
         const id = 'testid';
         render(createTestComponent({ id }));
-        const component = screen.getByRole('textbox');
+        const component = await screen.findByRole('textbox');
         expect(component).toBeInTheDocument();
         expect(component.getAttribute('contenteditable')).toEqual('true');
         expect(component.getAttribute('aria-labelledby')).toEqual(id);
@@ -33,21 +33,21 @@ describe('<TextAreaRichText /> component', () => {
         expect(screen.getAllByRole('button').length).toBeGreaterThan(0);
     });
 
-    it('disables the textbox when the isDisabled property is set to true', () => {
+    it('disables the textbox when the isDisabled property is set to true', async () => {
         const isDisabled = true;
         render(createTestComponent({ isDisabled }));
-        expect(screen.getByRole('textbox').getAttribute('contenteditable')).toEqual('false');
+        expect((await screen.findByRole('textbox')).getAttribute('contenteditable')).toEqual('false');
     });
 
-    it('generates a random id for the textbox when the id property is not set', () => {
+    it('generates a random id for the textbox when the id property is not set', async () => {
         render(createTestComponent());
-        expect(screen.getByRole('textbox').getAttribute('aria-labelledby')).toBeDefined();
+        expect((await screen.findByRole('textbox')).getAttribute('aria-labelledby')).toBeDefined();
     });
 
-    it('calls the onChange property on input change', () => {
+    it('calls the onChange property on input change', async () => {
         const onChange = jest.fn();
         render(createTestComponent({ onChange }));
-        fireEvent.input(screen.getByRole('textbox'), 'test');
+        fireEvent.input(await screen.findByRole('textbox'), 'test');
         expect(onChange).toHaveBeenCalled();
     });
 
