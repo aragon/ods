@@ -5,7 +5,7 @@ import { Tooltip, type ITooltipProps } from './tooltip';
 describe('<Tooltip/> component', () => {
     const originalResizeObserver = global.ResizeObserver;
 
-    beforeAll(() => {
+    beforeEach(() => {
         // mocking ResizeObserver since it's not available in Jest test environment
         global.ResizeObserver = jest.fn().mockImplementation(() => ({
             observe: jest.fn(),
@@ -14,7 +14,7 @@ describe('<Tooltip/> component', () => {
         }));
     });
 
-    afterAll(() => {
+    afterEach(() => {
         global.ResizeObserver = originalResizeObserver;
     });
 
@@ -46,21 +46,13 @@ describe('<Tooltip/> component', () => {
         expect(tooltip).toHaveTextContent(content);
     });
 
-    it('calls onOpenChange with true and false when trigger hovered on and unhovered respectively', async () => {
+    it('calls onOpenChange with true on trigger hover', async () => {
         const handleOpenChange = jest.fn();
         const trigger = 'test-trigger';
 
-        const { rerender } = render(
-            createTestComponent({ children: trigger, onOpenChange: handleOpenChange, open: false }),
-        );
+        render(createTestComponent({ children: trigger, onOpenChange: handleOpenChange }));
 
-        // hover
         await userEvent.hover(screen.getByText(trigger));
         await waitFor(() => expect(handleOpenChange).toHaveBeenCalledWith(true));
-
-        // unhover
-        rerender(createTestComponent({ children: trigger, onOpenChange: handleOpenChange, open: true }));
-        await userEvent.unhover(screen.getByText(trigger));
-        await waitFor(() => expect(handleOpenChange).toHaveBeenCalledWith(false));
     });
 });

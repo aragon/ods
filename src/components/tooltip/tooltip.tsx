@@ -21,7 +21,6 @@ export interface ITooltipProps extends Omit<TooltipProps, 'asChild'>, Omit<Toolt
     content: ReactNode;
     /**
      * Defines the variant of the tooltip
-     *
      * @default neutral
      */
     variant?: TooltipVariant;
@@ -56,12 +55,14 @@ export const Tooltip: React.FC<ITooltipProps> = (props) => {
         content,
         open,
         defaultOpen,
-        delayDuration,
+        delayDuration = 300,
         disableHoverableContent,
         variant = 'neutral',
         onOpenChange,
         ...contentProps
     } = props;
+
+    const { className: contentClassName, ...otherContentProps } = contentProps;
 
     return (
         <Provider>
@@ -78,10 +79,10 @@ export const Tooltip: React.FC<ITooltipProps> = (props) => {
                         className={classNames(
                             variantToContentClassName[variant],
                             'flex min-h-6 items-center rounded px-1.5 text-sm font-semibold leading-tight',
-                            contentProps.className,
+                            contentClassName,
                         )}
                         sideOffset={1}
-                        {...contentProps}
+                        {...otherContentProps}
                     >
                         {content}
                         <Arrow className={classNames(variantToArrowFill[variant], 'h-1 w-3')} />

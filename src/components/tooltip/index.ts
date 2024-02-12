@@ -1,1 +1,1 @@
-export { Tooltip, type ITooltipProps } from './tooltip';
+export { Tooltip, type ITooltipProps, type TooltipVariant } from './tooltip';
