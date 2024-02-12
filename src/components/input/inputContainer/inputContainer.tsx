@@ -45,7 +45,7 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
         className,
         wrapperClassName,
         id,
-        invisible,
+        useCustomWrapper,
         ...otherProps
     } = props;
 
@@ -63,8 +63,8 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
         'animate-shake': inputLength === maxLength,
     });
 
-    const InputWrapper = invisible ? React.Fragment : 'div';
-    const containerProps = invisible ? {} : { className: containerClasses, ref };
+    const InputWrapper = useCustomWrapper ? React.Fragment : 'div';
+    const containerProps = useCustomWrapper ? {} : { className: containerClasses };
 
     return (
         <div className={classNames('flex grow flex-col gap-2 md:gap-3', className)} ref={ref} {...otherProps}>

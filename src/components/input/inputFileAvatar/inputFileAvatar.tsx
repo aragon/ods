@@ -1,31 +1,72 @@
 import classNames from 'classnames';
 import { useCallback, useState } from 'react';
-import { ErrorCode, useDropzone, type FileRejection } from 'react-dropzone';
+import { useDropzone, type FileRejection } from 'react-dropzone';
 import { Avatar } from '../../avatars';
 import { Icon, IconType } from '../../icon';
 import { Spinner } from '../../spinner';
 import { useInputProps } from '../hooks';
 import { InputContainer } from '../inputContainer';
-import { type IInputContainerAlert } from '../inputContainer/inputContainer.api';
-import { SelectState, type IInputFileAvatarProps } from './inputFileAvatar.api';
+import { InputFileAvatarState, type IInputFileAvatarProps } from './inputFileAvatar.api';
+
+const stateToClassNames: Record<
+    InputFileAvatarState,
+    { containerClasses: string[]; addIconClasses: { base: string; hover: string } }
+> = {
+    [InputFileAvatarState.IDLE]: {
+        containerClasses: [
+            'border-[1px] border-neutral-100 hover:border-neutral-200 border-dashed cursor-pointer focus-visible:ring-primary',
+        ],
+        addIconClasses: { base: 'text-neutral-400', hover: 'group-hover:text-neutral-600' },
+    },
+    [InputFileAvatarState.SELECTING]: {
+        containerClasses: ['cursor-default border-[1px] border-primary-400 focus-visible:ring-primary'],
+        addIconClasses: { base: 'text-primary-400', hover: '' },
+    },
+    [InputFileAvatarState.WARNING]: {
+        containerClasses: [
+            'border-[1px] border-warning-300 hover:border-warning-400 border-dashed cursor-pointer focus-visible:ring-warning',
+        ],
+        addIconClasses: { base: 'text-warning-500', hover: 'group-hover:text-warning-600' },
+    },
+    [InputFileAvatarState.SUCCESS]: {
+        containerClasses: ['border-neutral-100 border-dashed focus-visible:ring-primary'],
+        addIconClasses: { base: 'text-success-500', hover: 'group-hover:text-success-600' },
+    },
+    [InputFileAvatarState.ERROR]: {
+        containerClasses: [
+            'border-[1px] border-critical-500 hover:border-critical-600 border-dashed cursor-pointer focus-visible:ring-critical',
+        ],
+        addIconClasses: { base: 'text-critical-500', hover: 'group-hover:text-critical-600' },
+    },
+    [InputFileAvatarState.DISABLED]: {
+        containerClasses: ['border-[1px] border-neutral-200 cursor-not-allowed'],
+        addIconClasses: { base: 'text-neutral-200', hover: '' },
+    },
+};
+
+const variantOverrideState: Record<string, InputFileAvatarState> = {
+    warning: InputFileAvatarState.WARNING,
+    critical: InputFileAvatarState.ERROR,
+    disabled: InputFileAvatarState.DISABLED,
+};
 
 export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
     onFileSelect,
+    onFileError,
     maxFileSize = 0,
     minDimension = 0,
     maxDimension = 0,
     onlySquare = true,
     acceptedFileTypes = ['.png', '.jpg', '.jpeg'],
+    variant,
+    isDisabled,
     ...otherProps
 }) => {
-    const [selectState, setSelectState] = useState<SelectState>(SelectState.IDLE);
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
-    const [selectError, setSelectError] = useState<IInputContainerAlert | undefined>(undefined);
+    const [currentState, setCurrentState] = useState<InputFileAvatarState>(InputFileAvatarState.IDLE);
+    const [imagePreview, setImagePreview] = useState<string>();
 
     const { containerProps } = useInputProps(otherProps);
-    const { id, alert, isDisabled, ...otherContainerProps } = containerProps;
-
-    const MAX_FILE_SIZE_CALC = maxFileSize * 1024 ** 2;
+    const { id, alert, ...otherContainerProps } = containerProps;
 
     const acceptableAvatarExtensions = (extensions: Array<`.${string}`>): Record<string, string[]> => {
         const mimeTypes: Record<string, string[]> = {};
@@ -43,54 +84,23 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
         return mimeTypes;
     };
 
-    const generateFileTypeErrorMessage = (acceptedFileTypes: Array<`.${string}`>): string => {
-        const readableFileTypes = acceptedFileTypes.join(', ');
-        return `Only ${readableFileTypes} images accepted.`;
-    };
-
-    const ERROR_MESSAGES = {
-        TOO_LARGE: `Max file size is ${maxFileSize} MiB.`,
-        FILE_TYPE: generateFileTypeErrorMessage(acceptedFileTypes),
-        QUANTITY: 'Only one file can be uploaded at a time.',
-        ONLY_SQUARE: `Must be square dimensions.`,
-        WRONG_DIMENSION: `Either dimension must be ${minDimension === 0 ? '0' : minDimension}px ↔ ${maxDimension === 0 ? 'unlimited ' : maxDimension}px.`,
-        FAILED: 'Image selection failed. Please try again.',
-    };
-
-    const setCriticalSelectError = (message: string) => {
-        setSelectError({ message, variant: 'critical' });
-    };
-
     const onDrop = useCallback(
         (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
             if (acceptedFiles.length > 1 || rejectedFiles.length > 1) {
-                setCriticalSelectError(ERROR_MESSAGES.QUANTITY);
-                setSelectState(SelectState.ERROR);
+                onFileError?.('TOO_MANY_FILES');
+                setCurrentState(InputFileAvatarState.ERROR);
                 return;
             }
 
-            let errorMessage = '';
-
             if (rejectedFiles.length > 0) {
-                const errors = rejectedFiles[0].errors;
-
-                if (errors.some((error) => error.code === ErrorCode.FileInvalidType)) {
-                    errorMessage = ERROR_MESSAGES.FILE_TYPE;
-                } else if (errors.some((error) => error.code === ErrorCode.FileTooLarge)) {
-                    errorMessage = ERROR_MESSAGES.TOO_LARGE;
-                } else {
-                    errorMessage = ERROR_MESSAGES.FAILED;
-                }
-
-                if (errorMessage !== '') {
-                    setCriticalSelectError(errorMessage);
-                    setSelectState(SelectState.ERROR);
-                    return;
-                }
+                const error = rejectedFiles[0].errors[0].code;
+                onFileError?.(error);
+                setCurrentState(InputFileAvatarState.ERROR);
+                return;
             }
 
             const file = acceptedFiles[0];
-
+            setCurrentState(InputFileAvatarState.SELECTING);
             const image = new Image();
             const onImageLoad = () => {
                 const isBelowMinDimension =
@@ -98,109 +108,87 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
                 const isAboveMaxDimension =
                     maxDimension > 0 && (image.width > maxDimension || image.height > maxDimension);
                 if (onlySquare && image.height !== image.width) {
-                    setCriticalSelectError(ERROR_MESSAGES.ONLY_SQUARE);
-                    setSelectState(SelectState.ERROR);
+                    onFileError?.('ONLY_SQUARE');
+                    setCurrentState(InputFileAvatarState.ERROR);
                 } else if (isBelowMinDimension || isAboveMaxDimension) {
-                    setCriticalSelectError(ERROR_MESSAGES.WRONG_DIMENSION);
-                    setSelectState(SelectState.ERROR);
+                    onFileError?.('WRONG_DIMENSION');
+                    setCurrentState(InputFileAvatarState.ERROR);
                 } else {
                     setImagePreview(image.src);
-                    setSelectState(SelectState.SUCCESS);
-                    setSelectError(undefined);
+                    setCurrentState(InputFileAvatarState.SUCCESS);
+                    onFileError?.(undefined);
                     onFileSelect?.(file);
                 }
             };
 
             image.addEventListener('load', onImageLoad);
             image.addEventListener('error', () => {
-                setCriticalSelectError(ERROR_MESSAGES.FAILED);
-                setSelectState(SelectState.ERROR);
+                onFileError?.('UNKNOWN_FAIL');
+                setCurrentState(InputFileAvatarState.ERROR);
             });
             image.src = URL.createObjectURL(file);
         },
-        [
-            ERROR_MESSAGES.FAILED,
-            ERROR_MESSAGES.FILE_TYPE,
-            ERROR_MESSAGES.QUANTITY,
-            ERROR_MESSAGES.TOO_LARGE,
-            ERROR_MESSAGES.WRONG_DIMENSION,
-            ERROR_MESSAGES.ONLY_SQUARE,
-            maxDimension,
-            minDimension,
-            onFileSelect,
-            onlySquare,
-        ],
+        [maxDimension, minDimension, onFileError, onFileSelect, onlySquare],
     );
 
     const { getRootProps, getInputProps } = useDropzone({
         accept: acceptableAvatarExtensions(acceptedFileTypes),
-        ...(maxFileSize > 0 && { maxSize: MAX_FILE_SIZE_CALC }),
-        disabled: isDisabled ?? selectState === SelectState.SELECTING,
+        ...(maxFileSize > 0 && { maxSize: maxFileSize }),
+        disabled: isDisabled ?? currentState === InputFileAvatarState.SELECTING,
         onDrop,
     });
 
     const handleCancel = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
-        setImagePreview(null);
-        setSelectState(SelectState.IDLE);
+        setImagePreview(undefined);
+        setCurrentState(InputFileAvatarState.IDLE);
         if (imagePreview) {
             URL.revokeObjectURL(imagePreview);
         }
     };
 
-    const selecterVariantStateClasses = classNames(
-        'group flex size-16 items-center justify-center rounded-full bg-neutral-0 hover:shadow-neutral focus:outline-none focus-visible:ring  focus-visible:ring-offset', // Default
-        {
-            ['border-[1px] border-neutral-100 hover:border-neutral-200 border-dashed cursor-pointer focus-visible:ring-primary']:
-                selectState === SelectState.IDLE, // IDLE State
-            ['cursor-default border-[1px] border-primary-400 focus-visible:ring-primary']:
-                selectState === SelectState.SELECTING, // SELECTING State
-            ['cursor-default border-[5px] border-neutral-100 border-dashed focus-visible:ring-primary']:
-                selectState === SelectState.SUCCESS, // SUCCESS State
-            ['border-[1px] border-critical-500 hover:border-critical-600 border-dashed cursor-pointer focus-visible:ring-critical']:
-                selectState === SelectState.ERROR, // ERROR State
-        },
+    const overrideCheck = isDisabled ? InputFileAvatarState.DISABLED : variant ?? currentState;
+    const effectiveState = variantOverrideState[overrideCheck] ?? currentState;
+    const { containerClasses, addIconClasses } = stateToClassNames[effectiveState];
+
+    const inputAvatarClassNames = classNames(
+        'group flex size-16 items-center justify-center rounded-full bg-neutral-0 hover:shadow-neutral',
+        'focus:outline-none focus-visible:ring focus-visible:ring-offset',
+        containerClasses,
     );
 
+    const iconClassNames = classNames(addIconClasses.base, addIconClasses.hover);
+
     return (
-        <>
-            <InputContainer id={id} alert={selectError} invisible {...otherContainerProps}>
-                <div {...getRootProps()} className={selecterVariantStateClasses} aria-label="Select File">
-                    <input {...getInputProps()} id={id} type="file" aria-label="Avatar Image Select" />
-                    {selectState === SelectState.SUCCESS && imagePreview ? (
-                        <div className="relative">
-                            <Avatar src={imagePreview} size="lg" className="cursor-pointer" data-testid="avatar" />
-                            <button
-                                onClick={handleCancel}
-                                className={classNames(
-                                    'absolute -right-1 -top-1 cursor-pointer rounded-full bg-neutral-0 p-1 shadow-neutral focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
-                                )}
-                                aria-label="Cancel Selection"
-                            >
-                                <Icon icon={IconType.CLOSE} size="sm" />
-                            </button>
-                        </div>
-                    ) : (
-                        <>
-                            {selectState === SelectState.IDLE && (
-                                <Icon
-                                    icon={IconType.ADD}
-                                    size="lg"
-                                    className="text-neutral-400 group-hover:text-neutral-600"
-                                />
+        <InputContainer id={id} alert={alert} useCustomWrapper {...otherContainerProps}>
+            <div {...getRootProps()} className={inputAvatarClassNames} aria-label="Select File">
+                <input {...getInputProps()} id={id} type="file" aria-label="Avatar Image Select" />
+                {currentState === InputFileAvatarState.SUCCESS && imagePreview ? (
+                    <div className="relative">
+                        <Avatar src={imagePreview} size="lg" className="cursor-pointer" data-testid="avatar" />
+                        <button
+                            onClick={handleCancel}
+                            className={classNames(
+                                'absolute -right-1 -top-1 cursor-pointer rounded-full bg-neutral-0 p-1 shadow-neutral',
+                                'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
                             )}
-                            {selectState === SelectState.SELECTING && <Spinner size="lg" variant="neutral" />}
-                            {selectState === SelectState.ERROR && (
-                                <Icon
-                                    icon={IconType.ADD}
-                                    size="lg"
-                                    className="text-critical-500 group-hover:text-critical-600"
-                                />
-                            )}
-                        </>
-                    )}
-                </div>
-            </InputContainer>
-        </>
+                            aria-label="Cancel Selection"
+                        >
+                            <Icon icon={IconType.CLOSE} size="sm" />
+                        </button>
+                    </div>
+                ) : (
+                    <>
+                        {currentState === InputFileAvatarState.IDLE && (
+                            <Icon icon={IconType.ADD} size="lg" className={iconClassNames} />
+                        )}
+                        {currentState === InputFileAvatarState.SELECTING && <Spinner size="lg" variant="neutral" />}
+                        {currentState === InputFileAvatarState.ERROR && (
+                            <Icon icon={IconType.ADD} size="lg" className={iconClassNames} />
+                        )}
+                    </>
+                )}
+            </div>
+        </InputContainer>
     );
 };

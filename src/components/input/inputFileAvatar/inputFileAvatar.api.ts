@@ -1,25 +1,17 @@
 import type { IInputComponentProps } from '../inputContainer';
 
-export const SelectState = {
-    IDLE: 'idle',
-    SELECTING: 'selecting',
-    SUCCESS: 'success',
-    ERROR: 'error',
-} as const;
-
-export type SelectState = (typeof SelectState)[keyof typeof SelectState];
-
+export enum InputFileAvatarState {
+    IDLE = 'idle',
+    SELECTING = 'selecting',
+    SUCCESS = 'success',
+    ERROR = 'error',
+    WARNING = 'warning',
+    DISABLED = 'disabled',
+}
 export interface IInputFileAvatarProps
     extends Omit<
         IInputComponentProps,
-        | 'maxLength'
-        | 'onChange'
-        | 'variant'
-        | 'inputLength'
-        | 'wrapperClassName'
-        | 'invisible'
-        | 'alert'
-        | 'inputClassName'
+        'maxLength' | 'onChange' | 'inputLength' | 'wrapperClassName' | 'invisible' | 'inputClassName'
     > {
     /**
      * Function that is called when a file is selected. Passes the file to the parent component.
@@ -28,23 +20,27 @@ export interface IInputFileAvatarProps
      */
     onFileSelect?: (file: File) => void;
     /**
-     * Allowed file extensions. Default ['jpg', 'jpeg', 'png']
+     * Function that is called when a file is rejected. Passes the error message to the parent component.
+     */
+    onFileError?: (error: string | undefined) => void;
+    /**
+     * Allowed file extensions. @default ['jpg', 'jpeg', 'png']
      */
     acceptedFileTypes?: Array<`.${string}`>;
     /**
-     * Maximum file size in MiB. The default 0 is unconstrained.
+     * Maximum file size in bytes. ex: 2097152 bytes | 2 * 1024 ** 2 = 2MiB. 0 = no constraint. @default 0
      */
     maxFileSize?: number;
     /**
-     * Minimum dimension of the image in pixels. The default 0 is unconstrained.
+     * Minimum dimension of the image in pixels. 0 = no constraint. @default 0
      */
     minDimension?: number;
     /**
-     * Maximum dimension of the image in pixels. The default 0 is unconstrained.
+     * Maximum dimension of the image in pixels.0 = no constraint. @default 0
      */
     maxDimension?: number;
     /**
-     * If true, only square images are accepted. Default is true.
+     * If true, only square images are accepted. @default true
      */
     onlySquare?: boolean;
 }

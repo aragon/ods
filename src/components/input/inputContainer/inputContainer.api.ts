@@ -65,9 +65,9 @@ export interface IInputContainerBaseProps {
      */
     wrapperClassName?: string;
     /**
-     * Shortcircuits all the input wrapper classes rendering it invisible.
+     * Shortcircuits all the input wrapper classes to pass control to the child component.
      */
-    invisible?: boolean;
+    useCustomWrapper?: boolean;
 }
 
 export interface IInputContainerProps extends IInputContainerBaseProps, Omit<ComponentPropsWithRef<'div'>, 'id'> {}

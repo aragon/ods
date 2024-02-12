@@ -19,11 +19,6 @@ type Story = StoryObj<typeof InputFileAvatar>;
 /**
  * Default usage example of the InputFileAvatar component.
  */
-export const Default: Story = {
-    args: {
-        id: 'input-file-avatar',
-    },
-    render: (args) => <InputFileAvatar {...args} />,
-};
+export const Default: Story = {};
 
 export default meta;
