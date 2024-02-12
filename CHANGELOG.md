@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Implement `CardEmptyState`, `EmptyState`, `Checkbox`, `CheckboxGroup`, `CheckboxCard`, `RadioGroup`, `Radio`, and
     `RadioCard` components
 -   Export all component types
--   Handle style transitions on `ActionItem` and `Button` components
+-   Handle style transitions on `ActionItem`, `Button` and `Toggle` components
 -   Property `defaultValue` to `ToggleGroup` component to set an initial value for uncontrolled usage
 -   `shadow-info` Tailwind CSS utility class and documentationonents
 -   Ref forwarding to `InputNumber`, `InputSearch`, `InputText` and `TextArea` components
