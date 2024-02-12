@@ -7,6 +7,9 @@ const meta: Meta<typeof Toggle> = {
     title: 'components/Toggles/Toggle',
     component: Toggle,
     tags: ['autodocs'],
+    argTypes: {
+        disabled: { control: 'boolean' },
+    },
     parameters: {
         design: {
             type: 'figma',

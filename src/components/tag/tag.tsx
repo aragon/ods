@@ -19,7 +19,7 @@ export interface ITagProps {
 }
 
 const variantToClassName: Record<TagVariant, string> = {
-    neutral: 'bg-neutral-100 text-neutral-600',
+    neutral: 'bg-neutral-100 text-neutral-800',
     info: 'bg-info-200 text-info-800',
     warning: 'bg-warning-200 text-warning-800',
     critical: 'bg-critical-200 text-critical-800',
@@ -31,8 +31,14 @@ export const Tag: React.FC<ITagProps> = (props) => {
     const { label, variant = 'neutral', className } = props;
 
     return (
-        <div className={classNames('flex h-5 items-center rounded px-1', variantToClassName[variant], className)}>
-            <p className="text-sm font-semibold leading-tight md:text-base">{label}</p>
+        <div
+            className={classNames(
+                'flex h-5 items-center rounded-full px-1.5 md:h-6 md:px-2',
+                variantToClassName[variant],
+                className,
+            )}
+        >
+            <p className="text-sm font-normal leading-tight md:text-base">{label}</p>
         </div>
     );
 };

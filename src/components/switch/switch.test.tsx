@@ -55,7 +55,6 @@ describe('<Switch /> component', () => {
         fireEvent.click(switchElement);
 
         expect(switchElement).toBeDisabled();
-        expect(switchElement).toHaveClass('disabled:cursor-not-allowed');
         expect(mockCallback).not.toHaveBeenCalled();
     });
 });

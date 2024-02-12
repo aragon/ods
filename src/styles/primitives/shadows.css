@@ -39,6 +39,14 @@
   --ods-shadow-critical-xl: 0px 20px 25px -5px rgba(214, 39, 54, 0.1), 0px 8px 10px -6px rgba(214, 39, 54, 0.1);
   --ods-shadow-critical-2xl: 0px 25px 50px -12px rgba(214, 39, 54, 0.24);
 
+  /* Info */
+  --ods-shadow-info-sm: 0px 1px 2px 0px rgba(21, 136, 185, 0.05);
+  --ods-shadow-info: 0px 1px 3px 0px rgba(21, 136, 185, 0.1), 0px 1px 2px -1px rgba(21, 136, 185, 0.1);
+  --ods-shadow-info-md: 0px 4px 6px -1px rgba(21, 136, 185, 0.1), 0px 2px 4px -2px rgba(21, 136, 185, 0.1);
+  --ods-shadow-info-lg: 0px 10px 15px -3px rgba(21, 136, 185, 0.1), 0px 4px 6px -4px rgba(21, 136, 185, 0.1);
+  --ods-shadow-info-xl: 0px 20px 25px -5px rgba(21, 136, 185, 0.1), 0px 8px 10px -6px rgba(21, 136, 185, 0.1);
+  --ods-shadow-info-2xl: 0px 25px 50px -12px rgba(21, 136, 185, 0.24);
+
   /* None */
   --ods-shadow-none: 0px 0px #0000;
 }

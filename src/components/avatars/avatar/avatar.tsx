@@ -9,8 +9,7 @@ export type AvatarSize = 'sm' | 'md' | 'lg';
 
 export interface IAvatarProps extends ComponentPropsWithoutRef<'img'> {
     /**
-     *  Fallback content to display when the image fails to load or
-     *  no image is provided.
+     *  Fallback content to display when the image fails to load or no image is provided.
      */
     fallback?: ReactNode;
     /**

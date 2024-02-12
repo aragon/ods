@@ -10,12 +10,14 @@ export type ButtonState = 'disabled' | 'loading';
 export interface IButtonBaseProps {
     /**
      * Variant of the button.
+     * @default primary
      */
-    variant: ButtonVariant;
+    variant?: ButtonVariant;
     /**
      * Size of the button.
+     * @default lg
      */
-    size: ButtonSize;
+    size?: ButtonSize;
     /**
      * Applies responsiveness to the size of the button.
      */
@@ -25,11 +27,13 @@ export interface IButtonBaseProps {
      */
     state?: ButtonState;
     /**
-     * Icon displayed on the right side of the button.
+     * Icon displayed on the right side of the button. This icon is hidden in case the button has no children element
+     * set (only-icon variant) and the iconLeft icon is displayed instead.
      */
     iconRight?: IconType;
     /**
-     * Icon displayed on the left side of the button.
+     * Icon displayed on the left side of the button. This icon is displayed in case the button has no children element
+     * set (only-icon variant)
      */
     iconLeft?: IconType;
 }

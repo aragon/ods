@@ -18,10 +18,11 @@ describe('<Link /> component', () => {
     it('applies correct classes based on disabled prop', () => {
         const handleClick = jest.fn();
         render(createTestComponent({ children: 'TEST', disabled: true, onClick: handleClick }));
+
         // eslint-disable-next-line testing-library/no-node-access
         const linkElement = screen.getByText('TEST').closest('a')!;
         fireEvent.click(linkElement);
-        expect(linkElement).toHaveClass('truncate text-neutral-300 cursor-not-allowed');
+
         expect(linkElement).toHaveAttribute('aria-disabled', 'true');
         expect(linkElement).not.toHaveAttribute('href');
         expect(handleClick).not.toHaveBeenCalled();

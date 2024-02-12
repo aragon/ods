@@ -9,7 +9,7 @@ const meta: Meta<typeof CardSummary> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=10157-27206&mode=dev',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?node-id=10157-27206&t=RVJHJFTrLMnhgYnJ-4',
         },
     },
 };
@@ -23,7 +23,7 @@ export const Default: Story = {
     args: {
         value: '5',
         description: 'Proposals created',
-        action: { label: 'Create proposal', onClick: () => alert('Click') },
+        action: { label: 'Proposal', onClick: () => alert('Click') },
         icon: IconType.APP_GOVERNANCE,
     },
 };

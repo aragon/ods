@@ -9,7 +9,7 @@ const meta: Meta<typeof Icon> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=8842-13134&mode=dev',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?node-id=8842-13139',
         },
     },
 };
@@ -22,7 +22,6 @@ type Story = StoryObj<typeof Icon>;
 export const Default: Story = {
     args: {
         icon: IconType.ADD,
-        responsiveSize: { md: 'lg' },
     },
 };
 

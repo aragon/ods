@@ -1,10 +1,11 @@
 import classNames from 'classnames';
+import { forwardRef } from 'react';
 import { InputContainer, type IInputComponentProps } from '../../input';
 import { useInputProps } from '../../input/hooks';
 
 export interface ITextAreaProps extends IInputComponentProps<HTMLTextAreaElement> {}
 
-export const TextArea: React.FC<ITextAreaProps> = (props: ITextAreaProps) => {
+export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>((props, ref) => {
     const { containerProps, inputProps } = useInputProps(props);
 
     const { className: inputClassName, ...otherInputProps } = inputProps;
@@ -12,10 +13,17 @@ export const TextArea: React.FC<ITextAreaProps> = (props: ITextAreaProps) => {
 
     return (
         <InputContainer
-            wrapperClassName={classNames('grow overflow-auto', containerWrapperClassName)}
+            wrapperClassName={classNames('grow overflow-auto rounded-br-none', containerWrapperClassName)}
             {...otherContainerProps}
         >
-            <textarea type="text" className={classNames('min-h-[144px]', inputClassName)} {...otherInputProps} />
+            <textarea
+                type="text"
+                className={classNames('min-h-[160px] leading-normal', inputClassName)}
+                ref={ref}
+                {...otherInputProps}
+            />
         </InputContainer>
     );
-};
+});
+
+TextArea.displayName = 'TextArea';

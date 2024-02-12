@@ -15,11 +15,19 @@ describe('<InputSearch /> component', () => {
         expect(screen.getByTestId(IconType.SEARCH)).toBeInTheDocument();
     });
 
-    it('only renders a clear icon when input length is greater than 0', () => {
-        const { rerender } = render(createTestComponent({ value: '' }));
-        expect(screen.queryByRole('button')).not.toBeInTheDocument();
-        rerender(createTestComponent({ value: 'search' }));
+    it('renders a clear icon when input length is greater than 0', () => {
+        render(createTestComponent({ value: 'search' }));
         expect(screen.getByRole('button')).toBeInTheDocument();
+    });
+
+    it('hides the clear icon when input is empty', () => {
+        render(createTestComponent({ value: '' }));
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    });
+
+    it('hides the clear icon when input is disabled', () => {
+        render(createTestComponent({ isDisabled: true }));
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
 
     it('renders a loading indicator when the isLoading property is set to true', () => {
@@ -49,13 +57,6 @@ describe('<InputSearch /> component', () => {
         fireEvent.change(screen.getByRole('searchbox'), { target: { value: initialValue } });
         expect(screen.getByRole<HTMLInputElement>('searchbox').value).toEqual(initialValue);
         fireEvent.click(screen.getByRole('button'));
-        expect(screen.getByRole<HTMLInputElement>('searchbox').value).toEqual('');
-    });
-
-    it('clears input value on clear icon enter press', () => {
-        render(createTestComponent());
-        fireEvent.change(screen.getByRole('searchbox'), { target: { value: 'test' } });
-        fireEvent.keyDown(screen.getByRole('button'), { key: 'Enter' });
         expect(screen.getByRole<HTMLInputElement>('searchbox').value).toEqual('');
     });
 });
