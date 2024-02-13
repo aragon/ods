@@ -1,5 +1,6 @@
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu';
 import classNames from 'classnames';
+import React from 'react';
 import { Icon, IconType } from '../icon';
 
 export interface IDropdownItemProps extends Omit<RadixDropdown.DropdownMenuItemProps, 'asChild'> {
@@ -8,7 +9,8 @@ export interface IDropdownItemProps extends Omit<RadixDropdown.DropdownMenuItemP
      */
     active?: boolean;
     /**
-     * Icon displayed beside the item label. Defaults to Checkmark icon when active property is set to true.
+     * Icon displayed beside the item label. Defaults to LinkExternal when the item is a link or to Checkmark when the
+     * active property is set to true.
      */
     icon?: IconType;
     /**
@@ -16,14 +18,47 @@ export interface IDropdownItemProps extends Omit<RadixDropdown.DropdownMenuItemP
      * @default right
      */
     iconPosition?: 'right' | 'left';
+    /**
+     * Link of the dropdown item.
+     */
+    href?: string;
+    /**
+     * Target of the dropdown link.
+     */
+    target?: string;
+    /**
+     * Rel attribute of the dropdown link.
+     */
+    rel?: string;
 }
 
 export const DropdownItem: React.FC<IDropdownItemProps> = (props) => {
-    const { className, icon, active, iconPosition = 'right', children, disabled, ...otherProps } = props;
+    const {
+        className,
+        icon,
+        active,
+        iconPosition = 'right',
+        children,
+        disabled,
+        href,
+        target,
+        rel,
+        ...otherProps
+    } = props;
+
+    const renderLink = href != null && href.length > 0;
+    const linkRel = target === '_blank' ? `noopener noreferrer ${rel ?? ''}` : rel;
+
+    const ItemWrapper = renderLink ? 'a' : React.Fragment;
+    const itemWrapperProps = renderLink ? { href, target, rel: linkRel } : {};
+
+    const defaultIcon = renderLink ? IconType.LINK_EXTERNAL : active ? IconType.CHECKMARK : undefined;
+    const processedIcon = icon ?? defaultIcon;
 
     return (
         <RadixDropdown.Item
             disabled={disabled}
+            asChild={renderLink}
             className={classNames(
                 'flex items-center justify-between px-4 py-3', // Layout
                 'cursor-pointer rounded-xl text-base leading-tight focus-visible:outline-none', // Style
@@ -38,10 +73,10 @@ export const DropdownItem: React.FC<IDropdownItemProps> = (props) => {
             )}
             {...otherProps}
         >
-            {children}
-            {(icon != null || active) && (
-                <Icon icon={icon ?? IconType.CHECKMARK} size="md" className="text-neutral-300" />
-            )}
+            <ItemWrapper {...itemWrapperProps}>
+                {children}
+                {processedIcon != null && <Icon icon={processedIcon} size="md" className="text-neutral-300" />}
+            </ItemWrapper>
         </RadixDropdown.Item>
     );
 };

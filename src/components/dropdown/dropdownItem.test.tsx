@@ -32,4 +32,33 @@ describe('<Dropdown.Item /> component', () => {
         render(createTestComponent({ active }));
         expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();
     });
+
+    it('renders the menuitem as link when the href property is set', () => {
+        const href = 'https://test.com/';
+        render(createTestComponent({ href }));
+        const link = screen.getByRole<HTMLAnchorElement>('menuitem');
+        expect(link).toBeInTheDocument();
+        expect(link.href).toEqual(href);
+    });
+
+    it('renders a link icon when the href property is set', () => {
+        const href = '/test';
+        render(createTestComponent({ href }));
+        expect(screen.getByTestId(IconType.LINK_EXTERNAL)).toBeInTheDocument();
+    });
+
+    it('renders the specified icon when the menu item is a link', () => {
+        const icon = IconType.BLOCKCHAIN;
+        const href = '/test';
+        render(createTestComponent({ icon, href }));
+        expect(screen.getByTestId(icon)).toBeInTheDocument();
+    });
+
+    it('sets defaults rel attribute when link is external', () => {
+        const href = 'https://www.test.com';
+        const target = '_blank';
+        const rel = 'test';
+        render(createTestComponent({ href, target, rel }));
+        expect(screen.getByRole<HTMLAnchorElement>('menuitem').rel).toEqual('noopener noreferrer test');
+    });
 });

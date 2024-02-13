@@ -32,4 +32,17 @@ export const Default: Story = {
     },
 };
 
+export const Link: Story = {
+    render: (props: IDropdownItemProps) => (
+        <Dropdown.Container label="Dropdown with link">
+            <Dropdown.Item {...props} />
+        </Dropdown.Container>
+    ),
+    args: {
+        children: 'Dropdown link',
+        href: 'https://aragon.org',
+        target: '_blank',
+    },
+};
+
 export default meta;
