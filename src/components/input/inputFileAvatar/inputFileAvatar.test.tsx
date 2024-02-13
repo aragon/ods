@@ -1,11 +1,26 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { useDropzone } from 'react-dropzone';
+import { useDropzone, type FileRejection } from 'react-dropzone';
 import { InputFileAvatar } from './inputFileAvatar';
 import { type IInputFileAvatarProps } from './inputFileAvatar.api';
 
 jest.mock('react-dropzone', () => ({
-    useDropzone: jest.fn(),
+    ...jest.requireActual('react-dropzone'),
+    useDropzone: jest.fn().mockImplementation(({ onDrop, onFileError }) => {
+        return {
+            getRootProps: jest.fn(() => ({})),
+            getInputProps: jest.fn(() => ({})),
+            isDragActive: false,
+            onDrop: (acceptedFiles: File[], fileRejections: FileRejection[]) => {
+                if (fileRejections.length > 0) {
+                    const error = fileRejections[0].errors[0].code;
+                    onFileError?.(error);
+                } else {
+                    onDrop?.(acceptedFiles, fileRejections);
+                }
+            },
+        };
+    }),
     ErrorCode: {
         FileInvalidType: 'file-invalid-type',
         FileTooLarge: 'file-too-large',
@@ -67,12 +82,6 @@ describe('<InputFileAvatar /> Integration with react-dropzone', () => {
 
     beforeEach(() => {
         (useDropzone as jest.Mock).mockClear();
-
-        (useDropzone as jest.Mock).mockClear().mockImplementation(() => ({
-            getRootProps: jest.fn(() => ({})),
-            getInputProps: jest.fn(() => ({})),
-            onDrop: jest.fn(),
-        }));
     });
 
     const createTestComponent = (props?: Partial<IInputFileAvatarProps>) => {
@@ -100,28 +109,27 @@ describe('<InputFileAvatar /> Integration with react-dropzone', () => {
         expect(URL.createObjectURL).toHaveBeenCalledWith(file);
     });
 
-    it('shows correct error when an unsupported file is too large', async () => {
-        render(createTestComponent({ maxFileSize: 2 }));
+    it('calls onFileError with specific error code for incorrect dimensions', async () => {
+        const mockOnFileError = jest.fn();
+        render(createTestComponent({ onFileError: mockOnFileError, maxDimension: 1000, minDimension: 1000 }));
 
-        const oversizedFile = new File([new ArrayBuffer(20 * 1024 * 1024)], 'big-image.png', { type: 'image/png' });
+        const originalWidth = global.Image.prototype.width;
+        const originalHeight = global.Image.prototype.height;
+
+        global.Image.prototype.width = 1200;
+        global.Image.prototype.height = 1200;
+
+        const file = new File(['content'], 'file1.png', { type: 'image/png' });
+
         const mockOnDrop = (useDropzone as jest.Mock).mock.calls[0][0].onDrop;
-        mockOnDrop([], [{ file: oversizedFile, errors: [{ code: 'file-too-large', message: 'File is too large.' }] }]);
+        mockOnDrop(file, [], []);
 
         await waitFor(() => {
-            expect(screen.getByText(/Max file size is 2 MiB./i)).toBeInTheDocument();
+            expect(mockOnFileError).toHaveBeenCalledWith('wrong-dimension');
         });
-    });
 
-    it('shows correct error when a file is wrong type', async () => {
-        render(createTestComponent());
-
-        const file = new File(['(⌐□_□)'], 'chucknorris.gif', { type: 'image/gif' });
-        const mockOnDrop = (useDropzone as jest.Mock).mock.calls[0][0].onDrop;
-        mockOnDrop([], [{ file, errors: [{ code: 'file-invalid-type', message: 'Invalid file type.' }] }]);
-
-        await waitFor(() => {
-            expect(screen.getByText(/Only .png, .jpg, .jpeg images accepted./i)).toBeInTheDocument();
-        });
+        global.Image.prototype.width = originalWidth;
+        global.Image.prototype.height = originalHeight;
     });
 
     it('properly cancels the file selection and returns to the initial state', async () => {

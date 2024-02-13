@@ -58,6 +58,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
     maxDimension = 0,
     onlySquare = true,
     acceptedFileTypes = ['.png', '.jpg', '.jpeg'],
+    multiple = false,
     variant,
     isDisabled,
     ...otherProps
@@ -86,12 +87,6 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
 
     const onDrop = useCallback(
         (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
-            if (acceptedFiles.length > 1 || rejectedFiles.length > 1) {
-                onFileError?.('TOO_MANY_FILES');
-                setCurrentState(InputFileAvatarState.ERROR);
-                return;
-            }
-
             if (rejectedFiles.length > 0) {
                 const error = rejectedFiles[0].errors[0].code;
                 onFileError?.(error);
@@ -108,10 +103,10 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
                 const isAboveMaxDimension =
                     maxDimension > 0 && (image.width > maxDimension || image.height > maxDimension);
                 if (onlySquare && image.height !== image.width) {
-                    onFileError?.('ONLY_SQUARE');
+                    onFileError?.('only-square');
                     setCurrentState(InputFileAvatarState.ERROR);
                 } else if (isBelowMinDimension || isAboveMaxDimension) {
-                    onFileError?.('WRONG_DIMENSION');
+                    onFileError?.('wrong-dimension');
                     setCurrentState(InputFileAvatarState.ERROR);
                 } else {
                     setImagePreview(image.src);
@@ -123,7 +118,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
 
             image.addEventListener('load', onImageLoad);
             image.addEventListener('error', () => {
-                onFileError?.('UNKNOWN_FAIL');
+                onFileError?.('unknown-file-error');
                 setCurrentState(InputFileAvatarState.ERROR);
             });
             image.src = URL.createObjectURL(file);
@@ -136,6 +131,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
         ...(maxFileSize > 0 && { maxSize: maxFileSize }),
         disabled: isDisabled ?? currentState === InputFileAvatarState.SELECTING,
         onDrop,
+        multiple: multiple,
     });
 
     const handleCancel = (event: React.MouseEvent<HTMLButtonElement>) => {
