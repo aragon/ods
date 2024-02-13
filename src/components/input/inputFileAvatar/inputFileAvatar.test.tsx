@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useDropzone, type FileRejection } from 'react-dropzone';
 import { InputFileAvatar } from './inputFileAvatar';

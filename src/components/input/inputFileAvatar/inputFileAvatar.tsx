@@ -6,41 +6,38 @@ import { Icon, IconType } from '../../icon';
 import { Spinner } from '../../spinner';
 import { useInputProps } from '../hooks';
 import { InputContainer } from '../inputContainer';
-import { InputFileAvatarState, type IInputFileAvatarProps } from './inputFileAvatar.api';
+import { InputFileAvatarError, InputFileAvatarState, type IInputFileAvatarProps } from './inputFileAvatar.api';
 
-const stateToClassNames: Record<
-    InputFileAvatarState,
-    { containerClasses: string[]; addIconClasses: { base: string; hover: string } }
-> = {
+const stateToClassNames: Record<InputFileAvatarState, { containerClasses: string[]; addIconClasses: string[] }> = {
     [InputFileAvatarState.IDLE]: {
         containerClasses: [
             'border-[1px] border-neutral-100 hover:border-neutral-200 border-dashed cursor-pointer focus-visible:ring-primary',
         ],
-        addIconClasses: { base: 'text-neutral-400', hover: 'group-hover:text-neutral-600' },
+        addIconClasses: ['text-neutral-400 group-hover:text-neutral-600'],
     },
     [InputFileAvatarState.SELECTING]: {
         containerClasses: ['cursor-default border-[1px] border-primary-400 focus-visible:ring-primary'],
-        addIconClasses: { base: 'text-primary-400', hover: '' },
+        addIconClasses: ['text-primary-400'],
     },
     [InputFileAvatarState.WARNING]: {
         containerClasses: [
             'border-[1px] border-warning-300 hover:border-warning-400 border-dashed cursor-pointer focus-visible:ring-warning',
         ],
-        addIconClasses: { base: 'text-warning-500', hover: 'group-hover:text-warning-600' },
+        addIconClasses: ['text-warning-500 group-hover:text-warning-600'],
     },
     [InputFileAvatarState.SUCCESS]: {
         containerClasses: ['border-neutral-100 border-dashed focus-visible:ring-primary'],
-        addIconClasses: { base: 'text-success-500', hover: 'group-hover:text-success-600' },
+        addIconClasses: ['text-success-500 group-hover:text-success-600'],
     },
     [InputFileAvatarState.ERROR]: {
         containerClasses: [
             'border-[1px] border-critical-500 hover:border-critical-600 border-dashed cursor-pointer focus-visible:ring-critical',
         ],
-        addIconClasses: { base: 'text-critical-500', hover: 'group-hover:text-critical-600' },
+        addIconClasses: ['text-critical-500 group-hover:text-critical-600'],
     },
     [InputFileAvatarState.DISABLED]: {
-        containerClasses: ['border-[1px] border-neutral-200 cursor-not-allowed'],
-        addIconClasses: { base: 'text-neutral-200', hover: '' },
+        containerClasses: ['border-[1px] border-neutral-200'],
+        addIconClasses: ['text-neutral-200'],
     },
 };
 
@@ -53,49 +50,35 @@ const variantOverrideState: Record<string, InputFileAvatarState> = {
 export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
     onFileSelect,
     onFileError,
-    maxFileSize = 0,
+    maxFileSize,
     minDimension = 0,
     maxDimension = 0,
-    onlySquare = true,
-    acceptedFileTypes = ['.png', '.jpg', '.jpeg'],
-    multiple = false,
+    acceptedFileTypes = { 'image/*': ['.png', '.gif', '.jpeg', '.jpg'] },
+    onlySquare,
     variant,
     isDisabled,
     ...otherProps
 }) => {
-    const [currentState, setCurrentState] = useState<InputFileAvatarState>(InputFileAvatarState.IDLE);
-    const [imagePreview, setImagePreview] = useState<string>();
+    const [currentState, setCurrentState] = useState(InputFileAvatarState.IDLE);
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const { containerProps } = useInputProps(otherProps);
-    const { id, alert, ...otherContainerProps } = containerProps;
-
-    const acceptableAvatarExtensions = (extensions: Array<`.${string}`>): Record<string, string[]> => {
-        const mimeTypes: Record<string, string[]> = {};
-
-        extensions.forEach((ext) => {
-            const normalizedExt = ext.substring(1).toLowerCase();
-
-            if (normalizedExt === 'jpg' || normalizedExt === 'jpeg') {
-                mimeTypes['image/jpeg'] = [];
-            } else {
-                mimeTypes[`image/${normalizedExt}`] = [];
-            }
-        });
-
-        return mimeTypes;
-    };
+    const { id, ...otherContainerProps } = containerProps;
 
     const onDrop = useCallback(
         (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
+            setIsLoading(true);
+
             if (rejectedFiles.length > 0) {
                 const error = rejectedFiles[0].errors[0].code;
                 onFileError?.(error);
+                setIsLoading(false);
                 setCurrentState(InputFileAvatarState.ERROR);
                 return;
             }
 
             const file = acceptedFiles[0];
-            setCurrentState(InputFileAvatarState.SELECTING);
             const image = new Image();
             const onImageLoad = () => {
                 const isBelowMinDimension =
@@ -103,13 +86,16 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
                 const isAboveMaxDimension =
                     maxDimension > 0 && (image.width > maxDimension || image.height > maxDimension);
                 if (onlySquare && image.height !== image.width) {
-                    onFileError?.('only-square');
+                    onFileError?.(InputFileAvatarError.SQUARE_ONLY);
+                    setIsLoading(false);
                     setCurrentState(InputFileAvatarState.ERROR);
                 } else if (isBelowMinDimension || isAboveMaxDimension) {
-                    onFileError?.('wrong-dimension');
+                    onFileError?.(InputFileAvatarError.WRONG_DIMENSION);
+                    setIsLoading(false);
                     setCurrentState(InputFileAvatarState.ERROR);
                 } else {
                     setImagePreview(image.src);
+                    setIsLoading(false);
                     setCurrentState(InputFileAvatarState.SUCCESS);
                     onFileError?.(undefined);
                     onFileSelect?.(file);
@@ -118,7 +104,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
 
             image.addEventListener('load', onImageLoad);
             image.addEventListener('error', () => {
-                onFileError?.('unknown-file-error');
+                onFileError?.(InputFileAvatarError.UNKNOWN_ERROR);
                 setCurrentState(InputFileAvatarState.ERROR);
             });
             image.src = URL.createObjectURL(file);
@@ -127,16 +113,16 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
     );
 
     const { getRootProps, getInputProps } = useDropzone({
-        accept: acceptableAvatarExtensions(acceptedFileTypes),
-        ...(maxFileSize > 0 && { maxSize: maxFileSize }),
+        accept: acceptedFileTypes,
+        maxSize: maxFileSize,
         disabled: isDisabled ?? currentState === InputFileAvatarState.SELECTING,
         onDrop,
-        multiple: multiple,
+        multiple: false,
     });
 
     const handleCancel = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
-        setImagePreview(undefined);
+        setImagePreview(null);
         setCurrentState(InputFileAvatarState.IDLE);
         if (imagePreview) {
             URL.revokeObjectURL(imagePreview);
@@ -153,13 +139,13 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
         containerClasses,
     );
 
-    const iconClassNames = classNames(addIconClasses.base, addIconClasses.hover);
+    const iconClassNames = classNames(addIconClasses);
 
     return (
-        <InputContainer id={id} alert={alert} useCustomWrapper {...otherContainerProps}>
+        <InputContainer id={id} useCustomWrapper {...otherContainerProps}>
             <div {...getRootProps()} className={inputAvatarClassNames} aria-label="Select File">
                 <input {...getInputProps()} id={id} type="file" aria-label="Avatar Image Select" />
-                {currentState === InputFileAvatarState.SUCCESS && imagePreview ? (
+                {imagePreview ? (
                     <div className="relative">
                         <Avatar src={imagePreview} size="lg" className="cursor-pointer" />
                         <button
@@ -175,13 +161,8 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
                     </div>
                 ) : (
                     <>
-                        {currentState === InputFileAvatarState.IDLE && (
-                            <Icon icon={IconType.ADD} size="lg" className={iconClassNames} />
-                        )}
-                        {currentState === InputFileAvatarState.SELECTING && <Spinner size="lg" variant="neutral" />}
-                        {currentState === InputFileAvatarState.ERROR && (
-                            <Icon icon={IconType.ADD} size="lg" className={iconClassNames} />
-                        )}
+                        {!imagePreview && <Icon icon={IconType.ADD} size="lg" className={iconClassNames} />}
+                        {isLoading && <Spinner size="lg" variant="neutral" />}
                     </>
                 )}
             </div>

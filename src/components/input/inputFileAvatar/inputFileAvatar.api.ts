@@ -1,4 +1,5 @@
-import type { IInputComponentProps } from '../inputContainer';
+import { type Accept } from 'react-dropzone';
+import { type IInputComponentProps } from '../inputContainer';
 
 export enum InputFileAvatarState {
     IDLE = 'idle',
@@ -8,10 +9,23 @@ export enum InputFileAvatarState {
     WARNING = 'warning',
     DISABLED = 'disabled',
 }
+
+export enum InputFileAvatarError {
+    SQUARE_ONLY = 'square-only',
+    WRONG_DIMENSION = 'wrong-dimension',
+    UNKNOWN_ERROR = 'unknown-file-error',
+}
+
 export interface IInputFileAvatarProps
     extends Omit<
         IInputComponentProps,
-        'maxLength' | 'onChange' | 'inputLength' | 'wrapperClassName' | 'invisible' | 'inputClassName'
+        | 'maxLength'
+        | 'onChange'
+        | 'inputLength'
+        | 'wrapperClassName'
+        | 'useCustomWrapper'
+        | 'inputClassName'
+        | 'multiple'
     > {
     /**
      * Function that is called when a file is selected. Passes the file to the parent component.
@@ -24,11 +38,13 @@ export interface IInputFileAvatarProps
      */
     onFileError?: (error: string | undefined) => void;
     /**
-     * Allowed file extensions. @default ['jpg', 'jpeg', 'png']
+     * Allowed file extensions, it must be an object with the keys set to the MIME type
+     * and the values an array of file extensions (see https://developer.mozilla.org/en-US/docs/Web/API/window/showOpenFilePicker#accept)
+     * @default { "image/*": [".png", ".gif", ".jpeg", ".jpg"] }
      */
-    acceptedFileTypes?: Array<`.${string}`>;
+    acceptedFileTypes?: Accept;
     /**
-     * Maximum file size in bytes. ex: 2097152 bytes | 2 * 1024 ** 2 = 2MiB. 0 = no constraint. @default 0
+     * Maximum file size in bytes (e.g. 2097152 bytes | 2 * 1024 ** 2 = 2MiB).
      */
     maxFileSize?: number;
     /**
@@ -40,7 +56,7 @@ export interface IInputFileAvatarProps
      */
     maxDimension?: number;
     /**
-     * If true, only square images are accepted. @default true
+     * If true, only square images are accepted.
      */
     onlySquare?: boolean;
 }
