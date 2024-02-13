@@ -168,6 +168,13 @@ module.exports = {
             'critical-xl': 'var(--ods-shadow-critical-xl)',
             'critical-2xl': 'var(--ods-shadow-critical-2xl)',
 
+            'info-sm': 'var(--ods-shadow-info-sm)',
+            info: 'var(--ods-shadow-info)',
+            'info-md': 'var(--ods-shadow-info-md)',
+            'info-lg': 'var(--ods-shadow-info-lg)',
+            'info-xl': 'var(--ods-shadow-info-xl)',
+            'info-2xl': 'var(--ods-shadow-info-2xl)',
+
             none: 'var(--ods-shadow-none)',
         },
         screens: {

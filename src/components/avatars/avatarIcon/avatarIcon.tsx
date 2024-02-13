@@ -11,11 +11,11 @@ export type AvatarIconVariant = 'neutral' | 'primary' | 'info' | 'success' | 'wa
 
 export interface IAvatarIconProps extends HTMLAttributes<HTMLDivElement> {
     /**
-     * The icon type
+     * The icon type.
      */
     icon: IconType;
     /**
-     *  Responsive size attribute for the avatar.
+     * Responsive size attribute for the avatar.
      */
     responsiveSize?: ResponsiveAttribute<AvatarIconSize>;
     /**
@@ -28,6 +28,10 @@ export interface IAvatarIconProps extends HTMLAttributes<HTMLDivElement> {
      * @default neutral
      */
     variant?: AvatarIconVariant;
+    /**
+     * Renders the icon on a white background. This property overrides the variant default background.
+     */
+    backgroundWhite?: boolean;
 }
 
 const avatarVariantToIconClassNames: Record<AvatarIconVariant, string> = {
@@ -39,13 +43,14 @@ const avatarVariantToIconClassNames: Record<AvatarIconVariant, string> = {
     warning: 'text-warning-600',
 };
 
-const avatarVariantToContainerClassNames: Record<AvatarIconVariant, string> = {
+const avatarVariantToContainerClassNames: Record<AvatarIconVariant | 'white', string> = {
     neutral: 'bg-neutral-50',
     primary: 'bg-primary-50',
     critical: 'bg-critical-100',
     info: 'bg-info-100',
     success: 'bg-success-100',
     warning: 'bg-warning-100',
+    white: 'bg-neutral-0',
 };
 
 const responsiveSizeClasses: ResponsiveAttributeClassMap<AvatarIconSize> = {
@@ -73,11 +78,11 @@ const responsiveSizeClasses: ResponsiveAttributeClassMap<AvatarIconSize> = {
 };
 
 export const AvatarIcon: React.FC<IAvatarIconProps> = (props) => {
-    const { className, icon, variant = 'neutral', size = 'sm', responsiveSize = {}, ...rest } = props;
+    const { className, icon, variant = 'neutral', size = 'sm', responsiveSize = {}, backgroundWhite, ...rest } = props;
 
     const containerClasses = classNames(
         'flex items-center justify-center rounded-full',
-        avatarVariantToContainerClassNames[variant],
+        avatarVariantToContainerClassNames[backgroundWhite ? 'white' : variant],
         responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClasses),
         className,
     );

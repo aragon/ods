@@ -29,7 +29,9 @@ export const Default: Story = {
     ),
 };
 
-const ControlledComponent = (props: Omit<IToggleGroupProps, 'value' | 'onChange' | 'isMultiSelect'>) => {
+const ControlledComponent = (
+    props: Omit<IToggleGroupProps, 'value' | 'defaultValue' | 'onChange' | 'isMultiSelect'>,
+) => {
     const [value, setValue] = useState<string>();
 
     return (
@@ -50,7 +52,9 @@ export const Controlled: Story = {
     render: ({ value, onChange, isMultiSelect, ...props }) => <ControlledComponent {...props} />,
 };
 
-const MultiSelectComponent = (props: Omit<IToggleGroupProps, 'value' | 'onChange' | 'isMultiSelect'>) => {
+const MultiSelectComponent = (
+    props: Omit<IToggleGroupProps, 'value' | 'defaultValue' | 'onChange' | 'isMultiSelect'>,
+) => {
     const [value, setValue] = useState<string[]>();
 
     return (

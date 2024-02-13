@@ -32,7 +32,12 @@ describe('<InputDate /> component', () => {
         const label = 'test';
         render(createTestComponent({ label, isDisabled }));
         expect(screen.getByLabelText(label)).toBeDisabled();
-        expect(screen.getByRole('button')).toBeDisabled();
+    });
+
+    it('does not render the date picker button when the isDisabled property is set to true', () => {
+        const isDisabled = true;
+        render(createTestComponent({ isDisabled }));
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
 
     it('renders a button which opens the date picker on click', () => {
