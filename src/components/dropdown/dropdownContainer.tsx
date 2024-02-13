@@ -1,5 +1,5 @@
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, type IButtonProps } from '../button';
 import { IconType } from '../icon';
 
@@ -52,6 +52,11 @@ export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
     const triggerIcon = isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN;
     const hasLabel = label != null && label.length > 0;
 
+    // Update internal isOpen state on open property change
+    useEffect(() => {
+        setIsOpen(open);
+    }, [open]);
+
     return (
         <RadixDropdown.Root open={open} defaultOpen={defaultOpen} onOpenChange={handleOpenChange} {...otherProps}>
             <RadixDropdown.Trigger className="group" asChild={true} disabled={disabled}>
@@ -69,9 +74,9 @@ export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
             </RadixDropdown.Trigger>
             <RadixDropdown.Portal>
                 <RadixDropdown.Content
-                    className="flex min-w-60 flex-col gap-1.5 rounded-xl border border-neutral-100 bg-neutral-0 p-2 shadow-neutral-sm"
+                    className="flex min-w-48 flex-col gap-1.5 rounded-xl border border-neutral-100 bg-neutral-0 p-2 shadow-neutral-sm"
                     align="start"
-                    sideOffset={hasLabel ? 0 : 4}
+                    sideOffset={4}
                 >
                     {children}
                 </RadixDropdown.Content>

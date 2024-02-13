@@ -27,9 +27,9 @@ describe('<Dropdown.Item /> component', () => {
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
 
-    it('renders a checkmark icon when the active property is set to true', () => {
-        const active = true;
-        render(createTestComponent({ active }));
+    it('renders a checkmark icon when the selected property is set to true', () => {
+        const selected = true;
+        render(createTestComponent({ selected }));
         expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();
     });
 

@@ -72,7 +72,7 @@ const SelectionComponent = (props: IDropdownContainerProps) => {
     return (
         <Dropdown.Container {...props}>
             {items.map(({ id, label }) => (
-                <Dropdown.Item key={id} active={selectedItem === id} onSelect={() => setSelectedItem(id)}>
+                <Dropdown.Item key={id} selected={selectedItem === id} onSelect={() => setSelectedItem(id)}>
                     {label}
                 </Dropdown.Item>
             ))}
@@ -81,7 +81,7 @@ const SelectionComponent = (props: IDropdownContainerProps) => {
 };
 
 /**
- * Use the `active` and `onSelect` properties of the <Dropdown.Item /> component to implement a selection dropdown.
+ * Use the `selected` and `onSelect` properties of the <Dropdown.Item /> component to implement a selection dropdown.
  */
 export const Selection: Story = {
     render: (props: IDropdownContainerProps) => <SelectionComponent {...props} />,
