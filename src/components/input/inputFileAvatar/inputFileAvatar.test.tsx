@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useDropzone, type FileRejection } from 'react-dropzone';
 import { InputFileAvatar } from './inputFileAvatar';
 import { type IInputFileAvatarProps } from './inputFileAvatar.api';
@@ -7,16 +7,17 @@ import { type IInputFileAvatarProps } from './inputFileAvatar.api';
 jest.mock('react-dropzone', () => ({
     ...jest.requireActual('react-dropzone'),
     useDropzone: jest.fn().mockImplementation(({ onDrop, onFileError }) => {
+        // Mock implementation that simulates dropping a file
         return {
             getRootProps: jest.fn(() => ({})),
             getInputProps: jest.fn(() => ({})),
             isDragActive: false,
-            onDrop: (acceptedFiles: File[], fileRejections: FileRejection[]) => {
-                if (fileRejections.length > 0) {
-                    const error = fileRejections[0].errors[0].code;
-                    onFileError?.(error);
-                } else {
-                    onDrop?.(acceptedFiles, fileRejections);
+            onDrop: (accepted: File[], rejected: FileRejection[]) => {
+                if (rejected.length > 0) {
+                    const errorReason = rejected[0].errors[0].code;
+                    onFileError(errorReason);
+                } else if (onDrop) {
+                    onDrop(accepted, rejected);
                 }
             },
         };
@@ -27,6 +28,10 @@ jest.mock('react-dropzone', () => ({
         FileTooSmall: 'file-too-small',
         TooManyFiles: 'too-many-files',
     },
+}));
+
+jest.mock('../../avatars', () => ({
+    Avatar: () => <div data-testid="avatar-mock" />,
 }));
 
 describe('<InputFileAvatar /> Integration with react-dropzone', () => {
@@ -101,8 +106,9 @@ describe('<InputFileAvatar /> Integration with react-dropzone', () => {
 
         const file = new File(['(⌐□_□)'], 'chucknorris.png', { type: 'image/png' });
         const mockOnDrop = (useDropzone as jest.Mock).mock.calls[0][0].onDrop;
-        mockOnDrop([file], []);
-
+        act(() => {
+            mockOnDrop([file], []);
+        });
         await waitFor(() => {
             expect(screen.getByRole('img')).toHaveAttribute('src', 'mock-url');
         });
@@ -119,11 +125,12 @@ describe('<InputFileAvatar /> Integration with react-dropzone', () => {
         global.Image.prototype.width = 1200;
         global.Image.prototype.height = 1200;
 
-        const file = new File(['content'], 'file1.png', { type: 'image/png' });
+        const file = new File(['(⌐□_□)'], 'chucknorris.png', { type: 'image/png' });
 
         const mockOnDrop = (useDropzone as jest.Mock).mock.calls[0][0].onDrop;
-        mockOnDrop(file, [], []);
-
+        await act(async () => {
+            mockOnDrop(file, [], []);
+        });
         await waitFor(() => {
             expect(mockOnFileError).toHaveBeenCalledWith('wrong-dimension');
         });
@@ -132,14 +139,63 @@ describe('<InputFileAvatar /> Integration with react-dropzone', () => {
         global.Image.prototype.height = originalHeight;
     });
 
+    it('calls onFileError with specific error code for incorrect file type', async () => {
+        const mockOnFileError = jest.fn();
+        render(<InputFileAvatar onFileError={mockOnFileError} />);
+
+        /**
+         * reenable these as needed per test strategy below
+         */
+        // const file = new File(['(⌐□_□)'], 'chucknorris.gif', { type: 'image/gif' });
+        // const fileInput = screen.getByLabelText('Avatar Image Select');
+
+        /**
+         * using fireEvent.drop, no call onFileError
+         */
+        // fireEvent.drop(fileInput, {
+        //     dataTransfer: {
+        //         files: [file],
+        //     },
+        // });
+
+        /**
+         * using fireEvent.change, no call onFileError
+         */
+        // fireEvent.change(fileInput, {
+        //     target: {
+        //         files: [file],
+        //     },
+        // });
+
+        /**
+         * using userEvent with upload, no call onFileError
+         */
+        // await userEvent.setup({ applyAccept: false }).upload(fileInput, file);
+
+        /**
+         * this gets an onFileError call to onFileError but undefined
+         */
+        // const mockOnDrop = (useDropzone as jest.Mock).mock.calls[0][0].onDrop;
+        // act(() => {
+        //     mockOnDrop(file, [], []);
+        // });
+
+        await waitFor(() => {
+            expect(mockOnFileError).toHaveBeenCalledWith('file-invalid-type');
+        });
+    });
+
     it('properly cancels the file selection and returns to the initial state', async () => {
         render(createTestComponent());
         const file = new File(['(⌐□_□)'], 'chucknorris.png', { type: 'image/png' });
         const mockOnDrop = (useDropzone as jest.Mock).mock.calls[0][0].onDrop;
-        mockOnDrop([file], []);
+
+        await act(async () => {
+            mockOnDrop([file], []);
+        });
 
         await waitFor(() => {
-            expect(screen.getByTestId('avatar')).toHaveAttribute('src', expect.stringContaining('mock-url'));
+            expect(screen.getByTestId('avatar-mock')).toHaveAttribute('src', expect.stringContaining('mock-url'));
         });
 
         await waitFor(() => {
@@ -149,7 +205,7 @@ describe('<InputFileAvatar /> Integration with react-dropzone', () => {
         fireEvent.click(screen.getByLabelText('Cancel Selection'));
 
         await waitFor(() => {
-            expect(screen.queryByTestId('avatar')).not.toBeInTheDocument();
+            expect(screen.queryByTestId('avatar-mock')).not.toBeInTheDocument();
         });
     });
 });
