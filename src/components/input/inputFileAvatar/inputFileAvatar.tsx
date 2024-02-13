@@ -147,7 +147,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
                 <input {...getInputProps()} id={id} type="file" aria-label="Avatar Image Select" />
                 {imagePreview ? (
                     <div className="relative">
-                        <Avatar src={imagePreview} size="lg" className="cursor-pointer" />
+                        <Avatar src={imagePreview} size="lg" className="cursor-pointer" data-testid="avatar" />
                         <button
                             onClick={handleCancel}
                             className={classNames(
@@ -161,8 +161,10 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
                     </div>
                 ) : (
                     <>
-                        {!imagePreview && <Icon icon={IconType.ADD} size="lg" className={iconClassNames} />}
                         {isLoading && <Spinner size="lg" variant="neutral" />}
+                        {!imagePreview && !isLoading && (
+                            <Icon icon={IconType.ADD} size="lg" className={iconClassNames} />
+                        )}
                     </>
                 )}
             </div>
