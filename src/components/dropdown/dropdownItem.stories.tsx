@@ -32,6 +32,9 @@ export const Default: Story = {
     },
 };
 
+/**
+ * Set the `href` property to the DropdownItem component to render a link item.
+ */
 export const Link: Story = {
     render: (props: IDropdownItemProps) => (
         <Dropdown.Container label="Dropdown with link">
