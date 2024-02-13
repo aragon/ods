@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `Tooltip` component
 
+### Changed
+
+-   Update minor and patch versions of dependencies
+
 ## [1.0.12] - 2024-02-12
 
 ### Added
