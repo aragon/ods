@@ -11,7 +11,7 @@ const meta: Meta<typeof Dropdown.Item> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=8097-22574&mode=design&t=4o7W5TmAScRx38xw-4',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=8072-35701&mode=design&t=6F2nZrphVItFNxRc-4',
         },
     },
 };
