@@ -7,11 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Implement `InputFileAvatar` component
+
 ## [1.0.13] - 2024-02-14
 
 ### Added
 
--   Implement `InputFileAvatar` and `Tooltip` components
+-   Implement `Tooltip` component
 
 ### Changed
 
