@@ -13,7 +13,7 @@ export const Progress: React.FC<IProgressProps> = (props) => {
     const processedValue = Math.min(Math.max(1, value), 100);
 
     const containerClassNames = classNames(
-        'relative w-[320px] overflow-hidden rounded-xl bg-neutral-100',
+        'relative w-full overflow-hidden rounded-xl bg-neutral-100',
         sizeToClassNames[size],
         className,
     );

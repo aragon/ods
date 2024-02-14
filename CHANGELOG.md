@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.13] - 2024-02-14
+
 ### Added
 
 -   Implement `InputFileAvatar` and `Tooltip` components
@@ -14,6 +16,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Update minor and patch versions of dependencies
+
+### Fixed
+
+-   Style of `Progress` component to make it full width
 
 ## [1.0.12] - 2024-02-12
 
