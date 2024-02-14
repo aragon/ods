@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import type { ButtonHTMLAttributes, MouseEvent } from 'react';
+import { forwardRef, type ButtonHTMLAttributes, type MouseEvent, type Ref } from 'react';
 import type { Breakpoint, ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../types';
 import { responsiveUtils } from '../../utils';
 import { Icon, type IconSize } from '../icon';
@@ -155,7 +155,7 @@ const sizeToSpinnerSize: Record<ButtonSize, SpinnerSize> = {
     sm: 'sm',
 };
 
-export const Button: React.FC<IButtonProps> = (props) => {
+export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonProps>((props, ref) => {
     const {
         variant = 'primary',
         size = 'lg',
@@ -252,7 +252,13 @@ export const Button: React.FC<IButtonProps> = (props) => {
     if ('href' in otherProps && otherProps.href != null && otherProps.href !== '') {
         const { onClick, href, ...linkProps } = otherProps;
         return (
-            <a href={href} onClick={handleLinkClick(onClick)} {...commonProps} {...linkProps}>
+            <a
+                href={href}
+                onClick={handleLinkClick(onClick)}
+                ref={ref as Ref<HTMLAnchorElement>}
+                {...commonProps}
+                {...linkProps}
+            >
                 {buttonContent}
             </a>
         );
@@ -261,8 +267,10 @@ export const Button: React.FC<IButtonProps> = (props) => {
     const buttonProps = otherProps as ButtonHTMLAttributes<HTMLButtonElement>;
 
     return (
-        <button disabled={isDisabled} {...commonProps} {...buttonProps}>
+        <button disabled={isDisabled} ref={ref as Ref<HTMLButtonElement>} {...commonProps} {...buttonProps}>
             {buttonContent}
         </button>
     );
-};
+});
+
+Button.displayName = 'Button';
