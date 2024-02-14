@@ -1,75 +1,43 @@
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { useDropzone } from 'react-dropzone';
+import { render, screen, waitFor } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
+import { IconType } from '../../icon';
 import { InputFileAvatar } from './inputFileAvatar';
-import { type IInputFileAvatarProps } from './inputFileAvatar.api';
+import { InputFileAvatarError, type IInputFileAvatarProps } from './inputFileAvatar.api';
 
-jest.mock('react-dropzone', () => ({
-    ...jest.requireActual('react-dropzone'),
-    useDropzone: jest.fn().mockImplementation(() => {
-        return {
-            getRootProps: jest.fn(() => ({})),
-            getInputProps: jest.fn(() => ({})),
-        };
-    }),
-}));
+Object.defineProperty(URL, 'createObjectURL', { value: jest.fn(), configurable: true });
+Object.defineProperty(URL, 'revokeObjectURL', { value: jest.fn(), configurable: true });
 
 describe('<InputFileAvatar /> component', () => {
-    const originalGlobalImage = global.Image;
-    const originalCreateObjectURL = URL.createObjectURL;
-    const originalRevokeObjectURL = URL.revokeObjectURL;
+    const createObjectURLMock = jest.spyOn(URL, 'createObjectURL');
+    const revokeObjectURLMock = jest.spyOn(URL, 'revokeObjectURL');
 
-    beforeAll(() => {
+    const originalGlobalImage = window.Image;
+
+    beforeEach(() => {
         (window.Image as unknown) = class MockImage {
             onload: () => void = () => {};
             onerror: () => void = () => {};
-            src: string = '';
+            src: string = 'test';
 
-            addEventListener = jest.fn((event, callback) => {
+            removeEventListener = jest.fn();
+            addEventListener = (event: string, callback: () => void) => {
                 if (event === 'load') {
                     this.onload = callback;
                 } else if (event === 'error') {
                     this.onerror = callback;
                 }
-            });
-
-            removeEventListener = jest.fn();
+            };
 
             constructor() {
-                setTimeout(() => {
-                    this.onload();
-                }, 100);
+                setTimeout(() => this.onload(), 100);
             }
         };
-
-        Object.defineProperty(URL, 'createObjectURL', {
-            value: jest.fn(() => 'http://mock-url'),
-            configurable: true,
-        });
-        Object.defineProperty(URL, 'revokeObjectURL', {
-            value: jest.fn(),
-            configurable: true,
-        });
-    });
-
-    afterAll(() => {
-        global.Image = originalGlobalImage;
-
-        Object.defineProperty(URL, 'createObjectURL', {
-            value: originalCreateObjectURL,
-            configurable: true,
-        });
-        Object.defineProperty(URL, 'revokeObjectURL', {
-            value: originalRevokeObjectURL,
-            configurable: true,
-        });
-    });
-
-    beforeEach(() => {
-        (useDropzone as jest.Mock).mockClear();
     });
 
     afterEach(() => {
-        jest.restoreAllMocks(); // Restores all mocks to their original value
+        window.Image = originalGlobalImage;
+        createObjectURLMock.mockReset();
+        revokeObjectURLMock.mockReset();
     });
 
     const createTestComponent = (props?: Partial<IInputFileAvatarProps>) => {
@@ -78,69 +46,59 @@ describe('<InputFileAvatar /> component', () => {
         return <InputFileAvatar {...completeProps} />;
     };
 
-    it('renders without crashing', () => {
-        render(createTestComponent());
+    it('renders a file input and an add icon', () => {
+        const label = 'input-label';
+        render(createTestComponent({ label }));
+        const fileInput = screen.getByLabelText<HTMLInputElement>(label);
+        expect(fileInput).toBeInTheDocument();
+        expect(fileInput.type).toEqual('file');
+        expect(screen.getByTestId(IconType.ADD)).toBeInTheDocument();
     });
 
-    it('displays a preview when a valid file is selected', async () => {
-        render(createTestComponent());
+    it('displays a preview and calls the onFileSelect callback when a valid file is selected', async () => {
+        const label = 'test-label';
+        const fileSrc = 'https://chucknorris.com/image.png';
+        const file = new File(['(⌐□_□)'], fileSrc, { type: 'image/png' });
+        const onFileSelect = jest.fn();
+        createObjectURLMock.mockReturnValue(fileSrc);
 
-        const file = new File(['(⌐□_□)'], 'chucknorris.png', { type: 'image/png' });
-        const mockOnDrop = (useDropzone as jest.Mock).mock.calls[0][0].onDrop;
-        act(() => {
-            mockOnDrop([file], []);
-        });
-        await waitFor(() => {
-            expect(screen.getByRole('img')).toHaveAttribute('src', 'http://mock-url');
-        });
-        expect(URL.createObjectURL).toHaveBeenCalledWith(file);
+        render(createTestComponent({ label, onFileSelect }));
+        await userEvent.upload(screen.getByLabelText(label), file);
+        const previewImg = await screen.findByRole<HTMLImageElement>('img');
+
+        expect(previewImg).toBeInTheDocument();
+        expect(previewImg.src).toEqual(fileSrc);
+        expect(onFileSelect).toHaveBeenCalledWith(file);
     });
 
-    it('calls onFileError with specific error code for incorrect dimensions', async () => {
-        const mockOnFileError = jest.fn();
-        render(createTestComponent({ onFileError: mockOnFileError, maxDimension: 1000, minDimension: 1000 }));
+    it('clears the current file selection on close button click after an image has been selected', async () => {
+        const label = 'test-label';
+        const file = new File(['something'], 'test.png', { type: 'image/png' });
+        createObjectURLMock.mockReturnValue('file-src');
 
+        render(createTestComponent({ label }));
+        await userEvent.upload(screen.getByLabelText(label), file);
+        const cancelButton = await screen.findByRole('button');
+        expect(cancelButton).toBeInTheDocument();
+
+        await userEvent.click(cancelButton);
+        expect(screen.getByTestId(IconType.ADD)).toBeInTheDocument();
+        expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    });
+
+    it('calls onFileError when file has incorrect dimensions', async () => {
         const originalWidth = global.Image.prototype.width;
-        const originalHeight = global.Image.prototype.height;
+        global.Image.prototype.width = 800;
 
-        global.Image.prototype.width = 1200;
-        global.Image.prototype.height = 1200;
+        const label = 'test-label';
+        const file = new File(['test'], 'test.png', { type: 'image/png' });
+        const onFileError = jest.fn();
+        const minDimension = 1000;
 
-        const file = new File(['(⌐□_□)'], 'chucknorris.png', { type: 'image/png' });
-
-        const mockOnDrop = (useDropzone as jest.Mock).mock.calls[0][0].onDrop;
-        await act(async () => {
-            mockOnDrop(file, [], []);
-        });
-        await waitFor(() => {
-            expect(mockOnFileError).toHaveBeenCalledWith('wrong-dimension');
-        });
+        render(createTestComponent({ label, onFileError, minDimension }));
+        await userEvent.upload(screen.getByLabelText(label), file);
+        await waitFor(() => expect(onFileError).toHaveBeenCalledWith(InputFileAvatarError.WRONG_DIMENSION));
 
         global.Image.prototype.width = originalWidth;
-        global.Image.prototype.height = originalHeight;
-    });
-
-    it('properly cancels the file selection and returns to the initial state', async () => {
-        render(createTestComponent());
-        const file = new File(['(⌐□_□)'], 'chucknorris.png', { type: 'image/png' });
-        const mockOnDrop = (useDropzone as jest.Mock).mock.calls[0][0].onDrop;
-
-        await act(async () => {
-            mockOnDrop([file], []);
-        });
-
-        await waitFor(() => {
-            expect(screen.getByTestId('avatar')).toHaveAttribute('src', expect.stringContaining('mock-url'));
-        });
-
-        await waitFor(() => {
-            expect(screen.getByLabelText('Cancel Selection')).toBeInTheDocument();
-        });
-
-        fireEvent.click(screen.getByLabelText('Cancel Selection'));
-
-        await waitFor(() => {
-            expect(screen.queryByTestId('avatar')).not.toBeInTheDocument();
-        });
     });
 });

@@ -33,7 +33,7 @@ const stateToClassNames: Record<InputVariant | 'disabled', { containerClasses: s
     },
 };
 
-const dropzoneErrorToError: Record<string, InputFileAvatarError> = {
+const dropzoneErrorToError: Record<string, InputFileAvatarError | undefined> = {
     [ErrorCode.FileInvalidType]: InputFileAvatarError.FILE_INVALID_TYPE,
     [ErrorCode.FileTooLarge]: InputFileAvatarError.FILE_TOO_LARGE,
     [ErrorCode.TooManyFiles]: InputFileAvatarError.TOO_MANY_FILES,
@@ -59,38 +59,40 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
 
     const onDrop = useCallback(
         (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
-            setIsLoading(true);
-
             if (rejectedFiles.length > 0) {
                 const dropzoneError = rejectedFiles[0].errors[0].code;
-                const internalError = dropzoneErrorToError[dropzoneError];
-                onFileError?.(internalError ?? InputFileAvatarError.UNKNOWN_ERROR);
-                setIsLoading(false);
+                const internalError = dropzoneErrorToError[dropzoneError] ?? InputFileAvatarError.UNKNOWN_ERROR;
+                onFileError?.(internalError);
+
                 return;
             }
 
             const file = acceptedFiles[0];
             const image = new Image();
+            setIsLoading(true);
+
             const onImageLoad = () => {
                 const isBelowMinDimension = minDimension && (image.width < minDimension || image.height < minDimension);
                 const isAboveMaxDimension = maxDimension && (image.width > maxDimension || image.height > maxDimension);
+
                 if (onlySquare && image.height !== image.width) {
                     onFileError?.(InputFileAvatarError.SQUARE_ONLY);
-                    setIsLoading(false);
                 } else if (isBelowMinDimension ?? isAboveMaxDimension) {
                     onFileError?.(InputFileAvatarError.WRONG_DIMENSION);
-                    setIsLoading(false);
                 } else {
                     setImagePreview(image.src);
-                    setIsLoading(false);
                     onFileSelect?.(file);
                 }
+
+                setIsLoading(false);
             };
 
             image.addEventListener('load', onImageLoad);
             image.addEventListener('error', () => {
+                setIsLoading(false);
                 onFileError?.(InputFileAvatarError.UNKNOWN_ERROR);
             });
+
             image.src = URL.createObjectURL(file);
         },
         [maxDimension, minDimension, onFileError, onFileSelect, onlySquare],
@@ -121,8 +123,6 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
         containerClasses,
     );
 
-    const iconClassNames = classNames(addIconClasses);
-
     return (
         <InputContainer id={id} useCustomWrapper {...otherContainerProps}>
             <div {...getRootProps()} className={inputAvatarClassNames}>
@@ -145,7 +145,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
                     <>
                         {isLoading && <Spinner size="lg" variant="neutral" />}
                         {!imagePreview && !isLoading && (
-                            <Icon icon={IconType.ADD} size="lg" className={iconClassNames} />
+                            <Icon icon={IconType.ADD} size="lg" className={classNames(addIconClasses)} />
                         )}
                     </>
                 )}
