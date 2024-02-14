@@ -77,7 +77,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
                 if (onlySquare && image.height !== image.width) {
                     onFileError?.(InputFileAvatarError.SQUARE_ONLY);
                     setIsLoading(false);
-                } else if (isBelowMinDimension || isAboveMaxDimension) {
+                } else if (isBelowMinDimension ?? isAboveMaxDimension) {
                     onFileError?.(InputFileAvatarError.WRONG_DIMENSION);
                     setIsLoading(false);
                 } else {
