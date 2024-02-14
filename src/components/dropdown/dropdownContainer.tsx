@@ -1,4 +1,5 @@
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu';
+import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { Button, type IButtonProps } from '../button';
 import { IconType } from '../icon';
@@ -23,7 +24,7 @@ export interface IDropdownContainerProps extends RadixDropdown.DropdownMenuProps
      */
     hideIcon?: boolean;
     /**
-     * Disabled the dropdown when set to true.
+     * Disables the dropdown when set to true.
      */
     disabled?: boolean;
 }
@@ -74,7 +75,10 @@ export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
             </RadixDropdown.Trigger>
             <RadixDropdown.Portal>
                 <RadixDropdown.Content
-                    className="flex min-w-48 flex-col gap-1.5 rounded-xl border border-neutral-100 bg-neutral-0 p-2 shadow-neutral-sm"
+                    className={classNames(
+                        'flex min-w-48 flex-col gap-1.5 overflow-auto rounded-xl border border-neutral-100 bg-neutral-0 p-2 shadow-neutral-sm',
+                        'max-h-[var(--radix-dropdown-menu-content-available-height)] max-w-[var(--radix-dropdown-menu-content-available-width)]',
+                    )}
                     align="start"
                     sideOffset={4}
                 >

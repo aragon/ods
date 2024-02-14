@@ -60,7 +60,7 @@ export const DropdownItem: React.FC<IDropdownItemProps> = (props) => {
             disabled={disabled}
             asChild={renderLink}
             className={classNames(
-                'flex items-center justify-between px-4 py-3', // Layout
+                'flex items-center justify-between gap-3 px-4 py-3', // Layout
                 'cursor-pointer rounded-xl text-base leading-tight focus-visible:outline-none', // Style
                 'data-[disabled]:cursor-default data-[disabled]:bg-neutral-0 data-[disabled]:text-neutral-300', // Disabled
                 { 'bg-neutral-0 text-neutral-500': !selected && !disabled }, // Not selected
@@ -74,7 +74,7 @@ export const DropdownItem: React.FC<IDropdownItemProps> = (props) => {
             {...otherProps}
         >
             <ItemWrapper {...itemWrapperProps}>
-                {children}
+                <p className="truncate">{children}</p>
                 {processedIcon != null && <Icon icon={processedIcon} size="md" className="text-neutral-300" />}
             </ItemWrapper>
         </RadixDropdown.Item>
