@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { AlertInline } from '../../alerts';
 import { Tag } from '../../tag';
 import type { IInputContainerProps, InputVariant } from './inputContainer.api';
@@ -45,6 +45,7 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
         className,
         wrapperClassName,
         id,
+        useCustomWrapper,
         ...otherProps
     } = props;
 
@@ -62,6 +63,9 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
         'animate-shake': inputLength === maxLength,
     });
 
+    const InputWrapper = useCustomWrapper ? React.Fragment : 'div';
+    const containerProps = useCustomWrapper ? {} : { className: containerClasses };
+
     return (
         <div className={classNames('flex grow flex-col gap-2 md:gap-3', className)} ref={ref} {...otherProps}>
             {(label != null || helpText != null) && (
@@ -78,7 +82,7 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
                     )}
                 </label>
             )}
-            <div className={containerClasses}>{children}</div>
+            <InputWrapper {...containerProps}>{children}</InputWrapper>
             {maxLength != null && !alert && (
                 <p className={counterClasses}>
                     {inputLength}/{maxLength}
