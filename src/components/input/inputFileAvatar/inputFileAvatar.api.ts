@@ -1,19 +1,13 @@
 import { type Accept } from 'react-dropzone';
 import { type IInputComponentProps } from '../inputContainer';
 
-export enum InputFileAvatarState {
-    IDLE = 'idle',
-    SELECTING = 'selecting',
-    SUCCESS = 'success',
-    ERROR = 'error',
-    WARNING = 'warning',
-    DISABLED = 'disabled',
-}
-
 export enum InputFileAvatarError {
     SQUARE_ONLY = 'square-only',
     WRONG_DIMENSION = 'wrong-dimension',
     UNKNOWN_ERROR = 'unknown-file-error',
+    FILE_INVALID_TYPE = 'file-invalid-type',
+    TOO_MANY_FILES = 'too-many-files',
+    FILE_TOO_LARGE = 'file-too-large',
 }
 
 export interface IInputFileAvatarProps
@@ -36,11 +30,11 @@ export interface IInputFileAvatarProps
     /**
      * Function that is called when a file is rejected. Passes the error message to the parent component.
      */
-    onFileError?: (error: string | undefined) => void;
+    onFileError?: (error: InputFileAvatarError) => void;
     /**
      * Allowed file extensions, it must be an object with the keys set to the MIME type
      * and the values an array of file extensions (see https://developer.mozilla.org/en-US/docs/Web/API/window/showOpenFilePicker#accept)
-     * @default { "image/*": [".png", ".gif", ".jpeg", ".jpg"] }
+     * @default { 'image/png': [], 'image/gif': [], 'image/jpeg': ['.jpg', '.jpeg'] }
      */
     acceptedFileTypes?: Accept;
     /**
@@ -48,11 +42,11 @@ export interface IInputFileAvatarProps
      */
     maxFileSize?: number;
     /**
-     * Minimum dimension of the image in pixels. 0 = no constraint. @default 0
+     * Minimum dimension of the image in pixels.
      */
     minDimension?: number;
     /**
-     * Maximum dimension of the image in pixels.0 = no constraint. @default 0
+     * Maximum dimension of the image in pixels.
      */
     maxDimension?: number;
     /**

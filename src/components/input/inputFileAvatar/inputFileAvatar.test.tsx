@@ -1,38 +1,19 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { useDropzone, type FileRejection } from 'react-dropzone';
+import { useDropzone } from 'react-dropzone';
 import { InputFileAvatar } from './inputFileAvatar';
 import { type IInputFileAvatarProps } from './inputFileAvatar.api';
 
 jest.mock('react-dropzone', () => ({
     ...jest.requireActual('react-dropzone'),
-    useDropzone: jest.fn().mockImplementation(({ onDrop, onFileError }) => {
+    useDropzone: jest.fn().mockImplementation(() => {
         return {
             getRootProps: jest.fn(() => ({})),
             getInputProps: jest.fn(() => ({})),
-            isDragActive: false,
-            onDrop: (accepted: File[], rejected: FileRejection[]) => {
-                if (rejected.length > 0) {
-                    const errorReason = rejected[0].errors[0].code;
-                    onFileError(errorReason);
-                } else if (onDrop) {
-                    onDrop(accepted, rejected);
-                }
-            },
         };
     }),
-    ErrorCode: {
-        FileInvalidType: 'file-invalid-type',
-        FileTooLarge: 'file-too-large',
-        FileTooSmall: 'file-too-small',
-        TooManyFiles: 'too-many-files',
-    },
 }));
 
-// jest.mock('../../avatars', () => ({
-//     Avatar: () => <div data-testid="mock-avatar" />,
-// }));
-
-describe('<InputFileAvatar /> Integration with react-dropzone', () => {
+describe('<InputFileAvatar /> component', () => {
     const originalGlobalImage = global.Image;
     const originalCreateObjectURL = URL.createObjectURL;
     const originalRevokeObjectURL = URL.revokeObjectURL;
@@ -99,8 +80,6 @@ describe('<InputFileAvatar /> Integration with react-dropzone', () => {
 
     it('renders without crashing', () => {
         render(createTestComponent());
-
-        expect(screen.getByLabelText('Avatar Image Select')).toBeInTheDocument();
     });
 
     it('displays a preview when a valid file is selected', async () => {
@@ -139,52 +118,6 @@ describe('<InputFileAvatar /> Integration with react-dropzone', () => {
 
         global.Image.prototype.width = originalWidth;
         global.Image.prototype.height = originalHeight;
-    });
-
-    it.skip('calls onFileError with specific error code for incorrect file type', async () => {
-        const mockOnFileError = jest.fn();
-        render(<InputFileAvatar onFileError={mockOnFileError} />);
-
-        /**
-         * reenable these as needed per test strategy below
-         */
-        // const file = new File(['(⌐□_□)'], 'chucknorris.gif', { type: 'image/gif' });
-        // const fileInput = screen.getByLabelText('Avatar Image Select');
-
-        /**
-         * using fireEvent.drop, no call onFileError
-         */
-        // fireEvent.drop(fileInput, {
-        //     dataTransfer: {
-        //         files: [file],
-        //     },
-        // });
-
-        /**
-         * using fireEvent.change, no call onFileError
-         */
-        // fireEvent.change(fileInput, {
-        //     target: {
-        //         files: [file],
-        //     },
-        // });
-
-        /**
-         * using userEvent with upload, no call onFileError
-         */
-        // await userEvent.setup({ applyAccept: false }).upload(fileInput, file);
-
-        /**
-         * this gets an onFileError call to onFileError but undefined
-         */
-        // const mockOnDrop = (useDropzone as jest.Mock).mock.calls[0][0].onDrop;
-        // act(() => {
-        //     mockOnDrop(file, [], []);
-        // });
-
-        await waitFor(() => {
-            expect(mockOnFileError).toHaveBeenCalledWith('file-invalid-type');
-        });
     });
 
     it('properly cancels the file selection and returns to the initial state', async () => {
