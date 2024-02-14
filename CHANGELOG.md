@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Update minor and patch versions of dependencies
 
+### Fixed
+
+-   Style of `Progress` component to make it full width
+
 ## [1.0.12] - 2024-02-12
 
 ### Added
