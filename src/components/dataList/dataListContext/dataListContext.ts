@@ -1,7 +1,9 @@
 import { createContext, useContext } from 'react';
 import type { IDataListRootProps } from '../dataListRoot';
 
-export interface IDataListContext extends Required<Pick<IDataListRootProps, 'maxItems'>> {
+export interface IDataListContext
+    extends Required<Pick<IDataListRootProps, 'maxItems'>>,
+        Pick<IDataListRootProps, 'itemsCount'> {
     /**
      * Total number of list item children.
      */
@@ -14,6 +16,10 @@ export interface IDataListContext extends Required<Pick<IDataListRootProps, 'max
      * Current page being rendered.
      */
     currentPage: number;
+    /**
+     * Callback to update the current page.
+     */
+    setCurrentPage: (page: number) => void;
 }
 
 const dataListContext = createContext<IDataListContext | null>(null);

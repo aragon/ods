@@ -21,8 +21,13 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
     }, [setChildrenItemCount, processedChildren.length]);
 
     return (
-        <div className={classNames('flex flex-col gap-2', className)} {...otherProps}>
-            {paginatedChildren}
+        <div className={classNames('flex flex-col gap-4', className)} {...otherProps}>
+            <div className="flex flex-row justify-between">
+                <p className="text-base font-normal leading-tight text-neutral-500">
+                    {processedChildren.length} Members
+                </p>
+            </div>
+            <div className="flex flex-col gap-2">{paginatedChildren}</div>
         </div>
     );
 };

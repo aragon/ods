@@ -25,13 +25,13 @@ export const DataListRoot: React.FC<IDataListRootProps> = (props) => {
     const [currentPage, setCurrentPage] = useState(0);
 
     const contextValues = useMemo(
-        () => ({ childrenItemCount, setChildrenItemCount, maxItems, currentPage }),
-        [childrenItemCount, maxItems, currentPage],
+        () => ({ childrenItemCount, setChildrenItemCount, maxItems, itemsCount, currentPage, setCurrentPage }),
+        [childrenItemCount, maxItems, currentPage, itemsCount],
     );
 
     return (
         <DataListContextProvider value={contextValues}>
-            <div className={classNames('flex grow flex-col', className)} {...otherProps}>
+            <div className={classNames('flex grow flex-col gap-4', className)} {...otherProps}>
                 {children}
             </div>
         </DataListContextProvider>

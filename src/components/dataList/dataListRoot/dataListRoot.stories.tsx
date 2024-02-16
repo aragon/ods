@@ -28,11 +28,10 @@ const ListItemComponent = () => (
  * Default usage example of the DataList.Root component.
  */
 export const Default: Story = {
-    args: {},
-    render: () => (
-        <DataList.Root maxItems={5}>
+    render: (props) => (
+        <DataList.Root {...props}>
             <DataList.Container>
-                {[...Array(10).fill(0)].map((_value, index) => (
+                {[...Array(props.itemsCount).fill(0)].map((_value, index) => (
                     <DataList.Item key={index} href="https://aragon.org" target="_blank">
                         <ListItemComponent />
                     </DataList.Item>
@@ -41,6 +40,10 @@ export const Default: Story = {
             <DataList.Pagination />
         </DataList.Root>
     ),
+    args: {
+        maxItems: 12,
+        itemsCount: 55,
+    },
 };
 
 export default meta;
