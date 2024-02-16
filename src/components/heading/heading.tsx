@@ -27,7 +27,7 @@ const headingToSizeClassNames: Record<HeadingSize, string> = {
 
 export const Heading = forwardRef<HTMLHeadingElement, IHeadingProps>(
     ({ size = 'h1', as, children, className, ...otherProps }, ref) => {
-        const Component = as ?? size;
+        const Tag = as ?? size;
         const headingClassName = classNames(
             'font-normal leading-tight text-neutral-800',
             headingToSizeClassNames[size],
@@ -40,7 +40,7 @@ export const Heading = forwardRef<HTMLHeadingElement, IHeadingProps>(
             ref,
         };
 
-        return React.createElement(Component, headingProps, children);
+        return React.createElement(Tag, headingProps, children);
     },
 );
 
