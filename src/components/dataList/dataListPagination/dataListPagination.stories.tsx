@@ -20,6 +20,11 @@ type Story = StoryObj<typeof DataList.Pagination>;
  */
 export const Default: Story = {
     args: {},
+    render: (props) => (
+        <DataList.Root maxItems={2} itemsCount={10}>
+            <DataList.Pagination {...props} />
+        </DataList.Root>
+    ),
 };
 
 export default meta;

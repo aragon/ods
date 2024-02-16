@@ -20,6 +20,14 @@ type Story = StoryObj<typeof DataList.Container>;
  */
 export const Default: Story = {
     args: {},
+    render: (props) => (
+        <DataList.Root>
+            <DataList.Container {...props}>
+                <DataList.Item>Item 1</DataList.Item>
+                <DataList.Item>Item 2</DataList.Item>
+            </DataList.Container>
+        </DataList.Root>
+    ),
 };
 
 export default meta;
