@@ -5,6 +5,7 @@ export * from './button';
 export * from './cards';
 export * from './checkbox';
 export * from './dropdown';
+export * from './heading';
 export * from './icon';
 export * from './illustrations';
 export * from './input';
