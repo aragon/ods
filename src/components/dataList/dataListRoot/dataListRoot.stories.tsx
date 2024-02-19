@@ -30,6 +30,7 @@ const ListItemComponent = () => (
 export const Default: Story = {
     render: (props) => (
         <DataList.Root {...props}>
+            <DataList.Filter />
             <DataList.Container>
                 {[...Array(props.itemsCount).fill(0)].map((_value, index) => (
                     <DataList.Item key={index} href="https://aragon.org" target="_blank">
