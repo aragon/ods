@@ -1,8 +1,10 @@
 import { type SVGProps } from 'react';
-import AppCommunity from '../../assets/icons/app-community.svg';
+import AppAssets from '../../assets/icons/app-assets.svg';
 import AppDashboard from '../../assets/icons/app-dashboard.svg';
-import AppFinance from '../../assets/icons/app-finance.svg';
-import AppGovernance from '../../assets/icons/app-governance.svg';
+import AppExplore from '../../assets/icons/app-explore.svg';
+import AppMembers from '../../assets/icons/app-members.svg';
+import AppProposals from '../../assets/icons/app-proposals.svg';
+import AppTransactions from '../../assets/icons/app-transactions.svg';
 import Blockchain from '../../assets/icons/blockchain.svg';
 import Calendar from '../../assets/icons/calendar.svg';
 import CheckboxIndeterminate from '../../assets/icons/checkbox-indeterminate.svg';
@@ -62,10 +64,12 @@ import { IconType } from './iconType';
 type IconComponent = React.FC<SVGProps<SVGSVGElement>>;
 
 export const iconList: Record<IconType, IconComponent> = {
-    [IconType.APP_COMMUNITY]: AppCommunity,
+    [IconType.APP_ASSETS]: AppAssets,
     [IconType.APP_DASHBOARD]: AppDashboard,
-    [IconType.APP_FINANCE]: AppFinance,
-    [IconType.APP_GOVERNANCE]: AppGovernance,
+    [IconType.APP_EXPLORE]: AppExplore,
+    [IconType.APP_MEMBERS]: AppMembers,
+    [IconType.APP_PROPOSALS]: AppProposals,
+    [IconType.APP_TRANSACTIONS]: AppTransactions,
     [IconType.BLOCKCHAIN]: Blockchain,
     [IconType.CALENDAR]: Calendar,
     [IconType.CHECKBOX]: Checkbox,
