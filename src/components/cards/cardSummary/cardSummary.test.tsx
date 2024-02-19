@@ -9,7 +9,7 @@ describe('<CardSummary /> component', () => {
             value: '1',
             description: 'description-test',
             action: { label: 'action' },
-            icon: IconType.ADD,
+            icon: IconType.PLUS,
             ...props,
         };
 

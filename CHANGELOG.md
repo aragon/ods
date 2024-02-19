@@ -29,7 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Renamed `radio-cancel` to `remove`
 -   Renamed `question` to `help`
 -   Renamed `radio-default` to `radio`
--   Renamed `radio-checked` to `success`
+-   Renamed `radio-check` to `success`
 -   Renamed `checkbox-multi` to `checkbox-indeterminate`
 -   Renamed `checkbox-default` to `checkbox`
 -   Renamed `tx-deposit` to `deposit`

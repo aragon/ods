@@ -5,7 +5,7 @@ import { AvatarIcon, type IAvatarIconProps } from './avatarIcon';
 
 describe('<AvatarIcon /> component', () => {
     const createTestComponent = (props?: Partial<IAvatarIconProps>) => {
-        const completeProps: IAvatarIconProps = { icon: IconType.ADD, ...props };
+        const completeProps: IAvatarIconProps = { icon: IconType.PLUS, ...props };
 
         return <AvatarIcon {...completeProps} />;
     };

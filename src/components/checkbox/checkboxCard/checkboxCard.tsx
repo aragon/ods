@@ -67,7 +67,7 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
             </div>
             {tag && <Tag {...tag} className={classNames('self-start', tag.className)} />}
             <Icon
-                icon={IconType.CHECKBOX_DEFAULT}
+                icon={IconType.CHECKBOX}
                 size="md"
                 className={classNames(
                     'hidden self-start text-neutral-400 group-data-[state=unchecked]:block group-data-[disabled]:text-neutral-300',
@@ -76,7 +76,7 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
             <RadixCheckbox.Indicator className="self-start text-primary-400 group-data-[disabled]:text-neutral-500">
                 <Icon icon={IconType.CHECKBOX_SELECTED} size="md" className="hidden group-data-[state=checked]:block" />
                 <Icon
-                    icon={IconType.CHECKBOX_MULTI}
+                    icon={IconType.CHECKBOX_INDETERMINATE}
                     size="md"
                     className="hidden group-data-[state=indeterminate]:block"
                 />

@@ -134,7 +134,7 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
                 <Button
                     size="sm"
                     variant="tertiary"
-                    iconLeft={IconType.ADD}
+                    iconLeft={IconType.PLUS}
                     onClick={handleIncrement}
                     className="mr-2 shrink-0"
                 />

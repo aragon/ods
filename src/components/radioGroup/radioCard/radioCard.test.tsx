@@ -36,22 +36,22 @@ describe('<RadioCard/> component', () => {
         expect(screen.getByTestId('avatar')).toBeInTheDocument();
     });
 
-    it('renders the RADIO_DEFAULT icon when unchecked', () => {
+    it('renders the RADIO icon when unchecked', () => {
         render(createTestComponent());
 
-        const uncheckedIcon = screen.getByTestId(IconType.RADIO_DEFAULT);
+        const uncheckedIcon = screen.getByTestId(IconType.RADIO);
 
         expect(uncheckedIcon).toBeVisible();
         expect(screen.getByRole('radio')).not.toBeChecked();
     });
 
-    it('renders the RADIO_CHECK icon when checked', () => {
+    it('renders the SUCCESS icon when checked', () => {
         render(createTestComponent());
 
         const radioButton = screen.getByRole('radio');
 
         fireEvent.click(radioButton);
-        const checkedIcon = screen.getByTestId(IconType.RADIO_CHECK);
+        const checkedIcon = screen.getByTestId(IconType.SUCCESS);
 
         expect(checkedIcon).toBeVisible();
         expect(screen.getByRole('radio')).toBeChecked();

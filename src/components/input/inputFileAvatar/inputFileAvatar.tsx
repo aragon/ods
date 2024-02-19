@@ -145,7 +145,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
                     <>
                         {isLoading && <Spinner size="lg" variant="neutral" />}
                         {!imagePreview && !isLoading && (
-                            <Icon icon={IconType.ADD} size="lg" className={classNames(addIconClasses)} />
+                            <Icon icon={IconType.PLUS} size="lg" className={classNames(addIconClasses)} />
                         )}
                     </>
                 )}

@@ -21,7 +21,7 @@ type Story = StoryObj<typeof Icon>;
  */
 export const Default: Story = {
     args: {
-        icon: IconType.ADD,
+        icon: IconType.PLUS,
     },
 };
 

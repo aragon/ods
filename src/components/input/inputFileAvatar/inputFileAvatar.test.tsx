@@ -52,7 +52,7 @@ describe('<InputFileAvatar /> component', () => {
         const fileInput = screen.getByLabelText<HTMLInputElement>(label);
         expect(fileInput).toBeInTheDocument();
         expect(fileInput.type).toEqual('file');
-        expect(screen.getByTestId(IconType.ADD)).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.PLUS)).toBeInTheDocument();
     });
 
     it('displays a preview and calls the onFileSelect callback when a valid file is selected', async () => {
@@ -82,7 +82,7 @@ describe('<InputFileAvatar /> component', () => {
         expect(cancelButton).toBeInTheDocument();
 
         await userEvent.click(cancelButton);
-        expect(screen.getByTestId(IconType.ADD)).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.PLUS)).toBeInTheDocument();
         expect(screen.queryByRole('img')).not.toBeInTheDocument();
     });
 

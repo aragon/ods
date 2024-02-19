@@ -6,7 +6,7 @@ import { IconType } from './iconType';
 describe('<Icon /> component', () => {
     const createTestComponent = (props?: Partial<IIconProps>) => {
         const completeProps: IIconProps = {
-            icon: IconType.ADD,
+            icon: IconType.PLUS,
             ...props,
         };
 

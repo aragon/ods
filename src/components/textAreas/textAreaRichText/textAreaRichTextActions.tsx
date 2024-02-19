@@ -53,12 +53,12 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
 
     const getRichTextActions = () => {
         const actions: ITextAreaRichTextAction[] = [
-            { icon: IconType.WYSIWYG_BOLD, action: () => editor?.chain().focus().toggleBold().run() },
-            { icon: IconType.WYSIWYG_ITALIC, action: () => editor?.chain().focus().toggleItalic().run() },
-            { icon: IconType.WYSIWYG_LINK_SET, action: setLink, hidden: editor?.isActive('link') },
-            { icon: IconType.WYSIWYG_LINK_UNSET, action: unsetLink, hidden: !editor?.isActive('link') },
-            { icon: IconType.WYSIWYG_LIST_UNORDERED, action: () => editor?.chain().focus().toggleBulletList().run() },
-            { icon: IconType.WYSIWYG_LIST_ORDERED, action: () => editor?.chain().focus().toggleOrderedList().run() },
+            { icon: IconType.RICHTEXT_BOLD, action: () => editor?.chain().focus().toggleBold().run() },
+            { icon: IconType.RICHTEXT_ITALIC, action: () => editor?.chain().focus().toggleItalic().run() },
+            { icon: IconType.RICHTEXT_LINK_ADD, action: setLink, hidden: editor?.isActive('link') },
+            { icon: IconType.RICHTEXT_LINK_REMOVE, action: unsetLink, hidden: !editor?.isActive('link') },
+            { icon: IconType.RICHTEXT_LIST_UNORDERED, action: () => editor?.chain().focus().toggleBulletList().run() },
+            { icon: IconType.RICHTEXT_LIST_ORDERED, action: () => editor?.chain().focus().toggleOrderedList().run() },
         ];
 
         return actions.filter((action) => !action.hidden);

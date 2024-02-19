@@ -29,7 +29,7 @@ describe('<Radio/> component', () => {
     it('renders the RADIO_DEFAULT icon when unchecked', () => {
         render(createTestComponent());
 
-        const uncheckedIcon = screen.getByTestId(IconType.RADIO_DEFAULT);
+        const uncheckedIcon = screen.getByTestId(IconType.RADIO);
 
         expect(uncheckedIcon).toBeVisible();
         expect(screen.getByRole('radio')).not.toBeChecked();

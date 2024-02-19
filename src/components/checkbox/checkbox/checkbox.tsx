@@ -43,7 +43,7 @@ export const Checkbox = forwardRef<HTMLButtonElement, ICheckboxProps>((props, re
                 {...otherProps}
             >
                 <Icon
-                    icon={IconType.CHECKBOX_DEFAULT}
+                    icon={IconType.CHECKBOX}
                     size="md"
                     className={classNames(
                         'hidden text-neutral-400 group-data-[state=unchecked]/checkbox:block',
@@ -57,7 +57,7 @@ export const Checkbox = forwardRef<HTMLButtonElement, ICheckboxProps>((props, re
                         className="hidden group-data-[state=checked]/checkbox:block"
                     />
                     <Icon
-                        icon={IconType.CHECKBOX_MULTI}
+                        icon={IconType.CHECKBOX_INDETERMINATE}
                         size="md"
                         className="hidden group-data-[state=indeterminate]/checkbox:block"
                     />

@@ -37,13 +37,13 @@ export const StackedFullWithObject: Story = {
         objectIllustration: { object: 'LIGHTBULB' },
         primaryButton: {
             label: 'Label',
-            iconLeft: IconType.ADD,
+            iconLeft: IconType.PLUS,
             iconRight: IconType.CHEVRON_RIGHT,
             onClick: () => alert('Primary Button Clicked'),
         },
         secondaryButton: {
             label: 'Label',
-            iconLeft: IconType.ADD,
+            iconLeft: IconType.PLUS,
             iconRight: IconType.CHEVRON_RIGHT,
             onClick: () => alert('Secondary Button Clicked'),
         },
@@ -62,13 +62,13 @@ export const NonStackedFullWithObject: Story = {
         objectIllustration: { object: 'LIGHTBULB' },
         primaryButton: {
             label: 'Label',
-            iconLeft: IconType.ADD,
+            iconLeft: IconType.PLUS,
             iconRight: IconType.CHEVRON_RIGHT,
             onClick: () => alert('Primary Button Clicked'),
         },
         secondaryButton: {
             label: 'Label',
-            iconLeft: IconType.ADD,
+            iconLeft: IconType.PLUS,
             iconRight: IconType.CHEVRON_RIGHT,
             onClick: () => alert('Secondary Button Clicked'),
         },
@@ -90,13 +90,13 @@ export const StackedFullWithHuman: Story = {
         },
         primaryButton: {
             label: 'Label',
-            iconLeft: IconType.ADD,
+            iconLeft: IconType.PLUS,
             iconRight: IconType.CHEVRON_RIGHT,
             onClick: () => alert('Primary Button Clicked'),
         },
         secondaryButton: {
             label: 'Label',
-            iconLeft: IconType.ADD,
+            iconLeft: IconType.PLUS,
             iconRight: IconType.CHEVRON_RIGHT,
             onClick: () => alert('Secondary Button Clicked'),
         },

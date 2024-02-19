@@ -48,7 +48,7 @@ export const Radio = forwardRef<HTMLButtonElement, IRadioProps>(
             <div className={classNames('flex items-center px-0.5', className)}>
                 <RadioGroupItem id={processedId} value={value} className={itemClasses} ref={ref} {...rest}>
                     <Icon
-                        icon={IconType.RADIO_DEFAULT}
+                        icon={IconType.RADIO}
                         className="text-neutral-300 group-hover:text-primary-400 group-disabled:text-neutral-300 group-data-[state=checked]:hidden"
                     />
                     <RadioGroupIndicator className="text-primary-400 group-disabled:text-neutral-300">
