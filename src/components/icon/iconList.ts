@@ -5,7 +5,11 @@ import AppExplore from '../../assets/icons/app-explore.svg';
 import AppMembers from '../../assets/icons/app-members.svg';
 import AppProposals from '../../assets/icons/app-proposals.svg';
 import AppTransactions from '../../assets/icons/app-transactions.svg';
-import Blockchain from '../../assets/icons/blockchain.svg';
+import BlockchainBlock from '../../assets/icons/blockchain-block.svg';
+import BlockchainBlockchain from '../../assets/icons/blockchain-blockchain.svg';
+import BlockchainGasfee from '../../assets/icons/blockchain-gasfee.svg';
+import BlockchainSmartContract from '../../assets/icons/blockchain-smartcontract.svg';
+import BlockchainWallet from '../../assets/icons/blockchain-wallet.svg';
 import Calendar from '../../assets/icons/calendar.svg';
 import CheckboxIndeterminate from '../../assets/icons/checkbox-indeterminate.svg';
 import CheckboxSelected from '../../assets/icons/checkbox-selected.svg';
@@ -22,13 +26,11 @@ import Deposit from '../../assets/icons/deposit.svg';
 import DotsHorizontal from '../../assets/icons/dots-horizontal.svg';
 import DotsVertical from '../../assets/icons/dots-vertical.svg';
 import Expand from '../../assets/icons/expand.svg';
-import Explore from '../../assets/icons/explore.svg';
 import FavoriteSelected from '../../assets/icons/favorite-selected.svg';
 import Favorite from '../../assets/icons/favorite.svg';
 import Feedback from '../../assets/icons/feedback.svg';
 import Filter from '../../assets/icons/filter.svg';
 import Flag from '../../assets/icons/flag.svg';
-import GasFee from '../../assets/icons/gas-fee.svg';
 import Help from '../../assets/icons/help.svg';
 import Home from '../../assets/icons/home.svg';
 import Info from '../../assets/icons/info.svg';
@@ -42,6 +44,13 @@ import RadioSelected from '../../assets/icons/radio-selected.svg';
 import Radio from '../../assets/icons/radio.svg';
 import Reload from '../../assets/icons/reload.svg';
 import Remove from '../../assets/icons/remove.svg';
+import RichtextBold from '../../assets/icons/richtext-bold.svg';
+import RichtextHeading from '../../assets/icons/richtext-heading.svg';
+import RichtextItalic from '../../assets/icons/richtext-italic.svg';
+import RichtextLinkAdd from '../../assets/icons/richtext-link-add.svg';
+import RichtextLinkRemove from '../../assets/icons/richtext-link-remove.svg';
+import RichtextListOrdered from '../../assets/icons/richtext-list-ordered.svg';
+import RichtextListUnordered from '../../assets/icons/richtext-list-unordered.svg';
 import Search from '../../assets/icons/search.svg';
 import Settings from '../../assets/icons/settings.svg';
 import Shrink from '../../assets/icons/shrink.svg';
@@ -49,16 +58,9 @@ import SortAsc from '../../assets/icons/sort-asc.svg';
 import SortDesc from '../../assets/icons/sort-desc.svg';
 import Success from '../../assets/icons/success.svg';
 import Switch from '../../assets/icons/switch.svg';
-import TxSmartContract from '../../assets/icons/tx-smart-contract.svg';
 import Update from '../../assets/icons/update.svg';
 import Warning from '../../assets/icons/warning.svg';
 import Withdraw from '../../assets/icons/withdraw.svg';
-import WysiwygBold from '../../assets/icons/wysiwyg-bold.svg';
-import WysiwygItalic from '../../assets/icons/wysiwyg-italic.svg';
-import WysiwygLinkSet from '../../assets/icons/wysiwyg-link-set.svg';
-import WysiwygLinkUnset from '../../assets/icons/wysiwyg-link-unset.svg';
-import WysiwygListOrdered from '../../assets/icons/wysiwyg-list-ordered.svg';
-import WysiwygListUnordered from '../../assets/icons/wysiwyg-list-unordered.svg';
 import { IconType } from './iconType';
 
 type IconComponent = React.FC<SVGProps<SVGSVGElement>>;
@@ -70,7 +72,11 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.APP_MEMBERS]: AppMembers,
     [IconType.APP_PROPOSALS]: AppProposals,
     [IconType.APP_TRANSACTIONS]: AppTransactions,
-    [IconType.BLOCKCHAIN]: Blockchain,
+    [IconType.BLOCKCHAIN_BLOCK]: BlockchainBlock,
+    [IconType.BLOCKCHAIN_BLOCKCHAIN]: BlockchainBlockchain,
+    [IconType.BLOCKCHAIN_GASFEE]: BlockchainGasfee,
+    [IconType.BLOCKCHAIN_SMARTCONTRACT]: BlockchainSmartContract,
+    [IconType.BLOCKCHAIN_WALLET]: BlockchainWallet,
     [IconType.CALENDAR]: Calendar,
     [IconType.CHECKBOX]: Checkbox,
     [IconType.CHECKBOX_INDETERMINATE]: CheckboxIndeterminate,
@@ -87,13 +93,11 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.DOTS_HORIZONTAL]: DotsHorizontal,
     [IconType.DOTS_VERTICAL]: DotsVertical,
     [IconType.EXPAND]: Expand,
-    [IconType.EXPLORE]: Explore,
     [IconType.FAVORITE]: Favorite,
     [IconType.FAVORITE_SELECTED]: FavoriteSelected,
     [IconType.FEEDBACK]: Feedback,
     [IconType.FILTER]: Filter,
     [IconType.FLAG]: Flag,
-    [IconType.GAS_FEE]: GasFee,
     [IconType.HELP]: Help,
     [IconType.HOME]: Home,
     [IconType.INFO]: Info,
@@ -107,6 +111,13 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.RADIO_SELECTED]: RadioSelected,
     [IconType.RELOAD]: Reload,
     [IconType.REMOVE]: Remove,
+    [IconType.RICHTEXT_BOLD]: RichtextBold,
+    [IconType.RICHTEXT_HEADING]: RichtextHeading,
+    [IconType.RICHTEXT_ITALIC]: RichtextItalic,
+    [IconType.RICHTEXT_LINK_ADD]: RichtextLinkAdd,
+    [IconType.RICHTEXT_LINK_REMOVE]: RichtextLinkRemove,
+    [IconType.RICHTEXT_LIST_ORDERED]: RichtextListOrdered,
+    [IconType.RICHTEXT_LIST_UNORDERED]: RichtextListUnordered,
     [IconType.SEARCH]: Search,
     [IconType.SETTINGS]: Settings,
     [IconType.SHRINK]: Shrink,
@@ -114,14 +125,7 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.SORT_DESC]: SortDesc,
     [IconType.SUCCESS]: Success,
     [IconType.SWITCH]: Switch,
-    [IconType.TX_SMART_CONTRACT]: TxSmartContract,
     [IconType.UPDATE]: Update,
     [IconType.WARNING]: Warning,
     [IconType.WITHDRAW]: Withdraw,
-    [IconType.WYSIWYG_BOLD]: WysiwygBold,
-    [IconType.WYSIWYG_ITALIC]: WysiwygItalic,
-    [IconType.WYSIWYG_LINK_SET]: WysiwygLinkSet,
-    [IconType.WYSIWYG_LINK_UNSET]: WysiwygLinkUnset,
-    [IconType.WYSIWYG_LIST_ORDERED]: WysiwygListOrdered,
-    [IconType.WYSIWYG_LIST_UNORDERED]: WysiwygListUnordered,
 };
