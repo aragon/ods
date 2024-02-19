@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 
 export type HeadingSize = 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
 
@@ -9,7 +9,7 @@ export interface IHeadingProps extends React.HTMLAttributes<HTMLHeadingElement> 
      * If the 'as' prop is not provided, this value determines the HTML element rendered in the DOM.
      * @default h1
      */
-    size: HeadingSize;
+    size?: HeadingSize;
     /**
      * Optionally overrides the HTML element type that is rendered in the DOM, independent of the heading's semantic level determined by the 'size' prop.
      * This allows for styling and semantic adjustments where necessary.
@@ -25,23 +25,16 @@ const headingToSizeClassNames: Record<HeadingSize, string> = {
     h5: 'text-sm md:text-base',
 };
 
-export const Heading = forwardRef<HTMLHeadingElement, IHeadingProps>(
-    ({ size = 'h1', as, children, className, ...otherProps }, ref) => {
-        const Tag = as ?? size;
-        const headingClassName = classNames(
-            'font-normal leading-tight text-neutral-800',
-            headingToSizeClassNames[size],
-            className,
-        );
+export const Heading = forwardRef<HTMLHeadingElement, IHeadingProps>((props, ref) => {
+    const { size = 'h1', as, className, ...otherProps } = props;
+    const Tag = as ?? size;
+    const headingClassName = classNames(
+        'font-normal leading-tight text-neutral-800',
+        headingToSizeClassNames[size],
+        className,
+    );
 
-        const headingProps = {
-            ...otherProps,
-            className: headingClassName,
-            ref,
-        };
-
-        return React.createElement(Tag, headingProps, children);
-    },
-);
+    return <Tag className={headingClassName} ref={ref} {...otherProps} />;
+});
 
 Heading.displayName = 'Heading';

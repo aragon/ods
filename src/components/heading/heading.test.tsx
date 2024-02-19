@@ -1,28 +1,27 @@
 import { render, screen } from '@testing-library/react';
-import { Heading } from './heading';
+import { Heading, type IHeadingProps } from './heading';
 
 describe('Heading', () => {
-    const createTestComponent = (props: React.ComponentProps<typeof Heading>) => {
-        const { children, ...otherProps } = props;
+    const createTestComponent = (props?: Partial<IHeadingProps>) => {
+        const completeProps = { ...props };
 
-        return <Heading {...otherProps}>{children}</Heading>;
+        return <Heading {...completeProps} />;
     };
 
     it('renders without crashing', () => {
-        const size = 'h1';
         const children = 'Test Heading';
-        render(createTestComponent({ size, children }));
+        render(createTestComponent({ children }));
 
         expect(screen.getByText('Test Heading')).toBeInTheDocument();
     });
 
     it('renders the correct element type when `as` prop is provided', () => {
-        const size = 'h1';
-        const as = 'h3';
-        const children = 'Heading as h3';
+        const size = 'h2';
+        const as = 'h4';
+        const children = '<h2 /> as <h4 />';
         render(createTestComponent({ size, as, children }));
 
-        expect(screen.getByRole('heading', { level: 3 })).toBeInTheDocument();
-        expect(screen.queryByRole('heading', { level: 1 })).not.toBeInTheDocument();
+        expect(screen.getByRole('heading', { level: 4 })).toBeInTheDocument();
+        expect(screen.queryByRole('heading', { level: 2 })).not.toBeInTheDocument();
     });
 });
