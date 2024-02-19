@@ -22,6 +22,7 @@ import ChevronUp from '../../assets/icons/chevron-up.svg';
 import Clock from '../../assets/icons/clock.svg';
 import Close from '../../assets/icons/close.svg';
 import Copy from '../../assets/icons/copy.svg';
+import Critical from '../../assets/icons/critical.svg';
 import Deposit from '../../assets/icons/deposit.svg';
 import DotsHorizontal from '../../assets/icons/dots-horizontal.svg';
 import DotsVertical from '../../assets/icons/dots-vertical.svg';
@@ -57,8 +58,6 @@ import Shrink from '../../assets/icons/shrink.svg';
 import SortAsc from '../../assets/icons/sort-asc.svg';
 import SortDesc from '../../assets/icons/sort-desc.svg';
 import Success from '../../assets/icons/success.svg';
-import Switch from '../../assets/icons/switch.svg';
-import Update from '../../assets/icons/update.svg';
 import Warning from '../../assets/icons/warning.svg';
 import Withdraw from '../../assets/icons/withdraw.svg';
 import { IconType } from './iconType';
@@ -89,6 +88,7 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.CLOCK]: Clock,
     [IconType.CLOSE]: Close,
     [IconType.COPY]: Copy,
+    [IconType.CRITICAL]: Critical,
     [IconType.DEPOSIT]: Deposit,
     [IconType.DOTS_HORIZONTAL]: DotsHorizontal,
     [IconType.DOTS_VERTICAL]: DotsVertical,
@@ -124,8 +124,6 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.SORT_ASC]: SortAsc,
     [IconType.SORT_DESC]: SortDesc,
     [IconType.SUCCESS]: Success,
-    [IconType.SWITCH]: Switch,
-    [IconType.UPDATE]: Update,
     [IconType.WARNING]: Warning,
     [IconType.WITHDRAW]: Withdraw,
 };

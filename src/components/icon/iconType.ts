@@ -22,6 +22,7 @@ export enum IconType {
     CLOCK = 'CLOCK',
     CLOSE = 'CLOSE',
     COPY = 'COPY',
+    CRITICAL = 'CRITICAL',
     DEPOSIT = 'DEPOSIT',
     DOTS_HORIZONTAL = 'DOTS_HORIZONTAL',
     DOTS_VERTICAL = 'DOTS_VERTICAL',
@@ -57,8 +58,6 @@ export enum IconType {
     SORT_ASC = 'SORT_ASC',
     SORT_DESC = 'SORT_DESC',
     SUCCESS = 'SUCCESS',
-    SWITCH = 'SWITCH',
-    UPDATE = 'UPDATE',
     WARNING = 'WARNING',
     WITHDRAW = 'WITHDRAW',
 }
