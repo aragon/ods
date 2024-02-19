@@ -10,7 +10,44 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 -   Implement `Heading`, `InputFileAvatar` and `Dropdown` components
+-   All SVGs have new designs/code implemented with "currentColor" fill, 16x16 mask
+-   Added `richtext-heading`, `blockchain-block`, `app-transactions`, `critical` and `sort-desc` icon files
 -   Ref property handling on `Button` component
+
+## Removed
+
+-   Removed `radio-pause`, `switch` and `update` icon files
+
+## Changed
+
+-   Renamed `menu-vertical` to `dots-vertical`
+-   Renamed `menu-horizontal` to `dots-horizontal`
+-   Renamed `menu-default` to `menu`
+-   Renamed `sort` to `sort-asc`
+-   Renamed `add` to `plus`
+-   Renamed `remove` to `minus`
+-   Renamed `radio-cancel` to `remove`
+-   Renamed `question` to `help`
+-   Renamed `radio-default` to `radio`
+-   Renamed `radio-checked` to `success`
+-   Renamed `checkbox-multi` to `checkbox-indeterminate`
+-   Renamed `checkbox-default` to `checkbox`
+-   Renamed `tx-deposit` to `deposit`
+-   Renamed `tx-smart-contract` to `blockchain-smartcontract`
+-   Renamed `tx-withdraw` to `withdraw`
+-   Renamed `app-finance` to `app-assets`
+-   Renamed `app-governance` to `app-proposals`
+-   Renamed `app-community` to `app-members`
+-   Renamed `explore` to `app-explore`
+-   Renamed `dashboard` to `app-dashboard`
+-   Renamed `blockchain` to `blockchain-blockchain`
+-   Renamed `gas-fee` to `blockchain-gasfee`
+-   Renamed `wysiwyg-bold` to `richtext-bold`
+-   Renamed `wysiwyg-italic` to `richtext-italic`
+-   Renamed `wysiwyg-link-set` to `richtext-link-add`
+-   Renamed `wysiwyg-link-unset` to `richtext-link-remove`
+-   Renamed `wysiwyg-list-ordered` to `richtext-list-ordered`
+-   Renamed `wysiwyg-list-unordered` to `richtext-list-unordered`
 
 ## [1.0.13] - 2024-02-14
 
