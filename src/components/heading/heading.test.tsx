@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { Heading, type IHeadingProps } from './heading';
 
-describe('Heading', () => {
+describe('<Heading /> component', () => {
     const createTestComponent = (props?: Partial<IHeadingProps>) => {
         const completeProps = { ...props };
 
