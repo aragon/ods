@@ -14,11 +14,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Added `richtext-heading`, `blockchain-block`, `app-transactions`, `logout`, `critical` and `sort-desc` icon files
 -   Ref property handling on `Button` component
 
-## Removed
+### Removed
 
 -   Removed `radio-pause`, `switch`, `tx-failure`, `turn-off` and `update` icon files
 
-## Changed
+### Changed
 
 -   Renamed `menu-vertical` to `dots-vertical`
 -   Renamed `menu-horizontal` to `dots-horizontal`
