@@ -11,7 +11,7 @@ describe('<AvatarIcon /> component', () => {
     };
 
     it('renders the specified icon', () => {
-        render(createTestComponent({ icon: IconType.APP_FINANCE }));
-        expect(screen.getByTestId(IconType.APP_FINANCE)).toBeInTheDocument();
+        render(createTestComponent({ icon: IconType.APP_ASSETS }));
+        expect(screen.getByTestId(IconType.APP_ASSETS)).toBeInTheDocument();
     });
 });

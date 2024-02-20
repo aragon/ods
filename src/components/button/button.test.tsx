@@ -26,14 +26,14 @@ describe('<Button /> component', () => {
     });
 
     it('renders the icon-right when specified', () => {
-        const iconRight = IconType.UPDATE;
+        const iconRight = IconType.RELOAD;
         const children = 'Button content';
         render(createTestComponent({ iconRight, children }));
         expect(screen.getByTestId(iconRight)).toBeInTheDocument();
     });
 
     it('renders the icon-left when specified', () => {
-        const iconLeft = IconType.UPDATE;
+        const iconLeft = IconType.RELOAD;
         render(createTestComponent({ iconLeft }));
         expect(screen.getByTestId(iconLeft)).toBeInTheDocument();
     });

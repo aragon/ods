@@ -25,7 +25,7 @@ describe('<CardSummary /> component', () => {
     });
 
     it('renders the specified icon', () => {
-        const icon = IconType.BLOCKCHAIN;
+        const icon = IconType.BLOCKCHAIN_BLOCKCHAIN;
         render(createTestComponent({ icon }));
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });

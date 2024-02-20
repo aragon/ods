@@ -22,7 +22,7 @@ describe('<Dropdown.Item /> component', () => {
     });
 
     it('renders the item icon when defined', () => {
-        const icon = IconType.BLOCKCHAIN;
+        const icon = IconType.BLOCKCHAIN_BLOCKCHAIN;
         render(createTestComponent({ icon }));
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
@@ -48,7 +48,7 @@ describe('<Dropdown.Item /> component', () => {
     });
 
     it('renders the specified icon when the menu item is a link', () => {
-        const icon = IconType.BLOCKCHAIN;
+        const icon = IconType.BLOCKCHAIN_BLOCKCHAIN;
         const href = '/test';
         render(createTestComponent({ icon, href }));
         expect(screen.getByTestId(icon)).toBeInTheDocument();
