@@ -40,7 +40,7 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
         maxLength,
         inputLength = 0,
         alert,
-        isDisabled,
+        disabled,
         children,
         className,
         wrapperClassName,
@@ -49,7 +49,7 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
         ...otherProps
     } = props;
 
-    const processedVariant = isDisabled ? 'disabled' : variant;
+    const processedVariant = disabled ? 'disabled' : variant;
     const containerClasses = classNames(
         'flex min-h-12 w-full flex-row items-center', // Layout
         'rounded-xl border text-neutral-500 transition-all', // Styling

@@ -14,9 +14,9 @@ describe('<InputText /> component', () => {
         expect(screen.getByRole('textbox')).toBeInTheDocument();
     });
 
-    it('disables the text input when isDisabled is set to true', () => {
-        const isDisabled = true;
-        render(createTestComponent({ isDisabled }));
+    it('disables the text input when disabled is set to true', () => {
+        const disabled = true;
+        render(createTestComponent({ disabled }));
         expect(screen.getByRole<HTMLInputElement>('textbox').disabled).toBeTruthy();
     });
 

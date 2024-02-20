@@ -26,7 +26,7 @@ export interface ITextAreaRichTextActionsProps {
     /**
      * Renders the actions as disabled when set to true.
      */
-    isDisabled?: boolean;
+    disabled?: boolean;
     /**
      * Callback called on expand action click.
      */
@@ -34,7 +34,7 @@ export interface ITextAreaRichTextActionsProps {
 }
 
 export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = (props) => {
-    const { editor, isDisabled, onExpandClick } = props;
+    const { editor, disabled, onExpandClick } = props;
 
     const unsetLink = () => editor?.chain().focus().extendMarkRange('link').unsetLink().run();
 
@@ -67,7 +67,7 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
     return (
         <div
             className={classNames('flex flex-row justify-between gap-2 px-4 py-3 md:gap-3', {
-                'bg-gradient-to-b from-neutral-50': !isDisabled,
+                'bg-gradient-to-b from-neutral-50': !disabled,
             })}
         >
             <div className="flex flex-row flex-wrap gap-2 md:gap-3">
@@ -79,7 +79,7 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
                         responsiveSize={{ md: 'md' }}
                         iconLeft={icon}
                         onClick={action}
-                        state={isDisabled ? 'disabled' : undefined}
+                        disabled={disabled}
                     />
                 ))}
             </div>
@@ -89,7 +89,7 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
                 responsiveSize={{ md: 'md' }}
                 iconLeft={IconType.EXPAND}
                 onClick={onExpandClick}
-                state={isDisabled ? 'disabled' : undefined}
+                disabled={disabled}
             />
         </div>
     );

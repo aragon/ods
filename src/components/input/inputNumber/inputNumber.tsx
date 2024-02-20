@@ -51,7 +51,7 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
     const step = inputStep <= 0 ? 1 : inputStep;
     const { containerProps, inputProps } = useInputProps(otherProps);
 
-    const { className: containerClassName, isDisabled, ...otherContainerProps } = containerProps;
+    const { className: containerClassName, disabled, ...otherContainerProps } = containerProps;
     const { onKeyDown, className: inputClassName, value, ...otherInputProps } = inputProps;
 
     const {
@@ -110,8 +110,8 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
     };
 
     return (
-        <InputContainer className={containerClassName} isDisabled={isDisabled} {...otherContainerProps}>
-            {!isDisabled && (
+        <InputContainer className={containerClassName} disabled={disabled} {...otherContainerProps}>
+            {!disabled && (
                 <Button
                     size="sm"
                     variant="tertiary"
@@ -130,7 +130,7 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
                 className={classNames('text-center spin-buttons:appearance-none', inputClassName)}
                 {...otherInputProps}
             />
-            {!isDisabled && (
+            {!disabled && (
                 <Button
                     size="sm"
                     variant="tertiary"

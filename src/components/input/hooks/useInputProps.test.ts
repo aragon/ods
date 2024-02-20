@@ -34,8 +34,8 @@ describe('useInputProps hook', () => {
     });
 
     it('forward the disabled property to the input component when set', () => {
-        const isDisabled = true;
-        const props = { isDisabled };
+        const disabled = true;
+        const props = { disabled };
         const { result } = renderHook(() => useInputProps(props));
         expect(result.current.inputProps.disabled).toBeTruthy();
     });

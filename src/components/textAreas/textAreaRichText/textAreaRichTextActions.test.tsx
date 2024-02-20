@@ -24,9 +24,9 @@ describe('<TextAreaRichTextActions /> component', () => {
         expect(screen.getAllByRole('button')).toHaveLength(6);
     });
 
-    it('renders the actions as disabled when the isDisabled property is set to true', () => {
-        const isDisabled = true;
-        render(createTestComponent({ isDisabled }));
+    it('renders the actions as disabled when the disabled property is set to true', () => {
+        const disabled = true;
+        render(createTestComponent({ disabled }));
         screen.getAllByRole<HTMLButtonElement>('button').forEach((button) => expect(button.disabled).toBeTruthy());
     });
 

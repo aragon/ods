@@ -48,7 +48,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
     acceptedFileTypes = { 'image/png': [], 'image/gif': [], 'image/jpeg': ['.jpg', '.jpeg'] },
     onlySquare,
     variant = 'default',
-    isDisabled,
+    disabled,
     ...otherProps
 }) => {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -101,7 +101,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
     const { getRootProps, getInputProps } = useDropzone({
         accept: acceptedFileTypes,
         maxSize: maxFileSize,
-        disabled: isDisabled,
+        disabled: disabled,
         onDrop,
         multiple: false,
     });
@@ -114,7 +114,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
         }
     };
 
-    const processedVariant = isDisabled ? 'disabled' : variant;
+    const processedVariant = disabled ? 'disabled' : variant;
     const { containerClasses, addIconClasses } = stateToClassNames[processedVariant];
 
     const inputAvatarClassNames = classNames(

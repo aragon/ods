@@ -44,8 +44,8 @@ describe('<InputNumberMax /> component', () => {
     });
 
     it('does not render the max button when input is disabled', () => {
-        const isDisabled = true;
-        render(createTestComponent({ isDisabled }));
+        const disabled = true;
+        render(createTestComponent({ disabled }));
         expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
 });

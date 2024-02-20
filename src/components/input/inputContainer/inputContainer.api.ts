@@ -35,7 +35,7 @@ export interface IInputContainerBaseProps {
     /**
      * Displays the input as disabled when set to true.
      */
-    isDisabled?: boolean;
+    disabled?: boolean;
     /**
      * Alert displayed below the input.
      */

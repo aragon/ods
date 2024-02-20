@@ -33,9 +33,9 @@ describe('<TextAreaRichText /> component', () => {
         expect(screen.getAllByRole('button').length).toBeGreaterThan(0);
     });
 
-    it('disables the textbox when the isDisabled property is set to true', async () => {
-        const isDisabled = true;
-        render(createTestComponent({ isDisabled }));
+    it('disables the textbox when the disabled property is set to true', async () => {
+        const disabled = true;
+        render(createTestComponent({ disabled }));
         expect((await screen.findByRole('textbox')).getAttribute('contenteditable')).toEqual('false');
     });
 

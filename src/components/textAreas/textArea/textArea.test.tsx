@@ -15,9 +15,9 @@ describe('<TextArea /> component', () => {
         expect(screen.getByRole('textbox')).toBeInTheDocument();
     });
 
-    it('disables the textarea when the isDisabled property is set to true', () => {
-        const isDisabled = true;
-        render(createTestComponent({ isDisabled }));
+    it('disables the textarea when the disabled property is set to true', () => {
+        const disabled = true;
+        render(createTestComponent({ disabled }));
         expect(screen.getByRole<HTMLTextAreaElement>('textbox').disabled).toBeTruthy();
     });
 });

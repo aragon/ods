@@ -27,16 +27,16 @@ describe('<InputDate /> component', () => {
         expect(dateInput.type).toEqual('date');
     });
 
-    it('renders the input as disabled when the isDisabled property is set to true', () => {
-        const isDisabled = true;
+    it('renders the input as disabled when the disabled property is set to true', () => {
+        const disabled = true;
         const label = 'test';
-        render(createTestComponent({ label, isDisabled }));
+        render(createTestComponent({ label, disabled }));
         expect(screen.getByLabelText(label)).toBeDisabled();
     });
 
-    it('does not render the date picker button when the isDisabled property is set to true', () => {
-        const isDisabled = true;
-        render(createTestComponent({ isDisabled }));
+    it('does not render the date picker button when the disabled property is set to true', () => {
+        const disabled = true;
+        render(createTestComponent({ disabled }));
         expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
 
