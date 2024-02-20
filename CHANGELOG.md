@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+-   Added Disabled prop to Button component and removed Disabled status
+
 ## [1.0.14] - 2024-02-20
 
 ### Added
