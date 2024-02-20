@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.14] - 2024-02-20
+
 ### Added
 
 -   Implement `Heading`, `InputFileAvatar` and `Dropdown` components
