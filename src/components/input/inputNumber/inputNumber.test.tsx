@@ -17,7 +17,7 @@ describe('<InputNumber /> component', () => {
 
         expect(screen.getByRole('textbox')).toBeInTheDocument();
         expect(screen.getAllByRole('button').length).toEqual(2);
-        expect(screen.getByTestId(IconType.ADD)).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.PLUS)).toBeInTheDocument();
         expect(screen.getByTestId(IconType.REMOVE)).toBeInTheDocument();
     });
 

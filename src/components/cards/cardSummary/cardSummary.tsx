@@ -38,7 +38,7 @@ export const CardSummary: React.FC<ICardSummaryProps> = (props) => {
                     variant="tertiary"
                     size="md"
                     responsiveSize={{ md: 'lg' }}
-                    iconLeft={IconType.ADD}
+                    iconLeft={IconType.PLUS}
                     onClick={action.onClick}
                     href={action.href}
                 >

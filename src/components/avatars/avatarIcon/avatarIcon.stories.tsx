@@ -22,7 +22,7 @@ type Story = StoryObj<typeof AvatarIcon>;
  */
 export const Default: Story = {
     args: {
-        icon: IconType.APP_GOVERNANCE,
+        icon: IconType.APP_PROPOSALS,
     },
 };
 

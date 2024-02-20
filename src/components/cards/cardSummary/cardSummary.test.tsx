@@ -9,7 +9,7 @@ describe('<CardSummary /> component', () => {
             value: '1',
             description: 'description-test',
             action: { label: 'action' },
-            icon: IconType.ADD,
+            icon: IconType.PLUS,
             ...props,
         };
 
@@ -25,7 +25,7 @@ describe('<CardSummary /> component', () => {
     });
 
     it('renders the specified icon', () => {
-        const icon = IconType.BLOCKCHAIN;
+        const icon = IconType.BLOCKCHAIN_BLOCKCHAIN;
         render(createTestComponent({ icon }));
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });

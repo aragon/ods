@@ -33,23 +33,23 @@ describe('<TextAreaRichTextActions /> component', () => {
     it('renders the set link action instead of the unset one when current active node is not a link', () => {
         const editor = { isActive: () => false } as unknown as Editor;
         render(createTestComponent({ editor }));
-        expect(screen.getByTestId(IconType.WYSIWYG_LINK_SET)).toBeInTheDocument();
-        expect(screen.queryByTestId(IconType.WYSIWYG_LINK_UNSET)).not.toBeInTheDocument();
+        expect(screen.getByTestId(IconType.RICHTEXT_LINK_ADD)).toBeInTheDocument();
+        expect(screen.queryByTestId(IconType.RICHTEXT_LINK_REMOVE)).not.toBeInTheDocument();
     });
 
     it('renders the unset link action instead of the set one when current active node is not a link', () => {
         const editor = { isActive: () => true } as unknown as Editor;
         render(createTestComponent({ editor }));
-        expect(screen.getByTestId(IconType.WYSIWYG_LINK_UNSET)).toBeInTheDocument();
-        expect(screen.queryByTestId(IconType.WYSIWYG_LINK_SET)).not.toBeInTheDocument();
+        expect(screen.getByTestId(IconType.RICHTEXT_LINK_REMOVE)).toBeInTheDocument();
+        expect(screen.queryByTestId(IconType.RICHTEXT_LINK_ADD)).not.toBeInTheDocument();
     });
 
     it('correctly handles the italic, bold and unordered / ordered actions', () => {
         const actions: Array<{ method: keyof ChainedCommands; icon: IconType }> = [
-            { method: 'toggleBold', icon: IconType.WYSIWYG_BOLD },
-            { method: 'toggleItalic', icon: IconType.WYSIWYG_ITALIC },
-            { method: 'toggleBulletList', icon: IconType.WYSIWYG_LIST_UNORDERED },
-            { method: 'toggleOrderedList', icon: IconType.WYSIWYG_LIST_ORDERED },
+            { method: 'toggleBold', icon: IconType.RICHTEXT_BOLD },
+            { method: 'toggleItalic', icon: IconType.RICHTEXT_ITALIC },
+            { method: 'toggleBulletList', icon: IconType.RICHTEXT_LIST_UNORDERED },
+            { method: 'toggleOrderedList', icon: IconType.RICHTEXT_LIST_ORDERED },
         ];
 
         const editorActions = actions.reduce<Partial<Record<keyof ChainedCommands, () => void>>>(
@@ -84,7 +84,7 @@ describe('<TextAreaRichTextActions /> component', () => {
             chain: () => ({ focus: () => ({ extendMarkRange: () => action }) }),
         } as unknown as Editor;
         render(createTestComponent({ editor }));
-        fireEvent.click(screen.getByTestId(IconType.WYSIWYG_LINK_UNSET));
+        fireEvent.click(screen.getByTestId(IconType.RICHTEXT_LINK_REMOVE));
         expect(action.unsetLink).toHaveBeenCalled();
     });
 
@@ -101,7 +101,7 @@ describe('<TextAreaRichTextActions /> component', () => {
         } as unknown as Editor;
         render(createTestComponent({ editor }));
 
-        fireEvent.click(screen.getByTestId(IconType.WYSIWYG_LINK_SET));
+        fireEvent.click(screen.getByTestId(IconType.RICHTEXT_LINK_ADD));
         expect(windowPromptMock).toHaveBeenCalledWith('URL', previousUrl);
         expect(action.setLink).toHaveBeenCalledWith({ href: newUrl });
     });
@@ -118,7 +118,7 @@ describe('<TextAreaRichTextActions /> component', () => {
         } as unknown as Editor;
         render(createTestComponent({ editor }));
 
-        fireEvent.click(screen.getByTestId(IconType.WYSIWYG_LINK_SET));
+        fireEvent.click(screen.getByTestId(IconType.RICHTEXT_LINK_ADD));
         expect(action.unsetLink).toHaveBeenCalled();
     });
 });

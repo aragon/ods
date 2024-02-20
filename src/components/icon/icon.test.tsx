@@ -6,7 +6,7 @@ import { IconType } from './iconType';
 describe('<Icon /> component', () => {
     const createTestComponent = (props?: Partial<IIconProps>) => {
         const completeProps: IIconProps = {
-            icon: IconType.ADD,
+            icon: IconType.PLUS,
             ...props,
         };
 
@@ -14,7 +14,7 @@ describe('<Icon /> component', () => {
     };
 
     it('renders an icon', () => {
-        const icon = IconType.BLOCKCHAIN;
+        const icon = IconType.BLOCKCHAIN_BLOCKCHAIN;
         render(createTestComponent({ icon }));
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });

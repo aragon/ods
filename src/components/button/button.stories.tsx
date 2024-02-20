@@ -34,7 +34,7 @@ export const Default: Story = {
  */
 export const OnlyIcon: Story = {
     args: {
-        iconLeft: IconType.ADD,
+        iconLeft: IconType.PLUS,
     },
 };
 
