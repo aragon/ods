@@ -11,12 +11,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `Heading`, `InputFileAvatar` and `Dropdown` components
 -   All SVGs have new designs/code implemented with "currentColor" fill, 16x16 mask
--   Added `richtext-heading`, `blockchain-block`, `app-transactions`, `critical` and `sort-desc` icon files
+-   Added `richtext-heading`, `blockchain-block`, `app-transactions`, `logout`, `critical` and `sort-desc` icon files
 -   Ref property handling on `Button` component
 
 ## Removed
 
--   Removed `radio-pause`, `switch` and `update` icon files
+-   Removed `radio-pause`, `switch`, `tx-failure`, `turn-off` and `update` icon files
 
 ## Changed
 
@@ -26,14 +26,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Renamed `sort` to `sort-asc`
 -   Renamed `add` to `plus`
 -   Renamed `remove` to `minus`
--   Renamed `radio-cancel` to `remove`
 -   Renamed `question` to `help`
+-   Renamed `radio-cancel` to `remove`
 -   Renamed `radio-default` to `radio`
 -   Renamed `radio-check` to `success`
 -   Renamed `checkbox-multi` to `checkbox-indeterminate`
 -   Renamed `checkbox-default` to `checkbox`
--   Renamed `tx-deposit` to `deposit`
 -   Renamed `tx-smart-contract` to `blockchain-smartcontract`
+-   Renamed `tx-deposit` to `deposit`
 -   Renamed `tx-withdraw` to `withdraw`
 -   Renamed `app-finance` to `app-assets`
 -   Renamed `app-governance` to `app-proposals`
