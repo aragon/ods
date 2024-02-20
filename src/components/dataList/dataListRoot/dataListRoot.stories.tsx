@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { Avatar } from '../../avatars';
 import { DataList } from '../index';
 
@@ -28,22 +29,38 @@ const ListItemComponent = () => (
  * Default usage example of the DataList.Root component.
  */
 export const Default: Story = {
-    render: (props) => (
-        <DataList.Root {...props}>
-            <DataList.Filter />
-            <DataList.Container>
-                {[...Array(props.itemsCount).fill(0)].map((_value, index) => (
-                    <DataList.Item key={index} href="https://aragon.org" target="_blank">
-                        <ListItemComponent />
-                    </DataList.Item>
-                ))}
-            </DataList.Container>
-            <DataList.Pagination />
-        </DataList.Root>
-    ),
     args: {
         maxItems: 12,
         itemsCount: 55,
+    },
+    render: (props) => {
+        const [searchValue, setSearchValue] = useState<string>();
+        const [isLoading, setIsLoading] = useState(false);
+
+        const handleSearchChange = (value?: string) => {
+            setSearchValue(value);
+            setIsLoading(true);
+            setTimeout(() => setIsLoading(false), 1000);
+        };
+
+        return (
+            <DataList.Root {...props}>
+                <DataList.Filter
+                    onFilterClick={() => alert('filter click')}
+                    searchValue={searchValue}
+                    onSearchValueChange={handleSearchChange}
+                    isLoading={isLoading}
+                />
+                <DataList.Container>
+                    {[...Array(props.itemsCount).fill(0)].map((_value, index) => (
+                        <DataList.Item key={index} href="https://aragon.org" target="_blank">
+                            <ListItemComponent />
+                        </DataList.Item>
+                    ))}
+                </DataList.Container>
+                <DataList.Pagination />
+            </DataList.Root>
+        );
     },
 };
 
