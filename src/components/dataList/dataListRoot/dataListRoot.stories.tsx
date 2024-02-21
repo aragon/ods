@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Avatar } from '../../avatars';
 import { DataListItem } from '../dataListItem';
 import { DataList, type IDataListRootProps } from '../index';
+import { DataListState } from './dataListRoot';
 
 const meta: Meta<typeof DataList.Root> = {
     title: 'components/DataList/DataList.Root',
@@ -39,6 +40,7 @@ const ListItemComponentLoading = () => (
 const DefaultComponent = (props: IDataListRootProps) => {
     const { itemsCount, ...otherProps } = props;
 
+    const [dataListState, setDataListState] = useState<DataListState>('loading');
     const [searchValue, setSearchValue] = useState<string>();
     const [isLoading, setIsLoading] = useState(false);
     const [activeSort, setActiveSort] = useState<string>('id_asc');
@@ -69,8 +71,12 @@ const DefaultComponent = (props: IDataListRootProps) => {
         return () => clearTimeout(timeout);
     }, [searchValue, activeSort, userIds]);
 
+    useEffect(() => {
+        setTimeout(() => setDataListState('idle'), 2_000);
+    }, []);
+
     return (
-        <DataList.Root itemsCount={filteredUsers.length} {...otherProps}>
+        <DataList.Root itemsCount={filteredUsers.length} state={dataListState} {...otherProps}>
             <DataList.Filter
                 onFilterClick={() => alert('filter click')}
                 searchValue={searchValue}

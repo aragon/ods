@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import { useMemo, useState, type ComponentProps } from 'react';
 import { DataListContextProvider } from '../dataListContext';
 
+export type DataListState = 'loading' | 'error' | 'idle';
+
 export interface IDataListRootProps extends ComponentProps<'div'> {
     /**
      * Total number of items.
@@ -17,7 +19,7 @@ export interface IDataListRootProps extends ComponentProps<'div'> {
      * - Loading: no data has been loaded yet.
      * - Error: an error has occurred while fetching the data.
      */
-    state?: 'loading' | 'error';
+    state?: DataListState;
     /**
      * Callback called on load-more button click.
      */
