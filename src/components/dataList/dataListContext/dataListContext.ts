@@ -3,7 +3,7 @@ import type { IDataListRootProps } from '../dataListRoot';
 
 export interface IDataListContext
     extends Required<Pick<IDataListRootProps, 'maxItems'>>,
-        Pick<IDataListRootProps, 'itemsCount'> {
+        Pick<IDataListRootProps, 'itemsCount' | 'state'> {
     /**
      * Total number of list item children.
      */

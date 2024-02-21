@@ -1,15 +1,23 @@
 import classNames from 'classnames';
 import { Children, useEffect, useMemo, type ComponentProps, type ReactElement } from 'react';
 import { useDataListContext } from '../dataListContext';
+import { DataListContainerSkeletonLoader } from './dataListContainerSkeletonLoader';
 
-export interface IDataListContainerProps extends ComponentProps<'div'> {}
+export interface IDataListContainerProps extends ComponentProps<'div'> {
+    /**
+     * Skeleton element displayed when the DataList container state is set to loading.
+     */
+    SkeltonElement?: React.FC;
+}
 
 export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
-    const { children, className, ...otherProps } = props;
+    const { children, className, SkeltonElement, ...otherProps } = props;
 
-    const { maxItems, currentPage, setChildrenItemCount } = useDataListContext();
+    const { state, maxItems, currentPage, setChildrenItemCount } = useDataListContext();
 
     const processedChildren = Children.toArray(children) as ReactElement[];
+
+    const SkeletonLoader = SkeltonElement ?? DataListContainerSkeletonLoader;
 
     const paginatedChildren = useMemo(
         () => processedChildren?.slice(0, maxItems * (currentPage + 1)) ?? [],
@@ -27,7 +35,11 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
                     {processedChildren.length} Members
                 </p>
             </div>
-            <div className="flex flex-col gap-2">{paginatedChildren}</div>
+            <div className="flex flex-col gap-2">
+                {state === 'loading'
+                    ? [...Array(maxItems)].map((_value, index) => <SkeletonLoader key={index} />)
+                    : paginatedChildren}
+            </div>
         </div>
     );
 };

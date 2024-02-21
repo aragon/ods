@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useEffect, useMemo, useState } from 'react';
 import { Avatar } from '../../avatars';
+import { DataListItem } from '../dataListItem';
 import { DataList, type IDataListRootProps } from '../index';
 
 const meta: Meta<typeof DataList.Root> = {
@@ -18,11 +19,21 @@ const meta: Meta<typeof DataList.Root> = {
 type Story = StoryObj<typeof DataList.Root>;
 
 const ListItemComponent = (props: { id: number }) => (
-    <div className="flex flex-row gap-2">
+    <DataListItem className="flex flex-row gap-2" href="https://aragon.org" target="_blank">
         <Avatar />
         <p className="grow text-base font-normal leading-normal">#{props.id}</p>
         <p className="text-sm font-normal leading-normal text-neutral-500">Some info</p>
-    </div>
+    </DataListItem>
+);
+
+const ListItemComponentLoading = () => (
+    <DataListItem className="flex animate-pulse flex-row items-center gap-2">
+        <Avatar />
+        <div className="flex grow flex-col gap-2">
+            <div className="h-2 grow rounded bg-neutral-50" />
+            <div className="h-2 w-1/3 rounded bg-neutral-50" />
+        </div>
+    </DataListItem>
 );
 
 const DefaultComponent = (props: IDataListRootProps) => {
@@ -59,7 +70,7 @@ const DefaultComponent = (props: IDataListRootProps) => {
     }, [searchValue, activeSort, userIds]);
 
     return (
-        <DataList.Root itemsCount={itemsCount} {...otherProps}>
+        <DataList.Root itemsCount={filteredUsers.length} {...otherProps}>
             <DataList.Filter
                 onFilterClick={() => alert('filter click')}
                 searchValue={searchValue}
@@ -70,11 +81,9 @@ const DefaultComponent = (props: IDataListRootProps) => {
                 onSortChange={setActiveSort}
                 sortItems={sortItems}
             />
-            <DataList.Container>
+            <DataList.Container SkeltonElement={ListItemComponentLoading}>
                 {filteredUsers.map((id) => (
-                    <DataList.Item key={id} href="https://aragon.org" target="_blank">
-                        <ListItemComponent id={id} />
-                    </DataList.Item>
+                    <ListItemComponent key={id} id={id} />
                 ))}
             </DataList.Container>
             <DataList.Pagination />

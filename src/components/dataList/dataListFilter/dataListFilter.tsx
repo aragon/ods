@@ -19,6 +19,10 @@ export interface IDataListFilterSortItem {
 
 export interface IDataListFilterProps extends Omit<ComponentProps<'div'>, 'onChange'> {
     /**
+     * Placeholder of the search bar.
+     */
+    placeholder?: string;
+    /**
      * Current value of the search bar.
      */
     searchValue?: string;
@@ -26,10 +30,6 @@ export interface IDataListFilterProps extends Omit<ComponentProps<'div'>, 'onCha
      * Callback called on search value change.
      */
     onSearchValueChange: (value?: string) => void;
-    /**
-     * Placeholder of the search bar.
-     */
-    placeholder?: string;
     /**
      * Displays a loading indicator when set to true.
      */

@@ -13,20 +13,26 @@ export interface IDataListRootProps extends ComponentProps<'div'> {
      */
     maxItems?: number;
     /**
+     * State of the data list component:
+     * - Loading: no data has been loaded yet.
+     * - Error: an error has occurred while fetching the data.
+     */
+    state?: 'loading' | 'error';
+    /**
      * Callback called on load-more button click.
      */
     onLoadMore?: () => void;
 }
 
 export const DataListRoot: React.FC<IDataListRootProps> = (props) => {
-    const { children, maxItems = 12, itemsCount, onLoadMore, className, ...otherProps } = props;
+    const { children, maxItems = 12, itemsCount, onLoadMore, className, state, ...otherProps } = props;
 
     const [childrenItemCount, setChildrenItemCount] = useState<number>();
     const [currentPage, setCurrentPage] = useState(0);
 
     const contextValues = useMemo(
-        () => ({ childrenItemCount, setChildrenItemCount, maxItems, itemsCount, currentPage, setCurrentPage }),
-        [childrenItemCount, maxItems, currentPage, itemsCount],
+        () => ({ childrenItemCount, setChildrenItemCount, maxItems, itemsCount, currentPage, setCurrentPage, state }),
+        [childrenItemCount, maxItems, currentPage, itemsCount, state],
     );
 
     return (
