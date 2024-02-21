@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Avatar } from '../../avatars';
-import { DataList } from '../index';
+import { DataList, type IDataListRootProps } from '../index';
 
 const meta: Meta<typeof DataList.Root> = {
     title: 'components/DataList/DataList.Root',
@@ -17,13 +17,70 @@ const meta: Meta<typeof DataList.Root> = {
 
 type Story = StoryObj<typeof DataList.Root>;
 
-const ListItemComponent = () => (
+const ListItemComponent = (props: { id: number }) => (
     <div className="flex flex-row gap-2">
         <Avatar />
-        <p className="grow text-base font-normal leading-normal">User {Math.floor(Math.random() * 10000)}</p>
+        <p className="grow text-base font-normal leading-normal">#{props.id}</p>
         <p className="text-sm font-normal leading-normal text-neutral-500">Some info</p>
     </div>
 );
+
+const DefaultComponent = (props: IDataListRootProps) => {
+    const { itemsCount, ...otherProps } = props;
+
+    const [searchValue, setSearchValue] = useState<string>();
+    const [isLoading, setIsLoading] = useState(false);
+    const [activeSort, setActiveSort] = useState<string>('id_asc');
+
+    const sortItems = useMemo(
+        () => [
+            { value: 'id_asc', label: 'Sort by increasing ID' },
+            { value: 'id_desc', label: 'Sort by decreasing ID' },
+        ],
+        [],
+    );
+
+    const userIds = useMemo(() => [...Array(itemsCount)].map(() => Math.floor(Math.random() * 10_000)), [itemsCount]);
+    const [filteredUsers, setFilteredUsers] = useState(userIds);
+
+    useEffect(() => {
+        setIsLoading(true);
+        const timeout = setTimeout(() => {
+            const shouldFilter = searchValue != null && searchValue.trim().length > 0;
+            const newFilteredUsers = shouldFilter
+                ? userIds.filter((id) => id.toString().includes(searchValue))
+                : userIds;
+            const newSortedUsers = newFilteredUsers.toSorted((a, b) => (activeSort === 'id_asc' ? a - b : b - a));
+            setIsLoading(false);
+            setFilteredUsers(newSortedUsers);
+        }, 1_000);
+
+        return () => clearTimeout(timeout);
+    }, [searchValue, activeSort, userIds]);
+
+    return (
+        <DataList.Root itemsCount={itemsCount} {...otherProps}>
+            <DataList.Filter
+                onFilterClick={() => alert('filter click')}
+                searchValue={searchValue}
+                onSearchValueChange={setSearchValue}
+                isLoading={isLoading}
+                placeholder="Filter by user id"
+                activeSort={activeSort}
+                onSortChange={setActiveSort}
+                sortItems={sortItems}
+            />
+            <DataList.Container>
+                {filteredUsers.map((id) => (
+                    <DataList.Item key={id} href="https://aragon.org" target="_blank">
+                        <ListItemComponent id={id} />
+                    </DataList.Item>
+                ))}
+            </DataList.Container>
+            <DataList.Pagination />
+        </DataList.Root>
+    );
+};
 
 /**
  * Default usage example of the DataList.Root component.
@@ -33,35 +90,7 @@ export const Default: Story = {
         maxItems: 12,
         itemsCount: 55,
     },
-    render: (props) => {
-        const [searchValue, setSearchValue] = useState<string>();
-        const [isLoading, setIsLoading] = useState(false);
-
-        const handleSearchChange = (value?: string) => {
-            setSearchValue(value);
-            setIsLoading(true);
-            setTimeout(() => setIsLoading(false), 1000);
-        };
-
-        return (
-            <DataList.Root {...props}>
-                <DataList.Filter
-                    onFilterClick={() => alert('filter click')}
-                    searchValue={searchValue}
-                    onSearchValueChange={handleSearchChange}
-                    isLoading={isLoading}
-                />
-                <DataList.Container>
-                    {[...Array(props.itemsCount).fill(0)].map((_value, index) => (
-                        <DataList.Item key={index} href="https://aragon.org" target="_blank">
-                            <ListItemComponent />
-                        </DataList.Item>
-                    ))}
-                </DataList.Container>
-                <DataList.Pagination />
-            </DataList.Root>
-        );
-    },
+    render: (props) => <DefaultComponent {...props} />,
 };
 
 export default meta;
