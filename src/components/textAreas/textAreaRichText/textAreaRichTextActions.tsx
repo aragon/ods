@@ -90,7 +90,7 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
                 iconLeft={IconType.EXPAND}
                 onClick={onExpandClick}
                 state={disabled ? 'disabled' : undefined}
-                />
+            />
         </div>
     );
 };
