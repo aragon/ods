@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Implement `DialogAlert` component
+
 ## [1.0.15] - 2024-02-23
 
 ### Changed
@@ -15,6 +19,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update `AlertCard` component to accept any ReactNode as `description` property
 -   Rename `isDisabled` property of input components to `disabled`
 -   Bump `ip` library from 2.0.0 to 2.0.1
+
+### Fixed
+
+-   `Icon` styling to prevent shrinking
 
 ## [1.0.14] - 2024-02-20
 
