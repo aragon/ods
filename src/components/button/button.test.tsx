@@ -68,8 +68,9 @@ describe('<Button /> component', () => {
     });
 
     it('disables the button on disabled state', () => {
+        const state = 'disabled';
         const onClick = jest.fn();
-        render(createTestComponent({ disabled: true, onClick }));
+        render(createTestComponent({ state, onClick }));
         const button = screen.getByRole<HTMLButtonElement>('button');
         expect(button).toBeDisabled();
         expect(button).toHaveAttribute('aria-disabled', 'true');
@@ -78,9 +79,10 @@ describe('<Button /> component', () => {
     });
 
     it('disables the button link on disabled state', () => {
+        const state = 'disabled';
         const onClick = jest.fn();
         const href = '/test';
-        render(createTestComponent({ disabled: true, href, onClick }));
+        render(createTestComponent({ state, href, onClick }));
         const link = screen.getByRole<HTMLAnchorElement>('link');
         expect(link).toHaveAttribute('aria-disabled', 'true');
         fireEvent.click(link);

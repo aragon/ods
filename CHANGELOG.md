@@ -9,7 +9,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
--   Added `Disabled` prop to `Button` component and removed Disabled state
 -   Replace `isDisabled` with `disabled`
 
 ## [1.0.14] - 2024-02-20

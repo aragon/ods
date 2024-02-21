@@ -5,7 +5,7 @@ import type { IconType } from '../icon';
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'critical';
 export type ButtonContext = 'default' | 'onlyIcon';
 export type ButtonSize = 'lg' | 'md' | 'sm';
-export type ButtonState = 'loading';
+export type ButtonState = 'disabled' | 'loading';
 
 export interface IButtonBaseProps {
     /**
@@ -36,10 +36,6 @@ export interface IButtonBaseProps {
      * set (only-icon variant)
      */
     iconLeft?: IconType;
-    /**
-     * A boolean indicating whether the button is disabled.
-     */
-    disabled?: boolean;
 }
 
 export type IButtonElementProps = ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttributes<HTMLAnchorElement>;

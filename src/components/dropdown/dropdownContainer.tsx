@@ -67,7 +67,7 @@ export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
                     responsiveSize={responsiveSize}
                     iconLeft={!hasLabel ? triggerIcon : undefined}
                     iconRight={hideIcon ? undefined : triggerIcon}
-                    disabled={disabled}
+                    state={disabled ? 'disabled' : undefined}
                     className={isOpen ? 'border-neutral-300' : undefined}
                 >
                     {label}

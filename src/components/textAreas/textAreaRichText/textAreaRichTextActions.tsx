@@ -79,7 +79,7 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
                         responsiveSize={{ md: 'md' }}
                         iconLeft={icon}
                         onClick={action}
-                        disabled={disabled}
+                        state={disabled ? 'disabled' : undefined}
                     />
                 ))}
             </div>
@@ -89,8 +89,8 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
                 responsiveSize={{ md: 'md' }}
                 iconLeft={IconType.EXPAND}
                 onClick={onExpandClick}
-                disabled={disabled}
-            />
+                state={disabled ? 'disabled' : undefined}
+                />
         </div>
     );
 };

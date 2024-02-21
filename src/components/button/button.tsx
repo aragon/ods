@@ -165,12 +165,11 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
         className,
         children,
         state,
-        disabled,
         ...otherProps
     } = props;
 
     const isOnlyIcon = children == null || children === '';
-    const isDisabled = disabled === true || state === 'loading';
+    const isDisabled = state === 'disabled' || state === 'loading';
     const buttonContext = isOnlyIcon ? 'onlyIcon' : 'default';
 
     const commonClasses = [
@@ -183,7 +182,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
     const variantClasses = variantToClassNames[variant].filter((classes) => {
         // Do not apply specific state classes when button is on a disabled or loading state. Even though this
         // might be done through the tailwind enabled: modifier, it won't work when the button is a link.
-        if (disabled) {
+        if (state === 'disabled') {
             return !classes.includes('hover');
         } else if (state === 'loading') {
             return !classes.includes('disabled') && !classes.includes('hover') && !classes.includes('active');
