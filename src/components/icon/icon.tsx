@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import type { SVGProps } from 'react';
-
 import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../types';
 import { responsiveUtils } from '../../utils';
 import { iconList } from './iconList';
@@ -55,5 +54,5 @@ export const Icon: React.FC<IIconProps> = (props) => {
 
     const sizeClassNames = responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClassNames);
 
-    return <IconComponent className={classNames(sizeClassNames, className)} {...otherProps} />;
+    return <IconComponent className={classNames('shrink-0', sizeClassNames, className)} {...otherProps} />;
 };
