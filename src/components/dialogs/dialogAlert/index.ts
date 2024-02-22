@@ -1,13 +1,16 @@
 import { DialogAlertContent } from './dialogAlertContent';
-import { DialogAlertRoot } from './dialogAlertRoot';
-import { DialogAlertTrigger } from './dialogAlertTrigger';
+import { DialogAlertFooter } from './dialogAlertFooter';
+import { DialogAlertHeader } from './dialogAlertHeader';
+import { DialogAlertRoot } from './dialogAlertRoot/dialogAlertRoot';
 
 export const DialogAlert = {
     Content: DialogAlertContent,
+    Footer: DialogAlertFooter,
+    Header: DialogAlertHeader,
     Root: DialogAlertRoot,
-    Trigger: DialogAlertTrigger,
 };
 
-export { type DialogAlertVariant, type IDialogAlertContentProps } from './dialogAlertContent';
-export { type IDialogAlertRootProps } from './dialogAlertRoot';
-export { type IDialogAlertTriggerProps } from './dialogAlertTrigger';
+export { type IDialogAlertContentProps } from './dialogAlertContent';
+export { type IDialogAlertFooterProps } from './dialogAlertFooter';
+export { type IDialogAlertHeaderProps } from './dialogAlertHeader';
+export { type DialogAlertVariant, type IDialogAlertRootProps } from './dialogAlertRoot/dialogAlertRoot';
