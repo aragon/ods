@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Avatar } from '../../avatars';
 import { DataListItem } from '../dataListItem';
 import { DataList, type IDataListRootProps } from '../index';
-import { DataListState } from './dataListRoot';
+import type { DataListState } from './dataListRoot';
 
 const meta: Meta<typeof DataList.Root> = {
     title: 'components/DataList/DataList.Root',
@@ -22,14 +22,14 @@ type Story = StoryObj<typeof DataList.Root>;
 const ListItemComponent = (props: { id: number }) => (
     <DataListItem className="flex flex-row gap-2" href="https://aragon.org" target="_blank">
         <Avatar />
-        <p className="grow text-base font-normal leading-normal">#{props.id}</p>
+        <p className="grow text-base font-normal leading-normal text-neutral-800">#{props.id}</p>
         <p className="text-sm font-normal leading-normal text-neutral-500">Some info</p>
     </DataListItem>
 );
 
 const ListItemComponentLoading = () => (
     <DataListItem className="flex animate-pulse flex-row items-center gap-2">
-        <Avatar />
+        <div className="size-6 rounded-full bg-neutral-50" />
         <div className="flex grow flex-col gap-2">
             <div className="h-2 grow rounded bg-neutral-50" />
             <div className="h-2 w-1/3 rounded bg-neutral-50" />
@@ -40,7 +40,7 @@ const ListItemComponentLoading = () => (
 const DefaultComponent = (props: IDataListRootProps) => {
     const { itemsCount, ...otherProps } = props;
 
-    const [dataListState, setDataListState] = useState<DataListState>('loading');
+    const [dataListState, setDataListState] = useState<DataListState | undefined>('loading');
     const [searchValue, setSearchValue] = useState<string>();
     const [isLoading, setIsLoading] = useState(false);
     const [activeSort, setActiveSort] = useState<string>('id_asc');
@@ -54,7 +54,7 @@ const DefaultComponent = (props: IDataListRootProps) => {
     );
 
     const userIds = useMemo(() => [...Array(itemsCount)].map(() => Math.floor(Math.random() * 10_000)), [itemsCount]);
-    const [filteredUsers, setFilteredUsers] = useState(userIds);
+    const [filteredUsers, setFilteredUsers] = useState<number[]>();
 
     useEffect(() => {
         setIsLoading(true);
@@ -72,11 +72,11 @@ const DefaultComponent = (props: IDataListRootProps) => {
     }, [searchValue, activeSort, userIds]);
 
     useEffect(() => {
-        setTimeout(() => setDataListState('idle'), 2_000);
+        setTimeout(() => setDataListState(undefined), 1_000);
     }, []);
 
     return (
-        <DataList.Root itemsCount={filteredUsers.length} state={dataListState} {...otherProps}>
+        <DataList.Root itemsCount={filteredUsers?.length} state={dataListState} {...otherProps}>
             <DataList.Filter
                 onFilterClick={() => alert('filter click')}
                 searchValue={searchValue}
@@ -88,9 +88,7 @@ const DefaultComponent = (props: IDataListRootProps) => {
                 sortItems={sortItems}
             />
             <DataList.Container SkeltonElement={ListItemComponentLoading}>
-                {filteredUsers.map((id) => (
-                    <ListItemComponent key={id} id={id} />
-                ))}
+                {filteredUsers?.map((id) => <ListItemComponent key={id} id={id} />)}
             </DataList.Container>
             <DataList.Pagination />
         </DataList.Root>

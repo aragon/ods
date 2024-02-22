@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useMemo, useState, type ComponentProps } from 'react';
 import { DataListContextProvider } from '../dataListContext';
 
-export type DataListState = 'loading' | 'error' | 'idle';
+export type DataListState = 'loading' | 'error';
 
 export interface IDataListRootProps extends ComponentProps<'div'> {
     /**
