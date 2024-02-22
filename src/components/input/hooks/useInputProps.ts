@@ -27,7 +27,7 @@ export const useInputProps = <TElement extends InputComponentElement>(
         helpText,
         isOptional,
         alert,
-        isDisabled,
+        disabled,
         inputClassName,
         id,
         className,
@@ -56,7 +56,7 @@ export const useInputProps = <TElement extends InputComponentElement>(
         helpText,
         isOptional,
         alert,
-        isDisabled,
+        disabled,
         id: processedId,
         maxLength,
         className,
@@ -72,7 +72,7 @@ export const useInputProps = <TElement extends InputComponentElement>(
 
     const inputProps = {
         id: processedId,
-        disabled: isDisabled,
+        disabled: disabled,
         className: inputClasses,
         onChange: handleOnChange,
         maxLength,

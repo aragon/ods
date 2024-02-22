@@ -37,7 +37,7 @@ const placeholderClasses = classNames(
 );
 
 export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
-    const { value, onChange, placeholder, isDisabled, className, id, ...containerProps } = props;
+    const { value, onChange, placeholder, disabled, className, id, ...containerProps } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -54,7 +54,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
     const editor = useEditor({
         extensions,
         content: value,
-        editable: !isDisabled,
+        editable: !disabled,
         editorProps: {
             attributes: {
                 class: 'outline-none p-4 ![overflow-wrap:anywhere] prose prose-neutral min-h-[160px] h-full max-w-none leading-normal',
@@ -72,10 +72,10 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
         document.body.style.overflow = isExpanded ? 'hidden' : 'auto';
     }, [isExpanded]);
 
-    // Update editable setting on Tiptap editor on isDisabled property change
+    // Update editable setting on Tiptap editor on disabled property change
     useEffect(() => {
-        editor?.setEditable(!isDisabled);
-    }, [editor, isDisabled]);
+        editor?.setEditable(!disabled);
+    }, [editor, disabled]);
 
     // Add keydown listener to reset expanded state on ESC key down
     useEffect(() => {
@@ -92,14 +92,14 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
 
     const textAreaRichText = (
         <InputContainer
-            isDisabled={isDisabled}
+            disabled={disabled}
             className={classNames(className, { 'fixed left-0 top-0 z-10 h-screen w-full': isExpanded })}
             wrapperClassName={classNames('grow overflow-hidden', { 'rounded-none ': isExpanded })}
             id={processedId}
             {...containerProps}
         >
             <div className="flex h-full grow flex-col self-start overflow-auto">
-                <TextAreaRichTextActions editor={editor} isDisabled={isDisabled} onExpandClick={toggleExpanded} />
+                <TextAreaRichTextActions editor={editor} disabled={disabled} onExpandClick={toggleExpanded} />
                 <EditorContent editor={editor} className="h-full" />
             </div>
         </InputContainer>

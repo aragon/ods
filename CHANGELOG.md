@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+-   Rename `isDisabled` property of input components to `disabled`
 -   Bump `ip` library from 2.0.0 to 2.0.1
 
 ## [1.0.14] - 2024-02-20

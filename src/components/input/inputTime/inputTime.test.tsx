@@ -44,19 +44,19 @@ describe('<InputTime /> component', () => {
         expect(showPicker).toHaveBeenCalled();
     });
 
-    it('renders the input as disabled when the isDisabled property is set to true', () => {
-        const isDisabled = true;
+    it('renders the input as disabled when the disabled property is set to true', () => {
+        const disabled = true;
         const label = 'Test label';
 
-        render(createTestComponent({ label, isDisabled }));
+        render(createTestComponent({ label, disabled }));
 
         expect(screen.getByLabelText(label)).toBeDisabled();
     });
 
     it('hides the time picker button when the disabled property is set to true', () => {
-        const isDisabled = true;
+        const disabled = true;
 
-        render(createTestComponent({ isDisabled }));
+        render(createTestComponent({ disabled }));
 
         expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });

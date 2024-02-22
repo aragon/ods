@@ -26,7 +26,7 @@ describe('<InputSearch /> component', () => {
     });
 
     it('hides the clear icon when input is disabled', () => {
-        render(createTestComponent({ isDisabled: true }));
+        render(createTestComponent({ disabled: true }));
         expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
 

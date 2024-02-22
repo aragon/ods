@@ -21,8 +21,8 @@ describe('<InputNumber /> component', () => {
         expect(screen.getByTestId(IconType.REMOVE)).toBeInTheDocument();
     });
 
-    it('renders a disabled input with no spin buttons when isDisabled is set to true', () => {
-        render(createTestComponent({ isDisabled: true }));
+    it('renders a disabled input with no spin buttons when disabled is set to true', () => {
+        render(createTestComponent({ disabled: true }));
 
         expect(screen.getByRole('textbox')).toBeDisabled();
         expect(screen.queryAllByRole('button').length).toEqual(0);
