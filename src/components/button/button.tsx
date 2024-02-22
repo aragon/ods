@@ -164,13 +164,13 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
         iconLeft,
         className,
         children,
-        state,
+        isLoading,
         disabled,
         ...otherProps
     } = props;
 
     const isOnlyIcon = children == null || children === '';
-    const isDisabled = disabled === true || state === 'loading';
+    const isDisabled = disabled || isLoading;
     const buttonContext = isOnlyIcon ? 'onlyIcon' : 'default';
 
     const commonClasses = [
@@ -185,7 +185,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
         // might be done through the tailwind enabled: modifier, it won't work when the button is a link.
         if (disabled) {
             return !classes.includes('hover');
-        } else if (state === 'loading') {
+        } else if (isLoading) {
             return !classes.includes('disabled') && !classes.includes('hover') && !classes.includes('active');
         }
 
@@ -200,7 +200,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
     );
 
     const classes = classNames(commonClasses, variantClasses, sizeClassNames, contextClassNames, className, {
-        'cursor-progress': state === 'loading',
+        'cursor-progress': isLoading,
     });
 
     const iconSize = sizeToIconSize[size][buttonContext];
@@ -221,15 +221,15 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
         {},
     );
 
-    const displayIconLeft = state !== 'loading' && iconLeft != null;
-    const displayIconRight = state !== 'loading' && iconRight != null && !isOnlyIcon;
+    const displayIconLeft = !isLoading && iconLeft != null;
+    const displayIconRight = !isLoading && iconRight != null && !isOnlyIcon;
 
     const commonProps = { className: classes, 'aria-disabled': isDisabled };
 
     const buttonContent = (
         <>
             {displayIconLeft && <Icon icon={iconLeft} size={iconSize} responsiveSize={iconResponsiveSize} />}
-            {state === 'loading' && (
+            {isLoading && (
                 <Spinner
                     size={spinnerSize}
                     responsiveSize={spinnerResponsiveSize}

@@ -48,11 +48,10 @@ describe('<Button /> component', () => {
     });
 
     it('renders a loading indicator and hides the icon right and left on loading state', () => {
-        const state = 'loading';
         const iconRight = IconType.CALENDAR;
         const iconLeft = IconType.CHECKMARK;
         const children = 'Button';
-        render(createTestComponent({ state, iconLeft, iconRight, children }));
+        render(createTestComponent({ isLoading: true, iconLeft, iconRight, children }));
         expect(screen.getByRole('progressbar')).toBeInTheDocument();
         expect(screen.queryByTestId(iconRight)).not.toBeInTheDocument();
         expect(screen.queryByTestId(iconLeft)).not.toBeInTheDocument();

@@ -5,7 +5,6 @@ import type { IconType } from '../icon';
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'critical';
 export type ButtonContext = 'default' | 'onlyIcon';
 export type ButtonSize = 'lg' | 'md' | 'sm';
-export type ButtonState = 'loading';
 
 export interface IButtonBaseProps {
     /**
@@ -23,10 +22,6 @@ export interface IButtonBaseProps {
      */
     responsiveSize?: ResponsiveAttribute<ButtonSize>;
     /**
-     * State of the button.
-     */
-    state?: ButtonState;
-    /**
      * Icon displayed on the right side of the button. This icon is hidden in case the button has no children element
      * set (only-icon variant) and the iconLeft icon is displayed instead.
      */
@@ -37,8 +32,9 @@ export interface IButtonBaseProps {
      */
     iconLeft?: IconType;
     /**
-     * A boolean indicating whether the button is disabled.
+     * A boolean indicating whether the button is loading.
      */
+    isLoading?: boolean;
     disabled?: boolean;
 }
 
