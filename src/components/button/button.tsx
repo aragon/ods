@@ -170,7 +170,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
     } = props;
 
     const isOnlyIcon = children == null || children === '';
-    const isDisabled = disabled || isLoading;
+    const isDisabled = disabled === true || isLoading === true;
     const buttonContext = isOnlyIcon ? 'onlyIcon' : 'default';
 
     const commonClasses = [
