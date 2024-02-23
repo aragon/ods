@@ -48,11 +48,10 @@ describe('<Button /> component', () => {
     });
 
     it('renders a loading indicator and hides the icon right and left on loading state', () => {
-        const state = 'loading';
         const iconRight = IconType.CALENDAR;
         const iconLeft = IconType.CHECKMARK;
         const children = 'Button';
-        render(createTestComponent({ state, iconLeft, iconRight, children }));
+        render(createTestComponent({ isLoading: true, iconLeft, iconRight, children }));
         expect(screen.getByRole('progressbar')).toBeInTheDocument();
         expect(screen.queryByTestId(iconRight)).not.toBeInTheDocument();
         expect(screen.queryByTestId(iconLeft)).not.toBeInTheDocument();
@@ -68,9 +67,8 @@ describe('<Button /> component', () => {
     });
 
     it('disables the button on disabled state', () => {
-        const state = 'disabled';
         const onClick = jest.fn();
-        render(createTestComponent({ state, onClick }));
+        render(createTestComponent({ disabled: true, onClick }));
         const button = screen.getByRole<HTMLButtonElement>('button');
         expect(button).toBeDisabled();
         expect(button).toHaveAttribute('aria-disabled', 'true');
@@ -79,10 +77,9 @@ describe('<Button /> component', () => {
     });
 
     it('disables the button link on disabled state', () => {
-        const state = 'disabled';
         const onClick = jest.fn();
         const href = '/test';
-        render(createTestComponent({ state, href, onClick }));
+        render(createTestComponent({ disabled: true, href, onClick }));
         const link = screen.getByRole<HTMLAnchorElement>('link');
         expect(link).toHaveAttribute('aria-disabled', 'true');
         fireEvent.click(link);
