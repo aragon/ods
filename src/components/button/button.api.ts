@@ -35,6 +35,9 @@ export interface IButtonBaseProps {
      * A boolean indicating whether the button is loading.
      */
     isLoading?: boolean;
+    /**
+     * A boolean indicating whether the button is disabled.
+     */
     disabled?: boolean;
 }
 
