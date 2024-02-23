@@ -1,15 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { DialogAlert } from '..';
 import { Button } from '../../../button';
-import { DialogAlertContent } from '../dialogAlertContent';
-import { DialogAlertFooter } from '../dialogAlertFooter';
-import { DialogAlertHeader } from '../dialogAlertHeader';
-import { DialogAlertRoot } from '../dialogAlertRoot';
 import { type IDialogAlertRootProps } from './dialogAlertRoot';
 
-const meta: Meta<typeof DialogAlertRoot> = {
+const meta: Meta<typeof DialogAlert.Root> = {
     title: 'components/Dialogs/DialogAlert/DialogAlert.Root',
-    component: DialogAlertRoot,
+    component: DialogAlert.Root,
     tags: ['autodocs'],
     parameters: {
         design: {
@@ -19,7 +16,7 @@ const meta: Meta<typeof DialogAlertRoot> = {
     },
 };
 
-type Story = StoryObj<typeof DialogAlertRoot>;
+type Story = StoryObj<typeof DialogAlert.Root>;
 
 const ControlledComponent = (props: IDialogAlertRootProps) => {
     const [open, setOpen] = useState(false);
@@ -33,16 +30,16 @@ const ControlledComponent = (props: IDialogAlertRootProps) => {
             <Button variant="primary" onClick={() => setOpen(true)}>
                 Show DialogAlert
             </Button>
-            <DialogAlertRoot open={open} onOpenChange={setOpen} {...props}>
-                <DialogAlertHeader title="DialogAlert Title" />
-                <DialogAlertContent>
+            <DialogAlert.Root {...props} open={open} onOpenChange={setOpen}>
+                <DialogAlert.Header title="DialogAlert Title" />
+                <DialogAlert.Content>
                     <p>Very important content here!</p>
-                </DialogAlertContent>
-                <DialogAlertFooter
+                </DialogAlert.Content>
+                <DialogAlert.Footer
                     actionButton={{ label: 'Action', onClick: handleCloseModal }}
                     cancelButton={{ label: 'Cancel', onClick: handleCloseModal }}
                 />
-            </DialogAlertRoot>
+            </DialogAlert.Root>
         </>
     );
 };

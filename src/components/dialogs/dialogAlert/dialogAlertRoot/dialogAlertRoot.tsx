@@ -1,11 +1,13 @@
-import { Content, Overlay, Portal, Root } from '@radix-ui/react-alert-dialog';
+import { Content, Overlay, Portal, Root, Trigger, type AlertDialogProps } from '@radix-ui/react-alert-dialog';
 import classNames from 'classnames';
-import type React from 'react';
 import { createContext, useMemo, type ReactNode } from 'react';
 
 export type DialogAlertVariant = 'critical' | 'info' | 'success' | 'warning';
 
-export interface IDialogAlertRootProps {
+export interface IDialogAlertRootProps extends AlertDialogProps {
+    /**
+     * Children of the component.
+     */
     children?: ReactNode;
     /**
      * Additional CSS class names for custom styling of the dialog's content container.
@@ -14,7 +16,7 @@ export interface IDialogAlertRootProps {
     /**
      * Manages the visibility state of the dialog. Should be implemented alongside `onOpenChange` for controlled usage.
      */
-    open?: boolean;
+    open: boolean;
     /**
      * Additional CSS class names for custom styling of the overlay behind the dialog.
      */
@@ -27,15 +29,19 @@ export interface IDialogAlertRootProps {
     /**
      * Callback function invoked when the open state of the dialog changes.
      */
-    onOpenChange?(open: boolean): void;
+    onOpenChange: (open: boolean) => void;
     /**
-     * Handler called when focus moves to the trigger after closing
+     * Handler called when focus moves to the trigger after closing the dialog.
      */
     onCloseAutoFocus?: (e: Event) => void;
     /**
-     * Handler called when focus moves to the destructive action after opening
+     * Handler called when focus moves to the destructive action after opening the dialog.
      */
     onOpenAutoFocus?: (e: Event) => void;
+    /**
+     * Handler called when the escape key is pressed while the dialog is opened. Closes the dialog by default.
+     */
+    onEscapeKeyDown?: (e: KeyboardEvent) => void;
 }
 
 export interface IDialogAlertContext {
@@ -55,13 +61,21 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
         variant = 'info',
         onCloseAutoFocus,
         onOpenAutoFocus,
+        onEscapeKeyDown,
         ...rootProps
     } = props;
 
     const contextValue = useMemo(() => ({ variant }), [variant]);
 
+    const handleEscapeKeyDown = (e: KeyboardEvent) => {
+        props.onOpenChange(false);
+
+        onEscapeKeyDown?.(e);
+    };
+
     return (
         <Root {...rootProps}>
+            <Trigger />
             <Portal>
                 <Overlay className={classNames('fixed inset-0 bg-modal-overlay backdrop-blur-md', overlayClassName)} />
                 <Content
@@ -71,6 +85,7 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
                         containerClassName,
                     )}
                     onCloseAutoFocus={onCloseAutoFocus}
+                    onEscapeKeyDown={handleEscapeKeyDown}
                     onOpenAutoFocus={onOpenAutoFocus}
                 >
                     <DialogAlertContext.Provider value={contextValue}>{children}</DialogAlertContext.Provider>
