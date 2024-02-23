@@ -32,7 +32,7 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
                 iconRight={IconType.CHEVRON_DOWN}
                 className="shrink-0"
                 onClick={handleLoadMoreClick}
-                state={!hasMore || isInitialLoading ? 'disabled' : undefined}
+                disabled={!hasMore ?? isInitialLoading}
             >
                 More
             </Button>
