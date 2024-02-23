@@ -7,7 +7,7 @@ import { DialogAlertRoot } from '../dialogAlertRoot';
 import { DialogAlertContent, type IDialogAlertContentProps } from './dialogAlertContent';
 
 const meta: Meta<typeof DialogAlertContent> = {
-    title: 'components/Dialogs/DialogAlert.Content',
+    title: 'components/Dialogs/DialogAlert/DialogAlert.Content',
     component: DialogAlertContent,
     tags: ['autodocs'],
     parameters: {
