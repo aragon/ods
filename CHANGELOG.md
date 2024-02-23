@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.15] - 2024-02-23
+
 ### Changed
 
 -   Add `disabled` and `isLoading` properties to Button component, remove `state` property
