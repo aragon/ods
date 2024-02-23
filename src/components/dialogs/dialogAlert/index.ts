@@ -1,7 +1,7 @@
 import { DialogAlertContent } from './dialogAlertContent';
 import { DialogAlertFooter } from './dialogAlertFooter';
 import { DialogAlertHeader } from './dialogAlertHeader';
-import { DialogAlertRoot } from './dialogAlertRoot/dialogAlertRoot';
+import { DialogAlertRoot } from './dialogAlertRoot';
 
 export const DialogAlert = {
     Content: DialogAlertContent,
@@ -13,4 +13,4 @@ export const DialogAlert = {
 export { type IDialogAlertContentProps } from './dialogAlertContent';
 export { type IDialogAlertFooterProps } from './dialogAlertFooter';
 export { type IDialogAlertHeaderProps } from './dialogAlertHeader';
-export { type DialogAlertVariant, type IDialogAlertRootProps } from './dialogAlertRoot/dialogAlertRoot';
+export { type DialogAlertVariant, type IDialogAlertRootProps } from './dialogAlertRoot';
