@@ -17,9 +17,9 @@ export interface IDataListContext
      */
     currentPage: number;
     /**
-     * Callback to update the current page.
+     * Callback called to laod more items.
      */
-    setCurrentPage: (page: number) => void;
+    handleLoadMore: (newPage: number) => void;
 }
 
 const dataListContext = createContext<IDataListContext | null>(null);

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Avatar } from '../../avatars';
 import { DataListItem } from '../dataListItem';
 import { DataList, type IDataListRootProps } from '../index';
@@ -37,10 +37,62 @@ const ListItemComponentLoading = () => (
     </DataListItem>
 );
 
-const DefaultComponent = (props: IDataListRootProps) => {
+const StaticListComponent = (props: IDataListRootProps) => {
     const { itemsCount, ...otherProps } = props;
 
-    const [dataListState, setDataListState] = useState<DataListState | undefined>('loading');
+    const [searchValue, setSearchValue] = useState<string>();
+    const [activeSort, setActiveSort] = useState<string>('id_asc');
+
+    const sortItems = useMemo(
+        () => [
+            { value: 'id_asc', label: 'Sort by increasing ID' },
+            { value: 'id_desc', label: 'Sort by decreasing ID' },
+        ],
+        [],
+    );
+
+    const userIds = useMemo(() => [...Array(itemsCount)].map(() => Math.floor(Math.random() * 10_000)), [itemsCount]);
+
+    const filteredUsers = useMemo(() => {
+        const shouldFilter = searchValue != null && searchValue.trim().length > 0;
+        const newFilteredUsers = shouldFilter ? userIds.filter((id) => id.toString().includes(searchValue)) : userIds;
+        return newFilteredUsers.toSorted((a, b) => (activeSort === 'id_asc' ? a - b : b - a));
+    }, [userIds, searchValue, activeSort]);
+
+    return (
+        <DataList.Root itemsCount={filteredUsers?.length} {...otherProps}>
+            <DataList.Filter
+                onFilterClick={() => alert('filter click')}
+                searchValue={searchValue}
+                onSearchValueChange={setSearchValue}
+                placeholder="Filter by user id"
+                activeSort={activeSort}
+                onSortChange={setActiveSort}
+                sortItems={sortItems}
+            />
+            <DataList.Container>
+                {filteredUsers?.map((id) => <ListItemComponent key={id} id={id} />)}
+            </DataList.Container>
+            <DataList.Pagination />
+        </DataList.Root>
+    );
+};
+
+/**
+ * Usage of the DataList.Root component with a static list of items.
+ */
+export const StaticList: Story = {
+    args: {
+        maxItems: 4,
+        itemsCount: 21,
+    },
+    render: (props) => <StaticListComponent {...props} />,
+};
+
+const AsyncListComponent = (props: IDataListRootProps) => {
+    const { itemsCount, maxItems, ...otherProps } = props;
+
+    const [dataListState, setDataListState] = useState<DataListState | undefined>('initialLoading');
     const [searchValue, setSearchValue] = useState<string>();
     const [isLoading, setIsLoading] = useState(false);
     const [activeSort, setActiveSort] = useState<string>('id_asc');
@@ -54,29 +106,66 @@ const DefaultComponent = (props: IDataListRootProps) => {
     );
 
     const userIds = useMemo(() => [...Array(itemsCount)].map(() => Math.floor(Math.random() * 10_000)), [itemsCount]);
-    const [filteredUsers, setFilteredUsers] = useState<number[]>();
+    const [filteredUsers, setFilteredUsers] = useState(userIds.slice(0, maxItems));
 
+    const sortUsers = useCallback(
+        (users: number[] = [], sort: string) => users?.toSorted((a, b) => (sort === 'id_asc' ? a - b : b - a)),
+        [],
+    );
+
+    const handleLoadMore = () => {
+        setDataListState('fetchingNextPage');
+        setTimeout(() => {
+            const arrayEnd = Math.min(itemsCount ?? 0, filteredUsers.length + (maxItems ?? 0));
+            setFilteredUsers(userIds.slice(0, arrayEnd));
+            setDataListState('idle');
+        }, 1_000);
+    };
+
+    const handleSortChange = (newSort: string) => {
+        setIsLoading(true);
+        setDataListState('loading');
+        setActiveSort(newSort);
+
+        setTimeout(() => {
+            setFilteredUsers((current) => sortUsers(current, newSort));
+            setIsLoading(false);
+            setDataListState('idle');
+        }, 1_000);
+    };
+
+    /*
     useEffect(() => {
         setIsLoading(true);
         const timeout = setTimeout(() => {
-            const shouldFilter = searchValue != null && searchValue.trim().length > 0;
-            const newFilteredUsers = shouldFilter
-                ? userIds.filter((id) => id.toString().includes(searchValue))
-                : userIds;
-            const newSortedUsers = newFilteredUsers.toSorted((a, b) => (activeSort === 'id_asc' ? a - b : b - a));
+            setFilteredUsers((current) => {
+                const shouldFilter = searchValue != null && searchValue.trim().length > 0;
+                const newFilteredUsers = shouldFilter
+                    ? current?.filter((id) => id.toString().includes(searchValue))
+                    : current;
+                const newSortedUsers = newFilteredUsers?.toSorted((a, b) => (activeSort === 'id_asc' ? a - b : b - a));
+
+                return newSortedUsers;
+            });
             setIsLoading(false);
-            setFilteredUsers(newSortedUsers);
         }, 1_000);
 
         return () => clearTimeout(timeout);
-    }, [searchValue, activeSort, userIds]);
+    }, [searchValue, activeSort]);
+    */
 
     useEffect(() => {
-        setTimeout(() => setDataListState(undefined), 1_000);
+        setTimeout(() => setDataListState('idle'), 1_000);
     }, []);
 
     return (
-        <DataList.Root itemsCount={filteredUsers?.length} state={dataListState} {...otherProps}>
+        <DataList.Root
+            itemsCount={itemsCount}
+            maxItems={maxItems}
+            state={dataListState}
+            onLoadMore={handleLoadMore}
+            {...otherProps}
+        >
             <DataList.Filter
                 onFilterClick={() => alert('filter click')}
                 searchValue={searchValue}
@@ -84,7 +173,7 @@ const DefaultComponent = (props: IDataListRootProps) => {
                 isLoading={isLoading}
                 placeholder="Filter by user id"
                 activeSort={activeSort}
-                onSortChange={setActiveSort}
+                onSortChange={handleSortChange}
                 sortItems={sortItems}
             />
             <DataList.Container SkeltonElement={ListItemComponentLoading}>
@@ -96,14 +185,14 @@ const DefaultComponent = (props: IDataListRootProps) => {
 };
 
 /**
- * Default usage example of the DataList.Root component.
+ * Usage of the DataList.Root component with an async loaded list.
  */
-export const Default: Story = {
+export const AsyncList: Story = {
     args: {
-        maxItems: 12,
-        itemsCount: 55,
+        maxItems: 6,
+        itemsCount: 35,
     },
-    render: (props) => <DefaultComponent {...props} />,
+    render: ({ onLoadMore, ...props }) => <AsyncListComponent {...props} />,
 };
 
 export default meta;

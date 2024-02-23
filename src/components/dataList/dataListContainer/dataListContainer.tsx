@@ -13,7 +13,7 @@ export interface IDataListContainerProps extends ComponentProps<'div'> {
 export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
     const { children, className, SkeltonElement, ...otherProps } = props;
 
-    const { state, maxItems, currentPage, setChildrenItemCount } = useDataListContext();
+    const { state, maxItems, itemsCount, currentPage, setChildrenItemCount } = useDataListContext();
 
     const processedChildren = Children.toArray(children) as ReactElement[];
 
@@ -32,11 +32,12 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
         <div className={classNames('flex flex-col gap-4', className)} {...otherProps}>
             <div className="flex flex-row justify-between">
                 <p className="text-base font-normal leading-tight text-neutral-500">
-                    {processedChildren.length} Members
+                    {(state === 'idle' || state === 'fetchingNextPage') && `${itemsCount} Members`}
+                    {(state === 'loading' || state === 'initialLoading') && 'Loading Members'}
                 </p>
             </div>
             <div className="flex flex-col gap-2">
-                {state === 'loading'
+                {state === 'initialLoading'
                     ? [...Array(maxItems)].map((_value, index) => <SkeletonLoader key={index} />)
                     : paginatedChildren}
             </div>

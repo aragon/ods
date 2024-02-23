@@ -10,17 +10,15 @@ export interface IDataListPaginationProps extends ComponentProps<'div'> {}
 export const DataListPagination: React.FC<IDataListPaginationProps> = (props) => {
     const { className, ...otherProps } = props;
 
-    const { state, maxItems, currentPage, setCurrentPage, itemsCount } = useDataListContext();
-    const currentlyDisplayed = Math.min(maxItems * (currentPage + 1), itemsCount ?? 1);
+    const { state, maxItems, currentPage, itemsCount, childrenItemCount, handleLoadMore } = useDataListContext();
+
+    const currentlyDisplayed = Math.min(maxItems * (currentPage + 1), childrenItemCount ?? 0);
 
     const progressValue = (currentlyDisplayed * 100) / (itemsCount ?? 1);
 
     const hasMore = currentlyDisplayed < (itemsCount ?? 1);
-    const isInitialLoading = state === 'loading';
 
-    const handleLoadMoreClick = () => setCurrentPage(currentPage + 1);
-
-    if (isInitialLoading) {
+    if (state === 'initialLoading' || state === 'error') {
         return null;
     }
 
@@ -31,8 +29,9 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
                 variant="tertiary"
                 iconRight={IconType.CHEVRON_DOWN}
                 className="shrink-0"
-                onClick={handleLoadMoreClick}
-                disabled={!hasMore ?? isInitialLoading}
+                onClick={() => handleLoadMore(currentPage + 1)}
+                disabled={!hasMore}
+                isLoading={state === 'fetchingNextPage'}
             >
                 More
             </Button>

@@ -1,8 +1,16 @@
 import classNames from 'classnames';
-import { useMemo, useState, type ComponentProps } from 'react';
+import { useCallback, useMemo, useState, type ComponentProps } from 'react';
 import { DataListContextProvider } from '../dataListContext';
 
-export type DataListState = 'loading' | 'error';
+/**
+ * Different states of the DataList component:
+ * - InitialLoading: component is fetching data for the first time and no data has been fetched yet;
+ * - Loading: initial data has already been fetched and the user is filtering or sorting the data;
+ * - Error: an error has occurred while fetching the data;
+ * - Idle: data has been successfully fetched;
+ * - FetchingNextPage: user is loading the next page of the data list;
+ */
+export type DataListState = 'initialLoading' | 'loading' | 'error' | 'fetchingNextPage' | 'idle';
 
 export interface IDataListRootProps extends ComponentProps<'div'> {
     /**
@@ -15,9 +23,8 @@ export interface IDataListRootProps extends ComponentProps<'div'> {
      */
     maxItems?: number;
     /**
-     * State of the data list component:
-     * - Loading: no data has been loaded yet.
-     * - Error: an error has occurred while fetching the data.
+     * State of the data list component, @see DataListState.
+     * @default DataListState.IDLE
      */
     state?: DataListState;
     /**
@@ -27,14 +34,27 @@ export interface IDataListRootProps extends ComponentProps<'div'> {
 }
 
 export const DataListRoot: React.FC<IDataListRootProps> = (props) => {
-    const { children, maxItems = 12, itemsCount, onLoadMore, className, state, ...otherProps } = props;
+    const { children, maxItems = 12, itemsCount, onLoadMore, className, state = 'idle', ...otherProps } = props;
 
     const [childrenItemCount, setChildrenItemCount] = useState<number>();
     const [currentPage, setCurrentPage] = useState(0);
 
+    const handleLoadMore = useCallback(
+        (newPage: number) => {
+            const currentlyDisplayed = Math.min(maxItems * newPage, itemsCount ?? 1);
+
+            if ((childrenItemCount ?? 0) <= currentlyDisplayed) {
+                onLoadMore?.();
+            }
+
+            setCurrentPage(newPage);
+        },
+        [childrenItemCount, onLoadMore, maxItems, itemsCount],
+    );
+
     const contextValues = useMemo(
-        () => ({ childrenItemCount, setChildrenItemCount, maxItems, itemsCount, currentPage, setCurrentPage, state }),
-        [childrenItemCount, maxItems, currentPage, itemsCount, state],
+        () => ({ childrenItemCount, setChildrenItemCount, maxItems, itemsCount, currentPage, handleLoadMore, state }),
+        [childrenItemCount, maxItems, currentPage, itemsCount, state, handleLoadMore],
     );
 
     return (
