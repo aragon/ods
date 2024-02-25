@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { Dialog } from '..';
 import { Button } from '../../../button';
-import { DialogRoot } from '../dialogRoot';
-import { DialogHeader, type IDialogHeaderProps } from './dialogHeader';
+import { type IDialogHeaderProps } from './dialogHeader';
 
-const meta: Meta<typeof DialogHeader> = {
+const meta: Meta<typeof Dialog.Header> = {
     title: 'components/Dialogs/Dialog/Dialog.Header',
-    component: DialogHeader,
+    component: Dialog.Header,
     tags: ['autodocs'],
     parameters: {
         design: {
@@ -16,7 +16,7 @@ const meta: Meta<typeof DialogHeader> = {
     },
 };
 
-type Story = StoryObj<typeof DialogHeader>;
+type Story = StoryObj<typeof Dialog.Header>;
 
 const ControlledComponent = (props: IDialogHeaderProps) => {
     const [open, setOpen] = useState(true);
@@ -26,15 +26,15 @@ const ControlledComponent = (props: IDialogHeaderProps) => {
             <Button variant="primary" onClick={() => setOpen(true)}>
                 Show Dialog
             </Button>
-            <DialogRoot open={open} onOpenChange={setOpen}>
-                <DialogHeader {...props} />
-            </DialogRoot>
+            <Dialog.Root open={open} onOpenChange={setOpen}>
+                <Dialog.Header {...props} />
+            </Dialog.Root>
         </>
     );
 };
 
 /**
- * Default usage of the `DialogAlert.Header` component
+ * Default usage of the `Dialog.Header` component
  */
 export const Default: Story = {
     args: { title: 'Dialog title', description: 'Optional dialog description' },
