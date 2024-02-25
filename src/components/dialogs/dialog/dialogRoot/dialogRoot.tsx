@@ -16,17 +16,13 @@ export interface IDialogRootProps extends DialogProps {
      */
     modal?: boolean;
     /**
-     * Manages the visibility state of the dialog. Should be implemented alongside `onOpenChange` for controlled usage.
+     * Manages the visibility state of the dialog.
      */
     open?: boolean;
     /**
      * Additional CSS class names for custom styling of the overlay behind the dialog.
      */
     overlayClassName?: string;
-    /**
-     * Callback function invoked when the open state of the dialog changes.
-     */
-    onOpenChange?(open: boolean): void;
     /**
      * Handler called when focus moves to the trigger after closing
      */
@@ -35,6 +31,10 @@ export interface IDialogRootProps extends DialogProps {
      * Handler called when focus moves to the destructive action after opening
      */
     onOpenAutoFocus?: (e: Event) => void;
+    /**
+     * Callback function invoked when the open state of the dialog changes.
+     */
+    onOpenChange?: (open: boolean) => void;
 }
 
 /**
@@ -55,7 +55,9 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                     )}
                     onCloseAutoFocus={onCloseAutoFocus}
                     onOpenAutoFocus={onOpenAutoFocus}
-                />
+                >
+                    {children}
+                </Content>
             </Portal>
         </Root>
     );
