@@ -90,5 +90,3 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
         </Root>
     );
 };
-
-DialogRoot.displayName = 'Dialog.Root';

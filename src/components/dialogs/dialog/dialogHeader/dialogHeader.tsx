@@ -70,5 +70,3 @@ export const DialogHeader: React.FC<IDialogHeaderProps> = (props) => {
         </div>
     );
 };
-
-DialogHeader.displayName = 'Dialog.Header';

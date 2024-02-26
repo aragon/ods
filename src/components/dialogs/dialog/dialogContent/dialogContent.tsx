@@ -10,5 +10,3 @@ export interface IDialogContentProps extends ComponentPropsWithoutRef<'div'> {}
 export const DialogContent: React.FC<IDialogContentProps> = ({ className, ...otherProps }) => {
     return <div className={classNames('overflow-auto px-4 md:px-6', className)} {...otherProps} />;
 };
-
-DialogContent.displayName = 'Dialog.Content';
