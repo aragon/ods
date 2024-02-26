@@ -29,6 +29,11 @@ const ControlledComponent = (props: IDialogContentProps) => {
             <Dialog.Root open={open} onOpenChange={setOpen}>
                 <Dialog.Header title="Dialog title" description="Optional dialog description" />
                 <Dialog.Content {...props} />
+                <Dialog.Footer
+                    primaryAction={{ label: 'Primary action' }}
+                    secondaryAction={{ label: 'Secondary action' }}
+                    alert={{ message: 'Very informative alert message' }}
+                />
             </Dialog.Root>
         </>
     );
@@ -39,7 +44,7 @@ const ControlledComponent = (props: IDialogContentProps) => {
  */
 export const Default: Story = {
     args: {
-        children: <p>Very important content here!</p>,
+        children: <p className="py-2 text-neutral-800">Very important content here!</p>,
     },
     render: (props) => <ControlledComponent {...props} />,
 };

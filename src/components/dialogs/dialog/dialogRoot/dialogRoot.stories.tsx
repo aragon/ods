@@ -1,24 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Dialog } from '..';
+import { Dialog, type IDialogRootProps } from '..';
 import { Button } from '../../../button';
-import { type IDialogHeaderProps } from './dialogHeader';
 
-const meta: Meta<typeof Dialog.Header> = {
-    title: 'components/Dialogs/Dialog/Dialog.Header',
-    component: Dialog.Header,
+const meta: Meta<typeof Dialog.Root> = {
+    title: 'components/Dialogs/Dialog/Dialog.Root',
+    component: Dialog.Root,
     tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/P0GeJKqILL7UXvaqu5Jj7V/v1.1.0?type=design&node-id=8129-22048&mode=design&t=9f3O4hw9jWtb4fUb-4',
+            url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=13558-17025&mode=design&t=9P6frTNZbQcLyeff-4',
         },
     },
 };
 
-type Story = StoryObj<typeof Dialog.Header>;
+type Story = StoryObj<typeof Dialog.Root>;
 
-const ControlledComponent = (props: IDialogHeaderProps) => {
+const ControlledComponent = (props: IDialogRootProps) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -26,8 +25,8 @@ const ControlledComponent = (props: IDialogHeaderProps) => {
             <Button variant="primary" onClick={() => setOpen(true)}>
                 Show Dialog
             </Button>
-            <Dialog.Root open={open} onOpenChange={setOpen}>
-                <Dialog.Header {...props} />
+            <Dialog.Root {...props} open={open} onOpenChange={setOpen}>
+                <Dialog.Header title="Dialog Title" />
                 <Dialog.Content>
                     <p className="py-2 text-neutral-800">Very important content here!</p>
                 </Dialog.Content>
@@ -42,10 +41,10 @@ const ControlledComponent = (props: IDialogHeaderProps) => {
 };
 
 /**
- * Default usage of the `Dialog.Header` component
+ * Default usage of the `Dialog.Root` component
  */
 export const Default: Story = {
-    args: { title: 'Dialog title', description: 'Optional dialog description' },
+    args: {},
     render: (props) => <ControlledComponent {...props} />,
 };
 

@@ -1,5 +1,4 @@
 import { Close, Description, Title } from '@radix-ui/react-dialog';
-import type React from 'react';
 import { type ComponentPropsWithoutRef } from 'react';
 import { Button } from '../../../button';
 import { IconType } from '../../../icon';
@@ -23,6 +22,10 @@ export interface IDialogHeaderProps extends ComponentPropsWithoutRef<'div'> {
      * Callback invoked when the back button is clicked
      */
     onBackClick?: () => void;
+    /**
+     * Callback invoked when the close button is clicked. Closes the dialog by default
+     */
+    onCloseClick?: () => void;
 }
 
 /**
@@ -30,14 +33,14 @@ export interface IDialogHeaderProps extends ComponentPropsWithoutRef<'div'> {
  *
  * **NOTE**: This component must be used inside a `<Dialog.Root />` component.
  */
-export const DialogHeader: React.FC<IDialogHeaderProps> = ({
-    description,
-    showBackButton = false,
-    title,
-    onBackClick,
-}) => {
+export const DialogHeader: React.FC<IDialogHeaderProps> = (props) => {
+    const { description, showBackButton = false, title, onBackClick, onCloseClick, ...otherProps } = props;
+
     return (
-        <div className="flex w-full items-center gap-x-3 rounded-t-xl bg-modal-header px-4 pb-2 pt-4 backdrop-blur-md md:gap-x-4 md:px-6 md:pt-6">
+        <div
+            className="flex w-full items-center gap-x-3 rounded-t-xl bg-modal-header px-4 pb-2 pt-4 backdrop-blur-md md:gap-x-4 md:px-6 md:pt-6"
+            {...otherProps}
+        >
             {showBackButton && (
                 <Button
                     variant="tertiary"
@@ -56,7 +59,13 @@ export const DialogHeader: React.FC<IDialogHeaderProps> = ({
                 )}
             </div>
             <Close asChild>
-                <Button variant="tertiary" size="sm" iconLeft={IconType.CLOSE} className="shrink-0" />
+                <Button
+                    variant="tertiary"
+                    size="sm"
+                    iconLeft={IconType.CLOSE}
+                    className="shrink-0"
+                    onClick={onCloseClick}
+                />
             </Close>
         </div>
     );
