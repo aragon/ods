@@ -11,6 +11,6 @@ export const Dialog = {
 };
 
 export { type IDialogContentProps } from './dialogContent';
-export { type IDialogFooterProps } from './dialogFooter';
+export { type IDialogFooterAction, type IDialogFooterProps } from './dialogFooter';
 export { type IDialogHeaderProps } from './dialogHeader';
 export { type IDialogRootProps } from './dialogRoot';

@@ -1,8 +1,17 @@
-import type React from 'react';
-import { type ComponentPropsWithoutRef } from 'react';
+import { type AnchorHTMLAttributes, type ButtonHTMLAttributes, type ComponentPropsWithoutRef } from 'react';
 import { AlertInline, type IAlertInlineProps } from '../../../alerts';
-import { Button } from '../../../button';
-import { type IDialogFooterAction } from '../../dialogAlert';
+import { Button, type IButtonBaseProps } from '../../../button';
+
+export type IDialogFooterAction = (
+    | Pick<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
+    | Pick<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'>
+) &
+    Pick<IButtonBaseProps, 'iconRight' | 'iconLeft'> & {
+        /**
+         * Button label
+         */
+        label: string;
+    };
 
 export interface IDialogFooterProps extends ComponentPropsWithoutRef<'div'> {
     /**

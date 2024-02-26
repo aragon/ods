@@ -1,1 +1,1 @@
-export { DialogFooter, IDialogFooterProps } from './dialogFooter';
+export { DialogFooter, type IDialogFooterAction, type IDialogFooterProps } from './dialogFooter';
