@@ -21,7 +21,12 @@ type Story = StoryObj<typeof DataList.Pagination>;
 export const Default: Story = {
     args: {},
     render: (props) => (
-        <DataList.Root maxItems={2} itemsCount={10}>
+        <DataList.Root maxItems={2} itemsCount={10} entityLabel="Users">
+            <DataList.Container>
+                {[...Array(10)].map((_value, index) => (
+                    <DataList.Item key={index}>User {index}</DataList.Item>
+                ))}
+            </DataList.Container>
             <DataList.Pagination {...props} />
         </DataList.Root>
     ),

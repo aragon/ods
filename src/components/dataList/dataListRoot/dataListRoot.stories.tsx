@@ -116,7 +116,6 @@ const AsyncListComponent = (props: IDataListRootProps) => {
     const { itemsCount, maxItems, ...otherProps } = props;
 
     const [dataListState, setDataListState] = useState<DataListState | undefined>('initialLoading');
-
     const [currentPage, setCurrentPage] = useState(0);
     const [searchValue, setSearchValue] = useState<string>();
     const [activeSort, setActiveSort] = useState('id_asc');
@@ -136,7 +135,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
         setDataListState('fetchingNextPage');
         setCurrentPage((current) => current + 1);
     };
-    const handleSortChange = (newSort: string) => setActiveSort(newSort);
+
     const handleSearchValueChange = (value?: string) => {
         setSearchValue(value);
         setCurrentPage(0);
@@ -183,7 +182,19 @@ const AsyncListComponent = (props: IDataListRootProps) => {
         },
     };
 
+    const errorState = {
+        objectIllustration: { object: 'ERROR' as const },
+        heading: 'Error loading users',
+        description: 'There was an error loading the users. Try again!',
+        primaryButton: {
+            label: 'Reload users',
+            iconLeft: IconType.RELOAD,
+            onClick: () => alert('reload!'),
+        },
+    };
+
     const entityLabel = users.total > 1 ? 'Users' : 'User';
+    const processedEmptyState = users.total === 0 ? emptyState : noResultsState;
 
     return (
         <DataList.Root
@@ -200,22 +211,13 @@ const AsyncListComponent = (props: IDataListRootProps) => {
                 onSearchValueChange={handleSearchValueChange}
                 placeholder="Filter by user id"
                 activeSort={activeSort}
-                onSortChange={handleSortChange}
+                onSortChange={setActiveSort}
                 sortItems={sortItems}
             />
             <DataList.Container
                 SkeltonElement={ListItemComponentLoading}
-                errorState={{
-                    objectIllustration: { object: 'ERROR' },
-                    heading: 'Error loading users',
-                    description: 'There was an error loading the users. Try again!',
-                    primaryButton: {
-                        label: 'Reload users',
-                        iconLeft: IconType.RELOAD,
-                        onClick: () => alert('reload!'),
-                    },
-                }}
-                emptyState={users.total === 0 ? emptyState : noResultsState}
+                errorState={errorState}
+                emptyState={processedEmptyState}
             >
                 {users.items.map((id) => (
                     <ListItemComponent key={id} id={id} />

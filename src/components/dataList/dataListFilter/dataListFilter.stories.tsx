@@ -21,7 +21,7 @@ type Story = StoryObj<typeof DataList.Filter>;
 export const Default: Story = {
     args: {},
     render: (props) => (
-        <DataList.Root>
+        <DataList.Root entityLabel="Users">
             <DataList.Filter {...props} />
         </DataList.Root>
     ),

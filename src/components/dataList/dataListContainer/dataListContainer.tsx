@@ -42,6 +42,8 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
 
     const displayItems = state === 'fetchingNextPage' || state === 'idle' || state === 'loading';
 
+    const displayItemsCount = (state === 'idle' || state === 'fetchingNextPage') && itemsCount != null;
+
     const isEmpty = state === 'idle' && paginatedChildren.length === 0;
 
     useEffect(() => {
@@ -52,7 +54,7 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
         <div className={classNames('flex flex-col gap-4', className)} {...otherProps}>
             <div className="flex flex-row justify-between">
                 <p className="text-base font-normal leading-tight text-neutral-500">
-                    {(state === 'idle' || state === 'fetchingNextPage') && `${itemsCount} ${entityLabel}`}
+                    {displayItemsCount && `${itemsCount} ${entityLabel}`}
                     {state === 'initialLoading' && `Loading ${entityLabel}`}
                     {state === 'loading' && `Filtering ${entityLabel}`}
                 </p>

@@ -21,8 +21,10 @@ type Story = StoryObj<typeof DataList.Item>;
 export const Default: Story = {
     args: {},
     render: (props) => (
-        <DataList.Root>
-            <DataList.Item {...props}>Data list item</DataList.Item>
+        <DataList.Root entityLabel="Users">
+            <DataList.Container>
+                <DataList.Item {...props}>Data List Item</DataList.Item>
+            </DataList.Container>
         </DataList.Root>
     ),
 };
