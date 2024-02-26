@@ -24,7 +24,7 @@ export interface IDataListRootProps extends ComponentProps<'div'> {
     maxItems?: number;
     /**
      * State of the data list component, @see DataListState.
-     * @default DataListState.IDLE
+     * @default idle
      */
     state?: DataListState;
     /**

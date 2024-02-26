@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Avatar } from '../../avatars';
+import { IconType } from '../../icon';
 import { DataListItem } from '../dataListItem';
 import { DataList, type IDataListRootProps } from '../index';
 import type { DataListState } from './dataListRoot';
@@ -56,6 +57,7 @@ const StaticListComponent = (props: IDataListRootProps) => {
     const filteredUsers = useMemo(() => {
         const shouldFilter = searchValue != null && searchValue.trim().length > 0;
         const newFilteredUsers = shouldFilter ? userIds.filter((id) => id.toString().includes(searchValue)) : userIds;
+
         return newFilteredUsers.toSorted((a, b) => (activeSort === 'id_asc' ? a - b : b - a));
     }, [userIds, searchValue, activeSort]);
 
@@ -94,8 +96,9 @@ const AsyncListComponent = (props: IDataListRootProps) => {
 
     const [dataListState, setDataListState] = useState<DataListState | undefined>('initialLoading');
     const [searchValue, setSearchValue] = useState<string>();
-    const [isLoading, setIsLoading] = useState(false);
     const [activeSort, setActiveSort] = useState<string>('id_asc');
+
+    const searchTimeout = useRef<NodeJS.Timeout>();
 
     const sortItems = useMemo(
         () => [
@@ -108,55 +111,74 @@ const AsyncListComponent = (props: IDataListRootProps) => {
     const userIds = useMemo(() => [...Array(itemsCount)].map(() => Math.floor(Math.random() * 10_000)), [itemsCount]);
     const [filteredUsers, setFilteredUsers] = useState(userIds.slice(0, maxItems));
 
-    const sortUsers = useCallback(
-        (users: number[] = [], sort: string) => users?.toSorted((a, b) => (sort === 'id_asc' ? a - b : b - a)),
-        [],
-    );
+    const sortUsers = (users: number[] = [], sort: string) =>
+        users?.toSorted((a, b) => (sort === 'id_asc' ? a - b : b - a));
+
+    const paginateUsers = (users: number[] = []) =>
+        users.slice(0, Math.min(itemsCount ?? 0, filteredUsers.length + (maxItems ?? 0)));
+
+    const filterUsers = (users: number[] = [], value?: string) =>
+        value != null && value.trim().length > 0 ? users.filter((id) => id.toString().includes(value)) : users;
 
     const handleLoadMore = () => {
         setDataListState('fetchingNextPage');
         setTimeout(() => {
-            const arrayEnd = Math.min(itemsCount ?? 0, filteredUsers.length + (maxItems ?? 0));
-            setFilteredUsers(userIds.slice(0, arrayEnd));
+            const newUsers = paginateUsers(sortUsers(filterUsers(userIds, searchValue), activeSort));
+            setFilteredUsers(newUsers);
             setDataListState('idle');
         }, 1_000);
     };
 
     const handleSortChange = (newSort: string) => {
-        setIsLoading(true);
         setDataListState('loading');
         setActiveSort(newSort);
 
         setTimeout(() => {
             setFilteredUsers((current) => sortUsers(current, newSort));
-            setIsLoading(false);
             setDataListState('idle');
         }, 1_000);
     };
 
-    /*
-    useEffect(() => {
-        setIsLoading(true);
-        const timeout = setTimeout(() => {
-            setFilteredUsers((current) => {
-                const shouldFilter = searchValue != null && searchValue.trim().length > 0;
-                const newFilteredUsers = shouldFilter
-                    ? current?.filter((id) => id.toString().includes(searchValue))
-                    : current;
-                const newSortedUsers = newFilteredUsers?.toSorted((a, b) => (activeSort === 'id_asc' ? a - b : b - a));
+    const handleSearchValueChange = (value?: string) => {
+        setDataListState('loading');
+        setSearchValue(value);
+        clearTimeout(searchTimeout.current);
 
-                return newSortedUsers;
-            });
-            setIsLoading(false);
+        const timeout = setTimeout(() => {
+            const newUsers = paginateUsers(sortUsers(filterUsers(userIds, value), activeSort));
+            setFilteredUsers(newUsers);
+            setDataListState('idle');
         }, 1_000);
 
-        return () => clearTimeout(timeout);
-    }, [searchValue, activeSort]);
-    */
+        searchTimeout.current = timeout;
+    };
 
     useEffect(() => {
         setTimeout(() => setDataListState('idle'), 1_000);
     }, []);
+
+    const noResultsState = {
+        objectIllustration: { object: 'NOT_FOUND' as const },
+        heading: 'No users found',
+        description: 'Your applied filters are not matching with any results. Reset and search with other filters!',
+        primaryButton: {
+            label: 'Reset all filters',
+            iconLeft: IconType.RELOAD,
+            onClick: () => handleSearchValueChange(undefined),
+        },
+    };
+
+    const emptyState = {
+        objectIllustration: { object: 'ERROR' as const },
+        heading: 'No users found',
+        description: 'Set the itemCount property to be greater than 0 to generate and display the users list',
+        secondaryButton: {
+            label: 'Learn more',
+            iconRight: IconType.LINK_EXTERNAL,
+            target: '_blank',
+            href: 'https://storybook.js.org/docs/writing-stories/args',
+        },
+    };
 
     return (
         <DataList.Root
@@ -169,14 +191,26 @@ const AsyncListComponent = (props: IDataListRootProps) => {
             <DataList.Filter
                 onFilterClick={() => alert('filter click')}
                 searchValue={searchValue}
-                onSearchValueChange={setSearchValue}
-                isLoading={isLoading}
+                onSearchValueChange={handleSearchValueChange}
                 placeholder="Filter by user id"
                 activeSort={activeSort}
                 onSortChange={handleSortChange}
                 sortItems={sortItems}
             />
-            <DataList.Container SkeltonElement={ListItemComponentLoading}>
+            <DataList.Container
+                SkeltonElement={ListItemComponentLoading}
+                errorState={{
+                    objectIllustration: { object: 'ERROR' },
+                    heading: 'Error loading users',
+                    description: 'There was an error loading the users. Try again!',
+                    primaryButton: {
+                        label: 'Reload users',
+                        iconLeft: IconType.RELOAD,
+                        onClick: () => alert('reload!'),
+                    },
+                }}
+                emptyState={itemsCount === 0 ? emptyState : noResultsState}
+            >
                 {filteredUsers?.map((id) => <ListItemComponent key={id} id={id} />)}
             </DataList.Container>
             <DataList.Pagination />

@@ -10,15 +10,22 @@ export interface IDataListPaginationProps extends ComponentProps<'div'> {}
 export const DataListPagination: React.FC<IDataListPaginationProps> = (props) => {
     const { className, ...otherProps } = props;
 
-    const { state, maxItems, currentPage, itemsCount, childrenItemCount, handleLoadMore } = useDataListContext();
+    const {
+        state,
+        maxItems,
+        currentPage,
+        itemsCount = 0,
+        childrenItemCount = 0,
+        handleLoadMore,
+    } = useDataListContext();
 
-    const currentlyDisplayed = Math.min(maxItems * (currentPage + 1), childrenItemCount ?? 0);
+    const currentlyDisplayed = Math.min(maxItems * (currentPage + 1), childrenItemCount);
 
-    const progressValue = (currentlyDisplayed * 100) / (itemsCount ?? 1);
+    const progressValue = itemsCount > 0 ? (currentlyDisplayed * 100) / itemsCount : 0;
 
-    const hasMore = currentlyDisplayed < (itemsCount ?? 1);
+    const hasMore = currentlyDisplayed < itemsCount;
 
-    if (state === 'initialLoading' || state === 'error') {
+    if (state === 'initialLoading' || state === 'error' || currentlyDisplayed === 0) {
         return null;
     }
 
@@ -35,7 +42,7 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
             >
                 More
             </Button>
-            {itemsCount && (
+            {itemsCount > 0 && (
                 <>
                     <Progress value={progressValue} size="sm" responsiveSize={{ md: 'md' }} />
                     <p className="shrink-0 text-base font-normal leading-tight text-neutral-500">

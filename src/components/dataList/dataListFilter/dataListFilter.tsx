@@ -4,6 +4,7 @@ import { AvatarIcon } from '../../avatars';
 import { Button } from '../../button';
 import { Icon, IconType } from '../../icon';
 import { Spinner } from '../../spinner';
+import { useDataListContext } from '../dataListContext';
 import { DataListFilterSort } from './dataListFilterSort';
 
 export interface IDataListFilterSortItem {
@@ -31,10 +32,6 @@ export interface IDataListFilterProps extends Omit<ComponentProps<'div'>, 'onCha
      */
     onSearchValueChange: (value?: string) => void;
     /**
-     * Displays a loading indicator when set to true.
-     */
-    isLoading?: boolean;
-    /**
      * Active sorting of the data list.
      */
     activeSort?: string;
@@ -55,7 +52,6 @@ export interface IDataListFilterProps extends Omit<ComponentProps<'div'>, 'onCha
 export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
     const {
         onFilterClick,
-        isLoading,
         searchValue = '',
         onSearchValueChange,
         placeholder,
@@ -67,6 +63,8 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
     } = props;
 
     const [isFocused, setIsFocused] = useState(false);
+
+    const { state } = useDataListContext();
 
     const handleInputFocus = () => setIsFocused(true);
     const handleInputBlur = () => setIsFocused(false);
@@ -90,7 +88,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
             )}
             {...otherProps}
         >
-            {!isLoading && (
+            {state !== 'loading' && (
                 <AvatarIcon
                     icon={IconType.SEARCH}
                     size="md"
@@ -98,7 +96,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                     variant={isFocused ? 'primary' : 'neutral'}
                 />
             )}
-            {isLoading && <Spinner size="lg" variant="primary" className="m-1 shrink-0" />}
+            {state === 'loading' && <Spinner size="lg" variant="primary" className="m-1 shrink-0" />}
             <input
                 type="search"
                 className={classNames(
