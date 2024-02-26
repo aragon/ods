@@ -1,14 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { DialogAlert, type IDialogAlertContentProps } from '..';
 import { Button } from '../../../button';
-import { DialogAlertFooter } from '../dialogAlertFooter';
-import { DialogAlertHeader } from '../dialogAlertHeader';
-import { DialogAlertRoot } from '../dialogAlertRoot';
-import { DialogAlertContent, type IDialogAlertContentProps } from './dialogAlertContent';
 
-const meta: Meta<typeof DialogAlertContent> = {
+const meta: Meta<typeof DialogAlert.Content> = {
     title: 'components/Dialogs/DialogAlert/DialogAlert.Content',
-    component: DialogAlertContent,
+    component: DialogAlert.Content,
     tags: ['autodocs'],
     parameters: {
         design: {
@@ -18,7 +15,7 @@ const meta: Meta<typeof DialogAlertContent> = {
     },
 };
 
-type Story = StoryObj<typeof DialogAlertContent>;
+type Story = StoryObj<typeof DialogAlert.Content>;
 
 const ControlledComponent = (props: IDialogAlertContentProps) => {
     const [open, setOpen] = useState(false);
@@ -32,14 +29,14 @@ const ControlledComponent = (props: IDialogAlertContentProps) => {
             <Button variant="primary" onClick={() => setOpen(true)}>
                 Show DialogAlert
             </Button>
-            <DialogAlertRoot open={open} onOpenChange={setOpen}>
-                <DialogAlertHeader title="DialogAlert Title" />
-                <DialogAlertContent {...props} />
-                <DialogAlertFooter
+            <DialogAlert.Root open={open} onOpenChange={setOpen}>
+                <DialogAlert.Header title="DialogAlert Title" />
+                <DialogAlert.Content {...props} />
+                <DialogAlert.Footer
                     actionButton={{ label: 'Action', onClick: handleCloseModal }}
                     cancelButton={{ label: 'Cancel', onClick: handleCloseModal }}
                 />
-            </DialogAlertRoot>
+            </DialogAlert.Root>
         </>
     );
 };
