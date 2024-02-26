@@ -93,7 +93,7 @@ export const StaticList: Story = {
     render: (props) => <StaticListComponent {...props} />,
 };
 
-const dbUsers = [...Array(122)].map(() => Math.floor(Math.random() * 10_000));
+const dbUsers = [...Array(122)].map(() => Math.floor(Math.random() * 100_000));
 
 const getUsers = (search = '', page = 0, sort = 'id_asc', pageSize = 6) => {
     const sortUsers = (users: number[] = [], sort: string) =>

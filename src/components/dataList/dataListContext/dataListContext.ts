@@ -7,7 +7,7 @@ export interface IDataListContext
     /**
      * Total number of list item children.
      */
-    childrenItemCount?: number;
+    childrenItemCount: number;
     /**
      * Callback to update the total number of list item children.
      */

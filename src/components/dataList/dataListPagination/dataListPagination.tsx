@@ -15,7 +15,7 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
         maxItems,
         currentPage,
         itemsCount = 0,
-        childrenItemCount = 0,
+        childrenItemCount,
         handleLoadMore,
         entityLabel,
     } = useDataListContext();

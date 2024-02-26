@@ -49,16 +49,14 @@ export const DataListRoot: React.FC<IDataListRootProps> = (props) => {
         ...otherProps
     } = props;
 
-    const [childrenItemCount, setChildrenItemCount] = useState<number>();
+    const [childrenItemCount, setChildrenItemCount] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState(0);
 
     const handleLoadMore = useCallback(
         (newPage: number) => {
-            const currentlyDisplayed = Math.min(maxItems * newPage, itemsCount ?? 1);
+            const currentlyDisplayed = Math.min(maxItems * newPage, itemsCount ?? 0);
 
-            console.log({ currentlyDisplayed, childrenItemCount, maxItems, newPage, itemsCount });
-
-            if ((childrenItemCount ?? 0) <= currentlyDisplayed) {
+            if (childrenItemCount <= currentlyDisplayed) {
                 onLoadMore?.();
             }
 
