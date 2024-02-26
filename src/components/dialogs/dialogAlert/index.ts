@@ -11,6 +11,6 @@ export const DialogAlert = {
 };
 
 export { type IDialogAlertContentProps } from './dialogAlertContent';
-export { IDialogFooterAction, type IDialogAlertFooterProps } from './dialogAlertFooter';
+export { type IDialogAlertFooterAction, type IDialogAlertFooterProps } from './dialogAlertFooter';
 export { type IDialogAlertHeaderProps } from './dialogAlertHeader';
 export { type DialogAlertVariant, type IDialogAlertRootProps } from './dialogAlertRoot';

@@ -1,6 +1,5 @@
 import { Title } from '@radix-ui/react-alert-dialog';
 import classNames from 'classnames';
-import type React from 'react';
 import { useContext, type ComponentPropsWithoutRef } from 'react';
 import { AvatarIcon } from '../../../avatars';
 import { IconType } from '../../../icon';
@@ -32,11 +31,15 @@ const dialogAlertVariantToTitleClass: Record<DialogAlertVariant, string> = {
  *
  * **NOTE**: This component must be used inside a `<DialogAlert.Root />` component.
  */
-export const DialogAlertHeader: React.FC<IDialogAlertHeaderProps> = ({ title }) => {
+export const DialogAlertHeader: React.FC<IDialogAlertHeaderProps> = (props) => {
+    const { title, ...otherProps } = props;
     const { variant } = useContext(DialogAlertContext);
 
     return (
-        <div className="flex w-full items-center gap-x-4 rounded-t-xl bg-modal-header px-4 pb-2 pt-4 backdrop-blur-md md:px-6 md:pt-6">
+        <div
+            className="flex w-full items-center gap-x-4 rounded-t-xl bg-modal-header px-4 pb-2 pt-4 backdrop-blur-md md:px-6 md:pt-6"
+            {...otherProps}
+        >
             <div className="flex min-w-0 flex-1 items-center">
                 <Title
                     className={classNames(

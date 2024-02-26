@@ -1,1 +1,1 @@
-export { DialogAlertFooter, type IDialogAlertFooterProps, type IDialogFooterAction } from './dialogAlertFooter';
+export { DialogAlertFooter, type IDialogAlertFooterAction, type IDialogAlertFooterProps } from './dialogAlertFooter';

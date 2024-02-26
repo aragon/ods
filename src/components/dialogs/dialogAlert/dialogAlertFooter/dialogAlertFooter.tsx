@@ -5,7 +5,7 @@ import { useContext, type AnchorHTMLAttributes, type ButtonHTMLAttributes } from
 import { Button, type IButtonBaseProps } from '../../../button';
 import { DialogAlertContext } from '../dialogAlertRoot';
 
-export type IDialogFooterAction = (
+export type IDialogAlertFooterAction = (
     | Pick<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
     | Pick<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'>
 ) &
@@ -20,12 +20,12 @@ export interface IDialogAlertFooterProps {
     /**
      * Alert dialog primary action button
      */
-    actionButton: IDialogFooterAction;
+    actionButton: IDialogAlertFooterAction;
     /**
      * Alert dialog secondary button used for dismissing the dialog
      * or cancelling the action
      */
-    cancelButton: IDialogFooterAction;
+    cancelButton: IDialogAlertFooterAction;
 }
 
 /**
