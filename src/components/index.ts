@@ -3,6 +3,7 @@ export * from './avatars';
 export * from './button';
 export * from './cards';
 export * from './checkbox';
+export * from './dataList';
 export * from './dialogs';
 export * from './dropdown';
 export * from './heading';
