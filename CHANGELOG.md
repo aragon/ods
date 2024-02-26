@@ -7,6 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.16] - 2024-02-24
+
+### Fixed
+
+-   Typo on `README.md` file
+-   Typo on `src/components/button/button.tsx` file
+-   Typo on `src/utils/formatterUtils/formatterUtilsDefinition.ts` file
+
+
 ## [1.0.15] - 2024-02-23
 
 ### Changed
