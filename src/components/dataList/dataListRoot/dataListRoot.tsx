@@ -31,10 +31,23 @@ export interface IDataListRootProps extends ComponentProps<'div'> {
      * Callback called on load-more button click.
      */
     onLoadMore?: () => void;
+    /**
+     * Label used for the data list status and pagination.
+     */
+    entityLabel: string;
 }
 
 export const DataListRoot: React.FC<IDataListRootProps> = (props) => {
-    const { children, maxItems = 12, itemsCount, onLoadMore, className, state = 'idle', ...otherProps } = props;
+    const {
+        children,
+        maxItems = 12,
+        itemsCount,
+        onLoadMore,
+        className,
+        state = 'idle',
+        entityLabel,
+        ...otherProps
+    } = props;
 
     const [childrenItemCount, setChildrenItemCount] = useState<number>();
     const [currentPage, setCurrentPage] = useState(0);
@@ -42,6 +55,8 @@ export const DataListRoot: React.FC<IDataListRootProps> = (props) => {
     const handleLoadMore = useCallback(
         (newPage: number) => {
             const currentlyDisplayed = Math.min(maxItems * newPage, itemsCount ?? 1);
+
+            console.log({ currentlyDisplayed, childrenItemCount, maxItems, newPage, itemsCount });
 
             if ((childrenItemCount ?? 0) <= currentlyDisplayed) {
                 onLoadMore?.();
@@ -53,8 +68,17 @@ export const DataListRoot: React.FC<IDataListRootProps> = (props) => {
     );
 
     const contextValues = useMemo(
-        () => ({ childrenItemCount, setChildrenItemCount, maxItems, itemsCount, currentPage, handleLoadMore, state }),
-        [childrenItemCount, maxItems, currentPage, itemsCount, state, handleLoadMore],
+        () => ({
+            childrenItemCount,
+            setChildrenItemCount,
+            maxItems,
+            itemsCount,
+            currentPage,
+            handleLoadMore,
+            state,
+            entityLabel,
+        }),
+        [childrenItemCount, maxItems, currentPage, itemsCount, state, handleLoadMore, entityLabel],
     );
 
     return (

@@ -61,8 +61,10 @@ const StaticListComponent = (props: IDataListRootProps) => {
         return newFilteredUsers.toSorted((a, b) => (activeSort === 'id_asc' ? a - b : b - a));
     }, [userIds, searchValue, activeSort]);
 
+    const entityLabel = filteredUsers.length > 1 ? 'Users' : 'User';
+
     return (
-        <DataList.Root itemsCount={filteredUsers?.length} {...otherProps}>
+        <DataList.Root itemsCount={filteredUsers?.length} {...otherProps} entityLabel={entityLabel}>
             <DataList.Filter
                 onFilterClick={() => alert('filter click')}
                 searchValue={searchValue}
@@ -91,14 +93,36 @@ export const StaticList: Story = {
     render: (props) => <StaticListComponent {...props} />,
 };
 
+const dbUsers = [...Array(122)].map(() => Math.floor(Math.random() * 10_000));
+
+const getUsers = (search = '', page = 0, sort = 'id_asc', pageSize = 6) => {
+    const sortUsers = (users: number[] = [], sort: string) =>
+        users?.toSorted((a, b) => (sort === 'id_asc' ? a - b : b - a));
+
+    const paginateUsers = (users: number[] = [], page = 0, pageSize = 6) =>
+        users.slice(0, Math.min(dbUsers.length, (page + 1) * pageSize));
+
+    const filterUsers = (users: number[] = [], value?: string) =>
+        value != null && value.trim().length > 0 ? users.filter((id) => id.toString().includes(value)) : users;
+
+    const filteredUsers = filterUsers(dbUsers, search);
+    const sortedUsers = sortUsers(filteredUsers, sort);
+    const paginatedUsers = paginateUsers(sortedUsers, page, pageSize);
+
+    return { total: filteredUsers.length, items: paginatedUsers };
+};
+
 const AsyncListComponent = (props: IDataListRootProps) => {
     const { itemsCount, maxItems, ...otherProps } = props;
 
     const [dataListState, setDataListState] = useState<DataListState | undefined>('initialLoading');
-    const [searchValue, setSearchValue] = useState<string>();
-    const [activeSort, setActiveSort] = useState<string>('id_asc');
 
-    const searchTimeout = useRef<NodeJS.Timeout>();
+    const [currentPage, setCurrentPage] = useState(0);
+    const [searchValue, setSearchValue] = useState<string>();
+    const [activeSort, setActiveSort] = useState('id_asc');
+    const [users, setUsers] = useState(getUsers(searchValue, currentPage, activeSort, maxItems));
+
+    const requestTimeout = useRef<NodeJS.Timeout>();
 
     const sortItems = useMemo(
         () => [
@@ -108,54 +132,33 @@ const AsyncListComponent = (props: IDataListRootProps) => {
         [],
     );
 
-    const userIds = useMemo(() => [...Array(itemsCount)].map(() => Math.floor(Math.random() * 10_000)), [itemsCount]);
-    const [filteredUsers, setFilteredUsers] = useState(userIds.slice(0, maxItems));
-
-    const sortUsers = (users: number[] = [], sort: string) =>
-        users?.toSorted((a, b) => (sort === 'id_asc' ? a - b : b - a));
-
-    const paginateUsers = (users: number[] = []) =>
-        users.slice(0, Math.min(itemsCount ?? 0, filteredUsers.length + (maxItems ?? 0)));
-
-    const filterUsers = (users: number[] = [], value?: string) =>
-        value != null && value.trim().length > 0 ? users.filter((id) => id.toString().includes(value)) : users;
-
     const handleLoadMore = () => {
         setDataListState('fetchingNextPage');
-        setTimeout(() => {
-            const newUsers = paginateUsers(sortUsers(filterUsers(userIds, searchValue), activeSort));
-            setFilteredUsers(newUsers);
-            setDataListState('idle');
-        }, 1_000);
+        setCurrentPage((current) => current + 1);
     };
-
-    const handleSortChange = (newSort: string) => {
-        setDataListState('loading');
-        setActiveSort(newSort);
-
-        setTimeout(() => {
-            setFilteredUsers((current) => sortUsers(current, newSort));
-            setDataListState('idle');
-        }, 1_000);
-    };
-
+    const handleSortChange = (newSort: string) => setActiveSort(newSort);
     const handleSearchValueChange = (value?: string) => {
-        setDataListState('loading');
         setSearchValue(value);
-        clearTimeout(searchTimeout.current);
-
-        const timeout = setTimeout(() => {
-            const newUsers = paginateUsers(sortUsers(filterUsers(userIds, value), activeSort));
-            setFilteredUsers(newUsers);
-            setDataListState('idle');
-        }, 1_000);
-
-        searchTimeout.current = timeout;
+        setCurrentPage(0);
     };
 
     useEffect(() => {
         setTimeout(() => setDataListState('idle'), 1_000);
     }, []);
+
+    useEffect(() => {
+        setDataListState((state) => (state !== 'fetchingNextPage' ? 'loading' : 'fetchingNextPage'));
+
+        requestTimeout.current = setTimeout(() => {
+            const newUsers = getUsers(searchValue, currentPage, activeSort, maxItems);
+            setUsers(newUsers);
+            setDataListState('idle');
+        }, 1_000);
+
+        return () => {
+            clearTimeout(requestTimeout.current);
+        };
+    }, [searchValue, currentPage, activeSort, maxItems]);
 
     const noResultsState = {
         objectIllustration: { object: 'NOT_FOUND' as const },
@@ -180,13 +183,16 @@ const AsyncListComponent = (props: IDataListRootProps) => {
         },
     };
 
+    const entityLabel = users.total > 1 ? 'Users' : 'User';
+
     return (
         <DataList.Root
-            itemsCount={itemsCount}
+            itemsCount={users.total}
             maxItems={maxItems}
             state={dataListState}
             onLoadMore={handleLoadMore}
             {...otherProps}
+            entityLabel={entityLabel}
         >
             <DataList.Filter
                 onFilterClick={() => alert('filter click')}
@@ -209,9 +215,11 @@ const AsyncListComponent = (props: IDataListRootProps) => {
                         onClick: () => alert('reload!'),
                     },
                 }}
-                emptyState={itemsCount === 0 ? emptyState : noResultsState}
+                emptyState={users.total === 0 ? emptyState : noResultsState}
             >
-                {filteredUsers?.map((id) => <ListItemComponent key={id} id={id} />)}
+                {users.items.map((id) => (
+                    <ListItemComponent key={id} id={id} />
+                ))}
             </DataList.Container>
             <DataList.Pagination />
         </DataList.Root>
@@ -224,7 +232,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
 export const AsyncList: Story = {
     args: {
         maxItems: 6,
-        itemsCount: 35,
+        itemsCount: dbUsers.length,
     },
     render: ({ onLoadMore, ...props }) => <AsyncListComponent {...props} />,
 };

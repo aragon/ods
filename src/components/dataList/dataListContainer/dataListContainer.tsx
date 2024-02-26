@@ -23,7 +23,7 @@ export interface IDataListContainerProps extends ComponentProps<'div'> {
 export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
     const { children, className, SkeltonElement, errorState, emptyState, ...otherProps } = props;
 
-    const { state, maxItems, itemsCount, currentPage, setChildrenItemCount } = useDataListContext();
+    const { state, maxItems, itemsCount, currentPage, setChildrenItemCount, entityLabel } = useDataListContext();
 
     const processedChildren = Children.toArray(children) as ReactElement[];
 
@@ -52,9 +52,9 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
         <div className={classNames('flex flex-col gap-4', className)} {...otherProps}>
             <div className="flex flex-row justify-between">
                 <p className="text-base font-normal leading-tight text-neutral-500">
-                    {/* TODO: handle data-list status */}
-                    {(state === 'idle' || state === 'fetchingNextPage') && `${itemsCount} Members`}
-                    {(state === 'loading' || state === 'initialLoading') && 'Loading Members'}
+                    {(state === 'idle' || state === 'fetchingNextPage') && `${itemsCount} ${entityLabel}`}
+                    {state === 'initialLoading' && `Loading ${entityLabel}`}
+                    {state === 'loading' && `Filtering ${entityLabel}`}
                 </p>
             </div>
             <div className="flex flex-col gap-2">

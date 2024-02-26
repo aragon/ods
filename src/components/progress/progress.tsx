@@ -34,7 +34,7 @@ export const Progress: React.FC<IProgressProps> = (props) => {
     );
 
     return (
-        <RadixProgress.Root value={value} className={containerClassNames} {...otherProps}>
+        <RadixProgress.Root value={processedValue} className={containerClassNames} {...otherProps}>
             <RadixProgress.Indicator
                 className={classNames(
                     'h-full rounded-l-xl bg-primary-400 transition-[border-radius,width] duration-500 ease-in-out',

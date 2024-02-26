@@ -17,12 +17,12 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
         itemsCount = 0,
         childrenItemCount = 0,
         handleLoadMore,
+        entityLabel,
     } = useDataListContext();
 
     const currentlyDisplayed = Math.min(maxItems * (currentPage + 1), childrenItemCount);
 
     const progressValue = itemsCount > 0 ? (currentlyDisplayed * 100) / itemsCount : 0;
-
     const hasMore = currentlyDisplayed < itemsCount;
 
     if (state === 'initialLoading' || state === 'error' || currentlyDisplayed === 0) {
@@ -47,8 +47,8 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
                 <>
                     <Progress value={progressValue} size="sm" responsiveSize={{ md: 'md' }} />
                     <p className="shrink-0 text-base font-normal leading-tight text-neutral-500">
-                        {/* TODO: handle label */}
-                        {currentlyDisplayed} of {itemsCount} Members
+                        {/* TODO: apply internationalisation to "OF" label [APP-2627] */}
+                        {currentlyDisplayed} of {itemsCount} {entityLabel}
                     </p>
                 </>
             )}
