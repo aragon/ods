@@ -112,7 +112,6 @@ module.exports = {
             96: 'var(--ods-space-96)', // 384px
         },
         ringWidth: {
-            0: '0',
             DEFAULT: '3px',
         },
         ringColor: {
