@@ -124,6 +124,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                             onClick={onFilterClick}
                             className="hidden md:flex"
                         >
+                            {/* TODO: apply internationalisation to Filter label [APP-2627] */}
                             Filter
                         </Button>
                         <Button

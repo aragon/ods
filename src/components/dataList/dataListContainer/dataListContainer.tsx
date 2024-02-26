@@ -52,6 +52,7 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
         <div className={classNames('flex flex-col gap-4', className)} {...otherProps}>
             <div className="flex flex-row justify-between">
                 <p className="text-base font-normal leading-tight text-neutral-500">
+                    {/* TODO: handle data-list status */}
                     {(state === 'idle' || state === 'fetchingNextPage') && `${itemsCount} Members`}
                     {(state === 'loading' || state === 'initialLoading') && 'Loading Members'}
                 </p>

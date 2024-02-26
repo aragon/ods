@@ -40,12 +40,14 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
                 disabled={!hasMore}
                 isLoading={state === 'fetchingNextPage'}
             >
+                {/* TODO: apply internationalisation to More label [APP-2627] */}
                 More
             </Button>
             {itemsCount > 0 && (
                 <>
                     <Progress value={progressValue} size="sm" responsiveSize={{ md: 'md' }} />
                     <p className="shrink-0 text-base font-normal leading-tight text-neutral-500">
+                        {/* TODO: handle label */}
                         {currentlyDisplayed} of {itemsCount} Members
                     </p>
                 </>
