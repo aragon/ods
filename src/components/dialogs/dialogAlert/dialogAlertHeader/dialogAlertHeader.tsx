@@ -4,7 +4,7 @@ import type React from 'react';
 import { useContext, type ComponentPropsWithoutRef } from 'react';
 import { AvatarIcon } from '../../../avatars';
 import { IconType } from '../../../icon';
-import { DialogAlertContext, type DialogAlertVariant } from '../dialogAlertRoot/dialogAlertRoot';
+import { DialogAlertContext, type DialogAlertVariant } from '../dialogAlertRoot';
 
 export interface IDialogAlertHeaderProps extends ComponentPropsWithoutRef<'div'> {
     /**

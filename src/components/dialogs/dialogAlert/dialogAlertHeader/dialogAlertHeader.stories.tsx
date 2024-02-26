@@ -1,14 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { DialogAlert, type IDialogAlertHeaderProps } from '..';
 import { Button } from '../../../button';
-import { DialogAlertContent } from '../dialogAlertContent';
-import { DialogAlertFooter } from '../dialogAlertFooter';
-import { DialogAlertRoot } from '../dialogAlertRoot';
-import { DialogAlertHeader, type IDialogAlertHeaderProps } from './dialogAlertHeader';
 
-const meta: Meta<typeof DialogAlertHeader> = {
+const meta: Meta<typeof DialogAlert.Header> = {
     title: 'components/Dialogs/DialogAlert/DialogAlert.Header',
-    component: DialogAlertHeader,
+    component: DialogAlert.Header,
     tags: ['autodocs'],
     parameters: {
         design: {
@@ -18,7 +15,7 @@ const meta: Meta<typeof DialogAlertHeader> = {
     },
 };
 
-type Story = StoryObj<typeof DialogAlertHeader>;
+type Story = StoryObj<typeof DialogAlert.Header>;
 
 const ControlledComponent = (props: IDialogAlertHeaderProps) => {
     const [open, setOpen] = useState(false);
@@ -32,16 +29,16 @@ const ControlledComponent = (props: IDialogAlertHeaderProps) => {
             <Button variant="primary" onClick={() => setOpen(true)}>
                 Show DialogAlert
             </Button>
-            <DialogAlertRoot open={open} onOpenChange={setOpen}>
-                <DialogAlertHeader {...props} />
-                <DialogAlertContent>
+            <DialogAlert.Root open={open} onOpenChange={setOpen}>
+                <DialogAlert.Header {...props} />
+                <DialogAlert.Content>
                     <p>Very important content here!</p>
-                </DialogAlertContent>
-                <DialogAlertFooter
+                </DialogAlert.Content>
+                <DialogAlert.Footer
                     actionButton={{ label: 'Action', onClick: handleCloseModal }}
                     cancelButton={{ label: 'Cancel', onClick: handleCloseModal }}
                 />
-            </DialogAlertRoot>
+            </DialogAlert.Root>
         </>
     );
 };
