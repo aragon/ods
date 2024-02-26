@@ -16,7 +16,7 @@ export interface IDialogAlertRootProps extends AlertDialogProps {
     /**
      * Manages the visibility state of the dialog. Should be implemented alongside `onOpenChange` for controlled usage.
      */
-    open: boolean;
+    open?: boolean;
     /**
      * Additional CSS class names for custom styling of the overlay behind the dialog.
      */
@@ -29,7 +29,7 @@ export interface IDialogAlertRootProps extends AlertDialogProps {
     /**
      * Callback function invoked when the open state of the dialog changes.
      */
-    onOpenChange: (open: boolean) => void;
+    onOpenChange?: (open: boolean) => void;
     /**
      * Handler called when focus moves to the trigger after closing the dialog.
      */
@@ -68,7 +68,7 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
     const contextValue = useMemo(() => ({ variant }), [variant]);
 
     const handleEscapeKeyDown = (e: KeyboardEvent) => {
-        props.onOpenChange(false);
+        props.onOpenChange?.(false);
 
         onEscapeKeyDown?.(e);
     };
@@ -81,7 +81,7 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
                 <Content
                     className={classNames(
                         'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] lg:bottom-auto lg:top-[120px] lg:max-h-[calc(100vh-200px)]',
-                        'flex max-w-[480px] flex-col rounded-xl border border-neutral-100 shadow-neutral-md md:min-w-[480px]',
+                        'flex max-w-[480px] flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md md:min-w-[480px] ',
                         containerClassName,
                     )}
                     onCloseAutoFocus={onCloseAutoFocus}

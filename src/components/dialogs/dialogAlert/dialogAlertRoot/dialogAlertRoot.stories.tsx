@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { DialogAlert } from '..';
+import { DialogAlert, type IDialogAlertRootProps } from '..';
 import { Button } from '../../../button';
-import { type IDialogAlertRootProps } from './dialogAlertRoot';
 
 const meta: Meta<typeof DialogAlert.Root> = {
     title: 'components/Dialogs/DialogAlert/DialogAlert.Root',
