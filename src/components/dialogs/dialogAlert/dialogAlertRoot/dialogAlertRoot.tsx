@@ -1,10 +1,10 @@
-import { Content, Overlay, Portal, Root, Trigger, type AlertDialogProps } from '@radix-ui/react-alert-dialog';
+import { Content, Overlay, Portal, Root, Trigger } from '@radix-ui/react-alert-dialog';
 import classNames from 'classnames';
-import { createContext, useMemo, type ReactNode } from 'react';
+import { createContext, useMemo, type ComponentPropsWithoutRef, type ReactNode } from 'react';
 
 export type DialogAlertVariant = 'critical' | 'info' | 'success' | 'warning';
 
-export interface IDialogAlertRootProps extends AlertDialogProps {
+export interface IDialogAlertRootProps extends ComponentPropsWithoutRef<'div'> {
     /**
      * Children of the component.
      */
