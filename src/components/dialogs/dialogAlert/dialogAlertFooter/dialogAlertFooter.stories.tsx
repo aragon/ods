@@ -1,15 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { DialogAlert, type IDialogAlertFooterProps } from '..';
 import { Button } from '../../../button';
 import { IconType } from '../../../icon';
-import { DialogAlertContent } from '../dialogAlertContent';
-import { DialogAlertHeader } from '../dialogAlertHeader';
-import { DialogAlertRoot } from '../dialogAlertRoot';
-import { DialogAlertFooter, type IDialogAlertFooterProps } from './dialogAlertFooter';
 
-const meta: Meta<typeof DialogAlertFooter> = {
+const meta: Meta<typeof DialogAlert.Footer> = {
     title: 'components/Dialogs/DialogAlert/DialogAlert.Footer',
-    component: DialogAlertFooter,
+    component: DialogAlert.Footer,
     tags: ['autodocs'],
     parameters: {
         design: {
@@ -19,7 +16,7 @@ const meta: Meta<typeof DialogAlertFooter> = {
     },
 };
 
-type Story = StoryObj<typeof DialogAlertFooter>;
+type Story = StoryObj<typeof DialogAlert.Footer>;
 
 const ControlledComponent = (props: IDialogAlertFooterProps) => {
     const [open, setOpen] = useState(false);
@@ -29,13 +26,13 @@ const ControlledComponent = (props: IDialogAlertFooterProps) => {
             <Button variant="primary" onClick={() => setOpen(true)}>
                 Show DialogAlert
             </Button>
-            <DialogAlertRoot open={open} onOpenChange={setOpen}>
-                <DialogAlertHeader title="DialogAlert Title" />
-                <DialogAlertContent>
+            <DialogAlert.Root open={open} onOpenChange={setOpen}>
+                <DialogAlert.Header title="DialogAlert Title" />
+                <DialogAlert.Content>
                     <p>Very important content here!</p>
-                </DialogAlertContent>
-                <DialogAlertFooter {...props} />
-            </DialogAlertRoot>
+                </DialogAlert.Content>
+                <DialogAlert.Footer {...props} />
+            </DialogAlert.Root>
         </>
     );
 };
@@ -44,7 +41,7 @@ const ControlledComponent = (props: IDialogAlertFooterProps) => {
  * Default usage of the `DialogAlert.Footer` component
  */
 export const Default: Story = {
-    args: { actionButton: { label: 'Action', iconRight: IconType.SUCCESS }, cancelButton: { label: 'Cancel' } },
+    args: { actionButton: { label: 'Action', iconLeft: IconType.SUCCESS }, cancelButton: { label: 'Cancel' } },
     render: (props) => <ControlledComponent {...props} />,
 };
 
