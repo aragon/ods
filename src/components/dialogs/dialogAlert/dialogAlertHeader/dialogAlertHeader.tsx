@@ -54,5 +54,3 @@ export const DialogAlertHeader: React.FC<IDialogAlertHeaderProps> = (props) => {
         </div>
     );
 };
-
-DialogAlertHeader.displayName = 'DialogAlert.Header';

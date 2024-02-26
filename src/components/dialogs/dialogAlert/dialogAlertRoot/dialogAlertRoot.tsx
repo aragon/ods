@@ -96,5 +96,3 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
         </Root>
     );
 };
-
-DialogAlertRoot.displayName = 'DialogAlert.Root';

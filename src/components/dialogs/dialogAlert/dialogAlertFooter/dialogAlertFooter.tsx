@@ -64,5 +64,3 @@ export const DialogAlertFooter: React.FC<IDialogAlertFooterProps> = (props) => {
         </div>
     );
 };
-
-DialogAlertFooter.displayName = 'DialogAlert.Footer';
