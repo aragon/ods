@@ -13,7 +13,7 @@ const meta: Meta<typeof DataList.Root> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'TODO',
+            url: 'https://www.figma.com/file/P0GeJKqILL7UXvaqu5Jj7V/v1.1.0?type=design&node-id=13724-27671&mode=dev',
         },
     },
 };
@@ -42,17 +42,17 @@ const StaticListComponent = (props: IDataListRootProps) => {
     const { itemsCount, ...otherProps } = props;
 
     const [searchValue, setSearchValue] = useState<string>();
-    const [activeSort, setActiveSort] = useState<string>('id_asc');
+    const [activeSort, setActiveSort] = useState('id_asc');
 
     const sortItems = useMemo(
         () => [
-            { value: 'id_asc', label: 'Sort by increasing ID' },
-            { value: 'id_desc', label: 'Sort by decreasing ID' },
+            { value: 'id_asc', label: 'ID increased', type: 'ASC' as const },
+            { value: 'id_desc', label: 'ID decreased', type: 'DESC' as const },
         ],
         [],
     );
 
-    const userIds = useMemo(() => [...Array(itemsCount)].map(() => Math.floor(Math.random() * 10_000)), [itemsCount]);
+    const userIds = useMemo(() => [...Array(itemsCount)].map(() => Math.floor(Math.random() * 100_000)), [itemsCount]);
 
     const filteredUsers = useMemo(() => {
         const shouldFilter = searchValue != null && searchValue.trim().length > 0;
@@ -93,9 +93,7 @@ export const StaticList: Story = {
     render: (props) => <StaticListComponent {...props} />,
 };
 
-const dbUsers = [...Array(122)].map(() => Math.floor(Math.random() * 100_000));
-
-const getUsers = (search = '', page = 0, sort = 'id_asc', pageSize = 6) => {
+const getUsers = (dbUsers: number[] = [], search = '', page = 0, sort = 'id_asc', pageSize = 6) => {
     const sortUsers = (users: number[] = [], sort: string) =>
         users?.toSorted((a, b) => (sort === 'id_asc' ? a - b : b - a));
 
@@ -115,18 +113,19 @@ const getUsers = (search = '', page = 0, sort = 'id_asc', pageSize = 6) => {
 const AsyncListComponent = (props: IDataListRootProps) => {
     const { itemsCount, maxItems, ...otherProps } = props;
 
-    const [dataListState, setDataListState] = useState<DataListState | undefined>('initialLoading');
+    const [dataListState, setDataListState] = useState<DataListState>();
     const [currentPage, setCurrentPage] = useState(0);
     const [searchValue, setSearchValue] = useState<string>();
     const [activeSort, setActiveSort] = useState('id_asc');
-    const [users, setUsers] = useState(getUsers(searchValue, currentPage, activeSort, maxItems));
+    const [users, setUsers] = useState({ total: 0, items: [] as number[] });
 
     const requestTimeout = useRef<NodeJS.Timeout>();
+    const dbUsers = useRef<number[]>();
 
     const sortItems = useMemo(
         () => [
-            { value: 'id_asc', label: 'Sort by increasing ID' },
-            { value: 'id_desc', label: 'Sort by decreasing ID' },
+            { value: 'id_asc', label: 'ID increased', type: 'ASC' as const },
+            { value: 'id_desc', label: 'ID decreased', type: 'DESC' as const },
         ],
         [],
     );
@@ -141,16 +140,28 @@ const AsyncListComponent = (props: IDataListRootProps) => {
         setCurrentPage(0);
     };
 
+    // Generate and initialise users list on itemsCount change
     useEffect(() => {
-        setTimeout(() => setDataListState('idle'), 1_000);
-    }, []);
+        setDataListState('initialLoading');
 
+        setTimeout(() => {
+            dbUsers.current = [...Array(itemsCount)].map(() => Math.floor(Math.random() * 100_000));
+            setUsers(getUsers(dbUsers.current));
+            setDataListState('idle');
+        }, 1_000);
+    }, [itemsCount]);
+
+    // Sort and filter user list on filter change
     useEffect(() => {
-        setDataListState((state) => (state !== 'fetchingNextPage' ? 'loading' : 'fetchingNextPage'));
+        // Do not run the filtering & sorting if list is not initialised yet
+        if (!dbUsers.current) {
+            return;
+        }
+
+        setDataListState((state) => (state !== 'fetchingNextPage' ? 'loading' : state));
 
         requestTimeout.current = setTimeout(() => {
-            const newUsers = getUsers(searchValue, currentPage, activeSort, maxItems);
-            setUsers(newUsers);
+            setUsers(getUsers(dbUsers.current, searchValue, currentPage, activeSort, maxItems));
             setDataListState('idle');
         }, 1_000);
 
@@ -163,7 +174,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
         objectIllustration: { object: 'NOT_FOUND' as const },
         heading: 'No users found',
         description: 'Your applied filters are not matching with any results. Reset and search with other filters!',
-        primaryButton: {
+        secondaryButton: {
             label: 'Reset all filters',
             iconLeft: IconType.RELOAD,
             onClick: () => handleSearchValueChange(undefined),
@@ -186,7 +197,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
         objectIllustration: { object: 'ERROR' as const },
         heading: 'Error loading users',
         description: 'There was an error loading the users. Try again!',
-        primaryButton: {
+        secondaryButton: {
             label: 'Reload users',
             iconLeft: IconType.RELOAD,
             onClick: () => alert('reload!'),
@@ -194,7 +205,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
     };
 
     const entityLabel = users.total > 1 ? 'Users' : 'User';
-    const processedEmptyState = users.total === 0 ? emptyState : noResultsState;
+    const processedEmptyState = searchValue != null && searchValue.trim().length > 0 ? noResultsState : emptyState;
 
     return (
         <DataList.Root
@@ -234,7 +245,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
 export const AsyncList: Story = {
     args: {
         maxItems: 6,
-        itemsCount: dbUsers.length,
+        itemsCount: 122,
     },
     render: ({ onLoadMore, ...props }) => <AsyncListComponent {...props} />,
 };

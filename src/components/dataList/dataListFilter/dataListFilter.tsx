@@ -16,6 +16,10 @@ export interface IDataListFilterSortItem {
      * Label of the sort item.
      */
     label: string;
+    /**
+     * Sort item type to display the correct icon on the sort button.
+     */
+    type: 'ASC' | 'DESC';
 }
 
 export interface IDataListFilterProps extends Omit<ComponentProps<'div'>, 'onChange'> {
@@ -141,6 +145,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                     sortItems={sortItems}
                     onSortChange={onSortChange}
                     triggerClassNames="hidden md:flex"
+                    /* TODO: apply internationalisation to Sort label [APP-2627] */
                     triggerLabel="Sort"
                 />
                 <DataListFilterSort

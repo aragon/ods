@@ -49,7 +49,7 @@ export const DataListRoot: React.FC<IDataListRootProps> = (props) => {
         ...otherProps
     } = props;
 
-    const [childrenItemCount, setChildrenItemCount] = useState<number>(0);
+    const [childrenItemCount, setChildrenItemCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
 
     const handleLoadMore = useCallback(

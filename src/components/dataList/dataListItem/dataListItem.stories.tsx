@@ -8,7 +8,7 @@ const meta: Meta<typeof DataList.Item> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'TODO',
+            url: 'https://www.figma.com/file/P0GeJKqILL7UXvaqu5Jj7V/v1.1.0?type=design&node-id=13724-27671&mode=dev',
         },
     },
 };

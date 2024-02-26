@@ -22,12 +22,15 @@ export const DataListFilterSort: React.FC<IDataListFilterSortProps> = (props) =>
         return null;
     }
 
+    const sortType = sortItems.find((item) => item.value === activeSort)?.type;
+    const sortIcon = sortType === 'ASC' ? IconType.SORT_ASC : IconType.SORT_DESC;
+
     return (
         <Dropdown.Container
             align="end"
             customTrigger={
-                <Button iconLeft={IconType.SORT_ASC} variant="tertiary" size="md" className={triggerClassNames}>
-                    {triggerLabel && <span className="hidden md:inline-block">Sort</span>}
+                <Button iconLeft={sortIcon} variant="tertiary" size="md" className={triggerClassNames}>
+                    {triggerLabel && <span className="hidden md:inline-block">{triggerLabel}</span>}
                 </Button>
             }
         >
