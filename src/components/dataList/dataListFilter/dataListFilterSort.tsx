@@ -34,7 +34,7 @@ export const DataListFilterSort: React.FC<IDataListFilterSortProps> = (props) =>
                 </Button>
             }
         >
-            {sortItems?.map(({ value, label }) => (
+            {sortItems.map(({ value, label }) => (
                 <Dropdown.Item key={value} selected={value === activeSort} onSelect={() => onSortChange?.(value)}>
                     {label}
                 </Dropdown.Item>
