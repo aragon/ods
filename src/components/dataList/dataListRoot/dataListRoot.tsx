@@ -8,9 +8,10 @@ import { DataListContextProvider } from '../dataListContext';
  * - Loading: initial data has already been fetched and the user is filtering or sorting the data;
  * - Error: an error has occurred while fetching the data;
  * - Idle: data has been successfully fetched;
+ * - Filtered: data has been successfully fetched and one or more filters are applied.
  * - FetchingNextPage: user is loading the next page of the data list;
  */
-export type DataListState = 'initialLoading' | 'loading' | 'error' | 'fetchingNextPage' | 'idle';
+export type DataListState = 'initialLoading' | 'loading' | 'error' | 'fetchingNextPage' | 'idle' | 'filtered';
 
 export interface IDataListRootProps extends ComponentProps<'div'> {
     /**

@@ -5,6 +5,9 @@ import type { IEmptyStateProps } from '../../states';
 import { useDataListContext } from '../dataListContext';
 import { DataListContainerSkeletonLoader } from './dataListContainerSkeletonLoader';
 
+export interface IDataListContainerState
+    extends Pick<IEmptyStateProps, 'heading' | 'description' | 'primaryButton' | 'secondaryButton'> {}
+
 export interface IDataListContainerProps extends ComponentProps<'div'> {
     /**
      * Skeleton element displayed when the DataList container state is set to loading.
@@ -13,15 +16,19 @@ export interface IDataListContainerProps extends ComponentProps<'div'> {
     /**
      * Error state displayed when the data list status is set to error.
      */
-    errorState?: IEmptyStateProps;
+    errorState?: IDataListContainerState;
     /**
      * Empty state displayed the the data list has no elements to render.
      */
-    emptyState?: IEmptyStateProps;
+    emptyState?: IDataListContainerState;
+    /**
+     * Empty state displayed the the data list has no elements to render for the current applied filters.
+     */
+    emptyFilteredState?: IDataListContainerState;
 }
 
 export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
-    const { children, className, SkeltonElement, errorState, emptyState, ...otherProps } = props;
+    const { children, className, SkeltonElement, errorState, emptyState, emptyFilteredState, ...otherProps } = props;
 
     const { state, maxItems, currentPage, setChildrenItemCount } = useDataListContext();
 
@@ -43,6 +50,7 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
     const displayItems = state === 'fetchingNextPage' || state === 'idle' || state === 'loading';
 
     const isEmpty = state === 'idle' && paginatedChildren.length === 0;
+    const isEmptyFiltered = state === 'filtered' && paginatedChildren.length === 0;
 
     useEffect(() => {
         setChildrenItemCount(processedChildren.length);
@@ -51,8 +59,15 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
     return (
         <div className={classNames('flex flex-col gap-2 px-0 md:px-6', className)} {...otherProps}>
             {displayLoadingElements && loadingItems.map((_value, index) => <SkeletonLoader key={index} />)}
-            {state === 'error' && errorState != null && <CardEmptyState {...errorState} />}
-            {isEmpty && emptyState != null && <CardEmptyState {...emptyState} />}
+            {state === 'error' && errorState != null && (
+                <CardEmptyState objectIllustration={{ object: 'ERROR' }} {...errorState} />
+            )}
+            {isEmpty && emptyState != null && (
+                <CardEmptyState objectIllustration={{ object: 'ERROR' }} {...emptyState} />
+            )}
+            {isEmptyFiltered && emptyFilteredState != null && (
+                <CardEmptyState objectIllustration={{ object: 'NOT_FOUND' }} {...emptyFilteredState} />
+            )}
             {displayItems && paginatedChildren}
         </div>
     );

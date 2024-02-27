@@ -6,12 +6,13 @@ export interface IDataListFilterStatusProps {}
 export const DataListFilterStatus: React.FC<IDataListFilterStatusProps> = () => {
     const { state, itemsCount = 0, entityLabel } = useDataListContext();
 
-    const displayItemsCount = (state === 'idle' || state === 'fetchingNextPage') && itemsCount > 0;
-
     const isInitialLoading = state === 'initialLoading';
     const isLoading = state === 'loading';
+    const isFiltered = state === 'filtered';
 
-    if (!displayItemsCount && !isInitialLoading && !isLoading) {
+    const displayItemsCount = (state === 'idle' || state === 'fetchingNextPage') && itemsCount > 0;
+
+    if (!displayItemsCount && !isInitialLoading && !isLoading && !isFiltered) {
         return null;
     }
 
@@ -26,11 +27,19 @@ export const DataListFilterStatus: React.FC<IDataListFilterStatusProps> = () => 
             {displayItemsCount && (
                 <>
                     <span className="text-neutral-800">{itemsCount} </span>
-                    {entityLabel}
+                    <span>{entityLabel}</span>
                 </>
             )}
-            {state === 'initialLoading' && `Loading ${entityLabel}`}
-            {state === 'loading' && `Filtering ${entityLabel}`}
+            {/* TODO: apply internationalisation to Loading, Filtering and Found labels [APP-2627] */}
+            {isInitialLoading && `Loading ${entityLabel}`}
+            {isLoading && `Filtering ${entityLabel}`}
+            {isFiltered && (
+                <>
+                    <span>Found </span>
+                    <span className="text-primary-400">{itemsCount} </span>
+                    <span>{entityLabel}</span>
+                </>
+            )}
         </p>
     );
 };

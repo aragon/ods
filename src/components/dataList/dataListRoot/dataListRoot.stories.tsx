@@ -162,7 +162,9 @@ const AsyncListComponent = (props: IDataListRootProps) => {
 
         requestTimeout.current = setTimeout(() => {
             setUsers(getUsers(dbUsers.current, searchValue, currentPage, activeSort, maxItems));
-            setDataListState('idle');
+            const isFiltered = searchValue != null && searchValue.trim().length > 0;
+            const newState = isFiltered ? 'filtered' : 'idle';
+            setDataListState(newState);
         }, 1_000);
 
         return () => {
@@ -170,8 +172,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
         };
     }, [searchValue, currentPage, activeSort, maxItems]);
 
-    const noResultsState = {
-        objectIllustration: { object: 'NOT_FOUND' as const },
+    const emptyFilteredState = {
         heading: 'No users found',
         description: 'Your applied filters are not matching with any results. Reset and search with other filters!',
         secondaryButton: {
@@ -182,19 +183,16 @@ const AsyncListComponent = (props: IDataListRootProps) => {
     };
 
     const emptyState = {
-        objectIllustration: { object: 'ERROR' as const },
         heading: 'No users found',
         description: 'Set the itemCount property to be greater than 0 to generate and display the users list',
-        secondaryButton: {
-            label: 'Learn more',
-            iconRight: IconType.LINK_EXTERNAL,
-            target: '_blank',
-            href: 'https://storybook.js.org/docs/writing-stories/args',
+        primaryButton: {
+            label: 'Create user',
+            iconLeft: IconType.PLUS,
+            onClick: () => alert('create user'),
         },
     };
 
     const errorState = {
-        objectIllustration: { object: 'ERROR' as const },
         heading: 'Error loading users',
         description: 'There was an error loading the users. Try again!',
         secondaryButton: {
@@ -205,7 +203,6 @@ const AsyncListComponent = (props: IDataListRootProps) => {
     };
 
     const entityLabel = users.total > 1 ? 'Users' : 'User';
-    const processedEmptyState = searchValue != null && searchValue.trim().length > 0 ? noResultsState : emptyState;
 
     return (
         <DataList.Root
@@ -228,7 +225,8 @@ const AsyncListComponent = (props: IDataListRootProps) => {
             <DataList.Container
                 SkeltonElement={ListItemComponentLoading}
                 errorState={errorState}
-                emptyState={processedEmptyState}
+                emptyState={emptyState}
+                emptyFilteredState={emptyFilteredState}
             >
                 {users.items.map((id) => (
                     <ListItemComponent key={id} id={id} />
