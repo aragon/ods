@@ -61,7 +61,7 @@ describe('<Dropdown.Container /> component', () => {
         await userEvent.click(screen.getByRole('menuitem'));
         expect(onOpenChange).toHaveBeenLastCalledWith(false);
     });
-    
+
     it('renders the customTrigger instead of the default button when specified', async () => {
         const onOpenChange = jest.fn();
         const customTrigger = <button>test</button>;
