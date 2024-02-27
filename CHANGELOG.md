@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Implement `DataList` component
 -   Handling of responsive sizes to `Progress` component
 
+### Changed
+
+-   Update `eslint` rules to enforce no circlular dependencies
+
 ### Fixed
 
 -   `CardEmptyState` component to center content
