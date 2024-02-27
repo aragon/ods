@@ -30,6 +30,7 @@ const rulesBase = {
     'brace-style': 'warn',
     'prefer-template': 'warn',
     'no-useless-concat': 'warn',
+    'import/no-cycle': 'warn',
 };
 
 const typescriptRules = {
