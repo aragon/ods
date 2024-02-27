@@ -18,7 +18,7 @@ describe('<InputNumber /> component', () => {
         expect(screen.getByRole('textbox')).toBeInTheDocument();
         expect(screen.getAllByRole('button').length).toEqual(2);
         expect(screen.getByTestId(IconType.PLUS)).toBeInTheDocument();
-        expect(screen.getByTestId(IconType.REMOVE)).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.MINUS)).toBeInTheDocument();
     });
 
     it('renders a disabled input with no spin buttons when disabled is set to true', () => {
