@@ -33,7 +33,7 @@ describe('<DataList.Item /> component', () => {
     });
 
     it('marks the item as hidden when the data list is on loading state with no elements being currently rendered', () => {
-        const context = { state: 'initialLoading' as const, childrenItemCount: 0 };
+        const context = { state: 'loading' as const, childrenItemCount: 0 };
         const props = { href: '/test' };
         render(createTestComponent({ context, props }));
         expect(screen.queryByRole('link')).not.toBeInTheDocument();
