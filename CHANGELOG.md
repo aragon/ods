@@ -7,14 +7,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-## [1.0.16] - 2024-02-24
+## [1.0.17] - 2024-02-27
 
 ### Fixed
 
--   Typo on `README.md` file
--   Typo on `src/components/button/button.tsx` file
--   Typo on `src/utils/formatterUtils/formatterUtilsDefinition.ts` file
+-   Typos on documentation and comments
 
+## [1.0.16] - 2024-02-27
+
+### Added
+
+-   Add `customTrigger` and `align` properties to Dropdown component
+-   Implement `DialogAlert` and `Dialog` components
+
+### Fixed
+
+-   `Icon` styling to prevent shrinking
+-   Correct `IconType.MINUS` icon for InputNumber component
 
 ## [1.0.15] - 2024-02-23
 
