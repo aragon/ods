@@ -12,7 +12,7 @@ export interface IDataListContainerProps extends ComponentProps<'div'> {
     /**
      * Skeleton element displayed when the DataList container state is set to loading.
      */
-    SkeltonElement?: React.FC;
+    SkeletonElement?: React.FC;
     /**
      * Error state displayed when the data list status is set to error.
      */
@@ -28,14 +28,14 @@ export interface IDataListContainerProps extends ComponentProps<'div'> {
 }
 
 export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
-    const { children, className, SkeltonElement, errorState, emptyState, emptyFilteredState, ...otherProps } = props;
+    const { children, className, SkeletonElement, errorState, emptyState, emptyFilteredState, ...otherProps } = props;
 
     const { state, maxItems, currentPage, setChildrenItemCount } = useDataListContext();
 
     const processedChildren = Children.toArray(children) as ReactElement[];
     const childrenItemCount = processedChildren.length;
 
-    const SkeletonLoader = SkeltonElement ?? DataListContainerSkeletonLoader;
+    const SkeletonLoader = SkeletonElement ?? DataListContainerSkeletonLoader;
     const loadingItems = [...Array(maxItems)];
 
     const paginatedChildren = useMemo(
