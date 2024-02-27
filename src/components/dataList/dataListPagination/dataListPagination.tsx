@@ -30,7 +30,10 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
     }
 
     return (
-        <div className={classNames('flex flex-row items-center gap-6', className)} {...otherProps}>
+        <div
+            className={classNames('flex flex-row items-center gap-4 px-0 md:gap-6 md:px-6', className)}
+            {...otherProps}
+        >
             <Button
                 size="md"
                 variant="tertiary"
@@ -48,7 +51,10 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
                     <Progress value={progressValue} size="sm" responsiveSize={{ md: 'md' }} />
                     <p className="shrink-0 text-base font-normal leading-tight text-neutral-500">
                         {/* TODO: apply internationalisation to "OF" label [APP-2627] */}
-                        {currentlyDisplayed} of {itemsCount} {entityLabel}
+                        <span className="text-neutral-800">{currentlyDisplayed} </span>
+                        <span>
+                            of {itemsCount} {entityLabel}
+                        </span>
                     </p>
                 </>
             )}

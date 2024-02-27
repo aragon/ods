@@ -49,7 +49,7 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
     }, [setChildrenItemCount, processedChildren.length]);
 
     return (
-        <div className={classNames('flex flex-col gap-2', className)} {...otherProps}>
+        <div className={classNames('flex flex-col gap-2 px-0 md:px-6', className)} {...otherProps}>
             {displayLoadingElements && loadingItems.map((_value, index) => <SkeletonLoader key={index} />)}
             {state === 'error' && errorState != null && <CardEmptyState {...errorState} />}
             {isEmpty && emptyState != null && <CardEmptyState {...emptyState} />}

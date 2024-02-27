@@ -18,7 +18,7 @@ export const DataListFilterStatus: React.FC<IDataListFilterStatusProps> = () => 
     return (
         <p
             className={classNames(
-                'text-sm font-normal leading-tight text-neutral-500 md:text-base',
+                'px-3 text-sm font-normal leading-tight text-neutral-500 md:px-6 md:text-base',
                 { 'text-primary-400': isLoading || isInitialLoading },
                 { 'text-neutral-500': displayItemsCount },
             )}
