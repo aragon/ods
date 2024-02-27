@@ -1,1 +1,1 @@
-export { DataListRoot, type IDataListRootProps } from './dataListRoot';
+export { DataListRoot, type DataListState, type IDataListRootProps } from './dataListRoot';
