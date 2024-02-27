@@ -23,7 +23,7 @@ export interface IDataListContainerProps extends ComponentProps<'div'> {
 export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
     const { children, className, SkeltonElement, errorState, emptyState, ...otherProps } = props;
 
-    const { state, maxItems, itemsCount, currentPage, setChildrenItemCount, entityLabel } = useDataListContext();
+    const { state, maxItems, currentPage, setChildrenItemCount } = useDataListContext();
 
     const processedChildren = Children.toArray(children) as ReactElement[];
 
@@ -42,8 +42,6 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
 
     const displayItems = state === 'fetchingNextPage' || state === 'idle' || state === 'loading';
 
-    const displayItemsCount = (state === 'idle' || state === 'fetchingNextPage') && itemsCount != null;
-
     const isEmpty = state === 'idle' && paginatedChildren.length === 0;
 
     useEffect(() => {
@@ -51,20 +49,11 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
     }, [setChildrenItemCount, processedChildren.length]);
 
     return (
-        <div className={classNames('flex flex-col gap-4', className)} {...otherProps}>
-            <div className="flex flex-row justify-between">
-                <p className="text-base font-normal leading-tight text-neutral-500">
-                    {displayItemsCount && `${itemsCount} ${entityLabel}`}
-                    {state === 'initialLoading' && `Loading ${entityLabel}`}
-                    {state === 'loading' && `Filtering ${entityLabel}`}
-                </p>
-            </div>
-            <div className="flex flex-col gap-2">
-                {displayLoadingElements && loadingItems.map((_value, index) => <SkeletonLoader key={index} />)}
-                {state === 'error' && errorState != null && <CardEmptyState {...errorState} />}
-                {isEmpty && emptyState != null && <CardEmptyState {...emptyState} />}
-                {displayItems && paginatedChildren}
-            </div>
+        <div className={classNames('flex flex-col gap-2', className)} {...otherProps}>
+            {displayLoadingElements && loadingItems.map((_value, index) => <SkeletonLoader key={index} />)}
+            {state === 'error' && errorState != null && <CardEmptyState {...errorState} />}
+            {isEmpty && emptyState != null && <CardEmptyState {...emptyState} />}
+            {displayItems && paginatedChildren}
         </div>
     );
 };

@@ -6,6 +6,7 @@ import { Icon, IconType } from '../../icon';
 import { Spinner } from '../../spinner';
 import { useDataListContext } from '../dataListContext';
 import { DataListFilterSort } from './dataListFilterSort';
+import { DataListFilterStatus } from './dataListFilterStatus';
 
 export interface IDataListFilterSortItem {
     /**
@@ -80,81 +81,82 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
     const displayClearIcon = searchValue.length > 0;
 
     return (
-        <div
-            className={classNames(
-                'flex flex-row items-center rounded-xl border p-3 pr-2 transition-all md:pl-4 md:pr-3',
-                'border-neutral-100 bg-neutral-0 text-neutral-500 shadow-neutral-sm',
-                'text-base font-normal leading-tight',
-                'hover:border-neutral-300 hover:shadow-neutral',
-                'focus-within:border-primary-400 focus-within:shadow-primary',
-                'focus-within:hover:border-primary-400 focus-within:hover:shadow-primary',
-                className,
-            )}
-            {...otherProps}
-        >
-            {state !== 'loading' && (
-                <AvatarIcon
-                    icon={IconType.SEARCH}
-                    size="md"
-                    className="shrink-0"
-                    variant={isFocused ? 'primary' : 'neutral'}
-                />
-            )}
-            {state === 'loading' && <Spinner size="lg" variant="primary" className="m-1 shrink-0" />}
-            <input
-                type="search"
+        <div className={classNames('flex flex-col gap-2 md:gap-3', className)} {...otherProps}>
+            <div
                 className={classNames(
-                    'size-full truncate bg-transparent pl-3 caret-neutral-500 outline-none search-cancel:appearance-none',
-                    'placeholder:text-base placeholder:font-normal placeholder:leading-tight placeholder:text-neutral-300',
+                    'flex flex-row items-center rounded-xl border p-3 pr-2 transition-all md:pl-4 md:pr-3',
+                    'border-neutral-100 bg-neutral-0 text-neutral-500 shadow-neutral-sm',
+                    'text-base font-normal leading-tight',
+                    'hover:border-neutral-300 hover:shadow-neutral',
+                    'focus-within:border-primary-400 focus-within:shadow-primary',
+                    'focus-within:hover:border-primary-400 focus-within:hover:shadow-primary',
                 )}
-                onFocus={handleInputFocus}
-                onBlur={handleInputBlur}
-                onChange={handleSearchValueChange}
-                placeholder={placeholder}
-                value={searchValue}
-            />
-            {displayClearIcon && (
-                <button className="mr-2 p-2.5 md:mr-4" onClick={handleClear}>
-                    <Icon icon={IconType.CLOSE} size="sm" className="text-neutral-300" />
-                </button>
-            )}
-            <div className="flex flex-row gap-2 md:gap-3">
-                {onFilterClick && (
-                    <>
-                        <Button
-                            iconLeft={IconType.FILTER}
-                            variant="tertiary"
-                            size="md"
-                            onClick={onFilterClick}
-                            className="hidden md:flex"
-                        >
-                            {/* TODO: apply internationalisation to Filter label [APP-2627] */}
-                            Filter
-                        </Button>
-                        <Button
-                            iconLeft={IconType.FILTER}
-                            variant="tertiary"
-                            size="md"
-                            onClick={onFilterClick}
-                            className="md:hidden"
-                        />
-                    </>
+            >
+                {state !== 'loading' && (
+                    <AvatarIcon
+                        icon={IconType.SEARCH}
+                        size="md"
+                        className="shrink-0"
+                        variant={isFocused ? 'primary' : 'neutral'}
+                    />
                 )}
-                <DataListFilterSort
-                    activeSort={activeSort}
-                    sortItems={sortItems}
-                    onSortChange={onSortChange}
-                    triggerClassNames="hidden md:flex"
-                    /* TODO: apply internationalisation to Sort label [APP-2627] */
-                    triggerLabel="Sort"
+                {state === 'loading' && <Spinner size="lg" variant="primary" className="m-1 shrink-0" />}
+                <input
+                    type="search"
+                    className={classNames(
+                        'size-full truncate bg-transparent pl-3 caret-neutral-500 outline-none search-cancel:appearance-none',
+                        'placeholder:text-base placeholder:font-normal placeholder:leading-tight placeholder:text-neutral-300',
+                    )}
+                    onFocus={handleInputFocus}
+                    onBlur={handleInputBlur}
+                    onChange={handleSearchValueChange}
+                    placeholder={placeholder}
+                    value={searchValue}
                 />
-                <DataListFilterSort
-                    activeSort={activeSort}
-                    sortItems={sortItems}
-                    onSortChange={onSortChange}
-                    triggerClassNames="md:hidden"
-                />
+                {displayClearIcon && (
+                    <button className="mr-2 p-2.5 md:mr-4" onClick={handleClear}>
+                        <Icon icon={IconType.CLOSE} size="sm" className="text-neutral-300" />
+                    </button>
+                )}
+                <div className="flex flex-row gap-2 md:gap-3">
+                    {onFilterClick && (
+                        <>
+                            <Button
+                                iconLeft={IconType.FILTER}
+                                variant="tertiary"
+                                size="md"
+                                onClick={onFilterClick}
+                                className="hidden md:flex"
+                            >
+                                {/* TODO: apply internationalisation to Filter label [APP-2627] */}
+                                Filter
+                            </Button>
+                            <Button
+                                iconLeft={IconType.FILTER}
+                                variant="tertiary"
+                                size="md"
+                                onClick={onFilterClick}
+                                className="md:hidden"
+                            />
+                        </>
+                    )}
+                    <DataListFilterSort
+                        activeSort={activeSort}
+                        sortItems={sortItems}
+                        onSortChange={onSortChange}
+                        triggerClassNames="hidden md:flex"
+                        /* TODO: apply internationalisation to Sort label [APP-2627] */
+                        triggerLabel="Sort"
+                    />
+                    <DataListFilterSort
+                        activeSort={activeSort}
+                        sortItems={sortItems}
+                        onSortChange={onSortChange}
+                        triggerClassNames="md:hidden"
+                    />
+                </div>
             </div>
+            <DataListFilterStatus />
         </div>
     );
 };
