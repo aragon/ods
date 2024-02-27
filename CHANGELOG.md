@@ -11,10 +11,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `DialogAlert` component
 -   Add `customTrigger` and `align` properties to Dropdown component
+-   Implement `DialogAlert` and `Dialog` components
 
 ### Fixed
 
 -   `Icon` styling to prevent shrinking
+-   Correct `IconType.MINUS` icon for InputNumber component
 
 ## [1.0.15] - 2024-02-23
 

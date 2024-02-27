@@ -116,7 +116,7 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
                     size="sm"
                     variant="tertiary"
                     onClick={handleDecrement}
-                    iconLeft={IconType.REMOVE}
+                    iconLeft={IconType.MINUS}
                     className="ml-2 shrink-0"
                 />
             )}
