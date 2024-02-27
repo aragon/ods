@@ -9,6 +9,8 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
 
     const { state, childrenItemCount } = useDataListContext();
 
+    // The DataListElement is a skeleton element on initial loading or loading state when no items are being
+    // rendered (e.g. after a reset filters action)
     const isSkeletonElement = state === 'initialLoading' || (state === 'loading' && childrenItemCount === 0);
 
     const actionItemClasses = classNames(
