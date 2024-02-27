@@ -7,9 +7,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Implement `DataList` component
+-   Handling of responsive sizes to `Progress` component
+
 ### Fixed
 
+-   `CardEmptyState` component to center content
+-   Spacings of `EmptyState` component when being stacked and having an object illustration
 -   Typos on documentation and comments
+
+### Removed
+
+-   `ActionItem` component
 
 ## [1.0.16] - 2024-02-27
 
