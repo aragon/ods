@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { DataListContextProvider, type IDataListContext } from '../dataListContext';
 import { dataListTestUtils } from '../dataListTestUtils';
 import { DataListPagination, type IDataListPaginationProps } from './dataListPagination';
@@ -67,5 +68,42 @@ describe('<DataList.Pagination /> component', () => {
         };
         render(createTestComponent({ context }));
         expect(screen.getByRole('progressbar').getAttribute('data-value')).toEqual('10');
+    });
+
+    it('calls handleLoadMore callback with next page to load on load-more button click', async () => {
+        const context = {
+            state: 'idle' as const,
+            childrenItemCount: 50,
+            currentPage: 1,
+            handleLoadMore: jest.fn(),
+            itemsCount: 50,
+        };
+        render(createTestComponent({ context }));
+        await userEvent.click(screen.getByRole('button'));
+        expect(context.handleLoadMore).toHaveBeenCalledWith(context.currentPage + 1);
+    });
+
+    it('disables the load-more button when there are not elements to load', () => {
+        const context = {
+            state: 'idle' as const,
+            itemsCount: 500,
+            maxItems: 100,
+            currentPage: 4,
+            childrenItemCount: 500,
+        };
+        render(createTestComponent({ context }));
+        expect(screen.getByRole('button')).toBeDisabled();
+    });
+
+    it('disables the load-more button and renders a loading indicator when fetching the next page', () => {
+        const context = {
+            state: 'fetchingNextPage' as const,
+            maxItems: 6,
+            currentPage: 0,
+            childrenItemCount: 6,
+        };
+        render(createTestComponent({ context }));
+        expect(screen.getByRole('button')).toBeDisabled();
+        expect(screen.getByRole('progressbar')).toBeInTheDocument();
     });
 });
