@@ -12,9 +12,18 @@ describe('<Dialog.Footer/> component', () => {
         return <DialogFooter {...completeProps} />;
     };
 
-    it('renders the action and cancel buttons', () => {
-        const primaryAction = { label: 'test action' };
-        const secondaryAction = { label: 'test cancel' };
+    it('renders an alert message', () => {
+        const alert = { message: 'test alert' };
+        render(createTestComponent({ alert }));
+
+        const alertElement = screen.getByRole('alert');
+        expect(alertElement).toBeInTheDocument();
+        expect(alertElement).toHaveTextContent(alert.message);
+    });
+
+    it('renders the primary and secondary action buttons', () => {
+        const primaryAction = { label: 'test primary action' };
+        const secondaryAction = { label: 'test secondary action' };
 
         render(createTestComponent({ primaryAction, secondaryAction }));
 

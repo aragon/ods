@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import { IconType } from '../../../icon';
 import { DialogRoot } from '../dialogRoot';
 import { DialogHeader, type IDialogHeaderProps } from './dialogHeader';
 
@@ -26,6 +27,25 @@ describe('<Dialog.Header/> component', () => {
         const dialog = screen.getByRole('dialog');
         expect(dialog).toHaveAccessibleName(title);
         expect(dialog).toHaveAccessibleDescription(description);
+    });
+
+    it('renders a back button when showBackButton is set to true', () => {
+        render(createTestComponent({ showBackButton: true }));
+
+        const backIcon = screen.getByTestId(IconType.CHEVRON_LEFT);
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(backIcon.closest('button')).toBeInTheDocument();
+    });
+
+    it('calls onBackClick when the back button is clicked', async () => {
+        const handleBackClick = jest.fn();
+
+        render(createTestComponent({ showBackButton: true, onBackClick: handleBackClick }));
+
+        const backIcon = screen.getByTestId(IconType.CHEVRON_LEFT);
+        await userEvent.click(backIcon);
+
+        expect(handleBackClick).toHaveBeenCalled();
     });
 
     it('calls onCloseClick when the close button is clicked', async () => {
