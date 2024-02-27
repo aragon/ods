@@ -223,7 +223,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
                 sortItems={sortItems}
             />
             <DataList.Container
-                SkeltonElement={ListItemComponentLoading}
+                SkeletonElement={ListItemComponentLoading}
                 errorState={errorState}
                 emptyState={emptyState}
                 emptyFilteredState={emptyFilteredState}
