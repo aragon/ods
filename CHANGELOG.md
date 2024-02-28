@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
--   Add additional centering and sizing for `EmptyState` and `EmptyStateCard`
+-   Add flex and centering to `EmptyStateCard`
 
 ## [1.0.16] - 2024-02-27
 
