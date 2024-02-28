@@ -105,7 +105,7 @@ export const StaticList: Story = {
 };
 
 const getUsers = (dbUsers: number[] = [], search = '', page = 0, sort = 'id_asc', pageSize = 6) => {
-    const sortUsers = (users: number[] = [], sort: string) =>
+    const sortUsers = (users: number[] = [], sort?: string) =>
         users?.toSorted((a, b) => (sort === 'id_asc' ? a - b : b - a));
 
     const paginateUsers = (users: number[] = [], page = 0, pageSize = 6) =>
@@ -189,7 +189,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
         secondaryButton: {
             label: 'Reset all filters',
             iconLeft: IconType.RELOAD,
-            onClick: () => handleSearchValueChange(undefined),
+            onClick: () => handleSearchValueChange(),
         },
     };
 
