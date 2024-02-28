@@ -42,6 +42,14 @@ describe('<DataList.Container /> component', () => {
         expect(screen.getByText('loading-state')).toBeInTheDocument();
     });
 
+    it('renders the children on filtered state', () => {
+        const children = [<div key="1">filtered-state</div>];
+        const context = { state: 'filtered' as const };
+        const props = { children };
+        render(createTestComponent({ context, props }));
+        expect(screen.getByText('filtered-state')).toBeInTheDocument();
+    });
+
     it('renders the items up to currentPage * maxItems when children count is higher to this amount', () => {
         const maxItems = 20;
         const currentPage = 1;

@@ -52,19 +52,20 @@ const StaticListComponent = (props: IDataListRootProps) => {
         [],
     );
 
+    const shouldFilter = searchValue != null && searchValue.trim().length > 0;
     const userIds = useMemo(() => [...Array(itemsCount)].map(() => Math.floor(Math.random() * 100_000)), [itemsCount]);
 
     const filteredUsers = useMemo(() => {
-        const shouldFilter = searchValue != null && searchValue.trim().length > 0;
         const newFilteredUsers = shouldFilter ? userIds.filter((id) => id.toString().includes(searchValue)) : userIds;
 
         return newFilteredUsers.toSorted((a, b) => (activeSort === 'id_asc' ? a - b : b - a));
-    }, [userIds, searchValue, activeSort]);
+    }, [userIds, searchValue, activeSort, shouldFilter]);
 
-    const entityLabel = filteredUsers.length > 1 ? 'Users' : 'User';
+    const entityLabel = filteredUsers.length === 1 ? 'User' : 'Users';
+    const state = shouldFilter ? 'filtered' : 'idle';
 
     return (
-        <DataList.Root itemsCount={filteredUsers?.length} {...otherProps} entityLabel={entityLabel}>
+        <DataList.Root itemsCount={filteredUsers?.length} state={state} {...otherProps} entityLabel={entityLabel}>
             <DataList.Filter
                 onFilterClick={() => alert('filter click')}
                 searchValue={searchValue}
@@ -202,7 +203,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
         },
     };
 
-    const entityLabel = users.total > 1 ? 'Users' : 'User';
+    const entityLabel = users.total === 1 ? 'User' : 'Users';
 
     return (
         <DataList.Root

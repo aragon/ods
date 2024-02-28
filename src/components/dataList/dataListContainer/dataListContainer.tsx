@@ -46,7 +46,8 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
     // Display loading elements on initial-loading state or loading state with no elements being currently rendered
     // (e.g. on filter reset while being on empty state)
     const displayLoadingElements = state === 'initialLoading' || (state === 'loading' && childrenItemCount === 0);
-    const displayItems = state === 'fetchingNextPage' || state === 'idle' || state === 'loading';
+    const displayItems =
+        state === 'fetchingNextPage' || state === 'idle' || state === 'loading' || state === 'filtered';
 
     const isEmpty = state === 'idle' && childrenItemCount === 0;
     const isEmptyFiltered = state === 'filtered' && childrenItemCount === 0;
