@@ -1,4 +1,6 @@
 import { render } from '@testing-library/react';
+import { DataListContextProvider } from '../dataListContext';
+import { dataListTestUtils } from '../dataListTestUtils';
 import {
     DataListContainerSkeletonLoader,
     type IDataListContainerSkeletonLoaderProps,
@@ -8,7 +10,11 @@ describe('<DataListContainerSkeletonLoader /> component', () => {
     const createTestComponent = (props?: Partial<IDataListContainerSkeletonLoaderProps>) => {
         const completeProps = { ...props };
 
-        return <DataListContainerSkeletonLoader {...completeProps} />;
+        return (
+            <DataListContextProvider value={dataListTestUtils.generateContextValues()}>
+                <DataListContainerSkeletonLoader {...completeProps} />
+            </DataListContextProvider>
+        );
     };
 
     it('renders the skeleton loaders', () => {
