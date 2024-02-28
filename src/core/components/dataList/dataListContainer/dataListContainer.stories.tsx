@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DataList } from '..';
 
 const meta: Meta<typeof DataList.Container> = {
-    title: 'components/DataList/DataList.Container',
+    title: 'Core/Components/DataList/DataList.Container',
     component: DataList.Container,
     tags: ['autodocs'],
     parameters: {

@@ -7,7 +7,7 @@ import { DataList, type IDataListRootProps } from '../index';
 import type { DataListState } from './dataListRoot';
 
 const meta: Meta<typeof DataList.Root> = {
-    title: 'components/DataList/DataList.Root',
+    title: 'Core/Components/DataList/DataList.Root',
     component: DataList.Root,
     tags: ['autodocs'],
     parameters: {
