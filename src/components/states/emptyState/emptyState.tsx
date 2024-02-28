@@ -14,7 +14,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
     humanIllustration,
 }) => {
     const containerClassNames = classNames(
-        'grid w-[320px] md:w-[640px]',
+        'grid min-w-full max-w-[320px] md:max-w-[640px]',
         { 'grid-cols-1 justify-items-center p-6 md:p-12 gap-4 md:gap-6': isStacked },
         {
             'grid-cols-[auto_max-content] md:grid-cols-[auto_max-content] gap-4 p-4 md:px-6 md:py-5 items-center':
