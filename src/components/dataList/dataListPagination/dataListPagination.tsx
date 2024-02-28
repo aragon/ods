@@ -35,7 +35,8 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
             {...otherProps}
         >
             <Button
-                size="md"
+                size="sm"
+                responsiveSize={{ md: 'md' }}
                 variant="tertiary"
                 iconRight={IconType.CHEVRON_DOWN}
                 className="shrink-0"
