@@ -14,7 +14,16 @@ const preview: Preview = {
         options: {
             storySort: {
                 method: 'alphabetical',
-                order: ['Docs', ['Documentation', 'Installation', 'Changelog'], 'Design Tokens', 'Components'],
+                order: [
+                    'Docs',
+                    ['Documentation', 'Installation', 'Changelog'],
+                    'Theme',
+                    ['Documentation'],
+                    'Core',
+                    ['Documentation'],
+                    'Modules',
+                    ['Documentation'],
+                ],
             },
         },
         backgrounds: {
