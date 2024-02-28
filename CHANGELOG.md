@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+-   Typos on documentation and comments
+
 ## [1.0.16] - 2024-02-27
 
 ### Added
