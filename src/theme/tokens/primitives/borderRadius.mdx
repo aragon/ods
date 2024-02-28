@@ -1,0 +1,37 @@
+import { Meta } from '@storybook/blocks';
+import { Figma } from '@storybook/addon-designs/blocks';
+import classNames from 'classnames';
+import resolveConfig from 'tailwindcss/resolveConfig';
+import tailwindConfig from '../../../../tailwind.config';
+
+<Meta title="Theme/Tokens/Primitive/Border Radius" />
+
+export const DisplayComponent = ({ className, children }) => (
+    <div className={classNames('flex h-40 w-40 items-center justify-center bg-neutral-0', className)}>{children}</div>
+);
+
+# Border Radius
+
+<div className="flex flex-wrap p-14 gap-14 bg-neutral-50 text-neutral-800">
+    {Object.keys(resolveConfig(tailwindConfig).theme?.borderRadius ?? {}).map((token) => {
+        const classes = classNames('border', {
+            'rounded-full': token === 'full',
+            'rounded-3xl': token === '3xl',
+            'rounded-2xl': token === '2xl',
+            'rounded-xl': token === 'xl',
+            'rounded-lg': token === 'lg',
+            rounded: token === 'DEFAULT',
+        });
+
+        return (
+            <DisplayComponent key={token} className={classes}>
+                <p>{token === 'DEFAULT' ? 'rounded (default)' : `rounded-${token}`}</p>
+            </DisplayComponent>
+        );
+    })}
+
+</div>
+
+## Figma
+
+<Figma url="https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=9907-11105&mode=dev" />

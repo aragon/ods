@@ -1,0 +1,73 @@
+import { Meta } from '@storybook/blocks';
+import { Figma } from '@storybook/addon-designs/blocks';
+import classNames from 'classnames';
+import { useEffect, useState } from 'react';
+
+<Meta title="Theme/Tokens/Primitive/Colors" />
+
+export const getColorConfig = (colorGroupName) => {
+    const shades = [0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+    const rootStyles = getComputedStyle(document.documentElement);
+
+    return shades
+        .map((shade) => ({ shade, value: rootStyles.getPropertyValue(`--ods-color-${colorGroupName}-${shade}`) }))
+        .filter((shade) => shade.value.trim() !== '');
+
+}
+
+export const ColorSwatch = ({ colorGroupName }) => {
+    const [availableColors, setAvailableColors] = useState([]);
+
+    useEffect(() => {
+        const colors = getColorConfig(colorGroupName);
+        setAvailableColors(colors);
+    }, [colorGroupName]);
+
+    return (
+        <div className="rounded-xl border bg-neutral-0 p-8 text-neutral-800">
+            <div className="pb-8 text-xl capitalize font-semibold">{colorGroupName}</div>
+            <div className="flex flex-col gap-y-6">
+                <div className="flex flex-row items-center gap-x-10">
+                    <span className="w-24">Swatch</span>
+                    <span>Hex</span>
+                </div>
+                {availableColors.map(({ shade, value }) => {
+                    const textClassNames = classNames({'text-neutral-0': shade > 300});
+
+                    return (
+                        <div key={shade} className="flex items-center gap-x-10">
+                            <div
+                                className="flex h-24 w-24 items-center justify-center rounded-xl"
+                                style={{ background: `var(--ods-color-${colorGroupName}-${shade})` }}
+                            >
+                                <span className={textClassNames}>{shade}</span>
+                            </div>
+                            <span>{value}</span>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+
+};
+
+# Colors
+
+<div className="flex gap-x-20 pb-20 pt-5">
+    <ColorSwatch colorGroupName="primary" />
+    <ColorSwatch colorGroupName="neutral" />
+</div>
+
+## Support
+
+<div className="flex justify-evenly gap-x-20 pt-5">
+    <ColorSwatch colorGroupName="info" />
+    <ColorSwatch colorGroupName="success" />
+    <ColorSwatch colorGroupName="warning" />
+    <ColorSwatch colorGroupName="critical" />
+</div>
+
+## Figma
+
+<Figma url="https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Aragon-ODS?type=design&node-id=8842-13335&mode=design&t=GaPykW52ajbQx2r7-0" />
