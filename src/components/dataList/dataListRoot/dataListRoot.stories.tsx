@@ -64,6 +64,16 @@ const StaticListComponent = (props: IDataListRootProps) => {
     const entityLabel = filteredUsers.length === 1 ? 'User' : 'Users';
     const state = shouldFilter ? 'filtered' : 'idle';
 
+    const emptyFilteredState = {
+        heading: 'No users found',
+        description: 'Your applied filters are not matching with any results. Reset and search with other filters!',
+        secondaryButton: {
+            label: 'Reset all filters',
+            iconLeft: IconType.RELOAD,
+            onClick: () => setSearchValue(undefined),
+        },
+    };
+
     return (
         <DataList.Root itemsCount={filteredUsers?.length} state={state} {...otherProps} entityLabel={entityLabel}>
             <DataList.Filter
@@ -75,7 +85,7 @@ const StaticListComponent = (props: IDataListRootProps) => {
                 onSortChange={setActiveSort}
                 sortItems={sortItems}
             />
-            <DataList.Container>
+            <DataList.Container emptyFilteredState={emptyFilteredState}>
                 {filteredUsers?.map((id) => <ListItemComponent key={id} id={id} />)}
             </DataList.Container>
             <DataList.Pagination />
