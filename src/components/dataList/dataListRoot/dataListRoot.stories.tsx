@@ -98,7 +98,7 @@ const StaticListComponent = (props: IDataListRootProps) => {
  */
 export const StaticList: Story = {
     args: {
-        maxItems: 4,
+        pageSize: 4,
         itemsCount: 21,
     },
     render: (props) => <StaticListComponent {...props} />,
@@ -122,7 +122,7 @@ const getUsers = (dbUsers: number[] = [], search = '', page = 0, sort = 'id_asc'
 };
 
 const AsyncListComponent = (props: IDataListRootProps) => {
-    const { itemsCount, maxItems, ...otherProps } = props;
+    const { itemsCount, pageSize, ...otherProps } = props;
 
     const [dataListState, setDataListState] = useState<DataListState>();
     const [currentPage, setCurrentPage] = useState(0);
@@ -172,7 +172,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
         setDataListState((state) => (state !== 'fetchingNextPage' ? 'loading' : state));
 
         requestTimeout.current = setTimeout(() => {
-            setUsers(getUsers(dbUsers.current, searchValue, currentPage, activeSort, maxItems));
+            setUsers(getUsers(dbUsers.current, searchValue, currentPage, activeSort, pageSize));
             const isFiltered = searchValue != null && searchValue.trim().length > 0;
             const newState = isFiltered ? 'filtered' : 'idle';
             setDataListState(newState);
@@ -181,7 +181,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
         return () => {
             clearTimeout(requestTimeout.current);
         };
-    }, [searchValue, currentPage, activeSort, maxItems]);
+    }, [searchValue, currentPage, activeSort, pageSize]);
 
     const emptyFilteredState = {
         heading: 'No users found',
@@ -218,7 +218,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
     return (
         <DataList.Root
             itemsCount={users.total}
-            maxItems={maxItems}
+            pageSize={pageSize}
             state={dataListState}
             onLoadMore={handleLoadMore}
             {...otherProps}
@@ -253,7 +253,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
  */
 export const AsyncList: Story = {
     args: {
-        maxItems: 6,
+        pageSize: 6,
         itemsCount: 122,
     },
     render: ({ onLoadMore, ...props }) => <AsyncListComponent {...props} />,

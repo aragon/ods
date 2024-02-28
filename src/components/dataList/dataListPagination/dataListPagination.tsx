@@ -12,7 +12,7 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
 
     const {
         state,
-        maxItems,
+        pageSize,
         currentPage,
         itemsCount = 0,
         childrenItemCount,
@@ -20,7 +20,7 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
         entityLabel,
     } = useDataListContext();
 
-    const currentlyDisplayed = Math.min(maxItems * (currentPage + 1), childrenItemCount);
+    const currentlyDisplayed = Math.min(pageSize * (currentPage + 1), childrenItemCount);
 
     const progressValue = itemsCount > 0 ? (currentlyDisplayed * 100) / itemsCount : 0;
     const hasMore = currentlyDisplayed < itemsCount;

@@ -6,7 +6,7 @@ class DataListTestUtils {
         setChildrenItemCount: jest.fn(),
         currentPage: 0,
         handleLoadMore: jest.fn(),
-        maxItems: 6,
+        pageSize: 6,
         entityLabel: '',
         ...values,
     });

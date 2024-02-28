@@ -30,17 +30,17 @@ export interface IDataListContainerProps extends ComponentProps<'div'> {
 export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
     const { children, className, SkeletonElement, errorState, emptyState, emptyFilteredState, ...otherProps } = props;
 
-    const { state, maxItems, currentPage, setChildrenItemCount } = useDataListContext();
+    const { state, pageSize, currentPage, setChildrenItemCount } = useDataListContext();
 
     const processedChildren = Children.toArray(children) as ReactElement[];
     const childrenItemCount = processedChildren.length;
 
     const SkeletonLoader = SkeletonElement ?? DataListContainerSkeletonLoader;
-    const loadingItems = [...Array(maxItems)];
+    const loadingItems = [...Array(pageSize)];
 
     const paginatedChildren = useMemo(
-        () => processedChildren?.slice(0, maxItems * (currentPage + 1)) ?? [],
-        [processedChildren, maxItems, currentPage],
+        () => processedChildren?.slice(0, pageSize * (currentPage + 1)) ?? [],
+        [processedChildren, pageSize, currentPage],
     );
 
     // Display loading elements on initial-loading state or loading state with no elements being currently rendered

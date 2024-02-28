@@ -45,7 +45,7 @@ describe('<DataList.Pagination /> component', () => {
     });
 
     it('renders a progress bar and an info text regarding current elements when itemsCount is set and greater than 0', () => {
-        const context = { state: 'idle' as const, childrenItemCount: 2, maxItems: 5, itemsCount: 212 };
+        const context = { state: 'idle' as const, childrenItemCount: 2, pageSize: 5, itemsCount: 212 };
         render(createTestComponent({ context }));
         expect(screen.getByRole('progressbar')).toBeInTheDocument();
         expect(screen.getByText(context.childrenItemCount)).toBeInTheDocument();
@@ -53,16 +53,16 @@ describe('<DataList.Pagination /> component', () => {
     });
 
     it('correctly display the current rendered items for static lists', () => {
-        const context = { state: 'idle' as const, currentPage: 0, maxItems: 5, childrenItemCount: 30, itemsCount: 30 };
+        const context = { state: 'idle' as const, currentPage: 0, pageSize: 5, childrenItemCount: 30, itemsCount: 30 };
         render(createTestComponent({ context }));
-        expect(screen.getByText((context.currentPage + 1) * context.maxItems)).toBeInTheDocument();
+        expect(screen.getByText((context.currentPage + 1) * context.pageSize)).toBeInTheDocument();
     });
 
     it('correctly calculates current progress from the current page and total items', () => {
         const context = {
             state: 'idle' as const,
             currentPage: 0,
-            maxItems: 10,
+            pageSize: 10,
             childrenItemCount: 10,
             itemsCount: 100,
         };
@@ -87,7 +87,7 @@ describe('<DataList.Pagination /> component', () => {
         const context = {
             state: 'idle' as const,
             itemsCount: 500,
-            maxItems: 100,
+            pageSize: 100,
             currentPage: 4,
             childrenItemCount: 500,
         };
@@ -98,7 +98,7 @@ describe('<DataList.Pagination /> component', () => {
     it('disables the load-more button and renders a loading indicator when fetching the next page', () => {
         const context = {
             state: 'fetchingNextPage' as const,
-            maxItems: 6,
+            pageSize: 6,
             currentPage: 0,
             childrenItemCount: 6,
         };

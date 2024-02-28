@@ -50,16 +50,16 @@ describe('<DataList.Container /> component', () => {
         expect(screen.getByText('filtered-state')).toBeInTheDocument();
     });
 
-    it('renders the items up to currentPage * maxItems when children count is higher to this amount', () => {
-        const maxItems = 20;
+    it('renders the items up to currentPage * pageSize when children count is higher to this amount', () => {
+        const pageSize = 20;
         const currentPage = 1;
-        const context = { maxItems, currentPage: 1, state: 'idle' as const };
+        const context = { pageSize, currentPage: 1, state: 'idle' as const };
 
-        const children = [...Array(maxItems * 10)].map((_value, key) => <div key={key}>test</div>);
+        const children = [...Array(pageSize * 10)].map((_value, key) => <div key={key}>test</div>);
         const props = { children };
 
         render(createTestComponent({ context, props }));
-        expect(screen.getAllByText('test').length).toEqual((currentPage + 1) * maxItems);
+        expect(screen.getAllByText('test').length).toEqual((currentPage + 1) * pageSize);
     });
 
     it('updates the childrenItemCount property on the data list context on mount', () => {
@@ -99,15 +99,15 @@ describe('<DataList.Container /> component', () => {
         expect(screen.getByText(props.emptyFilteredState.heading)).toBeInTheDocument();
     });
 
-    it('renders maxItems loading elements on initialLoading state', () => {
-        const maxItems = 7;
-        const context = { maxItems, state: 'initialLoading' as const };
+    it('renders pageSize loading elements on initialLoading state', () => {
+        const pageSize = 7;
+        const context = { pageSize, state: 'initialLoading' as const };
 
         const SkeletonElement = () => <div data-testid="skeleton-loader" />;
         const props = { SkeletonElement };
 
         render(createTestComponent({ context, props }));
-        expect(screen.getAllByTestId('skeleton-loader').length).toEqual(maxItems);
+        expect(screen.getAllByTestId('skeleton-loader').length).toEqual(pageSize);
     });
 
     it('renders the loading elements when state is loading and component has no children to render', () => {

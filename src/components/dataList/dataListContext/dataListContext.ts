@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 import type { IDataListRootProps } from '../dataListRoot';
 
 export interface IDataListContext
-    extends Required<Pick<IDataListRootProps, 'maxItems'>>,
+    extends Required<Pick<IDataListRootProps, 'pageSize'>>,
         Pick<IDataListRootProps, 'itemsCount' | 'state' | 'entityLabel'> {
     /**
      * Total number of list item children.

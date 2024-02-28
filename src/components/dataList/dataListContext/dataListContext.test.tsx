@@ -18,7 +18,7 @@ describe('useDataListContext hook', () => {
     });
 
     it('returns the current values of the data list context', () => {
-        const values = dataListTestUtils.generateContextValues({ currentPage: 3, maxItems: 12 });
+        const values = dataListTestUtils.generateContextValues({ currentPage: 3, pageSize: 12 });
         const { result } = renderHook(() => useDataListContext(), { wrapper: createTestWrapper(values) });
         expect(result.current).toEqual(values);
     });

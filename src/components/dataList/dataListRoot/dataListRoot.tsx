@@ -22,7 +22,7 @@ export interface IDataListRootProps extends ComponentProps<'div'> {
      * Number to items to render per page.
      * @default 12
      */
-    maxItems?: number;
+    pageSize?: number;
     /**
      * State of the data list component, @see DataListState.
      * @default idle
@@ -41,7 +41,7 @@ export interface IDataListRootProps extends ComponentProps<'div'> {
 export const DataListRoot: React.FC<IDataListRootProps> = (props) => {
     const {
         children,
-        maxItems = 12,
+        pageSize = 12,
         itemsCount,
         onLoadMore,
         className,
@@ -55,7 +55,7 @@ export const DataListRoot: React.FC<IDataListRootProps> = (props) => {
 
     const handleLoadMore = useCallback(
         (newPage: number) => {
-            const currentlyDisplayed = Math.min(maxItems * newPage, itemsCount ?? 0);
+            const currentlyDisplayed = Math.min(pageSize * newPage, itemsCount ?? 0);
 
             if (childrenItemCount <= currentlyDisplayed) {
                 onLoadMore?.();
@@ -63,21 +63,21 @@ export const DataListRoot: React.FC<IDataListRootProps> = (props) => {
 
             setCurrentPage(newPage);
         },
-        [childrenItemCount, onLoadMore, maxItems, itemsCount],
+        [childrenItemCount, onLoadMore, pageSize, itemsCount],
     );
 
     const contextValues = useMemo(
         () => ({
             childrenItemCount,
             setChildrenItemCount,
-            maxItems,
+            pageSize,
             itemsCount,
             currentPage,
             handleLoadMore,
             state,
             entityLabel,
         }),
-        [childrenItemCount, maxItems, currentPage, itemsCount, state, handleLoadMore, entityLabel],
+        [childrenItemCount, pageSize, currentPage, itemsCount, state, handleLoadMore, entityLabel],
     );
 
     return (
