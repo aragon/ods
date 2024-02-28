@@ -45,7 +45,7 @@ const variantToClassNames: Record<ButtonVariant, string[]> = {
         'aria-disabled:bg-warning-100 aria-disabled:text-warning-400 aria-disabled:border-warning-200', // Disabled
     ],
     critical: [
-        'bg-critical-100 text-critical-800 border-critical-300', // Defalt
+        'bg-critical-100 text-critical-800 border-critical-300', // Default
         'hover:border-critical-400 hover:shadow-critical-md', // Hover
         'active:border-critical-500', // Active
         'focus-visible:ring-critical', // Focus
