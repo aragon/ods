@@ -1,1 +1,1 @@
-export { DataListFilter, type IDataListFilterProps } from './dataListFilter';
+export { DataListFilter, type IDataListFilterProps, type IDataListFilterSortItem } from './dataListFilter';

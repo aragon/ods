@@ -14,11 +14,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
--   Update `eslint` rules to enforce no circlular dependencies
+-   Update `eslint` rules to enforce no circular dependencies
 
 ### Fixed
 
--   `CardEmptyState` component to center content
+-   `CardEmptyState` component to horizontally center content
 -   Spacings of `EmptyState` component when being stacked and having an object illustration
 -   Typos on documentation and comments
 

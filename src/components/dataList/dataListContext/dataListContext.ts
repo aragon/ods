@@ -17,7 +17,7 @@ export interface IDataListContext
      */
     currentPage: number;
     /**
-     * Callback called to laod more items.
+     * Callback called to load more items.
      */
     handleLoadMore: (newPage: number) => void;
 }

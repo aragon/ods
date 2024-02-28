@@ -4,11 +4,11 @@ import { DataListItem } from './dataListItem';
 import { DataListPagination } from './dataListPagination';
 import { DataListRoot } from './dataListRoot';
 
-export type { IDataListContainerProps } from './dataListContainer';
-export type { IDataListFilterProps } from './dataListFilter';
+export type { IDataListContainerProps, IDataListContainerState } from './dataListContainer';
+export type { IDataListFilterProps, IDataListFilterSortItem } from './dataListFilter';
 export type { IDataListItemProps } from './dataListItem';
 export type { IDataListPaginationProps } from './dataListPagination';
-export type { IDataListRootProps } from './dataListRoot';
+export type { DataListState, IDataListRootProps } from './dataListRoot';
 
 export const DataList = {
     Root: DataListRoot,
