@@ -17,7 +17,7 @@ export interface INumberFormat {
      */
     maxSignificantDigits?: DynamicOption;
     /**
-     * Minumum fraction digits to use to format the number.
+     * Minimum fraction digits to use to format the number.
      */
     minFractionDigits?: number;
     /**
@@ -45,7 +45,7 @@ export interface INumberFormat {
      */
     fallback?: string;
     /**
-     * Displayes the specified fallback when this function returns true, by default the formatter will display
+     * Displays the specified fallback when this function returns true, by default the formatter will display
      * the fallback when the value is NaN.
      */
     displayFallback?: (value: number) => boolean;
