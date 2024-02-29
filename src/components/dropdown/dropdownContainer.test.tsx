@@ -73,4 +73,15 @@ describe('<Dropdown.Container /> component', () => {
         await userEvent.click(trigger!);
         expect(onOpenChange).toHaveBeenCalled();
     });
+
+    it('prevents moving focus back to the trigger on menu close to be able to open dialogs on menu-item click', async () => {
+        const children = <DropdownItem>item-label</DropdownItem>;
+        render(createTestComponent({ children }));
+        const trigger = screen.getByRole('button');
+
+        await userEvent.click(trigger);
+        await userEvent.click(screen.getByRole('menuitem'));
+
+        expect(trigger).not.toHaveFocus();
+    });
 });
