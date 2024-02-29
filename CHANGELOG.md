@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 -   Usage of `Dropdown` component inside a `Dialog` component
--   Remove auto-focus to Dropdown trigger on `DropdownItem` click to avoid automatically closing dialogs
+-   Remove auto-focus to `Dropdown` trigger to avoid closing dialogs on `DropdownItem` click
 
 ## [1.0.17] - 2024-02-28
 
