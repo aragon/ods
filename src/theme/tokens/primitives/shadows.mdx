@@ -1,0 +1,86 @@
+import { Meta } from '@storybook/blocks';
+import { Figma } from '@storybook/addon-designs/blocks';
+import classNames from 'classnames';
+import resolveConfig from 'tailwindcss/resolveConfig';
+import tailwindConfig from '../../../../tailwind.config';
+
+<Meta title="Theme/Tokens/Primitive/Shadows" />
+
+export const DisplayComponent = ({ className, children, style }) => (
+    <div
+        style={style}
+        className={classNames('flex h-28 flex-1 items-center justify-center rounded-xl text-center', className)}
+    >
+        {children}
+    </div>
+);
+
+export const shadows = Object.entries(resolveConfig(tailwindConfig).theme?.boxShadow ?? {});
+export const shadowVariants = {
+    neutral: shadows.filter((shadow) => shadow[0].includes('neutral')),
+    primary: shadows.filter((shadow) => shadow[0].includes('primary')),
+    success: shadows.filter((shadow) => shadow[0].includes('success')),
+    warning: shadows.filter((shadow) => shadow[0].includes('warning')),
+    critical: shadows.filter((shadow) => shadow[0].includes('critical')),
+    info: shadows.filter((shadow) => shadow[0].includes('info')),
+};
+
+# Shadows
+
+<div className="flex flex-col border bg-neutral-0 text-neutral-800">
+    {Object.entries(shadowVariants).map(([variant, shadows]) => {
+
+        let backgroundColor;
+        let textColor;
+
+        if (variant === "primary") {
+            backgroundColor = `var(--ods-color-${variant}-400)`;
+            textColor = `var(--ods-color-${variant}-50)`;
+        }else if (variant === 'neutral') {
+            backgroundColor = `var(--ods-color-${variant}-0)`;
+        }else {
+            backgroundColor = `var(--ods-color-${variant}-100)`;
+            textColor = `var(--ods-color-${variant}-800)`;
+        }
+
+        return (
+            <div
+                className={classNames('px-5 py-10 pt-5', {
+                    'bg-neutral-0': variant === 'primary',
+                    'bg-neutral-50': variant !== 'primary',
+                })}
+            >
+                <div>
+                    <p className="text-5xl/tight font-semibold capitalize">{variant}</p>
+                    <p>
+                        <span className="text-lg">Based on</span>
+                        <span className="text-lg font-semibold">{` color-${variant}-600`}</span>
+                    </p>
+                    <div className="flex gap-x-6">
+                        <DisplayComponent style={{ backgroundColor: `var(--ods-color-${variant}-600)` }} />
+                        {shadows.map(([name, style]) => {
+                            const displayName = name.replace(variant, 'shadow');
+                            return (
+                                <DisplayComponent
+                                    className="text-sm"
+                                    style={{
+                                        backgroundColor,
+                                        boxShadow: style,
+                                        color: textColor,
+                                    }}
+                                >
+                                    {displayName !== 'shadow' ? displayName : 'shadow(-default)'}
+                                </DisplayComponent>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
+        );
+    })}
+
+</div>
+
+## Figma
+
+<Figma url="https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=8874-14149&mode=dev" />

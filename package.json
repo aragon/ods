@@ -10,7 +10,7 @@
     "index.css",
     "build.css",
     "src/**/*.css",
-    "src/assets/fonts/*",
+    "src/theme/fonts/*",
     "tailwind.config.js"
   ],
   "scripts": {

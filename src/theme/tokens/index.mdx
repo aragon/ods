@@ -1,0 +1,44 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Theme/Tokens/Documentation" />
+
+# Tokens
+
+The design tokens in the `@aragon/ods` UI library serve as the foundational elements for creating consistent and
+visually appealing interfaces. These tokens are implemented using
+[CSS custom variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) and, when integrated with Tailwind CSS,
+they can be conveniently accessed through Tailwind classes. When used as a standalone library, design tokens should be
+used as CSS custom properties.
+
+## Usage
+
+### With Tailwind CSS
+
+In projects using both `@aragon/ods` and `Tailwind CSS`, design tokens are readily available as Tailwind classes. For
+instance:
+
+```html
+<div class="mt-2 bg-primary-500">
+    <!-- Content with design tokens applied -->
+</div>
+```
+
+### Standalone Usage
+
+When using `@aragon/ods` as a standalone library, design tokens are applied as CSS custom properties. For example:
+
+```css
+.my-section {
+    margin-top: var(--ods-space-2);
+    color: var(--ods-color-primary-500);
+}
+```
+
+## Categories
+
+-   **Primitive**: Establish the core elements of the design system, including colors, typography, spacing, and more.
+
+-   **Semantic (SOON)**: Provide an abstraction layer over primitive tokens, enabling the definition of application
+    themes.
+
+-   **Component-Specific (SOON)**: Allow users to customize individual components according to their preferences.
