@@ -92,6 +92,7 @@ export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
                         'flex min-w-48 flex-col gap-1.5 overflow-auto rounded-xl border border-neutral-100 bg-neutral-0 p-2 shadow-neutral-sm',
                         'max-h-[var(--radix-dropdown-menu-content-available-height)] max-w-[var(--radix-dropdown-menu-content-available-width)]',
                     )}
+                    onCloseAutoFocus={(event) => event.preventDefault()}
                     align={align}
                     sideOffset={4}
                 >

@@ -77,13 +77,11 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
         <Root {...rootProps}>
             <Trigger />
             <Portal>
-                <Overlay
-                    className={classNames('fixed inset-0 z-20 bg-modal-overlay backdrop-blur-md', overlayClassName)}
-                />
+                <Overlay className={classNames('fixed inset-0 bg-modal-overlay backdrop-blur-md', overlayClassName)} />
                 <Content
                     className={classNames(
                         'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] lg:bottom-auto lg:top-[120px] lg:max-h-[calc(100vh-200px)]',
-                        'z-20 flex max-w-[480px] flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md md:min-w-[480px]',
+                        'flex max-w-[480px] flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md md:min-w-[480px]',
                         containerClassName,
                     )}
                     onCloseAutoFocus={onCloseAutoFocus}
