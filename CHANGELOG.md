@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.18] - 2024-02-29
+
 ### Fixed
 
 -   Usage of `Dropdown` component inside a `Dialog` component
