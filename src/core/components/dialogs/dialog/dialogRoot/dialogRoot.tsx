@@ -2,6 +2,7 @@ import { Content, Overlay, Portal, Root } from '@radix-ui/react-dialog';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
+import { DialogUtils } from '../../dialogUtils';
 
 export interface IDialogRootProps extends ComponentPropsWithoutRef<'div'> {
     /**
@@ -51,16 +52,6 @@ export interface IDialogRootProps extends ComponentPropsWithoutRef<'div'> {
     onPointerDownOutside?: (e: Event) => void;
 }
 
-const overlayAnimationVariants = {
-    closed: { opacity: 0 },
-    open: { opacity: 1 },
-};
-
-const contentAnimationVariants = {
-    closed: { opacity: 0, scale: 0.88, y: 100 },
-    open: { opacity: 1, scale: 1, y: 0 },
-};
-
 /**
  * `Dialog.Root` component.
  */
@@ -81,7 +72,7 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
         <Root {...rootProps}>
             <AnimatePresence>
                 {rootProps.open && (
-                    <Portal key="portal">
+                    <Portal forceMount key="portal">
                         <Overlay
                             className={classNames('fixed inset-0 bg-modal-overlay backdrop-blur-md', overlayClassName)}
                             asChild
@@ -90,7 +81,7 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                                 initial="closed"
                                 animate="open"
                                 exit="closed"
-                                variants={overlayAnimationVariants}
+                                variants={DialogUtils.overlayAnimationVariants}
                             />
                         </Overlay>
                         <Content
@@ -107,7 +98,7 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                             asChild
                         >
                             <motion.div
-                                variants={contentAnimationVariants}
+                                variants={DialogUtils.contentAnimationVariants}
                                 initial="closed"
                                 animate="open"
                                 exit="closed"
