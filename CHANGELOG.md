@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Implement animations for `Dialog` and `DialogAlert` components
+
 ### Changed
 
 -   Update library structure to support module components

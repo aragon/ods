@@ -1,5 +1,6 @@
 import { Content, Overlay, Portal, Root } from '@radix-ui/react-dialog';
 import classNames from 'classnames';
+import { AnimatePresence, motion } from 'framer-motion';
 import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
 
 export interface IDialogRootProps extends ComponentPropsWithoutRef<'div'> {
@@ -50,6 +51,16 @@ export interface IDialogRootProps extends ComponentPropsWithoutRef<'div'> {
     onPointerDownOutside?: (e: Event) => void;
 }
 
+const overlayAnimationVariants = {
+    closed: { opacity: 0 },
+    open: { opacity: 1 },
+};
+
+const contentAnimationVariants = {
+    closed: { opacity: 0, scale: 0.88, y: 100 },
+    open: { opacity: 1, scale: 1, y: 0 },
+};
+
 /**
  * `Dialog.Root` component.
  */
@@ -68,23 +79,47 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
 
     return (
         <Root {...rootProps}>
-            <Portal>
-                <Overlay className={classNames('fixed inset-0 bg-modal-overlay backdrop-blur-md', overlayClassName)} />
-                <Content
-                    className={classNames(
-                        'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] lg:bottom-auto lg:top-[120px] lg:max-h-[calc(100vh-200px)]',
-                        'flex max-w-[480px] flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md md:min-w-[480px]',
-                        containerClassName,
-                    )}
-                    onCloseAutoFocus={onCloseAutoFocus}
-                    onEscapeKeyDown={onEscapeKeyDown}
-                    onInteractOutside={onInteractOutside}
-                    onOpenAutoFocus={onOpenAutoFocus}
-                    onPointerDownOutside={onPointerDownOutside}
-                >
-                    {children}
-                </Content>
-            </Portal>
+            <AnimatePresence>
+                {rootProps.open && (
+                    <Portal key="portal">
+                        <Overlay
+                            className={classNames('fixed inset-0 bg-modal-overlay backdrop-blur-md', overlayClassName)}
+                            key="overlay"
+                            asChild
+                        >
+                            <motion.div
+                                initial="closed"
+                                animate="open"
+                                exit="closed"
+                                variants={overlayAnimationVariants}
+                            />
+                        </Overlay>
+                        <Content
+                            className={classNames(
+                                'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] lg:bottom-auto lg:top-[120px] lg:max-h-[calc(100vh-200px)]',
+                                'flex max-w-[480px] flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md md:min-w-[480px]',
+                                containerClassName,
+                            )}
+                            onCloseAutoFocus={onCloseAutoFocus}
+                            onEscapeKeyDown={onEscapeKeyDown}
+                            onInteractOutside={onInteractOutside}
+                            onOpenAutoFocus={onOpenAutoFocus}
+                            onPointerDownOutside={onPointerDownOutside}
+                            key="content"
+                            asChild
+                        >
+                            <motion.div
+                                variants={contentAnimationVariants}
+                                initial="closed"
+                                animate="open"
+                                exit="closed"
+                            >
+                                {children}
+                            </motion.div>
+                        </Content>
+                    </Portal>
+                )}
+            </AnimatePresence>
         </Root>
     );
 };
