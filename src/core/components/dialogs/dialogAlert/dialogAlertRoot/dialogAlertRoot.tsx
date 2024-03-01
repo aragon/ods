@@ -92,7 +92,6 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
                     <Portal key="portal">
                         <Overlay
                             className={classNames('fixed inset-0 bg-modal-overlay backdrop-blur-md', overlayClassName)}
-                            key="overlay"
                             asChild
                         >
                             <motion.div
@@ -111,7 +110,6 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
                             onCloseAutoFocus={onCloseAutoFocus}
                             onEscapeKeyDown={handleEscapeKeyDown}
                             onOpenAutoFocus={onOpenAutoFocus}
-                            key="content"
                             asChild
                         >
                             <motion.div

@@ -84,7 +84,6 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                     <Portal key="portal">
                         <Overlay
                             className={classNames('fixed inset-0 bg-modal-overlay backdrop-blur-md', overlayClassName)}
-                            key="overlay"
                             asChild
                         >
                             <motion.div
@@ -105,7 +104,6 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                             onInteractOutside={onInteractOutside}
                             onOpenAutoFocus={onOpenAutoFocus}
                             onPointerDownOutside={onPointerDownOutside}
-                            key="content"
                             asChild
                         >
                             <motion.div
