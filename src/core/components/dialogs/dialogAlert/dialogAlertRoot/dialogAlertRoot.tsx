@@ -1,6 +1,8 @@
 import { Content, Overlay, Portal, Root, Trigger } from '@radix-ui/react-alert-dialog';
 import classNames from 'classnames';
+import { AnimatePresence, motion } from 'framer-motion';
 import { createContext, useMemo, type ComponentPropsWithoutRef, type ReactNode } from 'react';
+import { DialogUtils } from '../../dialogUtils';
 
 export type DialogAlertVariant = 'critical' | 'info' | 'success' | 'warning';
 
@@ -76,21 +78,45 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
     return (
         <Root {...rootProps}>
             <Trigger />
-            <Portal>
-                <Overlay className={classNames('fixed inset-0 bg-modal-overlay backdrop-blur-md', overlayClassName)} />
-                <Content
-                    className={classNames(
-                        'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] lg:bottom-auto lg:top-[120px] lg:max-h-[calc(100vh-200px)]',
-                        'flex max-w-[480px] flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md md:min-w-[480px]',
-                        containerClassName,
-                    )}
-                    onCloseAutoFocus={onCloseAutoFocus}
-                    onEscapeKeyDown={handleEscapeKeyDown}
-                    onOpenAutoFocus={onOpenAutoFocus}
-                >
-                    <DialogAlertContext.Provider value={contextValue}>{children}</DialogAlertContext.Provider>
-                </Content>
-            </Portal>
+            <AnimatePresence>
+                {rootProps.open && (
+                    <Portal forceMount key="portal">
+                        <Overlay
+                            className={classNames('fixed inset-0 bg-modal-overlay backdrop-blur-md', overlayClassName)}
+                            asChild
+                        >
+                            <motion.div
+                                initial="closed"
+                                animate="open"
+                                exit="closed"
+                                variants={DialogUtils.overlayAnimationVariants}
+                            />
+                        </Overlay>
+                        <Content
+                            className={classNames(
+                                'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] lg:bottom-auto lg:top-[120px] lg:max-h-[calc(100vh-200px)]',
+                                'flex max-w-[480px] flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md md:min-w-[480px]',
+                                containerClassName,
+                            )}
+                            onCloseAutoFocus={onCloseAutoFocus}
+                            onEscapeKeyDown={handleEscapeKeyDown}
+                            onOpenAutoFocus={onOpenAutoFocus}
+                            asChild
+                        >
+                            <motion.div
+                                variants={DialogUtils.contentAnimationVariants}
+                                initial="closed"
+                                animate="open"
+                                exit="exit"
+                            >
+                                <DialogAlertContext.Provider value={contextValue}>
+                                    {children}
+                                </DialogAlertContext.Provider>
+                            </motion.div>
+                        </Content>
+                    </Portal>
+                )}
+            </AnimatePresence>
         </Root>
     );
 };
