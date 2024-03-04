@@ -124,7 +124,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
     );
 
     return (
-        <InputContainer id={id} useCustomWrapper {...otherContainerProps}>
+        <InputContainer id={id} useCustomWrapper={true} {...otherContainerProps}>
             <div {...getRootProps()} className={inputAvatarClassNames}>
                 <input {...getInputProps()} id={id} />
                 {imagePreview ? (

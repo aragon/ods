@@ -58,7 +58,7 @@ export const DialogHeader: React.FC<IDialogHeaderProps> = (props) => {
                     </Description>
                 )}
             </div>
-            <Close asChild>
+            <Close asChild={true}>
                 <Button
                     variant="tertiary"
                     size="sm"

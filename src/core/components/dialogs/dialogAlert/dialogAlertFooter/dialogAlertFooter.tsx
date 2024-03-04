@@ -44,7 +44,7 @@ export const DialogAlertFooter: React.FC<IDialogAlertFooterProps> = (props) => {
 
     return (
         <div className="flex flex-col gap-3 rounded-b-xl bg-modal-footer px-4 pb-4 pt-2 backdrop-blur-md md:flex-row md:px-6 md:pb-6">
-            <Action asChild>
+            <Action asChild={true}>
                 <Button
                     {...actionButtonProps}
                     size="lg"
@@ -56,7 +56,7 @@ export const DialogAlertFooter: React.FC<IDialogAlertFooterProps> = (props) => {
                     {actionLabel}
                 </Button>
             </Action>
-            <Cancel asChild>
+            <Cancel asChild={true}>
                 <Button {...cancelButtonProps} variant="tertiary" size="lg" className="w-full md:w-auto">
                     {cancelLabel}
                 </Button>
