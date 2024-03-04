@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Update library structure to support module components
 -   Update documentation about how to install the library
+-   Update minor and patch dependencies
 
 ## [1.0.18] - 2024-02-29
 
