@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update library structure to support module components
 -   Update documentation about how to install the library
 -   Update minor and patch dependencies
+-   Update `@typescript-eslint` and `eslint-plugin-storybook` dependencies
+-   Set minimum required node version to 18.18.0 (required by `@typescript-eslint` v7)
 
 ## [1.0.18] - 2024-02-29
 
