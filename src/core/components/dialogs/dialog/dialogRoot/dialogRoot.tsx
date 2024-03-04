@@ -101,7 +101,7 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                                 variants={DialogUtils.contentAnimationVariants}
                                 initial="closed"
                                 animate="open"
-                                exit="closed"
+                                exit="exit"
                             >
                                 {children}
                             </motion.div>

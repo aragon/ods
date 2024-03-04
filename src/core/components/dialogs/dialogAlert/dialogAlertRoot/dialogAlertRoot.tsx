@@ -107,7 +107,7 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
                                 variants={DialogUtils.contentAnimationVariants}
                                 initial="closed"
                                 animate="open"
-                                exit="closed"
+                                exit="exit"
                             >
                                 <DialogAlertContext.Provider value={contextValue}>
                                     {children}
