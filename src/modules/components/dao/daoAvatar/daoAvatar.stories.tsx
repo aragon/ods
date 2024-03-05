@@ -20,17 +20,17 @@ type Story = StoryObj<typeof DaoAvatar>;
  */
 export const Default: Story = {
     args: {
-        daoName: 'Patito Dao',
+        name: 'Patito Dao',
         src: 'https://cdn.discordapp.com/icons/672466989217873929/acffa3e9e09ac5962ff803a5f8649040.webp?size=240',
     },
 };
 
 /**
- *  Usage of the DaoAvatar component with the default fallback.
+ *  Usage of the DaoAvatar without an image src.
  */
 export const Fallback: Story = {
     args: {
-        daoName: 'Patito Dao',
+        name: 'Patito Dao',
     },
 };
 

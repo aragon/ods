@@ -6,12 +6,12 @@ export interface IDaoAvatarProps extends Omit<IAvatarProps, 'fallback'> {
     /**
      * Name of the DAO
      */
-    daoName: string;
+    name?: string;
 }
 
 export const DaoAvatar: React.FC<IDaoAvatarProps> = (props) => {
-    const { daoName, size = 'lg', className, ...otherProps } = props;
-    const daoInitials = getDaoInitials(daoName).toUpperCase();
+    const { name, size = 'lg', className, ...otherProps } = props;
+    const daoInitials = getDaoInitials(name).toUpperCase();
 
     return (
         <Avatar
@@ -34,15 +34,15 @@ export const DaoAvatar: React.FC<IDaoAvatarProps> = (props) => {
 
 /**
  * Get the initials for a DAO
- * @param daoName name of the DAO
+ * @param name name of the DAO
  * @returns the DAO initials
  */
-function getDaoInitials(daoName: IDaoAvatarProps['daoName']): string {
-    if (!daoName) {
+function getDaoInitials(name: IDaoAvatarProps['name']): string {
+    if (!name) {
         return '';
     }
 
-    const trimmedName = daoName.trim();
+    const trimmedName = name.trim();
 
     if (trimmedName.length <= 2) {
         return trimmedName;
