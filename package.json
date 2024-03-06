@@ -71,14 +71,6 @@
     "viem": "^2.7.0",
     "wagmi": "^2.5.0"
   },
-  "peerDependenciesMeta": {
-    "@tailwindcss/typography": {
-      "optional": true
-    },
-    "tailwindcss": {
-      "optional": true
-    }
-  },
   "devDependencies": {
     "@babel/core": "^7.24.0",
     "@babel/preset-env": "^7.24.0",
