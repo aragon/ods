@@ -24,18 +24,18 @@ export interface IMemberDataListProps {
 }
 
 export const MemberDataListItem: React.FC<IMemberDataListProps> = (props) => {
-    const { avatar, isDelegate, userHandle = 'Unknown', delegationCount = 0, votingPower = 0 } = props;
+    const { avatar, isDelegate, userHandle, delegationCount = 0, votingPower = 0 } = props;
 
     return (
         <Card>
-            <div className="mx-6 flex min-w-[169.5px] flex-col items-start space-y-3 py-6 md:min-w-[266px]">
+            <div className="mx-6 flex w-[169.5px] flex-col items-start space-y-3 py-6 md:w-[262px]">
                 <div className="flex w-full items-center justify-between">
                     <Avatar src={avatar} responsiveSize={{ md: 'md' }} />
                     {isDelegate && <Tag variant="info" label="Your Delegate" />}
                 </div>
 
-                <Heading size="h2" as="h1">
-                    {userHandle}
+                <Heading className="inline-block w-[169.5px] truncate md:w-[262px]" size="h2" as="h1">
+                    {userHandle || 'Unknown'}
                 </Heading>
                 <div className="space-y-2">
                     <Heading size="h5" as="h2" className="min-h-[18px] !text-neutral-500 md:min-h-5">
