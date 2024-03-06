@@ -1,0 +1,20 @@
+import { ArgTypes, Meta, Description, Title, Subtitle } from '@storybook/blocks';
+import { OdsModulesProvider } from './odsModulesProvider';
+
+<Meta title="Modules/Components/OdsModulesProvider" />
+
+<Title>OdsModulesProvider</Title>
+
+The `<OdsModulesProvider />` is a simple wrapper around the `<WagmiProvider />` and `<QueryClientProvider />` React
+Context providers from the [wagmi](https://wagmi.sh/) and [@tanstack/react-query](https://tanstack.com/query) libraries.
+
+The two providers are needed for the ODS Modules component using the hooks from wagmi (e.g.
+[useEnsName](https://wagmi.sh/react/api/hooks/useEnsName)). In order to use these hooks, the application needs to be
+wrapped using the following providers:
+
+-   `<WagmiProvider />`: needed to know which chain and RPC endpoint to use when fetching blockchain data;
+-   `<QueryClientProvider />`: needed to cache the data fetched from the blockchain;
+
+Refer to the component's properties below for more details on the default configuration objects used for each provider.
+
+<ArgTypes of={OdsModulesProvider} />

@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react';
 import '../index.css';
+import { OdsModulesProvider } from '../src';
 import './style.css';
 
 const preview: Preview = {
@@ -46,9 +47,11 @@ const preview: Preview = {
     },
     decorators: [
         (Story) => (
-            <div className="flex">
-                <Story />
-            </div>
+            <OdsModulesProvider>
+                <div className="flex">
+                    <Story />
+                </div>
+            </OdsModulesProvider>
         ),
     ],
 };
