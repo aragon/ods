@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { AddressInput } from './addressInput';
+import { useState } from 'react';
+import { AddressInput, type IAddressInputProps, type IAddressInputValue } from './addressInput';
 
 const meta: Meta<typeof AddressInput> = {
     title: 'Modules/Components/Address/AddressInput',
@@ -15,11 +16,26 @@ const meta: Meta<typeof AddressInput> = {
 
 type Story = StoryObj<typeof AddressInput>;
 
+const ControlledComponent = (props: IAddressInputProps) => {
+    const [value, setValue] = useState<IAddressInputValue>();
+    const stringValue = value != null ? `{ address: ${value.address}, name: ${value.name} }` : 'undefined';
+
+    return (
+        <div className="flex grow flex-col gap-2">
+            <AddressInput value={value} onChange={setValue} {...props} />
+            <code>Output: {stringValue}</code>
+        </div>
+    );
+};
+
 /**
  * Default usage of the AddressInput component.
  */
 export const Default: Story = {
-    args: {},
+    args: {
+        placeholder: 'ENS or 0x …',
+    },
+    render: ({ onChange, ...props }) => <ControlledComponent {...props} />,
 };
 
 export default meta;
