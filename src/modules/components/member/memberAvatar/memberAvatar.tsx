@@ -23,11 +23,11 @@ export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
         <ENSUserLookupWrapper ensNameOrAddress={ensNameOrAddress}>
             {({ user, isLoading }) => {
                 return (
-                    <div className={classNames('flex items-center justify-center', containerSizeClass)}>
+                    <div className={classNames('flex shrink-0 items-center justify-center', containerSizeClass)}>
                         {isLoading ? (
                             <Spinner size={size} />
                         ) : (
-                            <Avatar size={size} src={user?.avatar} {...otherProps} />
+                            <Avatar size={size} src={user?.avatar} className={className} {...otherProps} />
                         )}
                     </div>
                 );
