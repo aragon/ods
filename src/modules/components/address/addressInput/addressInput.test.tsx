@@ -1,0 +1,5 @@
+describe('<AddressInput /> component', () => {
+    it('', () => {
+        //
+    });
+});
