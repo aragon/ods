@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import type React from 'react';
 import { Avatar, Spinner, type IAvatarProps } from '../../../../core';
-import { ENSUserLookupWrapper } from '../../../../hooks/useENSLookup';
+import { ENSUserLookupWrapper } from '../../ensUserLookupWrapper/ensUserLookupWrapper';
 
 export interface IMemberAvatarProps extends Omit<IAvatarProps, 'fallback'> {
     /**

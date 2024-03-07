@@ -4,13 +4,13 @@ import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
 // @ts-expect-error - untyped module
 import makeBlockiesUrl from 'blockies-react-svg/dist/es/makeBlockiesUrl.mjs';
 
-interface IENSUser {
+export interface IENSUser {
     name: string;
     address: string;
     avatar: string;
 }
 
-interface IENSLookupProps {
+export interface IENSLookupProps {
     ensNameOrAddress: string;
     children: (data: { user: IENSUser | null; error: Error | null; isLoading: boolean }) => ReactNode;
 }
@@ -46,18 +46,17 @@ const ENSLookupComponent: React.FC<IENSLookupProps> = ({ ensNameOrAddress, child
             return;
         }
 
-        const inputIsAddress = isAddress(ensNameOrAddress);
-        if (inputIsAddress && nameData) {
+        const resolvedAddress = isAddress(ensNameOrAddress) ? ensNameOrAddress : addressData;
+        const resolvedName = !isAddress(ensNameOrAddress)
+            ? ensNameOrAddress
+            : nameData ?? resolvedAddress ?? ensNameOrAddress;
+        const avatarUrl = avatarData ?? (resolvedAddress ? makeBlockiesUrl(resolvedAddress) : null);
+
+        if (resolvedAddress) {
             setUser({
-                name: nameData,
-                address: ensNameOrAddress,
-                avatar: avatarData ?? makeBlockiesUrl(ensNameOrAddress),
-            });
-        } else if (!inputIsAddress && addressData) {
-            setUser({
-                name: ensNameOrAddress,
-                address: addressData,
-                avatar: avatarData ?? makeBlockiesUrl(addressData),
+                name: resolvedName,
+                address: resolvedAddress,
+                avatar: avatarUrl,
             });
         }
     }, [
