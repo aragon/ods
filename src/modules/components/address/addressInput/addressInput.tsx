@@ -29,13 +29,18 @@ export interface IAddressInputProps
     extends Omit<IInputComponentProps, 'maxLength' | 'value' | 'onChange'>,
         IWeb3ComponentProps {
     /**
-     * Current address value.
+     * Current value of the address input.
      */
-    value?: IAddressInputValue;
+    value?: string;
     /**
-     * Callback called on address change.
+     * Callback called on address input change.
      */
-    onChange?: (value?: IAddressInputValue) => void;
+    onChange?: (value?: string) => void;
+    /**
+     * Callback called with the address value object when the user input is valid. The value will be set to undefined
+     * when the user input is not a valid address nor a valid ens name.
+     */
+    onAccept?: (value?: IAddressInputValue) => void;
 }
 
 export type AddressInputDisplayMode = 'address' | 'ens';
@@ -43,14 +48,13 @@ export type AddressInputDisplayMode = 'address' | 'ens';
 const isEnsName = (value?: string) => value != null && value.length > 6 && value.endsWith('.eth');
 
 export const AddressInput = forwardRef<HTMLInputElement, IAddressInputProps>((props, ref) => {
-    const { value, onChange, wagmiConfig, chainId, ...otherProps } = props;
-    const { containerProps, inputProps } = useInputProps(otherProps);
+    const { value = '', onChange, onAccept, wagmiConfig, chainId, ...otherProps } = props;
 
+    const { containerProps, inputProps } = useInputProps(otherProps);
     const queryClient = useQueryClient();
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const [inputValue, setInputValue] = useState(value?.address ?? value?.name ?? '');
     const [displayMode, setDisplayMode] = useState<AddressInputDisplayMode>('address');
 
     const {
@@ -58,10 +62,10 @@ export const AddressInput = forwardRef<HTMLInputElement, IAddressInputProps>((pr
         isFetching: isEnsAddressLoading,
         queryKey: ensAddressQueryKey,
     } = useEnsAddress({
-        name: inputValue,
+        name: value,
         config: wagmiConfig,
         chainId,
-        query: { enabled: isEnsName(inputValue) },
+        query: { enabled: isEnsName(value) },
     });
 
     const {
@@ -69,67 +73,71 @@ export const AddressInput = forwardRef<HTMLInputElement, IAddressInputProps>((pr
         isFetching: isEnsNameLoading,
         queryKey: ensNameQueryKey,
     } = useEnsName({
-        address: inputValue as Address,
+        address: value as Address,
         config: wagmiConfig,
         chainId,
-        query: { enabled: isAddress(inputValue) },
+        query: { enabled: isAddress(value) },
     });
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => setInputValue(event.target.value);
+    const isLoading = isEnsAddressLoading || isEnsNameLoading;
+
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => onChange?.(event.target.value);
 
     const updateDisplayMode = (mode: AddressInputDisplayMode) => {
         setDisplayMode(mode);
         const newInputValue = mode === 'address' ? ensAddress : ensName;
-        setInputValue(newInputValue ?? '');
+        onChange?.(newInputValue ?? '');
         inputRef.current?.focus();
     };
 
     const handlePasteClick = async () => {
         const text = await clipboardUtils.paste();
-        setInputValue(text);
+        onChange?.(text);
     };
 
     // Update display mode depending on current input value
     useEffect(() => {
-        const displayMode = isEnsName(inputValue) ? 'ens' : 'address';
+        const displayMode = isEnsName(value) ? 'ens' : 'address';
         setDisplayMode(displayMode);
-    }, [inputValue]);
+    }, [value]);
 
     // Trigger onChange property when value is a valid address or ENS
     useEffect(() => {
-        if (ensAddress) {
-            onChange?.({ address: ensAddress, name: inputValue });
-        } else if (ensName) {
-            onChange?.({ address: inputValue, name: ensName });
-        } else {
-            onChange?.({ address: undefined, name: undefined });
+        if (isLoading) {
+            return;
         }
-    }, [ensAddress, ensName, inputValue, onChange]);
+
+        if (ensAddress) {
+            // User input is a valid ENS name
+            onAccept?.({ address: ensAddress, name: value });
+        } else if (isAddress(value)) {
+            // User input is a valid address with or without a ENS name linked to it
+            onAccept?.({ address: value, name: ensName ?? undefined });
+        } else {
+            // User input is not a valid address nor ENS name
+            onAccept?.(undefined);
+        }
+    }, [ensAddress, ensName, value, isLoading, onAccept]);
 
     // Update react-query cache to avoid fetching the ENS address when the ENS name has been successfully resolved.
-    // E.g. user types 0x..123 which is resolved into test.eth, set test.eth as resolved ENS name of 0x..123
+    // E.g. user types 0x..123 which is resolved into test.eth, therefore set test.eth as resolved ENS name of 0x..123
     useEffect(() => {
         if (ensName) {
             const queryKey = [...ensAddressQueryKey];
             (queryKey[1] as UseEnsAddressParameters).name = ensName;
-            queryClient.setQueryData(queryKey, inputValue);
+            queryClient.setQueryData(queryKey, value);
         }
-    }, [queryClient, ensName, inputValue, ensAddressQueryKey]);
+    }, [queryClient, ensName, value, ensAddressQueryKey]);
 
     // Update react-query cache to avoid fetching the ENS name when the ENS address has been successfully resolved.
-    // E.g. user types test.eth which is resolved into 0x..123, set 0x..123 as resolved ENS address of test.eth
+    // E.g. user types test.eth which is resolved into 0x..123, therefore set 0x..123 as resolved ENS address of test.eth
     useEffect(() => {
         if (ensAddress) {
             const queryKey = [...ensNameQueryKey];
             (queryKey[1] as UseEnsNameParameters).address = ensAddress;
-            queryClient.setQueryData(queryKey, inputValue);
+            queryClient.setQueryData(queryKey, value);
         }
-    }, [queryClient, ensAddress, inputValue, ensNameQueryKey]);
-
-    // TODO Update internal input value on value property change
-    // useEffect(() => setInputValue(value), [value]);
-
-    const isLoading = isEnsAddressLoading || isEnsNameLoading;
+    }, [queryClient, ensAddress, value, ensNameQueryKey]);
 
     return (
         <InputContainer {...containerProps}>
@@ -141,7 +149,7 @@ export const AddressInput = forwardRef<HTMLInputElement, IAddressInputProps>((pr
                 type="text"
                 ref={mergeRefs([ref, inputRef])}
                 {...inputProps}
-                value={inputValue}
+                value={value}
                 onChange={handleInputChange}
             />
             <div className="mr-2 flex flex-row gap-2">
