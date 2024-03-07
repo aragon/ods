@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement animations for `Dialog` and `DialogAlert` components
 -   Implement `DaoAvatar` and `MemberListDataItem` module components
+-   Implement `OdsModulesProvider` for using wagmi hooks on modules components
 
 ### Changed
 
@@ -19,6 +20,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update minor and patch dependencies
 -   Update `@typescript-eslint` and `eslint-plugin-storybook` dependencies
 -   Set minimum required node version to 18.18.0 (required by `@typescript-eslint` v7)
+-   Update documentation on modules components
+-   Update required dependencies, move `react` and `react-dom` to peer dependencies
 
 ## [1.0.18] - 2024-02-29
 

@@ -10,3 +10,32 @@ handle DAO business logic.
 
 Check the documentation and usage of the modules components and utilities under the `/components` and `/utilities`
 sub-folders.
+
+## Usage
+
+In order to use the ODS Modules components, make sure to:
+
+-   Install the required packages:
+
+    ```shell
+    yarn add viem wagmi @tanstack/reat-query
+    ```
+
+    or
+
+    ```shell
+    npm install viem wagmi @tanstack/reat-query
+    ```
+
+-   Wrap your application using the `<OdsModulesProvider />` React Context Provider:
+
+    ```tsx
+    import { OdsModulesProvider } from '@aragon/ods';
+
+    function App() {
+        return <OdsModulesProvider>{/** ... */}</OdsModulesProvider>;
+    }
+    ```
+
+    Refer to the [OdsModulesProvider doc](/docs/modules-components-odsmodulesprovider--docs) for further details about
+    the provider.

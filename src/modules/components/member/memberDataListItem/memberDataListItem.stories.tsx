@@ -20,4 +20,23 @@ type Story = StoryObj<typeof MemberDataListItem>;
  */
 export const Default: Story = {};
 
+export const Loaded: Story = {
+    args: {
+        isDelegate: true,
+        isMultiSig: false,
+        avatar: 'https://avatars.githubusercontent.com/u/1',
+        userHandle: 'replyguy.eth',
+        delegationCount: 1,
+        votingPower: 420690,
+    },
+};
+
+export const Multsig: Story = {
+    args: {
+        isMultiSig: true,
+        avatar: 'https://avatars.githubusercontent.com/u/1',
+        userHandle: 'replyguy.eth',
+    },
+};
+
 export default meta;
