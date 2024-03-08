@@ -65,7 +65,7 @@ export const useInputProps = <TElement extends InputComponentElement>(
     };
 
     const inputClasses = classNames(
-        'size-full truncate rounded-xl bg-transparent px-4 py-3 caret-neutral-500 outline-none', // Default
+        'size-full rounded-xl bg-transparent px-4 py-3 caret-neutral-500 outline-none', // Default
         'placeholder:text-base placeholder:font-normal placeholder:leading-tight placeholder:text-neutral-300', // Placeholder
         inputClassName, // Prop
     );

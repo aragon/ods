@@ -207,21 +207,21 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                     </Button>
                 )}
                 {(ensAddress != null || isAddress(value)) && !isFocused && (
-                    <>
-                        <Button
-                            variant="tertiary"
-                            size="sm"
-                            onMouseDown={() => clipboardUtils.copy(ensAddress ?? value)}
-                            iconLeft={IconType.COPY}
-                        />
-                        <Button
-                            variant="tertiary"
-                            size="sm"
-                            href={blockExplorerUrl}
-                            target="_blank"
-                            iconLeft={IconType.LINK_EXTERNAL}
-                        />
-                    </>
+                    <Button
+                        variant="tertiary"
+                        size="sm"
+                        href={blockExplorerUrl}
+                        target="_blank"
+                        iconLeft={IconType.LINK_EXTERNAL}
+                    />
+                )}
+                {value.length > 0 && !isFocused && (
+                    <Button
+                        variant="tertiary"
+                        size="sm"
+                        onMouseDown={() => clipboardUtils.copy(value)}
+                        iconLeft={IconType.COPY}
+                    />
                 )}
                 {value.length === 0 && (
                     <Button variant="tertiary" size="sm" onClick={handlePasteClick}>
