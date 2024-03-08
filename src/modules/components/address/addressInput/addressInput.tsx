@@ -1,4 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
+import classNames from 'classnames';
 import { forwardRef, useEffect, useRef, useState, type ChangeEvent, type FocusEvent } from 'react';
 import { isAddress, type Address } from 'viem';
 import { useConfig, useEnsAddress, useEnsName, type UseEnsAddressParameters, type UseEnsNameParameters } from 'wagmi';
@@ -14,6 +15,7 @@ import {
 } from '../../../../core';
 import { useInputProps } from '../../../../core/components/input/hooks';
 import type { IWeb3ComponentProps } from '../../../types';
+import { addressUtils } from '../../../utils';
 
 export interface IAddressInputValue {
     /**
@@ -27,7 +29,7 @@ export interface IAddressInputValue {
 }
 
 export interface IAddressInputProps
-    extends Omit<IInputComponentProps, 'maxLength' | 'value' | 'onChange'>,
+    extends Omit<IInputComponentProps<HTMLTextAreaElement>, 'maxLength' | 'value' | 'onChange'>,
         IWeb3ComponentProps {
     /**
      * Current value of the address input.
@@ -48,11 +50,11 @@ export type AddressInputDisplayMode = 'address' | 'ens';
 
 const isEnsName = (value?: string) => value != null && value.length > 6 && value.endsWith('.eth');
 
-export const AddressInput = forwardRef<HTMLInputElement, IAddressInputProps>((props, ref) => {
+export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>((props, ref) => {
     const { value = '', onChange, onAccept, wagmiConfig: wagmiConfigProps, chainId, ...otherProps } = props;
 
     const { containerProps, inputProps } = useInputProps(otherProps);
-    const { onFocus, onBlur, ...otherInputProps } = inputProps;
+    const { onFocus, onBlur, className: inputClassName, ...otherInputProps } = inputProps;
 
     const queryClient = useQueryClient();
     const wagmiConfigProvider = useConfig();
@@ -62,8 +64,7 @@ export const AddressInput = forwardRef<HTMLInputElement, IAddressInputProps>((pr
 
     const currentChain = wagmiConfig.chains.find(({ id }) => id === processedChainId);
 
-    const inputRef = useRef<HTMLInputElement>(null);
-    const blurTimeout = useRef<NodeJS.Timeout>();
+    const inputRef = useRef<HTMLTextAreaElement>(null);
 
     const [displayMode, setDisplayMode] = useState<AddressInputDisplayMode>('address');
     const [isFocused, setIsFocused] = useState(false);
@@ -94,7 +95,7 @@ export const AddressInput = forwardRef<HTMLInputElement, IAddressInputProps>((pr
 
     const blockExplorerUrl = `${currentChain?.blockExplorers?.default.url}/address/${value}`;
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => onChange?.(event.target.value);
+    const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => onChange?.(event.target.value);
 
     const updateDisplayMode = (mode: AddressInputDisplayMode) => {
         setDisplayMode(mode);
@@ -109,16 +110,13 @@ export const AddressInput = forwardRef<HTMLInputElement, IAddressInputProps>((pr
 
     const handleClearClick = () => onChange?.(undefined);
 
-    const handleInputFocus = (event: FocusEvent<HTMLInputElement>) => {
-        clearTimeout(blurTimeout.current);
+    const handleInputFocus = (event: FocusEvent<HTMLTextAreaElement>) => {
         setIsFocused(true);
         onFocus?.(event);
     };
 
-    const handleInputBlur = (event: FocusEvent<HTMLInputElement>) => {
-        // Add timeout to set the focused state to false otherwise the onClick events from the buttons inside the
-        // input component won't be triggered as hidden when the input is not focused.
-        blurTimeout.current = setTimeout(() => setIsFocused(false), 150);
+    const handleInputBlur = (event: FocusEvent<HTMLTextAreaElement>) => {
+        setIsFocused(false);
         onBlur?.(event);
     };
 
@@ -166,29 +164,45 @@ export const AddressInput = forwardRef<HTMLInputElement, IAddressInputProps>((pr
         }
     }, [queryClient, ensAddress, value, ensNameQueryKey]);
 
+    // Resize textarea element on user input depending on the focus state of the textarea
+    useEffect(() => {
+        if (inputRef.current) {
+            // Needed to trigger a calculation for the new scrollHeight of the textarea
+            inputRef.current.style.height = 'auto';
+
+            const newHeight = isFocused ? `${inputRef.current.scrollHeight}px` : 'auto';
+            inputRef.current.style.height = newHeight;
+        }
+    }, [value, isFocused]);
+
+    const processedValue =
+        value != null && isAddress(value) && !isFocused ? addressUtils.truncateAddress(value) : value;
+
     return (
         <InputContainer {...containerProps}>
             <div className="ml-3 shrink-0">
                 {isLoading && <Spinner variant="neutral" size="lg" />}
                 {!isLoading && <Avatar />}
             </div>
-            <input
+            <textarea
                 type="text"
                 ref={mergeRefs([ref, inputRef])}
                 onFocus={handleInputFocus}
                 onBlur={handleInputBlur}
+                rows={1}
+                className={classNames('resize-none', { 'whitespace-normal': isFocused }, inputClassName)}
                 {...otherInputProps}
-                value={value}
+                value={processedValue}
                 onChange={handleInputChange}
             />
             <div className="mr-2 flex flex-row gap-2">
                 {ensName != null && displayMode === 'address' && !isFocused && (
-                    <Button variant="tertiary" size="sm" onClick={() => updateDisplayMode('ens')}>
+                    <Button variant="tertiary" size="sm" onMouseDown={() => updateDisplayMode('ens')}>
                         ENS
                     </Button>
                 )}
                 {ensAddress != null && displayMode === 'ens' && !isFocused && (
-                    <Button variant="tertiary" size="sm" onClick={() => updateDisplayMode('address')}>
+                    <Button variant="tertiary" size="sm" onMouseDown={() => updateDisplayMode('address')}>
                         0x..
                     </Button>
                 )}
@@ -197,7 +211,7 @@ export const AddressInput = forwardRef<HTMLInputElement, IAddressInputProps>((pr
                         <Button
                             variant="tertiary"
                             size="sm"
-                            onClick={() => clipboardUtils.copy(ensAddress ?? value)}
+                            onMouseDown={() => clipboardUtils.copy(ensAddress ?? value)}
                             iconLeft={IconType.COPY}
                         />
                         <Button
@@ -215,7 +229,7 @@ export const AddressInput = forwardRef<HTMLInputElement, IAddressInputProps>((pr
                     </Button>
                 )}
                 {value.length > 0 && isFocused && (
-                    <Button variant="tertiary" size="sm" onClick={handleClearClick}>
+                    <Button variant="tertiary" size="sm" onMouseDown={handleClearClick}>
                         Clear
                     </Button>
                 )}
