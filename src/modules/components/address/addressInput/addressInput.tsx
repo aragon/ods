@@ -1,10 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { forwardRef, useEffect, useRef, useState, type ChangeEvent } from 'react';
+import { forwardRef, useEffect, useRef, useState, type ChangeEvent, type FocusEvent } from 'react';
 import { isAddress, type Address } from 'viem';
-import { useEnsAddress, useEnsName, type UseEnsAddressParameters, type UseEnsNameParameters } from 'wagmi';
+import { useConfig, useEnsAddress, useEnsName, type UseEnsAddressParameters, type UseEnsNameParameters } from 'wagmi';
 import {
     Avatar,
     Button,
+    IconType,
     InputContainer,
     Spinner,
     clipboardUtils,
@@ -48,14 +49,24 @@ export type AddressInputDisplayMode = 'address' | 'ens';
 const isEnsName = (value?: string) => value != null && value.length > 6 && value.endsWith('.eth');
 
 export const AddressInput = forwardRef<HTMLInputElement, IAddressInputProps>((props, ref) => {
-    const { value = '', onChange, onAccept, wagmiConfig, chainId, ...otherProps } = props;
+    const { value = '', onChange, onAccept, wagmiConfig: wagmiConfigProps, chainId, ...otherProps } = props;
 
     const { containerProps, inputProps } = useInputProps(otherProps);
+    const { onFocus, onBlur, ...otherInputProps } = inputProps;
+
     const queryClient = useQueryClient();
+    const wagmiConfigProvider = useConfig();
+
+    const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
+    const processedChainId = chainId ?? wagmiConfig.chains[0].id;
+
+    const currentChain = wagmiConfig.chains.find(({ id }) => id === processedChainId);
 
     const inputRef = useRef<HTMLInputElement>(null);
+    const blurTimeout = useRef<NodeJS.Timeout>();
 
     const [displayMode, setDisplayMode] = useState<AddressInputDisplayMode>('address');
+    const [isFocused, setIsFocused] = useState(false);
 
     const {
         data: ensAddress,
@@ -81,18 +92,34 @@ export const AddressInput = forwardRef<HTMLInputElement, IAddressInputProps>((pr
 
     const isLoading = isEnsAddressLoading || isEnsNameLoading;
 
+    const blockExplorerUrl = `${currentChain?.blockExplorers?.default.url}/address/${value}`;
+
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => onChange?.(event.target.value);
 
     const updateDisplayMode = (mode: AddressInputDisplayMode) => {
         setDisplayMode(mode);
         const newInputValue = mode === 'address' ? ensAddress : ensName;
         onChange?.(newInputValue ?? '');
-        inputRef.current?.focus();
     };
 
     const handlePasteClick = async () => {
         const text = await clipboardUtils.paste();
         onChange?.(text);
+    };
+
+    const handleClearClick = () => onChange?.(undefined);
+
+    const handleInputFocus = (event: FocusEvent<HTMLInputElement>) => {
+        clearTimeout(blurTimeout.current);
+        setIsFocused(true);
+        onFocus?.(event);
+    };
+
+    const handleInputBlur = (event: FocusEvent<HTMLInputElement>) => {
+        // Add timeout to set the focused state to false otherwise the onClick events from the buttons inside the
+        // input component won't be triggered as hidden when the input is not focused.
+        blurTimeout.current = setTimeout(() => setIsFocused(false), 150);
+        onBlur?.(event);
     };
 
     // Update display mode depending on current input value
@@ -148,24 +175,50 @@ export const AddressInput = forwardRef<HTMLInputElement, IAddressInputProps>((pr
             <input
                 type="text"
                 ref={mergeRefs([ref, inputRef])}
-                {...inputProps}
+                onFocus={handleInputFocus}
+                onBlur={handleInputBlur}
+                {...otherInputProps}
                 value={value}
                 onChange={handleInputChange}
             />
             <div className="mr-2 flex flex-row gap-2">
-                {ensName != null && displayMode === 'address' && (
+                {ensName != null && displayMode === 'address' && !isFocused && (
                     <Button variant="tertiary" size="sm" onClick={() => updateDisplayMode('ens')}>
                         ENS
                     </Button>
                 )}
-                {ensAddress != null && displayMode === 'ens' && (
+                {ensAddress != null && displayMode === 'ens' && !isFocused && (
                     <Button variant="tertiary" size="sm" onClick={() => updateDisplayMode('address')}>
                         0x..
                     </Button>
                 )}
-                <Button variant="tertiary" size="sm" onClick={handlePasteClick}>
-                    Paste
-                </Button>
+                {(ensAddress != null || isAddress(value)) && !isFocused && (
+                    <>
+                        <Button
+                            variant="tertiary"
+                            size="sm"
+                            onClick={() => clipboardUtils.copy(ensAddress ?? value)}
+                            iconLeft={IconType.COPY}
+                        />
+                        <Button
+                            variant="tertiary"
+                            size="sm"
+                            href={blockExplorerUrl}
+                            target="_blank"
+                            iconLeft={IconType.LINK_EXTERNAL}
+                        />
+                    </>
+                )}
+                {value.length === 0 && (
+                    <Button variant="tertiary" size="sm" onClick={handlePasteClick}>
+                        Paste
+                    </Button>
+                )}
+                {value.length > 0 && isFocused && (
+                    <Button variant="tertiary" size="sm" onClick={handleClearClick}>
+                        Clear
+                    </Button>
+                )}
             </div>
         </InputContainer>
     );

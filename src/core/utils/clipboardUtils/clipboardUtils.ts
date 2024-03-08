@@ -1,4 +1,4 @@
-export interface IPasteParams {
+export interface IClipboardUtilsParams {
     /**
      * Callback called on paste error.
      */
@@ -6,11 +6,17 @@ export interface IPasteParams {
 }
 
 class ClipboardUtils {
-    copy = () => {
-        //
+    copy = async (value: string, params: IClipboardUtilsParams = {}) => {
+        const { onError } = params;
+
+        try {
+            await navigator.clipboard.writeText(value);
+        } catch (error: unknown) {
+            onError?.(error);
+        }
     };
 
-    paste = async (params: IPasteParams = {}): Promise<string> => {
+    paste = async (params: IClipboardUtilsParams = {}): Promise<string> => {
         const { onError } = params;
         let clipboardText = '';
 
