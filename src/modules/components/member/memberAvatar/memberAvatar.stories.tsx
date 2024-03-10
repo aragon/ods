@@ -20,21 +20,4 @@ type Story = StoryObj<typeof MemberAvatar>;
  */
 export const Default: Story = {};
 
-/**
- * Usage example of the MemberAvatar component with 0x address that does not return usable avatar URL.
- */
-export const WithENSNameAvatarUnresolved: Story = {
-    args: {
-        ensNameOrAddress: '0x38958f8b2aE828ECa1E2a30C8e931d224CAda075',
-    },
-};
-/**
- * Usage example of the MemberAvatar component with ENS name that returns usable avatar URL.
- */
-export const WithENSNameAvatarResolved: Story = {
-    args: {
-        ensNameOrAddress: 'sio.eth',
-    },
-};
-
 export default meta;
