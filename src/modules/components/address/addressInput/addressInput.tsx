@@ -63,9 +63,14 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
     const processedChainId = chainId ?? wagmiConfig.chains[0].id;
 
+    const currentChain = wagmiConfig.chains.find(({ id }) => id === processedChainId);
+    const blockExplorerUrl = `${currentChain?.blockExplorers?.default.url}/address/${value}`;
+
+    const supportEnsNames = currentChain?.contracts?.ensRegistry != null;
+
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
-    const [debouncedValue, setDebouncedValue] = useDebouncedValue(value, { delay: 500 });
+    const [debouncedValue, setDebouncedValue] = useDebouncedValue(value, { delay: 300 });
     const [isFocused, setIsFocused] = useState(false);
 
     const {
@@ -73,10 +78,10 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         isFetching: isEnsAddressLoading,
         queryKey: ensAddressQueryKey,
     } = useEnsAddress({
-        name: normalize(debouncedValue),
+        name: isEnsName(debouncedValue) ? normalize(debouncedValue) : undefined,
         config: wagmiConfig,
         chainId,
-        query: { enabled: isEnsName(debouncedValue) },
+        query: { enabled: supportEnsNames && isEnsName(debouncedValue) },
     });
 
     const {
@@ -87,20 +92,17 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         address: debouncedValue as Address,
         config: wagmiConfig,
         chainId,
-        query: { enabled: isAddress(debouncedValue, { strict: false }) },
+        query: { enabled: supportEnsNames && isAddress(debouncedValue, { strict: false }) },
     });
 
     const displayMode = isEnsName(value) ? 'ens' : 'address';
 
     const isLoading = isEnsAddressLoading || isEnsNameLoading;
 
-    const currentChain = wagmiConfig.chains.find(({ id }) => id === processedChainId);
-    const blockExplorerUrl = `${currentChain?.blockExplorers?.default.url}/address/${value}`;
-
     const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => onChange?.(event.target.value);
 
     const toggleDisplayMode = () => {
-        const newInputValue = displayMode === 'address' ? ensAddress : ensName;
+        const newInputValue = displayMode === 'address' ? ensName : ensAddress;
         onChange?.(newInputValue ?? '');
 
         // Update the debounced value without waiting for the debounce timeout to avoid delays on displaying the
@@ -194,7 +196,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                 onBlur={handleInputBlur}
                 rows={1}
                 className={classNames(
-                    'resize-none whitespace-normal',
+                    '!md:px-4 resize-none whitespace-normal !px-3',
                     { 'whitespace-normal': isFocused },
                     inputClassName,
                 )}
@@ -209,30 +211,30 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                     </Button>
                 )}
                 {(ensAddress != null || isAddress(value, { strict: false })) && !isFocused && (
-                    <Button
-                        variant="tertiary"
-                        size="sm"
-                        href={blockExplorerUrl}
-                        target="_blank"
-                        iconLeft={IconType.LINK_EXTERNAL}
-                    />
+                    <>
+                        <Button
+                            variant="tertiary"
+                            size="sm"
+                            href={blockExplorerUrl}
+                            target="_blank"
+                            iconLeft={IconType.LINK_EXTERNAL}
+                        />
+                        <Button
+                            variant="tertiary"
+                            size="sm"
+                            onMouseDown={() => clipboardUtils.copy(value)}
+                            iconLeft={IconType.COPY}
+                        />
+                    </>
                 )}
-                {value.length > 0 && !isFocused && (
-                    <Button
-                        variant="tertiary"
-                        size="sm"
-                        onMouseDown={() => clipboardUtils.copy(value)}
-                        iconLeft={IconType.COPY}
-                    />
+                {value.length > 0 && ensAddress == null && !isAddress(value, { strict: false }) && (
+                    <Button variant="tertiary" size="sm" onMouseDown={handleClearClick}>
+                        Clear
+                    </Button>
                 )}
                 {value.length === 0 && (
                     <Button variant="tertiary" size="sm" onClick={handlePasteClick}>
                         Paste
-                    </Button>
-                )}
-                {value.length > 0 && isFocused && (
-                    <Button variant="tertiary" size="sm" onMouseDown={handleClearClick}>
-                        Clear
                     </Button>
                 )}
             </div>
