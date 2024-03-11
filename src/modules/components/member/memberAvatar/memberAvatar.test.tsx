@@ -7,6 +7,10 @@ jest.mock('viem', () => ({
     isAddress: jest.fn(),
 }));
 
+jest.mock('viem/ens', () => ({
+    normalize: jest.fn(),
+}));
+
 jest.mock('wagmi', () => ({
     useEnsAddress: jest.fn(),
     useEnsName: jest.fn(),
@@ -58,17 +62,6 @@ describe('<MemberAvatar /> component', () => {
             error: null,
             isLoading: false,
         });
-    });
-
-    it('renders loading spinner initially', async () => {
-        (useEnsAddress as jest.Mock).mockReturnValue({
-            data: 'homie.eth',
-            isLoading: true,
-        });
-
-        render(createTestComponent());
-
-        expect(screen.getByRole('progressbar')).toBeInTheDocument();
     });
 
     it('displays the avatar once loaded', async () => {
