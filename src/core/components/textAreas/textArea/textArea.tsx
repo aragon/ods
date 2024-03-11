@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { forwardRef } from 'react';
-import { InputContainer, type IInputComponentProps } from '../../input';
-import { useInputProps } from '../../input/hooks';
+import { InputContainer, useInputProps, type IInputComponentProps } from '../../input';
 
 export interface ITextAreaProps extends IInputComponentProps<HTMLTextAreaElement> {}
 
