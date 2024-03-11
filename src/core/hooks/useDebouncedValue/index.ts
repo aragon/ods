@@ -1,1 +1,1 @@
-export { useDebouncedValue, type IUseDebouncedValueParams } from './useDebouncedValue';
+export { useDebouncedValue, type IUseDebouncedValueParams, type IUseDebouncedValueResult } from './useDebouncedValue';

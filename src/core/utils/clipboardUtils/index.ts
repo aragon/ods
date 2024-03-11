@@ -1,1 +1,1 @@
-export { clipboardUtils } from './clipboardUtils';
+export { clipboardUtils, type IClipboardUtilsParams } from './clipboardUtils';
