@@ -18,7 +18,7 @@ import { useInputProps } from '../../../../core/components/input/hooks';
 import type { IWeb3ComponentProps } from '../../../types';
 import { addressUtils } from '../../../utils';
 
-export interface IAddressInputValue {
+export interface IAddressInputResolvedValue {
     /**
      * Address value.
      */
@@ -44,10 +44,8 @@ export interface IAddressInputProps
      * Callback called with the address value object when the user input is valid. The value will be set to undefined
      * when the user input is not a valid address nor a valid ens name.
      */
-    onAccept?: (value?: IAddressInputValue) => void;
+    onAccept?: (value?: IAddressInputResolvedValue) => void;
 }
-
-export type AddressInputDisplayMode = 'address' | 'ens';
 
 const isEnsName = (value?: string) => value != null && value.length > 6 && value.endsWith('.eth');
 
@@ -62,8 +60,6 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
     const processedChainId = chainId ?? wagmiConfig.chains[0].id;
-
-    const currentChain = wagmiConfig.chains.find(({ id }) => id === processedChainId);
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -92,14 +88,17 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         query: { enabled: isAddress(debouncedValue) },
     });
 
+    const displayMode = isEnsName(value) ? 'ens' : 'address';
+
     const isLoading = isEnsAddressLoading || isEnsNameLoading;
 
+    const currentChain = wagmiConfig.chains.find(({ id }) => id === processedChainId);
     const blockExplorerUrl = `${currentChain?.blockExplorers?.default.url}/address/${value}`;
 
     const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => onChange?.(event.target.value);
 
-    const updateDisplayMode = (mode: AddressInputDisplayMode) => {
-        const newInputValue = mode === 'address' ? ensAddress : ensName;
+    const toggleDisplayMode = () => {
+        const newInputValue = displayMode === 'address' ? ensAddress : ensName;
         onChange?.(newInputValue ?? '');
 
         // Update the debounced value without waiting for the debounce timeout to avoid delays on displaying the
@@ -173,8 +172,6 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         }
     }, [value, isFocused]);
 
-    const displayMode = isEnsName(value) ? 'ens' : 'address';
-
     const processedValue =
         value != null && isAddress(value) && !isFocused ? addressUtils.truncateAddress(value) : value;
 
@@ -200,24 +197,9 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                 onChange={handleInputChange}
             />
             <div className="mr-2 flex flex-row gap-2">
-                {ensName != null && displayMode === 'address' && !isFocused && (
-                    <Button
-                        variant="tertiary"
-                        size="sm"
-                        onMouseDown={() => updateDisplayMode('ens')}
-                        className="min-w-min"
-                    >
-                        ENS
-                    </Button>
-                )}
-                {ensAddress != null && displayMode === 'ens' && !isFocused && (
-                    <Button
-                        variant="tertiary"
-                        size="sm"
-                        onMouseDown={() => updateDisplayMode('address')}
-                        className="min-w-min"
-                    >
-                        0x...
+                {(ensName != null || ensAddress != null) && !isFocused && (
+                    <Button variant="tertiary" size="sm" onMouseDown={toggleDisplayMode} className="min-w-min">
+                        {displayMode === 'ens' ? '0x...' : 'ENS'}
                     </Button>
                 )}
                 {(ensAddress != null || isAddress(value)) && !isFocused && (
