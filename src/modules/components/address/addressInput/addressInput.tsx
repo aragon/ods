@@ -11,6 +11,7 @@ import {
     Spinner,
     clipboardUtils,
     mergeRefs,
+    useDebouncedValue,
     type IInputComponentProps,
 } from '../../../../core';
 import { useInputProps } from '../../../../core/components/input/hooks';
@@ -66,7 +67,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
-    const [displayMode, setDisplayMode] = useState<AddressInputDisplayMode>('address');
+    const [debouncedValue, setDebouncedValue] = useDebouncedValue(value, { delay: 500 });
     const [isFocused, setIsFocused] = useState(false);
 
     const {
@@ -74,10 +75,10 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         isFetching: isEnsAddressLoading,
         queryKey: ensAddressQueryKey,
     } = useEnsAddress({
-        name: value,
+        name: debouncedValue,
         config: wagmiConfig,
         chainId,
-        query: { enabled: isEnsName(value) },
+        query: { enabled: isEnsName(debouncedValue) },
     });
 
     const {
@@ -85,10 +86,10 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         isFetching: isEnsNameLoading,
         queryKey: ensNameQueryKey,
     } = useEnsName({
-        address: value as Address,
+        address: debouncedValue as Address,
         config: wagmiConfig,
         chainId,
-        query: { enabled: isAddress(value) },
+        query: { enabled: isAddress(debouncedValue) },
     });
 
     const isLoading = isEnsAddressLoading || isEnsNameLoading;
@@ -98,9 +99,12 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => onChange?.(event.target.value);
 
     const updateDisplayMode = (mode: AddressInputDisplayMode) => {
-        setDisplayMode(mode);
         const newInputValue = mode === 'address' ? ensAddress : ensName;
         onChange?.(newInputValue ?? '');
+
+        // Update the debounced value without waiting for the debounce timeout to avoid delays on displaying the
+        // ENS/Address buttons because of delayed queries
+        setDebouncedValue(newInputValue ?? '');
     };
 
     const handlePasteClick = async () => {
@@ -120,12 +124,6 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         onBlur?.(event);
     };
 
-    // Update display mode depending on current input value
-    useEffect(() => {
-        const displayMode = isEnsName(value) ? 'ens' : 'address';
-        setDisplayMode(displayMode);
-    }, [value]);
-
     // Trigger onChange property when value is a valid address or ENS
     useEffect(() => {
         if (isLoading) {
@@ -134,15 +132,15 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
         if (ensAddress) {
             // User input is a valid ENS name
-            onAccept?.({ address: ensAddress, name: value });
-        } else if (isAddress(value)) {
+            onAccept?.({ address: ensAddress, name: debouncedValue });
+        } else if (isAddress(debouncedValue)) {
             // User input is a valid address with or without a ENS name linked to it
-            onAccept?.({ address: value, name: ensName ?? undefined });
+            onAccept?.({ address: debouncedValue, name: ensName ?? undefined });
         } else {
             // User input is not a valid address nor ENS name
             onAccept?.(undefined);
         }
-    }, [ensAddress, ensName, value, isLoading, onAccept]);
+    }, [ensAddress, ensName, debouncedValue, isLoading, onAccept]);
 
     // Update react-query cache to avoid fetching the ENS address when the ENS name has been successfully resolved.
     // E.g. user types 0x..123 which is resolved into test.eth, therefore set test.eth as resolved ENS name of 0x..123
@@ -150,9 +148,9 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         if (ensName) {
             const queryKey = [...ensAddressQueryKey];
             (queryKey[1] as UseEnsAddressParameters).name = ensName;
-            queryClient.setQueryData(queryKey, value);
+            queryClient.setQueryData(queryKey, debouncedValue);
         }
-    }, [queryClient, ensName, value, ensAddressQueryKey]);
+    }, [queryClient, ensName, debouncedValue, ensAddressQueryKey]);
 
     // Update react-query cache to avoid fetching the ENS name when the ENS address has been successfully resolved.
     // E.g. user types test.eth which is resolved into 0x..123, therefore set 0x..123 as resolved ENS address of test.eth
@@ -160,9 +158,9 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         if (ensAddress) {
             const queryKey = [...ensNameQueryKey];
             (queryKey[1] as UseEnsNameParameters).address = ensAddress;
-            queryClient.setQueryData(queryKey, value);
+            queryClient.setQueryData(queryKey, debouncedValue);
         }
-    }, [queryClient, ensAddress, value, ensNameQueryKey]);
+    }, [queryClient, ensAddress, debouncedValue, ensNameQueryKey]);
 
     // Resize textarea element on user input depending on the focus state of the textarea
     useEffect(() => {
@@ -170,10 +168,12 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             // Needed to trigger a calculation for the new scrollHeight of the textarea
             inputRef.current.style.height = 'auto';
 
-            const newHeight = isFocused ? `${inputRef.current.scrollHeight}px` : 'auto';
+            const newHeight = `${inputRef.current.scrollHeight}px`;
             inputRef.current.style.height = newHeight;
         }
     }, [value, isFocused]);
+
+    const displayMode = isEnsName(value) ? 'ens' : 'address';
 
     const processedValue =
         value != null && isAddress(value) && !isFocused ? addressUtils.truncateAddress(value) : value;
@@ -190,20 +190,34 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                 onFocus={handleInputFocus}
                 onBlur={handleInputBlur}
                 rows={1}
-                className={classNames('resize-none', { 'whitespace-normal': isFocused }, inputClassName)}
+                className={classNames(
+                    'resize-none whitespace-normal',
+                    { 'whitespace-normal': isFocused },
+                    inputClassName,
+                )}
                 {...otherInputProps}
                 value={processedValue}
                 onChange={handleInputChange}
             />
             <div className="mr-2 flex flex-row gap-2">
                 {ensName != null && displayMode === 'address' && !isFocused && (
-                    <Button variant="tertiary" size="sm" onMouseDown={() => updateDisplayMode('ens')}>
+                    <Button
+                        variant="tertiary"
+                        size="sm"
+                        onMouseDown={() => updateDisplayMode('ens')}
+                        className="min-w-min"
+                    >
                         ENS
                     </Button>
                 )}
                 {ensAddress != null && displayMode === 'ens' && !isFocused && (
-                    <Button variant="tertiary" size="sm" onMouseDown={() => updateDisplayMode('address')}>
-                        0x..
+                    <Button
+                        variant="tertiary"
+                        size="sm"
+                        onMouseDown={() => updateDisplayMode('address')}
+                        className="min-w-min"
+                    >
+                        0x...
                     </Button>
                 )}
                 {(ensAddress != null || isAddress(value)) && !isFocused && (
