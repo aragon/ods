@@ -1,9 +1,9 @@
 import * as blockies from 'blockies-ts';
-import classNames from 'classnames';
 import type React from 'react';
-import { isAddress, type Hash } from 'viem';
+import { getAddress, isAddress, type Hash } from 'viem';
+import { normalize } from 'viem/ens';
 import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
-import { Avatar, Spinner, type IAvatarProps } from '../../../../core';
+import { Avatar, type IAvatarProps } from '../../../../core';
 
 export interface IMemberAvatarProps extends Omit<IAvatarProps, 'fallback'> {
     /**
@@ -22,42 +22,42 @@ export interface IMemberAvatarProps extends Omit<IAvatarProps, 'fallback'> {
 
 export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
     const { ensName, address, avatarSrc, size = 'sm', className, ...otherProps } = props;
-    const isValidAddress = address ? isAddress(address) : false;
-    const isValidENSName = ensName ? ensName.length >= 7 && ensName.endsWith('.eth') : false;
+    const isValidAddress = address != null && isAddress(address);
+    const isValidENSName = ensName != null && ensName.length >= 7 && ensName.endsWith('.eth');
 
     const { data: ensAddressData, isLoading: addressLoading } = useEnsAddress({
         name: ensName,
-        query: { enabled: isValidENSName },
+        query: { enabled: isValidENSName && !isValidAddress && avatarSrc == null },
     });
     const resolvedAddress = isValidAddress ? address : ensAddressData;
 
     const { data: ensNameData, isLoading: nameLoading } = useEnsName({
         address: resolvedAddress as Hash,
-        query: { enabled: !!resolvedAddress },
+        query: { enabled: resolvedAddress != null && avatarSrc == null },
     });
     const resolvedName = isValidENSName ? ensName : ensNameData;
 
     const { data: ensAvatarData, isLoading: avatarLoading } = useEnsAvatar({
-        name: resolvedName as string,
-        query: { enabled: !!resolvedName },
+        name: normalize(resolvedName as string),
+        query: { enabled: resolvedName != null && avatarSrc == null },
     });
-    const resolvedAvatarSrc = avatarSrc ? avatarSrc : ensAvatarData;
+    const resolvedAvatarSrc = avatarSrc ?? ensAvatarData ?? undefined;
 
-    const blockiesSrc = resolvedAddress ? blockies.create({ seed: resolvedAddress }).toDataURL() : undefined;
-
-    const containerSizeClass = {
-        sm: 'w-6 h-6',
-        md: 'w-10 h-10',
-        lg: 'w-16 h-16',
-    }[size];
+    const blockiesSrc = resolvedAddress
+        ? blockies.create({ seed: getAddress(resolvedAddress) }).toDataURL()
+        : undefined;
 
     return (
-        <div className={classNames('flex shrink-0 items-center justify-center', containerSizeClass)}>
-            {avatarLoading || addressLoading || nameLoading ? (
-                <Spinner size={size} />
-            ) : (
-                <Avatar size={size} src={resolvedAvatarSrc ?? blockiesSrc} className={className} {...otherProps} />
-            )}
-        </div>
+        <Avatar
+            size={size}
+            src={resolvedAvatarSrc}
+            fallback={
+                blockiesSrc && !avatarLoading && !nameLoading && !addressLoading ? (
+                    <img className="size-full" src={blockiesSrc} alt="Blockies avatar" />
+                ) : undefined
+            }
+            className={className}
+            {...otherProps}
+        />
     );
 };
