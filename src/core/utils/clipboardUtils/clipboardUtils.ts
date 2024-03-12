@@ -6,7 +6,7 @@ export interface IClipboardUtilsParams {
 }
 
 class ClipboardUtils {
-    copy = async (value: string, params: IClipboardUtilsParams = {}) => {
+    copy = async (value: string, params: IClipboardUtilsParams = {}): Promise<void> => {
         const { onError } = params;
 
         try {
