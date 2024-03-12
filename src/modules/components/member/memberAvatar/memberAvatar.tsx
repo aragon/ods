@@ -1,9 +1,10 @@
 import * as blockies from 'blockies-ts';
 import type React from 'react';
-import { getAddress, isAddress, type Hash } from 'viem';
+import { getAddress, type Hash } from 'viem';
 import { normalize } from 'viem/ens';
 import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
 import { Avatar, type IAvatarProps } from '../../../../core';
+import { addressUtils, ensUtils } from '../../../utils';
 
 export interface IMemberAvatarProps extends Omit<IAvatarProps, 'fallback'> {
     /**
@@ -22,8 +23,9 @@ export interface IMemberAvatarProps extends Omit<IAvatarProps, 'fallback'> {
 
 export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
     const { ensName, address, avatarSrc, ...otherProps } = props;
-    const isValidAddress = address != null && isAddress(address);
-    const isValidENSName = ensName != null && ensName.length >= 7 && ensName.endsWith('.eth');
+
+    const isValidAddress = addressUtils.isAddress(address);
+    const isValidENSName = ensUtils.isEnsName(ensName);
 
     const { data: ensAddressData, isLoading: addressLoading } = useEnsAddress({
         name: ensName,
@@ -47,11 +49,13 @@ export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
         ? blockies.create({ seed: getAddress(resolvedAddress), scale: 8, size: 8 }).toDataURL()
         : undefined;
 
+    const isLoading = avatarLoading || nameLoading || addressLoading;
+
     return (
         <Avatar
             src={resolvedAvatarSrc}
             fallback={
-                blockiesSrc && !avatarLoading && !nameLoading && !addressLoading ? (
+                blockiesSrc && !isLoading ? (
                     <img className="size-full" src={blockiesSrc} alt="Blockies avatar" />
                 ) : undefined
             }
