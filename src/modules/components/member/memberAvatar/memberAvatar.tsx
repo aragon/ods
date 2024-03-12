@@ -21,7 +21,7 @@ export interface IMemberAvatarProps extends Omit<IAvatarProps, 'fallback'> {
 }
 
 export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
-    const { ensName, address, avatarSrc, size = 'sm', className, ...otherProps } = props;
+    const { ensName, address, avatarSrc, ...otherProps } = props;
     const isValidAddress = address != null && isAddress(address);
     const isValidENSName = ensName != null && ensName.length >= 7 && ensName.endsWith('.eth');
 
@@ -38,25 +38,23 @@ export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
     const resolvedName = isValidENSName ? ensName : ensNameData;
 
     const { data: ensAvatarData, isLoading: avatarLoading } = useEnsAvatar({
-        name: normalize(resolvedName as string),
+        name: resolvedName ? normalize(resolvedName) : undefined,
         query: { enabled: resolvedName != null && avatarSrc == null },
     });
     const resolvedAvatarSrc = avatarSrc ?? ensAvatarData ?? undefined;
 
     const blockiesSrc = resolvedAddress
-        ? blockies.create({ seed: getAddress(resolvedAddress) }).toDataURL()
+        ? blockies.create({ seed: getAddress(resolvedAddress), scale: 8, size: 8 }).toDataURL()
         : undefined;
 
     return (
         <Avatar
-            size={size}
             src={resolvedAvatarSrc}
             fallback={
                 blockiesSrc && !avatarLoading && !nameLoading && !addressLoading ? (
                     <img className="size-full" src={blockiesSrc} alt="Blockies avatar" />
                 ) : undefined
             }
-            className={className}
             {...otherProps}
         />
     );
