@@ -18,7 +18,7 @@ class AddressUtils {
     isAddress = (address = '', options: IIsAddressParams = { strict: false }) => isAddress(address, options);
 
     /**
-     * Truncates the input address by displaying the fist and last 4 characters.
+     * Truncates the input address by displaying the first and last 4 characters.
      * @param address The address to truncate
      * @returns The truncated address when the address input is valid, the address input as is otherwise.
      */
