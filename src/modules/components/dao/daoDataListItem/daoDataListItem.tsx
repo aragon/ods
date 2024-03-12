@@ -37,7 +37,7 @@ export const DaoDataListItem: React.FC<IDaoDataListItemProps> = (props) => {
                         <span className="capitalize">{network}</span>
                         <Icon icon={IconType.BLOCKCHAIN_BLOCKCHAIN} />
                     </div>
-                    <div className="flex items-center gap-2  text-sm md:text-base">
+                    <div className="flex items-center gap-2 text-sm md:text-base">
                         <span className="capitalize">{plugin}</span>
                         <Icon icon={IconType.APP_MEMBERS} />
                     </div>
