@@ -19,7 +19,7 @@ jest.mock('wagmi', () => ({
     useEnsAvatar: jest.fn(),
 }));
 
-describe('<MemberAvatar /> component with props', () => {
+describe('<MemberAvatar /> component', () => {
     const createTestComponent = (props?: Partial<IMemberAvatarProps>) => {
         const completeProps: IMemberAvatarProps = { ...props };
 
@@ -54,7 +54,7 @@ describe('<MemberAvatar /> component with props', () => {
         (useEnsAvatar as jest.Mock).mockReturnValue({ data: null, isLoading: false });
     });
 
-    it('should display the avatar directly from avatarSrc prop and ensure no data fetching is attempted', async () => {
+    it('displays the avatar directly from avatarSrc prop and ensure no data fetching is attempted', async () => {
         const avatarSrc = 'directAvatarUrl';
 
         render(createTestComponent({ avatarSrc }));
@@ -62,7 +62,7 @@ describe('<MemberAvatar /> component with props', () => {
         await waitFor(() => expect(screen.getByRole('img')).toHaveAttribute('src', avatarSrc));
     });
 
-    it('should display avatar for a valid ENS name and call related hooks with correct parameters', async () => {
+    it('displays avatar for a valid ENS name and call related hooks with correct parameters', async () => {
         const ensName = 'vitalik.eth';
         const expectedAvatarUrl = 'ensAvatarUrl';
 
@@ -75,7 +75,7 @@ describe('<MemberAvatar /> component with props', () => {
         expect(useEnsAvatar).toHaveBeenCalledWith(expect.objectContaining({ name: normalize(ensName) }));
     });
 
-    it('should display avatar for a valid address and call related hooks with correct parameters', async () => {
+    it('displays avatar for a valid address and call related hooks with correct parameters', async () => {
         const address = '0x028F5Ca0b3A3A14e44AB8af660B53D1e428457e7';
         const expectedAvatarUrl = 'addressAvatarUrl';
 
