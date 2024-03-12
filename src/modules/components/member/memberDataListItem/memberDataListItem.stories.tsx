@@ -20,23 +20,38 @@ type Story = StoryObj<typeof MemberDataListItem>;
  */
 export const Default: Story = {};
 
+/**
+ * Example of the MemberDataList module component with fully loaded props and token voting.
+ */
 export const Loaded: Story = {
     args: {
         isDelegate: true,
-        isMultiSig: false,
-        avatar: 'https://avatars.githubusercontent.com/u/1',
-        userHandle: 'replyguy.eth',
-        delegationCount: 1,
-        votingPower: 420690,
+        ensName: 'vitalik.eth',
+        delegationCount: 9,
+        votingPower: 13370,
+        handleClick: () => {
+            alert('<MemberDataListItem /> clicked');
+        },
     },
 };
 
-export const Multsig: Story = {
+export const Grid: Story = {
     args: {
-        isMultiSig: true,
-        avatar: 'https://avatars.githubusercontent.com/u/1',
-        userHandle: 'replyguy.eth',
+        isDelegate: true,
+        ensName: 'makeethereumcypherpunkagain.eth',
+        delegationCount: 9,
+        votingPower: 13370,
+        handleClick: () => {
+            alert('<MemberDataListItem /> clicked');
+        },
     },
+    render: (args) => (
+        <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-2">
+            {Array.from({ length: 5 }, (_, index) => (
+                <MemberDataListItem key={index} {...args} />
+            ))}
+        </div>
+    ),
 };
 
 export default meta;

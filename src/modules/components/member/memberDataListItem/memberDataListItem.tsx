@@ -1,71 +1,101 @@
 import classNames from 'classnames';
-import { Hash, isAddress } from 'viem';
-import { useEnsName } from 'wagmi';
+import { useEffect, useState } from 'react';
+import { getAddress, isAddress, type Hash } from 'viem';
+import { useEnsAddress, useEnsName } from 'wagmi';
 import { Card, Heading, NumberFormat, Tag, formatterUtils } from '../../../../core';
 import { truncateEthAddress } from '../../../../utils/truncateEthereumAddress';
-import { IMemberAvatarProps, MemberAvatar } from '../memberAvatar';
+import { MemberAvatar, type IMemberAvatarProps } from '../memberAvatar';
 
-export interface IMemberDataListProps extends IMemberAvatarProps {
-    /**
-     * Whether the DAO is a multi-sig or not.
-     */
-    isMultiSig?: boolean;
+export interface IMemberDataListProps extends Omit<IMemberAvatarProps, 'size' | 'responsiveSize'> {
     /**
      * Whether the member is a delegate of current user or not.
      */
     isDelegate?: boolean;
     /**
-     * The number of delegations the member has from other members. @default 0
+     * Whether the member card is the current user or not.
+     */
+    isCurrentUser?: boolean;
+    /**
+     * The number of delegations the member has from other members.
      */
     delegationCount?: number;
     /**
-     * The total voting power of the member. @default 0
+     * The total voting power of the member.
      */
     votingPower?: number;
     /**
      * The callback to be called when the component is clicked.
      */
-    onClick?: () => void;
+    handleClick?: () => void;
 }
 
 export const MemberDataListItem: React.FC<IMemberDataListProps> = (props) => {
-    const { isDelegate, isMultiSig, avatarSrc, ensName, address, onClick, delegationCount, votingPower } = props;
-    const cardClasses = classNames({
-        'cursor-pointer': !!onClick,
-    });
+    const { isDelegate, isCurrentUser, avatarSrc, ensName, address, handleClick, delegationCount, votingPower } = props;
+    const [memberError, setMemberError] = useState(false);
+
+    const isValidAddress = address != null && isAddress(address);
+    const isValidENSName = ensName != null && ensName.length >= 7 && ensName.endsWith('.eth');
 
     const { data: ensNameData } = useEnsName({
         address: address as Hash,
-        query: { enabled: !!address && address !== '' && isAddress(address) },
+        query: { enabled: isValidAddress },
     });
 
+    const { data: ensAddressData } = useEnsAddress({
+        name: ensName,
+        query: { enabled: isValidENSName },
+    });
+
+    useEffect(() => {
+        if (ensAddressData && isValidAddress && getAddress(address) !== ensAddressData) {
+            setMemberError(true);
+        } else {
+            setMemberError(false);
+        }
+    }, [address, ensAddressData, isValidAddress]);
+
     const resolvedUserHandle = (): string | undefined => {
-        if (ensName && ensName !== '') {
-            return ensName;
+        if (memberError) {
+            return undefined;
         }
         if (ensNameData) {
             return ensNameData;
         }
-        if (address && isAddress(address)) {
+        if (ensName != null && ensAddressData != null) {
+            return ensName;
+        }
+        if (isValidAddress && ensNameData == null) {
             return address;
         }
         return undefined;
     };
 
     return (
-        <Card onClick={onClick} className={cardClasses}>
-            <div className="mx-6 flex w-[169.5px] flex-col items-start space-y-3 py-6 md:w-[262px]">
+        <Card
+            onClick={handleClick}
+            className={classNames({
+                'cursor-pointer': !!handleClick,
+            })}
+        >
+            <div className="mx-6 flex min-w-44 flex-col items-start space-y-3 py-6 md:min-w-52">
                 <div className="flex w-full items-center justify-between">
-                    <MemberAvatar size="sm" ensName={ensName} address={address} avatarSrc={avatarSrc} />
-                    {isDelegate && <Tag variant="info" label="Your Delegate" />}
+                    <MemberAvatar
+                        size="sm"
+                        ensName={!memberError ? ensName : undefined}
+                        address={!memberError ? address : undefined}
+                        avatarSrc={!memberError ? avatarSrc : undefined}
+                        responsiveSize={{ md: 'md' }}
+                    />
+                    {isDelegate && !isCurrentUser && <Tag variant="info" label="Your Delegate" />}
+                    {isCurrentUser && <Tag variant="neutral" label="You" />}
                 </div>
 
-                <Heading className="inline-block w-[169.5px] truncate md:w-[262px]" size="h2" as="h1">
+                <Heading className="inline-block w-full truncate" size="h2" as="h1">
                     {truncateEthAddress(resolvedUserHandle()) ?? 'Unknown'}
                 </Heading>
                 <div className="space-y-2">
                     <Heading size="h5" as="h2" className="min-h-[18px] !text-neutral-500 md:min-h-5">
-                        {delegationCount && delegationCount > 0 && !isMultiSig ? (
+                        {delegationCount ? (
                             <>
                                 <span className="text-neutral-800">
                                     {formatterUtils.formatNumber(delegationCount, {
@@ -79,10 +109,12 @@ export const MemberDataListItem: React.FC<IMemberDataListProps> = (props) => {
                         )}
                     </Heading>
                     <Heading size="h5" as="h2" className="min-h-[18px] !text-neutral-500 md:min-h-5">
-                        {votingPower && votingPower > 0 && !isMultiSig ? (
+                        {votingPower ? (
                             <>
                                 <span className="text-neutral-800">
-                                    {formatterUtils.formatNumber(votingPower, { format: NumberFormat.GENERIC_SHORT })}
+                                    {formatterUtils.formatNumber(votingPower, {
+                                        format: NumberFormat.GENERIC_SHORT,
+                                    })}
                                 </span>
                                 {` Voting Power`}
                             </>

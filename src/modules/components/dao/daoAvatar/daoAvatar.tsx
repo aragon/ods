@@ -1,12 +1,17 @@
 import classNames from 'classnames';
 import type React from 'react';
-import { Avatar, type IAvatarProps } from '../../../../core';
+import { Avatar, type AvatarSize, type IAvatarProps } from '../../../../core';
 
 export interface IDaoAvatarProps extends Omit<IAvatarProps, 'fallback'> {
     /**
      * Name of the DAO
      */
     name?: string;
+    /**
+     * The size of the avatar.
+     * @default lg
+     */
+    size?: AvatarSize;
 }
 
 export const DaoAvatar: React.FC<IDaoAvatarProps> = (props) => {
