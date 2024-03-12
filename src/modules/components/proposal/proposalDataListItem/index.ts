@@ -5,6 +5,9 @@ export const ProposalDataListItem = {
 };
 
 export {
+    type IApprovalThresholdResult,
+    type IMajorityVotingResult,
     type IProposalDataListItemStructureProps,
-    type ProposalStatus as ProposalDataListItemStatusType,
-} from './proposalDataListItemStructure/proposalDataListItemStructureApi';
+    type ProposalStatus,
+    type ProposalType,
+} from './proposalDataListItemStructure';
