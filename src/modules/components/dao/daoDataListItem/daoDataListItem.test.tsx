@@ -15,16 +15,16 @@ describe('<DaoDataListItem /> component', () => {
 
     it('renders ensName and the daoName (in uppercase) as the avatar fallback', () => {
         let name = 'a';
-        let daoAddressOrEns = 'a.eth';
-        const { rerender } = render(createTestComponent({ name, daoAddressOrEns }));
+        const ens = 'a.eth';
+        const { rerender } = render(createTestComponent({ name, ens }));
         expect(screen.getByText(name.toUpperCase())).toBeInTheDocument();
-        expect(screen.getByText(daoAddressOrEns)).toBeInTheDocument();
+        expect(screen.getByText(ens)).toBeInTheDocument();
 
         name = 'ab';
-        daoAddressOrEns = 'ab.eth';
-        rerender(createTestComponent({ name, daoAddressOrEns }));
+        const address = '0x123';
+        rerender(createTestComponent({ name, address }));
         expect(screen.getByText(name.toUpperCase())).toBeInTheDocument();
-        expect(screen.getByText(daoAddressOrEns)).toBeInTheDocument();
+        expect(screen.getByText(address)).toBeInTheDocument();
     });
 
     it('does not render the daoAddressOrEns if it is not provided', () => {

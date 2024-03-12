@@ -1,19 +1,22 @@
 import type React from 'react';
-import { DataList, Heading, Icon, IconType } from '../../../../core';
-import { DaoAvatar, type IDaoAvatarProps } from '../daoAvatar';
+import { DataList, Heading, Icon, IconType, type IDataListItemProps } from '../../../../core';
+import { DaoAvatar } from '../daoAvatar';
 
-export interface IDaoDataListItemProps extends IDaoAvatarProps {
+export interface IDaoDataListItemProps extends IDataListItemProps {
+    name?: string;
+    logoSrc?: string;
     description?: string;
-    daoAddressOrEns?: string;
+    address?: string;
+    ens?: string;
     plugin?: string;
     network?: string;
 }
 
 export const DaoDataListItem: React.FC<IDaoDataListItemProps> = (props) => {
-    const { name, src, description, network, plugin = 'token-based', daoAddressOrEns } = props;
+    const { name, logoSrc, description, network, plugin = 'token-based', address, ens, ...otherProps } = props;
 
     return (
-        <DataList.Item role="listitem">
+        <DataList.Item {...otherProps}>
             <div className="space-y-4">
                 <div className=" flex w-full justify-between">
                     <div className="space-y-1.5 text-neutral-800">
@@ -21,10 +24,10 @@ export const DaoDataListItem: React.FC<IDaoDataListItemProps> = (props) => {
                             {name}
                         </Heading>
                         <Heading size="h4" as="h2">
-                            {daoAddressOrEns}
+                            {ens ?? address}
                         </Heading>
                     </div>
-                    <DaoAvatar {...{ name, src }} size="md" />
+                    <DaoAvatar {...{ name, src: logoSrc }} size="md" />
                 </div>
                 <p className="line-clamp-2 text-base font-normal leading-normal text-neutral-500 md:text-lg">
                     {description}
