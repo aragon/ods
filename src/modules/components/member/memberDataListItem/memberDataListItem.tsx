@@ -54,33 +54,27 @@ export const MemberDataListItem: React.FC<IMemberDataListProps> = (props) => {
                     {truncateEthAddress(resolvedUserHandle) ?? 'Unknown'}
                 </Heading>
                 <div className="space-y-2">
-                    <Heading size="h5" as="h2" className="min-h-[18px] !text-neutral-500 md:min-h-5">
-                        {delegationCount ? (
+                    <Heading size="h5" as="h2" className="min-h-[18px] md:min-h-5">
+                        {delegationCount && delegationCount > 0 ? (
                             <>
-                                <span className="text-neutral-800">
-                                    {formatterUtils.formatNumber(delegationCount, {
-                                        format: NumberFormat.GENERIC_SHORT,
-                                    })}
+                                {formatterUtils.formatNumber(delegationCount, {
+                                    format: NumberFormat.GENERIC_SHORT,
+                                })}
+                                <span className="text-neutral-500">
+                                    {` Delegation${delegationCount === 1 ? '' : 's'}`}
                                 </span>
-                                {` Delegation${delegationCount === 1 ? '' : 's'}`}
                             </>
-                        ) : (
-                            ''
-                        )}
+                        ) : undefined}
                     </Heading>
-                    <Heading size="h5" as="h2" className="min-h-[18px] !text-neutral-500 md:min-h-5">
-                        {votingPower ? (
+                    <Heading size="h5" as="h2" className="min-h-[18px] md:min-h-5">
+                        {votingPower && votingPower > 0 ? (
                             <>
-                                <span className="text-neutral-800">
-                                    {formatterUtils.formatNumber(votingPower, {
-                                        format: NumberFormat.GENERIC_SHORT,
-                                    })}
-                                </span>
-                                {` Voting Power`}
+                                {formatterUtils.formatNumber(votingPower, {
+                                    format: NumberFormat.GENERIC_SHORT,
+                                })}
+                                <span className="text-neutral-500">{` Voting Power`}</span>
                             </>
-                        ) : (
-                            ''
-                        )}
+                        ) : undefined}
                     </Heading>
                 </div>
             </div>
