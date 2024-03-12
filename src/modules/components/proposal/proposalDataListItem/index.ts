@@ -1,7 +1,10 @@
-import { ProposalDataListItem as Structure } from './proposalDataListItem';
+import { ProposalDataListItemStructure as Structure } from './proposalDataListItemStructure';
 
 export const ProposalDataListItem = {
-    Structure: Structure,
+    Structure,
 };
 
-export { type IProposalDataListItemProps } from './proposalDataListItem';
+export {
+    type IProposalDataListItemStructureProps,
+    type ProposalDataListItemStatusType,
+} from './proposalDataListItemApi';
