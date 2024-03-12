@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 -   Implement animations for `Dialog` and `DialogAlert` components
--   Implement `DaoAvatar` module component
+-   Implement `DaoAvatar` and `MemberAvatar` module components
 -   Implement `OdsModulesProvider` for using wagmi hooks on modules components
 
 ### Changed
