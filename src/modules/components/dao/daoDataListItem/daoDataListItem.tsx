@@ -3,17 +3,17 @@ import { DataList, Heading, Icon, IconType } from '../../../../core';
 import { DaoAvatar, type IDaoAvatarProps } from '../daoAvatar';
 
 export interface IDaoDataListItemProps extends IDaoAvatarProps {
-    plugin: 'token-based' | 'multisig';
-    network: string;
     description?: string;
     daoAddressOrEns?: string;
+    plugin?: string;
+    network?: string;
 }
 
 export const DaoDataListItem: React.FC<IDaoDataListItemProps> = (props) => {
-    const { name, src, description, network, plugin, daoAddressOrEns } = props;
+    const { name, src, description, network, plugin = 'token-based', daoAddressOrEns } = props;
 
     return (
-        <DataList.Item>
+        <DataList.Item role="listitem">
             <div className="space-y-4">
                 <div className=" flex w-full justify-between">
                     <div className="space-y-1.5 text-neutral-800">
