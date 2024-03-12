@@ -1,6 +1,34 @@
+/**
+ * Set node as jest environment because the checksum check on the viem isAddress utility does not properly work on jsdom
+ * (See here https://github.com/jestjs/jest/issues/7780#issuecomment-865077151)
+ * @jest-environment node
+ */
 import { addressUtils } from './addressUtils';
 
 describe('address utils', () => {
+    describe('isAddress', () => {
+        it('returns true when the input is a valid address', () => {
+            const value = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+            expect(addressUtils.isAddress(value)).toBeTruthy();
+        });
+
+        it('returns false when the input is not a valid address', () => {
+            const value = 'name.eth';
+            expect(addressUtils.isAddress(value)).toBeFalsy();
+        });
+
+        it('returns true when the input is a valid address but not in the checksum format', () => {
+            const value = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aa96045';
+            expect(addressUtils.isAddress(value)).toBeTruthy();
+        });
+
+        it('returns false when the input is a valid address but not in the checksum format when the strict property is set to true', () => {
+            const value = '0xe11bFCBDd43745d4Aa6f4f18E24aD24f4623af04';
+            const options = { strict: true };
+            expect(addressUtils.isAddress(value, options)).toBeFalsy();
+        });
+    });
+
     describe('truncateAddress', () => {
         it('returns empty string when address is not defined', () => {
             expect(addressUtils.truncateAddress()).toEqual('');
@@ -12,12 +40,6 @@ describe('address utils', () => {
         });
 
         it('correctly truncates the address', () => {
-            const value = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
-            const expectedValue = '0xd8...6045';
-            expect(addressUtils.truncateAddress(value)).toEqual(expectedValue);
-        });
-
-        it('truncates the address even when not in checksum format', () => {
             const value = '0xe11bfcbdd43745d4aa6f4f18e24ad24f4623af04';
             const expectedValue = '0xe1...af04';
             expect(addressUtils.truncateAddress(value)).toEqual(expectedValue);

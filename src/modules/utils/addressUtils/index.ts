@@ -1,1 +1,1 @@
-export { addressUtils } from './addressUtils';
+export { addressUtils, type IIsAddressParams } from './addressUtils';

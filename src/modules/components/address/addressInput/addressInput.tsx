@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import { forwardRef, useEffect, useRef, useState, type ChangeEvent, type FocusEvent } from 'react';
-import { getAddress, isAddress, type Address } from 'viem';
+import { getAddress, type Address } from 'viem';
 import { normalize } from 'viem/ens';
 import { useConfig, useEnsAddress, useEnsName, type UseEnsAddressParameters, type UseEnsNameParameters } from 'wagmi';
 import {
@@ -17,7 +17,7 @@ import {
     type IInputComponentProps,
 } from '../../../../core';
 import type { IWeb3ComponentProps } from '../../../types';
-import { addressUtils } from '../../../utils';
+import { addressUtils, ensUtils } from '../../../utils';
 
 export interface IAddressInputResolvedValue {
     /**
@@ -49,8 +49,6 @@ export interface IAddressInputProps
     onAccept?: (value?: IAddressInputResolvedValue) => void;
 }
 
-const isEnsName = (value?: string) => value != null && value.length > 6 && value.endsWith('.eth');
-
 export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>((props, ref) => {
     const { value = '', onChange, onAccept, wagmiConfig: wagmiConfigProps, chainId, ...otherProps } = props;
 
@@ -78,10 +76,10 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         isFetching: isEnsAddressLoading,
         queryKey: ensAddressQueryKey,
     } = useEnsAddress({
-        name: isEnsName(debouncedValue) ? normalize(debouncedValue) : undefined,
+        name: ensUtils.isEnsName(debouncedValue) ? normalize(debouncedValue) : undefined,
         config: wagmiConfig,
         chainId,
-        query: { enabled: supportEnsNames && isEnsName(debouncedValue) },
+        query: { enabled: supportEnsNames && ensUtils.isEnsName(debouncedValue) },
     });
 
     const {
@@ -92,10 +90,10 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         address: debouncedValue as Address,
         config: wagmiConfig,
         chainId,
-        query: { enabled: supportEnsNames && isAddress(debouncedValue, { strict: false }) },
+        query: { enabled: supportEnsNames && addressUtils.isAddress(debouncedValue) },
     });
 
-    const displayMode = isEnsName(value) ? 'ens' : 'address';
+    const displayMode = ensUtils.isEnsName(value) ? 'ens' : 'address';
 
     const isLoading = isEnsAddressLoading || isEnsNameLoading;
 
@@ -137,7 +135,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             // User input is a valid ENS name
             const normalizedEns = normalize(debouncedValue);
             onAccept?.({ address: ensAddress, name: normalizedEns });
-        } else if (isAddress(debouncedValue, { strict: false })) {
+        } else if (addressUtils.isAddress(debouncedValue)) {
             // User input is a valid address with or without a ENS name linked to it
             const checksumAddress = getAddress(debouncedValue);
             onAccept?.({ address: checksumAddress, name: ensName ?? undefined });
@@ -179,7 +177,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     }, [value, isFocused]);
 
     // Display the address as truncated when the value is a valid address and input is not focused
-    const displayTruncatedAddress = value != null && isAddress(value, { strict: false }) && !isFocused;
+    const displayTruncatedAddress = value != null && addressUtils.isAddress(value) && !isFocused;
 
     const processedValue = displayTruncatedAddress ? addressUtils.truncateAddress(value) : value;
 
@@ -210,7 +208,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                         {displayMode === 'ens' ? '0x...' : 'ENS'}
                     </Button>
                 )}
-                {(ensAddress != null || isAddress(value, { strict: false })) && !isFocused && (
+                {(ensAddress != null || addressUtils.isAddress(value)) && !isFocused && (
                     <>
                         <Button
                             variant="tertiary"
@@ -227,7 +225,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                         />
                     </>
                 )}
-                {value.length > 0 && ensAddress == null && !isAddress(value, { strict: false }) && (
+                {value.length > 0 && isFocused && (
                     <Button variant="tertiary" size="sm" onMouseDown={handleClearClick}>
                         Clear
                     </Button>
