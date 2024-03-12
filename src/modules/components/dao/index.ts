@@ -1,2 +1,2 @@
 export * from './daoAvatar';
-export * from './daoDataListItem';
+export * from './daoDataListItemStructure';

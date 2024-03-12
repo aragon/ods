@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import { DataList } from '../../../../core/components/dataList';
-import { DaoDataListItem, type IDaoDataListItemProps } from './daoDataListItem';
+import { DaoDataListItemStructure, type IDaoDataListItemStructureProps } from './daoDataListItemStructure';
 
-describe('<DaoDataListItem /> component', () => {
-    const createTestComponent = (props?: Partial<IDaoDataListItemProps>) => {
+describe('<DaoDataListItemStructure /> component', () => {
+    const createTestComponent = (props?: Partial<IDaoDataListItemStructureProps>) => {
         return (
             <DataList.Root entityLabel="Daos">
                 <DataList.Container>
-                    <DaoDataListItem {...props} />
+                    <DaoDataListItemStructure {...props} />
                 </DataList.Container>
             </DataList.Root>
         );

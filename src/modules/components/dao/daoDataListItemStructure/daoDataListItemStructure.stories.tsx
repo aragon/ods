@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DataList } from '../../../../core/components/dataList';
-import { DaoDataListItem } from './daoDataListItem';
+import { DaoDataListItemStructure } from './daoDataListItemStructure';
 
-const meta: Meta<typeof DaoDataListItem> = {
+const meta: Meta<typeof DaoDataListItemStructure> = {
     title: 'Modules/Components/Dao/DaoDataListItem',
-    component: DaoDataListItem,
+    component: DaoDataListItemStructure,
     tags: ['autodocs'],
     parameters: {
         design: {
@@ -14,7 +14,7 @@ const meta: Meta<typeof DaoDataListItem> = {
     },
 };
 
-type Story = StoryObj<typeof DaoDataListItem>;
+type Story = StoryObj<typeof DaoDataListItemStructure>;
 
 /**
  * Default usage example of the DaoDataListItem component.
@@ -32,7 +32,7 @@ export const Default: Story = {
     render: (props) => (
         <DataList.Root entityLabel="Daos">
             <DataList.Container>
-                <DaoDataListItem {...props} />
+                <DaoDataListItemStructure {...props} />
             </DataList.Container>
         </DataList.Root>
     ),
@@ -41,7 +41,7 @@ export const Default: Story = {
 /**
  *  Usage of the DaoDataListItem without an image src.
  */
-export const Mobile: Story = {
+export const Fallback: Story = {
     args: {
         name: 'Patito DAO',
         description:
@@ -53,7 +53,7 @@ export const Mobile: Story = {
     render: (props) => (
         <DataList.Root entityLabel="Daos">
             <DataList.Container>
-                <DaoDataListItem {...props} />
+                <DaoDataListItemStructure {...props} />
             </DataList.Container>
         </DataList.Root>
     ),
