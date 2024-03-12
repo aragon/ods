@@ -1,6 +1,6 @@
 import * as blockies from 'blockies-ts';
 import type React from 'react';
-import { getAddress, type Hash } from 'viem';
+import { getAddress, type Address } from 'viem';
 import { normalize } from 'viem/ens';
 import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
 import { Avatar, type IAvatarProps } from '../../../../core';
@@ -34,7 +34,7 @@ export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
     const resolvedAddress = isValidAddress ? address : ensAddressData;
 
     const { data: ensNameData, isLoading: nameLoading } = useEnsName({
-        address: resolvedAddress as Hash,
+        address: resolvedAddress as Address,
         query: { enabled: resolvedAddress != null && avatarSrc == null },
     });
     const resolvedName = isValidENSName ? ensName : ensNameData;
