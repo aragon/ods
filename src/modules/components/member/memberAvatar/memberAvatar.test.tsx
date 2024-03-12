@@ -44,6 +44,14 @@ describe('<MemberAvatar /> component', () => {
         blockiesCreateMock.mockReturnValue({ toDataURL: () => '' } as HTMLCanvasElement);
     });
 
+    afterEach(() => {
+        useEnsAddressMock.mockReset();
+        useEnsNameMock.mockReset();
+        useEnsAvatarMock.mockReset();
+        getAddressMock.mockReset();
+        blockiesCreateMock.mockReset();
+    });
+
     it('displays the avatar directly from avatarSrc prop and ensure no data fetching is attempted', async () => {
         const avatarSrc = 'directAvatarUrl';
 
