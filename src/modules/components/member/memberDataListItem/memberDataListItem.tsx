@@ -1,7 +1,4 @@
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
-import { getAddress, isAddress, type Hash } from 'viem';
-import { useEnsAddress, useEnsName } from 'wagmi';
 import { Card, Heading, NumberFormat, Tag, formatterUtils } from '../../../../core';
 import { truncateEthAddress } from '../../../../utils/truncateEthereumAddress';
 import { MemberAvatar, type IMemberAvatarProps } from '../memberAvatar';
@@ -31,44 +28,8 @@ export interface IMemberDataListProps extends Omit<IMemberAvatarProps, 'size' | 
 
 export const MemberDataListItem: React.FC<IMemberDataListProps> = (props) => {
     const { isDelegate, isCurrentUser, avatarSrc, ensName, address, handleClick, delegationCount, votingPower } = props;
-    const [memberError, setMemberError] = useState(false);
 
-    const isValidAddress = address != null && isAddress(address);
-    const isValidENSName = ensName != null && ensName.length >= 7 && ensName.endsWith('.eth');
-
-    const { data: ensNameData } = useEnsName({
-        address: address as Hash,
-        query: { enabled: isValidAddress },
-    });
-
-    const { data: ensAddressData } = useEnsAddress({
-        name: ensName,
-        query: { enabled: isValidENSName },
-    });
-
-    useEffect(() => {
-        if (ensAddressData && isValidAddress && getAddress(address) !== ensAddressData) {
-            setMemberError(true);
-        } else {
-            setMemberError(false);
-        }
-    }, [address, ensAddressData, isValidAddress]);
-
-    const resolvedUserHandle = (): string | undefined => {
-        if (memberError) {
-            return undefined;
-        }
-        if (ensNameData) {
-            return ensNameData;
-        }
-        if (ensName != null && ensAddressData != null) {
-            return ensName;
-        }
-        if (isValidAddress && ensNameData == null) {
-            return address;
-        }
-        return undefined;
-    };
+    const resolvedUserHandle = ensName != null && ensName !== '' ? ensName : address ?? undefined;
 
     return (
         <Card
@@ -80,10 +41,9 @@ export const MemberDataListItem: React.FC<IMemberDataListProps> = (props) => {
             <div className="mx-6 flex min-w-44 flex-col items-start space-y-3 py-6 md:min-w-52">
                 <div className="flex w-full items-center justify-between">
                     <MemberAvatar
-                        size="sm"
-                        ensName={!memberError ? ensName : undefined}
-                        address={!memberError ? address : undefined}
-                        avatarSrc={!memberError ? avatarSrc : undefined}
+                        ensName={ensName}
+                        address={address}
+                        avatarSrc={avatarSrc}
                         responsiveSize={{ md: 'md' }}
                     />
                     {isDelegate && !isCurrentUser && <Tag variant="info" label="Your Delegate" />}
@@ -91,7 +51,7 @@ export const MemberDataListItem: React.FC<IMemberDataListProps> = (props) => {
                 </div>
 
                 <Heading className="inline-block w-full truncate" size="h2" as="h1">
-                    {truncateEthAddress(resolvedUserHandle()) ?? 'Unknown'}
+                    {truncateEthAddress(resolvedUserHandle) ?? 'Unknown'}
                 </Heading>
                 <div className="space-y-2">
                     <Heading size="h5" as="h2" className="min-h-[18px] !text-neutral-500 md:min-h-5">
