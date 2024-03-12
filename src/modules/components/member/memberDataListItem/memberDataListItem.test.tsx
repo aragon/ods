@@ -1,15 +1,27 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
+import { getAddress, isAddress } from 'viem';
+import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
 import { MemberDataListItem, type IMemberDataListProps } from './memberDataListItem';
+
+jest.mock('viem', () => ({
+    isAddress: jest.fn(),
+    getAddress: jest.fn(),
+}));
+
+jest.mock('viem/ens', () => ({
+    normalize: jest.fn(),
+}));
+
+jest.mock('wagmi', () => ({
+    useEnsAddress: jest.fn(),
+    useEnsName: jest.fn(),
+    useEnsAvatar: jest.fn(),
+}));
 
 describe('<MemberDataListItem /> component', () => {
     const createTestComponent = (props?: Partial<IMemberDataListProps>) => {
         const completeProps: IMemberDataListProps = {
-            avatar: 'avatar-src',
-            isDelegate: false,
-            userHandle: 'Unknown',
-            delegationCount: 0,
-            votingPower: 0,
             ...props,
         };
 
@@ -34,12 +46,28 @@ describe('<MemberDataListItem /> component', () => {
         global.Image = originalGlobalImage;
     });
 
+    beforeEach(() => {
+        (isAddress as unknown as jest.Mock).mockImplementation(() => true);
+        (getAddress as jest.Mock).mockImplementation((address: string) => address);
+        (useEnsAddress as jest.Mock).mockReturnValue({ data: null, isLoading: false });
+        (useEnsName as jest.Mock).mockReturnValue({ data: null, isLoading: false });
+        (useEnsAvatar as jest.Mock).mockReturnValue({ data: 'mock-avatar-url', isLoading: false });
+    });
+
     it('renders the avatar with the provided src', async () => {
-        const avatar = 'mock-ens-avatar.jpg';
-        render(createTestComponent({ avatar }));
+        const avatarSrc = 'mock-ens-avatar.jpg';
+        const ensName = 'vitalik.eth';
+        const address = '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419';
+        const { rerender } = render(createTestComponent({ avatarSrc }));
 
         const img = await screen.findByRole('img');
-        expect(img).toHaveAttribute('src', avatar);
+        expect(img).toHaveAttribute('src', avatarSrc);
+
+        rerender(createTestComponent({ ensName }));
+        expect(img).toHaveAttribute('src', 'mock-avatar-url');
+
+        rerender(createTestComponent({ address }));
+        expect(img).toHaveAttribute('src', 'mock-avatar-url');
     });
 
     it('conditionally renders the "Your Delegate" tag', async () => {
@@ -51,11 +79,11 @@ describe('<MemberDataListItem /> component', () => {
     });
 
     it('renders the user handle, defaulting to "Unknown" if not provided', async () => {
-        const userHandle = 'testUserHandle';
-        const { rerender } = render(createTestComponent({ userHandle }));
-        expect(screen.getByRole('heading', { name: userHandle })).toBeInTheDocument();
+        const ensName = 'testUserHandle';
+        const { rerender } = render(createTestComponent({ ensName }));
+        expect(screen.getByRole('heading', { name: ensName })).toBeInTheDocument();
 
-        rerender(createTestComponent({ userHandle: undefined }));
+        rerender(createTestComponent({ ensName: undefined }));
         rerender(createTestComponent());
         expect(screen.getByRole('heading', { name: 'Unknown' })).toBeInTheDocument();
     });
