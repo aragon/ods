@@ -1,14 +1,16 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { clipboardUtils } from '../../../../core';
+import { IconType, clipboardUtils } from '../../../../core';
 import { OdsModulesProvider } from '../../odsModulesProvider';
 import { AddressInput, type IAddressInputProps } from './addressInput';
 
 describe('<AddressInput /> component', () => {
     const pasteMock = jest.spyOn(clipboardUtils, 'paste');
+    const copyMock = jest.spyOn(clipboardUtils, 'copy');
 
     afterEach(() => {
         pasteMock.mockReset();
+        copyMock.mockReset();
     });
 
     const createTestComponent = (props?: Partial<IAddressInputProps>) => {
@@ -29,7 +31,7 @@ describe('<AddressInput /> component', () => {
     });
 
     it('initialises the input field using the value property', () => {
-        const value = 'vitalik.eth';
+        const value = 'test.eth';
         render(createTestComponent({ value }));
         expect(screen.getByDisplayValue(value)).toBeInTheDocument();
     });
@@ -72,5 +74,22 @@ describe('<AddressInput /> component', () => {
 
         await userEvent.click(clearButton);
         expect(onChange).toHaveBeenCalledWith(undefined);
+    });
+
+    it('renders a copy button to copy current input value when current value is a valid address', async () => {
+        const value = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+        render(createTestComponent({ value }));
+        const copyButton = screen.getAllByRole('button').find((button) => within(button).findByTestId(IconType.COPY));
+        expect(copyButton).toBeInTheDocument();
+        await userEvent.click(copyButton!);
+        expect(copyMock).toHaveBeenCalledWith(value);
+    });
+
+    it('renders the external link button when input value is a valid address', () => {
+        const value = '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d';
+        render(createTestComponent({ value }));
+        const linkButton = screen.getByRole<HTMLAnchorElement>('link');
+        expect(linkButton).toBeInTheDocument();
+        expect(linkButton.href).toEqual(`https://etherscan.io/address/${value}`);
     });
 });
