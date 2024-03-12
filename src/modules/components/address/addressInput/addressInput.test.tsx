@@ -73,8 +73,4 @@ describe('<AddressInput /> component', () => {
         await userEvent.click(clearButton);
         expect(onChange).toHaveBeenCalledWith(undefined);
     });
-
-    it('renders a copy button when the input value is not empty and input field is not focused', () => {
-        //
-    });
 });
