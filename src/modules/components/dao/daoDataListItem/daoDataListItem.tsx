@@ -26,13 +26,15 @@ export const DaoDataListItem: React.FC<IDaoDataListItemProps> = (props) => {
                     </div>
                     <DaoAvatar {...{ name, src }} size="md" />
                 </div>
-                <div className="line-clamp-2 text-lg font-normal leading-normal text-neutral-500">{description}</div>
+                <p className="line-clamp-2 text-base font-normal leading-normal text-neutral-500 md:text-lg">
+                    {description}
+                </p>
                 <div className="flex space-x-8 text-neutral-400">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 text-sm md:text-base">
                         <span className="capitalize">{network}</span>
                         <Icon icon={IconType.BLOCKCHAIN_BLOCKCHAIN} />
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2  text-sm md:text-base">
                         <span className="capitalize">{plugin}</span>
                         <Icon icon={IconType.APP_MEMBERS} />
                     </div>
