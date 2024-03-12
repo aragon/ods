@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { type IApprovalThresholdResultProps, type IMajorityVotingResultProps } from '../proposalDataListItemApi';
+import { type IApprovalThresholdResult, type IMajorityVotingResult } from '../proposalDataListItemStructure';
 import { ProposalDataListItemResult, type IProposalDataListItemResultProps } from './proposalDataListItemResult';
 
 describe('<ProposalDataListItemResult/> component', () => {
@@ -26,7 +26,7 @@ describe('<ProposalDataListItemResult/> component', () => {
     };
 
     it("renders the given approval threshold, approval amount and corresponding progressbar for the 'approvalThreshold' variant", () => {
-        const mockProps: IApprovalThresholdResultProps = {
+        const mockProps: IApprovalThresholdResult = {
             type: 'approvalThreshold',
             approvalAmount: 100,
             approvalThreshold: 200,
@@ -40,7 +40,7 @@ describe('<ProposalDataListItemResult/> component', () => {
     });
 
     it("renders the given winning option, vote amount, vote percentage and a corresponding progressbar for the 'majorityVoting' variant", () => {
-        const mockProps: IMajorityVotingResultProps = {
+        const mockProps: IMajorityVotingResult = {
             type: 'majorityVoting',
             option: 'yes',
             voteAmount: '100k wAnt',

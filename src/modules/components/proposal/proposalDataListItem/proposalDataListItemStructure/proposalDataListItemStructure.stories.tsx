@@ -3,7 +3,7 @@ import { DataList } from '../../../../../core';
 import { type ICompositeAddress } from '../../../../types';
 import { OdsModulesProvider } from '../../../odsModulesProvider';
 import { ProposalDataListItem } from '../../index';
-import { type IProposalListItemBaseProps } from '../proposalDataListItemApi';
+import { type IProposalListItemBaseProps } from './proposalDataListItemStructureApi';
 
 const meta: Meta<typeof ProposalDataListItem.Structure> = {
     title: 'Modules/Components/Proposal/ProposalDataListItem/ProposalDataListItem.Structure',

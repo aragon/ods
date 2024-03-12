@@ -6,5 +6,5 @@ export const ProposalDataListItem = {
 
 export {
     type IProposalDataListItemStructureProps,
-    type ProposalDataListItemStatusType,
-} from './proposalDataListItemApi';
+    type ProposalStatus as ProposalDataListItemStatusType,
+} from './proposalDataListItemStructure/proposalDataListItemStructureApi';

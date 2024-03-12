@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { IconType, type TagVariant } from '../../../../../core';
-import { type ProposalDataListItemStatusType } from '../proposalDataListItemApi';
+import { type ProposalStatus } from '../proposalDataListItemStructure';
 import { ProposalDataListItemStatus, type IProposalDataListItemStatusProps } from './proposalDataListItemStatus';
 
 describe('<ProposalDataListItemStatus/> component', () => {
@@ -12,7 +12,7 @@ describe('<ProposalDataListItemStatus/> component', () => {
 
     const ongoingStatuses = ['active', 'challenged', 'vetoed'];
 
-    const statusToTagVariant: Record<ProposalDataListItemStatusType, TagVariant> = {
+    const statusToTagVariant: Record<ProposalStatus, TagVariant> = {
         accepted: 'success',
         active: 'info',
         challenged: 'warning',
@@ -51,7 +51,7 @@ describe('<ProposalDataListItemStatus/> component', () => {
 
     Object.entries(statusToTagVariant).forEach(([status, expectedVariant]) => {
         it(`renders the ${expectedVariant} variant of the Tag component when the when the status is '${status}'`, () => {
-            render(createTestComponent({ status: status as ProposalDataListItemStatusType }));
+            render(createTestComponent({ status: status as ProposalStatus }));
 
             // eslint-disable-next-line testing-library/no-node-access
             const tag = screen.getByText(status).parentElement;
@@ -63,7 +63,7 @@ describe('<ProposalDataListItemStatus/> component', () => {
     ongoingStatuses.forEach((status) => {
         it(`displays the date and a pulse component when the status is '${status}' and voted is false`, () => {
             const date = 'test date';
-            render(createTestComponent({ date, status: status as ProposalDataListItemStatusType, voted: false }));
+            render(createTestComponent({ date, status: status as ProposalStatus, voted: false }));
 
             expect(screen.getByText(date)).toBeInTheDocument();
             expect(screen.getByTestId('pulse')).toBeInTheDocument();
@@ -72,7 +72,7 @@ describe('<ProposalDataListItemStatus/> component', () => {
 
     ongoingStatuses.forEach((status) => {
         it(`displays 'You've voted' with an icon checkmark when the status is '${status}' and voted is true`, () => {
-            render(createTestComponent({ status: status as ProposalDataListItemStatusType, voted: true }));
+            render(createTestComponent({ status: status as ProposalStatus, voted: true }));
 
             expect(screen.getByText(/You've voted/i)).toBeInTheDocument();
             expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();

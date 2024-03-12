@@ -3,9 +3,12 @@ import { type KeyboardEvent } from 'react';
 import { useAccount } from 'wagmi';
 import { DataList, Tag } from '../../../../../core';
 import { addressUtils } from '../../../../utils/addressUtils';
-import { type IProposalDataListItemStructureProps, type IProposalListItemBaseProps } from '../proposalDataListItemApi';
 import { ProposalDataListItemResult } from '../proposalDataListItemResult';
-import { ProposalListItemStatus } from '../proposalDataListItemStatus';
+import { ProposalDataListItemStatus } from '../proposalDataListItemStatus';
+import {
+    type IProposalDataListItemStructureProps,
+    type IProposalListItemBaseProps,
+} from './proposalDataListItemStructureApi';
 
 /**
  * `ProposalDataListItemStructure` module component
@@ -71,7 +74,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
 
     return (
         <DataList.Item className="space-y-4" {...dataListItemBaseProps}>
-            <ProposalListItemStatus date={date} status={status} voted={voted} />
+            <ProposalDataListItemStatus date={date} status={status} voted={voted} />
             <div className="space-y-1">
                 <p className="line-clamp-1 text-lg leading-tight text-neutral-800 md:text-2xl">{title}</p>
                 <p className="line-clamp-2 leading-normal text-neutral-500 md:text-lg">{summary}</p>

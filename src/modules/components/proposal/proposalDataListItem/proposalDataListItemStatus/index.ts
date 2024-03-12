@@ -1,4 +1,1 @@
-export {
-    IProposalDataListItemStatusProps,
-    ProposalDataListItemStatus as ProposalListItemStatus,
-} from './proposalDataListItemStatus';
+export { IProposalDataListItemStatusProps, ProposalDataListItemStatus } from './proposalDataListItemStatus';

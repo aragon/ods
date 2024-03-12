@@ -1,8 +1,8 @@
-import { type IDataListItemProps } from '../../../../core';
-import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../types';
+import { type IDataListItemProps } from '../../../../../core';
+import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../../types';
 
-export type ProposalDataListItemType = 'majorityVoting' | 'approvalThreshold';
-export type ProposalDataListItemStatusType =
+export type ProposalType = 'majorityVoting' | 'approvalThreshold';
+export type ProposalStatus =
     | 'accepted'
     | 'active'
     | 'challenged'
@@ -17,7 +17,9 @@ export type ProposalDataListItemStatusType =
     | 'vetoed';
 
 export interface IProposalListItemBaseProps extends IDataListItemProps {
-    // TODO: Change the date into a date type so that it can be used with the date formatter
+    /**
+     * Indicates date relative to the proposal status
+     */
     date: string;
     /**
      * Indicates whether the proposal is a protocol update
@@ -30,7 +32,7 @@ export interface IProposalListItemBaseProps extends IDataListItemProps {
     /**
      * Proposal status
      */
-    status: ProposalDataListItemStatusType;
+    status: ProposalStatus;
     /**
      * Proposal description
      */
@@ -42,7 +44,7 @@ export interface IProposalListItemBaseProps extends IDataListItemProps {
     /**
      * Type of the ProposalDataListItem
      */
-    type: ProposalDataListItemType;
+    type: ProposalType;
     /**
      * Indicates whether the connected wallet has voted
      */
@@ -53,7 +55,7 @@ export interface IProposalListItemBaseProps extends IDataListItemProps {
     onPublisherClick?: (publisher: ICompositeAddress) => void;
 }
 
-export interface IApprovalThresholdResultProps {
+export interface IApprovalThresholdResult {
     /**
      * Number of approvals for the proposal
      */
@@ -68,7 +70,7 @@ export interface IApprovalThresholdResultProps {
     type: 'approvalThreshold';
 }
 
-export interface IMajorityVotingResultProps {
+export interface IMajorityVotingResult {
     /**
      * Winning option
      */
@@ -89,4 +91,4 @@ export interface IMajorityVotingResultProps {
 
 export type IProposalDataListItemStructureProps = IWeb3ComponentProps &
     IProposalListItemBaseProps &
-    (IApprovalThresholdResultProps | IMajorityVotingResultProps);
+    (IApprovalThresholdResult | IMajorityVotingResult);

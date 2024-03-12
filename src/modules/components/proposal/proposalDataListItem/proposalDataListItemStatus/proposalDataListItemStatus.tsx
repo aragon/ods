@@ -1,13 +1,10 @@
 import { AvatarIcon, IconType, Tag, type TagVariant } from '../../../../../core';
-import {
-    type IProposalDataListItemStructureProps,
-    type ProposalDataListItemStatusType,
-} from '../proposalDataListItemApi';
+import { type IProposalDataListItemStructureProps, type ProposalStatus } from '../proposalDataListItemStructure';
 
 export interface IProposalDataListItemStatusProps
     extends Pick<IProposalDataListItemStructureProps, 'date' | 'status' | 'voted'> {}
 
-const statusToTagVariant: Record<ProposalDataListItemStatusType, TagVariant> = {
+const statusToTagVariant: Record<ProposalStatus, TagVariant> = {
     accepted: 'success',
     active: 'info',
     challenged: 'warning',

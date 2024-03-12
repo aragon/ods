@@ -1,7 +1,7 @@
 import { Progress, formatterUtils } from '../../../../../core';
-import { type IApprovalThresholdResultProps, type IMajorityVotingResultProps } from '../proposalDataListItemApi';
+import { type IApprovalThresholdResult, type IMajorityVotingResult } from '../proposalDataListItemStructure';
 
-export type IProposalDataListItemResultProps = IApprovalThresholdResultProps | IMajorityVotingResultProps;
+export type IProposalDataListItemResultProps = IApprovalThresholdResult | IMajorityVotingResult;
 
 /**
  * `ProposalDataListItemResult` component
