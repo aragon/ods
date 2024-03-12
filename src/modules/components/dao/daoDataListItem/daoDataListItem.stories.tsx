@@ -30,7 +30,7 @@ export const Default: Story = {
         daoAddressOrEns: 'patito.dao.eth',
     },
     render: (props) => (
-        <DataList.Root entityLabel="Users">
+        <DataList.Root entityLabel="Daos">
             <DataList.Container>
                 <DaoDataListItem {...props} />
             </DataList.Container>
@@ -51,7 +51,7 @@ export const Mobile: Story = {
         daoAddressOrEns: 'patito.dao.eth',
     },
     render: (props) => (
-        <DataList.Root entityLabel="Users">
+        <DataList.Root entityLabel="Daos">
             <DataList.Container>
                 <DaoDataListItem {...props} />
             </DataList.Container>
