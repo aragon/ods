@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.19] - 2024-03-13
+
 ### Added
 
 -   Implement animations for `Dialog` and `DialogAlert` components
