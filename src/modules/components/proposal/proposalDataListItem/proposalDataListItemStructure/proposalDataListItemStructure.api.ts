@@ -16,7 +16,7 @@ export type ProposalStatus =
     | 'rejected'
     | 'vetoed';
 
-export interface IProposalListItemBaseProps<TType extends ProposalType = 'majorityVoting'>
+export interface IProposalDataListItemStructureProps<TType extends ProposalType = ProposalType>
     extends IDataListItemProps,
         IWeb3ComponentProps {
     /**
@@ -31,6 +31,10 @@ export interface IProposalListItemBaseProps<TType extends ProposalType = 'majori
      * Publisher address and/or ENS name
      */
     publisher: ICompositeAddress;
+    /**
+     * Link to the publisher's profile
+     */
+    publisherProfileLink: string;
     /**
      * Result of the proposal shown only when it is active, challenged or vetoed.
      */
@@ -55,10 +59,6 @@ export interface IProposalListItemBaseProps<TType extends ProposalType = 'majori
      * Indicates whether the connected wallet has voted
      */
     voted?: boolean;
-    /**
-     * Callback invoked when the publisher is clicked
-     */
-    onPublisherClick?: (publisher: ICompositeAddress) => void;
 }
 
 export interface IApprovalThresholdResult {
@@ -86,5 +86,3 @@ export interface IMajorityVotingResult {
      */
     votePercentage: number;
 }
-
-export interface IProposalDataListItemStructureProps extends IProposalListItemBaseProps<ProposalType> {}

@@ -1,22 +1,23 @@
 import { render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 import * as wagmi from 'wagmi';
 import { DataList } from '../../../../../core';
 import { addressUtils } from '../../../../utils/addressUtils';
 import { ProposalDataListItemStructure } from './proposalDataListItemStructure';
 import {
+    type IApprovalThresholdResult,
+    type IMajorityVotingResult,
     type IProposalDataListItemStructureProps,
-    type IProposalListItemBaseProps,
     type ProposalStatus,
-} from './proposalDataListItemStructureApi';
+} from './proposalDataListItemStructure.api';
 
 jest.mock('wagmi', () => ({ useAccount: jest.fn() }));
 jest.mock('viem/utils', () => ({ isAddress: jest.fn().mockReturnValue(true) }));
 
 describe('<ProposalDataListItemStructure/> component', () => {
     const createTestComponent = (props?: Partial<IProposalDataListItemStructureProps>) => {
-        const baseProps: IProposalListItemBaseProps = {
-            type: 'approvalThreshold',
+        const { result, ...baseInputProps } = props ?? {};
+
+        const baseProps: Omit<IProposalDataListItemStructureProps, 'result'> = {
             date: new Date().toISOString(),
             protocolUpdate: false,
             publisher: { address: '0x123' },
@@ -24,31 +25,32 @@ describe('<ProposalDataListItemStructure/> component', () => {
             summary: 'Example Summary',
             title: 'Example Title',
             voted: false,
+            publisherProfileLink: '#',
+            type: 'approvalThreshold',
+            ...baseInputProps,
         };
 
-        const approvalThresholdProps = {
-            ...baseProps,
-            type: 'approvalThreshold',
+        const approvalThresholdProps: IApprovalThresholdResult = {
             approvalAmount: 1,
             approvalThreshold: 2,
-            ...props,
-        } as IProposalDataListItemStructureProps;
+            ...result,
+        };
 
-        const majorityVotingProps = {
-            ...baseProps,
-            type: 'majorityVoting',
+        const majorityVotingProps: IMajorityVotingResult = {
             option: 'yes',
             voteAmount: '100 wAnt',
             votePercentage: 10,
-            ...props,
-        } as IProposalDataListItemStructureProps;
+            ...result,
+        };
 
         return (
             <DataList.Root entityLabel="Proposals">
-                {props?.type === 'approvalThreshold' ? (
-                    <ProposalDataListItemStructure {...approvalThresholdProps} />
-                ) : (
-                    <ProposalDataListItemStructure {...majorityVotingProps} />
+                {baseProps.type === 'approvalThreshold' && (
+                    <ProposalDataListItemStructure {...baseProps} result={approvalThresholdProps} />
+                )}
+
+                {baseProps.type === 'majorityVoting' && (
+                    <ProposalDataListItemStructure {...baseProps} result={majorityVotingProps} />
                 )}
             </DataList.Root>
         );
@@ -66,29 +68,6 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
     const ongoingStatuses: ProposalStatus[] = ['active', 'challenged', 'vetoed'];
 
-    it('calls onPublisherClick with the given composite address when publisher is clicked', async () => {
-        const handlePublisherClick = jest.fn();
-        const publisher = { address: '0x123' };
-
-        render(createTestComponent({ onPublisherClick: handlePublisherClick, publisher }));
-
-        await userEvent.click(screen.getByRole('button'));
-
-        expect(handlePublisherClick).toHaveBeenCalledWith(publisher);
-    });
-
-    it('calls onPublisherClick with the given composite address when publisher is focused and enter key is pressed', async () => {
-        const handlePublisherClick = jest.fn();
-        const publisher = { address: '0x123' };
-
-        render(createTestComponent({ onPublisherClick: handlePublisherClick, publisher }));
-
-        screen.getByRole('button').focus();
-        await userEvent.keyboard('[Enter]');
-
-        expect(handlePublisherClick).toHaveBeenCalledWith(publisher);
-    });
-
     it("renders 'You' as the publisher if the connected address is the publisher address", () => {
         const publisher = { address: '0x123' };
 
@@ -96,7 +75,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
         render(createTestComponent({ publisher }));
 
-        expect(screen.getByRole('button', { name: 'You' })).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'You' })).toBeInTheDocument();
     });
 
     describe("'approvalThreshold type'", () => {
@@ -104,13 +83,15 @@ describe('<ProposalDataListItemStructure/> component', () => {
             const testProps: IProposalDataListItemStructureProps = {
                 date: new Date().toISOString(),
                 publisher: { address: '0x123' },
+                publisherProfileLink: '#',
                 status: 'active',
                 summary: 'Example Summary',
                 title: 'Example Title',
-
                 type: 'approvalThreshold',
-                approvalAmount: 1,
-                approvalThreshold: 2,
+                result: {
+                    approvalAmount: 1,
+                    approvalThreshold: 2,
+                },
             };
 
             render(createTestComponent(testProps));
@@ -131,7 +112,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
                     approvalThreshold: 11,
                 };
 
-                render(createTestComponent({ ...testProps, type: 'approvalThreshold', status }));
+                render(createTestComponent({ result: testProps, type: 'approvalThreshold', status }));
 
                 expect(screen.getByText(testProps.approvalAmount)).toBeInTheDocument();
                 expect(screen.getByText(testProps.approvalThreshold)).toBeInTheDocument();
@@ -144,7 +125,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
                 approvalThreshold: 11,
             };
 
-            render(createTestComponent({ ...testProps, type: 'approvalThreshold', status: 'expired' }));
+            render(createTestComponent({ result: testProps, type: 'approvalThreshold', status: 'expired' }));
 
             expect(screen.queryByText(testProps.approvalAmount)).not.toBeInTheDocument();
             expect(screen.queryByText(testProps.approvalThreshold)).not.toBeInTheDocument();
@@ -156,14 +137,16 @@ describe('<ProposalDataListItemStructure/> component', () => {
             const testProps: IProposalDataListItemStructureProps = {
                 date: new Date().toISOString(),
                 publisher: { address: '0x123' },
+                publisherProfileLink: '#',
                 status: 'active',
                 summary: 'Example Summary',
                 title: 'Example Title',
-
                 type: 'majorityVoting',
-                option: 'Yes',
-                voteAmount: '100 wAnt',
-                votePercentage: 10,
+                result: {
+                    option: 'Yes',
+                    voteAmount: '100 wAnt',
+                    votePercentage: 10,
+                },
             };
 
             render(createTestComponent(testProps));
@@ -185,7 +168,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
                     votePercentage: 10,
                 };
 
-                render(createTestComponent({ ...testProps, type: 'majorityVoting', status }));
+                render(createTestComponent({ result: testProps, type: 'majorityVoting', status }));
 
                 expect(screen.getByText(testProps.option)).toBeInTheDocument();
                 expect(screen.getByText(testProps.voteAmount)).toBeInTheDocument();
@@ -200,7 +183,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
                 votePercentage: 10,
             };
 
-            render(createTestComponent({ ...testProps, type: 'majorityVoting', status: 'pending' }));
+            render(createTestComponent({ result: testProps, type: 'majorityVoting', status: 'pending' }));
 
             expect(screen.queryByText(testProps.option)).not.toBeInTheDocument();
             expect(screen.queryByText(testProps.voteAmount)).not.toBeInTheDocument();

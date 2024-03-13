@@ -1,63 +1,37 @@
 import classNames from 'classnames';
-import { type KeyboardEvent } from 'react';
 import { useAccount } from 'wagmi';
 import { DataList, Tag } from '../../../../../core';
 import { addressUtils } from '../../../../utils/addressUtils';
-import { ProposalDataListItemResult } from '../proposalDataListItemResult';
+import { ApprovalThresholdResult } from '../approvalThresholdResult';
+import { MajorityVotingResult } from '../majorityVotingResult';
 import { ProposalDataListItemStatus } from '../proposalDataListItemStatus';
 import {
+    type IApprovalThresholdResult,
+    type IMajorityVotingResult,
     type IProposalDataListItemStructureProps,
-    type IProposalListItemBaseProps,
-} from './proposalDataListItemStructureApi';
+} from './proposalDataListItemStructure.api';
 
 /**
  * `ProposalDataListItemStructure` module component
  */
 export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStructureProps> = (props) => {
-    const { wagmiConfig: config, chainId, ...nonWeb3Props } = props;
-    const { address: connectedAddress, isConnected } = useAccount({ config });
-
-    let otherComponentProps;
-    let resultComponent;
-
-    // pick the proper props upfront so that only the valid base props
-    // are applied to the underlying DataListItem component
-    if (nonWeb3Props.type === 'approvalThreshold') {
-        const { approvalAmount, approvalThreshold, type, ...otherProps } = nonWeb3Props;
-        otherComponentProps = otherProps;
-
-        resultComponent = (
-            <ProposalDataListItemResult
-                approvalAmount={approvalAmount}
-                approvalThreshold={approvalThreshold}
-                type={type}
-            />
-        );
-    } else if (nonWeb3Props.type === 'majorityVoting') {
-        const { option, voteAmount, votePercentage, type, ...otherProps } = nonWeb3Props;
-        otherComponentProps = otherProps;
-
-        resultComponent = (
-            <ProposalDataListItemResult
-                option={option}
-                voteAmount={voteAmount}
-                votePercentage={votePercentage}
-                type={type}
-            />
-        );
-    }
-
     const {
+        wagmiConfig: config,
+        chainId,
+        type,
+        result,
         date,
         protocolUpdate,
         publisher,
+        publisherProfileLink,
         status,
         summary,
         title,
         voted,
-        onPublisherClick,
-        ...dataListItemBaseProps
-    } = otherComponentProps as Omit<IProposalListItemBaseProps, 'type'>;
+        ...otherProps
+    } = props;
+
+    const { address: connectedAddress, isConnected } = useAccount({ config });
 
     const ongoing = status === 'active' || status === 'challenged' || status === 'vetoed';
 
@@ -66,41 +40,39 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
         ? 'You'
         : publisher.name ?? addressUtils.shortenAddress(publisher.address as string);
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'Enter') {
-            onPublisherClick?.(publisher);
-        }
-    };
-
     return (
-        <DataList.Item className="space-y-4" {...dataListItemBaseProps}>
+        <DataList.Item className="space-y-4" {...otherProps}>
             <ProposalDataListItemStatus date={date} status={status} voted={voted} />
             <div className="space-y-1">
                 <p className="line-clamp-1 text-lg leading-tight text-neutral-800 md:text-2xl">{title}</p>
                 <p className="line-clamp-2 leading-normal text-neutral-500 md:text-lg">{summary}</p>
             </div>
 
-            {ongoing && resultComponent}
+            {ongoing && props.type === 'approvalThreshold' && (
+                <ApprovalThresholdResult {...(result as IApprovalThresholdResult)} />
+            )}
+
+            {ongoing && type === 'majorityVoting' && <MajorityVotingResult {...(result as IMajorityVotingResult)} />}
+
             <div className="flex items-center gap-x-4 md:gap-x-6">
-                <div className="flex min-h-5 flex-1 text-sm leading-tight text-neutral-600 md:min-h-6 md:text-base">
+                <div className="flex min-h-5 flex-1 items-center gap-x-0.5 text-sm leading-tight text-neutral-600 md:min-h-6 md:text-base">
                     {/* TODO: apply internationalization [APP-2627] */}
                     By
-                    {/* using a span here instead of an actual button so that the HTML stays valid 
-                    since the DataList.Item is an anchor tag; must handle set role and handle appropriate keydown event */}
-                    <span
-                        role="button"
-                        className={classNames(
-                            'ml-0.5 rounded text-primary-400 md:ml-1',
-                            'hover:text-primary-600', // Hover state
-                            'active:text-primary-800', // Active state
-                            'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // Focus state
-                        )}
-                        onClick={() => onPublisherClick?.(publisher)}
-                        onKeyDown={handleKeyDown}
-                        tabIndex={0}
-                    >
-                        {publisherLabel}
-                    </span>
+                    {/* using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
+                    <object type="disregardType" className="ml-0.5 md:ml-1">
+                        <a
+                            tabIndex={0}
+                            href={publisherProfileLink}
+                            className={classNames(
+                                'text-primary-400',
+                                'hover:text-primary-600', // Hover state
+                                'active:text-primary-800', // Active state
+                                'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // Focus state
+                            )}
+                        >
+                            {publisherLabel}
+                        </a>
+                    </object>
                 </div>
 
                 {/* TODO: apply internationalization [APP-2627] */}
