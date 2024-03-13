@@ -25,6 +25,7 @@ export interface IDaoDataListItemStructureProps extends IDataListItemProps {
     ens?: string;
     /**
      * The plugin used by the DAO.
+     * @default token-based
      */
     plugin?: string;
     /**
