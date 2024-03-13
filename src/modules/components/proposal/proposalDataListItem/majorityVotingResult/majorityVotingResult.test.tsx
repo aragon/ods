@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MajorityVotingResult, type IMajorityVotingResultProps } from './majorityVotingResult';
 
-describe('<ApprovalThresholdResult /> component', () => {
+describe('<MajorityVotingResult /> component', () => {
     const createTestComponent = (props?: Partial<IMajorityVotingResultProps>) => {
         const completeProps: IMajorityVotingResultProps = {
             option: 'yes',

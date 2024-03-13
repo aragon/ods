@@ -1,4 +1,4 @@
-import { Progress, formatterUtils } from '../../../../../core';
+import { NumberFormat, Progress, formatterUtils } from '../../../../../core';
 import { type IApprovalThresholdResult } from '../proposalDataListItemStructure';
 
 export interface IApprovalThresholdResultProps extends IApprovalThresholdResult {}
@@ -8,7 +8,7 @@ export interface IApprovalThresholdResultProps extends IApprovalThresholdResult 
  */
 export const ApprovalThresholdResult: React.FC<IApprovalThresholdResultProps> = (props) => {
     const { approvalAmount, approvalThreshold } = props;
-    const percentage = Math.min((approvalAmount / approvalThreshold) * 100, 100);
+    const percentage = approvalThreshold !== 0 ? (approvalAmount / approvalThreshold) * 100 : 100;
 
     return (
         //  TODO: apply internationalization to Approved By, of, and Members [APP-2627]
@@ -18,9 +18,11 @@ export const ApprovalThresholdResult: React.FC<IApprovalThresholdResultProps> = 
             </div>
             <Progress value={percentage} />
             <div className="flex gap-x-0.5 leading-tight text-neutral-500 md:gap-x-1 md:text-lg">
-                <span className="text-primary-400">{formatterUtils.formatNumber(approvalAmount)}</span>
+                <span className="text-primary-400">
+                    {formatterUtils.formatNumber(approvalAmount, { format: NumberFormat.GENERIC_SHORT })}
+                </span>
                 <span>of</span>
-                <span>{formatterUtils.formatNumber(approvalThreshold)}</span>
+                <span>{formatterUtils.formatNumber(approvalThreshold, { format: NumberFormat.GENERIC_SHORT })}</span>
                 <span>Members</span>
             </div>
         </div>
