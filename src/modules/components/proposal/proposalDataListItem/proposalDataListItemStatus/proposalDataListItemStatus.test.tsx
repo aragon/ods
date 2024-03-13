@@ -35,12 +35,12 @@ describe('<ProposalDataListItemStatus /> component', () => {
     });
 
     ongoingStatuses.forEach((status) => {
-        it(`displays the date and a pulse component when the status is '${status}' and voted is false`, () => {
+        it(`displays the date and a pinging indicator when the status is '${status}' and voted is false`, () => {
             const date = 'test date';
             render(createTestComponent({ date, status: status as ProposalStatus, voted: false }));
 
             expect(screen.getByText(date)).toBeInTheDocument();
-            expect(screen.getByTestId('pulse')).toBeInTheDocument();
+            expect(screen.getByTestId('statePingAnimation')).toBeInTheDocument();
         });
     });
 
