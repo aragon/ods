@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useAccount } from 'wagmi';
-import { DataList, Tag } from '../../../../../core';
+import { DataList, Link, Tag } from '../../../../../core';
 import { addressUtils } from '../../../../utils/addressUtils';
 import { ApprovalThresholdResult } from '../approvalThresholdResult';
 import { MajorityVotingResult } from '../majorityVotingResult';
@@ -18,6 +18,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
     const {
         wagmiConfig: config,
         chainId,
+        className,
         type,
         result,
         date,
@@ -41,9 +42,9 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
         : publisher.name ?? addressUtils.shortenAddress(publisher.address as string);
 
     return (
-        <DataList.Item className="space-y-4" {...otherProps}>
+        <DataList.Item className={classNames('flex flex-col gap-y-4', className)} {...otherProps}>
             <ProposalDataListItemStatus date={date} status={status} voted={voted} />
-            <div className="space-y-1">
+            <div className="flex flex-col gap-y-1">
                 <p className="line-clamp-1 text-lg leading-tight text-neutral-800 md:text-2xl">{title}</p>
                 <p className="line-clamp-2 leading-normal text-neutral-500 md:text-lg">{summary}</p>
             </div>
@@ -60,18 +61,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                     By
                     {/* using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
                     <object type="disregardType" className="ml-0.5 md:ml-1">
-                        <a
-                            tabIndex={0}
-                            href={publisherProfileLink}
-                            className={classNames(
-                                'text-primary-400',
-                                'hover:text-primary-600', // Hover state
-                                'active:text-primary-800', // Active state
-                                'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // Focus state
-                            )}
-                        >
-                            {publisherLabel}
-                        </a>
+                        <Link href={publisherProfileLink}>{publisherLabel}</Link>
                     </object>
                 </div>
 
