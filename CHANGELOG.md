@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Implement `DaoDataListItem` module component
+
 ## [1.0.20] - 2024-03-13
 
 ### Fixed
@@ -19,7 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 -   Implement animations for `Dialog` and `DialogAlert` components
--   Implement `DaoAvatar`, `MemberAvatar` and `DaoDataListItem` module components
+-   Implement `DaoAvatar` and `MemberAvatar` module components
 -   Implement `OdsModulesProvider` for using wagmi hooks on modules components
 -   Introduce component customisations for the z-index property of the `Dropdown` and `Dialogs` components
 
