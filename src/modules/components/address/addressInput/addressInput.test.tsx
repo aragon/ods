@@ -1,3 +1,4 @@
+import { QueryClient } from '@tanstack/react-query';
 import { act, render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import type { Address } from 'viem';
@@ -43,13 +44,13 @@ describe('<AddressInput /> component', () => {
         useEnsNameMock.mockReset();
     });
 
-    const createTestComponent = (props?: Partial<IAddressInputProps>) => {
+    const createTestComponent = (props?: Partial<IAddressInputProps>, queryClient?: QueryClient) => {
         const completeProps = {
             ...props,
         };
 
         return (
-            <OdsModulesProvider>
+            <OdsModulesProvider queryClient={queryClient}>
                 <AddressInput {...completeProps} />
             </OdsModulesProvider>
         );
@@ -134,11 +135,124 @@ describe('<AddressInput /> component', () => {
         expect(screen.getByTestId('member-avatar-mock')).toBeInTheDocument();
     });
 
-    it('displays a ENS button to display the ENS value linked to the address input when address has ENS linked', () => {
+    it('displays a ENS button to display the ENS value linked to the address input when address has ENS linked', async () => {
         const ensValue = 'vitalik.eth';
         const value = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+        const onChange = jest.fn();
         useEnsNameMock.mockReturnValue({ data: ensValue, isFetching: false } as UseEnsNameReturnType);
+
+        render(createTestComponent({ value, onChange }));
+        const ensButton = screen.getByRole('button', { name: 'ENS' });
+        expect(ensButton).toBeInTheDocument();
+
+        await userEvent.click(ensButton);
+        expect(onChange).toHaveBeenCalledWith(ensValue);
+    });
+
+    it('displays a 0x... button to display the address value linked to the ENS input when ENS is linked to an address', async () => {
+        const addressValue: Address = '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d';
+        const value = 'cdixon.eth';
+        const onChange = jest.fn();
+        useEnsAddressMock.mockReturnValue({ data: addressValue, isFetching: false } as UseEnsAddressReturnType);
+
+        render(createTestComponent({ value, onChange }));
+        const addressButton = screen.getByRole('button', { name: '0x...' });
+        expect(addressButton).toBeInTheDocument();
+
+        await userEvent.click(addressButton);
+        expect(onChange).toHaveBeenCalledWith(addressValue);
+    });
+
+    it('displays a truncated address when address is valid and input is not focused', async () => {
+        const value = '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d';
         render(createTestComponent({ value }));
-        // TODO
+        expect(screen.getByDisplayValue('0xee...251d')).toBeInTheDocument();
+        act(() => screen.getByRole('textbox').focus());
+        expect(screen.getByDisplayValue(value)).toBeInTheDocument();
+    });
+
+    it('displays a truncated ENS name when ENS is valid and input is not focused', async () => {
+        const value = 'longensname.eth';
+        render(createTestComponent({ value }));
+        expect(screen.getByDisplayValue('longe...eth')).toBeInTheDocument();
+        act(() => screen.getByRole('textbox').focus());
+        expect(screen.getByDisplayValue(value)).toBeInTheDocument();
+    });
+
+    it('triggers the onAccept property with the normalised ENS when input value is a valid ENS and has an address linked to it', () => {
+        const value = 'ViTaLiK.eth';
+        const acceptedValue = { name: 'vitalik.eth', address: '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d' };
+        const onAccept = jest.fn();
+        useEnsAddressMock.mockReturnValue({
+            data: acceptedValue.address,
+            isFetching: false,
+        } as UseEnsAddressReturnType);
+        render(createTestComponent({ value, onAccept }));
+        expect(onAccept).toHaveBeenCalledWith(acceptedValue);
+    });
+
+    it('triggers the onAccept property with the address is checksum format when input value is a valid address', () => {
+        const value = '0xeefb13c7d42efcc655e528da6d6f7bbcf9a2251d';
+        const acceptedValue = { name: 'vitalik.eth', address: '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d' };
+        const onAccept = jest.fn();
+        getChecksumMock.mockImplementation(() => acceptedValue.address as Address);
+        useEnsNameMock.mockReturnValue({
+            data: acceptedValue.name,
+            isFetching: false,
+        } as UseEnsNameReturnType);
+        render(createTestComponent({ value, onAccept }));
+        expect(onAccept).toHaveBeenCalledWith(acceptedValue);
+    });
+
+    it('triggers the onAccept property with undefined ENS name when input value is a valid address', () => {
+        const value = '0xeefb13c7d42efcc655e528da6d6f7bbcf9a2251d';
+        const onAccept = jest.fn();
+        useEnsNameMock.mockReturnValue({ data: undefined, isFetching: false } as UseEnsNameReturnType);
+        render(createTestComponent({ value, onAccept }));
+        expect(onAccept).toHaveBeenCalledWith({ address: value, name: undefined });
+    });
+
+    it('triggers the onAccept property with undefined when input is not a valid address nor ENS', () => {
+        const value = 'test';
+        const onAccept = jest.fn();
+        useEnsAddressMock.mockReturnValue({ data: undefined, isFetching: false } as UseEnsAddressReturnType);
+        render(createTestComponent({ value, onAccept }));
+        expect(onAccept).toHaveBeenCalledWith(undefined);
+    });
+
+    it('does not try to resolve address when value is ENS name but current chain-id does not support ens names', () => {
+        const value = 'vitalik.eth';
+        const chainId = 137;
+        render(createTestComponent({ value, chainId }));
+        const queryObject = { query: { enabled: false } };
+        expect(useEnsAddressMock).toHaveBeenCalledWith(expect.objectContaining(queryObject));
+    });
+
+    it('does not try to resolve ens when value is a valid address but current chain-id does not support ens names', () => {
+        const value = '0xeefb13c7d42efcc655e528da6d6f7bbcf9a2251d';
+        const chainId = 137;
+        render(createTestComponent({ value, chainId }));
+        const queryObject = { query: { enabled: false } };
+        expect(useEnsNameMock).toHaveBeenCalledWith(expect.objectContaining(queryObject));
+    });
+
+    it('updates the query cache with the current resolved ens/address when input address is linked to an ENS name', () => {
+        const queryClient = new QueryClient();
+        queryClient.setQueryData = jest.fn();
+        const value = '0xeefb13c7d42efcc655e528da6d6f7bbcf9a2251d';
+        const resolvedEns = 'test.eth';
+        useEnsNameMock.mockReturnValue({ data: resolvedEns, isFetching: false } as UseEnsNameReturnType);
+        render(createTestComponent({ value }, queryClient));
+        expect(queryClient.setQueryData).toHaveBeenCalledWith(['', { name: resolvedEns }], value);
+    });
+
+    it('updates the query cache with the current resolved ens/address when input ENS is linked to an address', () => {
+        const queryClient = new QueryClient();
+        queryClient.setQueryData = jest.fn();
+        const value = 'abc.eth';
+        const resolvedAddress: Address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+        useEnsAddressMock.mockReturnValue({ data: resolvedAddress, isFetching: false } as UseEnsAddressReturnType);
+        render(createTestComponent({ value }, queryClient));
+        expect(queryClient.setQueryData).toHaveBeenCalledWith(['', { address: resolvedAddress }], value);
     });
 });
