@@ -13,6 +13,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Implement `StatePingAnimation` core component
 -   Implement `ProposalDataListItem.Structure` module component
 
+### Changed
+
+-   Update `Tag` component primary variant styling
+
 ## [1.0.20] - 2024-03-13
 
 ### Fixed
@@ -38,7 +42,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Set minimum required node version to 18.18.0 (required by `@typescript-eslint` v7)
 -   Update documentation on modules components
 -   Update required dependencies, move `react` and `react-dom` to peer dependencies
--   Update `Tag` component primary variant styling
 
 ## [1.0.18] - 2024-02-29
 
