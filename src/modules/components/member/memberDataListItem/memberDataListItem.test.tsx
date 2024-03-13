@@ -1,8 +1,9 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { getAddress, isAddress } from 'viem';
-import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
-import { MemberDataListItem, type IMemberDataListProps } from './memberDataListItem';
+import { useAccount, useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
+import { DataList } from '../../../../core';
+import { MemberDataListItemStructure, type IMemberDataListItemProps } from './memberDataListItem';
 
 jest.mock('viem', () => ({
     isAddress: jest.fn(),
@@ -17,15 +18,22 @@ jest.mock('wagmi', () => ({
     useEnsAddress: jest.fn(),
     useEnsName: jest.fn(),
     useEnsAvatar: jest.fn(),
+    useAccount: jest.fn(),
 }));
 
 describe('<MemberDataListItem /> component', () => {
-    const createTestComponent = (props?: Partial<IMemberDataListProps>) => {
-        const completeProps: IMemberDataListProps = {
+    const createTestComponent = (props?: Partial<IMemberDataListItemProps>) => {
+        const completeProps: IMemberDataListItemProps = {
             ...props,
         };
 
-        return <MemberDataListItem {...completeProps} />;
+        return (
+            <DataList.Root entityLabel="Members">
+                <DataList.Container>
+                    <MemberDataListItemStructure {...completeProps} />
+                </DataList.Container>{' '}
+            </DataList.Root>
+        );
     };
 
     const originalGlobalImage = global.Image;
@@ -52,6 +60,10 @@ describe('<MemberDataListItem /> component', () => {
         (useEnsAddress as jest.Mock).mockReturnValue({ data: null, isLoading: false });
         (useEnsName as jest.Mock).mockReturnValue({ data: null, isLoading: false });
         (useEnsAvatar as jest.Mock).mockReturnValue({ data: 'mock-avatar-url', isLoading: false });
+        (useAccount as jest.Mock).mockReturnValue({
+            address: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
+            isConnected: true,
+        });
     });
 
     it('renders the avatar with the provided src', async () => {
@@ -113,5 +125,11 @@ describe('<MemberDataListItem /> component', () => {
         const parentElement = formattedNumberElement.closest('h2');
 
         expect(parentElement).toHaveTextContent('420.69K Voting Power');
+    });
+
+    it('renders the "You" tag when the user is the current account', async () => {
+        const address = '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419';
+        render(createTestComponent({ address }));
+        expect(screen.getByText('You')).toBeInTheDocument();
     });
 });

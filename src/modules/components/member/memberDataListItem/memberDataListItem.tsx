@@ -1,17 +1,15 @@
-import classNames from 'classnames';
-import { Card, Heading, NumberFormat, Tag, formatterUtils } from '../../../../core';
+import { useEffect, useState } from 'react';
+import { getAddress } from 'viem';
+import { useAccount } from 'wagmi';
+import { DataList, Heading, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../core';
 import { truncateEthAddress } from '../../../../utils/truncateEthereumAddress';
-import { MemberAvatar, type IMemberAvatarProps } from '../memberAvatar';
+import { MemberAvatar } from '../memberAvatar';
 
-export interface IMemberDataListProps extends Omit<IMemberAvatarProps, 'size' | 'responsiveSize'> {
+export interface IMemberDataListItemProps extends IDataListItemProps {
     /**
      * Whether the member is a delegate of current user or not.
      */
     isDelegate?: boolean;
-    /**
-     * Whether the member card is the current user or not.
-     */
-    isCurrentUser?: boolean;
     /**
      * The number of delegations the member has from other members.
      */
@@ -21,24 +19,36 @@ export interface IMemberDataListProps extends Omit<IMemberAvatarProps, 'size' | 
      */
     votingPower?: number;
     /**
-     * The callback to be called when the component is clicked.
+     * ENS name of the user.
      */
-    handleClick?: () => void;
+    ensName?: string;
+    /**
+     * 0x address of the user.
+     */
+    address?: string;
+    /**
+     * Direct URL src of the user avatar image to be rendered.
+     */
+    avatarSrc?: string;
 }
 
-export const MemberDataListItem: React.FC<IMemberDataListProps> = (props) => {
-    const { isDelegate, isCurrentUser, avatarSrc, ensName, address, handleClick, delegationCount, votingPower } = props;
+export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (props) => {
+    const { isDelegate, avatarSrc, ensName, address, delegationCount, votingPower } = props;
+    const [isCurrentUser, setIsCurrentUser] = useState(false);
+
+    const { address: currentUserAddress, isConnected } = useAccount();
+
+    useEffect(() => {
+        if (isConnected && address && currentUserAddress === getAddress(address)) {
+            setIsCurrentUser(true);
+        }
+    }, [currentUserAddress, address, isConnected]);
 
     const resolvedUserHandle = ensName != null && ensName !== '' ? ensName : address ?? undefined;
 
     return (
-        <Card
-            onClick={handleClick}
-            className={classNames({
-                'cursor-pointer': !!handleClick,
-            })}
-        >
-            <div className="mx-6 flex min-w-44 flex-col items-start space-y-3 py-6 md:min-w-52">
+        <DataList.Item className="min-w-fit !py-0 px-4  md:px-6">
+            <div className="flex min-w-36 flex-col items-start space-y-3 py-4 md:min-w-44  md:py-6">
                 <div className="flex w-full items-center justify-between">
                     <MemberAvatar
                         ensName={ensName}
@@ -78,6 +88,6 @@ export const MemberDataListItem: React.FC<IMemberDataListProps> = (props) => {
                     </Heading>
                 </div>
             </div>
-        </Card>
+        </DataList.Item>
     );
 };
