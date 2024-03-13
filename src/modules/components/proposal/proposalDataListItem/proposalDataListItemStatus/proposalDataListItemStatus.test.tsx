@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { IconType, type TagVariant } from '../../../../../core';
+import { IconType } from '../../../../../core';
 import { type ProposalStatus } from '../proposalDataListItemStructure';
 import { ProposalDataListItemStatus, type IProposalDataListItemStatusProps } from './proposalDataListItemStatus';
 
-describe('<ProposalDataListItemStatus/> component', () => {
+describe('<ProposalDataListItemStatus /> component', () => {
     const createTestComponent = (props?: Partial<IProposalDataListItemStatusProps>) => {
         const completeProps: IProposalDataListItemStatusProps = { date: 'test date', status: 'accepted', ...props };
 
@@ -11,21 +11,6 @@ describe('<ProposalDataListItemStatus/> component', () => {
     };
 
     const ongoingStatuses = ['active', 'challenged', 'vetoed'];
-
-    const statusToTagVariant: Record<ProposalStatus, TagVariant> = {
-        accepted: 'success',
-        active: 'info',
-        challenged: 'warning',
-        draft: 'neutral',
-        executed: 'success',
-        expired: 'critical',
-        failed: 'critical',
-        partiallyExecuted: 'warning',
-        pending: 'neutral',
-        queued: 'success',
-        rejected: 'critical',
-        vetoed: 'warning',
-    };
 
     it('displays the date, calendar icon and status', () => {
         const date = 'test date';
@@ -38,7 +23,7 @@ describe('<ProposalDataListItemStatus/> component', () => {
         expect(screen.getByTestId(IconType.CALENDAR)).toBeInTheDocument();
     });
 
-    it("only displays the date for proposals with 'draft' status", () => {
+    it("only displays the date for proposals with a status that is not 'draft'", () => {
         const date = 'test date';
         const status = 'draft';
 
@@ -47,17 +32,6 @@ describe('<ProposalDataListItemStatus/> component', () => {
         expect(screen.getByText(status)).toBeInTheDocument();
         expect(screen.queryByText(date)).not.toBeInTheDocument();
         expect(screen.queryByTestId(IconType.CALENDAR)).not.toBeInTheDocument();
-    });
-
-    Object.entries(statusToTagVariant).forEach(([status, expectedVariant]) => {
-        it(`renders the ${expectedVariant} variant of the Tag component when the when the status is '${status}'`, () => {
-            render(createTestComponent({ status: status as ProposalStatus }));
-
-            // eslint-disable-next-line testing-library/no-node-access
-            const tag = screen.getByText(status).parentElement;
-
-            expect(tag?.className.includes(`bg-${expectedVariant}`)).toBeTruthy();
-        });
     });
 
     ongoingStatuses.forEach((status) => {

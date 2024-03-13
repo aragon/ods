@@ -4,10 +4,10 @@ export const ProposalDataListItem = {
     Structure,
 };
 
-export {
-    type IApprovalThresholdResult,
-    type IMajorityVotingResult,
-    type IProposalDataListItemStructureProps,
-    type ProposalStatus,
-    type ProposalType,
+export type {
+    IApprovalThresholdResult,
+    IMajorityVotingResult,
+    IProposalDataListItemStructureProps,
+    ProposalStatus,
+    ProposalType,
 } from './proposalDataListItemStructure';

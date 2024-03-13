@@ -16,7 +16,9 @@ export type ProposalStatus =
     | 'rejected'
     | 'vetoed';
 
-export interface IProposalListItemBaseProps extends IDataListItemProps {
+export interface IProposalListItemBaseProps<TType extends ProposalType = 'majorityVoting'>
+    extends IDataListItemProps,
+        IWeb3ComponentProps {
     /**
      * Indicates date relative to the proposal status
      */
@@ -29,6 +31,10 @@ export interface IProposalListItemBaseProps extends IDataListItemProps {
      * Publisher address and/or ENS name
      */
     publisher: ICompositeAddress;
+    /**
+     * Result of the proposal shown only when it is active, challenged or vetoed.
+     */
+    result: TType extends 'majorityVoting' ? IMajorityVotingResult : IApprovalThresholdResult;
     /**
      * Proposal status
      */
@@ -44,7 +50,7 @@ export interface IProposalListItemBaseProps extends IDataListItemProps {
     /**
      * Type of the ProposalDataListItem
      */
-    type: ProposalType;
+    type: TType;
     /**
      * Indicates whether the connected wallet has voted
      */
@@ -64,10 +70,6 @@ export interface IApprovalThresholdResult {
      * Proposal approval threshold
      */
     approvalThreshold: number;
-    /**
-     * Type of the ProposalDataListItem
-     */
-    type: 'approvalThreshold';
 }
 
 export interface IMajorityVotingResult {
@@ -83,12 +85,6 @@ export interface IMajorityVotingResult {
      * Percentage of votes for the winning option
      */
     votePercentage: number;
-    /**
-     * Type of the ProposalDataListItem
-     */
-    type: 'majorityVoting';
 }
 
-export type IProposalDataListItemStructureProps = IWeb3ComponentProps &
-    IProposalListItemBaseProps &
-    (IApprovalThresholdResult | IMajorityVotingResult);
+export interface IProposalDataListItemStructureProps extends IProposalListItemBaseProps<ProposalType> {}

@@ -29,16 +29,6 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
     const ongoingAndVoted = ongoing && voted;
     const showStatusMetadata = status !== 'draft';
 
-    let statusElement;
-    if (ongoingAndVoted) {
-        statusElement = <AvatarIcon icon={IconType.CHECKMARK} responsiveSize={{ md: 'md' }} />;
-    } else if (ongoing && !voted) {
-        // TODO: Add pulse component [APP-2983]
-        statusElement = <div data-testid="pulse" />;
-    } else {
-        statusElement = <AvatarIcon icon={IconType.CALENDAR} responsiveSize={{ md: 'md' }} />;
-    }
-
     return (
         <div className="flex items-center gap-x-4 md:gap-x-6">
             <Tag label={status} variant={statusToTagVariant[status]} className="shrink-0 capitalize" />
@@ -48,7 +38,10 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                         {/* TODO: apply internationalization [APP-2627]; apply relative date formatter  [APP-2944] */}
                         {ongoingAndVoted ? "You've voted" : date}
                     </span>
-                    {statusElement}
+                    {ongoingAndVoted && <AvatarIcon icon={IconType.CHECKMARK} responsiveSize={{ md: 'md' }} />}
+                    {/* TODO: Add pulse component [APP-2983] */}
+                    {ongoing && !voted && <div data-testid="pulse" />}
+                    {!ongoing && !voted && <AvatarIcon icon={IconType.CALENDAR} responsiveSize={{ md: 'md' }} />}
                 </div>
             )}
         </div>
