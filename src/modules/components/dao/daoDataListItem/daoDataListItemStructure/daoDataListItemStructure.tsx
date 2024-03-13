@@ -38,9 +38,9 @@ export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> 
 
     return (
         <DataList.Item {...otherProps}>
-            <div className="space-y-4 py-2">
+            <div className="grid gap-y-4 p-2">
                 <div className=" flex w-full justify-between">
-                    <div className="space-y-1.5 text-neutral-800">
+                    <div className="grid gap-y-1.5 text-neutral-800">
                         <Heading size="h2" as="h1">
                             {name}
                         </Heading>
@@ -53,7 +53,7 @@ export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> 
                 <p className="line-clamp-2 text-base font-normal leading-normal text-neutral-500 md:text-lg">
                     {description}
                 </p>
-                <div className="flex space-x-8 text-neutral-400">
+                <div className="flex space-x-6 text-neutral-400 md:space-x-8">
                     <div className="flex items-center gap-2 text-sm md:text-base">
                         <span className="capitalize">{network}</span>
                         <Icon icon={IconType.BLOCKCHAIN_BLOCKCHAIN} />
