@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Implement animations for `Dialog` and `DialogAlert` components
 -   Implement `DaoAvatar` and `MemberAvatar` module components
 -   Implement `OdsModulesProvider` for using wagmi hooks on modules components
+-   Introduce component customisations for the z-index property of the `Dropdown` and `Dialogs` components
 
 ### Changed
 
