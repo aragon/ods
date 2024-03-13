@@ -23,8 +23,16 @@ describe('<AddressInput /> component', () => {
 
     beforeEach(() => {
         getChecksumMock.mockImplementation((value) => value as Address);
-        useEnsAddressMock.mockReturnValue({ data: undefined, isFetching: false } as UseEnsAddressReturnType);
-        useEnsNameMock.mockReturnValue({ data: undefined, isFetching: false } as UseEnsNameReturnType);
+        useEnsAddressMock.mockReturnValue({
+            data: undefined,
+            isFetching: false,
+            queryKey: ['', {}],
+        } as unknown as UseEnsAddressReturnType);
+        useEnsNameMock.mockReturnValue({
+            data: undefined,
+            isFetching: false,
+            queryKey: ['', {}],
+        } as unknown as UseEnsNameReturnType);
     });
 
     afterEach(() => {
@@ -124,5 +132,13 @@ describe('<AddressInput /> component', () => {
     it('renders the avatar for the current address', () => {
         render(createTestComponent());
         expect(screen.getByTestId('member-avatar-mock')).toBeInTheDocument();
+    });
+
+    it('displays a ENS button to display the ENS value linked to the address input when address has ENS linked', () => {
+        const ensValue = 'vitalik.eth';
+        const value = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+        useEnsNameMock.mockReturnValue({ data: ensValue, isFetching: false } as UseEnsNameReturnType);
+        render(createTestComponent({ value }));
+        // TODO
     });
 });

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { AddressInput, type IAddressInputProps, type IAddressInputValue } from './addressInput';
+import { AddressInput, type IAddressInputProps, type IAddressInputResolvedValue } from './addressInput';
 
 const meta: Meta<typeof AddressInput> = {
     title: 'Modules/Components/Address/AddressInput',
@@ -18,7 +18,7 @@ type Story = StoryObj<typeof AddressInput>;
 
 const ControlledComponent = (props: IAddressInputProps) => {
     const [value, setValue] = useState<string>();
-    const [addressValue, setAddressValue] = useState<IAddressInputValue>();
+    const [addressValue, setAddressValue] = useState<IAddressInputResolvedValue>();
 
     const stringAddressValue =
         addressValue != null ? `{ address: ${addressValue.address}, name: ${addressValue.name} }` : 'undefined';
