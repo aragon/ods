@@ -36,7 +36,7 @@ module.exports = [
                 plugins: [analyze ? visualizer({ filename: 'stats.cjs.html', open: true }) : undefined],
             },
         ],
-        external: Object.keys(package.dependencies),
+        external: [...Object.keys(package.dependencies), ...Object.keys(package.peerDependencies)],
         plugins: [
             // Locate and resolve node modules
             nodeResolve(),

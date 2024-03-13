@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+-   Fix library build to avoid bundling peer dependencies
+-   Remove export of module components until the Aragon App migrates to Wagmi v2
+
 ## [1.0.19] - 2024-03-13
 
 ### Added
