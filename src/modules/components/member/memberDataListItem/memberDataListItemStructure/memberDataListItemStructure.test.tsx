@@ -2,8 +2,8 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { getAddress, isAddress } from 'viem';
 import { useAccount, useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
-import { DataList } from '../../../../core';
-import { MemberDataListItemStructure, type IMemberDataListItemProps } from './memberDataListItem';
+import { DataList } from '../../../../../core';
+import { MemberDataListItemStructure, type IMemberDataListItemProps } from './memberDataListItemStructure';
 
 jest.mock('viem', () => ({
     isAddress: jest.fn(),
@@ -21,9 +21,12 @@ jest.mock('wagmi', () => ({
     useAccount: jest.fn(),
 }));
 
+jest.mock('../../memberAvatar', () => ({ MemberAvatar: () => <div data-testid="member-avatar-mock" /> }));
+
 describe('<MemberDataListItem /> component', () => {
     const createTestComponent = (props?: Partial<IMemberDataListItemProps>) => {
         const completeProps: IMemberDataListItemProps = {
+            address: '0x1234567890123456789012345678901234567890',
             ...props,
         };
 
@@ -36,24 +39,6 @@ describe('<MemberDataListItem /> component', () => {
         );
     };
 
-    const originalGlobalImage = global.Image;
-
-    beforeAll(() => {
-        (window.Image as unknown) = class MockImage {
-            onload: () => void = () => {};
-            src: string = '';
-            constructor() {
-                setTimeout(() => {
-                    this.onload();
-                }, 100);
-            }
-        };
-    });
-
-    afterAll(() => {
-        global.Image = originalGlobalImage;
-    });
-
     beforeEach(() => {
         (isAddress as unknown as jest.Mock).mockImplementation(() => true);
         (getAddress as jest.Mock).mockImplementation((address: string) => address);
@@ -61,60 +46,49 @@ describe('<MemberDataListItem /> component', () => {
         (useEnsName as jest.Mock).mockReturnValue({ data: null, isLoading: false });
         (useEnsAvatar as jest.Mock).mockReturnValue({ data: 'mock-avatar-url', isLoading: false });
         (useAccount as jest.Mock).mockReturnValue({
-            address: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
+            address: '0x1234567890123456789012345678901234567890',
             isConnected: true,
         });
     });
 
-    it('renders the avatar with the provided src', async () => {
-        const avatarSrc = 'mock-ens-avatar.jpg';
-        const ensName = 'vitalik.eth';
-        const address = '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419';
-        const { rerender } = render(createTestComponent({ avatarSrc }));
+    it('renders the avatar', async () => {
+        render(createTestComponent());
+        const avatar = screen.getByTestId('member-avatar-mock');
 
-        const img = await screen.findByRole('img');
-        expect(img).toHaveAttribute('src', avatarSrc);
-
-        rerender(createTestComponent({ ensName }));
-        expect(img).toHaveAttribute('src', 'mock-avatar-url');
-
-        rerender(createTestComponent({ address }));
-        expect(img).toHaveAttribute('src', 'mock-avatar-url');
+        expect(avatar).toBeInTheDocument();
     });
 
     it('conditionally renders the "Your Delegate" tag', async () => {
-        const { rerender } = render(createTestComponent({ isDelegate: false }));
-        expect(screen.queryByText('Your Delegate')).not.toBeInTheDocument();
+        const address = '0x0987654321098765432109876543210987654321';
+        render(createTestComponent({ isDelegate: true, address }));
 
-        rerender(createTestComponent({ isDelegate: true }));
         expect(screen.getByText('Your Delegate')).toBeInTheDocument();
     });
 
-    it('renders the user handle, defaulting to "Unknown" if not provided', async () => {
+    it('renders the ENS user handle instead of address if provided', async () => {
         const ensName = 'testUserHandle';
-        const { rerender } = render(createTestComponent({ ensName }));
-        expect(screen.getByRole('heading', { name: ensName })).toBeInTheDocument();
+        render(createTestComponent({ ensName }));
 
-        rerender(createTestComponent({ ensName: undefined }));
-        rerender(createTestComponent());
-        expect(screen.getByRole('heading', { name: 'Unknown' })).toBeInTheDocument();
+        expect(screen.getByRole('heading', { name: ensName })).toBeInTheDocument();
+        expect(
+            screen.queryByRole('heading', { name: '0x1234567890123456789012345678901234567890' }),
+        ).not.toBeInTheDocument();
     });
 
     it('conditionally renders the delegation count and formats it', async () => {
-        const { rerender } = render(createTestComponent({ delegationCount: 1 }));
-
-        const delegationText = await screen.findByText(/1/);
+        const { rerender } = render(createTestComponent({ delegationCount: 340 }));
+        const delegationText = await screen.findByText(/340/);
         // eslint-disable-next-line testing-library/no-node-access
         const parentElement = delegationText.closest('h2');
 
-        expect(parentElement).toHaveTextContent('1 Delegation');
+        expect(parentElement).toHaveTextContent('340 Delegation');
 
-        rerender(createTestComponent({ delegationCount: 2 }));
-        const delegationsText = await screen.findByText(/2/);
+        rerender(createTestComponent({ delegationCount: 2959 }));
+        const delegationsText = await screen.findByText(/2.96K/);
         // eslint-disable-next-line testing-library/no-node-access
         const parentElementForTwo = delegationsText.closest('h2');
 
-        expect(parentElementForTwo).toHaveTextContent('2 Delegations');
+        expect(parentElementForTwo).toHaveTextContent('2.96K Delegations');
     });
 
     it('renders the voting power, correctly formatting large numbers', async () => {
@@ -128,8 +102,9 @@ describe('<MemberDataListItem /> component', () => {
     });
 
     it('renders the "You" tag when the user is the current account', async () => {
-        const address = '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419';
+        const address = '0x1234567890123456789012345678901234567890';
         render(createTestComponent({ address }));
+
         expect(screen.getByText('You')).toBeInTheDocument();
     });
 });
