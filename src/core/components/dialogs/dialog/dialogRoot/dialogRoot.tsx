@@ -74,7 +74,11 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                 {rootProps.open && (
                     <Portal forceMount key="portal">
                         <Overlay
-                            className={classNames('fixed inset-0 bg-modal-overlay backdrop-blur-md', overlayClassName)}
+                            className={classNames(
+                                'fixed inset-0 bg-modal-overlay backdrop-blur-md',
+                                'z-[var(--ods-dialog-overlay-z-index)]',
+                                overlayClassName,
+                            )}
                             asChild
                         >
                             <motion.div
@@ -88,6 +92,7 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                             className={classNames(
                                 'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] lg:bottom-auto lg:top-[120px] lg:max-h-[calc(100vh-200px)]',
                                 'flex max-w-[480px] flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md md:min-w-[480px]',
+                                'z-[var(--ods-dialog-content-z-index)]',
                                 containerClassName,
                             )}
                             onCloseAutoFocus={onCloseAutoFocus}
