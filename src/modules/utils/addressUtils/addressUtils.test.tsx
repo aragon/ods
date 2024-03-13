@@ -3,6 +3,7 @@
  * (See here https://github.com/jestjs/jest/issues/7780#issuecomment-865077151)
  * @jest-environment node
  */
+import { testLogger } from '../../../core/test';
 import { addressUtils } from './addressUtils';
 
 describe('address utils', () => {
@@ -43,6 +44,20 @@ describe('address utils', () => {
             const value = '0xe11bfcbdd43745d4aa6f4f18e24ad24f4623af04';
             const expectedValue = '0xe1...af04';
             expect(addressUtils.truncateAddress(value)).toEqual(expectedValue);
+        });
+    });
+
+    describe('getChecksum', () => {
+        it('returns the address on its checksum format', () => {
+            const value = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045';
+            const checksum = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+            expect(addressUtils.getChecksum(value)).toEqual(checksum);
+        });
+
+        it('throws error when input value is not a valid address ', () => {
+            testLogger.suppressErrors();
+            const value = 'test';
+            expect(() => addressUtils.getChecksum(value)).toThrow();
         });
     });
 });

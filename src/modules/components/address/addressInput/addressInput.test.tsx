@@ -1,16 +1,38 @@
 import { act, render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import type { Address } from 'viem';
+import type { UseEnsAddressReturnType, UseEnsNameReturnType } from 'wagmi';
+import * as wagmi from 'wagmi';
 import { IconType, clipboardUtils } from '../../../../core';
+import { addressUtils } from '../../../utils';
 import { OdsModulesProvider } from '../../odsModulesProvider';
 import { AddressInput, type IAddressInputProps } from './addressInput';
+
+jest.mock('../../member', () => ({
+    MemberAvatar: () => <div data-testid="member-avatar-mock" />,
+}));
 
 describe('<AddressInput /> component', () => {
     const pasteMock = jest.spyOn(clipboardUtils, 'paste');
     const copyMock = jest.spyOn(clipboardUtils, 'copy');
 
+    const getChecksumMock = jest.spyOn(addressUtils, 'getChecksum');
+
+    const useEnsAddressMock = jest.spyOn(wagmi, 'useEnsAddress');
+    const useEnsNameMock = jest.spyOn(wagmi, 'useEnsName');
+
+    beforeEach(() => {
+        getChecksumMock.mockImplementation((value) => value as Address);
+        useEnsAddressMock.mockReturnValue({ data: undefined, isFetching: false } as UseEnsAddressReturnType);
+        useEnsNameMock.mockReturnValue({ data: undefined, isFetching: false } as UseEnsNameReturnType);
+    });
+
     afterEach(() => {
         pasteMock.mockReset();
         copyMock.mockReset();
+
+        useEnsAddressMock.mockReset();
+        useEnsNameMock.mockReset();
     });
 
     const createTestComponent = (props?: Partial<IAddressInputProps>) => {
@@ -91,5 +113,16 @@ describe('<AddressInput /> component', () => {
         const linkButton = screen.getByRole<HTMLAnchorElement>('link');
         expect(linkButton).toBeInTheDocument();
         expect(linkButton.href).toEqual(`https://etherscan.io/address/${value}`);
+    });
+
+    it('renders a loder as avatar when loading the user address', () => {
+        useEnsAddressMock.mockReturnValue({ isFetching: true } as UseEnsAddressReturnType);
+        render(createTestComponent());
+        expect(screen.getByRole('progressbar')).toBeInTheDocument();
+    });
+
+    it('renders the avatar for the current address', () => {
+        render(createTestComponent());
+        expect(screen.getByTestId('member-avatar-mock')).toBeInTheDocument();
     });
 });

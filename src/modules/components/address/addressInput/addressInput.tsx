@@ -1,11 +1,10 @@
 import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import { forwardRef, useEffect, useRef, useState, type ChangeEvent, type FocusEvent } from 'react';
-import { getAddress, type Address } from 'viem';
+import { type Address } from 'viem';
 import { normalize } from 'viem/ens';
 import { useConfig, useEnsAddress, useEnsName, type UseEnsAddressParameters, type UseEnsNameParameters } from 'wagmi';
 import {
-    Avatar,
     Button,
     IconType,
     InputContainer,
@@ -18,6 +17,7 @@ import {
 } from '../../../../core';
 import type { IWeb3ComponentProps } from '../../../types';
 import { addressUtils, ensUtils } from '../../../utils';
+import { MemberAvatar } from '../../member';
 
 export interface IAddressInputResolvedValue {
     /**
@@ -137,7 +137,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             onAccept?.({ address: ensAddress, name: normalizedEns });
         } else if (addressUtils.isAddress(debouncedValue)) {
             // User input is a valid address with or without a ENS name linked to it
-            const checksumAddress = getAddress(debouncedValue);
+            const checksumAddress = addressUtils.getChecksum(debouncedValue);
             onAccept?.({ address: checksumAddress, name: ensName ?? undefined });
         } else {
             // User input is not a valid address nor ENS name
@@ -180,6 +180,8 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const displayTruncatedAddress = value != null && addressUtils.isAddress(value) && !isFocused;
     const displayTruncatedEns = value != null && ensUtils.isEnsName(value) && !isFocused;
 
+    const addressValue = ensAddress ?? (addressUtils.isAddress(value) ? value : undefined);
+
     const processedValue = displayTruncatedAddress
         ? addressUtils.truncateAddress(value)
         : displayTruncatedEns
@@ -190,7 +192,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         <InputContainer {...containerProps}>
             <div className="ml-3 shrink-0">
                 {isLoading && <Spinner variant="neutral" size="lg" />}
-                {!isLoading && <Avatar />}
+                {!isLoading && <MemberAvatar address={addressValue} />}
             </div>
             <textarea
                 type="text"
@@ -213,7 +215,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                         {displayMode === 'ens' ? '0x...' : 'ENS'}
                     </Button>
                 )}
-                {(ensAddress != null || addressUtils.isAddress(value)) && !isFocused && (
+                {addressValue != null && !isFocused && (
                     <>
                         <Button
                             variant="tertiary"
