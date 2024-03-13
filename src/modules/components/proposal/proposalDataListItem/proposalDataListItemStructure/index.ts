@@ -1,2 +1,2 @@
 export { ProposalDataListItemStructure } from './proposalDataListItemStructure';
-export * from './proposalDataListItemStructureApi';
+export * from './proposalDataListItemStructure.api';
