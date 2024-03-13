@@ -39,7 +39,7 @@ export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> 
 
     return (
         <DataList.Item {...otherProps}>
-            <div className="grid gap-y-4 p-2">
+            <div className="grid gap-y-4 py-1 md:py-1.5">
                 <div className=" flex w-full justify-between">
                     <div className="grid gap-y-1.5 text-neutral-800">
                         <Heading size="h2" as="h1">
