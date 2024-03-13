@@ -33,7 +33,7 @@ export interface IMemberDataListItemProps extends IDataListItemProps {
 }
 
 export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (props) => {
-    const { isDelegate, avatarSrc, ensName, address, delegationCount, votingPower } = props;
+    const { isDelegate, avatarSrc, ensName, address, delegationCount, votingPower, ...otherProps } = props;
     const [isCurrentUser, setIsCurrentUser] = useState(false);
 
     const { address: currentUserAddress, isConnected } = useAccount();
@@ -47,7 +47,7 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
     const resolvedUserHandle = ensName != null && ensName !== '' ? ensName : address ?? undefined;
 
     return (
-        <DataList.Item className="min-w-fit !py-0 px-4  md:px-6">
+        <DataList.Item className="min-w-fit !py-0 px-4  md:px-6" {...otherProps}>
             <div className="flex min-w-36 flex-col items-start space-y-3 py-4 md:min-w-44  md:py-6">
                 <div className="flex w-full items-center justify-between">
                     <MemberAvatar
