@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { DataList } from '../../../../core/components/dataList';
+import { DataList } from '../../../../../core';
 import { DaoDataListItemStructure, type IDaoDataListItemStructureProps } from './daoDataListItemStructure';
 
 describe('<DaoDataListItemStructure /> component', () => {
@@ -14,20 +14,22 @@ describe('<DaoDataListItemStructure /> component', () => {
     };
 
     it('renders ensName and the daoName (in uppercase) as the avatar fallback', () => {
-        let name = 'a';
+        const name = 'a';
         const ens = 'a.eth';
-        const { rerender } = render(createTestComponent({ name, ens }));
+        render(createTestComponent({ name, ens }));
         expect(screen.getByText(name.toUpperCase())).toBeInTheDocument();
         expect(screen.getByText(ens)).toBeInTheDocument();
+    });
 
-        name = 'ab';
+    it('renders name and the address', () => {
+        const name = 'ab';
         const address = '0x123';
-        rerender(createTestComponent({ name, address }));
+        render(createTestComponent({ name, address }));
         expect(screen.getByText(name.toUpperCase())).toBeInTheDocument();
         expect(screen.getByText(address)).toBeInTheDocument();
     });
 
-    it('does not render the daoAddressOrEns if it is not provided', () => {
+    it('does not render the dao ENS name if it is not provided', () => {
         const name = 'a';
         render(createTestComponent({ name }));
         expect(screen.queryByText(/.eth/)).not.toBeInTheDocument();

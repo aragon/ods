@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DataList } from '../../../../core/components/dataList';
+import { DataList } from '../../../../../core';
 import { DaoDataListItemStructure } from './daoDataListItemStructure';
 
 const meta: Meta<typeof DaoDataListItemStructure> = {
-    title: 'Modules/Components/Dao/DaoDataListItem',
+    title: 'Modules/Components/Dao/DaoDataListItem/DaoDataListItem.Structure',
     component: DaoDataListItemStructure,
     tags: ['autodocs'],
     parameters: {
