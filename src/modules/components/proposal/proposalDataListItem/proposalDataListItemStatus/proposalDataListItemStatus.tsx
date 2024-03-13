@@ -1,4 +1,12 @@
-import { AvatarIcon, IconType, Tag, type TagVariant } from '../../../../../core';
+import classNames from 'classnames';
+import {
+    AvatarIcon,
+    IconType,
+    StatePingAnimation,
+    Tag,
+    type StatePingAnimationVariant,
+    type TagVariant,
+} from '../../../../../core';
 import { type IProposalDataListItemStructureProps, type ProposalStatus } from '../proposalDataListItemStructure';
 
 export interface IProposalDataListItemStatusProps
@@ -19,6 +27,13 @@ const statusToTagVariant: Record<ProposalStatus, TagVariant> = {
     vetoed: 'warning',
 };
 
+type OngoingProposalStatus = 'active' | 'challenged' | 'vetoed';
+const ongoingStatusToPingVariant: Record<OngoingProposalStatus, StatePingAnimationVariant> = {
+    active: 'info',
+    challenged: 'warning',
+    vetoed: 'warning',
+};
+
 /**
  * `ProposalDataListItemStatus` local component
  */
@@ -34,13 +49,18 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
             <Tag label={status} variant={statusToTagVariant[status]} className="shrink-0 capitalize" />
             {showStatusMetadata && (
                 <div className="flex flex-1 items-center justify-end gap-x-2 md:gap-x-3">
-                    <span className="text-sm leading-tight text-neutral-800 md:text-base">
-                        {/* TODO: apply internationalization [APP-2627]; apply relative date formatter  [APP-2944] */}
+                    <span
+                        className={classNames('text-sm leading-tight md:text-base', {
+                            'text-info-800': status === 'active',
+                            'text-warning-800': status === 'challenged' || status === 'vetoed',
+                            'text-neutral-800 ': ongoing === false,
+                        })}
+                    >
+                        {/* TODO: apply internationalization [APP-2627]; apply relative date formatter [APP-2944] */}
                         {ongoingAndVoted ? "You've voted" : date}
                     </span>
                     {ongoingAndVoted && <AvatarIcon icon={IconType.CHECKMARK} responsiveSize={{ md: 'md' }} />}
-                    {/* TODO: Add pulse component [APP-2983] */}
-                    {ongoing && !voted && <div data-testid="pulse" />}
+                    {ongoing && !voted && <StatePingAnimation variant={ongoingStatusToPingVariant[status]} />}
                     {!ongoing && !voted && <AvatarIcon icon={IconType.CALENDAR} responsiveSize={{ md: 'md' }} />}
                 </div>
             )}
