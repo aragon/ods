@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/react';
 import '../index.css';
-import { OdsModulesProvider } from '../src';
+import { OdsModulesProvider } from '../src/modules';
 import './style.css';
 
 const preview: Preview = {
