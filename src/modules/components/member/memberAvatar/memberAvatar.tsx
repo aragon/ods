@@ -1,6 +1,6 @@
 import * as blockies from 'blockies-ts';
 import type React from 'react';
-import { getAddress, type Address } from 'viem';
+import { type Address } from 'viem';
 import { normalize } from 'viem/ens';
 import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
 import { Avatar, type IAvatarProps } from '../../../../core';
@@ -46,7 +46,7 @@ export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
     const resolvedAvatarSrc = avatarSrc ?? ensAvatarData ?? undefined;
 
     const blockiesSrc = resolvedAddress
-        ? blockies.create({ seed: getAddress(resolvedAddress), scale: 8, size: 8 }).toDataURL()
+        ? blockies.create({ seed: addressUtils.getChecksum(resolvedAddress), scale: 8, size: 8 }).toDataURL()
         : undefined;
 
     const isLoading = avatarLoading || nameLoading || addressLoading;

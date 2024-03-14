@@ -1,4 +1,3 @@
-import { getAddress } from 'viem';
 import { useAccount } from 'wagmi';
 import { DataList, Heading, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
@@ -36,7 +35,7 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
 
     const { address: currentUserAddress, isConnected } = useAccount();
 
-    const isCurrentUser = isConnected && address && currentUserAddress === getAddress(address);
+    const isCurrentUser = isConnected && address && currentUserAddress === addressUtils.getChecksum(address);
 
     const resolvedUserHandle = ensName != null && ensName !== '' ? ensName : addressUtils.truncateAddress(address);
 
