@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { getAddress, isAddress } from 'viem';
-import { useAccount, useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { DataList } from '../../../../../core';
 import { MemberDataListItemStructure, type IMemberDataListItemProps } from './memberDataListItemStructure';
 
@@ -15,9 +15,6 @@ jest.mock('viem/ens', () => ({
 }));
 
 jest.mock('wagmi', () => ({
-    useEnsAddress: jest.fn(),
-    useEnsName: jest.fn(),
-    useEnsAvatar: jest.fn(),
     useAccount: jest.fn(),
 }));
 
@@ -34,7 +31,7 @@ describe('<MemberDataListItem /> component', () => {
             <DataList.Root entityLabel="Members">
                 <DataList.Container>
                     <MemberDataListItemStructure {...completeProps} />
-                </DataList.Container>{' '}
+                </DataList.Container>
             </DataList.Root>
         );
     };
@@ -42,9 +39,7 @@ describe('<MemberDataListItem /> component', () => {
     beforeEach(() => {
         (isAddress as unknown as jest.Mock).mockImplementation(() => true);
         (getAddress as jest.Mock).mockImplementation((address: string) => address);
-        (useEnsAddress as jest.Mock).mockReturnValue({ data: null, isLoading: false });
-        (useEnsName as jest.Mock).mockReturnValue({ data: null, isLoading: false });
-        (useEnsAvatar as jest.Mock).mockReturnValue({ data: 'mock-avatar-url', isLoading: false });
+
         (useAccount as jest.Mock).mockReturnValue({
             address: '0x1234567890123456789012345678901234567890',
             isConnected: true,

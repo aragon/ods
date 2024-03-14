@@ -12,38 +12,6 @@ const meta: Meta<typeof MemberDataListItemStructure> = {
             url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/P0GeJKqILL7UXvaqu5Jj7V/Aragon-ODS?type=design&node-id=14385%3A30819&mode=dev',
         },
     },
-    argTypes: {
-        isDelegate: {
-            control: {
-                type: 'boolean',
-            },
-        },
-        delegationCount: {
-            control: {
-                type: 'number',
-            },
-        },
-        votingPower: {
-            control: {
-                type: 'number',
-            },
-        },
-        ensName: {
-            control: {
-                type: 'string',
-            },
-        },
-        address: {
-            control: {
-                type: 'string',
-            },
-        },
-        avatarSrc: {
-            control: {
-                type: 'string',
-            },
-        },
-    },
 };
 
 type Story = StoryObj<typeof MemberDataListItemStructure>;
@@ -53,11 +21,7 @@ type Story = StoryObj<typeof MemberDataListItemStructure>;
  */
 export const Default: Story = {
     args: {
-        isDelegate: undefined,
-        ensName: undefined,
         address: '0x1234567890123456789012345678901234567890',
-        delegationCount: undefined,
-        votingPower: undefined,
     },
     render: (args) => (
         <DataList.Root entityLabel="Members">
