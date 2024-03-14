@@ -105,7 +105,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
             expect(screen.getByText(testProps.status)).toBeInTheDocument();
             expect(screen.getByText(testProps.date)).toBeInTheDocument();
             expect(
-                screen.getByText(addressUtils.shortenAddress(testProps.publisher.address ?? '')),
+                screen.getByText(addressUtils.truncateAddress(testProps.publisher.address ?? '')),
             ).toBeInTheDocument();
         });
 
@@ -160,7 +160,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
             expect(screen.getByText(testProps.status)).toBeInTheDocument();
             expect(screen.getByText(testProps.date)).toBeInTheDocument();
             expect(
-                screen.getByText(addressUtils.shortenAddress(testProps.publisher.address ?? '')),
+                screen.getByText(addressUtils.truncateAddress(testProps.publisher.address ?? '')),
             ).toBeInTheDocument();
         });
 
