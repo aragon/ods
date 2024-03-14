@@ -24,7 +24,7 @@ const variantToClassName: Record<TagVariant, string> = {
     warning: 'bg-warning-200 text-warning-800',
     critical: 'bg-critical-200 text-critical-800',
     success: 'bg-success-200 text-success-800',
-    primary: 'bg-primary-100 text-primary-800',
+    primary: 'bg-primary-50 text-primary-400',
 };
 
 export const Tag: React.FC<ITagProps> = (props) => {
