@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `DaoDataListItem` and `ProposalDataListItem.Structure` module components
+-   Implement `DaoDataListItem`, `ProposalDataListItem.Structure`, and `MemberDataListItem.Structure` module components
 -   Implement `StatePingAnimation` core component
 
 ### Changed
