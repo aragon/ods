@@ -10,7 +10,7 @@ class EnsUtils {
      * @param value The value to be checked.
      * @returns True when the given value is a valid ENS name, false otherwise.
      */
-    isEnsName = (value?: string): boolean => (value != null ? this.ensPattern.test(value) : false);
+    isEnsName = (value?: string): boolean => (value != null && value.length > 6 ? this.ensPattern.test(value) : false);
 
     /**
      * Truncates the ENS name by displaying the first 5 characters and the eth suffix.
