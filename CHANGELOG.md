@@ -9,8 +9,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `DaoDataListItem` module component
+-   Implement `DaoDataListItem` and `ProposalDataListItem.Structure` module components
 -   Implement `StatePingAnimation` core component
+
+### Changed
+
+-   Update `Tag` component primary variant styling
 
 ## [1.0.20] - 2024-03-13
 
