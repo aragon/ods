@@ -16,7 +16,7 @@ export type ProposalStatus =
     | 'rejected'
     | 'vetoed';
 
-export interface IProposalDataListItemStructureProps<TType extends ProposalType = ProposalType>
+export interface IProposalDataListItemStructureBaseProps<TType extends ProposalType = ProposalType>
     extends IDataListItemProps,
         IWeb3ComponentProps {
     /**
@@ -86,3 +86,17 @@ export interface IMajorityVotingResult {
      */
     votePercentage: number;
 }
+
+export interface IProposalDataListItemStructureMajorityVotingProps
+    extends IProposalDataListItemStructureBaseProps<'majorityVoting'> {
+    result: IMajorityVotingResult;
+}
+
+export interface IProposalDataListItemStructureApprovalThresholdProps
+    extends IProposalDataListItemStructureBaseProps<'approvalThreshold'> {
+    result: IApprovalThresholdResult;
+}
+
+export type IProposalDataListItemStructureProps =
+    | IProposalDataListItemStructureMajorityVotingProps
+    | IProposalDataListItemStructureApprovalThresholdProps;

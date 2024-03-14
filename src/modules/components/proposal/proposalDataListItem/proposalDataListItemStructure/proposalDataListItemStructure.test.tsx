@@ -46,11 +46,15 @@ describe('<ProposalDataListItemStructure/> component', () => {
         return (
             <DataList.Root entityLabel="Proposals">
                 {baseProps.type === 'approvalThreshold' && (
-                    <ProposalDataListItemStructure {...baseProps} result={approvalThresholdProps} />
+                    <ProposalDataListItemStructure
+                        {...baseProps}
+                        result={approvalThresholdProps}
+                        type="approvalThreshold"
+                    />
                 )}
 
                 {baseProps.type === 'majorityVoting' && (
-                    <ProposalDataListItemStructure {...baseProps} result={majorityVotingProps} />
+                    <ProposalDataListItemStructure {...baseProps} result={majorityVotingProps} type="majorityVoting" />
                 )}
             </DataList.Root>
         );
