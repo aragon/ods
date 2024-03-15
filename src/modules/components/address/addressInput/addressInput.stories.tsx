@@ -20,8 +20,7 @@ const ControlledComponent = (props: IAddressInputProps) => {
     const [value, setValue] = useState<string>();
     const [addressValue, setAddressValue] = useState<IAddressInputResolvedValue>();
 
-    const stringAddressValue =
-        addressValue != null ? `{ address: ${addressValue.address}, name: ${addressValue.name} }` : 'undefined';
+    const stringAddressValue = JSON.stringify(addressValue, null, 2) ?? 'undefined';
 
     return (
         <div className="flex grow flex-col gap-2">
