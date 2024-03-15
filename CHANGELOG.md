@@ -17,6 +17,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update `Tag` component primary variant styling
 -   Update Eslint rules to align usage of boolean properties
 
+### Fixed
+
+-   Library build process to avoid bundling dependencies and peer-dependencies when using subfolders import (e.g.
+    `wagmi/chains`)
+
 ## [1.0.20] - 2024-03-13
 
 ### Fixed

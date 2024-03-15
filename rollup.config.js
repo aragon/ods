@@ -1,6 +1,7 @@
 const commonjs = require('@rollup/plugin-commonjs');
 const images = require('@rollup/plugin-image');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
+const peerDepsExternal = require('rollup-plugin-peer-deps-external');
 const terser = require('@rollup/plugin-terser');
 const typescript = require('@rollup/plugin-typescript');
 const { visualizer } = require('rollup-plugin-visualizer');
@@ -10,7 +11,6 @@ const postcss = require('rollup-plugin-postcss');
 const tsConfig = require('./tsconfig.json');
 const { outDir } = tsConfig.compilerOptions;
 
-const package = require('./package.json');
 const analyze = process.env.ANALYZE === 'true';
 
 module.exports = [
@@ -36,8 +36,10 @@ module.exports = [
                 plugins: [analyze ? visualizer({ filename: 'stats.cjs.html', open: true }) : undefined],
             },
         ],
-        external: [...Object.keys(package.dependencies), ...Object.keys(package.peerDependencies)],
         plugins: [
+            // Mark all dependencies / peer-dependencies as external to not include them on the library build
+            peerDepsExternal({ includeDependencies: true }),
+
             // Locate and resolve node modules
             nodeResolve(),
 
