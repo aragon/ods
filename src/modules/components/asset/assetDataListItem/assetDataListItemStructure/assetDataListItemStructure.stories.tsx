@@ -17,7 +17,7 @@ const meta: Meta<typeof AssetDataListItemStructure> = {
 type Story = StoryObj<typeof AssetDataListItemStructure>;
 
 /**
- * Default usage example of the DaoDataListItem component.
+ * Default usage example of the AssetDataListItem component.
  */
 export const Default: Story = {
     args: {
@@ -39,7 +39,7 @@ export const Default: Story = {
 };
 
 /**
- *  Usage of the DaoDataListItem without an image src and 0 changes.
+ *  Usage of the AssetDataListItem without changedAmount and changedPercentage.
  */
 export const Fallback: Story = {
     args: {
