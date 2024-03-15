@@ -135,7 +135,7 @@ describe('<AddressInput /> component', () => {
         expect(screen.getByTestId('member-avatar-mock')).toBeInTheDocument();
     });
 
-    it('displays a ENS button to display the ENS value linked to the address input when address has ENS linked', async () => {
+    it('displays a button to display the ENS value linked to the address input when address has ENS linked', async () => {
         const ensValue = 'vitalik.eth';
         const value = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
         const onChange = jest.fn();
@@ -149,14 +149,14 @@ describe('<AddressInput /> component', () => {
         expect(onChange).toHaveBeenCalledWith(ensValue);
     });
 
-    it('displays a 0x... button to display the address value linked to the ENS input when ENS is linked to an address', async () => {
+    it('displays a button to display the address value linked to the ENS input when ENS is linked to an address', async () => {
         const addressValue: Address = '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d';
         const value = 'cdixon.eth';
         const onChange = jest.fn();
         useEnsAddressMock.mockReturnValue({ data: addressValue, isFetching: false } as UseEnsAddressReturnType);
 
         render(createTestComponent({ value, onChange }));
-        const addressButton = screen.getByRole('button', { name: '0x...' });
+        const addressButton = screen.getByRole('button', { name: '0x …' });
         expect(addressButton).toBeInTheDocument();
 
         await userEvent.click(addressButton);
