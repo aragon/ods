@@ -214,7 +214,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             />
             <div className="mr-2 flex flex-row gap-2">
                 {(ensName != null || ensAddress != null) && !isFocused && (
-                    <Button variant="tertiary" size="sm" onMouseDown={toggleDisplayMode} className="min-w-min">
+                    <Button variant="tertiary" size="sm" onMouseDown={toggleDisplayMode} className="min-w-max">
                         {displayMode === 'ens' ? '0x …' : 'ENS'}
                     </Button>
                 )}
