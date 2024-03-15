@@ -39,7 +39,7 @@ describe('ens utils', () => {
 
         it('correctly truncates the ens name', () => {
             const value = 'verylongens.eth';
-            const expectedValue = 'veryl...eth';
+            const expectedValue = 'veryl…eth';
             expect(ensUtils.truncateEns(value)).toEqual(expectedValue);
         });
     });

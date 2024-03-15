@@ -166,7 +166,7 @@ describe('<AddressInput /> component', () => {
     it('displays a truncated address when address is valid and input is not focused', async () => {
         const value = '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d';
         render(createTestComponent({ value }));
-        expect(screen.getByDisplayValue('0xee...251d')).toBeInTheDocument();
+        expect(screen.getByDisplayValue('0xee…251d')).toBeInTheDocument();
         act(() => screen.getByRole('textbox').focus());
         expect(screen.getByDisplayValue(value)).toBeInTheDocument();
     });
@@ -174,7 +174,7 @@ describe('<AddressInput /> component', () => {
     it('displays a truncated ENS name when ENS is valid and input is not focused', async () => {
         const value = 'longensname.eth';
         render(createTestComponent({ value }));
-        expect(screen.getByDisplayValue('longe...eth')).toBeInTheDocument();
+        expect(screen.getByDisplayValue('longe…eth')).toBeInTheDocument();
         act(() => screen.getByRole('textbox').focus());
         expect(screen.getByDisplayValue(value)).toBeInTheDocument();
     });

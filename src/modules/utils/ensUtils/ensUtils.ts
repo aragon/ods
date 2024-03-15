@@ -18,7 +18,7 @@ class EnsUtils {
      * @returns The truncated ENS name when the ens input is valid, the ENS input as is otherwise.
      */
     truncateEns = (ens = '') =>
-        this.isEnsName(ens) && ens.length > 9 ? `${ens.slice(0, 5)}...${ens.slice(ens.length - 3, ens.length)}` : ens;
+        this.isEnsName(ens) && ens.length > 9 ? `${ens.slice(0, 5)}…${ens.slice(ens.length - 3, ens.length)}` : ens;
 }
 
 export const ensUtils = new EnsUtils();
