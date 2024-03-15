@@ -3,7 +3,7 @@ import { ensUtils } from './ensUtils';
 describe('ens utils', () => {
     describe('isEnsName', () => {
         it('returns false when value is undefined', () => {
-            expect(ensUtils.isEnsName(undefined)).toBeFalsy();
+            expect(ensUtils.isEnsName()).toBeFalsy();
         });
 
         it('returns false when value length is less than 6', () => {

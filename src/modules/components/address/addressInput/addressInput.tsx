@@ -177,8 +177,8 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     }, [value, isFocused]);
 
     // Display the address or ENS as truncated when the value is a valid address or ENS and input is not focused
-    const displayTruncatedAddress = value != null && addressUtils.isAddress(value) && !isFocused;
-    const displayTruncatedEns = value != null && ensUtils.isEnsName(value) && !isFocused;
+    const displayTruncatedAddress = addressUtils.isAddress(value) && !isFocused;
+    const displayTruncatedEns = ensUtils.isEnsName(value) && !isFocused;
 
     const addressValue = ensAddress ?? (addressUtils.isAddress(value) ? value : undefined);
 
