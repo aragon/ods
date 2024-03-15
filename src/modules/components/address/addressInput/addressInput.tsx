@@ -38,7 +38,7 @@ export interface IAddressInputProps
      */
     value?: string;
     /**
-     * Callback called on address input change.
+     * Callback called whenever the current input value (address or ens) changes.
      */
     onChange?: (value?: string) => void;
     /**
