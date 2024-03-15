@@ -71,15 +71,18 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const [debouncedValue, setDebouncedValue] = useDebouncedValue(value, { delay: 300 });
     const [isFocused, setIsFocused] = useState(false);
 
+    const isDebouncedValueValidEns = ensUtils.isEnsName(debouncedValue);
+    const isDebouncedValueValidAddress = addressUtils.isAddress(debouncedValue);
+
     const {
         data: ensAddress,
         isFetching: isEnsAddressLoading,
         queryKey: ensAddressQueryKey,
     } = useEnsAddress({
-        name: ensUtils.isEnsName(debouncedValue) ? normalize(debouncedValue) : undefined,
+        name: isDebouncedValueValidEns ? normalize(debouncedValue) : undefined,
         config: wagmiConfig,
         chainId,
-        query: { enabled: supportEnsNames && ensUtils.isEnsName(debouncedValue) },
+        query: { enabled: supportEnsNames && isDebouncedValueValidEns },
     });
 
     const {
@@ -90,7 +93,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         address: debouncedValue as Address,
         config: wagmiConfig,
         chainId,
-        query: { enabled: supportEnsNames && addressUtils.isAddress(debouncedValue) },
+        query: { enabled: supportEnsNames && isDebouncedValueValidAddress },
     });
 
     const displayMode = ensUtils.isEnsName(value) ? 'ens' : 'address';
@@ -135,7 +138,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             // User input is a valid ENS name
             const normalizedEns = normalize(debouncedValue);
             onAccept?.({ address: ensAddress, name: normalizedEns });
-        } else if (addressUtils.isAddress(debouncedValue)) {
+        } else if (isDebouncedValueValidAddress) {
             // User input is a valid address with or without a ENS name linked to it
             const checksumAddress = addressUtils.getChecksum(debouncedValue);
             onAccept?.({ address: checksumAddress, name: ensName ?? undefined });
@@ -143,7 +146,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             // User input is not a valid address nor ENS name
             onAccept?.(undefined);
         }
-    }, [ensAddress, ensName, debouncedValue, isLoading, onAccept]);
+    }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, isLoading, onAccept]);
 
     // Update react-query cache to avoid fetching the ENS address when the ENS name has been successfully resolved.
     // E.g. user types 0x..123 which is resolved into test.eth, therefore set test.eth as resolved ENS name of 0x..123
