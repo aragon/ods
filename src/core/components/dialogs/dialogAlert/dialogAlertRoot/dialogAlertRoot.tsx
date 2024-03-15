@@ -80,14 +80,14 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
             <Trigger />
             <AnimatePresence>
                 {rootProps.open && (
-                    <Portal forceMount key="portal">
+                    <Portal forceMount={true} key="portal">
                         <Overlay
                             className={classNames(
                                 'fixed inset-0 bg-modal-overlay backdrop-blur-md',
                                 'z-[var(--ods-dialog-alert-overlay-z-index)]',
                                 overlayClassName,
                             )}
-                            asChild
+                            asChild={true}
                         >
                             <motion.div
                                 initial="closed"
@@ -106,7 +106,7 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
                             onCloseAutoFocus={onCloseAutoFocus}
                             onEscapeKeyDown={handleEscapeKeyDown}
                             onOpenAutoFocus={onOpenAutoFocus}
-                            asChild
+                            asChild={true}
                         >
                             <motion.div
                                 variants={DialogUtils.contentAnimationVariants}
