@@ -124,7 +124,7 @@ describe('<AddressInput /> component', () => {
         expect(linkButton.href).toEqual(`https://etherscan.io/address/${value}`);
     });
 
-    it('renders a loder as avatar when loading the user address', () => {
+    it('renders a loader as avatar when loading the user address', () => {
         useEnsAddressMock.mockReturnValue({ isFetching: true } as UseEnsAddressReturnType);
         render(createTestComponent());
         expect(screen.getByRole('progressbar')).toBeInTheDocument();
