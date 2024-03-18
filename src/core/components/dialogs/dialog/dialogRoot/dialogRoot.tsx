@@ -72,14 +72,14 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
         <Root {...rootProps}>
             <AnimatePresence>
                 {rootProps.open && (
-                    <Portal forceMount key="portal">
+                    <Portal forceMount={true} key="portal">
                         <Overlay
                             className={classNames(
                                 'fixed inset-0 bg-modal-overlay backdrop-blur-md',
                                 'z-[var(--ods-dialog-overlay-z-index)]',
                                 overlayClassName,
                             )}
-                            asChild
+                            asChild={true}
                         >
                             <motion.div
                                 initial="closed"
@@ -100,7 +100,7 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                             onInteractOutside={onInteractOutside}
                             onOpenAutoFocus={onOpenAutoFocus}
                             onPointerDownOutside={onPointerDownOutside}
-                            asChild
+                            asChild={true}
                         >
                             <motion.div
                                 variants={DialogUtils.contentAnimationVariants}
