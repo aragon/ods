@@ -1,7 +1,6 @@
-import { getAddress } from 'viem';
 import { useAccount } from 'wagmi';
 import { DataList, Heading, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
-import { truncateEthAddress } from '../../../../utils/truncateEthereumAddress';
+import { addressUtils } from '../../../../utils';
 import { MemberAvatar } from '../../memberAvatar';
 
 export interface IMemberDataListItemProps extends IDataListItemProps {
@@ -36,9 +35,9 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
 
     const { address: currentUserAddress, isConnected } = useAccount();
 
-    const isCurrentUser = isConnected && address && currentUserAddress === getAddress(address);
+    const isCurrentUser = isConnected && address && currentUserAddress === addressUtils.getChecksum(address);
 
-    const resolvedUserHandle = ensName != null && ensName !== '' ? ensName : address;
+    const resolvedUserHandle = ensName != null && ensName !== '' ? ensName : addressUtils.truncateAddress(address);
 
     const hasDelegationOrVotingPower = delegationCount > 0 || votingPower > 0;
 
@@ -57,7 +56,7 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                 </div>
 
                 <Heading className="inline-block w-full truncate" size="h2" as="h1">
-                    {truncateEthAddress(resolvedUserHandle)}
+                    {resolvedUserHandle}
                 </Heading>
 
                 {hasDelegationOrVotingPower && (
