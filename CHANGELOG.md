@@ -9,8 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `DaoDataListItem`, `ProposalDataListItem.Structure`, `MemberDataListItem.Structure` and `AddressInput`
-    module components
+-   Implement `DaoDataListItem.Structure`, `ProposalDataListItem.Structure`, `MemberDataListItem.Structure` and
+    `AddressInput` module components
 -   Implement `StatePingAnimation` core component
 -   Implement `addressUtils` and `ensUtils` module utilities
 -   Implement `useDebouncedValue` core hook and `clipboardUtils` core utility
