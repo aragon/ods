@@ -1,1 +1,1 @@
-export * from './transactionDataListItem/transactionDataListItemStructure';
+export * from './transactionDataListItem';
