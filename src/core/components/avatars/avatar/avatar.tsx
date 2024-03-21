@@ -6,7 +6,7 @@ import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../.
 import { responsiveUtils } from '../../../utils';
 import { AvatarBase } from '../avatarBase';
 
-export type AvatarSize = 'sm' | 'md' | 'lg';
+export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 export interface IAvatarProps extends ComponentPropsWithoutRef<'img'> {
     /**
@@ -33,13 +33,27 @@ const responsiveSizeClasses: ResponsiveAttributeClassMap<AvatarSize> = {
         '2xl': '2xl:w-6 2xl:h-6',
     },
     md: {
+        sm: 'w-8 h-8',
+        md: 'md:w-8 md:h-8',
+        lg: 'lg:w-8 lg:h-8',
+        xl: 'xl:w-8 xl:h-8',
+        '2xl': '2xl:w-8 2xl:h-8',
+    },
+    lg: {
         sm: 'w-10 h-10',
         md: 'md:w-10 md:h-10',
         lg: 'lg:w-10 lg:h-10',
         xl: 'xl:w-10 xl:h-10',
         '2xl': '2xl:w-10 2xl:h-10',
     },
-    lg: {
+    xl: {
+        sm: 'w-14 h-14',
+        md: 'md:w-14 md:h-14',
+        lg: 'lg:w-14 lg:h-14',
+        xl: 'xl:w-14 xl:h-14',
+        '2xl': '2xl:w-14 2xl:h-14',
+    },
+    '2xl': {
         sm: 'w-16 h-16',
         md: 'md:w-16 md:h-16',
         lg: 'lg:w-16 lg:h-16',
