@@ -11,6 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Update minor and patch dependencies
 -   Update `yarn` version from `4.1.1` to `4.2.2`
+-   Update sizes of `Avatar` core component
+-   Update variants and add `ghost` variant to `Button` core component
 
 ## [1.0.31] - 2024-05-24
 
