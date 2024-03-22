@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update `Tag` component primary variant styling
 -   Update Eslint rules to align usage of boolean properties
 -   Update default query-client options to set a stale time greater than 0
+-   Bump `webpack-dev-middleware` from 6.1.1 to 6.1.2
 
 ### Fixed
 
