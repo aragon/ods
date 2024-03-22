@@ -6,22 +6,22 @@ import type { IInputContainerProps, InputVariant } from './inputContainer.api';
 
 const variantToClassNames: Record<InputVariant | 'disabled', string[]> = {
     default: [
-        'border-neutral-100 bg-neutral-0', // Default state
-        'hover:border-neutral-200 hover:shadow-neutral-md', // Hover state
-        'focus-within:ring-primary focus-within:border-primary-400 focus-within:shadow-primary-md', // Focus state
-        'focus-within:hover:border-primary-400 focus-within:hover:shadow-primary-md', // Focus + Hover state
+        'border-neutral-100 bg-neutral-0 shadow-neutral-sm', // Default state
+        'hover:border-neutral-200 hover:shadow-neutral', // Hover state
+        'focus-within:border-primary-400 focus-within:shadow-primary', // Focus state
+        'focus-within:hover:border-primary-400 focus-within:hover:shadow-primary', // Focus + Hover state
     ],
     warning: [
-        'border-warning-500 bg-neutral-0', // Default state
-        'hover:border-warning-600 hover:shadow-warning-md', // Hover state
-        'focus-within:ring-warning focus-within:border-warning-600 focus-within:shadow-warning-md', // Focus state
-        'focus-within:hover:border-warning-600 focus-within:hover:shadow-warning-md', // Focus + Hover state
+        'border-warning-500 bg-neutral-0 shadow-warning-sm', // Default state
+        'hover:border-warning-600 hover:shadow-warning', // Hover state
+        'focus-within:border-warning-600 focus-within:shadow-warning', // Focus state
+        'focus-within:hover:border-warning-500 focus-within:hover:shadow-warning', // Focus + Hover state
     ],
     critical: [
-        'border-critical-500 bg-neutral-0', // Default state
-        'hover:border-critical-600 hover:shadow-critical-md', // Hover state
-        'focus-within:ring-critical focus-within:border-critical-600 focus-within:shadow-critical-md', // Focus state
-        'focus-within:hover:border-critical-600 focus-within:hover:shadow-critical-md', // Focus + Hover state
+        'border-critical-500 bg-neutral-0 shadow-critical-sm', // Default state
+        'hover:border-critical-600 hover:shadow-critical', // Hover state
+        'focus-within:border-critical-600 focus-within:shadow-critical', // Focus state
+        'focus-within:hover:border-critical-500 focus-within:hover:shadow-critical', // Focus + Hover state
     ],
     disabled: ['border-neutral-200 bg-neutral-100'],
 };
@@ -53,7 +53,6 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
     const containerClasses = classNames(
         'flex min-h-12 w-full flex-row items-center', // Layout
         'rounded-xl border text-neutral-500 transition-all', // Styling
-        'focus-within:ring focus-within:ring-offset', // Ring on focus
         'text-base font-normal leading-tight', // Typography
         variantToClassNames[processedVariant],
         wrapperClassName,

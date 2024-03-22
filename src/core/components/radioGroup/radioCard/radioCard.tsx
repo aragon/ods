@@ -41,10 +41,10 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
     const labelId = `${processedId}-label`;
 
     const containerClasses = classNames(
-        'group h-16 rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 md:h-20 md:rounded-2xl md:px-6 md:py-4', // default
+        'group h-16 rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 shadow-neutral-sm outline-none transition-all md:h-20 md:rounded-2xl md:px-6 md:py-4', // default
         'data-[state=checked]:border-primary-400 data-[state=checked]:shadow-primary', // checked
         'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
-        'hover:border-neutral-200 hover:shadow-neutral-md hover:data-[state=checked]:shadow-primary-md', // hover
+        'hover:border-neutral-200 hover:shadow-neutral hover:data-[state=checked]:shadow-primary-md', // hover
         'disabled:border-neutral-200 disabled:bg-neutral-100 disabled:shadow-none', // disabled
         'disabled:data-[state=checked]:border-neutral-300 disabled:data-[state=checked]:shadow-none', // disabled & checked
         className,
@@ -81,7 +81,10 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
                 <span className="h-full">
                     <Icon icon={IconType.RADIO} className="text-neutral-300 group-data-[state=checked]:hidden" />
                     <RadioGroupIndicator>
-                        <Icon icon={IconType.SUCCESS} className="text-primary-400 group-disabled:text-neutral-500" />
+                        <Icon
+                            icon={IconType.RADIO_SELECTED}
+                            className="text-primary-400 group-disabled:text-neutral-500"
+                        />
                     </RadioGroupIndicator>
                 </span>
             </div>

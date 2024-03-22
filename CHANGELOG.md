@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update default query-client options to set a stale time greater than 0
 -   Update sizes of `Avatar` core component
 -   Update variants and add `ghost` variant to `Button` core component
+-   Update style of `CheckboxCard`, `InputContainer`, `RadioCard` and `Switch` components
 
 ### Fixed
 

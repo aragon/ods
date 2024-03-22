@@ -73,7 +73,7 @@ export const Switch: React.FC<ISwitchProps> = (props) => {
             <RadixSwitch.Root
                 onCheckedChange={onCheckedChanged}
                 className={classNames(
-                    'group peer w-10 cursor-default rounded-[40px] border border-neutral-200 bg-neutral-0 p-1', // Default
+                    'group peer w-10 cursor-default rounded-[40px] border border-neutral-200 bg-neutral-0 p-1 shadow-neutral-sm', // Default
                     'data-[state=checked]:border-primary-400 data-[state=checked]:shadow-primary', // Checked
                     'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // Focus
                     'disabled:bg-neutral-100 disabled:data-[state=checked]:border-neutral-200 disabled:data-[state=checked]:shadow-none', // Disabled
