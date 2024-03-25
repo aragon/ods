@@ -25,11 +25,11 @@ export interface INumberFormat {
      */
     useBaseSymbol?: boolean;
     /**
-     * Formats the number as "< $value" when the value is lower than the one specified.
+     * Formats the number as "< $value" (or "> -$value" for negative numbers) when the value is lower than the one specified.
      */
     minDisplayValue?: number;
     /**
-     * Formats the number as "> $value" when the value is higher than the one specified.
+     * Formats the number as "> $value" (or "< -$value" for negative numbers) when the value is higher than the one specified.
      */
     maxDisplayValue?: number;
     /**
@@ -40,6 +40,10 @@ export interface INumberFormat {
      * Format the number as a percentage when set to true.
      */
     isPercentage?: boolean;
+    /**
+     * Always displays the number sign on the formatted number when set to true.
+     */
+    withSign?: boolean;
     /**
      * Fallback to display in case the value is null.
      */
@@ -91,8 +95,8 @@ export const numberFormats: Record<NumberFormat, INumberFormat> = {
         maxFractionDigits: 18,
     },
     [NumberFormat.TOKEN_PRICE]: {
-        fixedFractionDigits: (value) => (value >= 1 ? 2 : undefined),
-        maxSignificantDigits: (value) => (value < 1 ? 4 : undefined),
+        fixedFractionDigits: (value) => (Math.abs(value) >= 1 ? 2 : undefined),
+        maxSignificantDigits: (value) => (Math.abs(value) < 1 ? 4 : undefined),
         isCurrency: true,
         fallback: 'Unknown',
         displayFallback: (value) => isNaN(value) || value === 0,
