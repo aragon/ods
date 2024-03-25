@@ -36,14 +36,14 @@ class FormatterUtils {
             isCurrency,
             isPercentage,
             withSign,
-            fallback,
+            fallback = null,
             displayFallback,
         } = mergedOptions;
 
         const parsedValue = typeof value === 'number' ? value : parseFloat(value ?? '');
 
         if (Boolean(displayFallback?.(parsedValue)) || isNaN(parsedValue)) {
-            return fallback ?? null;
+            return fallback;
         }
 
         const fixedFractionDigitsOption = this.getDynamicOption(parsedValue, fixedFractionDigits);
