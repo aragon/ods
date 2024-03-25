@@ -25,6 +25,7 @@ const rulesBase = {
     'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
     'react/self-closing-comp': 'warn',
     'react/prop-types': 'off',
+    'react/jsx-boolean-value': ['warn', 'always'],
     'no-console': 'warn',
     curly: 'warn',
     'brace-style': 'warn',

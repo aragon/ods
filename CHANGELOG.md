@@ -9,13 +9,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `DaoDataListItem`, `ProposalDataListItem.Structure`, `TransactionDataListItem.Structure` and
-    `MemberDataListItem.Structure` module components
+-   Implement `DaoDataListItem`, `ProposalDataListItem.Structure`, `TransactionDataListItem.Structure`,
+    `MemberDataListItem.Structure` and `AddressInput` module components
 -   Implement `StatePingAnimation` core component
+-   Implement `addressUtils` and `ensUtils` module utilities
+-   Implement `useDebouncedValue` core hook and `clipboardUtils` core utility
 
 ### Changed
 
 -   Update `Tag` component primary variant styling
+-   Update Eslint rules to align usage of boolean properties
+-   Update default query-client options to set a stale time greater than 0
+-   Bump `webpack-dev-middleware` from 6.1.1 to 6.1.2
+
+### Fixed
+
+-   Library build process to avoid bundling dependencies and peer-dependencies when using subfolders import (e.g.
+    `wagmi/chains`)
 
 ## [1.0.20] - 2024-03-13
 
