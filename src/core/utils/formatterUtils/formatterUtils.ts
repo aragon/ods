@@ -31,8 +31,6 @@ class FormatterUtils {
             minFractionDigits,
             maxSignificantDigits,
             useBaseSymbol,
-            minDisplayValue,
-            maxDisplayValue,
             isCurrency,
             isPercentage,
             withSign,
@@ -49,9 +47,10 @@ class FormatterUtils {
         const fixedFractionDigitsOption = this.getDynamicOption(parsedValue, fixedFractionDigits);
         const maxSignificantDigitsOption = this.getDynamicOption(parsedValue, maxSignificantDigits);
 
+        const maxDigitsFallback = fixedFractionDigitsOption ?? maxFractionDigits;
         const maxDigits = maxSignificantDigitsOption
-            ? this.significantDigitsToFractionDigits(parsedValue, maxSignificantDigitsOption)
-            : fixedFractionDigitsOption ?? maxFractionDigits;
+            ? this.significantDigitsToFractionDigits(parsedValue, maxSignificantDigitsOption, maxDigitsFallback)
+            : maxDigitsFallback;
 
         const minDigits = fixedFractionDigitsOption ?? minFractionDigits;
 
@@ -73,21 +72,8 @@ class FormatterUtils {
             parsedValue > 1e15 ? 10 ** (this.getDecimalPlaces(parsedValue) - 1) : baseRange?.value ?? 1;
 
         let processedValue = isPercentage ? parsedValue * 100 : parsedValue;
-        const processedValueAbs = Math.abs(processedValue);
-        const valueSign = Math.sign(processedValue);
 
-        // Set the processedValue to the minDisplayValue (e.g. 0.0012 to 0.01) or maxDisplayValue (e.g. 99.99 to 99.9)
-        // when the value is not zero / 100 and smaller / higher than the minDisplayValue / maxDisplayValue
-        const useMinDisplayValue =
-            minDisplayValue != null && processedValueAbs > 0 && processedValueAbs < minDisplayValue;
-        const useMaxDisplayValue =
-            maxDisplayValue != null && processedValueAbs < 100 && processedValueAbs > maxDisplayValue;
-
-        if (useMinDisplayValue) {
-            processedValue = minDisplayValue * valueSign;
-        } else if (useMaxDisplayValue) {
-            processedValue = maxDisplayValue * valueSign;
-        } else if (useBaseSymbol) {
+        if (useBaseSymbol) {
             processedValue = parsedValue / baseRangeDenominator;
         }
 
@@ -99,12 +85,6 @@ class FormatterUtils {
 
         if (useBaseSymbol && baseRange != null) {
             formattedValue = `${formattedValue}${baseRange.symbol(parsedValue)}`;
-        } else if (useMinDisplayValue) {
-            const symbol = valueSign > 0 ? '<' : '>';
-            formattedValue = `${symbol}${formattedValue}`;
-        } else if (useMaxDisplayValue) {
-            const symbol = valueSign > 0 ? '>' : '<';
-            formattedValue = `${symbol}${formattedValue}`;
         }
 
         if (isPercentage) {
@@ -121,8 +101,8 @@ class FormatterUtils {
 
     private getDecimalPlaces = (value: number) => value.toString().split('.')[0].length;
 
-    private significantDigitsToFractionDigits = (value: number, digits: number) =>
-        value === 0 ? 0 : Math.floor(digits - Math.log10(Math.abs(value)));
+    private significantDigitsToFractionDigits = (value: number, digits: number, fallback?: number) =>
+        value === 0 ? fallback : Math.floor(digits - Math.log10(Math.abs(value)));
 }
 
 export const formatterUtils = new FormatterUtils();
