@@ -1,8 +1,18 @@
-import { AvatarIcon, DataList, Heading, NumberFormat, Spinner, formatterUtils } from '../../../../../core';
+import {
+    AvatarIcon,
+    DataList,
+    Heading,
+    IconType,
+    NumberFormat,
+    Spinner,
+    formatterUtils,
+    type AvatarIconVariant,
+} from '../../../../../core';
 import { QueryType, createBlockExplorerLink } from '../../../../utils/blockExplorerUtils/blockExplorerUtils';
 import { formatDate } from '../../../../utils/timestampUtils';
 import {
     TransactionType,
+    TxStatusCode,
     txHeadingStringList,
     txIconTypeList,
     txVariantList,
@@ -17,20 +27,34 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         tokenValue,
         usdEstimate,
         transactionType,
+        status = TxStatusCode.PENDING,
         unixTimestamp,
         txHash,
         ...otherProps
     } = props;
 
+    const getEffectiveStatus = () => {
+        const type = transactionType;
+        if (status === TxStatusCode.FAILED) {
+            return {
+                icon: IconType.CLOSE,
+                variant: 'critical' as AvatarIconVariant,
+                heading: 'Failed transaction',
+            };
+        }
+
+        return {
+            icon: type ? txIconTypeList[type] : IconType.HELP,
+            variant: type ? txVariantList[type] : ('neutral' as AvatarIconVariant),
+            heading: type ? txHeadingStringList[type] : 'Unknown transaction type',
+        };
+    };
+
+    const { icon, variant, heading } = getEffectiveStatus();
+
     const getTxIcon = () => {
-        if (transactionType) {
-            return (
-                <AvatarIcon
-                    variant={txVariantList[transactionType]}
-                    icon={txIconTypeList[transactionType]}
-                    responsiveSize={{ md: 'md' }}
-                />
-            );
+        if (status !== TxStatusCode.PENDING) {
+            return <AvatarIcon variant={variant} icon={icon} responsiveSize={{ md: 'md' }} />;
         }
         return <Spinner className="transition" variant="neutral" responsiveSize={{ md: 'lg' }} />;
     };
@@ -49,7 +73,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                     </div>
                     <div className="flex w-full flex-col items-start gap-y-0.5">
                         <Heading className="text-neutral-800" size="h5" as="h2">
-                            {transactionType ? txHeadingStringList[transactionType] : 'Transfer Type'}
+                            {heading}
                         </Heading>
                         <Heading className="!text-neutral-500" size="h5" as="h2">
                             {formatDate(unixTimestamp)}
