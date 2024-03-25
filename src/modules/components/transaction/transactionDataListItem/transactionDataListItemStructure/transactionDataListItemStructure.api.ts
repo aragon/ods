@@ -51,11 +51,11 @@ export interface ITransactionDataListItemProps extends IDataListItemProps {
     /**
      * The type of transaction.
      */
-    transactionType?: TransactionType;
+    txType?: TransactionType;
     /**
      * The network state of the transaction.
      */
-    status?: TxStatusCode;
+    txStatus?: TxStatusCode;
     /**
      * The Unix timestamp of the transaction.
      */
@@ -64,10 +64,6 @@ export interface ITransactionDataListItemProps extends IDataListItemProps {
      * The estimated USD value of the transaction.
      */
     usdEstimate?: number;
-    /**
-     * Whether the transaction is pending.
-     */
-    isPending?: boolean;
     /**
      * The transaction hash.
      */

@@ -26,16 +26,16 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         tokenSymbol,
         tokenValue,
         usdEstimate,
-        transactionType,
-        status = TxStatusCode.PENDING,
+        txType,
+        txStatus = TxStatusCode.PENDING,
         unixTimestamp,
         txHash,
         ...otherProps
     } = props;
 
     const getEffectiveStatus = () => {
-        const type = transactionType;
-        if (status === TxStatusCode.FAILED) {
+        const type = txType;
+        if (txStatus === TxStatusCode.FAILED) {
             return {
                 icon: IconType.CLOSE,
                 variant: 'critical' as AvatarIconVariant,
@@ -53,7 +53,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
     const { icon, variant, heading } = getEffectiveStatus();
 
     const getTxIcon = () => {
-        if (status !== TxStatusCode.PENDING) {
+        if (txStatus !== TxStatusCode.PENDING) {
             return <AvatarIcon className="shrink-0" variant={variant} icon={icon} responsiveSize={{ md: 'md' }} />;
         }
         return (
@@ -85,7 +85,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
 
                 <div className="flex flex-col items-end gap-y-0.5">
                     <Heading size="h5" as="h2">
-                        {tokenValue && transactionType !== TransactionType.ACTION ? (
+                        {tokenValue && txType !== TransactionType.ACTION ? (
                             <>
                                 {formatterUtils.formatNumber(tokenValue, { format: NumberFormat.TOKEN_AMOUNT_SHORT })}
                                 {` ${tokenSymbol}`}
@@ -96,7 +96,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                     </Heading>
                     <Heading className="!text-neutral-500" size="h5" as="h2">
                         {formatterUtils.formatNumber(
-                            usdEstimate && transactionType !== TransactionType.ACTION ? usdEstimate : 0,
+                            usdEstimate && txType !== TransactionType.ACTION ? usdEstimate : 0,
                             {
                                 format: NumberFormat.FIAT_TOTAL_SHORT,
                             },

@@ -19,8 +19,8 @@ describe('<TransactionDataListItemStructure /> component', () => {
     };
 
     it('renders the transaction type heading', () => {
-        const transactionType = TransactionType.ACTION;
-        render(createTestComponent({ transactionType }));
+        const txType = TransactionType.ACTION;
+        render(createTestComponent({ txType }));
         const transactionTypeHeading = screen.getByText('Smart contract action');
         expect(transactionTypeHeading).toBeInTheDocument();
     });
@@ -54,7 +54,7 @@ describe('<TransactionDataListItemStructure /> component', () => {
     });
 
     it('overrides the transaction type display with the transaction status', () => {
-        render(createTestComponent({ transactionType: TransactionType.DEPOSIT, status: TxStatusCode.FAILED }));
+        render(createTestComponent({ txType: TransactionType.DEPOSIT, txStatus: TxStatusCode.FAILED }));
         const failedTransactionText = screen.getByText('Failed transaction');
         expect(failedTransactionText).toBeInTheDocument();
         const closeIcon = screen.getByTestId('CLOSE');
