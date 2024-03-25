@@ -55,7 +55,7 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
                 <p
                     id={processedId}
                     className={classNames(
-                        'max-w-full cursor-pointer truncate text-neutral-800 group-data-[state=unchecked]:text-neutral-500',
+                        'max-w-full cursor-pointer truncate text-neutral-800 group-data-[state=unchecked]:text-neutral-800',
                         'group-data-[disabled]:cursor-default group-data-[disabled]:group-data-[state=unchecked]:text-neutral-300',
                     )}
                 >
@@ -70,10 +70,10 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
                 icon={IconType.CHECKBOX}
                 size="md"
                 className={classNames(
-                    'hidden self-start text-neutral-400 group-data-[state=unchecked]:block group-data-[disabled]:text-neutral-300',
+                    'mt-0.5 hidden self-start text-neutral-400 group-data-[state=unchecked]:block group-data-[disabled]:text-neutral-300 md:mt-1',
                 )}
             />
-            <RadixCheckbox.Indicator className="self-start text-primary-400 group-data-[disabled]:text-neutral-500">
+            <RadixCheckbox.Indicator className="mt-0.5 self-start text-primary-400 group-data-[disabled]:text-neutral-500 md:mt-1">
                 <Icon icon={IconType.CHECKBOX_SELECTED} size="md" className="hidden group-data-[state=checked]:block" />
                 <Icon
                     icon={IconType.CHECKBOX_INDETERMINATE}
