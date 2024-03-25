@@ -46,7 +46,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         return {
             icon: type ? txIconTypeList[type] : IconType.HELP,
             variant: type ? txVariantList[type] : ('neutral' as AvatarIconVariant),
-            heading: type ? txHeadingStringList[type] : 'Unknown transaction type',
+            heading: type ? txHeadingStringList[type] : 'Unknown',
         };
     };
 
@@ -54,9 +54,13 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
 
     const getTxIcon = () => {
         if (status !== TxStatusCode.PENDING) {
-            return <AvatarIcon variant={variant} icon={icon} responsiveSize={{ md: 'md' }} />;
+            return <AvatarIcon className="shrink-0" variant={variant} icon={icon} responsiveSize={{ md: 'md' }} />;
         }
-        return <Spinner className="transition" variant="neutral" responsiveSize={{ md: 'lg' }} />;
+        return (
+            <div className="flex size-6 shrink-0 items-center justify-center md:size-8">
+                <Spinner className="transition" variant="neutral" responsiveSize={{ md: 'lg' }} />
+            </div>
+        );
     };
 
     return (
@@ -67,12 +71,10 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
             target="_blank"
         >
             <div className="flex w-full justify-between py-3 md:py-4">
-                <div className="flex gap-x-3 md:gap-x-4">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-x-2">{getTxIcon()}</div>
-                    </div>
+                <div className="flex items-center gap-x-3 md:gap-x-4">
+                    {getTxIcon()}
                     <div className="flex w-full flex-col items-start gap-y-0.5">
-                        <Heading className="text-neutral-800" size="h5" as="h2">
+                        <Heading size="h5" as="h2">
                             {heading}
                         </Heading>
                         <Heading className="!text-neutral-500" size="h5" as="h2">

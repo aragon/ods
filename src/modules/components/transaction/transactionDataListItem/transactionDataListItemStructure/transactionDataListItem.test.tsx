@@ -49,7 +49,7 @@ describe('<TransactionDataListItemStructure /> component', () => {
 
     it('renders "Unknown transaction type" for transactions with an undefined type', () => {
         render(createTestComponent({}));
-        const unknownTransactionTypeHeading = screen.getByText('Unknown transaction type');
+        const unknownTransactionTypeHeading = screen.getByText('Unknown');
         expect(unknownTransactionTypeHeading).toBeInTheDocument();
     });
 
