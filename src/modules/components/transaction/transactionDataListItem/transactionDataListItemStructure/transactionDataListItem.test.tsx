@@ -1,7 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { DataList } from '../../../../../core';
 import { TransactionDataListItemStructure } from './transactionDataListItemStructure';
-import { TransactionType, type ITransactionDataListItemProps } from './transactionDataListItemStructure.api';
+import {
+    TransactionType,
+    TxStatusCode,
+    type ITransactionDataListItemProps,
+} from './transactionDataListItemStructure.api';
 
 describe('<TransactionDataListItemStructure /> component', () => {
     const createTestComponent = (props?: Partial<ITransactionDataListItemProps>) => {
@@ -41,5 +45,19 @@ describe('<TransactionDataListItemStructure /> component', () => {
         render(createTestComponent({ usdEstimate }));
         const formattedUsdEstimate = screen.getByText('$100.00');
         expect(formattedUsdEstimate).toBeInTheDocument();
+    });
+
+    it('renders "Unknown transaction type" for transactions with an undefined type', () => {
+        render(createTestComponent({}));
+        const unknownTransactionTypeHeading = screen.getByText('Unknown transaction type');
+        expect(unknownTransactionTypeHeading).toBeInTheDocument();
+    });
+
+    it('overrides the transaction type display with the transaction status', () => {
+        render(createTestComponent({ transactionType: TransactionType.DEPOSIT, status: TxStatusCode.FAILED }));
+        const failedTransactionText = screen.getByText('Failed transaction');
+        expect(failedTransactionText).toBeInTheDocument();
+        const closeIcon = screen.getByTestId('CLOSE');
+        expect(closeIcon).toBeInTheDocument();
     });
 });
