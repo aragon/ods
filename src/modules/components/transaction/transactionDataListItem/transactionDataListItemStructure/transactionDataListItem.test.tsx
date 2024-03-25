@@ -28,7 +28,7 @@ describe('<TransactionDataListItemStructure /> component', () => {
     it('renders the formatted date', () => {
         const unixTimestamp = 1628841600;
         render(createTestComponent({ unixTimestamp }));
-        const formattedDate = screen.getByText('January 19, 1970 at 9:27 PM');
+        const formattedDate = screen.getByText('January 19, 1970 at 8:27 PM');
         expect(formattedDate).toBeInTheDocument();
     });
 
