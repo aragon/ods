@@ -42,11 +42,8 @@ export const Default: Story = {
  */
 export const Fallback: Story = {
     args: {
-        logoSrc: 'https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628',
-        name: 'Ethereum',
-        amount: 420.69,
-        symbol: 'ETH',
-        fiatPrice: 3654.76,
+        amount: 0,
+        priceChange: 0,
     },
     render: (props) => (
         <DataList.Root entityLabel="Assets">

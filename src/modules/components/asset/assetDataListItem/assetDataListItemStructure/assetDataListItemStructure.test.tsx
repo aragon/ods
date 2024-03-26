@@ -24,17 +24,31 @@ describe('<AssetDataListItem.Structure /> component', () => {
         expect(screen.getByText(props.symbol)).toBeInTheDocument();
     });
 
+    it('renders amount, fiat price', async () => {
+        const props = {
+            amount: 420.69,
+            fiatPrice: 3654.76,
+        };
+
+        render(createTestComponent(props));
+        const USDAmount = await screen.findByText(/1.54/);
+        expect(USDAmount).toHaveTextContent('$1.54M');
+        expect(screen.getByText(props.amount)).toBeInTheDocument();
+    });
+
     it('handles zero priceChange as neutral', () => {
         const props = {
+            amount: 0,
             priceChange: 0,
         };
 
         render(createTestComponent(props));
-        expect(screen.getByText('$0.00')).toBeInTheDocument(); // Assuming component shows '0' for zero changedAmount
+        const elements = screen.queryAllByText('$0.00');
+        expect(elements.length).toBeGreaterThan(0); // assuming both asset price and changed price amount are 0.00
         expect(screen.getByText('0%')).toBeInTheDocument(); // Assuming Tag component renders '0%' for zero changedPercentage
     });
 
-    it('handle not passing changedAmount and changedPercentage', async () => {
+    it('handle not passing priceChange', async () => {
         const props = {
             logoSrc: 'https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628',
             name: 'Ethereum',
@@ -45,21 +59,5 @@ describe('<AssetDataListItem.Structure /> component', () => {
 
         render(createTestComponent(props));
         expect(screen.getByText('0%')).toBeInTheDocument();
-        const USDAmount = await screen.findByText(/1.23/);
-        expect(USDAmount).toHaveTextContent('$1.23M');
-    });
-
-    it('handle not passing changedPercentage', async () => {
-        const props = {
-            logoSrc: 'https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628',
-            name: 'Ethereum',
-            amount: -420.69,
-            symbol: 'ETH',
-            fiatPrice: 3654.76,
-        };
-
-        render(createTestComponent(props));
-        const tagElement = await screen.findByText(/\+ 5%/);
-        expect(tagElement).toHaveTextContent('+ 5%');
     });
 });

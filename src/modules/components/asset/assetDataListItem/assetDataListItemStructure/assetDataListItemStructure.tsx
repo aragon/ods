@@ -31,7 +31,7 @@ export interface IAssetDataListItemStructureProps extends IDataListItemProps {
 }
 
 export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructureProps> = (props) => {
-    const { logoSrc, name, amount, symbol, fiatPrice, priceChange = 0, ...otherProps } = props;
+    const { logoSrc, name = '-', amount = 0, symbol, fiatPrice = 0, priceChange = 0, ...otherProps } = props;
 
     const usdAmountChanged = useMemo(() => {
         const usdAmount = (amount ? Number(amount) : 0) * (fiatPrice ? Number(fiatPrice) : 0);
