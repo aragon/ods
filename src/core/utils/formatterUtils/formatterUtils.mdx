@@ -11,7 +11,6 @@ export const FormatExampleTable = ({ values, formatShort, formatLong }) => (
                 <th>VALUE</th>
                 <th>{formatLong}</th>
                 <th>{formatShort}</th>
-                <th>WITH_SIGN</th>
             </tr>
         </thead>
         <tbody>
@@ -20,7 +19,6 @@ export const FormatExampleTable = ({ values, formatShort, formatLong }) => (
                     <td>{value}</td>
                     <td>{formatterUtils.formatNumber(value, { format: formatLong })}</td>
                     <td>{formatterUtils.formatNumber(value, { format: formatShort })}</td>
-                    <td>{formatterUtils.formatNumber(value, { format: formatShort, withSign: true })}</td>
                 </tr>
             ))}
         </tbody>
