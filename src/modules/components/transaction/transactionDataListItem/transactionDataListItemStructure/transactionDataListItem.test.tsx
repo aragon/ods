@@ -25,6 +25,7 @@ describe('<TransactionDataListItemStructure /> component', () => {
         expect(transactionTypeHeading).toBeInTheDocument();
     });
 
+    // fails on the local run, but passes on the CI for relative unix timestamps (CI server location == UTC 0)
     it('renders the formatted date', () => {
         const unixTimestamp = 1628841600;
         render(createTestComponent({ unixTimestamp }));
@@ -47,7 +48,7 @@ describe('<TransactionDataListItemStructure /> component', () => {
         expect(formattedUsdEstimate).toBeInTheDocument();
     });
 
-    it('renders "Unknown transaction type" for transactions with an undefined type', () => {
+    it('renders "Unknown" for transactions with an undefined type', () => {
         render(createTestComponent({}));
         const unknownTransactionTypeHeading = screen.getByText('Unknown');
         expect(unknownTransactionTypeHeading).toBeInTheDocument();
