@@ -10,13 +10,9 @@ jest.mock('@tanstack/react-query', () => ({
 }));
 
 jest.mock('wagmi', () => ({
-    ...jest.requireActual('@tanstack/react-query'),
-    createConfig: jest.fn(),
+    ...jest.requireActual('wagmi'),
     WagmiProvider: (props: { children: ReactNode }) => <div data-testid="wagmi-mock">{props.children}</div>,
 }));
-
-jest.mock('viem', () => ({ createClient: jest.fn() }));
-jest.mock('wagmi/chains', () => ({}));
 
 describe('<OdsModulesProvider /> component', () => {
     const createTestComponent = (props?: Partial<IOdsModulesProviderProps>) => {

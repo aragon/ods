@@ -1,3 +1,4 @@
+export * from './address';
 export * from './asset';
 export * from './dao';
 export * from './member';

@@ -35,7 +35,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
     const publisherIsConnected = isConnected && connectedAddress?.toLowerCase() === publisher.address?.toLowerCase();
     const publisherLabel = publisherIsConnected
         ? 'You'
-        : publisher.name ?? addressUtils.shortenAddress(publisher.address as string);
+        : publisher.name ?? addressUtils.truncateAddress(publisher.address as string);
 
     return (
         <DataList.Item className={classNames('flex flex-col gap-y-4', className)} {...otherProps}>

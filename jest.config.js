@@ -10,7 +10,7 @@ const config = {
         '^.+\\.svg$': '<rootDir>/src/core/test/svgTransform.js',
         '^.+\\.m?[tj]sx?$': 'ts-jest',
     },
-    transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|react-merge-refs))'],
+    transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|react-merge-refs|wagmi|@wagmi))'],
 };
 
 module.exports = config;

@@ -65,7 +65,8 @@ export interface IInputContainerBaseProps {
      */
     wrapperClassName?: string;
     /**
-     * Shortcircuits all the input wrapper classes to pass control to the child component.
+     * Does not render the default input wrapper when set to true, to be used for using the base input container
+     * properties (label, helpText, ..) for components without a input wrapper (e.g. file inputs).
      */
     useCustomWrapper?: boolean;
 }
@@ -75,7 +76,7 @@ export interface IInputContainerProps extends IInputContainerBaseProps, Omit<Com
 export type InputComponentElement = HTMLInputElement | HTMLTextAreaElement;
 
 export interface IInputComponentProps<TElement extends InputComponentElement = HTMLInputElement>
-    extends Omit<IInputContainerBaseProps, 'children' | 'id' | 'inputLength'>,
+    extends Omit<IInputContainerBaseProps, 'children' | 'id' | 'inputLength' | 'useCustomWrapper'>,
         Omit<InputHTMLAttributes<TElement>, 'type'> {
     /**
      * Classes for the input element.

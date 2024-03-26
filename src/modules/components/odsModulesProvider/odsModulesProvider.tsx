@@ -9,7 +9,14 @@ const defaultWagmiConfig = createConfig({
     client: ({ chain }) => createClient({ chain, transport: http() }),
 });
 
-const defaultQueryClient = new QueryClient();
+const defaultQueryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 2 * 60 * 1000, // 2 minutes
+            gcTime: 5 * 60 * 1000, // 5 minutes
+        },
+    },
+});
 
 export interface IOdsModulesProviderProps {
     /**
