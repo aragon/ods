@@ -1,62 +1,60 @@
 import classNames from 'classnames';
 import type React from 'react';
+import { useMemo } from 'react';
 import { Avatar, DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 
 export interface IAssetDataListItemStructureProps extends IDataListItemProps {
     /**
-     * The source of the logo for the token.
+     * The logo source of the asset
      */
     logoSrc?: string;
     /**
-     * The name of the Token.
+     * The name of the asset.
      */
-    tokenName?: string;
+    name?: string;
     /**
-     * The symbol of the Token.
+     * The symbol of the asset.
      */
     symbol?: string;
     /**
-     * The amount of the Token.
+     * The amount of the asset.
      */
     amount?: number | string;
     /**
-     * The price of the Token.
+     * The fiat price of the asset.
      */
-    USDAmount?: number | string;
+    fiatPrice?: number | string;
     /**
-     * changed price amount (E.g. in last 24h).
+     * the price change in percentage of the asset (E.g. in last 24h).
      */
-    changedAmount?: number | string;
-    /**
-     * changed price amount ratio (E.g. in last 24h).
-     */
-    changedPercentage?: number | string;
+    priceChange?: number;
 }
 
 export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructureProps> = (props) => {
-    const { logoSrc, tokenName, amount, symbol, USDAmount, changedAmount, changedPercentage, ...otherProps } = props;
+    const { logoSrc, name, amount, symbol, fiatPrice, priceChange = 0, ...otherProps } = props;
 
-    const formattedChangedAmount = Number(Number(changedAmount).toFixed(2));
-    const formattedChangedPercentage = Number(Number(changedPercentage).toFixed(2));
+    const usdAmountChanged = useMemo(() => {
+        const usdAmount = (amount ? Number(amount) : 0) * (fiatPrice ? Number(fiatPrice) : 0);
+        const oldUsdAmount = (100 / (priceChange + 100)) * usdAmount;
+        return usdAmount - oldUsdAmount;
+    }, [amount, fiatPrice, priceChange]);
 
     const sign = (value: number) => (value > 0 ? '+' : value < 0 ? '-' : '');
-    const changedAmountSign = sign(formattedChangedAmount);
-    const changedPercentageSign = sign(formattedChangedPercentage);
 
     const changedAmountClasses = classNames(
         'text-sm font-normal leading-tight md:text-base',
-        { 'text-success-800': formattedChangedAmount > 0 },
-        { 'text-neutral-500': formattedChangedAmount === 0 },
-        { 'text-critical-800': formattedChangedAmount < 0 },
+        { 'text-success-800': usdAmountChanged > 0 },
+        { 'text-neutral-500': usdAmountChanged === 0 },
+        { 'text-critical-800': usdAmountChanged < 0 },
     );
 
     return (
         <DataList.Item {...otherProps}>
-            <div className="flex space-x-3 py-0 md:py-1.5">
+            <div className="flex gap-x-3 py-0 md:py-1.5">
                 <Avatar {...{ src: logoSrc }} size="md" />
                 <div className=" flex w-full justify-between">
-                    <div className="flex flex-col space-y-0.5">
-                        <span className="text-sm leading-tight text-neutral-800 md:text-base">{tokenName}</span>
+                    <div className="flex flex-col gap-y-0.5">
+                        <span className="truncate text-sm leading-tight text-neutral-800 md:text-base">{name}</span>
                         <p className="text-sm leading-tight text-neutral-500 md:text-base">
                             <span>
                                 {formatterUtils.formatNumber(amount, {
@@ -64,37 +62,34 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
                                     fallback: '',
                                 })}{' '}
                             </span>
-                            <span>{symbol}</span>
+                            <span className="truncate">{symbol}</span>
                         </p>
                     </div>
-                    <div className="flex flex-col items-end space-y-0.5">
+                    <div className="flex flex-col items-end gap-y-0.5">
                         <span className="text-sm leading-tight text-neutral-800 md:text-base">
-                            {formatterUtils.formatNumber(USDAmount, {
-                                format: NumberFormat.FIAT_TOTAL_SHORT,
-                                fallback: '-',
-                            })}
+                            {formatterUtils.formatNumber(
+                                (amount ? Number(amount) : 0) * (fiatPrice ? Number(fiatPrice) : 0),
+                                {
+                                    format: NumberFormat.FIAT_TOTAL_SHORT,
+                                    fallback: '-',
+                                },
+                            )}
                         </span>
-                        <div className="flex items-center space-x-1">
+                        <div className="flex items-center gap-x-1">
                             <span className={changedAmountClasses}>
-                                {changedAmountSign}
-                                {formatterUtils.formatNumber(Math.abs(formattedChangedAmount || 0), {
+                                {sign(usdAmountChanged)}
+                                {formatterUtils.formatNumber(Math.abs(usdAmountChanged), {
                                     format: NumberFormat.FIAT_TOTAL_SHORT,
                                 })}
                             </span>
                             <Tag
-                                label={`${changedPercentageSign} ${formatterUtils.formatNumber(
-                                    Math.abs(formattedChangedPercentage || 0),
+                                label={`${sign(priceChange / 100)}${formatterUtils.formatNumber(
+                                    Math.abs(priceChange / 100),
                                     {
                                         format: NumberFormat.PERCENTAGE_SHORT,
                                     },
                                 )}`}
-                                variant={
-                                    formattedChangedPercentage > 0
-                                        ? 'success'
-                                        : formattedChangedPercentage < 0
-                                          ? 'critical'
-                                          : 'neutral'
-                                }
+                                variant={priceChange > 0 ? 'success' : priceChange < 0 ? 'critical' : 'neutral'}
                             />
                         </div>
                     </div>

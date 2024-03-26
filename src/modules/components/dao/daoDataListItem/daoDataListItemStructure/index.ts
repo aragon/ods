@@ -1,7 +1,1 @@
-import { DaoDataListItemStructure } from './daoDataListItemStructure';
-
-export const DaoDataListItem = {
-    Structure: DaoDataListItemStructure,
-};
-
-export type { IDaoDataListItemStructureProps } from './daoDataListItemStructure';
+export { DaoDataListItemStructure, type IDaoDataListItemStructureProps } from './daoDataListItemStructure';

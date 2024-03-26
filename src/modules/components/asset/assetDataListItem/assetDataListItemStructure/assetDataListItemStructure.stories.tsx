@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DataList } from '../../../../../core/components/dataList';
+import { DataList } from '../../../../../core';
 import { AssetDataListItemStructure } from './assetDataListItemStructure';
 
 const meta: Meta<typeof AssetDataListItemStructure> = {
-    title: 'Modules/Components/asset/AssetDataListItem/AssetDataListItem.Structure',
+    title: 'Modules/Components/Asset/AssetDataListItem/AssetDataListItem.Structure',
     component: AssetDataListItemStructure,
     tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/P0GeJKqILL7UXvaqu5Jj7V/v1.1.0?type=design&node-id=3259-11363&mode=dev',
+            url: 'https://www.figma.com/file/P0GeJKqILL7UXvaqu5Jj7V/v1.1.0?type=design&node-id=8079-18352&mode=design&t=MR1awSDoExtPDiEd-4',
         },
     },
 };
@@ -22,12 +22,11 @@ type Story = StoryObj<typeof AssetDataListItemStructure>;
 export const Default: Story = {
     args: {
         logoSrc: 'https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628',
-        tokenName: 'Ethereum',
+        name: 'Ethereum',
         amount: 420.69,
         symbol: 'ETH',
-        USDAmount: 1230000,
-        changedAmount: 420.69,
-        changedPercentage: 0.05,
+        fiatPrice: 3654.76,
+        priceChange: 15,
     },
     render: (props) => (
         <DataList.Root entityLabel="Assets">
@@ -44,10 +43,10 @@ export const Default: Story = {
 export const Fallback: Story = {
     args: {
         logoSrc: 'https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628',
-        tokenName: 'Ethereum',
+        name: 'Ethereum',
         amount: 420.69,
         symbol: 'ETH',
-        USDAmount: 1230000,
+        fiatPrice: 3654.76,
     },
     render: (props) => (
         <DataList.Root entityLabel="Assets">

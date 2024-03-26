@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { DataList } from '../../../../../core';
 import { AssetDataListItemStructure, type IAssetDataListItemStructureProps } from './assetDataListItemStructure';
 
-describe('<AssetDataListItemStructure /> component', () => {
+describe('<AssetDataListItem.Structure /> component', () => {
     const createTestComponent = (props?: Partial<IAssetDataListItemStructureProps>) => {
         return (
             <DataList.Root entityLabel="Assets">
@@ -15,29 +15,18 @@ describe('<AssetDataListItemStructure /> component', () => {
 
     it('renders tokenName, symbol, and the logoSrc', () => {
         const props = {
-            logoSrc: 'https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628',
-            tokenName: 'Ethereum',
-            amount: 420.69,
+            name: 'Ethereum',
             symbol: 'ETH',
-            USDAmount: 1230000,
-            changedAmount: 420.69,
-            changedPercentage: 0.05,
         };
 
         render(createTestComponent(props));
-        expect(screen.getByText(props.tokenName)).toBeInTheDocument();
+        expect(screen.getByText(props.name)).toBeInTheDocument();
         expect(screen.getByText(props.symbol)).toBeInTheDocument();
     });
 
-    it('handles zero changedAmount and changedPercentage as neutral', () => {
+    it('handles zero priceChange as neutral', () => {
         const props = {
-            logoSrc: 'https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628',
-            tokenName: 'Ethereum',
-            amount: 420.69,
-            symbol: 'ETH',
-            USDAmount: 1230000,
-            changedAmount: 0,
-            changedPercentage: 0,
+            priceChange: 0,
         };
 
         render(createTestComponent(props));
@@ -48,10 +37,10 @@ describe('<AssetDataListItemStructure /> component', () => {
     it('handle not passing changedAmount and changedPercentage', async () => {
         const props = {
             logoSrc: 'https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628',
-            tokenName: 'Ethereum',
+            name: 'Ethereum',
             amount: 420.69,
             symbol: 'ETH',
-            USDAmount: 1230000,
+            fiatPrice: 3654.76,
         };
 
         render(createTestComponent(props));
@@ -63,12 +52,10 @@ describe('<AssetDataListItemStructure /> component', () => {
     it('handle not passing changedPercentage', async () => {
         const props = {
             logoSrc: 'https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628',
-            tokenName: 'Ethereum',
+            name: 'Ethereum',
             amount: -420.69,
             symbol: 'ETH',
-            USDAmount: 1230000,
-            changedAmount: 420.69,
-            changedPercentage: 0.05,
+            fiatPrice: 3654.76,
         };
 
         render(createTestComponent(props));
