@@ -45,7 +45,7 @@ describe('<AssetDataListItem.Structure /> component', () => {
         render(createTestComponent(props));
         const elements = screen.queryAllByText('$0.00');
         expect(elements.length).toBeGreaterThan(0); // assuming both asset price and changed price amount are 0.00
-        expect(screen.getByText('0%')).toBeInTheDocument(); // Assuming Tag component renders '0%' for zero changedPercentage
+        expect(screen.getByText('0%')).toBeInTheDocument(); // Assuming Tag component renders '0%' for zero priceChange
     });
 
     it('handle not passing priceChange', async () => {

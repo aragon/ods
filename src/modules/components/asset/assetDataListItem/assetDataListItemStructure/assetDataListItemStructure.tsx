@@ -51,7 +51,7 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
     return (
         <DataList.Item {...otherProps}>
             <div className="flex gap-x-3 py-0 md:py-1.5">
-                <Avatar {...{ src: logoSrc }} size="md" />
+                <Avatar src={logoSrc} size="md" />
                 <div className=" flex w-full justify-between">
                     <div className="flex flex-col gap-y-0.5">
                         <span className="truncate text-sm leading-tight text-neutral-800 md:text-base">{name}</span>
