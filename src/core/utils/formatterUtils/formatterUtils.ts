@@ -44,12 +44,14 @@ class FormatterUtils {
             return fallback;
         }
 
-        const fixedFractionDigitsOption = this.getDynamicOption(parsedValue, fixedFractionDigits);
-        const maxSignificantDigitsOption = this.getDynamicOption(parsedValue, maxSignificantDigits);
+        let processedValue = isPercentage ? parsedValue * 100 : parsedValue;
+
+        const fixedFractionDigitsOption = this.getDynamicOption(processedValue, fixedFractionDigits);
+        const maxSignificantDigitsOption = this.getDynamicOption(processedValue, maxSignificantDigits);
 
         const maxDigitsFallback = fixedFractionDigitsOption ?? maxFractionDigits;
         const maxDigits = maxSignificantDigitsOption
-            ? this.significantDigitsToFractionDigits(parsedValue, maxSignificantDigitsOption, maxDigitsFallback)
+            ? this.significantDigitsToFractionDigits(processedValue, maxSignificantDigitsOption, maxDigitsFallback)
             : maxDigitsFallback;
 
         const minDigits = fixedFractionDigitsOption ?? minFractionDigits;
@@ -67,14 +69,12 @@ class FormatterUtils {
             });
         }
 
-        const baseRange = this.baseSymbolRanges.find((range) => Math.abs(parsedValue) >= range.value);
+        const baseRange = this.baseSymbolRanges.find((range) => Math.abs(processedValue) >= range.value);
         const baseRangeDenominator =
-            parsedValue > 1e15 ? 10 ** (this.getDecimalPlaces(parsedValue) - 1) : baseRange?.value ?? 1;
-
-        let processedValue = isPercentage ? parsedValue * 100 : parsedValue;
+            processedValue > 1e15 ? 10 ** (this.getDecimalPlaces(processedValue) - 1) : baseRange?.value ?? 1;
 
         if (useBaseSymbol) {
-            processedValue = parsedValue / baseRangeDenominator;
+            processedValue = processedValue / baseRangeDenominator;
         }
 
         let formattedValue = cache[cacheKey]!.format(processedValue);

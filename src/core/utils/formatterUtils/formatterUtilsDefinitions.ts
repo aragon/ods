@@ -95,7 +95,7 @@ export const numberFormats: Record<NumberFormat, INumberFormat> = {
     },
     [NumberFormat.PERCENTAGE_SHORT]: {
         maxFractionDigits: 1,
-        maxSignificantDigits: (value) => (Math.abs(value) < 0.01 ? 1 : undefined),
+        maxSignificantDigits: (value) => (Math.abs(value) < 0.1 ? 1 : undefined),
         isPercentage: true,
     },
     [NumberFormat.PERCENTAGE_LONG]: {

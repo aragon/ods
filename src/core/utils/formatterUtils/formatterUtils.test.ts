@@ -48,10 +48,10 @@ describe('formatter utils', () => {
             test.each([
                 { value: -1234.56789, result: '-$1,234.57' },
                 { value: -0.012345678, result: '-$0.01' },
-                { value: -0.0012345678, result: '>-$0.01' },
+                { value: -0.0012345678, result: '-$0.001' },
                 { value: 0, result: '$0.00' },
-                { value: 0.0012345678, result: '<$0.01' },
-                { value: 0.0012345678, result: '<+$0.01', withSign: true },
+                { value: 0.0012345678, result: '$0.001' },
+                { value: 0.0012345678, result: '+$0.001', withSign: true },
                 { value: 0.012345678, result: '$0.01' },
                 { value: 0.012345678, result: '+$0.01', withSign: true },
                 { value: 0.12345678, result: '$0.12' },
@@ -70,10 +70,10 @@ describe('formatter utils', () => {
 
             test.each([
                 { value: -1234.56789, result: '-$1.23K' },
-                { value: -0.0012345678, result: '>-$0.01' },
+                { value: -0.0012345678, result: '-$0.001' },
                 { value: 0, result: '$0.00' },
-                { value: 0.0012345678, result: '<$0.01' },
-                { value: 0.0012345678, result: '<+$0.01', withSign: true },
+                { value: 0.0012345678, result: '$0.001' },
+                { value: 0.0012345678, result: '+$0.001', withSign: true },
                 { value: 0.012345678, result: '$0.01' },
                 { value: 0.12345678, result: '$0.12' },
                 { value: 123.45678, result: '$123.46' },
@@ -115,9 +115,9 @@ describe('formatter utils', () => {
 
             test.each([
                 { value: -1234, result: '-1.23K' },
-                { value: -0.0012, result: '>-0.01' },
+                { value: -0.0012, result: '-0.001' },
                 { value: 0, result: '0' },
-                { value: 0.0012, result: '<0.01' },
+                { value: 0.0012, result: '0.001' },
                 { value: 0.0123456789012345678, result: '0.01' },
                 { value: 0.12345678901234567, result: '0.12' },
                 { value: 123.4567, result: '123.46' },
@@ -178,20 +178,20 @@ describe('formatter utils', () => {
             });
 
             test.each([
-                { value: -0.999001, result: '<-99.9%' },
+                { value: -0.999001, result: '-99.9%' },
                 { value: -0.12345, result: '-12.3%' },
-                { value: -0.00012345, result: '>-0.1%' },
+                { value: -0.00012345, result: '-0.01%' },
                 { value: 0, result: '0%' },
-                { value: 0.00012345, result: '<0.1%' },
-                { value: 0.00012345, result: '<+0.1%', withSign: true },
+                { value: 0.00012345, result: '0.01%' },
+                { value: 0.00012345, result: '+0.01%', withSign: true },
                 { value: 0.0012345, result: '0.1%' },
                 { value: 0.012345, result: '1.2%' },
                 { value: 0.12345, result: '12.3%' },
                 { value: 0.12345, result: '+12.3%', withSign: true },
                 { value: 0.510001, result: '51%' },
                 { value: 0.9985, result: '99.9%' },
-                { value: 0.999001, result: '>99.9%' },
-                { value: 0.999001, result: '>+99.9%', withSign: true },
+                { value: 0.999001, result: '99.9%' },
+                { value: 0.999001, result: '+99.9%', withSign: true },
                 { value: 1, result: '100%' },
             ])('formats $value as $result using short format', ({ value, result, ...options }) => {
                 expect(
