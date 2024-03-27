@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { DataList } from '../../../../../core';
+import { DataList, NumberFormat, formatterUtils } from '../../../../../core';
 import { TransactionDataListItemStructure } from './transactionDataListItemStructure';
 import {
     TransactionType,
@@ -7,12 +7,23 @@ import {
     type ITransactionDataListItemProps,
 } from './transactionDataListItemStructure.api';
 
+jest.mock('wagmi', () => ({
+    ...jest.requireActual('wagmi'),
+    useChains: jest.fn(),
+}));
+
 describe('<TransactionDataListItemStructure /> component', () => {
     const createTestComponent = (props?: Partial<ITransactionDataListItemProps>) => {
+        const defaultProps: ITransactionDataListItemProps = {
+            txType: TransactionType.ACTION,
+            txStatus: TxStatusCode.PENDING,
+            txHash: '0x123',
+            ...props,
+        };
         return (
             <DataList.Root entityLabel="Daos">
                 <DataList.Container>
-                    <TransactionDataListItemStructure {...props} />
+                    <TransactionDataListItemStructure {...defaultProps} />
                 </DataList.Container>
             </DataList.Root>
         );
@@ -25,33 +36,24 @@ describe('<TransactionDataListItemStructure /> component', () => {
         expect(transactionTypeHeading).toBeInTheDocument();
     });
 
-    // fails on the local run, but passes on the CI for relative unix timestamps (CI server location == UTC 0)
-    it('renders the formatted date', () => {
-        const unixTimestamp = 1628841600;
-        render(createTestComponent({ unixTimestamp }));
-        const formattedDate = screen.getByText('January 19, 1970 at 8:27 PM');
-        expect(formattedDate).toBeInTheDocument();
-    });
-
-    it('renders the token value and symbol', () => {
+    it('renders the token value and symbol in a deposit', () => {
         const tokenSymbol = 'ETH';
         const tokenValue = 10;
-        render(createTestComponent({ tokenSymbol, tokenValue }));
+        const txType = TransactionType.DEPOSIT;
+        render(createTestComponent({ tokenSymbol, tokenValue, txType }));
         const tokenPrintout = screen.getByText('10 ETH');
         expect(tokenPrintout).toBeInTheDocument();
     });
 
     it('renders the formatted USD estimate', () => {
-        const usdEstimate = 100;
-        render(createTestComponent({ usdEstimate }));
-        const formattedUsdEstimate = screen.getByText('$100.00');
+        const fiatEstimate = 100;
+        const txType = TransactionType.DEPOSIT;
+        const formattedEstimate = formatterUtils.formatNumber(fiatEstimate, {
+            format: NumberFormat.FIAT_TOTAL_SHORT,
+        });
+        render(createTestComponent({ fiatEstimate, txType }));
+        const formattedUsdEstimate = screen.getByText(formattedEstimate as string);
         expect(formattedUsdEstimate).toBeInTheDocument();
-    });
-
-    it('renders "Unknown" for transactions with an undefined type', () => {
-        render(createTestComponent({}));
-        const unknownTransactionTypeHeading = screen.getByText('Unknown');
-        expect(unknownTransactionTypeHeading).toBeInTheDocument();
     });
 
     it('overrides the transaction type display with the transaction status', () => {
