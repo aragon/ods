@@ -1,0 +1,58 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { DataList } from '../../../../../core';
+import { AssetDataListItemStructure } from './assetDataListItemStructure';
+
+const meta: Meta<typeof AssetDataListItemStructure> = {
+    title: 'Modules/Components/Asset/AssetDataListItem/AssetDataListItem.Structure',
+    component: AssetDataListItemStructure,
+    tags: ['autodocs'],
+    parameters: {
+        design: {
+            type: 'figma',
+            url: 'https://www.figma.com/file/P0GeJKqILL7UXvaqu5Jj7V/v1.1.0?type=design&node-id=8079-18352&mode=design&t=MR1awSDoExtPDiEd-4',
+        },
+    },
+};
+
+type Story = StoryObj<typeof AssetDataListItemStructure>;
+
+/**
+ * Default usage example of the AssetDataListItem component.
+ */
+export const Default: Story = {
+    args: {
+        logoSrc: 'https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628',
+        name: 'Ethereum',
+        amount: 420.69,
+        symbol: 'ETH',
+        fiatPrice: 3654.76,
+        priceChange: 15,
+    },
+    render: (props) => (
+        <DataList.Root entityLabel="Assets">
+            <DataList.Container>
+                <AssetDataListItemStructure {...props} />
+            </DataList.Container>
+        </DataList.Root>
+    ),
+};
+
+/**
+ *  Usage of the AssetDataListItem without changedAmount and changedPercentage.
+ */
+export const Fallback: Story = {
+    args: {
+        name: 'Ethereum',
+        amount: 420.69,
+        symbol: 'ETH',
+    },
+    render: (props) => (
+        <DataList.Root entityLabel="Assets">
+            <DataList.Container>
+                <AssetDataListItemStructure {...props} />
+            </DataList.Container>
+        </DataList.Root>
+    ),
+};
+
+export default meta;
