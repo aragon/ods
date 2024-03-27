@@ -34,22 +34,22 @@ export interface IAssetDataListItemStructureProps extends IDataListItemProps {
 export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructureProps> = (props) => {
     const { logoSrc, name, amount, symbol, fiatPrice, priceChange = 0, ...otherProps } = props;
 
-    const usdAmount = Number(amount ?? 0) * Number(fiatPrice ?? 0);
+    const fiatAmount = Number(amount ?? 0) * Number(fiatPrice ?? 0);
 
-    const usdAmountChanged = useMemo(() => {
+    const fiatAmountChanged = useMemo(() => {
         if (!fiatPrice || !priceChange) {
             return 0;
         }
 
-        const oldUsdAmount = (100 / (priceChange + 100)) * usdAmount;
-        return usdAmount - oldUsdAmount;
-    }, [usdAmount, fiatPrice, priceChange]);
+        const oldFiatAmount = (100 / (priceChange + 100)) * fiatAmount;
+        return fiatAmount - oldFiatAmount;
+    }, [fiatAmount, fiatPrice, priceChange]);
 
     const changedAmountClasses = classNames(
         'text-sm font-normal leading-tight md:text-base',
-        { 'text-success-800': usdAmountChanged > 0 },
-        { 'text-neutral-500': usdAmountChanged === 0 },
-        { 'text-critical-800': usdAmountChanged < 0 },
+        { 'text-success-800': fiatAmountChanged > 0 },
+        { 'text-neutral-500': fiatAmountChanged === 0 },
+        { 'text-critical-800': fiatAmountChanged < 0 },
     );
 
     const tagVariant = priceChange > 0 ? 'success' : priceChange < 0 ? 'critical' : 'neutral';
@@ -59,12 +59,12 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
         fallback: '',
     });
 
-    const formattedPrice = formatterUtils.formatNumber(usdAmount, {
+    const formattedPrice = formatterUtils.formatNumber(fiatAmount, {
         format: NumberFormat.FIAT_TOTAL_SHORT,
         fallback: '-',
     });
 
-    const formattedPriceChanged = formatterUtils.formatNumber(usdAmountChanged, {
+    const formattedPriceChanged = formatterUtils.formatNumber(fiatAmountChanged, {
         format: NumberFormat.FIAT_TOTAL_SHORT,
         withSign: true,
     });
