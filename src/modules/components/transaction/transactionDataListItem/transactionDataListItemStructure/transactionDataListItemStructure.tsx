@@ -1,6 +1,15 @@
-import { useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { useChains } from 'wagmi';
-import { AvatarIcon, DataList, Heading, NumberFormat, Spinner, formatterUtils } from '../../../../../core';
+import {
+    AvatarIcon,
+    DataList,
+    Heading,
+    IconType,
+    NumberFormat,
+    Spinner,
+    formatterUtils,
+    type AvatarIconVariant,
+} from '../../../../../core';
 import {
     TransactionType,
     TxStatusCode,
@@ -20,33 +29,50 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         txType = TransactionType.ACTION,
         txStatus = TxStatusCode.PENDING,
         // TO-DO: implement formatter decision for unixTimestamp
-        unixTimestamp,
+        formattedTimestamp,
         txHash,
+        href,
+        className,
         ...otherProps
     } = props;
-    const [blockExplorerBaseUrl, setBlockExplorerBaseUrl] = useState<string | undefined>();
     const chains = useChains();
 
-    useEffect(() => {
-        if (chainId) {
-            const matchingChain = chains.find((chain) => chain.id === chainId);
-            const url = matchingChain?.blockExplorers?.default.url;
-            setBlockExplorerBaseUrl(url);
+    const blockExplorerBaseUrl = chainId
+        ? chains.find((chain) => chain.id === chainId)?.blockExplorers?.default?.url
+        : undefined;
+    const blockExplorerAssembledHref =
+        blockExplorerBaseUrl && txHash ? `${blockExplorerBaseUrl}/tx/${txHash}` : undefined;
+
+    const parsedHref = blockExplorerAssembledHref ?? href;
+
+    const getEffectiveStatus = () => {
+        const type = txType;
+        if (txStatus === TxStatusCode.FAILED) {
+            return {
+                icon: IconType.CLOSE,
+                variant: 'critical' as AvatarIconVariant,
+                heading: 'Failed transaction',
+            };
         }
-    }, [chainId, chains]);
 
-    const effectiveType = txStatus === TxStatusCode.FAILED ? 'FAILED' : txType;
+        return {
+            icon: txIconTypeList[type],
+            variant: txVariantList[type],
+            heading: txHeadingStringList[type],
+        };
+    };
 
-    const icon = txIconTypeList[effectiveType];
-    const variant = txVariantList[effectiveType];
-    const heading = txHeadingStringList[effectiveType];
+    const { icon, variant, heading } = getEffectiveStatus();
+    const formattedTokenValue = formatterUtils.formatNumber(tokenValue && tokenValue > 0 ? tokenValue : null, {
+        format: NumberFormat.TOKEN_AMOUNT_SHORT,
+    });
 
     return (
         <DataList.Item
-            className="min-w-fit !py-0 px-4 md:px-6"
-            {...otherProps}
-            href={blockExplorerBaseUrl && txHash ? `${blockExplorerBaseUrl}/tx/${txHash}` : undefined}
+            className={classNames('min-w-fit px-4 py-0 md:px-6', className)}
+            href={parsedHref}
             target="_blank"
+            {...otherProps}
         >
             <div className="flex w-full justify-between py-3 md:py-4">
                 <div className="flex items-center gap-x-3 md:gap-x-4">
@@ -63,23 +89,16 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                             {heading}
                         </Heading>
                         <Heading className="!text-neutral-500" size="h5" as="h2">
-                            {unixTimestamp && unixTimestamp}
-                            {!unixTimestamp && '-'}
+                            {formattedTimestamp ? formattedTimestamp : '-'}
                         </Heading>
                     </div>
                 </div>
 
                 <div className="flex flex-col items-end gap-y-0.5">
                     <Heading size="h5" as="h2">
-                        {tokenValue && txType !== TransactionType.ACTION && (
-                            <>
-                                {formatterUtils.formatNumber(tokenValue > 0 ? tokenValue : null, {
-                                    format: NumberFormat.TOKEN_AMOUNT_SHORT,
-                                })}
-                                {` ${tokenSymbol}`}
-                            </>
-                        )}
-                        {(tokenValue === undefined || txType === TransactionType.ACTION) && `-`}
+                        {txType === TransactionType.ACTION || tokenValue == null
+                            ? '-'
+                            : `${formattedTokenValue} ${tokenSymbol}`}
                     </Heading>
                     <Heading className="!text-neutral-500" size="h5" as="h2">
                         {formatterUtils.formatNumber(

@@ -11,35 +11,31 @@ export enum TransactionType {
     DEPOSIT = 'DEPOSIT',
     WITHDRAW = 'WITHDRAW',
     ACTION = 'ACTION',
-    FAILED = 'FAILED',
 }
 
 export const txHeadingStringList: Record<TransactionType, string> = {
     [TransactionType.DEPOSIT]: 'Deposit',
     [TransactionType.WITHDRAW]: 'Withdraw',
     [TransactionType.ACTION]: 'Smart contract action',
-    [TransactionType.FAILED]: 'Failed transaction',
 };
 
 export const txIconTypeList: Record<TransactionType, IconType> = {
     [TransactionType.DEPOSIT]: IconType.DEPOSIT,
     [TransactionType.WITHDRAW]: IconType.WITHDRAW,
     [TransactionType.ACTION]: IconType.BLOCKCHAIN_SMARTCONTRACT,
-    [TransactionType.FAILED]: IconType.CLOSE,
 };
 
 export const txVariantList: Record<TransactionType, AvatarIconVariant> = {
     [TransactionType.DEPOSIT]: 'success',
     [TransactionType.WITHDRAW]: 'warning',
     [TransactionType.ACTION]: 'info',
-    [TransactionType.FAILED]: 'critical',
 };
 
 export interface ITransactionDataListItemProps extends IDataListItemProps {
     /**
      * The chain ID of the transaction.
      */
-    chainId?: number;
+    chainId: number;
     /**
      * The address of the token.
      */
@@ -63,7 +59,7 @@ export interface ITransactionDataListItemProps extends IDataListItemProps {
     /**
      * The Unix timestamp of the transaction.
      */
-    unixTimestamp?: number;
+    formattedTimestamp?: string;
     /**
      * The estimated fiat value of the transaction.
      */
