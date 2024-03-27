@@ -8,13 +8,18 @@ import {
 } from './transactionDataListItemStructure.api';
 
 jest.mock('wagmi', () => ({
-    ...jest.requireActual('wagmi'),
-    useChains: jest.fn(),
+    useChains: () => [
+        {
+            id: '1',
+            blockExplorers: { default: { url: 'https://example.com' } },
+        },
+    ],
 }));
 
 describe('<TransactionDataListItemStructure /> component', () => {
     const createTestComponent = (props?: Partial<ITransactionDataListItemProps>) => {
         const defaultProps: ITransactionDataListItemProps = {
+            chainId: 1,
             txType: TransactionType.ACTION,
             txStatus: TxStatusCode.PENDING,
             txHash: '0x123',
