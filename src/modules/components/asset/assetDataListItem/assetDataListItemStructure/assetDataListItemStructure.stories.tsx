@@ -42,8 +42,9 @@ export const Default: Story = {
  */
 export const Fallback: Story = {
     args: {
-        amount: 0,
-        priceChange: 0,
+        name: 'Ethereum',
+        amount: 420.69,
+        symbol: 'ETH',
     },
     render: (props) => (
         <DataList.Root entityLabel="Assets">

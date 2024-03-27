@@ -3,20 +3,28 @@ import { DataList } from '../../../../../core';
 import { AssetDataListItemStructure, type IAssetDataListItemStructureProps } from './assetDataListItemStructure';
 
 describe('<AssetDataListItem.Structure /> component', () => {
-    const createTestComponent = (props?: Partial<IAssetDataListItemStructureProps>) => {
+    const createTestComponent = (props: Partial<IAssetDataListItemStructureProps> = {}) => {
+        const completeProps: IAssetDataListItemStructureProps = {
+            name: 'Ethereum',
+            symbol: 'ETH',
+            amount: 420.69,
+            ...props,
+        };
+
         return (
             <DataList.Root entityLabel="Assets">
                 <DataList.Container>
-                    <AssetDataListItemStructure {...props} />
+                    <AssetDataListItemStructure {...completeProps} />
                 </DataList.Container>
             </DataList.Root>
         );
     };
 
-    it('renders tokenName, symbol, and the logoSrc', () => {
+    it('renders tokenName and symbol', () => {
         const props = {
             name: 'Ethereum',
             symbol: 'ETH',
+            amount: 420.69,
         };
 
         render(createTestComponent(props));
@@ -26,6 +34,8 @@ describe('<AssetDataListItem.Structure /> component', () => {
 
     it('renders amount, fiat price', async () => {
         const props = {
+            name: 'Ethereum',
+            symbol: 'ETH',
             amount: 420.69,
             fiatPrice: 3654.76,
         };
@@ -36,21 +46,20 @@ describe('<AssetDataListItem.Structure /> component', () => {
         expect(screen.getByText(props.amount)).toBeInTheDocument();
     });
 
-    it('handles zero priceChange as neutral', () => {
+    it('handles not passing fiat price', () => {
         const props = {
+            name: 'Ethereum',
+            symbol: 'ETH',
             amount: 0,
             priceChange: 0,
         };
 
         render(createTestComponent(props));
-        const elements = screen.queryAllByText('$0.00');
-        expect(elements.length).toBeGreaterThan(0); // assuming both asset price and changed price amount are 0.00
-        expect(screen.getByText('0%')).toBeInTheDocument(); // Assuming Tag component renders '0%' for zero priceChange
+        expect(screen.getByText('Unknown')).toBeInTheDocument(); // Assuming Tag component renders '0%' for zero priceChange
     });
 
     it('handle not passing priceChange', async () => {
         const props = {
-            logoSrc: 'https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628',
             name: 'Ethereum',
             amount: 420.69,
             symbol: 'ETH',
