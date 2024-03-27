@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Implement `StatePingAnimation` core component
 -   Implement `addressUtils` and `ensUtils` module utilities
 -   Implement `useDebouncedValue` core hook and `clipboardUtils` core utility
+-   Support `withSign` option on formatter
 
 ### Changed
 
@@ -26,6 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Library build process to avoid bundling dependencies and peer-dependencies when using subfolders import (e.g.
     `wagmi/chains`)
+-   Formatter utility to support negative numbers
 
 ## [1.0.20] - 2024-03-13
 

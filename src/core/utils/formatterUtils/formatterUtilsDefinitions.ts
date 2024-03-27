@@ -25,14 +25,6 @@ export interface INumberFormat {
      */
     useBaseSymbol?: boolean;
     /**
-     * Formats the number as "< $value" when the value is lower than the one specified.
-     */
-    minDisplayValue?: number;
-    /**
-     * Formats the number as "> $value" when the value is higher than the one specified.
-     */
-    maxDisplayValue?: number;
-    /**
      * Format the number with the default currency when set to true.
      */
     isCurrency?: boolean;
@@ -40,6 +32,10 @@ export interface INumberFormat {
      * Format the number as a percentage when set to true.
      */
     isPercentage?: boolean;
+    /**
+     * Always displays the number sign on the formatted number when set to true.
+     */
+    withSign?: boolean;
     /**
      * Fallback to display in case the value is null.
      */
@@ -73,34 +69,33 @@ export const numberFormats: Record<NumberFormat, INumberFormat> = {
     },
     [NumberFormat.FIAT_TOTAL_SHORT]: {
         fixedFractionDigits: 2,
-        minDisplayValue: 0.01,
+        maxSignificantDigits: (value) => (Math.abs(value) < 0.01 ? 1 : undefined),
         useBaseSymbol: true,
         isCurrency: true,
     },
     [NumberFormat.FIAT_TOTAL_LONG]: {
         fixedFractionDigits: 2,
-        minDisplayValue: 0.01,
+        maxSignificantDigits: (value) => (Math.abs(value) < 0.01 ? 1 : undefined),
         isCurrency: true,
     },
     [NumberFormat.TOKEN_AMOUNT_SHORT]: {
         maxFractionDigits: 2,
         useBaseSymbol: true,
-        minDisplayValue: 0.01,
+        maxSignificantDigits: (value) => (Math.abs(value) < 0.01 ? 1 : undefined),
     },
     [NumberFormat.TOKEN_AMOUNT_LONG]: {
         maxFractionDigits: 18,
     },
     [NumberFormat.TOKEN_PRICE]: {
-        fixedFractionDigits: (value) => (value >= 1 ? 2 : undefined),
-        maxSignificantDigits: (value) => (value < 1 ? 4 : undefined),
+        fixedFractionDigits: (value) => (Math.abs(value) >= 1 ? 2 : undefined),
+        maxSignificantDigits: (value) => (Math.abs(value) < 1 ? 4 : undefined),
         isCurrency: true,
         fallback: 'Unknown',
         displayFallback: (value) => isNaN(value) || value === 0,
     },
     [NumberFormat.PERCENTAGE_SHORT]: {
         maxFractionDigits: 1,
-        minDisplayValue: 0.1,
-        maxDisplayValue: 99.9,
+        maxSignificantDigits: (value) => (Math.abs(value) < 0.1 ? 1 : undefined),
         isPercentage: true,
     },
     [NumberFormat.PERCENTAGE_LONG]: {
