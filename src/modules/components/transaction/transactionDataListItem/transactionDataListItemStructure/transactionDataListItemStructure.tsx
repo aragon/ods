@@ -45,7 +45,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
 
     const parsedHref = blockExplorerAssembledHref ?? href;
 
-    const getEffectiveStatus = () => {
+    const getEffectiveTxType = () => {
         const type = txType;
         if (txStatus === TxStatusCode.FAILED) {
             return {
@@ -62,7 +62,8 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         };
     };
 
-    const { icon, variant, heading } = getEffectiveStatus();
+    const { icon, variant, heading } = getEffectiveTxType();
+
     const formattedTokenValue = formatterUtils.formatNumber(tokenValue && tokenValue > 0 ? tokenValue : null, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
     });
