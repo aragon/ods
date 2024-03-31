@@ -1,7 +1,7 @@
 import { type Hash } from 'viem';
 import { IconType, type AvatarIconVariant, type IDataListItemProps } from '../../../../../core';
 
-export enum TxStatusCode {
+export enum TransactionStatus {
     PENDING = 'PENDING',
     SUCCESS = 'SUCCESS',
     FAILED = 'FAILED',
@@ -47,25 +47,25 @@ export interface ITransactionDataListItemProps extends IDataListItemProps {
     /**
      * The token value in the transaction.
      */
-    tokenValue?: number;
-    /**
-     * The type of transaction.
-     */
-    txType: TransactionType;
-    /**
-     * The current status of a blockchain transaction on the network.
-     */
-    txStatus: TxStatusCode;
-    /**
-     * The Unix timestamp of the transaction.
-     */
-    formattedTimestamp?: string;
+    tokenAmount?: number;
     /**
      * The estimated fiat value of the transaction.
      */
-    fiatEstimate?: number;
+    tokenPrice?: number | string;
+    /**
+     * The type of transaction. @default TransactionType.ACTION
+     */
+    type?: TransactionType;
+    /**
+     * The current status of a blockchain transaction on the network. @default TransactionStatus.PENDING
+     */
+    status?: TransactionStatus;
+    /**
+     * The Unix timestamp of the transaction.
+     */
+    timestamp?: string;
     /**
      * The transaction hash.
      */
-    txHash: Hash;
+    hash: Hash;
 }

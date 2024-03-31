@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DataList } from '../../../../../core';
 import { TransactionDataListItemStructure } from './transactionDataListItemStructure';
-import { TransactionType, TxStatusCode } from './transactionDataListItemStructure.api';
+import { TransactionStatus, TransactionType } from './transactionDataListItemStructure.api';
 
 const meta: Meta<typeof TransactionDataListItemStructure> = {
     title: 'Modules/Components/Transaction/TransactionDataListItem.Structure',
@@ -14,7 +14,7 @@ const meta: Meta<typeof TransactionDataListItemStructure> = {
         },
     },
     argTypes: {
-        txHash: {
+        hash: {
             control: 'text',
         },
     },
@@ -37,9 +37,9 @@ export const Default: Story = {
 
 export const Withdraw: Story = {
     args: {
-        txStatus: TxStatusCode.SUCCESS,
-        txType: TransactionType.WITHDRAW,
-        tokenValue: 10,
+        status: TransactionStatus.SUCCESS,
+        type: TransactionType.WITHDRAW,
+        tokenAmount: 10,
         tokenSymbol: 'ETH',
     },
     render: (args) => (
@@ -53,11 +53,11 @@ export const Withdraw: Story = {
 
 export const Failed: Story = {
     args: {
-        txStatus: TxStatusCode.FAILED,
-        txType: TransactionType.DEPOSIT,
+        status: TransactionStatus.FAILED,
+        type: TransactionType.DEPOSIT,
         tokenSymbol: 'ETH',
-        tokenValue: 10,
-        fiatEstimate: 100,
+        tokenAmount: 10,
+        tokenPrice: 100,
     },
     render: (args) => (
         <DataList.Root entityLabel="Transactions">

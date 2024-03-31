@@ -1,18 +1,9 @@
 import classNames from 'classnames';
 import { useChains } from 'wagmi';
+import { AvatarIcon, DataList, Heading, IconType, NumberFormat, Spinner, formatterUtils } from '../../../../../core';
 import {
-    AvatarIcon,
-    DataList,
-    Heading,
-    IconType,
-    NumberFormat,
-    Spinner,
-    formatterUtils,
-    type AvatarIconVariant,
-} from '../../../../../core';
-import {
+    TransactionStatus,
     TransactionType,
-    TxStatusCode,
     txHeadingStringList,
     txIconTypeList,
     txVariantList,
@@ -24,49 +15,59 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         chainId,
         tokenAddress,
         tokenSymbol,
-        tokenValue,
-        fiatEstimate,
-        txType = TransactionType.ACTION,
-        txStatus = TxStatusCode.PENDING,
-        // TO-DO: implement formatter decision for unixTimestamp
-        formattedTimestamp,
-        txHash,
+        tokenAmount,
+        tokenPrice,
+        type = TransactionType.ACTION,
+        status = TransactionStatus.PENDING,
+        // TO-DO: implement formatter decision
+        timestamp,
+        hash,
         href,
         className,
         ...otherProps
     } = props;
     const chains = useChains();
 
-    const blockExplorerBaseUrl = chainId
-        ? chains.find((chain) => chain.id === chainId)?.blockExplorers?.default?.url
-        : undefined;
-    const blockExplorerAssembledHref =
-        blockExplorerBaseUrl && txHash ? `${blockExplorerBaseUrl}/tx/${txHash}` : undefined;
+    const matchingChain = chains.find((chain) => chain.id.toString() === chainId.toString());
+    const blockExplorerBaseUrl = matchingChain?.blockExplorers?.default?.url;
+    const blockExplorerAssembledHref = blockExplorerBaseUrl && hash ? `${blockExplorerBaseUrl}/tx/${hash}` : undefined;
 
     const parsedHref = blockExplorerAssembledHref ?? href;
 
     const getEffectiveTxType = () => {
-        const type = txType;
-        if (txStatus === TxStatusCode.FAILED) {
+        const e = type;
+        if (status === TransactionStatus.FAILED) {
             return {
                 icon: IconType.CLOSE,
-                variant: 'critical' as AvatarIconVariant,
+                variant: 'critical' as const,
                 heading: 'Failed transaction',
             };
         }
 
         return {
-            icon: txIconTypeList[type],
-            variant: txVariantList[type],
-            heading: txHeadingStringList[type],
+            icon: txIconTypeList[e],
+            variant: txVariantList[e],
+            heading: txHeadingStringList[e],
         };
     };
 
     const { icon, variant, heading } = getEffectiveTxType();
 
-    const formattedTokenValue = formatterUtils.formatNumber(tokenValue && tokenValue > 0 ? tokenValue : null, {
+    const formattedTokenValue = formatterUtils.formatNumber(tokenAmount && tokenAmount > 0 ? tokenAmount : null, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
     });
+
+    const fiatValue = Number(tokenAmount ?? 0) * Number(tokenPrice ?? 0);
+
+    const formattedTokenPrice = formatterUtils.formatNumber(
+        fiatValue && type !== TransactionType.ACTION ? fiatValue : 0,
+        {
+            format: NumberFormat.FIAT_TOTAL_SHORT,
+        },
+    );
+
+    const formattedTokenAmount =
+        type === TransactionType.ACTION || tokenAmount == null ? '-' : `${formattedTokenValue} ${tokenSymbol}`;
 
     return (
         <DataList.Item
@@ -77,10 +78,10 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         >
             <div className="flex w-full justify-between py-3 md:py-4">
                 <div className="flex items-center gap-x-3 md:gap-x-4">
-                    {txStatus !== TxStatusCode.PENDING && (
+                    {status !== TransactionStatus.PENDING && (
                         <AvatarIcon className="shrink-0" variant={variant} icon={icon} responsiveSize={{ md: 'md' }} />
                     )}
-                    {txStatus === TxStatusCode.PENDING && (
+                    {status === TransactionStatus.PENDING && (
                         <div className="flex size-6 shrink-0 items-center justify-center md:size-8">
                             <Spinner className="transition" variant="neutral" responsiveSize={{ md: 'lg' }} />
                         </div>
@@ -90,24 +91,17 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                             {heading}
                         </Heading>
                         <Heading className="!text-neutral-500" size="h5" as="h2">
-                            {formattedTimestamp ? formattedTimestamp : '-'}
+                            {timestamp ? timestamp : '-'}
                         </Heading>
                     </div>
                 </div>
 
                 <div className="flex flex-col items-end gap-y-0.5">
                     <Heading size="h5" as="h2">
-                        {txType === TransactionType.ACTION || tokenValue == null
-                            ? '-'
-                            : `${formattedTokenValue} ${tokenSymbol}`}
+                        {formattedTokenAmount}
                     </Heading>
                     <Heading className="!text-neutral-500" size="h5" as="h2">
-                        {formatterUtils.formatNumber(
-                            fiatEstimate && txType !== TransactionType.ACTION ? fiatEstimate : 0,
-                            {
-                                format: NumberFormat.FIAT_TOTAL_SHORT,
-                            },
-                        )}
+                        {formattedTokenPrice}
                     </Heading>
                 </div>
             </div>
