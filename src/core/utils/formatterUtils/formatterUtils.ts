@@ -1,16 +1,11 @@
-import { NumberFormat, numberFormats, type DynamicOption } from './formatterUtilsDefinitions';
+import { NumberFormat, numberFormats, type DynamicOption, type INumberFormat } from './formatterUtilsDefinitions';
 
-export interface IFormatNumberOptions {
+export interface IFormatNumberOptions extends INumberFormat {
     /**
      * Number format to use.
      * @default GENERIC_LONG
      */
     format?: NumberFormat;
-    /**
-     * Fallback value returned when input value is not set or not valid.
-     * @default null
-     */
-    fallback?: string;
 }
 
 const cache: Record<string, Intl.NumberFormat> = {};
@@ -28,33 +23,36 @@ class FormatterUtils {
     ];
 
     formatNumber = (value: number | string | null | undefined, options: IFormatNumberOptions = {}): string | null => {
-        const { format = NumberFormat.GENERIC_LONG, fallback = null } = options;
+        const { format = NumberFormat.GENERIC_LONG, ...otherOptions } = options;
+        const mergedOptions = { ...numberFormats[format], ...otherOptions };
         const {
             fixedFractionDigits,
             maxFractionDigits,
             minFractionDigits,
             maxSignificantDigits,
             useBaseSymbol,
-            minDisplayValue,
-            maxDisplayValue,
             isCurrency,
             isPercentage,
-            fallback: fallbackFormat,
+            withSign,
+            fallback = null,
             displayFallback,
-        } = numberFormats[format];
+        } = mergedOptions;
 
         const parsedValue = typeof value === 'number' ? value : parseFloat(value ?? '');
 
         if (Boolean(displayFallback?.(parsedValue)) || isNaN(parsedValue)) {
-            return fallbackFormat ?? fallback;
+            return fallback;
         }
 
-        const fixedFractionDigitsOption = this.getDynamicOption(parsedValue, fixedFractionDigits);
-        const maxSignificantDigitsOption = this.getDynamicOption(parsedValue, maxSignificantDigits);
+        let processedValue = isPercentage ? parsedValue * 100 : parsedValue;
 
+        const fixedFractionDigitsOption = this.getDynamicOption(processedValue, fixedFractionDigits);
+        const maxSignificantDigitsOption = this.getDynamicOption(processedValue, maxSignificantDigits);
+
+        const maxDigitsFallback = fixedFractionDigitsOption ?? maxFractionDigits;
         const maxDigits = maxSignificantDigitsOption
-            ? this.significantDigitsToFractionDigits(parsedValue, maxSignificantDigitsOption)
-            : fixedFractionDigitsOption ?? maxFractionDigits;
+            ? this.significantDigitsToFractionDigits(processedValue, maxSignificantDigitsOption, maxDigitsFallback)
+            : maxDigitsFallback;
 
         const minDigits = fixedFractionDigitsOption ?? minFractionDigits;
 
@@ -71,33 +69,22 @@ class FormatterUtils {
             });
         }
 
-        const baseRange = this.baseSymbolRanges.find((range) => Math.abs(parsedValue) >= range.value);
+        const baseRange = this.baseSymbolRanges.find((range) => Math.abs(processedValue) >= range.value);
         const baseRangeDenominator =
-            parsedValue > 1e15 ? 10 ** (this.getDecimalPlaces(parsedValue) - 1) : baseRange?.value ?? 1;
+            processedValue > 1e15 ? 10 ** (this.getDecimalPlaces(processedValue) - 1) : baseRange?.value ?? 1;
 
-        let processedValue = isPercentage ? parsedValue * 100 : parsedValue;
-
-        // Set the processedValue to the minDisplayValue (e.g. 0.0012 to 0.01) or maxDisplayValue (e.g. 99.99 to 99.9)
-        // when the value is not zero / 100 and smaller / higher than the minDisplayValue / maxDisplayValue
-        const useMinDisplayValue = minDisplayValue != null && processedValue > 0 && processedValue < minDisplayValue;
-        const useMaxDisplayValue = maxDisplayValue != null && processedValue < 100 && processedValue > maxDisplayValue;
-
-        if (useMinDisplayValue) {
-            processedValue = minDisplayValue;
-        } else if (useMaxDisplayValue) {
-            processedValue = maxDisplayValue;
-        } else if (useBaseSymbol) {
-            processedValue = parsedValue / baseRangeDenominator;
+        if (useBaseSymbol) {
+            processedValue = processedValue / baseRangeDenominator;
         }
 
         let formattedValue = cache[cacheKey]!.format(processedValue);
 
+        if (withSign && processedValue > 0) {
+            formattedValue = `+${formattedValue}`;
+        }
+
         if (useBaseSymbol && baseRange != null) {
             formattedValue = `${formattedValue}${baseRange.symbol(parsedValue)}`;
-        } else if (useMinDisplayValue) {
-            formattedValue = `<${formattedValue}`;
-        } else if (useMaxDisplayValue) {
-            formattedValue = `>${formattedValue}`;
         }
 
         if (isPercentage) {
@@ -114,8 +101,8 @@ class FormatterUtils {
 
     private getDecimalPlaces = (value: number) => value.toString().split('.')[0].length;
 
-    private significantDigitsToFractionDigits = (value: number, digits: number) =>
-        value === 0 ? 0 : Math.floor(digits - Math.log10(value));
+    private significantDigitsToFractionDigits = (value: number, digits: number, fallback?: number) =>
+        value === 0 ? fallback : Math.floor(digits - Math.log10(Math.abs(value)));
 }
 
 export const formatterUtils = new FormatterUtils();

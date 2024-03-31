@@ -54,7 +54,7 @@ Generic quantities represent anything countable, such as members, proposals, vot
 **Examples**:
 
 <FormatExampleTable
-    values={[0, 123, 1234, 1234567, 1234567890, 1234567890123, 1234567890123456]}
+    values={[-1234, 0, 123, 1234, 1234567, 1234567890, 1234567890123, 1234567890123456]}
     formatShort={NumberFormat.GENERIC_SHORT}
     formatLong={NumberFormat.GENERIC_LONG}
 />
@@ -67,8 +67,8 @@ Fiat totals represent any summed monetary value, such as treasury amounts or fia
 
 <FormatExampleTable
     values={[
-        0, 0.0012345678, 0.012345678, 0.12345678, 123.45678, 1234.56789, 1234567.89012, 1234567890.12345,
-        1234567890123.45678, 1234567890123456.78901,
+        -1234.56789, -0.012345678, -0.0012345678, 0, 0.0012345678, 0.012345678, 0.12345678, 123.45678, 1234.56789,
+        1234567.89012, 1234567890.12345, 1234567890123.45678, 1234567890123456.78901,
     ]}
     formatShort={NumberFormat.FIAT_TOTAL_SHORT}
     formatLong={NumberFormat.FIAT_TOTAL_LONG}
@@ -82,8 +82,8 @@ Token amounts represent whole or fractional amounts of tokens, such as withdrawa
 
 <FormatExampleTable
     values={[
-        0, 0.0012, 0.0123456789012345678, 0.12345678901234567, 123.4567, 1234, 1234.5678, 1234567.8901, 1234567890.1234,
-        1234567890123.4567, 1234567890123456.789,
+        -1234.5678, -0.0123456789012345678, -0.0012, 0, 0.0012, 0.0123456789012345678, 0.12345678901234567, 123.4567,
+        1234, 1234.5678, 1234567.8901, 1234567890.1234, 1234567890123.4567, 1234567890123456.789,
     ]}
     formatShort={NumberFormat.TOKEN_AMOUNT_SHORT}
     formatLong={NumberFormat.TOKEN_AMOUNT_LONG}
@@ -98,8 +98,8 @@ the same.
 
 <FormatExampleTable
     values={[
-        0, 0.0012345678, 0.012345678, 0.12345678, 123.45678, 1234.56789, 1234567.89012, 1234567890.12345,
-        1234567890123.45678, 1234567890123456.78901,
+        -1234.56789, -0.0012345678, 0, 0.0012345678, 0.012345678, 0.12345678, 123.45678, 1234.56789, 1234567.89012,
+        1234567890.12345, 1234567890123.45678, 1234567890123456.78901,
     ]}
     formatShort={NumberFormat.TOKEN_PRICE}
     formatLong={NumberFormat.TOKEN_PRICE}
@@ -113,7 +113,7 @@ of the total supply.
 **Examples**:
 
 <FormatExampleTable
-    values={[0, 0.00012345, 0.0012345, 0.012345, 0.12345, 0.510001, 0.9985, 0.999001, 1]}
+    values={[-1, -0.999001, -0.00012345, 0, 0.00012345, 0.0012345, 0.012345, 0.12345, 0.510001, 0.9985, 0.999001, 1]}
     formatShort={NumberFormat.PERCENTAGE_SHORT}
     formatLong={NumberFormat.PERCENTAGE_LONG}
 />
