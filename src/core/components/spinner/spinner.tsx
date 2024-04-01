@@ -4,7 +4,7 @@ import type { ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../typ
 import { responsiveUtils } from '../../utils';
 
 export type SpinnerSize = 'sm' | 'md' | 'lg' | 'xl';
-export type SpinnerVariant = 'neutral' | 'primary' | 'success' | 'warning' | 'critical';
+export type SpinnerVariant = 'neutral' | 'primary' | 'primary_inverse' | 'success' | 'warning' | 'critical';
 
 export interface ISpinnerProps extends HTMLAttributes<HTMLDivElement> {
     /**
@@ -55,8 +55,9 @@ const responsiveSizeClassNames: ResponsiveAttributeClassMap<SpinnerSize> = {
 };
 
 const variantToClassNames: Record<SpinnerVariant, string> = {
-    neutral: 'border-neutral-100 border-t-primary-400',
-    primary: 'border-primary-300 border-t-neutral-0',
+    neutral: 'border-neutral-100 border-t-neutral-500',
+    primary: 'border-primary-100 border-t-primary-400',
+    primary_inverse: 'border-primary-300 border-t-neutral-0',
     success: 'border-success-300 border-t-success-800',
     warning: 'border-warning-300 border-t-warning-800',
     critical: 'border-critical-300 border-t-critical-800',
