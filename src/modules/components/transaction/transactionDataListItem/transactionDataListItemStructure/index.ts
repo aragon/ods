@@ -1,2 +1,6 @@
 export { TransactionDataListItemStructure } from './transactionDataListItemStructure';
-export { ITransactionDataListItemProps, TransactionType, TxStatusCode } from './transactionDataListItemStructure.api';
+export {
+    ITransactionDataListItemProps,
+    TransactionStatus,
+    TransactionType,
+} from './transactionDataListItemStructure.api';

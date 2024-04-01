@@ -5,6 +5,6 @@ export const TransactionDataListItem = {
 };
 export {
     ITransactionDataListItemProps,
+    TransactionStatus,
     TransactionType,
-    TxStatusCode,
 } from './transactionDataListItemStructure/transactionDataListItemStructure.api';
