@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Implement `StatePingAnimation` core component
 -   Implement `addressUtils` and `ensUtils` module utilities
 -   Implement `useDebouncedValue` core hook and `clipboardUtils` core utility
+-   Update `Spinner` to latest design specs, new "primary_inverse" variant
 -   Support `withSign` option on formatter
 
 ### Changed
