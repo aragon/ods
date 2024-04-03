@@ -6,7 +6,6 @@ import {
     TransactionType,
     txHeadingStringList,
     txIconTypeList,
-    txVariantList,
     type ITransactionDataListItemProps,
 } from './transactionDataListItemStructure.api';
 
@@ -27,31 +26,11 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         ...otherProps
     } = props;
     const chains = useChains();
-
-    const matchingChain = chains.find((chain) => chain.id.toString() === chainId.toString());
+    const matchingChain = chains?.find((chain) => chain.id === chainId);
     const blockExplorerBaseUrl = matchingChain?.blockExplorers?.default?.url;
     const blockExplorerAssembledHref = blockExplorerBaseUrl && hash ? `${blockExplorerBaseUrl}/tx/${hash}` : undefined;
 
     const parsedHref = blockExplorerAssembledHref ?? href;
-
-    const getEffectiveTxType = () => {
-        const e = type;
-        if (status === TransactionStatus.FAILED) {
-            return {
-                icon: IconType.CLOSE,
-                variant: 'critical' as const,
-                heading: 'Failed transaction',
-            };
-        }
-
-        return {
-            icon: txIconTypeList[e],
-            variant: txVariantList[e],
-            heading: txHeadingStringList[e],
-        };
-    };
-
-    const { icon, variant, heading } = getEffectiveTxType();
 
     const formattedTokenValue = formatterUtils.formatNumber(tokenAmount && tokenAmount > 0 ? tokenAmount : null, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
@@ -78,8 +57,21 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         >
             <div className="flex w-full justify-between py-3 md:py-4">
                 <div className="flex items-center gap-x-3 md:gap-x-4">
-                    {status !== TransactionStatus.PENDING && (
-                        <AvatarIcon className="shrink-0" variant={variant} icon={icon} responsiveSize={{ md: 'md' }} />
+                    {status === TransactionStatus.SUCCESS && (
+                        <AvatarIcon
+                            className="shrink-0"
+                            variant="success"
+                            icon={txIconTypeList[type]}
+                            responsiveSize={{ md: 'md' }}
+                        />
+                    )}
+                    {status === TransactionStatus.FAILED && (
+                        <AvatarIcon
+                            className="shrink-0"
+                            variant="critical"
+                            icon={IconType.CLOSE}
+                            responsiveSize={{ md: 'md' }}
+                        />
                     )}
                     {status === TransactionStatus.PENDING && (
                         <div className="flex size-6 shrink-0 items-center justify-center md:size-8">
@@ -88,7 +80,8 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                     )}
                     <div className="flex w-full flex-col items-start gap-y-0.5">
                         <Heading size="h5" as="h2">
-                            {heading}
+                            {txHeadingStringList[type]}
+                            {status === TransactionStatus.FAILED && ' failed'}
                         </Heading>
                         <Heading className="!text-neutral-500" size="h5" as="h2">
                             {timestamp ? timestamp : '-'}

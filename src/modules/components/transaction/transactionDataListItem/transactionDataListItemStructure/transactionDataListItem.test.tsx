@@ -10,7 +10,7 @@ import {
 jest.mock('wagmi', () => ({
     useChains: () => [
         {
-            id: '1',
+            id: 1,
             blockExplorers: { default: { url: 'https://example.com' } },
         },
     ],
@@ -62,9 +62,9 @@ describe('<TransactionDataListItemStructure /> component', () => {
         expect(formattedUsdEstimate).toBeInTheDocument();
     });
 
-    it('overrides the transaction type display with the transaction status', () => {
+    it('renders a failed transaction indicator alongside the transaction type', () => {
         render(createTestComponent({ type: TransactionType.DEPOSIT, status: TransactionStatus.FAILED }));
-        const failedTransactionText = screen.getByText('Failed transaction');
+        const failedTransactionText = screen.getByText('Deposit failed');
         expect(failedTransactionText).toBeInTheDocument();
         const closeIcon = screen.getByTestId('CLOSE');
         expect(closeIcon).toBeInTheDocument();
@@ -77,7 +77,9 @@ describe('<TransactionDataListItemStructure /> component', () => {
     });
 
     it('renders with the correct block explorer URL', async () => {
-        render(createTestComponent());
+        const chainId = 1;
+        const hash = '0x123';
+        render(createTestComponent({ chainId, hash }));
 
         await waitFor(() => {
             const linkElement = screen.getByRole<HTMLAnchorElement>('link');
