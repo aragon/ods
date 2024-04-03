@@ -50,9 +50,11 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
         >
             <MemberAvatar responsiveSize={{ md: 'md' }} ensName={ensName} address={address} />
             <div className="flex flex-col">
-                <p className="text-xs font-normal leading-tight text-neutral-500 md:text-sm">From</p>
+                <span className="text-xs font-normal leading-tight text-neutral-500 md:text-sm">
+                    {txRole === 'sender' ? 'From' : 'To'}
+                </span>
                 <div className="flex items-center space-x-1">
-                    <p className="text-sm font-normal leading-tight text-neutral-800 md:text-base">{handle}</p>
+                    <span className="text-sm font-normal leading-tight text-neutral-800 md:text-base">{handle}</span>
                     <Icon icon={IconType.LINK_EXTERNAL} size="sm" className="text-neutral-300" />
                 </div>
             </div>
