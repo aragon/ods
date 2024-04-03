@@ -50,7 +50,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         ...otherProps
     } = props;
     const chains = useChains();
-    console.log(chains);
+
     const matchingChain = chains?.find((chain) => chain.id === chainId);
     const blockExplorerBaseUrl = matchingChain?.blockExplorers?.default?.url;
     const blockExplorerAssembledHref = blockExplorerBaseUrl ? `${blockExplorerBaseUrl}/tx/${hash}` : undefined;
