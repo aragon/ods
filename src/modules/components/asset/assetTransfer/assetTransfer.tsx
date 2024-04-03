@@ -139,11 +139,11 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
             >
                 <div className="flex items-center space-x-3 md:space-x-4">
                     <Avatar responsiveSize={{ md: 'md' }} src={tokenIconSrc} />
-                    <p className="text-sm leading-tight text-neutral-800 md:text-base">{tokenName}</p>
+                    <span className="text-sm leading-tight text-neutral-800 md:text-base">{tokenName}</span>
                 </div>
                 <div className="flex flex-col items-end justify-end">
-                    <p className="text-sm leading-tight text-neutral-800 md:text-base">{formattedTokenAmount}</p>
-                    <p className="text-sm leading-tight text-neutral-500 md:text-base">{formattedFiatValue}</p>
+                    <span className="text-sm leading-tight text-neutral-800 md:text-base">{formattedTokenAmount}</span>
+                    <span className="text-sm leading-tight text-neutral-500 md:text-base">{formattedFiatValue}</span>
                 </div>
             </a>
         </div>
