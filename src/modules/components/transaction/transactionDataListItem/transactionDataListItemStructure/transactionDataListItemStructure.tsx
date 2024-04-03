@@ -1,13 +1,37 @@
 import classNames from 'classnames';
 import { useChains } from 'wagmi';
-import { AvatarIcon, DataList, Heading, IconType, NumberFormat, Spinner, formatterUtils } from '../../../../../core';
+import {
+    AvatarIcon,
+    DataList,
+    IconType,
+    NumberFormat,
+    Spinner,
+    formatterUtils,
+    type AvatarIconVariant,
+} from '../../../../../core';
 import {
     TransactionStatus,
     TransactionType,
-    txHeadingStringList,
-    txIconTypeList,
     type ITransactionDataListItemProps,
 } from './transactionDataListItemStructure.api';
+
+const txHeadingStringList: Record<TransactionType, string> = {
+    [TransactionType.DEPOSIT]: 'Deposit',
+    [TransactionType.WITHDRAW]: 'Withdraw',
+    [TransactionType.ACTION]: 'Smart contract action',
+};
+
+const txIconTypeList: Record<TransactionType, IconType> = {
+    [TransactionType.DEPOSIT]: IconType.DEPOSIT,
+    [TransactionType.WITHDRAW]: IconType.WITHDRAW,
+    [TransactionType.ACTION]: IconType.BLOCKCHAIN_SMARTCONTRACT,
+};
+
+const txVariantList: Record<TransactionType, AvatarIconVariant> = {
+    [TransactionType.DEPOSIT]: 'success',
+    [TransactionType.WITHDRAW]: 'warning',
+    [TransactionType.ACTION]: 'info',
+};
 
 export const TransactionDataListItemStructure: React.FC<ITransactionDataListItemProps> = (props) => {
     const {
@@ -19,38 +43,35 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         type = TransactionType.ACTION,
         status = TransactionStatus.PENDING,
         // TO-DO: implement formatter decision
-        timestamp,
+        date,
         hash,
         href,
         className,
         ...otherProps
     } = props;
     const chains = useChains();
+    console.log(chains);
     const matchingChain = chains?.find((chain) => chain.id === chainId);
     const blockExplorerBaseUrl = matchingChain?.blockExplorers?.default?.url;
-    const blockExplorerAssembledHref = blockExplorerBaseUrl && hash ? `${blockExplorerBaseUrl}/tx/${hash}` : undefined;
+    const blockExplorerAssembledHref = blockExplorerBaseUrl ? `${blockExplorerBaseUrl}/tx/${hash}` : undefined;
 
     const parsedHref = blockExplorerAssembledHref ?? href;
 
-    const formattedTokenValue = formatterUtils.formatNumber(tokenAmount && tokenAmount > 0 ? tokenAmount : null, {
+    const formattedTokenValue = formatterUtils.formatNumber(tokenAmount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
     });
 
     const fiatValue = Number(tokenAmount ?? 0) * Number(tokenPrice ?? 0);
-
-    const formattedTokenPrice = formatterUtils.formatNumber(
-        fiatValue && type !== TransactionType.ACTION ? fiatValue : 0,
-        {
-            format: NumberFormat.FIAT_TOTAL_SHORT,
-        },
-    );
+    const formattedTokenPrice = formatterUtils.formatNumber(fiatValue, {
+        format: NumberFormat.FIAT_TOTAL_SHORT,
+    });
 
     const formattedTokenAmount =
         type === TransactionType.ACTION || tokenAmount == null ? '-' : `${formattedTokenValue} ${tokenSymbol}`;
 
     return (
         <DataList.Item
-            className={classNames('min-w-fit px-4 py-0 md:px-6', className)}
+            className={classNames('px-4 py-0 md:px-6', className)}
             href={parsedHref}
             target="_blank"
             {...otherProps}
@@ -60,7 +81,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                     {status === TransactionStatus.SUCCESS && (
                         <AvatarIcon
                             className="shrink-0"
-                            variant="success"
+                            variant={txVariantList[type]}
                             icon={txIconTypeList[type]}
                             responsiveSize={{ md: 'md' }}
                         />
@@ -79,23 +100,20 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                         </div>
                     )}
                     <div className="flex w-full flex-col items-start gap-y-0.5">
-                        <Heading size="h5" as="h2">
+                        <p className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
                             {txHeadingStringList[type]}
-                            {status === TransactionStatus.FAILED && ' failed'}
-                        </Heading>
-                        <Heading className="!text-neutral-500" size="h5" as="h2">
-                            {timestamp ? timestamp : '-'}
-                        </Heading>
+                        </p>
+                        <p className="text-sm font-normal leading-tight text-neutral-500 md:text-base">{date}</p>
                     </div>
                 </div>
 
                 <div className="flex flex-col items-end gap-y-0.5">
-                    <Heading size="h5" as="h2">
+                    <p className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
                         {formattedTokenAmount}
-                    </Heading>
-                    <Heading className="!text-neutral-500" size="h5" as="h2">
+                    </p>
+                    <p className="text-sm font-normal leading-tight text-neutral-500 md:text-base">
                         {formattedTokenPrice}
-                    </Heading>
+                    </p>
                 </div>
             </div>
         </DataList.Item>

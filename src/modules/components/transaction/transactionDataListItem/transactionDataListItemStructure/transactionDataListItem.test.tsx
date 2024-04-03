@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
+import * as wagmi from 'wagmi';
 import { DataList, NumberFormat, formatterUtils } from '../../../../../core';
 import { TransactionDataListItemStructure } from './transactionDataListItemStructure';
 import {
@@ -7,22 +8,36 @@ import {
     type ITransactionDataListItemProps,
 } from './transactionDataListItemStructure.api';
 
-jest.mock('wagmi', () => ({
-    useChains: () => [
-        {
-            id: 1,
-            blockExplorers: { default: { url: 'https://example.com' } },
-        },
-    ],
-}));
+describe('<TransactionDataListItem.Structure /> component', () => {
+    const useChainsMock = jest.spyOn(wagmi, 'useChains');
 
-describe('<TransactionDataListItemStructure /> component', () => {
+    beforeEach(() => {
+        useChainsMock.mockReturnValue([
+            {
+                id: 1,
+                blockExplorers: {
+                    default: { name: 'Etherscan', url: 'https://etherscan.io', apiUrl: 'https://api.etherscan.io/api' },
+                },
+                name: 'Chain Name',
+                nativeCurrency: {
+                    decimals: 18,
+                    name: 'Ether',
+                    symbol: 'ETH',
+                },
+                rpcUrls: { default: { http: ['https://cloudflare-eth.com'] } },
+            },
+        ]);
+    });
+
+    afterEach(() => {
+        useChainsMock.mockReset();
+    });
+
     const createTestComponent = (props?: Partial<ITransactionDataListItemProps>) => {
         const defaultProps: ITransactionDataListItemProps = {
             chainId: 1,
-            type: TransactionType.ACTION,
-            status: TransactionStatus.PENDING,
             hash: '0x123',
+            date: '2023-01-01T00:00:00Z',
             ...props,
         };
         return (
@@ -64,16 +79,16 @@ describe('<TransactionDataListItemStructure /> component', () => {
 
     it('renders a failed transaction indicator alongside the transaction type', () => {
         render(createTestComponent({ type: TransactionType.DEPOSIT, status: TransactionStatus.FAILED }));
-        const failedTransactionText = screen.getByText('Deposit failed');
+        const failedTransactionText = screen.getByText('Deposit');
         expect(failedTransactionText).toBeInTheDocument();
         const closeIcon = screen.getByTestId('CLOSE');
         expect(closeIcon).toBeInTheDocument();
     });
 
     it('renders the provided timestamp correctly', () => {
-        const timestamp = '2023-01-01T00:00:00Z';
-        render(createTestComponent({ timestamp }));
-        expect(screen.getByText(timestamp)).toBeInTheDocument();
+        const date = '2000-01-01T00:00:00Z';
+        render(createTestComponent({ date }));
+        expect(screen.getByText(date)).toBeInTheDocument();
     });
 
     it('renders with the correct block explorer URL', async () => {
@@ -83,7 +98,7 @@ describe('<TransactionDataListItemStructure /> component', () => {
 
         await waitFor(() => {
             const linkElement = screen.getByRole<HTMLAnchorElement>('link');
-            expect(linkElement).toHaveAttribute('href', 'https://example.com/tx/0x123');
+            expect(linkElement).toHaveAttribute('href', 'https://etherscan.io/tx/0x123');
         });
     });
 });

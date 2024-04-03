@@ -1,5 +1,5 @@
 import { type Hash } from 'viem';
-import { IconType, type AvatarIconVariant, type IDataListItemProps } from '../../../../../core';
+import { type IDataListItemProps } from '../../../../../core';
 
 export enum TransactionStatus {
     PENDING = 'PENDING',
@@ -12,24 +12,6 @@ export enum TransactionType {
     WITHDRAW = 'WITHDRAW',
     ACTION = 'ACTION',
 }
-
-export const txHeadingStringList: Record<TransactionType, string> = {
-    [TransactionType.DEPOSIT]: 'Deposit',
-    [TransactionType.WITHDRAW]: 'Withdraw',
-    [TransactionType.ACTION]: 'Smart contract action',
-};
-
-export const txIconTypeList: Record<TransactionType, IconType> = {
-    [TransactionType.DEPOSIT]: IconType.DEPOSIT,
-    [TransactionType.WITHDRAW]: IconType.WITHDRAW,
-    [TransactionType.ACTION]: IconType.BLOCKCHAIN_SMARTCONTRACT,
-};
-
-export const txVariantList: Record<TransactionType, AvatarIconVariant> = {
-    [TransactionType.DEPOSIT]: 'success',
-    [TransactionType.WITHDRAW]: 'warning',
-    [TransactionType.ACTION]: 'info',
-};
 
 export interface ITransactionDataListItemProps extends IDataListItemProps {
     /**
@@ -47,23 +29,25 @@ export interface ITransactionDataListItemProps extends IDataListItemProps {
     /**
      * The token value in the transaction.
      */
-    tokenAmount?: number;
+    tokenAmount?: number | string;
     /**
      * The estimated fiat value of the transaction.
      */
     tokenPrice?: number | string;
     /**
-     * The type of transaction. @default TransactionType.ACTION
+     * The type of transaction.
+     * @default TransactionType.ACTION
      */
     type?: TransactionType;
     /**
-     * The current status of a blockchain transaction on the network. @default TransactionStatus.PENDING
+     * The current status of a blockchain transaction on the network.
+     * @default TransactionStatus.PENDING
      */
     status?: TransactionStatus;
     /**
      * The Unix timestamp of the transaction.
      */
-    timestamp?: string;
+    date: string;
     /**
      * The transaction hash.
      */
