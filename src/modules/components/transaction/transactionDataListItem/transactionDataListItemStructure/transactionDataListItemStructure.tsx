@@ -100,20 +100,20 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                         </div>
                     )}
                     <div className="flex w-full flex-col items-start gap-y-0.5">
-                        <p className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
+                        <span className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
                             {txHeadingStringList[type]}
-                        </p>
+                        </span>
                         <p className="text-sm font-normal leading-tight text-neutral-500 md:text-base">{date}</p>
                     </div>
                 </div>
 
                 <div className="flex flex-col items-end gap-y-0.5">
-                    <p className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
+                    <span className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
                         {formattedTokenAmount}
-                    </p>
-                    <p className="text-sm font-normal leading-tight text-neutral-500 md:text-base">
+                    </span>
+                    <span className="text-sm font-normal leading-tight text-neutral-500 md:text-base">
                         {formattedTokenPrice}
-                    </p>
+                    </span>
                 </div>
             </div>
         </DataList.Item>
