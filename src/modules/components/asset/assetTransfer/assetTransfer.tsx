@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import { type Hash } from 'viem';
 import { useConfig } from 'wagmi';
-import { Avatar, AvatarIcon, Icon, IconType, NumberFormat, formatterUtils } from '../../../../core';
+import { Avatar, AvatarIcon, IconType, NumberFormat, formatterUtils } from '../../../../core';
 import { type IWeb3ComponentProps } from '../../../types';
 import { addressUtils } from '../../../utils';
-import { MemberAvatar } from '../../member';
+import { AssetTransferAddress } from './assetTransferAddress';
 
 export interface IAssetTransferProps extends IWeb3ComponentProps {
     /**
@@ -53,6 +53,19 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
     chainId: number;
 }
 
+// could be moved to a utils file for export? reusable in TranactionDataListItem.Structure for example
+const formatValue = (tokenAmount: number, tokenSymbol: string, tokenPrice: number | string) => {
+    const formattedTokenValue = formatterUtils.formatNumber(tokenAmount, {
+        format: NumberFormat.TOKEN_AMOUNT_SHORT,
+        withSign: true,
+    });
+    const fiatValue = Number(tokenAmount) * Number(tokenPrice);
+    const formattedFiatValue = formatterUtils.formatNumber(fiatValue, { format: NumberFormat.FIAT_TOTAL_SHORT });
+    const formattedTokenAmount = `${formattedTokenValue} ${tokenSymbol}`;
+
+    return { formattedTokenAmount, formattedFiatValue };
+};
+
 export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
     const {
         senderAddress,
@@ -79,55 +92,22 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
 
     const blockExplorerAssembledHref = blockExplorerUrl && hash ? `${blockExplorerUrl}/tx/${hash}` : undefined;
 
-    const resolvedSenderHandle =
-        senderEnsName != null && senderEnsName !== '' ? senderEnsName : addressUtils.truncateAddress(senderAddress);
+    const createLink = (address: Hash) => blockExplorerUrl && `${blockExplorerUrl}/address/${address}`;
+    const resolveHandle = (ensName: string | undefined, address: Hash) =>
+        ensName ?? addressUtils.truncateAddress(address);
 
-    const resolvedRecipientHandle =
-        recipientEnsName != null && recipientEnsName !== ''
-            ? recipientEnsName
-            : addressUtils.truncateAddress(recipientAddress);
-
-    const resolvedSenderLink =
-        blockExplorerUrl && senderAddress ? `${blockExplorerUrl}/address/${senderAddress}` : undefined;
-    const resolvedRecipientLink =
-        blockExplorerUrl && recipientAddress ? `${blockExplorerUrl}/address/${recipientAddress}` : undefined;
-
-    const formattedTokenValue = formatterUtils.formatNumber(tokenAmount && tokenAmount > 0 ? tokenAmount : null, {
-        format: NumberFormat.TOKEN_AMOUNT_SHORT,
-        withSign: true,
-    });
-    const fiatValue = Number(tokenAmount ?? 0) * Number(tokenPrice ?? 0);
-    const formattedFiatValue = formatterUtils.formatNumber(fiatValue, {
-        format: NumberFormat.FIAT_TOTAL_SHORT,
-    });
-    const formattedTokenAmount = formattedTokenValue && tokenSymbol ? `${formattedTokenValue} ${tokenSymbol}` : `-`;
+    const { formattedTokenAmount, formattedFiatValue } = formatValue(tokenAmount, tokenSymbol, tokenPrice);
 
     return (
         <div className="flex h-full w-[320px] flex-col gap-y-2 md:w-[640px] md:gap-y-3">
             <div className="relative flex h-full  flex-col rounded-xl border-[1px] border-neutral-100 md:flex-row">
-                <a
-                    href={resolvedSenderLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={classNames(
-                        'flex h-20 w-full items-center space-x-4 rounded-l-xl px-4 py-7', //base
-                        'hover:border-neutral-200 hover:shadow-neutral-md', //hover
-                        'focus:outline-none focus-visible:rounded-l-xl focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', //focus
-                        'active:border-[1px] active:border-neutral-300', //active
-                        'md:w-1/2 md:p-6', //responsive
-                    )}
-                >
-                    <MemberAvatar responsiveSize={{ md: 'md' }} ensName={senderEnsName} address={senderAddress} />
-                    <div className="flex flex-col">
-                        <p className="text-xs font-normal leading-tight text-neutral-500 md:text-sm">From</p>
-                        <div className="flex items-center space-x-1">
-                            <p className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
-                                {resolvedSenderHandle}
-                            </p>
-                            <Icon icon={IconType.LINK_EXTERNAL} size="sm" className="text-neutral-300" />
-                        </div>
-                    </div>
-                </a>
+                <AssetTransferAddress
+                    txRole="sender"
+                    ensName={senderEnsName}
+                    address={senderAddress}
+                    link={createLink(senderAddress)}
+                    handle={resolveHandle(senderEnsName, senderAddress)}
+                />
                 <div className="border-t-[1px] border-neutral-100 md:border-l-[1px]" />
                 <AvatarIcon
                     icon={IconType.CHEVRON_DOWN}
@@ -137,29 +117,13 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                         'md:left-1/2 md:-translate-x-1/2 md:-rotate-90', //responsive
                     )}
                 />
-                <a
-                    href={resolvedRecipientLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={classNames(
-                        'flex h-20 w-full items-center space-x-4 rounded-r-xl px-4 py-7', //base
-                        'hover:border-neutral-200 hover:shadow-neutral-md', //hover
-                        'focus:outline-none focus-visible:rounded-r-xl focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', //focus
-                        'active:border-[1px] active:border-neutral-300', //active
-                        'md:w-1/2 md:p-6 md:pl-8', //responsive
-                    )}
-                >
-                    <MemberAvatar responsiveSize={{ md: 'md' }} ensName={recipientEnsName} address={recipientAddress} />
-                    <div className="flex flex-col">
-                        <p className="text-xs font-normal leading-tight text-neutral-500 md:text-sm">To</p>
-                        <div className="flex items-center space-x-1">
-                            <p className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
-                                {resolvedRecipientHandle}
-                            </p>
-                            <Icon icon={IconType.LINK_EXTERNAL} size="sm" className="text-neutral-300" />
-                        </div>
-                    </div>
-                </a>
+                <AssetTransferAddress
+                    txRole="recipient"
+                    ensName={recipientEnsName}
+                    address={recipientAddress}
+                    link={createLink(recipientAddress)}
+                    handle={resolveHandle(recipientEnsName, recipientAddress)}
+                />
             </div>
             <a
                 href={blockExplorerAssembledHref}
