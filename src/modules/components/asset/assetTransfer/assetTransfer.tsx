@@ -98,6 +98,14 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
 
     const { formattedTokenAmount, formattedFiatValue } = formatValue(tokenAmount, tokenSymbol, tokenPrice);
 
+    const tokenTransferClassNames = classNames(
+        'flex h-16 w-full items-center justify-between rounded-xl border-[1px] border-neutral-100 px-4', // base
+        'hover:border-neutral-200 hover:shadow-neutral-md', // hover
+        'focus:outline-none focus-visible:rounded-xl focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
+        'active:border-neutral-300', // active
+        'md:h-20 md:px-6', // responsive
+    );
+
     return (
         <div className="flex h-full w-[320px] flex-col gap-y-2 md:w-[640px] md:gap-y-3">
             <div className="relative flex h-full  flex-col rounded-xl border-[1px] border-neutral-100 md:flex-row">
@@ -129,13 +137,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                 href={blockExplorerAssembledHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={classNames(
-                    'flex h-16 w-full items-center justify-between rounded-xl border-[1px] border-neutral-100 px-4',
-                    'hover:border-neutral-200 hover:shadow-neutral-md',
-                    'focus:outline-none focus-visible:rounded-xl focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
-                    'active:border-neutral-300',
-                    'md:h-20 md:px-6',
-                )}
+                className={tokenTransferClassNames}
             >
                 <div className="flex items-center space-x-3 md:space-x-4">
                     <Avatar responsiveSize={{ md: 'md' }} src={tokenIconSrc} />
