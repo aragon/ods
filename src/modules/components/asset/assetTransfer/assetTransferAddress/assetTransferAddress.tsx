@@ -1,33 +1,39 @@
 import classNames from 'classnames';
 import { type Hash } from 'viem';
-import { Icon, IconType } from '../../../../core';
-import { MemberAvatar } from '../../member';
+import { Icon, IconType } from '../../../../../core';
+import { addressUtils } from '../../../../utils';
+import { MemberAvatar } from '../../../member';
 
-interface IAssetTransferAddressProps {
-    txRole: 'sender' | 'recipient';
+const txRoleType = ['sender', 'recipient'] as const;
+export type TxRole = (typeof txRoleType)[number];
+
+export interface IAssetTransferAddressProps {
+    txRole: TxRole;
     /**
      * Address of the transaction user.
      */
     address: Hash;
     /**
-     * Resolved handle of the user.
-     */
-    handle: string;
-    /**
      * ENS name of the transaction user.
      */
-    ensName?: string;
+    ensName: string | undefined;
     /**
-     * Link to the block explorer page of the user.
+     * URL of the block explorer.
      */
-    link?: string;
+    blockExplorerUrl: string | undefined;
 }
 
 export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props) => {
-    const { address, ensName, link, handle, txRole } = props;
+    const { address, ensName, blockExplorerUrl, txRole } = props;
+
+    const createLink = (address: Hash, blockExplorerUrl: string | undefined) =>
+        blockExplorerUrl && `${blockExplorerUrl}/address/${address}`;
+    const resolveHandle = (ensName: string | undefined, address: Hash) =>
+        ensName ?? addressUtils.truncateAddress(address);
+
     return (
         <a
-            href={link}
+            href={createLink(address, blockExplorerUrl)}
             target="_blank"
             rel="noopener noreferrer"
             className={classNames(
@@ -54,7 +60,9 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                     {txRole === 'sender' ? 'From' : 'To'}
                 </span>
                 <div className="flex items-center space-x-1">
-                    <span className="text-sm font-normal leading-tight text-neutral-800 md:text-base">{handle}</span>
+                    <span className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
+                        {resolveHandle(ensName, address)}
+                    </span>
                     <Icon icon={IconType.LINK_EXTERNAL} size="sm" className="text-neutral-300" />
                 </div>
             </div>

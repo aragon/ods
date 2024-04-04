@@ -3,7 +3,6 @@ import { type Hash } from 'viem';
 import { useConfig } from 'wagmi';
 import { Avatar, AvatarIcon, IconType, NumberFormat, formatterUtils } from '../../../../core';
 import { type IWeb3ComponentProps } from '../../../types';
-import { addressUtils } from '../../../utils';
 import { AssetTransferAddress } from './assetTransferAddress';
 
 export interface IAssetTransferProps extends IWeb3ComponentProps {
@@ -81,6 +80,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         hash,
         wagmiConfig: wagmiConfigProps,
     } = props;
+
     const wagmiConfigProvider = useConfig();
 
     const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
@@ -91,10 +91,6 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
     const blockExplorerUrl = currentChain?.blockExplorers?.default.url;
 
     const blockExplorerAssembledHref = blockExplorerUrl && hash ? `${blockExplorerUrl}/tx/${hash}` : undefined;
-
-    const createLink = (address: Hash) => blockExplorerUrl && `${blockExplorerUrl}/address/${address}`;
-    const resolveHandle = (ensName: string | undefined, address: Hash) =>
-        ensName ?? addressUtils.truncateAddress(address);
 
     const { formattedTokenAmount, formattedFiatValue } = formatValue(tokenAmount, tokenSymbol, tokenPrice);
 
@@ -113,8 +109,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                     txRole="sender"
                     ensName={senderEnsName}
                     address={senderAddress}
-                    link={createLink(senderAddress)}
-                    handle={resolveHandle(senderEnsName, senderAddress)}
+                    blockExplorerUrl={blockExplorerUrl}
                 />
                 <div className="border-t-[1px] border-neutral-100 md:border-l-[1px]" />
                 <AvatarIcon
@@ -129,8 +124,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                     txRole="recipient"
                     ensName={recipientEnsName}
                     address={recipientAddress}
-                    link={createLink(recipientAddress)}
-                    handle={resolveHandle(recipientEnsName, recipientAddress)}
+                    blockExplorerUrl={blockExplorerUrl}
                 />
             </div>
             <a
