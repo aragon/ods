@@ -14,11 +14,11 @@ describe('<AssetTransfer /> component', () => {
         formatNumberMock.mockImplementation((value, options) => {
             if (options && options.format === NumberFormat.TOKEN_AMOUNT_SHORT) {
                 return `+${value}`;
-            } else if (options && value && options.format === NumberFormat.FIAT_TOTAL_SHORT) {
+            } else if (options && options.format === NumberFormat.FIAT_TOTAL_SHORT) {
                 const formattedFiatValue = `$${Number(value).toFixed(2)}`;
                 return formattedFiatValue;
             }
-            return value!.toString();
+            return null;
         });
     });
 
