@@ -31,11 +31,11 @@ describe('<AssetTransfer /> component', () => {
             recipientAddress: '0x1D03D98c0aac1f83860cec5156116FE68725642E',
             senderAddress: '0x1D03D98c0aac1f83860cec5156116FE687259999',
             tokenIconSrc: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1696501628',
-            tokenSymbol: 'ETH',
-            tokenAmount: 1,
+            symbol: 'ETH',
+            amount: 1,
             tokenName: 'Ethereum',
             hash: '0xf006e9454ad77c5e8e6f54106c6939d3d8b68ae16fc216d67c752f54adb21fc6',
-            tokenPrice: 3850,
+            fiatPrice: 3850,
             chainId: 1,
             ...props,
         };
@@ -55,19 +55,19 @@ describe('<AssetTransfer /> component', () => {
     });
 
     it('renders the formatted fiat estimate', () => {
-        const tokenPrice = 100;
-        const tokenAmount = 10;
+        const fiatPrice = 100;
+        const amount = 10;
 
-        render(createTestComponent({ tokenPrice, tokenAmount }));
+        render(createTestComponent({ fiatPrice, amount }));
         const formattedUsdEstimate = screen.getByText('$1000.00');
         expect(formattedUsdEstimate).toBeInTheDocument();
     });
 
     it('renders the token value and symbol with sign', () => {
-        const tokenSymbol = 'ETH';
-        const tokenAmount = 10;
+        const symbol = 'ETH';
+        const amount = 10;
 
-        render(createTestComponent({ tokenSymbol, tokenAmount }));
+        render(createTestComponent({ symbol, amount }));
         const tokenPrintout = screen.getByText('+10 ETH');
         expect(tokenPrintout).toBeInTheDocument();
     });

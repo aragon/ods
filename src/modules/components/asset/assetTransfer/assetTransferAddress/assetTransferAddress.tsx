@@ -26,18 +26,16 @@ export interface IAssetTransferAddressProps {
 export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props) => {
     const { address, ensName, blockExplorerUrl, txRole } = props;
 
-    const createLink = (address: Hash, blockExplorerUrl: string | undefined) =>
-        blockExplorerUrl && `${blockExplorerUrl}/address/${address}`;
-    const resolveHandle = (ensName: string | undefined, address: Hash) =>
-        ensName ?? addressUtils.truncateAddress(address);
+    const createLink = blockExplorerUrl && `${blockExplorerUrl}/address/${address}`;
+    const resolvedUserHandle = ensName != null && ensName !== '' ? ensName : addressUtils.truncateAddress(address);
 
     return (
         <a
-            href={createLink(address, blockExplorerUrl)}
+            href={createLink}
             target="_blank"
             rel="noopener noreferrer"
             className={classNames(
-                'flex h-20 w-full items-center space-x-4 px-4 py-7', //base
+                'flex h-20 w-[319px]  items-center space-x-4 px-4 py-7', //base
                 'hover:border-neutral-200 hover:shadow-neutral-md', //hover
                 'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', //focus
                 'active:border-[1px] active:border-neutral-300', //active
@@ -54,15 +52,15 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                 },
             )}
         >
-            <MemberAvatar responsiveSize={{ md: 'md' }} ensName={ensName} address={address} />
+            <MemberAvatar className="shrink-0" responsiveSize={{ md: 'md' }} ensName={ensName} address={address} />
             <div className="flex flex-col">
                 <span className="text-xs font-normal leading-tight text-neutral-500 md:text-sm">
                     {txRole === 'sender' ? 'From' : 'To'}
                 </span>
-                <div className="flex items-center space-x-1">
-                    <span className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
-                        {resolveHandle(ensName, address)}
-                    </span>
+                <div className="flex max-w-[245px] items-center space-x-1 md:max-w-[205px]">
+                    <p className=" truncate text-sm font-normal leading-tight text-neutral-800  md:text-base">
+                        {resolvedUserHandle}
+                    </p>
                     <Icon icon={IconType.LINK_EXTERNAL} size="sm" className="text-neutral-300" />
                 </div>
             </div>

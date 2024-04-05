@@ -33,15 +33,15 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
     /**
      * Amount of tokens transferred.
      */
-    tokenAmount: number;
+    amount: number | string;
     /**
      * Symbol of the token transferred. Example: ETH, DAI, etc.
      */
-    tokenSymbol: string;
+    symbol: string;
     /**
      * Price per token in fiat.
      */
-    tokenPrice: number | string;
+    fiatPrice?: number | string;
     /**
      * Transaction hash.
      */
@@ -52,14 +52,17 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
     chainId: number;
 }
 
-// could be moved to a utils file for export? reusable in TranactionDataListItem.Structure for example
-const formatValue = (tokenAmount: number, tokenSymbol: string, tokenPrice: number | string) => {
-    const formattedTokenValue = formatterUtils.formatNumber(tokenAmount, {
+const formatValue = (amount?: number | string, tokenSymbol: string = '', fiatPrice?: number | string) => {
+    const formattedTokenValue = formatterUtils.formatNumber(amount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
         withSign: true,
+        fallback: '-',
     });
-    const fiatValue = Number(tokenAmount) * Number(tokenPrice);
-    const formattedFiatValue = formatterUtils.formatNumber(fiatValue, { format: NumberFormat.FIAT_TOTAL_SHORT });
+    const fiatValue = Number(amount) * Number(fiatPrice);
+    const formattedFiatValue = formatterUtils.formatNumber(fiatValue, {
+        format: NumberFormat.FIAT_TOTAL_SHORT,
+        fallback: ` `,
+    });
     const formattedTokenAmount = `${formattedTokenValue} ${tokenSymbol}`;
 
     return { formattedTokenAmount, formattedFiatValue };
@@ -73,9 +76,9 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         recipientEnsName,
         tokenName,
         tokenIconSrc,
-        tokenAmount,
-        tokenSymbol,
-        tokenPrice,
+        amount,
+        symbol,
+        fiatPrice,
         chainId,
         hash,
         wagmiConfig: wagmiConfigProps,
@@ -90,9 +93,9 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
     const currentChain = wagmiConfig.chains.find(({ id }) => id === processedChainId);
     const blockExplorerUrl = currentChain?.blockExplorers?.default.url;
 
-    const blockExplorerAssembledHref = blockExplorerUrl && hash ? `${blockExplorerUrl}/tx/${hash}` : undefined;
+    const blockExplorerAssembledHref = blockExplorerUrl ? `${blockExplorerUrl}/tx/${hash}` : undefined;
 
-    const { formattedTokenAmount, formattedFiatValue } = formatValue(tokenAmount, tokenSymbol, tokenPrice);
+    const { formattedTokenAmount, formattedFiatValue } = formatValue(amount, symbol, fiatPrice);
 
     const tokenTransferClassNames = classNames(
         'flex h-16 w-full items-center justify-between rounded-xl border-[1px] border-neutral-100 px-4', // base
