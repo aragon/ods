@@ -1,4 +1,4 @@
-![Aragon](https://res.cloudinary.com/duvrxe0m9/image/upload/v1686656588/aragon-sdk_tjosse.png)
+![Aragon](https://i.postimg.cc/RVVSGThD/logo.png)
 
 <p align="center">
   <a href="https://aragon.org/">Aragon Website</a>

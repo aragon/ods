@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+-   Update `README` logo
+
 ## [1.0.21] - 2024-04-04
 
 ### Added
