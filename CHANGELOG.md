@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+-   Update `README` logo
+
+## [1.0.21] - 2024-04-04
+
 ### Added
 
 -   Implement `DaoDataListItem.Structure`, `ProposalDataListItem.Structure`, `TransactionDataListItem.Structure`,
@@ -26,6 +32,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
+-   Reexport module components
 -   Library build process to avoid bundling dependencies and peer-dependencies when using subfolders import (e.g.
     `wagmi/chains`)
 -   Formatter utility to support negative numbers
