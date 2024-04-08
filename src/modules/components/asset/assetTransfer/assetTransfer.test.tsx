@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { NumberFormat, formatterUtils } from '../../../../core';
 import { OdsModulesProvider } from '../../odsModulesProvider';
 import { AssetTransfer, type IAssetTransferProps } from './assetTransfer';
 
@@ -8,24 +7,6 @@ jest.mock('./assetTransferAddress', () => ({
 }));
 
 describe('<AssetTransfer /> component', () => {
-    const formatNumberMock = jest.spyOn(formatterUtils, 'formatNumber');
-
-    beforeEach(() => {
-        formatNumberMock.mockImplementation((value, options) => {
-            if (options && options.format === NumberFormat.TOKEN_AMOUNT_SHORT) {
-                return `+${value}`;
-            } else if (options && options.format === NumberFormat.FIAT_TOTAL_SHORT) {
-                const formattedFiatValue = `$${Number(value).toFixed(2)}`;
-                return formattedFiatValue;
-            }
-            return null;
-        });
-    });
-
-    afterEach(() => {
-        formatNumberMock.mockReset();
-    });
-
     const createTestComponent = (props?: Partial<IAssetTransferProps>) => {
         const completeProps: IAssetTransferProps = {
             sender: { address: '0x1D03D98c0aac1f83860cec5156116FE68725642E' },
@@ -57,7 +38,7 @@ describe('<AssetTransfer /> component', () => {
         const assetAmount = 10;
 
         render(createTestComponent({ fiatPrice, assetAmount }));
-        const formattedUsdEstimate = screen.getByText('$1000.00');
+        const formattedUsdEstimate = screen.getByText('$1.00K');
         expect(formattedUsdEstimate).toBeInTheDocument();
     });
 
