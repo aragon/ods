@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Implement `AssetTransfer` module component
+
 ### Changed
 
 -   Update `README` logo
@@ -16,7 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 -   Implement `DaoDataListItem.Structure`, `ProposalDataListItem.Structure`, `TransactionDataListItem.Structure`,
-    `MemberDataListItem.Structure`, `AssetDataListItem.Structure`, `AssetTransfer` and `AddressInput` module components
+    `MemberDataListItem.Structure`, `AssetDataListItem.Structure`, and `AddressInput` module components
 -   Implement `StatePingAnimation` core component
 -   Implement `addressUtils` and `ensUtils` module utilities
 -   Implement `useDebouncedValue` core hook and `clipboardUtils` core utility
