@@ -37,10 +37,6 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
             rel="noopener noreferrer"
             className={classNames(
                 'flex h-20 items-center space-x-4 border-neutral-100 px-4 py-7', //base
-                { 'border-x border-t md:border-y md:border-l md:border-r-0': txRole === 'sender' }, // border sides sender
-                {
-                    'border-x border-b md:border-y md:border-l-0 md:border-r': txRole === 'recipient',
-                }, // border sides recipient
                 'hover:border-neutral-200 hover:shadow-neutral-md', //hover
                 'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', //focus
                 'active:border-neutral-300', //active
@@ -48,6 +44,10 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                 {
                     'rounded-t-xl  md:rounded-l-xl md:rounded-r-none': txRole === 'sender', // sender base
                     'rounded-b-xl  md:rounded-l-none md:rounded-r-xl md:pl-8': txRole === 'recipient', // recipient base
+                },
+                {
+                    'border-x border-t md:border-y md:border-l md:border-r-0': txRole === 'sender', // sender borders
+                    'border-x border-b md:border-y md:border-l-0 md:border-r': txRole === 'recipient', // recipient borders
                 },
                 {
                     'focus-visible:rounded-t-xl md:focus-visible:rounded-l-xl md:focus-visible:rounded-r-none':
