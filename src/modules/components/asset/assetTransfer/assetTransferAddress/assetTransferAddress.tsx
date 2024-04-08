@@ -46,7 +46,7 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                 'active:border-neutral-300', //active
                 'md:w-1/2 md:p-6', //responsive
                 {
-                    'rounded-t-xl  md:rounded-l-xl md:rounded-r-none ': txRole === 'sender', // sender base
+                    'rounded-t-xl  md:rounded-l-xl md:rounded-r-none': txRole === 'sender', // sender base
                     'rounded-b-xl  md:rounded-l-none md:rounded-r-xl md:pl-8': txRole === 'recipient', // recipient base
                 },
                 {
@@ -67,11 +67,11 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                 <span className="text-xs font-normal leading-tight text-neutral-500 md:text-sm">
                     {txRole === 'sender' ? 'From' : 'To'}
                 </span>
-                <div className="flex items-center space-x-1">
-                    <span className=" truncate text-sm font-normal leading-tight text-neutral-800  md:text-base">
+                <div className="grid grid-cols-[auto,1fr] items-center gap-x-1">
+                    <span className="truncate text-sm font-normal leading-tight text-neutral-800 md:text-base">
                         {resolvedUserHandle}
                     </span>
-                    <Icon icon={IconType.LINK_EXTERNAL} size="sm" className="text-neutral-300" />
+                    <Icon icon={IconType.LINK_EXTERNAL} size="sm" className="float-right text-neutral-300" />
                 </div>
             </div>
         </a>
