@@ -1,1 +1,1 @@
-export * from './assetTransferAddress';
+export { AssetTransferAddress, type IAssetTransferAddressProps } from './assetTransferAddress';

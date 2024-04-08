@@ -1,29 +1,26 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { type Hash } from 'viem';
 import { OdsModulesProvider } from '../../../odsModulesProvider';
-import { AssetTransferAddress, type IAssetTransferAddressProps, type TxRole } from './assetTransferAddress'; // Adjust the import path as necessary
+import { AssetTransferAddress, type IAssetTransferAddressProps } from './assetTransferAddress';
 
 jest.mock('../../../member/memberAvatar', () => ({ MemberAvatar: () => <div data-testid="member-avatar-mock" /> }));
 
-describe('AssetTransferAddress', () => {
+describe('<AssetTransferAddress /> component', () => {
     const createTestComponent = (props?: Partial<IAssetTransferAddressProps>) => {
-        const minimumProps = {
-            txRole: 'sender' as TxRole,
-            address: '0x1D03D98c0aac1f83860cec5156116FE68725642E' as Hash,
-            ensName: undefined,
-            blockExplorerUrl: undefined,
+        const completeProps = {
+            txRole: 'sender' as const,
+            participant: { address: '0x1D03D98c0aac1f83860cec5156116FE68725642E' },
             ...props,
         };
         return (
             <OdsModulesProvider>
-                <AssetTransferAddress {...minimumProps} />
+                <AssetTransferAddress {...completeProps} />
             </OdsModulesProvider>
         );
     };
 
     it('renders correctly as a sender', () => {
-        const txRole = 'sender' as TxRole;
+        const txRole = 'sender' as const;
         render(createTestComponent({ txRole }));
 
         expect(screen.getByText('From')).toBeInTheDocument();
@@ -33,7 +30,7 @@ describe('AssetTransferAddress', () => {
     });
 
     it('renders correctly as a recipient', () => {
-        const txRole = 'recipient' as TxRole;
+        const txRole = 'recipient' as const;
         render(createTestComponent({ txRole }));
 
         expect(screen.getByText('To')).toBeInTheDocument();
@@ -43,9 +40,10 @@ describe('AssetTransferAddress', () => {
     });
 
     it('uses truncated address if ensName is undefined', () => {
-        render(createTestComponent());
+        const participant = { address: '0x028F5Ca0b3A3A14e44AB8af660B53D1e428457e7' };
+        render(createTestComponent({ participant }));
 
-        expect(screen.getByText('0x1D…642E')).toBeInTheDocument();
+        expect(screen.getByText('0x02…57e7')).toBeInTheDocument();
     });
 
     it('does not create a link if blockExplorerUrl is undefined', () => {
@@ -55,5 +53,17 @@ describe('AssetTransferAddress', () => {
         // eslint-disable-next-line testing-library/no-node-access
         const possibleLinkElement = screen.getByText('From').closest('a');
         expect(possibleLinkElement).not.toHaveAttribute('href');
+    });
+
+    it('creates a link if blockExplorerUrl is defined', () => {
+        const blockExplorerUrl = 'https://etherscan.io';
+        render(createTestComponent({ blockExplorerUrl }));
+
+        // eslint-disable-next-line testing-library/no-node-access
+        const possibleLinkElement = screen.getByText('From').closest('a');
+        expect(possibleLinkElement).toHaveAttribute(
+            'href',
+            'https://etherscan.io/address/0x1D03D98c0aac1f83860cec5156116FE68725642E',
+        );
     });
 });

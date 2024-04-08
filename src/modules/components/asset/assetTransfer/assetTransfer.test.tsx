@@ -3,7 +3,7 @@ import { NumberFormat, formatterUtils } from '../../../../core';
 import { OdsModulesProvider } from '../../odsModulesProvider';
 import { AssetTransfer, type IAssetTransferProps } from './assetTransfer';
 
-jest.mock('./assetTransferAddress/assetTransferAddress.tsx', () => ({
+jest.mock('./assetTransferAddress', () => ({
     AssetTransferAddress: () => <div data-testid="asset-transfer-address" />,
 }));
 
@@ -27,49 +27,47 @@ describe('<AssetTransfer /> component', () => {
     });
 
     const createTestComponent = (props?: Partial<IAssetTransferProps>) => {
-        const minimumProps: IAssetTransferProps = {
-            recipientAddress: '0x1D03D98c0aac1f83860cec5156116FE68725642E',
-            senderAddress: '0x1D03D98c0aac1f83860cec5156116FE687259999',
-            tokenIconSrc: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1696501628',
-            symbol: 'ETH',
-            amount: 1,
-            tokenName: 'Ethereum',
+        const completeProps: IAssetTransferProps = {
+            sender: { address: '0x1D03D98c0aac1f83860cec5156116FE68725642E' },
+            recipient: { address: '0x1D03D98c0aac1f83860cec5156116FE687259999' },
+            assetSymbol: 'ETH',
+            assetAmount: 1,
+            assetName: 'Ethereum',
             hash: '0xf006e9454ad77c5e8e6f54106c6939d3d8b68ae16fc216d67c752f54adb21fc6',
-            fiatPrice: 3850,
             chainId: 1,
             ...props,
         };
 
         return (
             <OdsModulesProvider>
-                <AssetTransfer {...minimumProps} />
+                <AssetTransfer {...completeProps} />
             </OdsModulesProvider>
         );
     };
 
     it('renders with minimum props', () => {
-        const tokenName = 'Bitcoin';
-        render(createTestComponent({ tokenName }));
+        const assetName = 'Bitcoin';
+        render(createTestComponent({ assetName }));
 
         expect(screen.getByText('Bitcoin')).toBeInTheDocument();
     });
 
     it('renders the formatted fiat estimate', () => {
         const fiatPrice = 100;
-        const amount = 10;
+        const assetAmount = 10;
 
-        render(createTestComponent({ fiatPrice, amount }));
+        render(createTestComponent({ fiatPrice, assetAmount }));
         const formattedUsdEstimate = screen.getByText('$1000.00');
         expect(formattedUsdEstimate).toBeInTheDocument();
     });
 
-    it('renders the token value and symbol with sign', () => {
-        const symbol = 'ETH';
-        const amount = 10;
+    it('renders the asset value and symbol with sign', () => {
+        const assetSymbol = 'ETH';
+        const assetAmount = 10;
 
-        render(createTestComponent({ symbol, amount }));
-        const tokenPrintout = screen.getByText('+10 ETH');
-        expect(tokenPrintout).toBeInTheDocument();
+        render(createTestComponent({ assetSymbol, assetAmount }));
+        const assetPrintout = screen.getByText('+10 ETH');
+        expect(assetPrintout).toBeInTheDocument();
     });
 
     it('renders both avatar elements for the from and to addresses', () => {

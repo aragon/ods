@@ -1,44 +1,49 @@
 import classNames from 'classnames';
-import { type Hash } from 'viem';
 import { Icon, IconType } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
 import { MemberAvatar } from '../../../member';
+import { type IRequiredCompositeAddress } from '../assetTransfer';
 
-const txRoleType = ['sender', 'recipient'] as const;
-export type TxRole = (typeof txRoleType)[number];
+export type TxRole = 'sender' | 'recipient';
 
 export interface IAssetTransferAddressProps {
+    /**
+     * Role of the transaction participant.
+     */
     txRole: TxRole;
     /**
-     * Address of the transaction user.
+     * Address (& optional ENS Name) of the transaction participant.
      */
-    address: Hash;
-    /**
-     * ENS name of the transaction user.
-     */
-    ensName: string | undefined;
+    participant: IRequiredCompositeAddress;
     /**
      * URL of the block explorer.
      */
-    blockExplorerUrl: string | undefined;
+    blockExplorerUrl?: string;
 }
 
 export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props) => {
-    const { address, ensName, blockExplorerUrl, txRole } = props;
+    const { participant, blockExplorerUrl, txRole } = props;
 
-    const createLink = blockExplorerUrl && `${blockExplorerUrl}/address/${address}`;
-    const resolvedUserHandle = ensName != null && ensName !== '' ? ensName : addressUtils.truncateAddress(address);
+    const assembledHref = blockExplorerUrl != null ? `${blockExplorerUrl}/address/${participant.address}` : undefined;
+    const resolvedUserHandle =
+        participant.name != null && participant.name !== ''
+            ? participant.name
+            : addressUtils.truncateAddress(participant.address);
 
     return (
         <a
-            href={createLink}
+            href={assembledHref}
             target="_blank"
             rel="noopener noreferrer"
             className={classNames(
-                'flex h-20 w-[319px]  items-center space-x-4 px-4 py-7', //base
+                'flex h-20 items-center space-x-4 border-neutral-100 px-4 py-7', //base
+                { 'border-x border-t md:border-y md:border-l md:border-r-0': txRole === 'sender' }, // border sides sender
+                {
+                    'border-x border-b md:border-y md:border-l-0 md:border-r': txRole === 'recipient',
+                }, // border sides recipient
                 'hover:border-neutral-200 hover:shadow-neutral-md', //hover
                 'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', //focus
-                'active:border-[1px] active:border-neutral-300', //active
+                'active:border-neutral-300', //active
                 'md:w-1/2 md:p-6', //responsive
                 {
                     'rounded-t-xl  md:rounded-l-xl md:rounded-r-none ': txRole === 'sender', // sender base
@@ -52,15 +57,20 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                 },
             )}
         >
-            <MemberAvatar className="shrink-0" responsiveSize={{ md: 'md' }} ensName={ensName} address={address} />
+            <MemberAvatar
+                className="shrink-0"
+                responsiveSize={{ md: 'md' }}
+                ensName={participant.name}
+                address={participant.address}
+            />
             <div className="flex flex-col">
                 <span className="text-xs font-normal leading-tight text-neutral-500 md:text-sm">
                     {txRole === 'sender' ? 'From' : 'To'}
                 </span>
-                <div className="flex max-w-[245px] items-center space-x-1 md:max-w-[205px]">
-                    <p className=" truncate text-sm font-normal leading-tight text-neutral-800  md:text-base">
+                <div className="flex items-center space-x-1">
+                    <span className=" truncate text-sm font-normal leading-tight text-neutral-800  md:text-base">
                         {resolvedUserHandle}
-                    </p>
+                    </span>
                     <Icon icon={IconType.LINK_EXTERNAL} size="sm" className="text-neutral-300" />
                 </div>
             </div>

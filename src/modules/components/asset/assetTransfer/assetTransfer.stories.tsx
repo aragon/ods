@@ -20,14 +20,12 @@ type Story = StoryObj<typeof AssetTransfer>;
  */
 export const Default: Story = {
     args: {
-        senderAddress: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-        recipientAddress: '0x168dAa4529bf88369ac8c1ABA5A2ad8CF2A61Fb9',
-        senderEnsName: 'vitalik.eth',
-        recipientEnsName: 'decentralizedtransactions.eth',
-        tokenIconSrc: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1696501628',
-        symbol: 'ETH',
-        amount: 1,
-        tokenName: 'Ethereum',
+        sender: { address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', name: 'vitalik.eth' },
+        recipient: { address: '0x168dAa4529bf88369ac8c1ABA5A2ad8CF2A61Fb9', name: 'decentralizedtransactions.eth' },
+        assetIconSrc: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1696501628',
+        assetSymbol: 'ETH',
+        assetAmount: 1,
+        assetName: 'Ethereum',
         hash: '0xf006e9454ad77c5e8e6f54106c6939d3d8b68ae16fc216d67c752f54adb21fc6',
         fiatPrice: 3850,
         chainId: 1,
@@ -40,11 +38,11 @@ export const Default: Story = {
  */
 export const Fallback: Story = {
     args: {
-        senderAddress: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-        recipientAddress: '0x168dAa4529bf88369ac8c1ABA5A2ad8CF2A61Fb9',
-        tokenName: 'Ethereum',
-        symbol: 'ETH',
-        amount: 1,
+        sender: { address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045' },
+        recipient: { address: '0x168dAa4529bf88369ac8c1ABA5A2ad8CF2A61Fb9' },
+        assetName: 'Ethereum',
+        assetSymbol: 'ETH',
+        assetAmount: 1,
         hash: '0xf006e9454ad77c5e8e6f54106c6939d3d8b68ae16fc216d67c752f54adb21fc6',
         chainId: 1,
     },
