@@ -36,7 +36,7 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
             target="_blank"
             rel="noopener noreferrer"
             className={classNames(
-                'flex h-20 items-center space-x-4 border-neutral-100 px-4 py-7', //base
+                'flex h-20 items-center space-x-4 border-neutral-100 px-4', //base
                 'hover:border-neutral-200 hover:shadow-neutral-md', //hover
                 'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', //focus
                 'active:border-neutral-300', //active
