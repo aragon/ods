@@ -21,16 +21,18 @@ type Story = StoryObj<typeof AssetTransfer>;
 export const Default: Story = {
     args: {
         sender: { address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', name: 'vitalik.eth' },
-        recipient: { address: '0x168dAa4529bf88369ac8c1ABA5A2ad8CF2A61Fb9', name: 'decentralizedtransactions.eth' },
+        recipient: {
+            address: '0x168dAa4529bf88369ac8c1ABA5A2ad8CF2A61Fb9',
+            name: 'decentralizedtransactions.eth',
+        },
         assetIconSrc: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1696501628',
         assetSymbol: 'ETH',
         assetAmount: 1,
         assetName: 'Ethereum',
         hash: '0xf006e9454ad77c5e8e6f54106c6939d3d8b68ae16fc216d67c752f54adb21fc6',
-        fiatPrice: 3850,
+        assetFiatPrice: 3850,
         chainId: 1,
     },
-    render: (props) => <AssetTransfer {...props} />,
 };
 
 /**
@@ -44,9 +46,7 @@ export const Fallback: Story = {
         assetSymbol: 'ETH',
         assetAmount: 1,
         hash: '0xf006e9454ad77c5e8e6f54106c6939d3d8b68ae16fc216d67c752f54adb21fc6',
-        chainId: 1,
     },
-    render: (props) => <AssetTransfer {...props} />,
 };
 
 export default meta;

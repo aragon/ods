@@ -21,25 +21,25 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
      */
     recipient: IRequiredCompositeAddress;
     /**
-     * Name of the token transferred.
+     * Name of the asset transferred.
      */
     assetName: string;
     /**
-     * Icon URL of the tranferred token.
+     * Icon URL of the tranferred asset.
      */
     assetIconSrc?: string;
     /**
-     * Amount of tokens transferred.
+     * Asset amount that was transferred.
      */
     assetAmount: number | string;
     /**
-     * Symbol of the token transferred. Example: ETH, DAI, etc.
+     * Symbol of the asset transferred. Example: ETH, DAI, etc.
      */
     assetSymbol: string;
     /**
-     * Price per token in fiat.
+     * Price per asset in fiat.
      */
-    fiatPrice?: number | string;
+    assetFiatPrice?: number | string;
     /**
      * Transaction hash.
      */
@@ -47,7 +47,7 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
     /**
      * Chain ID of the transaction.
      */
-    chainId: number;
+    chainId?: number;
 }
 
 export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
@@ -58,7 +58,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         assetIconSrc,
         assetAmount,
         assetSymbol,
-        fiatPrice,
+        assetFiatPrice,
         chainId,
         hash,
         wagmiConfig: wagmiConfigProps,
@@ -80,7 +80,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         withSign: true,
         fallback: '-',
     });
-    const fiatValue = Number(assetAmount) * Number(fiatPrice);
+    const fiatValue = Number(assetAmount) * Number(assetFiatPrice);
     const formattedFiatValue = formatterUtils.formatNumber(fiatValue, {
         format: NumberFormat.FIAT_TOTAL_SHORT,
         fallback: ` `,

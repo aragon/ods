@@ -15,7 +15,6 @@ describe('<AssetTransfer /> component', () => {
             assetAmount: 1,
             assetName: 'Ethereum',
             hash: '0xf006e9454ad77c5e8e6f54106c6939d3d8b68ae16fc216d67c752f54adb21fc6',
-            chainId: 1,
             ...props,
         };
 
@@ -34,10 +33,10 @@ describe('<AssetTransfer /> component', () => {
     });
 
     it('renders the formatted fiat estimate', () => {
-        const fiatPrice = 100;
+        const assetFiatPrice = 100;
         const assetAmount = 10;
 
-        render(createTestComponent({ fiatPrice, assetAmount }));
+        render(createTestComponent({ assetFiatPrice, assetAmount }));
         const formattedUsdEstimate = screen.getByText('$1.00K');
         expect(formattedUsdEstimate).toBeInTheDocument();
     });

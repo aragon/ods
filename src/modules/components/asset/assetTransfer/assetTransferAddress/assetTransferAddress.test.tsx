@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { OdsModulesProvider } from '../../../odsModulesProvider';
 import { AssetTransferAddress, type IAssetTransferAddressProps } from './assetTransferAddress';
 
-jest.mock('../../../member/memberAvatar', () => ({ MemberAvatar: () => <div data-testid="member-avatar-mock" /> }));
+jest.mock('../../../member/', () => ({ MemberAvatar: () => <div data-testid="member-avatar-mock" /> }));
 
 describe('<AssetTransferAddress /> component', () => {
     const createTestComponent = (props?: Partial<IAssetTransferAddressProps>) => {
