@@ -63,11 +63,11 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                 ensName={participant.name}
                 address={participant.address}
             />
-            <div className="flex flex-col">
+            <div className="flex min-w-0 flex-col">
                 <span className="text-xs font-normal leading-tight text-neutral-500 md:text-sm">
                     {txRole === 'sender' ? 'From' : 'To'}
                 </span>
-                <div className="grid grid-cols-[auto,1fr] items-center gap-x-1">
+                <div className="flex items-center space-x-1 truncate">
                     <span className="truncate text-sm font-normal leading-tight text-neutral-800 md:text-base">
                         {resolvedUserHandle}
                     </span>
