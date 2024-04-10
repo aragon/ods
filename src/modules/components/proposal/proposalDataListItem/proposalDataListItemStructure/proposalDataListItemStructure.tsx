@@ -32,7 +32,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
 
     const ongoing = status === 'active' || status === 'challenged' || status === 'vetoed';
 
-    const publisherIsConnected = isConnected && connectedAddress?.toLowerCase() === publisher.address?.toLowerCase();
+    const publisherIsConnected = isConnected && connectedAddress?.toLowerCase() === publisher.address.toLowerCase();
     const publisherLabel = publisherIsConnected
         ? 'You'
         : publisher.name ?? addressUtils.truncateAddress(publisher.address as string);
