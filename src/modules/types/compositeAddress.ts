@@ -1,4 +1,4 @@
 export interface ICompositeAddress {
-    address?: string;
+    address: string;
     name?: string;
 }

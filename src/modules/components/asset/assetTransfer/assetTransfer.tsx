@@ -4,22 +4,15 @@ import { Avatar, AvatarIcon, IconType, NumberFormat, formatterUtils } from '../.
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../types';
 import { AssetTransferAddress } from './assetTransferAddress';
 
-export interface IRequiredCompositeAddress extends ICompositeAddress {
-    /**
-     * Required address the transfer participants.
-     */
-    address: string;
-}
-
 export interface IAssetTransferProps extends IWeb3ComponentProps {
     /**
-     * Address of the transaction sender.
+     * Address (& optional ENS Name) of the transaction sender.
      */
-    sender: IRequiredCompositeAddress;
+    sender: ICompositeAddress;
     /**
-     * Address of the transaction recipient.
+     * Address (& optional ENS Name) of the transaction recipient.
      */
-    recipient: IRequiredCompositeAddress;
+    recipient: ICompositeAddress;
     /**
      * Name of the asset transferred.
      */

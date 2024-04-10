@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { Icon, IconType } from '../../../../../core';
+import { type ICompositeAddress } from '../../../../types';
 import { addressUtils } from '../../../../utils';
 import { MemberAvatar } from '../../../member';
-import { type IRequiredCompositeAddress } from '../assetTransfer';
 
 export type TxRole = 'sender' | 'recipient';
 
@@ -14,7 +14,7 @@ export interface IAssetTransferAddressProps {
     /**
      * Address (& optional ENS Name) of the transaction participant.
      */
-    participant: IRequiredCompositeAddress;
+    participant: ICompositeAddress;
     /**
      * URL of the block explorer.
      */
