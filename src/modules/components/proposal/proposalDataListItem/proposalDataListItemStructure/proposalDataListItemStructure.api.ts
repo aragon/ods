@@ -28,7 +28,7 @@ export interface IProposalDataListItemStructureBaseProps<TType extends ProposalT
      */
     protocolUpdate?: boolean;
     /**
-     * Publisher address and/or ENS name
+     * Publisher address (and optional ENS name)
      */
     publisher: ICompositeAddress;
     /**
