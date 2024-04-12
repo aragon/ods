@@ -27,14 +27,6 @@ module.exports = [
                 interop: 'auto',
                 plugins: [analyze ? visualizer({ filename: 'stats.es.html', open: true }) : undefined],
             },
-            {
-                format: 'cjs',
-                dir: outDir,
-                entryFileNames: '[name].[format].js',
-                sourcemap: true,
-                interop: 'auto',
-                plugins: [analyze ? visualizer({ filename: 'stats.cjs.html', open: true }) : undefined],
-            },
         ],
         plugins: [
             // Mark all dependencies / peer-dependencies as external to not include them on the library build
