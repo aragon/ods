@@ -37,7 +37,7 @@ describe('Breadcrumb', () => {
         expect(screen.getByText('This page')).toHaveAttribute('aria-current', 'page');
     });
 
-    it('renders with the Tag component when provided', () => {
+    it('renders with the Tag component when props provided', () => {
         const tag = { label: 'Tag', variant: 'info' as TagVariant };
         render(createTestComponent({ tag }));
 

@@ -9,7 +9,7 @@ export type UpToThreePaths = Path[] & { length: 1 | 2 | 3 };
 export interface IBreadcrumbProps {
     /**
      * Array of three Path objects indicating depth from the current position to be displayed in the breadcrumb.
-     * Starting at index 0 you must define root, up to the current location.
+     * Starting at index 0 you must define root, up to the current location as desired.
      */
     pathOrder: UpToThreePaths;
     /**
