@@ -27,11 +27,11 @@ export const Breadcrumb: React.FC<IBreadcrumbProps> = (props) => {
 
     return (
         <nav aria-label="Breadcrumb" className="flex items-center space-x-2" {...otherProps}>
-            <ol className="flex items-center gap-x-0.5">
+            <ol className="flex items-center space-x-0.5">
                 {pathOrder.map(
                     (path) =>
                         path && (
-                            <li key={path.href} className="flex items-center gap-x-0.5">
+                            <li key={path.href} className="flex items-center space-x-0.5">
                                 <Link href={path.href}>{path.label}</Link>
                                 <Icon
                                     icon={IconType.SLASH}
