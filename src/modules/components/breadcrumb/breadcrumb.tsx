@@ -36,7 +36,7 @@ export const Breadcrumb: React.FC<IBreadcrumbProps> = (props) => {
                                 <Icon
                                     icon={IconType.SLASH}
                                     className="ml-0.5 text-neutral-200"
-                                    responsiveSize={{ md: 'md' }}
+                                    responsiveSize={{ md: 'lg' }}
                                 />
                             </li>
                         ),

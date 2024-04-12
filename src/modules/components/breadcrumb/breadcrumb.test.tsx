@@ -16,8 +16,8 @@ describe('Breadcrumb', () => {
     it('renders all provided path links', () => {
         const pathOrder = [
             { href: '/root', label: 'Root' },
-            { href: '/middle', label: 'Middle' },
-            { href: '/current', label: 'Current' },
+            { href: '/page', label: 'Page' },
+            { href: '/subpage', label: 'Subpage' },
         ] as UpToThreePaths;
 
         render(createTestComponent({ pathOrder }));
