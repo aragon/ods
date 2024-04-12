@@ -1,10 +1,11 @@
-import { TransactionDataListItemStructure as Structure } from './transactionDataListItemStructure/transactionDataListItemStructure';
+import { TransactionDataListItemStructure as Structure } from './transactionDataListItemStructure';
 
 export const TransactionDataListItem = {
     Structure,
 };
+
 export {
-    ITransactionDataListItemProps,
     TransactionStatus,
     TransactionType,
-} from './transactionDataListItemStructure/transactionDataListItemStructure.api';
+    type ITransactionDataListItemProps,
+} from './transactionDataListItemStructure';
