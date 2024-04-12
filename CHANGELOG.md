@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Update `README` logo
 -   Bump `tar` from 6.2.0 to 6.2.1
+-   Update `eslint` to v9
 
 ## [1.0.21] - 2024-04-04
 
