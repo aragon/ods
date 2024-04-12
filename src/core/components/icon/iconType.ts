@@ -55,6 +55,7 @@ export enum IconType {
     SEARCH = 'SEARCH',
     SETTINGS = 'SETTINGS',
     SHRINK = 'SHRINK',
+    SLASH = 'SLASH',
     SORT_ASC = 'SORT_ASC',
     SORT_DESC = 'SORT_DESC',
     SUCCESS = 'SUCCESS',

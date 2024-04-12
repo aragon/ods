@@ -55,6 +55,7 @@ import RichtextListUnordered from '../../assets/icons/richtext-list-unordered.sv
 import Search from '../../assets/icons/search.svg';
 import Settings from '../../assets/icons/settings.svg';
 import Shrink from '../../assets/icons/shrink.svg';
+import Slash from '../../assets/icons/slash.svg';
 import SortAsc from '../../assets/icons/sort-asc.svg';
 import SortDesc from '../../assets/icons/sort-desc.svg';
 import Success from '../../assets/icons/success.svg';
@@ -121,6 +122,7 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.SEARCH]: Search,
     [IconType.SETTINGS]: Settings,
     [IconType.SHRINK]: Shrink,
+    [IconType.SLASH]: Slash,
     [IconType.SORT_ASC]: SortAsc,
     [IconType.SORT_DESC]: SortDesc,
     [IconType.SUCCESS]: Success,
