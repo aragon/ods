@@ -21,6 +21,16 @@ type Story = StoryObj<typeof Breadcrumb>;
 export const Default: Story = {
     args: {
         currentPage: 'You are here',
+        pathOrder: [{ label: 'Root', href: '/' }],
+    },
+};
+
+/**
+ * Usage example of the Breadcrumb component with full props.
+ */
+export const Loaded: Story = {
+    args: {
+        currentPage: 'You are here',
         pathOrder: [
             { label: 'Root', href: '/' },
             { label: 'Page', href: '/page' },

@@ -1,9 +1,15 @@
 import { Icon, IconType, Link, Tag, type ILinkProps, type ITagProps } from '../../../core';
 
+/**
+ * Object representing a path in the breadcrumb.
+ */
 interface Path extends ILinkProps {
     label: string;
 }
 
+/**
+ * List of Path objects with a min length of 1 and max length of 3.
+ */
 export type UpToThreePaths = Path[] & { length: 1 | 2 | 3 };
 
 export interface IBreadcrumbProps {
@@ -17,7 +23,7 @@ export interface IBreadcrumbProps {
      */
     currentPage: string;
     /**
-     * Optional tag pill to be displayed at the end of the breadcrumb. @type ITagProps
+     * Optional tag pill to be displayed at the end of the breadcrumb for extra info. @type ITagProps
      */
     tag?: ITagProps;
 }

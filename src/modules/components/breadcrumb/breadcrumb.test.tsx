@@ -25,8 +25,8 @@ describe('Breadcrumb', () => {
         const links = screen.getAllByRole('link');
         expect(links.length).toBe(3);
         expect(links[0]).toHaveTextContent('Root');
-        expect(links[1]).toHaveTextContent('Middle');
-        expect(links[2]).toHaveTextContent('Current');
+        expect(links[1]).toHaveTextContent('Page');
+        expect(links[2]).toHaveTextContent('Subpage');
     });
 
     it('displays the current location', () => {
