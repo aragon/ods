@@ -1,8 +1,8 @@
 {
   "name": "@aragon/ods",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "Implementation of the Aragon's Open Design System",
-  "main": "dist/index.cjs.js",
+  "main": "dist/index.es.js",
   "types": "dist/types/src/index.d.ts",
   "license": "GPL-3.0",
   "files": [
@@ -145,10 +145,6 @@
       "import": {
         "types": "./dist/types/src/index.d.ts",
         "default": "./dist/index.es.js"
-      },
-      "require": {
-        "types": "./dist/types/src/index.d.ts",
-        "default": "./dist/index.cjs.js"
       }
     },
     "./index.css": "./index.css",
