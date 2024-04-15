@@ -11,7 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `AssetTransfer` and `Breadcrumb` module components
+-   Implement `AssetTransfer` module component
+-   Implement `Breadcrumbs` core component
 -   Added `slash` icon file
 
 ### Changed

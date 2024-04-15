@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Breadcrumb } from './breadcrumb';
+import { Breadcrumbs } from './breadcrumbs';
 
-const meta: Meta<typeof Breadcrumb> = {
-    title: 'Modules/Components/Breadcrumb/Breadcrumb',
-    component: Breadcrumb,
+const meta: Meta<typeof Breadcrumbs> = {
+    title: 'Core/Components/Breadcrumbs',
+    component: Breadcrumbs,
     tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/P0GeJKqILL7UXvaqu5Jj7V/Aragon-ODS?type=design&node-id=14385%3A24287&mode=dev&t=IX3Fa96hiwUEtcoA-1',
+            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/P0GeJKqILL7UXvaqu5Jj7V/Aragon-ODS?type=design&node-id=15704%3A53630&mode=design&t=wK3Bn7hqwwBM55IZ-1',
         },
     },
 };
 
-type Story = StoryObj<typeof Breadcrumb>;
+type Story = StoryObj<typeof Breadcrumbs>;
 
 /**
  * Default usage example of the Breadcrumb component.
@@ -21,7 +21,7 @@ type Story = StoryObj<typeof Breadcrumb>;
 export const Default: Story = {
     args: {
         currentPage: 'You are here',
-        pathOrder: [{ label: 'Root', href: '/' }],
+        breadcrumbOrder: [{ label: 'Root', href: '/' }],
     },
 };
 
@@ -31,7 +31,7 @@ export const Default: Story = {
 export const Loaded: Story = {
     args: {
         currentPage: 'You are here',
-        pathOrder: [
+        breadcrumbOrder: [
             { label: 'Root', href: '/' },
             { label: 'Page', href: '/page' },
             { label: 'Subpage', href: '/page/subpage' },

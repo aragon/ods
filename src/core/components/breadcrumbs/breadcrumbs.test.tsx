@@ -1,26 +1,26 @@
 import { render, screen } from '@testing-library/react';
-import { type TagVariant } from '../../../core';
-import { Breadcrumb, type IBreadcrumbProps, type UpToThreePaths } from './breadcrumb'; // Adjust the import path as necessary
+import { type TagVariant } from '../..';
+import { Breadcrumbs, type IBreadcrumbsProps, type UpToThreeCrumbs } from './breadcrumbs'; // Adjust the import path as necessary
 
-describe('Breadcrumb', () => {
-    const createTestComponent = (props?: Partial<IBreadcrumbProps>) => {
-        const completeProps: IBreadcrumbProps = {
-            pathOrder: [{ href: '/', label: 'Root' }],
+describe('<Breadcrumbs /> component', () => {
+    const createTestComponent = (props?: Partial<IBreadcrumbsProps>) => {
+        const completeProps: IBreadcrumbsProps = {
+            breadcrumbOrder: [{ href: '/', label: 'Root' }],
             currentPage: 'Current Page',
             ...props,
         };
 
-        return <Breadcrumb {...completeProps} />;
+        return <Breadcrumbs {...completeProps} />;
     };
 
     it('renders all provided path links', () => {
-        const pathOrder = [
+        const breadcrumbOrder = [
             { href: '/root', label: 'Root' },
             { href: '/page', label: 'Page' },
             { href: '/subpage', label: 'Subpage' },
-        ] as UpToThreePaths;
+        ] as UpToThreeCrumbs;
 
-        render(createTestComponent({ pathOrder }));
+        render(createTestComponent({ breadcrumbOrder }));
 
         const links = screen.getAllByRole('link');
         expect(links.length).toBe(3);
