@@ -1,1 +1,1 @@
-export { Breadcrumbs, type IBreadcrumbsProps } from './breadcrumbs';
+export { Breadcrumbs, type IBreadcrumbsProps, type UpToThreeCrumbs } from './breadcrumbs';
