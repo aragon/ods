@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { forwardRef, type ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type CSSProperties, type ComponentPropsWithoutRef } from 'react';
 import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../../types';
 import { responsiveUtils } from '../../../utils';
 
@@ -26,7 +26,7 @@ export interface IStateSkeletonBarProps extends ComponentPropsWithoutRef<'span'>
      * width="100px"  // Sets width to 100 pixels.
      * width="10%"    // Sets width to 10% of its parent container.
      */
-    width?: string | number;
+    width?: CSSProperties['width'];
 }
 
 const responsiveSizeClasses: ResponsiveAttributeClassMap<StateSkeletonBarSize> = {
