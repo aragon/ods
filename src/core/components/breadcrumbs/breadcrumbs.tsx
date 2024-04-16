@@ -25,15 +25,11 @@ export interface IBreadcrumbsProps {
 }
 
 export const Breadcrumbs: React.FC<IBreadcrumbsProps> = ({ breadcrumbsOrder, tag, ...otherProps }) => {
-    if (breadcrumbsOrder.length === 0) {
-        return null;
-    }
-
     const currentPage = breadcrumbsOrder[breadcrumbsOrder.length - 1];
     const pathLinks = breadcrumbsOrder.slice(0, -1);
 
     return (
-        <nav aria-label="Breadcrumb" className="flex items-center gap-x-2" {...otherProps}>
+        <nav aria-label="Breadcrumbs" className="flex items-center gap-x-2" {...otherProps}>
             <ol className="flex items-center gap-x-0.5">
                 {pathLinks.map((breadcrumb) => (
                     <li key={breadcrumb.href} className="flex items-center gap-x-1 whitespace-nowrap">
