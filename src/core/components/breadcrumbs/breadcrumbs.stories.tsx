@@ -20,8 +20,7 @@ type Story = StoryObj<typeof Breadcrumbs>;
  */
 export const Default: Story = {
     args: {
-        currentPage: 'You are here',
-        breadcrumbOrder: [{ label: 'Root', href: '/' }],
+        breadcrumbsOrder: [{ label: 'Root', href: '/' }],
     },
 };
 
@@ -30,11 +29,11 @@ export const Default: Story = {
  */
 export const Loaded: Story = {
     args: {
-        currentPage: 'You are here',
-        breadcrumbOrder: [
+        breadcrumbsOrder: [
             { label: 'Root', href: '/' },
             { label: 'Page', href: '/page' },
             { label: 'Subpage', href: '/page/subpage' },
+            { label: 'Current page', href: '/page/subpage/current' },
         ],
         tag: { label: 'Tag', variant: 'info' },
     },

@@ -1,12 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import { type TagVariant } from '../..';
-import { Breadcrumbs, type IBreadcrumbsProps, type UpToThreeCrumbs } from './breadcrumbs'; // Adjust the import path as necessary
+import { Breadcrumbs, type IBreadcrumbsProps } from './breadcrumbs'; // Adjust the import path as necessary
 
 describe('<Breadcrumbs /> component', () => {
     const createTestComponent = (props?: Partial<IBreadcrumbsProps>) => {
         const completeProps: IBreadcrumbsProps = {
-            breadcrumbOrder: [{ href: '/', label: 'Root' }],
-            currentPage: 'Current Page',
+            breadcrumbsOrder: [{ href: '/', label: 'Root' }],
             ...props,
         };
 
@@ -14,13 +12,14 @@ describe('<Breadcrumbs /> component', () => {
     };
 
     it('renders all provided path links', () => {
-        const breadcrumbOrder = [
-            { href: '/root', label: 'Root' },
+        const breadcrumbsOrder = [
+            { href: '/', label: 'Root' },
             { href: '/page', label: 'Page' },
-            { href: '/subpage', label: 'Subpage' },
-        ] as UpToThreeCrumbs;
+            { href: '/page/subpage', label: 'Subpage' },
+            { href: '/page/subpage/current/', label: 'Current page' },
+        ];
 
-        render(createTestComponent({ breadcrumbOrder }));
+        render(createTestComponent({ breadcrumbsOrder }));
 
         const links = screen.getAllByRole('link');
         expect(links.length).toBe(3);
@@ -29,16 +28,24 @@ describe('<Breadcrumbs /> component', () => {
         expect(links[2]).toHaveTextContent('Subpage');
     });
 
-    it('displays the current location', () => {
-        const currentPage = 'This page';
-        render(createTestComponent({ currentPage }));
+    it('displays the current location correctly', () => {
+        render(
+            createTestComponent({
+                breadcrumbsOrder: [
+                    { label: 'Root', href: '/' },
+                    { label: 'This page', href: '/current' },
+                ],
+            }),
+        );
 
-        expect(screen.getByText('This page')).toBeInTheDocument();
-        expect(screen.getByText('This page')).toHaveAttribute('aria-current', 'page');
+        const currentPage = screen.getByText('This page');
+        expect(currentPage).toBeInTheDocument();
+        expect(currentPage).toHaveAttribute('aria-current', 'page');
+        expect(currentPage).not.toHaveAttribute('href');
     });
 
     it('renders with the Tag component when props provided', () => {
-        const tag = { label: 'Tag', variant: 'info' as TagVariant };
+        const tag = { label: 'Tag', variant: 'info' as const };
         render(createTestComponent({ tag }));
 
         const pillText = screen.getByText('Tag');
