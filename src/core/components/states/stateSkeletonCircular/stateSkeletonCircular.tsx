@@ -3,21 +3,21 @@ import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../../types';
 import { responsiveUtils } from '../../../utils';
 
-export type SkeletonCircularSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type StateSkeletonCircularSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 export interface IStateSkeletonCircularProps extends ComponentPropsWithoutRef<'span'> {
     /**
      *  Responsive size attribute for the skeleton.
      */
-    responsiveSize?: ResponsiveAttribute<SkeletonCircularSize>;
+    responsiveSize?: ResponsiveAttribute<StateSkeletonCircularSize>;
     /**
      * The size of the skeleton.
      * @default 'md'
      */
-    size?: SkeletonCircularSize;
+    size?: StateSkeletonCircularSize;
 }
 
-const responsiveSizeClasses: ResponsiveAttributeClassMap<SkeletonCircularSize> = {
+const responsiveSizeClasses: ResponsiveAttributeClassMap<StateSkeletonCircularSize> = {
     sm: { sm: 'size-6', md: 'md:size-6', lg: 'lg:size-6', xl: 'xl:size-6', '2xl': '2xl:size-6' },
     md: { sm: 'size-8', md: 'md:size-8', lg: 'lg:size-8', xl: 'xl:size-8', '2xl': '2xl:size-8' },
     lg: { sm: 'size-10', md: 'md:size-10', lg: 'lg:size-10', xl: 'xl:size-10', '2xl': '2xl:size-10' },
