@@ -6,7 +6,7 @@ export type SkeletonBarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 export interface IStateSkeletonBarProps extends ComponentPropsWithoutRef<'div'> {
     /**
      * The size of the skeleton.
-     * @default md
+     * @default 'md'
      */
     size?: SkeletonBarSize;
 }
