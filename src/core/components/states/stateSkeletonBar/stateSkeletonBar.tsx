@@ -38,10 +38,10 @@ const responsiveSizeClasses: ResponsiveAttributeClassMap<StateSkeletonBarSize> =
 };
 
 export const StateSkeletonBar = forwardRef<HTMLDivElement, IStateSkeletonBarProps>((props, ref) => {
-    const { className, responsiveSize = {}, size = 'md', width, ...otherProps } = props;
+    const { className, responsiveSize = {}, size = 'md', style, width = 160, ...otherProps } = props;
 
     const classes = classNames(
-        'w-40 animate-pulse rounded-full bg-neutral-50',
+        'animate-pulse rounded-full bg-neutral-50',
         responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClasses),
         className,
     );
@@ -53,7 +53,7 @@ export const StateSkeletonBar = forwardRef<HTMLDivElement, IStateSkeletonBarProp
             className={classes}
             tabIndex={-1}
             aria-hidden={true}
-            style={{ width }}
+            style={{ width, ...style }}
             {...otherProps}
         />
     );
