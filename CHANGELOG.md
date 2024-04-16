@@ -7,6 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Setup `Dependabot` to keep dependencies updated
+
+### Changed
+
+-   Set `yarn` version to v4
+
 ## [1.0.24] - 2024-04-23
 
 ### Added
