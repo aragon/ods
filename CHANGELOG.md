@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+-   Update minor and patch dependencies
+-   Update `@testing-library/react` to v15
 -   Adjusted active and hover start styling on `AssetTransfer` module component
 
 ## [1.0.22] - 2024-04-12
