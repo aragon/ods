@@ -5,7 +5,7 @@ import { responsiveUtils } from '../../../utils';
 
 export type SkeletonBarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
-export interface IStateSkeletonBarProps extends ComponentPropsWithoutRef<'div'> {
+export interface IStateSkeletonBarProps extends ComponentPropsWithoutRef<'span'> {
     /**
      *  Responsive size attribute for the skeleton.
      */
@@ -34,7 +34,16 @@ export const StateSkeletonBar = forwardRef<HTMLDivElement, IStateSkeletonBarProp
         className,
     );
 
-    return <div data-testid="stateSkeletonBar" ref={ref} className={classes} {...otherProps} />;
+    return (
+        <span
+            data-testid="stateSkeletonBar"
+            ref={ref}
+            className={classes}
+            tabIndex={-1}
+            aria-hidden={true}
+            {...otherProps}
+        />
+    );
 });
 
 StateSkeletonBar.displayName = 'StateSkeletonBar';

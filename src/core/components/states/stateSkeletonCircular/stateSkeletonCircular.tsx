@@ -5,7 +5,7 @@ import { responsiveUtils } from '../../../utils';
 
 export type SkeletonCircularSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
-export interface IStateSkeletonCircularProps extends ComponentPropsWithoutRef<'div'> {
+export interface IStateSkeletonCircularProps extends ComponentPropsWithoutRef<'span'> {
     /**
      *  Responsive size attribute for the skeleton.
      */
@@ -34,7 +34,16 @@ export const StateSkeletonCircular = forwardRef<HTMLDivElement, IStateSkeletonCi
         className,
     );
 
-    return <div data-testid="stateSkeletonCircular" ref={ref} className={classes} {...otherProps} />;
+    return (
+        <span
+            data-testid="stateSkeletonCircular"
+            ref={ref}
+            className={classes}
+            tabIndex={-1}
+            aria-hidden={true}
+            {...otherProps}
+        />
+    );
 });
 
 StateSkeletonCircular.displayName = 'StateSkeletonCircular';
