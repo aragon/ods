@@ -10,6 +10,7 @@ const meta: Meta<typeof StateSkeletonCircular> = {
             type: 'figma',
             url: 'https://www.figma.com/file/P0GeJKqILL7UXvaqu5Jj7V/v1.1.0?type=design&node-id=16106-38321&mode=design&t=8BGCESGcufn0gpI9-4',
         },
+        backgrounds: { default: 'neutral-800' },
     },
 };
 

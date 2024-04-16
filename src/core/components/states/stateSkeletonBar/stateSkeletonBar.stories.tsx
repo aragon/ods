@@ -10,6 +10,7 @@ const meta: Meta<typeof StateSkeletonBar> = {
             type: 'figma',
             url: 'https://www.figma.com/file/P0GeJKqILL7UXvaqu5Jj7V/v1.1.0?type=design&node-id=14335-29808&mode=design&t=eY5zUwpG8UWKcdMd-4',
         },
+        backgrounds: { default: 'neutral-800' },
     },
 };
 
