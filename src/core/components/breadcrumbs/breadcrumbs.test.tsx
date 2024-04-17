@@ -4,7 +4,7 @@ import { Breadcrumbs, type IBreadcrumbsProps } from './breadcrumbs'; // Adjust t
 describe('<Breadcrumbs /> component', () => {
     const createTestComponent = (props?: Partial<IBreadcrumbsProps>) => {
         const completeProps: IBreadcrumbsProps = {
-            breadcrumbsOrder: [{ href: '/', label: 'Root' }],
+            links: [{ href: '/', label: 'Root' }],
             ...props,
         };
 
@@ -12,31 +12,27 @@ describe('<Breadcrumbs /> component', () => {
     };
 
     it('renders all provided path links', () => {
-        const breadcrumbsOrder = [
+        const links = [
             { href: '/', label: 'Root' },
             { href: '/page', label: 'Page' },
             { href: '/page/subpage', label: 'Subpage' },
             { href: '/page/subpage/current/', label: 'Current page' },
         ];
+        render(createTestComponent({ links }));
 
-        render(createTestComponent({ breadcrumbsOrder }));
-
-        const links = screen.getAllByRole('link');
-        expect(links.length).toBe(3);
-        expect(links[0]).toHaveTextContent('Root');
-        expect(links[1]).toHaveTextContent('Page');
-        expect(links[2]).toHaveTextContent('Subpage');
+        const renderedLinks = screen.getAllByRole('link');
+        expect(renderedLinks.length).toBe(3);
+        expect(renderedLinks[0]).toHaveTextContent('Root');
+        expect(renderedLinks[1]).toHaveTextContent('Page');
+        expect(renderedLinks[2]).toHaveTextContent('Subpage');
     });
 
     it('displays the current location correctly', () => {
-        render(
-            createTestComponent({
-                breadcrumbsOrder: [
-                    { label: 'Root', href: '/' },
-                    { label: 'This page', href: '/current' },
-                ],
-            }),
-        );
+        const links = [
+            { label: 'Root', href: '/' },
+            { label: 'This page', href: '/current' },
+        ];
+        render(createTestComponent({ links }));
 
         const currentPage = screen.getByText('This page');
         expect(currentPage).toBeInTheDocument();
