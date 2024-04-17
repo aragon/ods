@@ -1,5 +1,6 @@
 export * from './alerts';
 export * from './avatars';
+export * from './breadcrumbs';
 export * from './button';
 export * from './cards';
 export * from './checkbox';
