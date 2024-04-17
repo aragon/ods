@@ -1,3 +1,4 @@
+export * from './accordion';
 export * from './alerts';
 export * from './avatars';
 export * from './button';
