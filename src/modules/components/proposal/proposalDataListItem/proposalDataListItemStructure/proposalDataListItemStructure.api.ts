@@ -22,7 +22,7 @@ export interface IProposalDataListItemStructureBaseProps<TType extends ProposalT
     /**
      * Indicates date relative to the proposal status
      */
-    date: string;
+    date?: string;
     /**
      * Indicates whether the proposal is a protocol update
      */
