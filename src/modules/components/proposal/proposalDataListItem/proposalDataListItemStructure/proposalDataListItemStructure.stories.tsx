@@ -19,7 +19,7 @@ type Story = StoryObj<typeof ProposalDataListItem.Structure>;
 
 const baseArgs: Omit<IProposalDataListItemStructureProps, 'result'> = {
     date: '5 days left',
-    protocolUpdate: false,
+    tag: false,
     publisher: { address: '0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5' },
     publisherProfileLink:
         'https://app.aragon.org/#/daos/base/0xd2705c56aa4edb98271cb8cea2b0df3288ad4585/members/0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5',

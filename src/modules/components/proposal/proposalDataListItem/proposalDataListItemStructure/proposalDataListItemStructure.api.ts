@@ -24,9 +24,9 @@ export interface IProposalDataListItemStructureBaseProps<TType extends ProposalT
      */
     date?: string;
     /**
-     * Indicates whether the proposal is a protocol update
+     * Optional tag indicating proposal type
      */
-    protocolUpdate?: boolean;
+    tag?: string;
     /**
      * Publisher address (and optional ENS name)
      */

@@ -18,7 +18,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
         type,
         result,
         date,
-        protocolUpdate,
+        tag,
         publisher,
         publisherProfileLink,
         status,
@@ -58,9 +58,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                         <Link href={publisherProfileLink}>{publisherLabel}</Link>
                     </object>
                 </div>
-
-                {/* TODO: apply internationalization [APP-2627] */}
-                {protocolUpdate && <Tag label="OSx Update" variant="primary" />}
+                {tag && <Tag label={tag} variant="primary" />}
             </div>
         </DataList.Item>
     );

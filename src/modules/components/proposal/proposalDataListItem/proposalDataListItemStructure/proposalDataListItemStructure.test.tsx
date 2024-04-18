@@ -19,7 +19,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
         const baseProps: Omit<IProposalDataListItemStructureProps, 'result'> = {
             date: new Date().toISOString(),
-            protocolUpdate: false,
+            tag: false,
             publisher: { address: '0x123' },
             status: 'active',
             summary: 'Example Summary',
