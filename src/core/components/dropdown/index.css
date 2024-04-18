@@ -1,4 +1,1 @@
-:root {
-  /* Z-index property of the content insdie the dropdown container */
-  --ods-dropdown-container-content-z-index: auto;
-}
+@import "./dropdownContainer";

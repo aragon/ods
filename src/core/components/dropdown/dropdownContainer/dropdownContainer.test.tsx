@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { IconType } from '../icon';
+import { IconType } from '../../icon';
+import { DropdownItem } from '../dropdownItem/dropdownItem';
 import { DropdownContainer, type IDropdownContainerProps } from './dropdownContainer';
-import { DropdownItem } from './dropdownItem';
 
 describe('<Dropdown.Container /> component', () => {
     const createTestComponent = (props?: Partial<IDropdownContainerProps>) => {

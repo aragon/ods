@@ -1,8 +1,8 @@
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu';
 import classNames from 'classnames';
 import { useEffect, useState, type ReactNode } from 'react';
-import { Button, type IButtonProps } from '../button';
-import { IconType } from '../icon';
+import { Button, type IButtonProps } from '../../button';
+import { IconType } from '../../icon';
 
 export interface IDropdownContainerProps extends RadixDropdown.DropdownMenuProps {
     /**
