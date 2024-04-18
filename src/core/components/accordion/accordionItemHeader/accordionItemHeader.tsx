@@ -7,7 +7,7 @@ import { forwardRef, type ReactNode } from 'react';
 import { AvatarIcon } from '../../avatars';
 import { IconType } from '../../icon';
 
-export const AccordionTrigger = forwardRef<HTMLButtonElement, { children: ReactNode; className?: string }>(
+export const AccordionItemHeader = forwardRef<HTMLButtonElement, { children: ReactNode; className?: string }>(
     ({ children, className, ...props }, forwardedRef) => (
         <RadixAccordionHeader className="flex">
             <RadixAccordionTrigger
@@ -16,7 +16,7 @@ export const AccordionTrigger = forwardRef<HTMLButtonElement, { children: ReactN
                     className,
                 )}
                 {...props}
-                ref={forwardedRef as React.Ref<HTMLButtonElement>}
+                ref={forwardedRef}
             >
                 {children}
                 <AvatarIcon
@@ -28,4 +28,4 @@ export const AccordionTrigger = forwardRef<HTMLButtonElement, { children: ReactN
     ),
 );
 
-AccordionTrigger.displayName = 'AccordionTrigger';
+AccordionItemHeader.displayName = 'Accordion.ItemHeader';

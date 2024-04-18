@@ -18,4 +18,4 @@ export const AccordionItem = forwardRef<HTMLDivElement, { children: ReactNode; c
     ),
 );
 
-AccordionItem.displayName = 'AccordionItem';
+AccordionItem.displayName = 'Accordion.Item';

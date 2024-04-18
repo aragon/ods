@@ -1,21 +1,18 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Icon, IconType } from '../icon';
-import type { IAccordionProps } from './accordion';
-import { Accordion } from './accordion';
+import { Icon, IconType } from '../../icon';
+import type { IAccordionContainerProps } from './accordionContainer';
+import { AccordionContainer } from './accordionContainer';
 
 describe('<Accordion /> component', () => {
-    const createTestComponent = (props?: Partial<IAccordionProps>) => {
-        const completeProps: IAccordionProps = {
-            items: [
-                { itemHeader: 'Header 1', itemContent: 'Content 1' },
-                { itemHeader: 'Header 2', itemContent: 'Content 2' },
-            ],
-            collapsible: false,
-            ...props,
-        };
-        return <Accordion {...completeProps} />;
+    const createTestComponent = (props?: Partial<IAccordionContainerProps>) => {
+        return <AccordionContainer {...props} />;
     };
+
+    const mockItems = [
+        { header: 'Header 1', content: 'Content 1' },
+        { header: 'Header 2', content: 'Content 2' },
+    ];
 
     it('renders all children without crashing', () => {
         render(createTestComponent());
