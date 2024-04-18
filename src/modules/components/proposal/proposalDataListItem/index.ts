@@ -1,13 +1,7 @@
-import { ProposalDataListItemStructure as Structure } from './proposalDataListItemStructure';
+import { ProposalDataListItemStructure } from './proposalDataListItemStructure';
 
 export const ProposalDataListItem = {
-    Structure,
+    Structure: ProposalDataListItemStructure,
 };
 
-export type {
-    IApprovalThresholdResult,
-    IMajorityVotingResult,
-    IProposalDataListItemStructureProps,
-    ProposalStatus,
-    ProposalType,
-} from './proposalDataListItemStructure';
+export * from './proposalDataListItemStructure';

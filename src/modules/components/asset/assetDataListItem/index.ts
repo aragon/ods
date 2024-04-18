@@ -4,4 +4,4 @@ export const AssetDataListItem = {
     Structure: AssetDataListItemStructure,
 };
 
-export type { IAssetDataListItemStructureProps } from './assetDataListItemStructure';
+export * from './assetDataListItemStructure';

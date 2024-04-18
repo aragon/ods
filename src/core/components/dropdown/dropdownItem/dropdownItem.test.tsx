@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { IconType } from '../icon';
-import { DropdownContainer } from './dropdownContainer';
+import { IconType } from '../../icon';
+import { DropdownContainer } from '../dropdownContainer/dropdownContainer';
 import { DropdownItem, type IDropdownItemProps } from './dropdownItem';
 
 describe('<Dropdown.Item /> component', () => {

@@ -10,7 +10,7 @@ export const DialogAlert = {
     Root: DialogAlertRoot,
 };
 
-export { type IDialogAlertContentProps } from './dialogAlertContent';
-export { type IDialogAlertFooterAction, type IDialogAlertFooterProps } from './dialogAlertFooter';
-export { type IDialogAlertHeaderProps } from './dialogAlertHeader';
-export { type DialogAlertVariant, type IDialogAlertRootProps } from './dialogAlertRoot';
+export * from './dialogAlertContent';
+export * from './dialogAlertFooter';
+export * from './dialogAlertHeader';
+export * from './dialogAlertRoot';
