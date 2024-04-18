@@ -84,7 +84,7 @@ export interface IApprovalThresholdResult extends IProposalStage {
     approvalThreshold: number;
 }
 
-export interface IMajorityVotingResult {
+export interface IMajorityVotingResult extends IProposalStage {
     /**
      * Winning option
      */
