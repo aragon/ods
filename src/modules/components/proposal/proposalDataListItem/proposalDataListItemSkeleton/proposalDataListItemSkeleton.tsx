@@ -12,7 +12,7 @@ export const ProposalDataListItemSkeleton: React.FC<IProposalDataListItemSkeleto
             tabIndex={0}
             aria-busy="true"
             aria-label="loading"
-            className={classNames('flex flex-col gap-y-4 bg-neutral-500 py-4 md:py-5', classNames)}
+            className={classNames('flex flex-col gap-y-4 bg-neutral-0 py-4 md:py-5', classNames)}
             {...otherProps}
         >
             <div className="flex justify-between">
