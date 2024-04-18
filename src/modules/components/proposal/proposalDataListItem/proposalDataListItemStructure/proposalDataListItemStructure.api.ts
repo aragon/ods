@@ -61,7 +61,19 @@ export interface IProposalDataListItemStructureBaseProps<TType extends ProposalT
     voted?: boolean;
 }
 
-export interface IApprovalThresholdResult {
+export interface IProposalStage {
+    /**
+     * Name of the proposal stage
+     */
+    stageTitle?: string;
+
+    /**
+     * Id of the proposal stage
+     */
+    stageId?: string;
+}
+
+export interface IApprovalThresholdResult extends IProposalStage {
     /**
      * Number of approvals for the proposal
      */
