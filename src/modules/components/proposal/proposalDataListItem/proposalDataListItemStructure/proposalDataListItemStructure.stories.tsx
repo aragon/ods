@@ -19,7 +19,6 @@ type Story = StoryObj<typeof ProposalDataListItem.Structure>;
 
 const baseArgs: Omit<IProposalDataListItemStructureProps, 'result'> = {
     date: '5 days left',
-    tag: false,
     publisher: { address: '0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5' },
     publisherProfileLink:
         'https://app.aragon.org/#/daos/base/0xd2705c56aa4edb98271cb8cea2b0df3288ad4585/members/0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5',
@@ -64,6 +63,30 @@ export const ApprovalThreshold: Story = {
         publisher: { name: 'sio.eth', address: baseArgs.publisher.address },
         type: 'approvalThreshold',
         result: {
+            approvalAmount: 4,
+            approvalThreshold: 6,
+        },
+    },
+    render: (props) => (
+        <DataList.Root entityLabel="Proposals">
+            <DataList.Container>
+                <ProposalDataListItem.Structure {...props} />
+            </DataList.Container>
+        </DataList.Root>
+    ),
+};
+
+/**
+ * Example of the `ProposalDataListItem.Structure` module component for a multi-body proposal.
+ */
+export const MultiBody: Story = {
+    args: {
+        ...baseArgs,
+        publisher: { name: 'sio.eth', address: baseArgs.publisher.address },
+        type: 'approvalThreshold',
+        result: {
+            stageTitle: 'Founders Approval Council',
+            stageId: '1',
             approvalAmount: 4,
             approvalThreshold: 6,
         },
