@@ -45,9 +45,9 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                 <p className="line-clamp-2 leading-normal text-neutral-500 md:text-lg">{summary}</p>
             </div>
 
-            {ongoing && type === 'approvalThreshold' && <ApprovalThresholdResult {...result} />}
+            {ongoing && type === 'approvalThreshold' && result && <ApprovalThresholdResult {...result} />}
 
-            {ongoing && type === 'majorityVoting' && <MajorityVotingResult {...result} />}
+            {ongoing && type === 'majorityVoting' && result && <MajorityVotingResult {...result} />}
 
             <div className="flex items-center gap-x-4 md:gap-x-6">
                 <div className="flex min-h-5 flex-1 items-center gap-x-0.5 text-sm leading-tight text-neutral-600 md:min-h-6 md:text-base">

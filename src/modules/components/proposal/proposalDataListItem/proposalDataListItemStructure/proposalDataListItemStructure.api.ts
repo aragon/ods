@@ -38,7 +38,7 @@ export interface IProposalDataListItemStructureBaseProps<TType extends ProposalT
     /**
      * Result of the proposal shown only when it is active, challenged or vetoed.
      */
-    result: TType extends 'majorityVoting' ? IMajorityVotingResult : IApprovalThresholdResult;
+    result?: TType extends 'majorityVoting' ? IMajorityVotingResult : IApprovalThresholdResult;
     /**
      * Proposal status
      */
