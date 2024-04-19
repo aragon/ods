@@ -10,10 +10,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 -   Implement `ProposalDataListItemSkeleton` module component
+-   Extend `addressUtils` with `isAddressEqual` method
 
 ### Changed
 
 -   Remove padding from `DataListContainer`, `DataListFilterStatus`, `DataListPagination` and `DataListRoot`
+-   Add `stageId` and `stageTitle` properties to `IApprovalThresholdResult` & `IMajorityVotingResult` interfaces
+-   Convert `protocolUpdate` property from `ProposalDataListItemStructure` to optional `tag` property
+-   Update `date` and `result` properties of `ProposalDataListItemStructure` to optional and publisher to allow for an
+    array
 
 ## [1.0.23] - 2024-04-18
 
