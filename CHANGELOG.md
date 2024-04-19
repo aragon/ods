@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Remove padding from `DataListContainer`, `DataListFilterStatus`, `DataListPagination` and `DataListRoot`
 -   Add `stageId` and `stageTitle` properties to `IApprovalThresholdResult` & `IMajorityVotingResult` interfaces
+-   Removed `publisherProfileLink` property
 -   Convert `protocolUpdate` property from `ProposalDataListItemStructure` to optional `tag` property
 -   Update `date` and `result` properties of `ProposalDataListItemStructure` to optional and publisher to allow for an
     array
