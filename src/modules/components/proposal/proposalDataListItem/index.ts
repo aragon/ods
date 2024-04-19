@@ -1,13 +1,10 @@
-import { ProposalDataListItemStructure as Structure } from './proposalDataListItemStructure';
+import { ProposalDataListItemSkeleton } from './proposalDataListItemSkeleton';
+import { ProposalDataListItemStructure } from './proposalDataListItemStructure';
 
 export const ProposalDataListItem = {
-    Structure,
+    Skeleton: ProposalDataListItemSkeleton,
+    Structure: ProposalDataListItemStructure,
 };
 
-export type {
-    IApprovalThresholdResult,
-    IMajorityVotingResult,
-    IProposalDataListItemStructureProps,
-    ProposalStatus,
-    ProposalType,
-} from './proposalDataListItemStructure';
+export * from './proposalDataListItemSkeleton';
+export * from './proposalDataListItemStructure';

@@ -4,4 +4,4 @@ export const DaoDataListItem = {
     Structure: DaoDataListItemStructure,
 };
 
-export type { IDaoDataListItemStructureProps } from './daoDataListItemStructure';
+export * from './daoDataListItemStructure';

@@ -10,7 +10,7 @@ export const Dialog = {
     Root: DialogRoot,
 };
 
-export { type IDialogContentProps } from './dialogContent';
-export { type IDialogFooterAction, type IDialogFooterProps } from './dialogFooter';
-export { type IDialogHeaderProps } from './dialogHeader';
-export { type IDialogRootProps } from './dialogRoot';
+export * from './dialogContent';
+export * from './dialogFooter';
+export * from './dialogHeader';
+export * from './dialogRoot';

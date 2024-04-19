@@ -4,12 +4,6 @@ import { DataListItem } from './dataListItem';
 import { DataListPagination } from './dataListPagination';
 import { DataListRoot } from './dataListRoot';
 
-export type { IDataListContainerProps, IDataListContainerState } from './dataListContainer';
-export type { IDataListFilterProps, IDataListFilterSortItem } from './dataListFilter';
-export type { IDataListItemProps } from './dataListItem';
-export type { IDataListPaginationProps } from './dataListPagination';
-export type { DataListState, IDataListRootProps } from './dataListRoot';
-
 export const DataList = {
     Root: DataListRoot,
     Filter: DataListFilter,
@@ -17,3 +11,9 @@ export const DataList = {
     Item: DataListItem,
     Pagination: DataListPagination,
 };
+
+export * from './dataListContainer';
+export * from './dataListFilter';
+export * from './dataListItem';
+export * from './dataListPagination';
+export * from './dataListRoot';

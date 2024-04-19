@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Dropdown, type IDropdownContainerProps } from './index';
+import { Dropdown, type IDropdownContainerProps } from '../index';
 
 const meta: Meta<typeof Dropdown.Container> = {
     title: 'Core/Components/Dropdown/Dropdown.Container',

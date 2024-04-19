@@ -36,10 +36,10 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
             target="_blank"
             rel="noopener noreferrer"
             className={classNames(
-                'flex h-20 items-center space-x-4 border-neutral-100 px-4', //base
+                'group flex h-20 items-center space-x-4 border-neutral-100 px-4', //base
                 'hover:border-neutral-200 hover:shadow-neutral-md', //hover
                 'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', //focus
-                'active:border-neutral-300', //active
+                'active:border-neutral-300 active:shadow-none', //active
                 'md:w-1/2 md:p-6', //responsive
                 {
                     'rounded-t-xl  md:rounded-l-xl md:rounded-r-none': txRole === 'sender', // sender base
@@ -58,7 +58,7 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
             )}
         >
             <MemberAvatar
-                className="shrink-0"
+                className="shrink-0 group-hover:shadow-neutral-md group-active:shadow-none"
                 responsiveSize={{ md: 'md' }}
                 ensName={participant.name}
                 address={participant.address}
@@ -71,7 +71,11 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                     <span className="truncate text-sm font-normal leading-tight text-neutral-800 md:text-base">
                         {resolvedUserHandle}
                     </span>
-                    <Icon icon={IconType.LINK_EXTERNAL} size="sm" className="float-right text-neutral-300" />
+                    <Icon
+                        icon={IconType.LINK_EXTERNAL}
+                        size="sm"
+                        className="float-right text-neutral-300 group-hover:text-primary-300 group-active:text-primary-400"
+                    />
                 </div>
             </div>
         </a>
