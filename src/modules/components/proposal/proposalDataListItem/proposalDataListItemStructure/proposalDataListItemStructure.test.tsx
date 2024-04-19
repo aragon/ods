@@ -19,13 +19,12 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
         const baseProps: Omit<IProposalDataListItemStructureProps, 'result'> = {
             date: new Date().toISOString(),
-            tag: false,
-            publisher: { address: '0x123' },
+            tag: 'OSx Update',
+            publisher: { address: '0x123', profileLink: '#' },
             status: 'active',
             summary: 'Example Summary',
             title: 'Example Title',
             voted: false,
-            publisherProfileLink: '#',
             type: 'approvalThreshold',
             ...baseInputProps,
         };
@@ -73,7 +72,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
     const ongoingStatuses: ProposalStatus[] = ['active', 'challenged', 'vetoed'];
 
     it("renders 'You' as the publisher if the connected address is the publisher address", () => {
-        const publisher = { address: '0x123' };
+        const publisher = { address: '0x123', profileLink: '#' };
 
         useAccountMock.mockImplementation(jest.fn().mockReturnValue({ address: publisher.address, isConnected: true }));
 
@@ -84,10 +83,9 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
     describe("'approvalThreshold type'", () => {
         it('renders without crashing', () => {
-            const testProps: IProposalDataListItemStructureProps = {
+            const testProps = {
                 date: new Date().toISOString(),
-                publisher: { address: '0x123' },
-                publisherProfileLink: '#',
+                publisher: { address: '0x123', profileLink: '#' },
                 status: 'active',
                 summary: 'Example Summary',
                 title: 'Example Title',
@@ -98,7 +96,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
                 },
             };
 
-            render(createTestComponent(testProps));
+            render(createTestComponent(testProps as IProposalDataListItemStructureProps));
 
             expect(screen.getByText(testProps.title)).toBeInTheDocument();
             expect(screen.getByText(testProps.summary)).toBeInTheDocument();
@@ -138,10 +136,9 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
     describe("'majorityVoting' type", () => {
         it('renders without crashing', () => {
-            const testProps: IProposalDataListItemStructureProps = {
+            const testProps = {
                 date: new Date().toISOString(),
-                publisher: { address: '0x123' },
-                publisherProfileLink: '#',
+                publisher: { address: '0x123', profileLink: '#' },
                 status: 'active',
                 summary: 'Example Summary',
                 title: 'Example Title',
@@ -153,7 +150,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
                 },
             };
 
-            render(createTestComponent(testProps));
+            render(createTestComponent(testProps as IProposalDataListItemStructureProps));
 
             expect(screen.getByText(testProps.title)).toBeInTheDocument();
             expect(screen.getByText(testProps.summary)).toBeInTheDocument();

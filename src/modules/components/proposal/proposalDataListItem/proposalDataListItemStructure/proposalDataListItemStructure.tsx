@@ -55,16 +55,16 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                         const separator = index < parsedPublisher.length - 1 ? ',' : '';
 
                         return (
-                            <>
+                            <span key={label} className="flex">
                                 {link != null && (
                                     //  using solution from https://kizu.dev/nested-links/ to nest anchor tags
                                     <object type="disregardType">
                                         <Link href={link}>{label}</Link>
-                                        {separator}
                                     </object>
                                 )}
-                                {link == null && <span>{`${label}${separator}`}</span>}
-                            </>
+                                {link == null && <span>{label}</span>}
+                                {separator !== '' && separator}
+                            </span>
                         );
                     })}
                 </div>
