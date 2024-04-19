@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Implement `ProposalDataListItemSkeleton` module component
+
 ## [1.0.23] - 2024-04-18
 
 ### Added
