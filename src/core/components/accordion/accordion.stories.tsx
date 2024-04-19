@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Accordion } from '..';
-import { AccordionContainer } from './accordionContainer';
+import { Accordion } from '.';
+import { AccordionContainer } from './accordionContainer/accordionContainer';
 
 /**
- * Accordion can contain multiple Accordion.Items that can be expanded or collapsed one at a time.
+ * Accordion can contain multiple Accordion.Items that can be expanded or collapsed one at a time, unless `collapsible` is true.
  */
 const meta: Meta<typeof AccordionContainer> = {
     title: 'Core/Components/Accordion',
