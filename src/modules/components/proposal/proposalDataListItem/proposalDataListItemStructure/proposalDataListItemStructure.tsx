@@ -51,22 +51,18 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                 <div className="flex min-h-5 flex-1 items-center gap-x-0.5 text-sm leading-tight text-neutral-600 md:min-h-6 md:gap-x-1 md:text-base">
                     {/* TODO: apply internationalization [APP-2627] */}
                     By
-                    {parsedPublisher.map(({ label, link }, index) => {
-                        const separator = index < parsedPublisher.length - 1 ? ',' : '';
-
-                        return (
-                            <span key={label} className="flex">
-                                {link != null && (
-                                    //  using solution from https://kizu.dev/nested-links/ to nest anchor tags
-                                    <object type="disregardType">
-                                        <Link href={link}>{label}</Link>
-                                    </object>
-                                )}
-                                {link == null && <span>{label}</span>}
-                                {separator !== '' && separator}
-                            </span>
-                        );
-                    })}
+                    {parsedPublisher.map(({ label, link }, index) => (
+                        <span key={label} className="flex">
+                            {link != null && (
+                                //  using solution from https://kizu.dev/nested-links/ to nest anchor tags
+                                <object type="disregardType">
+                                    <Link href={link}>{label}</Link>
+                                </object>
+                            )}
+                            {link == null && <span>{label}</span>}
+                            {index < parsedPublisher.length - 1 && ','}
+                        </span>
+                    ))}
                 </div>
                 {tag && <Tag label={tag} variant="primary" />}
             </div>
