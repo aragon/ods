@@ -5,7 +5,7 @@ import { addressUtils } from '../../../../utils/addressUtils';
 import { ApprovalThresholdResult } from '../approvalThresholdResult';
 import { MajorityVotingResult } from '../majorityVotingResult';
 import { ProposalDataListItemStatus } from '../proposalDataListItemStatus';
-import { type IProposalDataListItemStructureProps } from './proposalDataListItemStructure.api';
+import { type IProposalDataListItemStructureProps, type IPublisher } from './proposalDataListItemStructure.api';
 
 /**
  * `ProposalDataListItemStructure` module component
@@ -20,7 +20,6 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
         date,
         tag,
         publisher,
-        publisherProfileLink,
         status,
         summary,
         title,
@@ -32,10 +31,9 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
 
     const ongoing = status === 'active' || status === 'challenged' || status === 'vetoed';
 
-    const publisherIsConnected = isConnected && connectedAddress?.toLowerCase() === publisher.address.toLowerCase();
-    const publisherLabel = publisherIsConnected
-        ? 'You'
-        : publisher.name ?? addressUtils.truncateAddress(publisher.address);
+    const parsedPublisher = Array.isArray(publisher)
+        ? publisher.map((p) => parsePublisher(p, isConnected, connectedAddress))
+        : [parsePublisher(publisher, isConnected, connectedAddress)];
 
     return (
         <DataList.Item className={classNames('flex flex-col gap-y-4', className)} {...otherProps}>
@@ -50,16 +48,37 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
             {ongoing && type === 'majorityVoting' && result && <MajorityVotingResult {...result} />}
 
             <div className="flex items-center gap-x-4 md:gap-x-6">
-                <div className="flex min-h-5 flex-1 items-center gap-x-0.5 text-sm leading-tight text-neutral-600 md:min-h-6 md:text-base">
+                <div className="flex min-h-5 flex-1 items-center gap-x-0.5 text-sm leading-tight text-neutral-600 md:min-h-6 md:gap-x-1 md:text-base">
                     {/* TODO: apply internationalization [APP-2627] */}
                     By
-                    {/* using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
-                    <object type="disregardType" className="ml-0.5 md:ml-1">
-                        <Link href={publisherProfileLink}>{publisherLabel}</Link>
-                    </object>
+                    {parsedPublisher.map(({ label, link }, index) => {
+                        const separator = index < parsedPublisher.length - 1 ? ',' : '';
+
+                        return (
+                            <>
+                                {link != null && (
+                                    //  using solution from https://kizu.dev/nested-links/ to nest anchor tags
+                                    <object type="disregardType">
+                                        <Link href={link}>{label}</Link>
+                                        {separator}
+                                    </object>
+                                )}
+                                {link == null && <span>{`${label}${separator}`}</span>}
+                            </>
+                        );
+                    })}
                 </div>
                 {tag && <Tag label={tag} variant="primary" />}
             </div>
         </DataList.Item>
     );
 };
+
+function parsePublisher(publisher: IPublisher, isConnected: boolean, connectedAddress: string | undefined) {
+    const publisherIsConnected = isConnected && connectedAddress?.toLowerCase() === publisher.address.toLowerCase();
+    const publisherLabel = publisherIsConnected
+        ? 'You'
+        : publisher.name ?? addressUtils.truncateAddress(publisher.address);
+
+    return { label: publisherLabel, link: publisher.profileLink };
+}

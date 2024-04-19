@@ -30,11 +30,7 @@ export interface IProposalDataListItemStructureBaseProps<TType extends ProposalT
     /**
      * Publisher address (and optional ENS name)
      */
-    publisher: ICompositeAddress;
-    /**
-     * Link to the publisher's profile
-     */
-    publisherProfileLink: string;
+    publisher: IPublisher | IPublisher[];
     /**
      * Result of the proposal shown only when it is active, challenged or vetoed.
      */
@@ -71,6 +67,10 @@ export interface IProposalStage {
      * Id of the proposal stage
      */
     stageId?: string;
+}
+
+export interface IPublisher extends ICompositeAddress {
+    profileLink?: string;
 }
 
 export interface IApprovalThresholdResult extends IProposalStage {

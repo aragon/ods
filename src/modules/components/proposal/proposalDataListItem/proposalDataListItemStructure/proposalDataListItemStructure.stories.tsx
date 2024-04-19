@@ -17,11 +17,14 @@ const meta: Meta<typeof ProposalDataListItem.Structure> = {
 
 type Story = StoryObj<typeof ProposalDataListItem.Structure>;
 
-const baseArgs: Omit<IProposalDataListItemStructureProps, 'result'> = {
-    date: '5 days left',
-    publisher: { address: '0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5' },
-    publisherProfileLink:
+const basePublisher = {
+    address: '0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5',
+    profileLink:
         'https://app.aragon.org/#/daos/base/0xd2705c56aa4edb98271cb8cea2b0df3288ad4585/members/0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5',
+};
+
+const baseArgs: Omit<IProposalDataListItemStructureProps, 'result' | 'publisher'> = {
+    date: '5 days left',
     status: 'draft',
     title: 'This is a very serious proposal to send funds to a wallet address',
     summary: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel eleifend neque, in mattis eros. 
@@ -38,6 +41,7 @@ const baseArgs: Omit<IProposalDataListItemStructureProps, 'result'> = {
 export const MajorityVoting: Story = {
     args: {
         ...baseArgs,
+        publisher: { ...basePublisher },
         type: 'majorityVoting',
         result: {
             option: 'yes',
@@ -60,7 +64,7 @@ export const MajorityVoting: Story = {
 export const ApprovalThreshold: Story = {
     args: {
         ...baseArgs,
-        publisher: { name: 'sio.eth', address: baseArgs.publisher.address },
+        publisher: { ...basePublisher, name: 'sio.eth' },
         type: 'approvalThreshold',
         result: {
             approvalAmount: 4,
@@ -82,7 +86,11 @@ export const ApprovalThreshold: Story = {
 export const MultiBody: Story = {
     args: {
         ...baseArgs,
-        publisher: { name: 'sio.eth', address: baseArgs.publisher.address },
+        publisher: [
+            { ...basePublisher, name: '0xRugg', profileLink: undefined },
+            { ...basePublisher, name: 'sio.eth' },
+            { ...basePublisher },
+        ],
         type: 'approvalThreshold',
         result: {
             stageTitle: 'Founders Approval Council',
