@@ -27,4 +27,31 @@ describe('<MajorityVotingResult /> component', () => {
         expect(screen.getByText(mockProps.votePercentage, { exact: false })).toBeInTheDocument();
         expect(screen.getByRole('progressbar')).toBeInTheDocument();
     });
+
+    it('renders the stage title and stage id when provided', () => {
+        const mockProps: IMajorityVotingResultProps = {
+            option: 'Yes',
+            voteAmount: '100k wAnt',
+            votePercentage: 15,
+            stageTitle: 'Test Stage',
+            stageId: '3',
+        };
+
+        render(createTestComponent(mockProps));
+
+        expect(screen.getByText(mockProps.stageTitle!)).toBeInTheDocument();
+        expect(screen.getByText(mockProps.stageId!)).toBeInTheDocument();
+    });
+
+    it('renders the default stage title when not provided', () => {
+        const mockProps: IMajorityVotingResultProps = {
+            option: 'Yes',
+            voteAmount: '100k wAnt',
+            votePercentage: 15,
+        };
+
+        render(createTestComponent(mockProps));
+
+        expect(screen.getByText(/winning option/i)).toBeInTheDocument();
+    });
 });
