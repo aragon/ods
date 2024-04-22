@@ -95,6 +95,19 @@ describe('<ProposalDataListItemStructure/> component', () => {
         });
     });
 
+    it("renders '3+ creators' when the publishers are more than 3", () => {
+        const publishers = [
+            { name: 'abc', profileLink: '#', address: '0x123' },
+            { name: 'def', profileLink: '#', address: '0x123' },
+            { name: 'ghi', profileLink: '#', address: '0x123' },
+            { name: 'jkl', profileLink: '#', address: '0x123' },
+        ];
+
+        render(createTestComponent({ publisher: publishers }));
+
+        expect(screen.getByText('3+ creators')).toBeInTheDocument();
+    });
+
     describe("'approvalThreshold type'", () => {
         it('renders without crashing', () => {
             const testProps: IProposalDataListItemStructureProps = {
