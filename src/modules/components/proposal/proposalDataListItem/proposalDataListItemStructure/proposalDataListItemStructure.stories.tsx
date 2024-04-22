@@ -86,8 +86,10 @@ export const ApprovalThreshold: Story = {
 export const MultiBody: Story = {
     args: {
         ...baseArgs,
+        id: 'PIP-1',
         publisher: [
             { ...basePublisher, name: '0xRugg', profileLink: undefined },
+            { ...basePublisher, name: 'Bob the Builder', profileLink: undefined },
             { ...basePublisher, name: 'sio.eth' },
             { ...basePublisher },
         ],
@@ -101,7 +103,7 @@ export const MultiBody: Story = {
     },
     render: (props) => (
         <DataList.Root entityLabel="Proposals">
-            <DataList.Container>
+            <DataList.Container SkeletonElement={ProposalDataListItem.Skeleton}>
                 <ProposalDataListItem.Structure {...props} />
             </DataList.Container>
         </DataList.Root>
