@@ -7,6 +7,7 @@ import {
     type IApprovalThresholdResult,
     type IMajorityVotingResult,
     type IProposalDataListItemStructureProps,
+    type IPublisher,
     type ProposalStatus,
 } from './proposalDataListItemStructure.api';
 
@@ -81,29 +82,44 @@ describe('<ProposalDataListItemStructure/> component', () => {
         expect(screen.getByRole('link', { name: 'You' })).toBeInTheDocument();
     });
 
+    it('renders multiple publishers', () => {
+        const publishers = [
+            { name: 'abc', profileLink: '#', address: '0x123' },
+            { name: 'def', profileLink: '#', address: '0x123' },
+        ];
+
+        render(createTestComponent({ publisher: publishers }));
+
+        publishers.forEach((publisher) => {
+            expect(screen.getByText(publisher.name)).toBeInTheDocument();
+        });
+    });
+
     describe("'approvalThreshold type'", () => {
         it('renders without crashing', () => {
-            const testProps = {
+            const testProps: IProposalDataListItemStructureProps = {
                 date: new Date().toISOString(),
                 publisher: { address: '0x123', profileLink: '#' },
                 status: 'active',
                 summary: 'Example Summary',
                 title: 'Example Title',
                 type: 'approvalThreshold',
+                id: '0x1',
                 result: {
                     approvalAmount: 1,
                     approvalThreshold: 2,
                 },
             };
 
-            render(createTestComponent(testProps as IProposalDataListItemStructureProps));
+            render(createTestComponent(testProps));
 
             expect(screen.getByText(testProps.title)).toBeInTheDocument();
             expect(screen.getByText(testProps.summary)).toBeInTheDocument();
             expect(screen.getByText(testProps.status)).toBeInTheDocument();
-            expect(screen.getByText(testProps.date)).toBeInTheDocument();
+            expect(screen.getByText(testProps.date!)).toBeInTheDocument();
+            expect(screen.getByText(testProps.id!)).toBeInTheDocument();
             expect(
-                screen.getByText(addressUtils.truncateAddress(testProps.publisher.address ?? '')),
+                screen.getByText(addressUtils.truncateAddress((testProps.publisher as IPublisher).address)),
             ).toBeInTheDocument();
         });
 
@@ -136,13 +152,14 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
     describe("'majorityVoting' type", () => {
         it('renders without crashing', () => {
-            const testProps = {
+            const testProps: IProposalDataListItemStructureProps = {
                 date: new Date().toISOString(),
                 publisher: { address: '0x123', profileLink: '#' },
                 status: 'active',
                 summary: 'Example Summary',
                 title: 'Example Title',
                 type: 'majorityVoting',
+                id: '0x1',
                 result: {
                     option: 'Yes',
                     voteAmount: '100 wAnt',
@@ -150,14 +167,15 @@ describe('<ProposalDataListItemStructure/> component', () => {
                 },
             };
 
-            render(createTestComponent(testProps as IProposalDataListItemStructureProps));
+            render(createTestComponent(testProps));
 
             expect(screen.getByText(testProps.title)).toBeInTheDocument();
             expect(screen.getByText(testProps.summary)).toBeInTheDocument();
             expect(screen.getByText(testProps.status)).toBeInTheDocument();
-            expect(screen.getByText(testProps.date)).toBeInTheDocument();
+            expect(screen.getByText(testProps.date!)).toBeInTheDocument();
+            expect(screen.getByText(testProps.id!)).toBeInTheDocument();
             expect(
-                screen.getByText(addressUtils.truncateAddress(testProps.publisher.address ?? '')),
+                screen.getByText(addressUtils.truncateAddress((testProps.publisher as IPublisher).address)),
             ).toBeInTheDocument();
         });
 
