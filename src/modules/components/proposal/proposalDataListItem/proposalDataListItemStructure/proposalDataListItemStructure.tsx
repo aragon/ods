@@ -14,6 +14,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
     const {
         wagmiConfig: config,
         chainId,
+        id,
         className,
         type,
         result,
@@ -35,11 +36,16 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
         ? publisher.map((p) => parsePublisher(p, isConnected, connectedAddress))
         : [parsePublisher(publisher, isConnected, connectedAddress)];
 
+    const showParsedPublisher = parsedPublisher.length <= 3;
+
     return (
         <DataList.Item className={classNames('flex flex-col gap-y-4', className)} {...otherProps}>
             <ProposalDataListItemStatus date={date} status={status} voted={voted} />
             <div className="flex flex-col gap-y-1">
-                <p className="line-clamp-1 text-lg leading-tight text-neutral-800 md:text-2xl">{title}</p>
+                <p className="line-clamp-1 flex gap-x-3 text-lg leading-tight md:text-2xl">
+                    {id && <span className="text-neutral-500">{id}</span>}
+                    <span className="text-neutral-800">{title}</span>
+                </p>
                 <p className="line-clamp-2 leading-normal text-neutral-500 md:text-lg">{summary}</p>
             </div>
 
@@ -47,22 +53,28 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
 
             {ongoing && type === 'majorityVoting' && result && <MajorityVotingResult {...result} />}
 
-            <div className="flex items-center gap-x-4 md:gap-x-6">
-                <div className="flex min-h-5 flex-1 items-center gap-x-0.5 text-sm leading-tight text-neutral-600 md:min-h-6 md:gap-x-1 md:text-base">
-                    {/* TODO: apply internationalization [APP-2627] */}
+            <div className="flex items-center justify-between gap-x-4 md:gap-x-6">
+                <div
+                    className={classNames(
+                        'inline-grid auto-cols-auto grid-flow-col content-center',
+                        'min-h-5 gap-x-0.5 text-sm leading-tight text-neutral-600 md:min-h-6 md:gap-x-1 md:text-base',
+                    )}
+                >
                     By
-                    {parsedPublisher.map(({ label, link }, index) => (
-                        <span key={label} className="flex">
-                            {link != null && (
-                                //  using solution from https://kizu.dev/nested-links/ to nest anchor tags
-                                <object type="disregardType">
-                                    <Link href={link}>{label}</Link>
+                    {showParsedPublisher === false && <span>3+ creators</span>}
+                    {showParsedPublisher &&
+                        parsedPublisher.map(({ label, link }, index) => (
+                            <span key={label} className="truncate">
+                                <object type="disregardType" className="flex shrink">
+                                    {link != null && (
+                                        // using solution from https://kizu.dev/nested-links/ to nest anchor tags
+                                        <Link href={link}>{label}</Link>
+                                    )}
+                                    {link == null && <span className="truncate">{label}</span>}
+                                    {index < parsedPublisher.length - 1 && ','}
                                 </object>
-                            )}
-                            {link == null && <span>{label}</span>}
-                            {index < parsedPublisher.length - 1 && ','}
-                        </span>
-                    ))}
+                            </span>
+                        ))}
                 </div>
                 {tag && <Tag label={tag} variant="primary" />}
             </div>

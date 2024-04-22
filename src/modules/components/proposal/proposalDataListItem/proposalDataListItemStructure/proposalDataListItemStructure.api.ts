@@ -20,6 +20,10 @@ export interface IProposalDataListItemStructureBaseProps<TType extends ProposalT
     extends IDataListItemProps,
         IWeb3ComponentProps {
     /**
+     * Proposal id
+     */
+    id?: string;
+    /**
      * Indicates date relative to the proposal status
      */
     date?: string;
@@ -28,7 +32,7 @@ export interface IProposalDataListItemStructureBaseProps<TType extends ProposalT
      */
     tag?: string;
     /**
-     * Publisher address (and optional ENS name)
+     * Publisher(s) address (and optional ENS name and profile link)
      */
     publisher: IPublisher | IPublisher[];
     /**
@@ -66,7 +70,7 @@ export interface IProposalStage {
     /**
      * Id of the proposal stage
      */
-    stageId?: string;
+    stageId?: string | number;
 }
 
 export interface IPublisher extends ICompositeAddress {
