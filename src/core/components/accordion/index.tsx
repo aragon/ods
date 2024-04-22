@@ -10,7 +10,7 @@ export const Accordion = {
     ItemContent: AccordionItemContent,
 };
 
-export * from './accordionContainer/accordionContainer';
-export * from './accordionItem/accordionItem';
-export * from './accordionItemContent/accordionItemContent';
-export * from './accordionItemHeader/accordionItemHeader';
+export * from './accordionContainer';
+export * from './accordionItem';
+export * from './accordionItemContent';
+export * from './accordionItemHeader';

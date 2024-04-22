@@ -1,0 +1,1 @@
+export { AccordionItemHeader } from './accordionItemHeader';

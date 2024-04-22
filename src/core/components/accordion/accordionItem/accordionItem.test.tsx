@@ -1,39 +1,32 @@
 import { render, screen } from '@testing-library/react';
-import { forwardRef, type ReactNode } from 'react';
-import { AccordionContainer, type IAccordionContainerProps } from '../accordionContainer/accordionContainer';
-import { AccordionItem } from './accordionItem';
+import { AccordionContainer } from '../accordionContainer/accordionContainer';
+import { AccordionItem, type IAccordionItemProps } from './accordionItem';
 
 describe('<AccordionItem /> component', () => {
-    const MockChildren = forwardRef<HTMLButtonElement, { children?: ReactNode }>((props, ref) => (
-        <button ref={ref}>{props.children}</button>
-    ));
-    MockChildren.displayName = 'MockHeader';
-
-    const createTestComponent = (values?: Partial<IAccordionContainerProps>) => {
-        const defaultProps: IAccordionContainerProps = {
-            ...values,
+    const createTestComponent = (props?: Partial<IAccordionItemProps>) => {
+        const defaultProps: IAccordionItemProps = {
+            value: 'value-key',
+            ...props,
         };
         return (
-            <AccordionContainer {...defaultProps}>
-                <AccordionItem value="item-1">
-                    <MockChildren>Mock Children 1</MockChildren>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                    <MockChildren>Mock Children 2</MockChildren>
-                </AccordionItem>
+            <AccordionContainer>
+                <AccordionItem {...defaultProps} />
             </AccordionContainer>
         );
     };
 
     it('renders without crashing', () => {
-        render(createTestComponent());
+        const children = 'Children OK';
+        render(createTestComponent({ children }));
+        const childrenOK = screen.getByText('Children OK');
+        expect(childrenOK).toBeInTheDocument();
     });
 
-    it('renders data-state of first item `open` and second item `closed` on mount', () => {
-        render(createTestComponent());
-        // eslint-disable-next-line testing-library/no-node-access
-        expect(screen.getByText('Mock Children 1').parentNode).toHaveAttribute('data-state', 'open');
-        // eslint-disable-next-line testing-library/no-node-access
-        expect(screen.getByText('Mock Children 2').parentNode).toHaveAttribute('data-state', 'closed');
+    it('renders with a different value', () => {
+        const children = 'Children OK';
+        const value = 'value-key-2';
+        render(createTestComponent({ children, value }));
+        const childrenOK = screen.getByText('Children OK');
+        expect(childrenOK).toBeInTheDocument();
     });
 });

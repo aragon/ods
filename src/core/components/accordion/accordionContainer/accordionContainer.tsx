@@ -1,31 +1,54 @@
-import { Accordion as RadixAccordionRoot } from '@radix-ui/react-accordion';
+import {
+    Accordion as RadixAccordionRoot,
+    type AccordionMultipleProps,
+    type AccordionSingleProps,
+} from '@radix-ui/react-accordion';
 import classNames from 'classnames';
-import { type ComponentProps } from 'react';
+import { forwardRef, type ComponentPropsWithRef } from 'react';
 
-export interface IAccordionContainerProps extends ComponentProps<'div'> {
+export interface IAccordionContainerProps extends ComponentPropsWithRef<'div'> {
     /**
-     * If `true`, all items can be collapsed at the same time. @default false
+     * Determines whether one or multiple items can be opened at the same time.
+     */
+    type?: 'single' | 'multiple';
+    /**
+     * When `type` is "single", allows closing content when clicking trigger for an open item.
      */
     collapsible?: boolean;
     /**
-     * Custom classes to be passed to the container
+     * The default value of the accordion items that are open on mount.
      */
-    className?: string;
+    defaultValue?: string[];
 }
 
-export const AccordionContainer: React.FC<IAccordionContainerProps> = (props) => {
-    const { className, collapsible, children } = props;
-
-    return (
-        <RadixAccordionRoot
-            className={classNames('grow bg-neutral-0', className)}
-            type="single"
-            defaultValue="item-1"
-            collapsible={collapsible}
-        >
-            {children}
-        </RadixAccordionRoot>
-    );
-};
+export const AccordionContainer = forwardRef<HTMLDivElement, IAccordionContainerProps>(
+    ({ children, className, dir, type = 'multiple', collapsible, defaultValue, ...otherProps }, forwardedRef) => {
+        const commonProps = {
+            defaultValue,
+            dir,
+            className: classNames('grow bg-neutral-0', className),
+            type,
+            ...otherProps,
+            ref: forwardedRef,
+        };
+        return (
+            <>
+                {type === 'single' ? (
+                    <RadixAccordionRoot
+                        {...(commonProps as AccordionSingleProps)}
+                        type="single"
+                        collapsible={collapsible}
+                    >
+                        {children}
+                    </RadixAccordionRoot>
+                ) : (
+                    <RadixAccordionRoot {...(commonProps as AccordionMultipleProps)} type="multiple">
+                        {children}
+                    </RadixAccordionRoot>
+                )}
+            </>
+        );
+    },
+);
 
 AccordionContainer.displayName = 'Accordion.Container';

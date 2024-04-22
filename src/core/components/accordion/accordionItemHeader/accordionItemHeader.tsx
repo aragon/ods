@@ -3,11 +3,11 @@ import {
     AccordionTrigger as RadixAccordionTrigger,
 } from '@radix-ui/react-accordion';
 import classNames from 'classnames';
-import { forwardRef, type ReactNode } from 'react';
+import { forwardRef, type ComponentPropsWithRef } from 'react';
 import { AvatarIcon } from '../../avatars';
 import { IconType } from '../../icon';
 
-export const AccordionItemHeader = forwardRef<HTMLButtonElement, { children: ReactNode; className?: string }>(
+export const AccordionItemHeader = forwardRef<HTMLButtonElement, ComponentPropsWithRef<typeof RadixAccordionTrigger>>(
     ({ children, className, ...props }, forwardedRef) => (
         <RadixAccordionHeader className="flex">
             <RadixAccordionTrigger
@@ -21,7 +21,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, { children: Rea
                 {children}
                 <AvatarIcon
                     icon={IconType.CHEVRON_DOWN}
-                    className="transition-transform duration-300 ease-[cubic-bezier(0.87,_0,_0.13,_1)] group-data-[state=open]:rotate-180"
+                    className="transition-transform group-data-[state=open]:rotate-180"
                 />
             </RadixAccordionTrigger>
         </RadixAccordionHeader>
