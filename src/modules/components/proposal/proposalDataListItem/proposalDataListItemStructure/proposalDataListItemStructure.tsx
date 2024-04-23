@@ -10,7 +10,7 @@ import { type IProposalDataListItemStructureProps, type IPublisher } from './pro
 export const maxPublishersDisplayed = 3;
 
 function parsePublisher(publisher: IPublisher, isConnected: boolean, connectedAddress: string | undefined) {
-    const publisherIsConnected = isConnected && connectedAddress?.toLowerCase() === publisher.address.toLowerCase();
+    const publisherIsConnected = isConnected && addressUtils.isAddressEqual(publisher.address, connectedAddress);
     const publisherLabel = publisherIsConnected
         ? 'You'
         : publisher.name ?? addressUtils.truncateAddress(publisher.address);
