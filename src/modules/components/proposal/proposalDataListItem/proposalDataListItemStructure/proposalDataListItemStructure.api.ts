@@ -60,24 +60,33 @@ export interface IProposalDataListItemStructureBaseProps<TType extends ProposalT
      */
     voted?: boolean;
 }
+export interface IPublisher extends ICompositeAddress {
+    /**
+     * Link to additional information about the publisher, such as a profile page or block explorer.
+     */
+    link?: string;
+}
 
 export interface IProposalStage {
     /**
      * Name of the proposal stage
      */
-    stageTitle?: string;
+    title?: string;
 
     /**
      * Id of the proposal stage
      */
-    stageId?: string | number;
+    id: string | number;
 }
 
-export interface IPublisher extends ICompositeAddress {
-    profileLink?: string;
+export interface IProposalResultBase {
+    /**
+     * Proposal stage
+     */
+    stage?: IProposalStage;
 }
 
-export interface IApprovalThresholdResult extends IProposalStage {
+export interface IApprovalThresholdResult extends IProposalResultBase {
     /**
      * Number of approvals for the proposal
      */
@@ -88,7 +97,7 @@ export interface IApprovalThresholdResult extends IProposalStage {
     approvalThreshold: number;
 }
 
-export interface IMajorityVotingResult extends IProposalStage {
+export interface IMajorityVotingResult extends IProposalResultBase {
     /**
      * Winning option
      */
