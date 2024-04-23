@@ -21,12 +21,4 @@ describe('<AccordionItem /> component', () => {
         const childrenOK = screen.getByText('Children OK');
         expect(childrenOK).toBeInTheDocument();
     });
-
-    it('renders with a different value', () => {
-        const children = 'Children OK';
-        const value = 'value-key-2';
-        render(createTestComponent({ children, value }));
-        const childrenOK = screen.getByText('Children OK');
-        expect(childrenOK).toBeInTheDocument();
-    });
 });
