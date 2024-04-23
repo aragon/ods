@@ -82,7 +82,7 @@ export const DataListRoot: React.FC<IDataListRootProps> = (props) => {
 
     return (
         <DataListContextProvider value={contextValues}>
-            <div className={classNames('flex grow flex-col gap-4', className)} {...otherProps}>
+            <div className={classNames('flex w-full grow flex-col gap-4', className)} {...otherProps}>
                 {children}
             </div>
         </DataListContextProvider>
