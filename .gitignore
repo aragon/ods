@@ -17,10 +17,15 @@ typechain
 
 # misc
 .vscode
-.yarn
-.yarnrc.yml
 .DS_Store
 *.pem
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 
 # debug
 *.log

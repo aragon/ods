@@ -150,5 +150,6 @@
     "./index.css": "./index.css",
     "./build.css": "./build.css",
     "./tailwind.config": "./tailwind.config.js"
-  }
+  },
+  "packageManager": "yarn@4.1.1"
 }
