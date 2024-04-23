@@ -90,7 +90,6 @@
     "@storybook/react": "^7.6.17",
     "@storybook/react-webpack5": "^7.6.17",
     "@storybook/storybook-deployer": "^2.8.16",
-    "@storybook/testing-library": "^0.2.2",
     "@svgr/rollup": "^8.1.0",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/typography": "^0.5.12",
