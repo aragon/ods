@@ -21,7 +21,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: ${{ env.NODE_CACHE }}
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
       - name: Build storybook
         run: yarn build:storybook
       - name: Deploy storybook

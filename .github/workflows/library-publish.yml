@@ -22,7 +22,7 @@ jobs:
           cache: ${{ env.NODE_CACHE }}
           registry-url: "https://registry.npmjs.org"
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
       - name: Get package version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
