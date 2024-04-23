@@ -23,6 +23,14 @@ describe('<ProposalDataListItemStatus /> component', () => {
         expect(screen.getByTestId(IconType.CALENDAR)).toBeInTheDocument();
     });
 
+    it('does not render the calendar icon when date property is not defined', () => {
+        const status = 'accepted';
+
+        render(createTestComponent({ status, date: undefined }));
+
+        expect(screen.queryByTestId(IconType.CALENDAR)).not.toBeInTheDocument();
+    });
+
     it("only displays the date for proposals with a status that is not 'draft'", () => {
         const date = 'test date';
         const status = 'draft';
