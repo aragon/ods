@@ -3,7 +3,7 @@ import { Accordion } from '..';
 import { AccordionContainer, type IAccordionContainerProps } from './accordionContainer';
 
 /**
- * Accordion can contain multiple Accordion.Items that can be expanded or collapsed one at a time, unless `collapsible` is true.
+ * Accordion.Container can contain multiple Accordion.Items which comprises an Accordion.Header and its collapsible Accordion.Content.
  */
 const meta: Meta<typeof AccordionContainer> = {
     title: 'Core/Components/Accordion/Accordion.Container',
@@ -21,7 +21,7 @@ type Story = StoryObj<typeof AccordionContainer>;
 
 const reusableStoryComponent = (props: IAccordionContainerProps, count: number) => (
     <Accordion.Container {...props}>
-        {[...Array(count)].map((_, index) => (
+        {Array.from({ length: count }, (_, index) => (
             <Accordion.Item key={`item-${index + 1}`} value={`item-${index + 1}`}>
                 <Accordion.ItemHeader>Accordion Item {index + 1} Header</Accordion.ItemHeader>
                 <Accordion.ItemContent>Accordion Item {index + 1} Content</Accordion.ItemContent>
@@ -39,7 +39,7 @@ export const Default: Story = {
 };
 
 /**
- * Example of an Accordion component implementation with a type of "single" where only one item can be expanded at a time and no defaultValue.
+ * Example of an Accordion component implementation with a type of "single" where only one item can be expanded at a time and no defaultValue is set.
  */
 export const SingleTypeItems: Story = {
     args: { type: 'single' },
