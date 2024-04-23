@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump `actions/setup-python` from 4.6.1 to 5.1.0
 -   Bump `actions/setup-node` from 3.6.0 to 4.0.2
 -   Bump `softprops/action-gh-release` from 0.1.15 to 2.0.4
+-   Bump `dangoslen/changelog-enforcer` from 3.5.0 to 3.6.1
 
 ### Fixed
 
