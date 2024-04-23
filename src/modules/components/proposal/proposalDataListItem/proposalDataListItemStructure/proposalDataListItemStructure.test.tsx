@@ -18,7 +18,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
         const { result, ...baseInputProps } = props ?? {};
 
         const baseProps: Omit<IProposalDataListItemStructureProps, 'result'> = {
-            publisher: { address: '0x123', link: '#' },
+            publisher: { address: '0x0000000000000000000000000000000000000000', link: '#' },
             status: 'active',
             summary: 'Example Summary',
             title: 'Example Title',
@@ -69,7 +69,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
     const ongoingStatuses: ProposalStatus[] = ['active', 'challenged', 'vetoed'];
 
     it("renders 'You' as the publisher if the connected address is the publisher address", () => {
-        const publisher = { address: '0x123', link: '#' };
+        const publisher = { address: '0x0000000000000000000000000000000000000000', link: '#' };
 
         useAccountMock.mockImplementation(jest.fn().mockReturnValue({ address: publisher.address, isConnected: true }));
 
@@ -80,8 +80,8 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
     it('renders multiple publishers', () => {
         const publishers = [
-            { name: 'abc', link: '#', address: '0x123' },
-            { name: 'def', link: '#', address: '0x123' },
+            { name: 'abc', link: '#', address: '0x0000000000000000000000000000000000000000' },
+            { name: 'def', link: '#', address: '0x0000000000000000000000000000000000000000' },
         ];
 
         render(createTestComponent({ publisher: publishers }));
@@ -93,10 +93,10 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
     it(`renders '${maxPublishersDisplayed}+ creators' when the publishers are more than ${maxPublishersDisplayed}`, () => {
         const publishers = [
-            { name: 'abc', link: '#', address: '0x123' },
-            { name: 'def', link: '#', address: '0x123' },
-            { name: 'ghi', link: '#', address: '0x123' },
-            { name: 'jkl', link: '#', address: '0x123' },
+            { name: 'abc', link: '#', address: '0x0000000000000000000000000000000000000000' },
+            { name: 'def', link: '#', address: '0x0000000000000000000000000000000000000000' },
+            { name: 'ghi', link: '#', address: '0x0000000000000000000000000000000000000000' },
+            { name: 'jkl', link: '#', address: '0x0000000000000000000000000000000000000000' },
         ];
 
         render(createTestComponent({ publisher: publishers }));
@@ -108,7 +108,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
         const testProps = {
             tag: 'OSx updates',
             date: new Date().toISOString(),
-            publisher: { address: '0x123', link: '#' },
+            publisher: { address: '0x0000000000000000000000000000000000000000', link: '#' },
             status: 'active',
             summary: 'Example Summary',
             title: 'Example Title',
