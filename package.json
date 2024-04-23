@@ -137,8 +137,7 @@
   },
   "homepage": "https://github.com/aragon/ods#readme",
   "engines": {
-    "node": ">=18.18.0",
-    "npm": "please-use-yarn"
+    "node": ">=20.0.0"
   },
   "exports": {
     ".": {
