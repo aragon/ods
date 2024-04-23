@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Set `yarn` version to v4
+-   Update Dependabot config to group Github actions dependencies
+-   Bump `mindsers/changelog-reader-action` from 2.2.2 to 2.2.3
 
 ## [1.0.24] - 2024-04-23
 

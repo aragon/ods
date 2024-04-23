@@ -34,7 +34,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Read changelog entry for version
         id: read-changelog
-        uses: mindsers/changelog-reader-action@v2.2.2
+        uses: mindsers/changelog-reader-action@v2.2.3
         with:
           version: "${{ steps.package-version.outputs.current-version }}"
           path: ./CHANGELOG.md
