@@ -17,3 +17,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    minor-and-patch:
+      update-types:
+        - "patch"
+        - "minor"
