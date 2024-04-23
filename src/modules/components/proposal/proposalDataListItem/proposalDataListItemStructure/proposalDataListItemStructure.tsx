@@ -53,9 +53,9 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
         <DataList.Item className={classNames('flex flex-col gap-y-4', className)} {...otherProps}>
             <ProposalDataListItemStatus date={date} status={status} voted={voted} />
             <div className="flex flex-col gap-y-1">
-                <p className="line-clamp-1 flex gap-x-3 text-lg leading-tight md:text-2xl">
-                    {id && <span className="text-neutral-500">{id}</span>}
-                    <span className="text-neutral-800">{title}</span>
+                <p className="flex gap-x-3 text-lg leading-tight md:text-2xl">
+                    {id && <span className="shrink-0 text-neutral-500">{id}</span>}
+                    <span className="line-clamp-1 text-neutral-800">{title}</span>
                 </p>
                 <p className="line-clamp-2 leading-normal text-neutral-500 md:text-lg">{summary}</p>
             </div>
