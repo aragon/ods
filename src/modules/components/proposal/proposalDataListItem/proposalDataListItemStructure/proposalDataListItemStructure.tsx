@@ -7,6 +7,17 @@ import { MajorityVotingResult } from '../majorityVotingResult';
 import { ProposalDataListItemStatus } from '../proposalDataListItemStatus';
 import { type IProposalDataListItemStructureProps, type IPublisher } from './proposalDataListItemStructure.api';
 
+export const maxPublishersDisplayed = 3;
+
+function parsePublisher(publisher: IPublisher, isConnected: boolean, connectedAddress: string | undefined) {
+    const publisherIsConnected = isConnected && connectedAddress?.toLowerCase() === publisher.address.toLowerCase();
+    const publisherLabel = publisherIsConnected
+        ? 'You'
+        : publisher.name ?? addressUtils.truncateAddress(publisher.address);
+
+    return { label: publisherLabel, link: publisher.link };
+}
+
 /**
  * `ProposalDataListItemStructure` module component
  */
@@ -36,7 +47,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
         ? publisher.map((p) => parsePublisher(p, isConnected, connectedAddress))
         : [parsePublisher(publisher, isConnected, connectedAddress)];
 
-    const showParsedPublisher = parsedPublisher.length <= 3;
+    const showParsedPublisher = parsedPublisher.length <= maxPublishersDisplayed;
 
     return (
         <DataList.Item className={classNames('flex flex-col gap-y-4', className)} {...otherProps}>
@@ -81,12 +92,3 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
         </DataList.Item>
     );
 };
-
-function parsePublisher(publisher: IPublisher, isConnected: boolean, connectedAddress: string | undefined) {
-    const publisherIsConnected = isConnected && connectedAddress?.toLowerCase() === publisher.address.toLowerCase();
-    const publisherLabel = publisherIsConnected
-        ? 'You'
-        : publisher.name ?? addressUtils.truncateAddress(publisher.address);
-
-    return { label: publisherLabel, link: publisher.profileLink };
-}

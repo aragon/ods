@@ -19,8 +19,7 @@ type Story = StoryObj<typeof ProposalDataListItem.Structure>;
 
 const basePublisher = {
     address: '0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5',
-    profileLink:
-        'https://app.aragon.org/#/daos/base/0xd2705c56aa4edb98271cb8cea2b0df3288ad4585/members/0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5',
+    link: 'https://app.aragon.org/#/daos/base/0xd2705c56aa4edb98271cb8cea2b0df3288ad4585/members/0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5',
 };
 
 const baseArgs: Omit<IProposalDataListItemStructureProps, 'result' | 'publisher'> = {
@@ -88,15 +87,14 @@ export const MultiBody: Story = {
         ...baseArgs,
         id: 'PIP-1',
         publisher: [
-            { ...basePublisher, name: '0xRugg', profileLink: undefined },
-            { ...basePublisher, name: 'Bob the Builder', profileLink: undefined },
+            { ...basePublisher, name: '0xRugg', link: undefined },
+            { ...basePublisher, name: 'Bob the Builder', link: undefined },
             { ...basePublisher, name: 'sio.eth' },
             { ...basePublisher },
         ],
         type: 'approvalThreshold',
         result: {
-            stageTitle: 'Founders Approval Council',
-            stageId: '1',
+            stage: { title: 'Founders Approval Council', id: '1' },
             approvalAmount: 4,
             approvalThreshold: 6,
         },
