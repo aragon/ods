@@ -29,28 +29,19 @@ describe('<MajorityVotingResult /> component', () => {
     });
 
     it('renders the stage title and stage id when provided', () => {
-        const mockProps: IMajorityVotingResultProps = {
-            option: 'Yes',
-            voteAmount: '100k wAnt',
-            votePercentage: 15,
-            stageTitle: 'Test Stage',
-            stageId: '3',
+        const stage = {
+            title: 'Test Stage',
+            id: '3',
         };
 
-        render(createTestComponent(mockProps));
+        render(createTestComponent({ stage }));
 
-        expect(screen.getByText(mockProps.stageTitle!)).toBeInTheDocument();
-        expect(screen.getByText(mockProps.stageId!)).toBeInTheDocument();
+        expect(screen.getByText(stage.title)).toBeInTheDocument();
+        expect(screen.getByText(stage.id)).toBeInTheDocument();
     });
 
     it('renders the default stage title when not provided', () => {
-        const mockProps: IMajorityVotingResultProps = {
-            option: 'Yes',
-            voteAmount: '100k wAnt',
-            votePercentage: 15,
-        };
-
-        render(createTestComponent(mockProps));
+        render(createTestComponent());
 
         expect(screen.getByText(/winning option/i)).toBeInTheDocument();
     });
