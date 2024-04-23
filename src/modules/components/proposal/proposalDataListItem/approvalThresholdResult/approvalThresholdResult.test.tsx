@@ -40,26 +40,19 @@ describe('<ApprovalThresholdResult /> component', () => {
     });
 
     it('renders the stage title and stage id when provided', () => {
-        const mockProps: IApprovalThresholdResultProps = {
-            approvalAmount: 1,
-            approvalThreshold: 2,
-            stageTitle: 'Test Stage',
-            stageId: '3',
+        const stage = {
+            title: 'Test Stage',
+            id: '3',
         };
 
-        render(createTestComponent(mockProps));
+        render(createTestComponent({ stage }));
 
-        expect(screen.getByText(mockProps.stageTitle!)).toBeInTheDocument();
-        expect(screen.getByText(mockProps.stageId!)).toBeInTheDocument();
+        expect(screen.getByText(stage.title)).toBeInTheDocument();
+        expect(screen.getByText(stage.id)).toBeInTheDocument();
     });
 
     it('renders the default stage title when not provided', () => {
-        const mockProps: IApprovalThresholdResultProps = {
-            approvalAmount: 1,
-            approvalThreshold: 2,
-        };
-
-        render(createTestComponent(mockProps));
+        render(createTestComponent());
 
         expect(screen.getByText(/approved by/i)).toBeInTheDocument();
     });

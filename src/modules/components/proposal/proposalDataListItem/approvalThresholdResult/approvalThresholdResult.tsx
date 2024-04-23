@@ -7,18 +7,18 @@ export interface IApprovalThresholdResultProps extends IApprovalThresholdResult 
  * `ApprovalThresholdResult` component
  */
 export const ApprovalThresholdResult: React.FC<IApprovalThresholdResultProps> = (props) => {
-    const { approvalAmount, approvalThreshold, stageTitle, stageId } = props;
+    const { approvalAmount, approvalThreshold, stage } = props;
     const percentage = approvalThreshold !== 0 ? (approvalAmount / approvalThreshold) * 100 : 100;
 
     return (
         //  TODO: apply internationalization to Approved By, of, Stage, and Members [APP-2627]
         <div className="flex w-full flex-col gap-y-2 rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 shadow-neutral-sm md:gap-y-3 md:px-6 md:py-5">
             <div className="flex flex-1 gap-x-3 leading-tight text-neutral-800 md:gap-x-6 md:text-lg">
-                <span className="line-clamp-1 flex-1">{stageTitle ?? 'Approved By'}</span>
-                {stageId != null && (
-                    <span className="flex shrink-0 gap-x-0.5 text-right">
+                <span className="line-clamp-1 flex-1">{stage?.title ?? 'Approved By'}</span>
+                {stage?.id != null && (
+                    <span className="flex shrink-0 justify-between gap-x-0.5">
                         <span className="flex-1 text-neutral-500">Stage</span>
-                        {stageId}
+                        {stage.id}
                     </span>
                 )}
             </div>
