@@ -12,6 +12,7 @@ updates:
       storybook:
         patterns:
           - "@storybook*"
+          - "storybook"
 
   - package-ecosystem: "github-actions"
     directory: "/"
