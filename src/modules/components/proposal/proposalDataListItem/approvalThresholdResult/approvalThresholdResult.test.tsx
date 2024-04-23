@@ -38,4 +38,22 @@ describe('<ApprovalThresholdResult /> component', () => {
         expect(screen.getByText(expectedApproval)).toBeInTheDocument();
         expect(screen.getByText(expectedThreshold)).toBeInTheDocument();
     });
+
+    it('renders the stage title and stage id when provided', () => {
+        const stage = {
+            title: 'Test Stage',
+            id: '3',
+        };
+
+        render(createTestComponent({ stage }));
+
+        expect(screen.getByText(stage.title)).toBeInTheDocument();
+        expect(screen.getByText(stage.id)).toBeInTheDocument();
+    });
+
+    it('renders the default stage title when not provided', () => {
+        render(createTestComponent());
+
+        expect(screen.getByText(/approved by/i)).toBeInTheDocument();
+    });
 });
