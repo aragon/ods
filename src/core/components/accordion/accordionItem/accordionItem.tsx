@@ -10,15 +10,15 @@ export interface IAccordionItemProps extends ComponentPropsWithRef<'div'> {
 }
 
 export const AccordionItem = forwardRef<HTMLDivElement, IAccordionItemProps>(
-    ({ children, className, value, ...props }, forwardedRef) => (
+    ({ children, className, value, ...otherProps }, forwardedRef) => (
         <RadixAccordionItem
             value={value}
             className={classNames(
                 'border-t border-neutral-100 first:border-t-0 hover:border-neutral-200 active:border-neutral-400',
                 className,
             )}
-            {...props}
             ref={forwardedRef}
+            {...otherProps}
         >
             {children}
         </RadixAccordionItem>

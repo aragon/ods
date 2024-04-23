@@ -9,7 +9,7 @@ describe('<AccordionItem /> component', () => {
             ...props,
         };
         return (
-            <AccordionContainer>
+            <AccordionContainer type="multiple">
                 <AccordionItem {...defaultProps} />
             </AccordionContainer>
         );

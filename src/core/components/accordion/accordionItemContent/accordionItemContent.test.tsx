@@ -8,7 +8,7 @@ describe('<AccordionItemContent /> component', () => {
     const createTestComponent = (props?: ComponentPropsWithRef<typeof AccordionItemContent>) => {
         const completeProps = { ...props };
         return (
-            <AccordionContainer defaultValue={['value-key']}>
+            <AccordionContainer type="multiple" defaultValue={['value-key']}>
                 <AccordionItem value="value-key">
                     <AccordionItemContent {...completeProps} />
                 </AccordionItem>

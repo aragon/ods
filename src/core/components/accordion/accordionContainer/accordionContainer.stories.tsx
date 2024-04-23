@@ -34,7 +34,7 @@ const reusableStoryComponent = (props: IAccordionContainerProps, count: number) 
  * Default usage example of a full Accordion component.
  */
 export const Default: Story = {
-    args: {},
+    args: { type: 'single' },
     render: (args) => reusableStoryComponent(args, 1),
 };
 
@@ -47,7 +47,7 @@ export const SingleTypeItems: Story = {
 };
 
 /**
- * Example of an Accordion component implementation with a type of "multiple" where ['item-2', 'item-3'] is the defaultValue.
+ * Example of an Accordion component implementation with a type of "multiple" where ['item-2', 'item-3'] is the defaultValue when mapped as `value={`item-${index + 1}`}`.
  */
 export const MultipleTypeItems: Story = {
     args: { type: 'multiple', defaultValue: ['item-2', 'item-3'] },

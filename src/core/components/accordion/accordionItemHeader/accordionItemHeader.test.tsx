@@ -7,7 +7,7 @@ import { AccordionItemHeader } from './accordionItemHeader';
 describe('<Accordion.ItemHeader /> component', () => {
     const createTestComponent = (props?: ComponentPropsWithRef<typeof AccordionItemHeader>) => {
         return (
-            <AccordionContainer>
+            <AccordionContainer type="multiple">
                 <AccordionItem value="value-key">
                     <AccordionItemHeader {...props} />
                 </AccordionItem>
