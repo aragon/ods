@@ -90,13 +90,12 @@
     "@storybook/react": "^7.6.17",
     "@storybook/react-webpack5": "^7.6.17",
     "@storybook/storybook-deployer": "^2.8.16",
-    "@storybook/testing-library": "^0.2.2",
     "@svgr/rollup": "^8.1.0",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/typography": "^0.5.12",
     "@tanstack/react-query": "^5.29.2",
     "@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/react": "^15.0.1",
+    "@testing-library/react": "^15.0.4",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
@@ -137,8 +136,7 @@
   },
   "homepage": "https://github.com/aragon/ods#readme",
   "engines": {
-    "node": ">=18.18.0",
-    "npm": "please-use-yarn"
+    "node": ">=20.0.0"
   },
   "exports": {
     ".": {

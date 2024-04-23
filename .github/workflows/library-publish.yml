@@ -6,7 +6,7 @@ on:
       - "*"
 
 env:
-  NODE_VERSION: 18
+  NODE_VERSION: 20
   NODE_CACHE: "yarn"
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v4.1.3
       - name: Setup Node
         uses: actions/setup-node@v4.0.2
         with:
@@ -22,7 +22,7 @@ jobs:
           cache: ${{ env.NODE_CACHE }}
           registry-url: "https://registry.npmjs.org"
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
       - name: Get package version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
