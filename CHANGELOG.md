@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump `dangoslen/changelog-enforcer` from 3.5.0 to 3.6.1
 -   Bump `actions/checkout` from 3.5.3 to 4.1.3
 -   Bump minimum Node version required from 18.18 to 20
+-   Bump minor and patch dependencies
 
 ### Fixed
 

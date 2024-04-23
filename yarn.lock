@@ -87,8 +87,8 @@ __metadata:
     "@tiptap/react": "npm:^2.3.0"
     "@tiptap/starter-kit": "npm:^2.3.0"
     "@types/jest": "npm:^29.5.12"
-    "@typescript-eslint/eslint-plugin": "npm:^7.6.0"
-    "@typescript-eslint/parser": "npm:^7.6.0"
+    "@typescript-eslint/eslint-plugin": "npm:^7.7.1"
+    "@typescript-eslint/parser": "npm:^7.7.1"
     autoprefixer: "npm:^10.4.19"
     blockies-ts: "npm:^1.0.0"
     classnames: "npm:^2.0.0"
@@ -100,7 +100,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^4.6.0"
     eslint-plugin-storybook: "npm:^0.8.0"
     eslint-plugin-tailwindcss: "npm:^3.15.1"
-    eslint-plugin-testing-library: "npm:^6.2.0"
+    eslint-plugin-testing-library: "npm:^6.2.2"
     framer-motion: "npm:^11.0.0"
     husky: "npm:^9.0.11"
     jest: "npm:^29.7.0"
@@ -109,12 +109,12 @@ __metadata:
     postcss: "npm:^8.4.38"
     prettier: "npm:^3.2.5"
     prettier-plugin-organize-imports: "npm:^3.2.4"
-    prettier-plugin-tailwindcss: "npm:^0.5.13"
+    prettier-plugin-tailwindcss: "npm:^0.5.14"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     react-dropzone: "npm:^14.2.0"
     react-imask: "npm:^7.6.0"
-    rollup: "npm:^4.14.2"
+    rollup: "npm:^4.16.4"
     rollup-plugin-peer-deps-external: "npm:^2.2.4"
     rollup-plugin-postcss: "npm:^4.0.2"
     rollup-plugin-visualizer: "npm:^5.12.0"
@@ -122,8 +122,8 @@ __metadata:
     tailwindcss: "npm:^3.4.3"
     ts-jest: "npm:^29.1.2"
     typescript: "npm:^5.4.5"
-    viem: "npm:^2.9.16"
-    wagmi: "npm:^2.5.19"
+    viem: "npm:^2.9.25"
+    wagmi: "npm:^2.5.20"
   peerDependencies:
     "@tailwindcss/typography": ^0.5.0
     "@tanstack/react-query": ^5.24.0
@@ -6925,7 +6925,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^7.6.0":
+"@typescript-eslint/eslint-plugin@npm:^7.7.1":
   version: 7.7.1
   resolution: "@typescript-eslint/eslint-plugin@npm:7.7.1"
   dependencies:
@@ -6950,7 +6950,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^7.6.0":
+"@typescript-eslint/parser@npm:^7.7.1":
   version: 7.7.1
   resolution: "@typescript-eslint/parser@npm:7.7.1"
   dependencies:
@@ -10823,7 +10823,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-testing-library@npm:^6.2.0":
+"eslint-plugin-testing-library@npm:^6.2.2":
   version: 6.2.2
   resolution: "eslint-plugin-testing-library@npm:6.2.2"
   dependencies:
@@ -16439,7 +16439,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-tailwindcss@npm:^0.5.13":
+"prettier-plugin-tailwindcss@npm:^0.5.14":
   version: 0.5.14
   resolution: "prettier-plugin-tailwindcss@npm:0.5.14"
   peerDependencies:
@@ -17822,7 +17822,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^4.14.2":
+"rollup@npm:^4.16.4":
   version: 4.16.4
   resolution: "rollup@npm:4.16.4"
   dependencies:
@@ -19958,7 +19958,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:^2.9.16":
+"viem@npm:^2.9.25":
   version: 2.9.25
   resolution: "viem@npm:2.9.25"
   dependencies:
@@ -20002,7 +20002,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:^2.5.19":
+"wagmi@npm:^2.5.20":
   version: 2.5.20
   resolution: "wagmi@npm:2.5.20"
   dependencies:
