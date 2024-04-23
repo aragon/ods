@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react';
+import { renderHook, type RenderHookOptions } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { testLogger } from '../../../test';
 import { dataListTestUtils } from '../dataListTestUtils';
@@ -19,7 +19,9 @@ describe('useDataListContext hook', () => {
 
     it('returns the current values of the data list context', () => {
         const values = dataListTestUtils.generateContextValues({ currentPage: 3, pageSize: 12 });
-        const { result } = renderHook(() => useDataListContext(), { wrapper: createTestWrapper(values) });
+        const { result } = renderHook(() => useDataListContext(), {
+            wrapper: createTestWrapper(values),
+        } as RenderHookOptions<IDataListContext>);
         expect(result.current).toEqual(values);
     });
 });
