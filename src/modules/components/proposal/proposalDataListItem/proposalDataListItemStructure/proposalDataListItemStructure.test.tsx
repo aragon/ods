@@ -18,13 +18,10 @@ describe('<ProposalDataListItemStructure/> component', () => {
         const { result, ...baseInputProps } = props ?? {};
 
         const baseProps: Omit<IProposalDataListItemStructureProps, 'result'> = {
-            date: new Date().toISOString(),
-            tag: 'OSx Update',
             publisher: { address: '0x123', link: '#' },
             status: 'active',
             summary: 'Example Summary',
             title: 'Example Title',
-            voted: false,
             type: 'approvalThreshold',
             ...baseInputProps,
         };
@@ -109,6 +106,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
     it('renders with the given properties', () => {
         const testProps = {
+            tag: 'OSx updates',
             date: new Date().toISOString(),
             publisher: { address: '0x123', link: '#' },
             status: 'active',
@@ -125,6 +123,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
         expect(screen.getByText(testProps.status)).toBeInTheDocument();
         expect(screen.getByText(testProps.date)).toBeInTheDocument();
         expect(screen.getByText(testProps.id)).toBeInTheDocument();
+        expect(screen.getByText(testProps.tag)).toBeInTheDocument();
         expect(screen.getByText(addressUtils.truncateAddress(testProps.publisher.address))).toBeInTheDocument();
     });
 
