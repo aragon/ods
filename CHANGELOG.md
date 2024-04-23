@@ -22,6 +22,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump `softprops/action-gh-release` from 0.1.15 to 2.0.4
 -   Bump `dangoslen/changelog-enforcer` from 3.5.0 to 3.6.1
 
+### Fixed
+
+-   `ProposalDataListItemStructure` module component to clamp title to one line
+
 ## [1.0.24] - 2024-04-23
 
 ### Added
