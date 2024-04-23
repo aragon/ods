@@ -39,7 +39,7 @@ export const Default: Story = {
 };
 
 /**
- * Example of Accordion accordion component implementation with a type of "single" where only one item can be expanded at a time.
+ * Example of an Accordion component implementation with a type of "single" where only one item can be expanded at a time and no defaultValue.
  */
 export const SingleTypeItems: Story = {
     args: { type: 'single' },
@@ -47,7 +47,7 @@ export const SingleTypeItems: Story = {
 };
 
 /**
- * Example of a full Accordion component implementation with a type of "multiple" where ['item-2', 'item-3'] is the defaultValue.
+ * Example of an Accordion component implementation with a type of "multiple" where ['item-2', 'item-3'] is the defaultValue.
  */
 export const MultipleTypeItems: Story = {
     args: { type: 'multiple', defaultValue: ['item-2', 'item-3'] },
