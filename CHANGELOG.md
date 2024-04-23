@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Set `yarn` version to v4
+-   Bump `actions/setup-node` from 3.6.0 to 4.0.2
 
 ## [1.0.24] - 2024-04-23
 
