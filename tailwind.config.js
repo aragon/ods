@@ -210,8 +210,8 @@ module.exports = {
         extend: {
             animation: {
                 shake: 'shake 0.82s cubic-bezier(0.36,0.07,0.19,0.97) both',
-                slideDown: 'slideDown 0.2s ease-in-out',
-                slideUp: 'slideUp 0.2s ease-out-out',
+                slideDown: 'slideDown 0.3s cubic-bezier(0.87, 0, 0.13, 1) forwards',
+                slideUp: 'slideUp 0.3s cubic-bezier(0.87, 0, 0.13, 1) forwards',
             },
             keyframes: {
                 shake: {

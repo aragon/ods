@@ -23,10 +23,10 @@ const reusableStoryComponent = (props: IAccordionContainerProps, count: number) 
     <Accordion.Container {...props}>
         {Array.from({ length: count }, (_, index) => (
             <Accordion.Item key={`item-${index + 1}`} value={`item-${index + 1}`}>
-                <Accordion.ItemHeader>Accordion Item {index + 1} Header</Accordion.ItemHeader>
+                <Accordion.ItemHeader>Item {index + 1} Header</Accordion.ItemHeader>
                 <Accordion.ItemContent>
-                    <div className="flex h-24 w-full items-center justify-center border border-dashed border-success-300">
-                        Accordion Item {index + 1} Content
+                    <div className="flex h-24 w-full items-center justify-center border border-dashed border-info-300 bg-info-100">
+                        Item {index + 1} Content
                     </div>
                 </Accordion.ItemContent>
             </Accordion.Item>
