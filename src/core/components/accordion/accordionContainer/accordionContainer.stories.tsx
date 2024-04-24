@@ -24,7 +24,11 @@ const reusableStoryComponent = (props: IAccordionContainerProps, count: number) 
         {Array.from({ length: count }, (_, index) => (
             <Accordion.Item key={`item-${index + 1}`} value={`item-${index + 1}`}>
                 <Accordion.ItemHeader>Accordion Item {index + 1} Header</Accordion.ItemHeader>
-                <Accordion.ItemContent>Accordion Item {index + 1} Content</Accordion.ItemContent>
+                <Accordion.ItemContent>
+                    <div className="flex h-24 w-full items-center justify-center border border-dashed border-success-300">
+                        Accordion Item {index + 1} Content
+                    </div>
+                </Accordion.ItemContent>
             </Accordion.Item>
         ))}
     </Accordion.Container>
@@ -39,7 +43,7 @@ export const Default: Story = {
 };
 
 /**
- * Example of an Accordion component implementation with a type of "single" where only one item can be expanded at a time and no defaultValue is set.
+ * Example of an Accordion component implementation with a type of "single" and no defaultValue is set.
  */
 export const SingleTypeItems: Story = {
     args: { type: 'single' },
@@ -47,7 +51,7 @@ export const SingleTypeItems: Story = {
 };
 
 /**
- * Example of an Accordion component implementation with a type of "multiple" where ['item-2', 'item-3'] is the defaultValue when mapped as `value={`item-${index + 1}`}`.
+ * Example of an Accordion component implementation with a type of "multiple" where the second and third items have been set as the defaultValue.
  */
 export const MultipleTypeItems: Story = {
     args: { type: 'multiple', defaultValue: ['item-2', 'item-3'] },
