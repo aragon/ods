@@ -30,7 +30,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: ${{ env.NODE_CACHE }}
       - name: Update package version
-        run: yarn version --${{ github.event.inputs.semverType }} --no-git-tag-version
+        run: yarn version ${{ github.event.inputs.semverType }}
       - name: Get new package version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
