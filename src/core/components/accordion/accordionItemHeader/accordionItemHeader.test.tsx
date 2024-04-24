@@ -1,13 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import { type ComponentPropsWithRef } from 'react';
 import { AccordionContainer } from '../accordionContainer/accordionContainer';
 import { AccordionItem } from '../accordionItem/accordionItem';
-import { AccordionItemHeader } from './accordionItemHeader';
+import { AccordionItemHeader, type IAccordionItemHeaderProps } from './accordionItemHeader';
 
 describe('<Accordion.ItemHeader /> component', () => {
-    const createTestComponent = (props?: ComponentPropsWithRef<typeof AccordionItemHeader>) => {
+    const createTestComponent = (props?: Partial<IAccordionItemHeaderProps>) => {
         return (
-            <AccordionContainer type="multiple">
+            <AccordionContainer isMulti={true}>
                 <AccordionItem value="value-key">
                     <AccordionItemHeader {...props} />
                 </AccordionItem>
@@ -15,7 +14,7 @@ describe('<Accordion.ItemHeader /> component', () => {
         );
     };
 
-    it('renders without crashing', () => {
+    it('renders the children property', () => {
         const children = 'Children OK';
         render(createTestComponent({ children }));
         const childrenOK = screen.getByText('Children OK');

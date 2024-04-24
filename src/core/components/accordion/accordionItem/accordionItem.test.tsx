@@ -2,20 +2,20 @@ import { render, screen } from '@testing-library/react';
 import { AccordionContainer } from '../accordionContainer/accordionContainer';
 import { AccordionItem, type IAccordionItemProps } from './accordionItem';
 
-describe('<AccordionItem /> component', () => {
+describe('<Accordion.Item /> component', () => {
     const createTestComponent = (props?: Partial<IAccordionItemProps>) => {
         const defaultProps: IAccordionItemProps = {
             value: 'value-key',
             ...props,
         };
         return (
-            <AccordionContainer type="multiple">
+            <AccordionContainer isMulti={true}>
                 <AccordionItem {...defaultProps} />
             </AccordionContainer>
         );
     };
 
-    it('renders without crashing', () => {
+    it('renders the children property', () => {
         const children = 'Children OK';
         render(createTestComponent({ children }));
         const childrenOK = screen.getByText('Children OK');

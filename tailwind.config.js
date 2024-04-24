@@ -210,8 +210,6 @@ module.exports = {
         extend: {
             animation: {
                 shake: 'shake 0.82s cubic-bezier(0.36,0.07,0.19,0.97) both',
-                slideDown: 'slideDown 0.3s cubic-bezier(0.87, 0, 0.13, 1) forwards',
-                slideUp: 'slideUp 0.3s cubic-bezier(0.87, 0, 0.13, 1) forwards',
             },
             keyframes: {
                 shake: {
@@ -227,14 +225,6 @@ module.exports = {
                     '40%, 60%': {
                         transform: 'translate3d(4px, 0, 0)',
                     },
-                },
-                slideDown: {
-                    from: { height: '0', opacity: 0 },
-                    to: { height: 'var(--radix-accordion-content-height)', opacity: 1 },
-                },
-                slideUp: {
-                    from: { height: 'var(--radix-accordion-content-height)', opacity: 1 },
-                    to: { height: '0', opacity: 0 },
                 },
             },
             backgroundImage: {

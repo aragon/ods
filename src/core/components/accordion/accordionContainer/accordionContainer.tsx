@@ -1,38 +1,55 @@
-import {
-    Accordion as RadixAccordionRoot,
-    type AccordionMultipleProps,
-    type AccordionSingleProps,
-} from '@radix-ui/react-accordion';
+import { Accordion as RadixAccordionRoot } from '@radix-ui/react-accordion';
 import classNames from 'classnames';
-import { forwardRef, type ComponentPropsWithRef, type Ref } from 'react';
+import { forwardRef, type ComponentPropsWithRef } from 'react';
 
-export interface IAccordionContainerProps extends ComponentPropsWithRef<'div'> {
+export type AccordionMultiValue<TMulti extends boolean> = TMulti extends true
+    ? string[] | undefined
+    : string | undefined;
+
+export interface IAccordionContainerBaseProps<TMulti extends boolean>
+    extends Omit<ComponentPropsWithRef<'div'>, 'dir'> {
     /**
      * Determines whether one or multiple items can be opened at the same time.
      */
-    type: 'single' | 'multiple';
+    isMulti: TMulti;
     /**
      * The value of the item to expand when initially rendered and type is "single". Use when you do not need to control the state of the items.
      */
-    defaultValue?: string | string[];
+    defaultValue?: AccordionMultiValue<TMulti>;
 }
 
-export const AccordionContainer = forwardRef<HTMLDivElement, IAccordionContainerProps>(
-    ({ children, className, type, defaultValue, ...otherProps }, forwardedRef: Ref<HTMLDivElement>) => {
-        const commonProps = {
-            defaultValue,
-            className: classNames('grow bg-neutral-0', className),
-            ref: forwardedRef,
-            ...otherProps,
-        };
+export type IAccordionContainerProps = IAccordionContainerBaseProps<true> | IAccordionContainerBaseProps<false>;
 
-        const accordionProps =
-            type === 'multiple'
-                ? ({ ...commonProps, type: 'multiple' as const } as AccordionMultipleProps)
-                : ({ ...commonProps, type: 'single' as const, collapsible: true } as AccordionSingleProps);
+export const AccordionContainer = forwardRef<HTMLDivElement, IAccordionContainerProps>((props, ref) => {
+    const { children, className, isMulti, defaultValue, ...otherProps } = props;
 
-        return <RadixAccordionRoot {...accordionProps}>{children}</RadixAccordionRoot>;
-    },
-);
+    const accordionContainerClasses = classNames('grow bg-neutral-0', className);
+
+    if (isMulti === true) {
+        return (
+            <RadixAccordionRoot
+                className={accordionContainerClasses}
+                defaultValue={defaultValue}
+                type="multiple"
+                ref={ref}
+                {...otherProps}
+            >
+                {children}
+            </RadixAccordionRoot>
+        );
+    }
+    return (
+        <RadixAccordionRoot
+            className={accordionContainerClasses}
+            defaultValue={defaultValue}
+            type="single"
+            collapsible={true}
+            ref={ref}
+            {...otherProps}
+        >
+            {children}
+        </RadixAccordionRoot>
+    );
+});
 
 AccordionContainer.displayName = 'Accordion.Container';

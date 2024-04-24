@@ -13,8 +13,10 @@ export interface IAccordionItemProps extends ComponentPropsWithRef<'div'> {
     disabled?: boolean;
 }
 
-export const AccordionItem = forwardRef<HTMLDivElement, IAccordionItemProps>(
-    ({ children, className, disabled, value, ...otherProps }, forwardedRef) => (
+export const AccordionItem = forwardRef<HTMLDivElement, IAccordionItemProps>((props, ref) => {
+    const { children, className, disabled, value, ...otherProps } = props;
+
+    return (
         <RadixAccordionItem
             disabled={disabled}
             value={value}
@@ -22,12 +24,12 @@ export const AccordionItem = forwardRef<HTMLDivElement, IAccordionItemProps>(
                 'border-t border-neutral-100 first:border-t-0 hover:border-neutral-200 active:border-neutral-400',
                 className,
             )}
-            ref={forwardedRef}
+            ref={ref}
             {...otherProps}
         >
             {children}
         </RadixAccordionItem>
-    ),
-);
+    );
+});
 
 AccordionItem.displayName = 'Accordion.Item';

@@ -1,7 +1,7 @@
-import { AccordionContainer } from './accordionContainer/accordionContainer';
-import { AccordionItem } from './accordionItem/accordionItem';
-import { AccordionItemContent } from './accordionItemContent/accordionItemContent';
-import { AccordionItemHeader } from './accordionItemHeader/accordionItemHeader';
+import { AccordionContainer } from './accordionContainer';
+import { AccordionItem } from './accordionItem';
+import { AccordionItemContent } from './accordionItemContent';
+import { AccordionItemHeader } from './accordionItemHeader';
 
 export const Accordion = {
     Container: AccordionContainer,

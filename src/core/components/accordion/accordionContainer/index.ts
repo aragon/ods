@@ -1,1 +1,6 @@
-export { AccordionContainer, type IAccordionContainerProps } from './accordionContainer';
+export {
+    AccordionContainer,
+    type AccordionMultiValue,
+    type IAccordionContainerBaseProps,
+    type IAccordionContainerProps,
+} from './accordionContainer';

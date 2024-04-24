@@ -1,1 +1,1 @@
-export { AccordionItemContent } from './accordionItemContent';
+export { AccordionItemContent, type IAccordionItemContentProps } from './accordionItemContent';

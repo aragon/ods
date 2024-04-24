@@ -1,1 +1,1 @@
-export { AccordionItemHeader } from './accordionItemHeader';
+export { AccordionItemHeader, type IAccordionItemHeaderProps } from './accordionItemHeader';

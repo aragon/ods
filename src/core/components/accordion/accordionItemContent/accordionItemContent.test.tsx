@@ -1,14 +1,13 @@
 import { render, screen } from '@testing-library/react';
-import { type ComponentPropsWithRef } from 'react';
 import { AccordionContainer } from '../accordionContainer/accordionContainer';
 import { AccordionItem } from '../accordionItem/accordionItem';
-import { AccordionItemContent } from './accordionItemContent';
+import { AccordionItemContent, type IAccordionItemContentProps } from './accordionItemContent';
 
-describe('<AccordionItemContent /> component', () => {
-    const createTestComponent = (props?: ComponentPropsWithRef<typeof AccordionItemContent>) => {
+describe('<Accordion.ItemContent /> component', () => {
+    const createTestComponent = (props?: Partial<IAccordionItemContentProps>) => {
         const completeProps = { ...props };
         return (
-            <AccordionContainer type="multiple" defaultValue={['value-key']}>
+            <AccordionContainer isMulti={false} defaultValue="value-key">
                 <AccordionItem value="value-key">
                     <AccordionItemContent {...completeProps} />
                 </AccordionItem>
@@ -16,7 +15,7 @@ describe('<AccordionItemContent /> component', () => {
         );
     };
 
-    it('renders without crashing', () => {
+    it('renders the children property', () => {
         const children = 'Children OK';
         render(createTestComponent({ children }));
         const childrenOK = screen.getByText('Children OK');
