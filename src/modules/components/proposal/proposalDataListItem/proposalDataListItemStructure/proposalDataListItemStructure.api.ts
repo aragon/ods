@@ -20,25 +20,25 @@ export interface IProposalDataListItemStructureBaseProps<TType extends ProposalT
     extends IDataListItemProps,
         IWeb3ComponentProps {
     /**
+     * Proposal id
+     */
+    id?: string;
+    /**
      * Indicates date relative to the proposal status
      */
-    date: string;
+    date?: string;
     /**
-     * Indicates whether the proposal is a protocol update
+     * Optional tag indicating proposal type
      */
-    protocolUpdate?: boolean;
+    tag?: string;
     /**
-     * Publisher address (and optional ENS name)
+     * Publisher(s) address (and optional ENS name and profile link)
      */
-    publisher: ICompositeAddress;
-    /**
-     * Link to the publisher's profile
-     */
-    publisherProfileLink: string;
+    publisher: IPublisher | IPublisher[];
     /**
      * Result of the proposal shown only when it is active, challenged or vetoed.
      */
-    result: TType extends 'majorityVoting' ? IMajorityVotingResult : IApprovalThresholdResult;
+    result?: TType extends 'majorityVoting' ? IMajorityVotingResult : IApprovalThresholdResult;
     /**
      * Proposal status
      */
@@ -60,8 +60,33 @@ export interface IProposalDataListItemStructureBaseProps<TType extends ProposalT
      */
     voted?: boolean;
 }
+export interface IPublisher extends ICompositeAddress {
+    /**
+     * Link to additional information about the publisher, such as a profile page or block explorer.
+     */
+    link?: string;
+}
 
-export interface IApprovalThresholdResult {
+export interface IProposalStage {
+    /**
+     * Name of the proposal stage
+     */
+    title?: string;
+
+    /**
+     * Id of the proposal stage
+     */
+    id: string | number;
+}
+
+export interface IProposalResultBase {
+    /**
+     * Proposal stage
+     */
+    stage?: IProposalStage;
+}
+
+export interface IApprovalThresholdResult extends IProposalResultBase {
     /**
      * Number of approvals for the proposal
      */
@@ -72,7 +97,7 @@ export interface IApprovalThresholdResult {
     approvalThreshold: number;
 }
 
-export interface IMajorityVotingResult {
+export interface IMajorityVotingResult extends IProposalResultBase {
     /**
      * Winning option
      */
