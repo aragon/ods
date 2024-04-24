@@ -211,7 +211,7 @@ module.exports = {
             animation: {
                 shake: 'shake 0.82s cubic-bezier(0.36,0.07,0.19,0.97) both',
                 slideDown: 'slideDown 0.2s ease-in-out',
-                slideUp: 'slideUp 0.1s ease-in-out',
+                slideUp: 'slideUp 0.2s ease-out-out',
             },
             keyframes: {
                 shake: {
