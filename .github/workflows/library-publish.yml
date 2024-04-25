@@ -29,7 +29,9 @@ jobs:
       - name: Build library
         run: yarn build
       - name: Publish library
-        run: yarn publish --new-version ${{ steps.package-version.outputs.current-version }} --access public
+        run: |
+          yarn config set npmAuthToken ${{ secrets.NPM_TOKEN }}
+          yarn npm publish --tag ${{ steps.package-version.outputs.current-version }} --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Read changelog entry for version
