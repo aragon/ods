@@ -33,6 +33,17 @@ class AddressUtils {
      * @returns The address in checksum format
      */
     getChecksum = (address = ''): Address => getAddress(address);
+
+    /**
+     * Compares two addresses (ignoring checksum) to see if they are the same
+     * @param addressOne The first address
+     * @param addressTwo The second address
+     * @returns true if the addresses are the same, false otherwise
+     */
+    isAddressEqual = (addressOne = '', addressTwo = ''): boolean =>
+        this.isAddress(addressOne) &&
+        this.isAddress(addressTwo) &&
+        addressOne?.toLowerCase() === addressTwo?.toLowerCase();
 }
 
 export const addressUtils = new AddressUtils();

@@ -61,7 +61,9 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                     </span>
                     {ongoingAndVoted && <AvatarIcon icon={IconType.CHECKMARK} responsiveSize={{ md: 'md' }} />}
                     {ongoing && !voted && <StatePingAnimation variant={ongoingStatusToPingVariant[status]} />}
-                    {!ongoing && !voted && <AvatarIcon icon={IconType.CALENDAR} responsiveSize={{ md: 'md' }} />}
+                    {!ongoing && !voted && date && (
+                        <AvatarIcon icon={IconType.CALENDAR} responsiveSize={{ md: 'md' }} />
+                    )}
                 </div>
             )}
         </div>
