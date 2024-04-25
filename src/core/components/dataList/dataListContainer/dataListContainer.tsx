@@ -58,7 +58,7 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
 
     return (
         <div
-            className={classNames('flex flex-col gap-2 px-0 md:px-6', className)}
+            className={classNames('flex flex-col gap-2', className)}
             aria-busy={displayLoadingElements}
             {...otherProps}
         >

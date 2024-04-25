@@ -60,4 +60,29 @@ describe('address utils', () => {
             expect(() => addressUtils.getChecksum(value)).toThrow();
         });
     });
+
+    describe('isAddressEqual', () => {
+        it('returns true when both addresses are the same regardless of checksum', () => {
+            const addressOne = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045';
+            const addressTwo = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+
+            expect(addressUtils.isAddressEqual(addressOne, addressTwo)).toBeTruthy();
+        });
+
+        it('returns false when the addresses are not the same', () => {
+            const addressOne = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045';
+            const addressTwo = '0x0000000000000000000000000000000000000000';
+
+            expect(addressUtils.isAddressEqual(addressOne, addressTwo)).toBeFalsy();
+        });
+
+        it('returns false when either of the inputs is an invalid address', () => {
+            const invalidAddress = 'test';
+            const validAddress = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045';
+
+            expect(addressUtils.isAddressEqual(validAddress, invalidAddress)).toBeFalsy();
+            expect(addressUtils.isAddressEqual(invalidAddress, validAddress)).toBeFalsy();
+            expect(addressUtils.isAddressEqual(invalidAddress, invalidAddress)).toBeFalsy();
+        });
+    });
 });

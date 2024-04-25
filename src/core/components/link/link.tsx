@@ -55,8 +55,8 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
             {...(disabled && { tabIndex: -1, 'aria-disabled': 'true' })}
             {...otherProps}
         >
-            <div className="flex items-center gap-x-2 truncate">
-                {children}
+            <div className="flex items-center gap-x-2">
+                <span className="truncate">{children}</span>
                 {iconRight && <Icon icon={iconRight} size="sm" />}
             </div>
             {description && <p className={descriptionClassName}>{description}</p>}

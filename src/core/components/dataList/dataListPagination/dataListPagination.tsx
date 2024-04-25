@@ -30,10 +30,7 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
     }
 
     return (
-        <div
-            className={classNames('flex flex-row items-center gap-4 px-0 md:gap-6 md:px-6', className)}
-            {...otherProps}
-        >
+        <div className={classNames('flex flex-row items-center gap-4 md:gap-6', className)} {...otherProps}>
             <Button
                 size="sm"
                 responsiveSize={{ md: 'md' }}

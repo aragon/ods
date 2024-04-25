@@ -7,9 +7,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.25] - 2024-04-24
+
+### Added
+
+-   Implement `Accordion` core component
+-   Setup `Dependabot` to keep dependencies updated
+
+### Changed
+
+-   Set `yarn` version to v4 and update publish workflow
+-   Update Dependabot config to group Github actions dependencies and fix Storybook group
+-   Bump `mindsers/changelog-reader-action` from 2.2.2 to 2.2.3
+-   Bump `peter-evans/create-or-update-comment` from 2 to 4.0.0
+-   Bump `actions/setup-python` from 4.6.1 to 5.1.0
+-   Bump `actions/setup-node` from 3.6.0 to 4.0.2
+-   Bump `softprops/action-gh-release` from 0.1.15 to 2.0.4
+-   Bump `dangoslen/changelog-enforcer` from 3.5.0 to 3.6.1
+-   Bump `actions/checkout` from 3.5.3 to 4.1.3
+-   Bump minimum Node version required from 18.18 to 20
+-   Bump minor and patch dependencies
+
+### Fixed
+
+-   `ProposalDataListItemStructure` module component to clamp title to one line
+-   Warnings on Github workflows for using deprecated yarn options
+-   Warnings on tests because of `@testing-library/dom` version mismatch
+
+## [1.0.24] - 2024-04-23
+
 ### Added
 
 -   Implement `ProposalDataListItemSkeleton` module component
+-   Extend `addressUtils` with `isAddressEqual` method
+
+### Changed
+
+-   Remove padding from `DataListContainer`, `DataListFilterStatus`, `DataListPagination` and `DataListRoot`
+-   Add `stageId` and `stageTitle` properties to `IApprovalThresholdResult` & `IMajorityVotingResult` interfaces
+-   Add `id` and optional `tag` properties to `ProposalDataListItemStructure`
+-   Remove `publisherProfileLink` and `protocolUpdate` properties from `ProposalDataListItemStructure`
+-   Update `date` and `result` properties of `ProposalDataListItemStructure` to be optional and `publisher` to allow for
+    multiple publishers
+
+### Fixed
+
+-   `Link` core component to truncate on overflow
 
 ## [1.0.23] - 2024-04-18
 

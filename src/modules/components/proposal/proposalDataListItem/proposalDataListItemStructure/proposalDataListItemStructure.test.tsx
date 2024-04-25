@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import * as wagmi from 'wagmi';
 import { DataList } from '../../../../../core';
 import { addressUtils } from '../../../../utils/addressUtils';
-import { ProposalDataListItemStructure } from './proposalDataListItemStructure';
+import { ProposalDataListItemStructure, maxPublishersDisplayed } from './proposalDataListItemStructure';
 import {
     type IApprovalThresholdResult,
     type IMajorityVotingResult,
@@ -18,14 +18,10 @@ describe('<ProposalDataListItemStructure/> component', () => {
         const { result, ...baseInputProps } = props ?? {};
 
         const baseProps: Omit<IProposalDataListItemStructureProps, 'result'> = {
-            date: new Date().toISOString(),
-            protocolUpdate: false,
-            publisher: { address: '0x123' },
+            publisher: { address: '0x0000000000000000000000000000000000000000', link: '#' },
             status: 'active',
             summary: 'Example Summary',
             title: 'Example Title',
-            voted: false,
-            publisherProfileLink: '#',
             type: 'approvalThreshold',
             ...baseInputProps,
         };
@@ -73,7 +69,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
     const ongoingStatuses: ProposalStatus[] = ['active', 'challenged', 'vetoed'];
 
     it("renders 'You' as the publisher if the connected address is the publisher address", () => {
-        const publisher = { address: '0x123' };
+        const publisher = { address: '0x0000000000000000000000000000000000000000', link: '#' };
 
         useAccountMock.mockImplementation(jest.fn().mockReturnValue({ address: publisher.address, isConnected: true }));
 
@@ -82,35 +78,58 @@ describe('<ProposalDataListItemStructure/> component', () => {
         expect(screen.getByRole('link', { name: 'You' })).toBeInTheDocument();
     });
 
-    describe("'approvalThreshold type'", () => {
-        it('renders without crashing', () => {
-            const testProps: IProposalDataListItemStructureProps = {
-                date: new Date().toISOString(),
-                publisher: { address: '0x123' },
-                publisherProfileLink: '#',
-                status: 'active',
-                summary: 'Example Summary',
-                title: 'Example Title',
-                type: 'approvalThreshold',
-                result: {
-                    approvalAmount: 1,
-                    approvalThreshold: 2,
-                },
-            };
+    it('renders multiple publishers', () => {
+        const publishers = [
+            { name: 'abc', link: '#', address: '0x0000000000000000000000000000000000000000' },
+            { name: 'def', link: '#', address: '0x0000000000000000000000000000000000000000' },
+        ];
 
-            render(createTestComponent(testProps));
+        render(createTestComponent({ publisher: publishers }));
 
-            expect(screen.getByText(testProps.title)).toBeInTheDocument();
-            expect(screen.getByText(testProps.summary)).toBeInTheDocument();
-            expect(screen.getByText(testProps.status)).toBeInTheDocument();
-            expect(screen.getByText(testProps.date)).toBeInTheDocument();
-            expect(
-                screen.getByText(addressUtils.truncateAddress(testProps.publisher.address ?? '')),
-            ).toBeInTheDocument();
+        publishers.forEach((publisher) => {
+            expect(screen.getByText(publisher.name)).toBeInTheDocument();
         });
+    });
 
+    it(`renders '${maxPublishersDisplayed}+ creators' when the publishers are more than ${maxPublishersDisplayed}`, () => {
+        const publishers = [
+            { name: 'abc', link: '#', address: '0x0000000000000000000000000000000000000000' },
+            { name: 'def', link: '#', address: '0x0000000000000000000000000000000000000000' },
+            { name: 'ghi', link: '#', address: '0x0000000000000000000000000000000000000000' },
+            { name: 'jkl', link: '#', address: '0x0000000000000000000000000000000000000000' },
+        ];
+
+        render(createTestComponent({ publisher: publishers }));
+
+        expect(screen.getByText(`${maxPublishersDisplayed}+ creators`)).toBeInTheDocument();
+    });
+
+    it('renders with the given properties', () => {
+        const testProps = {
+            tag: 'OSx updates',
+            date: new Date().toISOString(),
+            publisher: { address: '0x0000000000000000000000000000000000000000', link: '#' },
+            status: 'active',
+            summary: 'Example Summary',
+            title: 'Example Title',
+            type: 'approvalThreshold',
+            id: '0x1',
+        };
+
+        render(createTestComponent(testProps as IProposalDataListItemStructureProps));
+
+        expect(screen.getByText(testProps.title)).toBeInTheDocument();
+        expect(screen.getByText(testProps.summary)).toBeInTheDocument();
+        expect(screen.getByText(testProps.status)).toBeInTheDocument();
+        expect(screen.getByText(testProps.date)).toBeInTheDocument();
+        expect(screen.getByText(testProps.id)).toBeInTheDocument();
+        expect(screen.getByText(testProps.tag)).toBeInTheDocument();
+        expect(screen.getByText(addressUtils.truncateAddress(testProps.publisher.address))).toBeInTheDocument();
+    });
+
+    describe("'approvalThreshold' type", () => {
         ongoingStatuses.forEach((status) => {
-            it(`renders the results when status is '${status}'`, () => {
+            it.each(ongoingStatuses)(`renders the results when status is '${status}'`, () => {
                 const testProps = {
                     approvalAmount: 10,
                     approvalThreshold: 11,
@@ -137,33 +156,6 @@ describe('<ProposalDataListItemStructure/> component', () => {
     });
 
     describe("'majorityVoting' type", () => {
-        it('renders without crashing', () => {
-            const testProps: IProposalDataListItemStructureProps = {
-                date: new Date().toISOString(),
-                publisher: { address: '0x123' },
-                publisherProfileLink: '#',
-                status: 'active',
-                summary: 'Example Summary',
-                title: 'Example Title',
-                type: 'majorityVoting',
-                result: {
-                    option: 'Yes',
-                    voteAmount: '100 wAnt',
-                    votePercentage: 10,
-                },
-            };
-
-            render(createTestComponent(testProps));
-
-            expect(screen.getByText(testProps.title)).toBeInTheDocument();
-            expect(screen.getByText(testProps.summary)).toBeInTheDocument();
-            expect(screen.getByText(testProps.status)).toBeInTheDocument();
-            expect(screen.getByText(testProps.date)).toBeInTheDocument();
-            expect(
-                screen.getByText(addressUtils.truncateAddress(testProps.publisher.address ?? '')),
-            ).toBeInTheDocument();
-        });
-
         ongoingStatuses.forEach((status) => {
             it(`renders the results when status is '${status}'`, () => {
                 const testProps = {
