@@ -9,13 +9,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `CopyParser` core component
+-   Implement `CopyParser` and `Accordion` core component
 
 ## [1.0.25] - 2024-04-24
 
 ### Added
 
--   Implement `Accordion` core component
 -   Setup `Dependabot` to keep dependencies updated
 
 ### Changed
