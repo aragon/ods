@@ -1,7 +1,6 @@
 import { AccordionContent as RadixAccordionContent } from '@radix-ui/react-accordion';
 import classNames from 'classnames';
 import { forwardRef, type ComponentPropsWithRef } from 'react';
-import './index.css';
 
 export interface IAccordionItemContentProps extends ComponentPropsWithRef<typeof RadixAccordionContent> {}
 

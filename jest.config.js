@@ -11,9 +11,6 @@ const config = {
         '^.+\\.m?[tj]sx?$': 'ts-jest',
     },
     transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|react-merge-refs|wagmi|@wagmi))'],
-    moduleNameMapper: {
-        '\\.(css|less)$': '<rootDir>/src/core/test/utils/styleMock.ts',
-    },
 };
 
 module.exports = config;
