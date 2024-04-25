@@ -24,24 +24,33 @@ export const Default: Story = {
 };
 
 export const WithMarkdown: Story = {
-    args: {
-        content: '# Heading\n\nThis is a *markdown* formatted text.',
-    },
-    render: (args) => <CopyParser {...args} />,
+    args: {},
+    render: (args) => (
+        <CopyParser {...args}>
+            # Heading\n\nThis is a <em>markdown</em> formatted text
+        </CopyParser>
+    ),
 };
 
 export const WithHTML: Story = {
-    args: {
-        content: '<h1>HTML Content</h1><p>This is <strong>HTML</strong> formatted text.</p>',
-    },
-    render: (args) => <CopyParser {...args} />,
+    args: {},
+    render: (args) => (
+        <CopyParser {...args}>
+            <h1>HTML Content</h1>
+            <p>
+                This is <strong>HTML</strong> formatted text.
+            </p>
+        </CopyParser>
+    ),
 };
 
 export const WithMDXContent: Story = {
-    args: {
-        children: <TestMdx />,
-    },
-    render: (args) => <CopyParser {...args} />,
+    args: {},
+    render: (args) => (
+        <CopyParser {...args}>
+            <TestMdx />
+        </CopyParser>
+    ),
 };
 
 export default meta;
