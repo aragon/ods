@@ -13,10 +13,6 @@ export interface IOdsCoreContext {
     Link: React.FC | 'a';
 }
 
-const odsCoreContextDefaults: IOdsCoreContext = { Img: 'img', Link: 'a' };
-
-const odsCoreContext = createContext<IOdsCoreContext>(odsCoreContextDefaults);
-
 export interface IOdsCoreProviderProps {
     /**
      * Context provider values.
@@ -27,6 +23,10 @@ export interface IOdsCoreProviderProps {
      */
     children?: ReactNode;
 }
+
+const odsCoreContextDefaults: IOdsCoreContext = { Img: 'img', Link: 'a' };
+
+const odsCoreContext = createContext<IOdsCoreContext>(odsCoreContextDefaults);
 
 export const OdsCoreProvider: React.FC<IOdsCoreProviderProps> = (props) => {
     const { values, children } = props;
