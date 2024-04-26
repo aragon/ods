@@ -33,9 +33,10 @@ export interface IOdsModulesProviderProps {
      */
     queryClient?: QueryClient;
     /**
-     * ODS Core Provider values, @see IOdsCoreContext
+     * Values for the OdsCoreProvider context.
+     * @see IOdsCoreContext
      */
-    coreProviderValues: IOdsCoreProviderProps['values'];
+    coreProviderValues?: IOdsCoreProviderProps['values'];
     /**
      * Children of the provider.
      */
