@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { createClient, http } from 'viem';
 import { WagmiProvider, createConfig, type Config } from 'wagmi';
 import { arbitrum, arbitrumSepolia, base, baseSepolia, mainnet, polygon, polygonAmoy, sepolia } from 'wagmi/chains';
+import { OdsCoreProvider, type IOdsCoreProviderProps } from '../../../core';
 
 const defaultWagmiConfig = createConfig({
     chains: [mainnet, sepolia, base, baseSepolia, polygon, polygonAmoy, arbitrum, arbitrumSepolia],
@@ -32,17 +33,23 @@ export interface IOdsModulesProviderProps {
      */
     queryClient?: QueryClient;
     /**
+     * ODS Core Provider values, @see IOdsCoreContext
+     */
+    coreProviderValues: IOdsCoreProviderProps['values'];
+    /**
      * Children of the provider.
      */
     children?: ReactNode;
 }
 
 export const OdsModulesProvider: React.FC<IOdsModulesProviderProps> = (props) => {
-    const { children, queryClient = defaultQueryClient, wagmiConfig = defaultWagmiConfig } = props;
+    const { queryClient = defaultQueryClient, wagmiConfig = defaultWagmiConfig, coreProviderValues, children } = props;
 
     return (
         <WagmiProvider config={wagmiConfig}>
-            <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+            <QueryClientProvider client={queryClient}>
+                <OdsCoreProvider values={coreProviderValues}>{children}</OdsCoreProvider>
+            </QueryClientProvider>
         </WagmiProvider>
     );
 };

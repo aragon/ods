@@ -1,0 +1,4 @@
+:root {
+  /* Position property of the avatar container */
+  --ods-avatar-container-position: static;
+}

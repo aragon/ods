@@ -4,6 +4,7 @@ import type React from 'react';
 import { useState, type ComponentPropsWithoutRef, type ReactNode } from 'react';
 import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../../types';
 import { responsiveUtils } from '../../../utils';
+import { AvatarBase } from '../avatarBase';
 
 export type AvatarSize = 'sm' | 'md' | 'lg';
 
@@ -53,27 +54,31 @@ const responsiveSizeClasses: ResponsiveAttributeClassMap<AvatarSize> = {
 export const Avatar: React.FC<IAvatarProps> = (props) => {
     const { alt = 'avatar', className, fallback, responsiveSize = {}, size = 'sm', ...imageProps } = props;
 
+    const [imgLoading, setImgLoading] = useState(true);
+
     const containerClassNames = classNames(
-        'flex items-center justify-center overflow-hidden rounded-full',
+        'flex items-center justify-center overflow-hidden rounded-full [position:var(--ods-avatar-container-position)]',
         responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClasses),
         className,
     );
-
-    const [imgLoading, setImgLoading] = useState(true);
 
     const handleOnLoadingStatusChange = (status: RadixAvatar.ImageLoadingStatus) => {
         setImgLoading(status === 'loading');
     };
 
-    const showFallback = !!fallback && !imgLoading;
+    const showFallback = fallback != null && !imgLoading;
+
     return (
         <RadixAvatar.Root className={containerClassNames}>
             <RadixAvatar.Image
                 alt={alt}
-                {...imageProps}
                 className="size-full rounded-[inherit] object-cover"
                 onLoadingStatusChange={handleOnLoadingStatusChange}
-            />
+                asChild={true}
+                {...imageProps}
+            >
+                <AvatarBase />
+            </RadixAvatar.Image>
             <RadixAvatar.Fallback
                 data-testid="fallback"
                 className={classNames(

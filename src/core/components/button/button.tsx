@@ -3,6 +3,7 @@ import { forwardRef, type ButtonHTMLAttributes, type MouseEvent, type Ref } from
 import type { Breakpoint, ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../types';
 import { responsiveUtils } from '../../utils';
 import { Icon, type IconSize } from '../icon';
+import { LinkBase } from '../link';
 import { Spinner } from '../spinner';
 import type { SpinnerSize, SpinnerVariant } from '../spinner/spinner';
 import type { ButtonContext, ButtonSize, ButtonVariant, IButtonProps } from './button.api';
@@ -253,7 +254,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
     if ('href' in otherProps && otherProps.href != null && otherProps.href !== '') {
         const { onClick, href, ...linkProps } = otherProps;
         return (
-            <a
+            <LinkBase
                 href={href}
                 onClick={handleLinkClick(onClick)}
                 ref={ref as Ref<HTMLAnchorElement>}
@@ -261,7 +262,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
                 {...linkProps}
             >
                 {buttonContent}
-            </a>
+            </LinkBase>
         );
     }
 

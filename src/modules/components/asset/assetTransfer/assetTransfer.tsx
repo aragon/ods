@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useConfig } from 'wagmi';
-import { Avatar, AvatarIcon, IconType, NumberFormat, formatterUtils } from '../../../../core';
+import { Avatar, AvatarIcon, IconType, LinkBase, NumberFormat, formatterUtils } from '../../../../core';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../types';
 import { AssetTransferAddress } from './assetTransferAddress';
 
@@ -103,7 +103,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                 />
                 <AssetTransferAddress txRole="recipient" participant={recipient} blockExplorerUrl={blockExplorerUrl} />
             </div>
-            <a
+            <LinkBase
                 href={blockExplorerAssembledHref}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -117,7 +117,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                     <span className="text-sm leading-tight text-neutral-800 md:text-base">{formattedTokenAmount}</span>
                     <span className="text-sm leading-tight text-neutral-500 md:text-base">{formattedFiatValue}</span>
                 </div>
-            </a>
+            </LinkBase>
         </div>
     );
 };

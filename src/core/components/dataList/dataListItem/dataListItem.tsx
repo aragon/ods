@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import type { ComponentProps } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
+import { LinkBase } from '../../link';
 import { useDataListContext } from '../dataListContext';
 
-export interface IDataListItemProps extends ComponentProps<'a'> {}
+export interface IDataListItemProps extends ComponentPropsWithoutRef<'a'> {}
 
 export const DataListItem: React.FC<IDataListItemProps> = (props) => {
     const { children, className, href, ...otherProps } = props;
@@ -23,7 +24,7 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
     );
 
     return (
-        <a
+        <LinkBase
             className={actionItemClasses}
             href={href}
             aria-hidden={isSkeletonElement}
@@ -31,6 +32,6 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
             {...otherProps}
         >
             {children}
-        </a>
+        </LinkBase>
     );
 };

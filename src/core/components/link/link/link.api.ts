@@ -1,5 +1,5 @@
 import type { AnchorHTMLAttributes } from 'react';
-import { type IconType } from '../icon';
+import { type IconType } from '../../icon';
 
 export type LinkVariant = 'primary' | 'neutral';
 
