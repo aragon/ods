@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `DefinitionList` core component
 -   Implement `TransactionDataListItem.Skeleton` module component
+-   Implement `OdsCoreProvider`, `LinkBase` and `AvatarBase` components to support `Link` and `Image` NextJs components.
 
 ### Changed
 
@@ -53,6 +54,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump `actions/github-script` from 6.4.1 to 7.0.1
 -   Bump `ejs` from 3.1.9 to 3.1.10
 -   Bump minor and patch dependencies
+-   Update `OdsModulesProvider` component to render the `OdsCoreProvider` context.
 
 ## [1.0.25] - 2024-04-24
 
