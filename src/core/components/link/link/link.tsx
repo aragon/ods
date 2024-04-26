@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { Icon } from '../../icon';
-import { LinkBase } from '../linkBase/linkBase';
+import { LinkBase } from '../linkBase';
 import type { ILinkProps, LinkVariant } from './link.api';
 
 const variantToLabelClassNames: Record<LinkVariant | 'disabled', string[]> = {
