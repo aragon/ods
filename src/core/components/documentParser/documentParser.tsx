@@ -47,9 +47,9 @@ export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
         '', // ol styling
         '', // ul styling
         '', // li styling
-        '', // strikethrough styling
-        'prose-blockquote:rounded-lg prose-blockquote:border prose-blockquote:border-neutral-200 prose-blockquote:bg-neutral-100 prose-blockquote:px-8', // blockquote styling
-        'prose-pre:rounded-lg prose-pre:bg-neutral-900 prose-pre:text-success-100', // code styling
+        'prose-button:text-neutral-0', // strikethrough styling
+        'prose-blockquote:rounded-lg prose-blockquote:border prose-blockquote:border-neutral-200 prose-blockquote:bg-neutral-50 prose-blockquote:px-10 prose-blockquote:shadow-neutral-md', // blockquote styling
+        'prose-pre:rounded-lg prose-pre:bg-neutral-900 prose-pre:text-neutral-50', // code styling
         'prose-img:overflow-hidden prose-img:rounded-xl prose-img:shadow-neutral-md', // img styling
         'prose-video:overflow-hidden prose-video:rounded-xl prose-video:shadow-neutral-md', // video styling
         'prose-hr:my-10 prose-hr:border-neutral-200', // hr styling

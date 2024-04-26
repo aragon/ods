@@ -1,4 +1,5 @@
 import { Button } from '../button/button.tsx';
+import { IconType } from '../icon/iconType.ts';
 
 # Welcome to Our Documentation
 
@@ -19,7 +20,7 @@ This a list with tiered sublists:
 
 You can embed JSX directly:
 
-<Button variant="critical" onClick={() => alert('MDX is live!')}>
+<Button variant="critical" className="not-prose" iconLeft={IconType.PLUS} onClick={() => alert('MDX is live!')}>
     Click me
 </Button>
 
@@ -69,6 +70,6 @@ useEffect(() => {
 
     WITH MULTIPLE LINES!
 
-    All your base are belong to us. -- @johndoe
+    All your base are belong to us.
 
 </blockquote>
