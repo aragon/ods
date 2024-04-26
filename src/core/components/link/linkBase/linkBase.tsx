@@ -1,7 +1,7 @@
-import { forwardRef, type ComponentProps } from 'react';
+import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 import { useOdsCoreContext } from '../../odsCoreProvider';
 
-export interface ILinkBaseProps extends ComponentProps<'a'> {}
+export interface ILinkBaseProps extends ComponentPropsWithoutRef<'a'> {}
 
 export const LinkBase = forwardRef<HTMLAnchorElement, ILinkBaseProps>((props, ref) => {
     const { Link } = useOdsCoreContext();

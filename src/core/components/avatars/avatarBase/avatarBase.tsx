@@ -1,7 +1,7 @@
-import { forwardRef, type ComponentProps } from 'react';
+import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 import { useOdsCoreContext } from '../../odsCoreProvider';
 
-export interface IAvatarBaseProps extends ComponentProps<'img'> {}
+export interface IAvatarBaseProps extends ComponentPropsWithoutRef<'img'> {}
 
 export const AvatarBase = forwardRef<HTMLImageElement, IAvatarBaseProps>((props, ref) => {
     const { Img } = useOdsCoreContext();

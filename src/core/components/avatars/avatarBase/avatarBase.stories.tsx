@@ -5,19 +5,13 @@ const meta: Meta<typeof AvatarBase> = {
     title: 'Core/Components/Avatars/AvatarBase',
     component: AvatarBase,
     tags: ['autodocs'],
-    parameters: {
-        docs: {
-            description: {
-                component: 'TODO',
-            },
-        },
-    },
 };
 
 type Story = StoryObj<typeof AvatarBase>;
 
 /**
- * Default usage example of the AvatarBase component.
+ * AvatarBase is a basic component that renders an image based on the component set in the OdsCoreModules context.
+ * It must be used in all ODS components whenever an image needs to be rendered.
  */
 export const Default: Story = {
     args: {
