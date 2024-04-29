@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Collapsible } from './collapsible';
+import { CardCollapsible } from './cardCollapsible';
 
 /**
- * Collapsible component that can wrap any content and visually collapse it for space-saving purposes.
+ * CardCollapsible component that can wrap any content and visually collapse it for space-saving purposes.
  */
-const meta: Meta<typeof Collapsible> = {
-    title: 'Core/Components/Collapsible',
-    component: Collapsible,
+const meta: Meta<typeof CardCollapsible> = {
+    title: 'Core/Components/Cards/CardCollapsible',
+    component: CardCollapsible,
     tags: ['autodocs'],
     parameters: {
         design: {
@@ -16,15 +16,15 @@ const meta: Meta<typeof Collapsible> = {
     },
 };
 
-type Story = StoryObj<typeof Collapsible>;
+type Story = StoryObj<typeof CardCollapsible>;
 
 /**
- * Default usage example of the Collapsible component.
+ * Default usage example of the CardCollapsible component.
  */
 export const Default: Story = {
     args: { triggerLabelClosed: 'Read more', triggerLabelOpen: 'Read less' },
     render: (args) => (
-        <Collapsible {...args}>
+        <CardCollapsible {...args}>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla nec nunc consectetur tincidunt.
                 Nulla facilisi. Nullam nec sapien nec turpis tincidunt scelerisque. Nulla facilisi. Nullam nec sapien
@@ -54,12 +54,12 @@ export const Default: Story = {
                 tincidunt. Nulla facilisi. Nullam nec sapien nec turpis tincidunt scelerisque. Nulla facilisi. Nullam
                 nec sapien nec turpis tincidunt scelerisque.
             </p>
-        </Collapsible>
+        </CardCollapsible>
     ),
 };
 
 /**
- * Collapsible component with an image as the content.
+ * CardCollapsible component with an image as the content.
  */
 export const WithImage: Story = {
     args: {
@@ -67,13 +67,13 @@ export const WithImage: Story = {
         triggerLabelOpen: 'See less',
     },
     render: (args) => (
-        <Collapsible {...args}>
+        <CardCollapsible {...args}>
             <img
                 src="https://source.unsplash.com/800x600/?landscape"
                 alt="A beautiful landscape"
                 className="h-auto w-full"
             />
-        </Collapsible>
+        </CardCollapsible>
     ),
 };
 

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useState, type ComponentProps } from 'react';
 import { Button } from '../button';
-import { IconType } from '../icon';
+import { Icon, IconType } from '../icon';
 
 export type CollapsedSize = 'sm' | 'md' | 'lg';
 
@@ -19,60 +19,86 @@ export interface ICollapsibleProps extends ComponentProps<'div'> {
      */
     triggerLabelOpen: string;
     /**
-     * Whether the trigger button should be right-aligned. @default false
+     * Custom size for the collapsible container that will override collapsedSize prop. See 'Spacing' docs for valid input values.
      */
-    buttonIsRight?: boolean;
+    customCollapsedSize?: number;
+    /**
+     * Whether or not to render a Button component as the trigger. @default false
+     */
+    useODSButton?: boolean;
+    /**
+     * Additional class names to apply to the blinder container (area that obscures the rest of the content).
+     */
+    blinderClassName?: string;
+    /**
+     * Callback function that is called when the collapsible container is toggled.
+     */
+    onToggle?: (isOpen: boolean) => void;
 }
 
-const contentHeightVariants = {
+const collapsedSizeVariants = {
     sm: 'h-32',
     md: 'h-64',
-    lg: 'h-128',
+    lg: 'h-96',
 };
 
 export const Collapsible: React.FC<ICollapsibleProps> = ({
     collapsedSize = 'md',
+    customCollapsedSize,
     triggerLabelOpen,
     triggerLabelClosed,
+    useODSButton = false,
+    className,
+    blinderClassName,
+    onToggle,
     children,
-    buttonIsRight = false,
     ...otherProps
 }) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const toggle = () => setIsOpen((prev) => !prev);
+    const toggle = () => {
+        setIsOpen((prev) => {
+            const toggleState = !prev;
+            if (onToggle) {
+                onToggle(toggleState);
+            }
+            return toggleState;
+        });
+    };
 
-    const containerClassNames = classNames('relative overflow-hidden');
+    const customHeightClass = customCollapsedSize ? `h-${customCollapsedSize}` : '';
 
     const contentClassNames = classNames(
-        'transition-all',
-        isOpen ? 'mb-20 md:mb-24' : 'mb-0',
-        isOpen ? 'h-fit' : contentHeightVariants[collapsedSize],
+        'overflow-hidden ease-in-out',
+        isOpen ? 'h-auto' : customHeightClass || collapsedSizeVariants[collapsedSize],
+        { 'line-clamp-none': isOpen },
     );
 
-    const blinderClassNames = classNames(
-        'absolute bottom-0 left-0 z-10 flex w-full items-end bg-gradient-to-t from-neutral-0 to-transparent py-4 md:py-6',
-        {
-            'justify-end': buttonIsRight,
-            'justify-start': !buttonIsRight,
-        },
-        {
-            'h-32': !isOpen,
-        },
-    );
+    const blinderClassNames = classNames('py-4 md:py-6', blinderClassName);
 
     return (
-        <div className={containerClassNames} {...otherProps}>
+        <div className={className} {...otherProps}>
             <div className={contentClassNames}>{children}</div>
             <div className={blinderClassNames}>
-                <Button
-                    size="md"
-                    variant="tertiary"
-                    onClick={toggle}
-                    iconRight={isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN}
-                >
-                    {isOpen ? triggerLabelOpen : triggerLabelClosed}
-                </Button>
+                {useODSButton ? (
+                    <Button
+                        onClick={toggle}
+                        variant="tertiary"
+                        size="md"
+                        iconRight={isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN}
+                    >
+                        {isOpen ? triggerLabelOpen : triggerLabelClosed}
+                    </Button>
+                ) : (
+                    <button onClick={toggle} className="flex items-center text-primary-400">
+                        {isOpen ? triggerLabelOpen : triggerLabelClosed}
+                        <Icon
+                            icon={isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN}
+                            size="sm"
+                            className="ml-2 text-primary-300"
+                        />
+                    </button>
+                )}
             </div>
         </div>
     );
