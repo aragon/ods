@@ -1,34 +1,35 @@
-import { MDXProvider, useMDXComponents } from '@mdx-js/react';
+import { Image } from '@tiptap/extension-image';
+import { EditorContent, useEditor } from '@tiptap/react';
+import { StarterKit } from '@tiptap/starter-kit';
 import classNames from 'classnames';
-import DOMPurify from 'dompurify';
-import { marked } from 'marked';
-import { useEffect, useState, type ComponentProps } from 'react';
+import { useEffect, type ComponentProps } from 'react';
+import sanitizeHtml from 'sanitize-html';
+import { Markdown } from 'tiptap-markdown';
 
-interface IDocumentParserProps extends ComponentProps<'div'> {}
+interface IDocumentParserProps extends Omit<ComponentProps<'div'>, 'ref'> {
+    children: string;
+}
 
 export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
     const { children, className, ...otherProps } = props;
-    const [processedContent, setProcessedContent] = useState<string | null>(null);
-    const components = useMDXComponents();
+    const parser = useEditor({
+        editable: false,
+        extensions: [StarterKit, Markdown, Image],
+    });
 
     useEffect(() => {
-        const processContent = async () => {
-            if (children && typeof children === 'string') {
-                let html: string;
-
-                if (children.includes('<') && children.includes('>')) {
-                    html = DOMPurify.sanitize(children);
-                } else {
-                    const markdownHtml = await marked(children);
-                    html = DOMPurify.sanitize(markdownHtml);
-                }
-
-                setProcessedContent(html);
-            }
-        };
-
-        processContent();
-    }, [children]);
+        if (parser) {
+            const safeHTML = sanitizeHtml(children, {
+                allowedAttributes: {
+                    ...sanitizeHtml.defaults.allowedAttributes,
+                    img: ['src', 'alt'],
+                    a: ['href', 'title'],
+                },
+                disallowedTagsMode: 'recursiveEscape',
+            });
+            parser.commands.setContent(safeHTML, true);
+        }
+    }, [parser, children]);
 
     const proseClassnames = classNames(
         'prose', // enable prose
@@ -56,19 +57,5 @@ export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
         className,
     );
 
-    return (
-        <MDXProvider components={components}>
-            {processedContent ? (
-                <div
-                    className={proseClassnames}
-                    dangerouslySetInnerHTML={{ __html: processedContent }}
-                    {...otherProps}
-                />
-            ) : (
-                <div className={proseClassnames} {...otherProps}>
-                    {children}
-                </div>
-            )}
-        </MDXProvider>
-    );
+    return <EditorContent editor={parser} className={proseClassnames} {...otherProps} />;
 };
