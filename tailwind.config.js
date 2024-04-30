@@ -246,7 +246,6 @@ module.exports = {
                         h1: {
                             marginTop: theme('spacing.2'),
                             marginBottom: theme('spacing.10'),
-                            color: theme('colors.neutral.800'),
                             fontSize: theme('fontSize.4xl'),
                             '@screen md': {
                                 fontSize: theme('fontSize.5xl'),
@@ -294,7 +293,6 @@ module.exports = {
                             '@screen md': {
                                 fontSize: theme('fontSize.lg'),
                             },
-                            color: theme('colors.neutral.500'),
                         },
                         a: {
                             color: theme('colors.primary.400'),
