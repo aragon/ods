@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Bump `actions/checkout` from 4.1.3 to 4.1.4
+-   Bump `peter-evans/find-comment` from 2.4.0 to 3.1.0
 
 ## [1.0.25] - 2024-04-24
 
