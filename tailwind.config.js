@@ -232,6 +232,123 @@ module.exports = {
                 'modal-header': 'linear-gradient(180deg, #F5F7FA 0%, rgba(245, 247, 250, 0) 100%)',
                 'modal-footer': 'linear-gradient(180deg, rgba(245, 247, 250, 0) 0%, #F5F7FA 100%)',
             },
+            typography: ({ theme }) => ({
+                DEFAULT: {
+                    css: {
+                        '--tw-prose-body': theme('colors.neutral.500'),
+                        '--tw-prose-headings': theme('colors.neutral.800'),
+                        '--tw-prose-lead': theme('colors.neutral.600'),
+                        '--tw-prose-links': theme('colors.primary.400'),
+
+                        color: theme('colors.neutral.500'),
+                        maxWidth: 'none',
+
+                        h1: {
+                            marginTop: theme('spacing.2'),
+                            marginBottom: theme('spacing.10'),
+                            color: theme('colors.neutral.800'),
+                            fontSize: theme('fontSize.4xl'),
+                            '@screen md': {
+                                fontSize: theme('fontSize.5xl'),
+                            },
+                        },
+                        h2: {
+                            marginTop: theme('spacing.2'),
+                            marginBottom: theme('spacing.8'),
+                            fontSize: theme('fontSize.3xl'),
+                            '@screen md': {
+                                fontSize: theme('fontSize.4xl'),
+                            },
+                        },
+                        h3: {
+                            marginTop: theme('spacing.2'),
+                            marginBottom: theme('spacing.6'),
+                            fontSize: theme('fontSize.2xl'),
+                            '@screen md': {
+                                fontSize: theme('fontSize.3xl'),
+                            },
+                        },
+                        h4: {
+                            marginBottom: theme('spacing.4'),
+                            fontSize: theme('fontSize.xl'),
+                            '@screen md': {
+                                fontSize: theme('fontSize.2xl'),
+                            },
+                        },
+                        h5: {
+                            marginBottom: theme('spacing.2'),
+                            fontSize: theme('fontSize.lg'),
+                            '@screen md': {
+                                fontSize: theme('fontSize.xl'),
+                            },
+                        },
+                        h6: {
+                            marginBottom: theme('spacing.1'),
+                            fontSize: theme('fontSize.base'),
+                            '@screen md': {
+                                fontSize: theme('fontSize.lg'),
+                            },
+                        },
+                        p: {
+                            fontSize: theme('fontSize.base'),
+                            '@screen md': {
+                                fontSize: theme('fontSize.lg'),
+                            },
+                            color: theme('colors.neutral.500'),
+                        },
+                        a: {
+                            color: theme('colors.primary.400'),
+                            textDecoration: 'none',
+                            '&:hover': {
+                                color: theme('colors.primary.600'),
+                            },
+                            '&:active': {
+                                color: theme('colors.primary.800'),
+                            },
+                        },
+                        strong: {
+                            fontSize: theme('fontSize.base'),
+                            '@screen md': {
+                                fontSize: theme('fontSize.lg'),
+                            },
+                            color: theme('colors.neutral.500'),
+                        },
+                        em: {
+                            fontSize: theme('fontSize.base'),
+                            '@screen md': {
+                                fontSize: theme('fontSize.lg'),
+                            },
+                            color: theme('colors.neutral.500'),
+                        },
+                        blockquote: {
+                            borderRadius: theme('borderRadius.lg'),
+                            border: `1px solid ${theme('colors.neutral.200')}`,
+                            backgroundColor: theme('colors.neutral.50'),
+                            padding: theme('spacing.10'),
+                            boxShadow: theme('boxShadow.md'),
+                        },
+                        pre: {
+                            borderRadius: theme('borderRadius.lg'),
+                            backgroundColor: theme('colors.neutral.900'),
+                            color: theme('colors.neutral.50'),
+                        },
+                        img: {
+                            overflow: 'hidden',
+                            borderRadius: theme('borderRadius.xl'),
+                            boxShadow: theme('boxShadow.md'),
+                        },
+                        video: {
+                            overflow: 'hidden',
+                            borderRadius: theme('borderRadius.xl'),
+                            boxShadow: theme('boxShadow.md'),
+                        },
+                        hr: {
+                            marginTop: theme('spacing.10'),
+                            borderColor: theme('colors.neutral.200'),
+                        },
+                    },
+                },
+            }),
         },
     },
     plugins: [
