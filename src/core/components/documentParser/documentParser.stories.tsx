@@ -88,6 +88,8 @@ This is a paragraph in **Markdown** with some *emphasis*.
 
 - Markdown list item 1
 - Markdown list item 2
+
+<a href="https://example.com" title="Example Link">Example Link</a>
 `,
     },
     render: (args) => <DocumentParser {...args} />,

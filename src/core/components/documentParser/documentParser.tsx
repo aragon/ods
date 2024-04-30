@@ -26,7 +26,7 @@ export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
             Image,
             Markdown,
             TipTapLink.configure({
-                openOnClick: 'whenNotEditable',
+                openOnClick: false,
             }),
         ],
     });
