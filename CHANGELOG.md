@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+-   Bump `actions/checkout` from 4.1.3 to 4.1.4
+
 ## [1.0.25] - 2024-04-24
 
 ### Added
