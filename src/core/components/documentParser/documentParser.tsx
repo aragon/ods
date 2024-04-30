@@ -34,15 +34,7 @@ export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
     useEffect(() => {
         if (parser) {
             const safeHTML = sanitizeHtml(stringDocument, {
-                allowedTags: sanitizeHtml.defaults.allowedTags.concat([
-                    'img',
-                    'del',
-                    'video',
-                    'audio',
-                    'svg',
-                    'code',
-                    'pre',
-                ]),
+                allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'del']),
                 allowedClasses: {
                     code: ['language-*', 'lang-*'],
                 },
