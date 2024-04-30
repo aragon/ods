@@ -10,23 +10,26 @@ const meta: Meta<typeof DocumentParser> = {
 type Story = StoryObj<typeof DocumentParser>;
 
 export const Default: Story = {
-    render: (args) => <DocumentParser {...args}>Hello, world!</DocumentParser>,
+    args: {
+        stringDocument: '<p>Hello, world!</p>',
+    },
+    render: (args) => <DocumentParser {...args} />,
 };
 
 export const WithMarkdown: Story = {
-    render: (args) => (
-        <DocumentParser {...args}>{'# Heading\n\nThis is a *markdown* ~~formatted text~~'}</DocumentParser>
-    ),
+    args: {
+        stringDocument:
+            '# Markdown Heading\n\nThis is a *markdown* ~~formatted text~~ <pre>onClick(()=>void);</pre> <pre><code class="language-javascript">const foo = "bar";</code></pre>',
+    },
+    render: (args) => <DocumentParser {...args} />,
 };
 
 export const WithHTML: Story = {
-    render: (args) => (
-        <DocumentParser {...args}>
-            {
-                '<h1>HTML Content</h1><p>This is <strong>HTML</strong> formatted text.</p><del>An image:</del><img src="https://via.placeholder.com/150" alt="Placeholder" /><a href="https://example.com">Example link</a>'
-            }
-        </DocumentParser>
-    ),
+    args: {
+        stringDocument:
+            '<h1>HTML Heading</h1><p>This is a <strong>HTML</strong> <del>formatted text</del> <pre>onClick(()=>void);</pre> <pre><code class="language-javascript">const foo = "bar";</code></pre></p>',
+    },
+    render: (args) => <DocumentParser {...args} />,
 };
 
 export default meta;
