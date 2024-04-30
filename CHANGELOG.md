@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Implement `Accordion` core component
+
 ### Changed
 
 -   Bump `actions/checkout` from 4.1.3 to 4.1.4
@@ -16,7 +20,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `Accordion` core component
 -   Setup `Dependabot` to keep dependencies updated
 
 ### Changed
