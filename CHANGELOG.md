@@ -11,6 +11,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `DocumentParser` and `Accordion` core component
 
+### Changed
+
+-   Bump `actions/checkout` from 4.1.3 to 4.1.4
+-   Bump `peter-evans/find-comment` from 2.4.0 to 3.1.0
+-   Bump `actions/github-script` from 6.4.1 to 7.0.1
+
 ## [1.0.25] - 2024-04-24
 
 ### Added
