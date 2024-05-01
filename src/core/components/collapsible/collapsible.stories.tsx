@@ -22,7 +22,7 @@ type Story = StoryObj<typeof Collapsible>;
  * Default usage example of the Collapsible component.
  */
 export const Default: Story = {
-    args: { triggerLabelClosed: 'Read more', triggerLabelOpen: 'Read less' },
+    args: { buttonLabelClosed: 'Read more', buttonLabelOpen: 'Read less' },
     render: (args) => (
         <Collapsible {...args}>
             <p>
@@ -59,12 +59,13 @@ export const Default: Story = {
 };
 
 /**
- * Collapsible component with an image as the content.
+ * Collapsible component with an image as the content with defaultOpen true.
  */
 export const WithImage: Story = {
     args: {
-        triggerLabelClosed: 'See more',
-        triggerLabelOpen: 'See less',
+        buttonLabelClosed: 'See more',
+        buttonLabelOpen: 'See less',
+        defaultOpen: true,
     },
     render: (args) => (
         <Collapsible {...args}>

@@ -1,1 +1,1 @@
-export { Card, type CollapsedSize } from './cardCollapsible';
+export { CardCollapsible } from './cardCollapsible';

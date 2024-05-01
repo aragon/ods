@@ -22,7 +22,7 @@ type Story = StoryObj<typeof CardCollapsible>;
  * Default usage example of the CardCollapsible component.
  */
 export const Default: Story = {
-    args: { triggerLabelClosed: 'Read more', triggerLabelOpen: 'Read less' },
+    args: { buttonLabelClosed: 'Read more', buttonLabelOpen: 'Read less' },
     render: (args) => (
         <CardCollapsible {...args}>
             <p>
@@ -63,8 +63,8 @@ export const Default: Story = {
  */
 export const WithImage: Story = {
     args: {
-        triggerLabelClosed: 'See more',
-        triggerLabelOpen: 'See less',
+        buttonLabelClosed: 'See more',
+        buttonLabelOpen: 'See less',
     },
     render: (args) => (
         <CardCollapsible {...args}>

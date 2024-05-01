@@ -5,15 +5,15 @@ import { Card } from '../card';
 
 export type CollapsedSize = 'sm' | 'md' | 'lg';
 
-export interface ICollapsibleCardProps extends Omit<ICollapsibleProps, 'useODSButton'> {}
+export interface ICollapsibleCardProps extends Omit<ICollapsibleProps, 'buttonVariant'> {}
 
 export const CardCollapsible: React.FC<ICollapsibleCardProps> = (props) => {
     const {
         collapsedSize,
         children,
         className,
-        triggerLabelOpen,
-        triggerLabelClosed,
+        buttonLabelOpen,
+        buttonLabelClosed,
         customCollapsedSize,
         ...otherProps
     } = props;
@@ -24,24 +24,24 @@ export const CardCollapsible: React.FC<ICollapsibleCardProps> = (props) => {
     };
 
     const blinderClassNames = classNames(
-        'absolute bottom-0 left-0 z-10 flex w-full items-end overflow-hidden rounded-b-xl bg-gradient-to-t from-neutral-0 from-[48%] to-transparent p-4 transition-all duration-300 md:from-[52%]  md:p-6',
-        { 'h-36': !isOpen },
+        'absolute bottom-0 left-0 z-10 flex w-full items-end bg-gradient-to-t from-neutral-0 from-40% to-transparent px-4 transition-all duration-300 md:px-6',
+        { 'h-32': !isOpen },
     );
-    const collapsedCardClassName = classNames('relative px-6 pt-6 transition-all duration-300');
+    const collapsedCardClassName = classNames('relative px-4 pt-4 transition-all duration-300 md:px-6 md:pt-6');
 
     return (
         <Card className={className} {...otherProps}>
             <Collapsible
-                blinderClassName={blinderClassNames}
-                triggerLabelOpen={triggerLabelOpen}
-                triggerLabelClosed={triggerLabelClosed}
                 collapsedSize={collapsedSize}
-                className={collapsedCardClassName}
                 customCollapsedSize={customCollapsedSize}
-                useODSButton={true}
+                buttonLabelOpen={buttonLabelOpen}
+                buttonLabelClosed={buttonLabelClosed}
+                buttonVariant="tertiary"
+                blinderClassName={blinderClassNames}
+                className={collapsedCardClassName}
                 onToggle={handleToggle}
             >
-                <div className="mb-24">{children}</div>
+                <div className="mb-14">{children}</div>
             </Collapsible>
         </Card>
     );
