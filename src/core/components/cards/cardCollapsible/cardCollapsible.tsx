@@ -12,30 +12,33 @@ export const CardCollapsible: React.FC<ICollapsibleCardProps> = (props) => {
         collapsedSize,
         children,
         className,
-        buttonLabelOpen,
+        buttonLabelOpened,
         buttonLabelClosed,
+        defaultOpen,
         customCollapsedSize,
         ...otherProps
     } = props;
-    const [isOpen, setIsOpen] = useState(false);
+
+    const [isOpen, setIsOpen] = useState(defaultOpen);
 
     const handleToggle = (toggle: boolean) => {
         setIsOpen(toggle);
     };
 
-    const collapsedCardClassName = classNames('relative px-4 pt-4 transition-all duration-300 md:px-6 md:pt-6');
+    const cardCollapsibleClassName = classNames('relative px-4 pt-4 transition-all duration-300 md:px-6 md:pt-6');
     const blinderClassNames = classNames(
-        'absolute bottom-0 left-0 z-10 flex w-full items-end bg-gradient-to-t from-neutral-0 from-40% to-transparent px-4 transition-all duration-300 md:px-6',
-        { 'h-32': !isOpen },
+        'absolute bottom-0 left-0 z-10 flex h-32 w-full items-end bg-gradient-to-t from-neutral-0 from-40% to-transparent px-4 transition-all duration-300 md:px-6',
+        { 'h-auto': isOpen },
     );
 
     return (
         <Card className={className} {...otherProps}>
             <Collapsible
-                className={collapsedCardClassName}
+                className={cardCollapsibleClassName}
+                defaultOpen={defaultOpen}
                 collapsedSize={collapsedSize}
                 customCollapsedSize={customCollapsedSize}
-                buttonLabelOpen={buttonLabelOpen}
+                buttonLabelOpened={buttonLabelOpened}
                 buttonLabelClosed={buttonLabelClosed}
                 buttonVariant="tertiary"
                 blinderClassName={blinderClassNames}

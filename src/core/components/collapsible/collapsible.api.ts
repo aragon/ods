@@ -23,7 +23,7 @@ export interface ICollapsibleProps extends ComponentProps<'div'> {
     /**
      * The label to display on the trigger button when the collapsible container is open.
      */
-    buttonLabelOpen?: string;
+    buttonLabelOpened?: string;
     /**
      * Override the generic trigger button with an ODS Button component by passing a variant.
      */

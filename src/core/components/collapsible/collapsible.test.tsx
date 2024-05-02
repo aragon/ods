@@ -17,9 +17,9 @@ describe('<Collapsible />', () => {
     });
 
     it('toggles open/close state when button is clicked', () => {
-        const buttonLabelOpen = 'Open';
+        const buttonLabelOpened = 'Open';
         const buttonLabelClosed = 'Closed';
-        render(createTestComponent({ buttonLabelOpen, buttonLabelClosed }));
+        render(createTestComponent({ buttonLabelOpened, buttonLabelClosed }));
 
         const button = screen.getByText('Closed');
         fireEvent.click(button);
@@ -48,7 +48,8 @@ describe('<Collapsible />', () => {
 
     it('renders open when defaultOpen is true', () => {
         const children = 'Default Children';
-        render(createTestComponent({ children, defaultOpen: true }));
+        const defaultOpen = true;
+        render(createTestComponent({ children, defaultOpen }));
         const content = screen.getByText('Default Children');
         expect(content.className).toContain('h-auto');
     });
@@ -65,9 +66,9 @@ describe('<Collapsible />', () => {
     });
 
     it('renders custom button labels', () => {
-        const buttonLabelOpen = 'Collapse';
+        const buttonLabelOpened = 'Collapse';
         const buttonLabelClosed = 'Expand';
-        render(createTestComponent({ buttonLabelOpen, buttonLabelClosed }));
+        render(createTestComponent({ buttonLabelOpened, buttonLabelClosed }));
 
         expect(screen.getByText('Expand')).toBeInTheDocument();
         fireEvent.click(screen.getByText('Expand'));
@@ -75,21 +76,25 @@ describe('<Collapsible />', () => {
     });
 
     it('handles absence of buttonVariant using default button styles', () => {
-        const buttonLabelOpen = 'Collapse';
+        const buttonLabelOpened = 'Collapse';
         const buttonLabelClosed = 'Expand';
-        render(createTestComponent({ buttonLabelOpen, buttonLabelClosed }));
+        render(createTestComponent({ buttonLabelOpened, buttonLabelClosed }));
 
         const button = screen.getByText('Expand');
-        expect(button).toHaveClass('flex items-center text-primary-400');
+        expect(button).toHaveClass(
+            'group flex items-center text-primary-400 hover:text-primary-600 active:text-primary-800',
+        );
         fireEvent.click(button);
-        expect(screen.getByText('Collapse')).toHaveClass('flex items-center text-primary-400');
+        expect(screen.getByText('Collapse')).toHaveClass(
+            'group flex items-center text-primary-400 hover:text-primary-600 active:text-primary-800',
+        );
     });
 
     it('renders buttonVariant correctly', () => {
         const buttonVariant = 'primary';
-        const buttonLabelOpen = 'Collapse';
+        const buttonLabelOpened = 'Collapse';
         const buttonLabelClosed = 'Expand';
-        render(createTestComponent({ buttonVariant, buttonLabelOpen, buttonLabelClosed }));
+        render(createTestComponent({ buttonVariant, buttonLabelOpened, buttonLabelClosed }));
 
         const button = screen.getByRole('button');
         expect(button).toHaveClass('bg-primary-400');

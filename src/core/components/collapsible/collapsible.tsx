@@ -14,7 +14,7 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
     collapsedSize = 'md',
     customCollapsedSize,
     defaultOpen = false,
-    buttonLabelOpen,
+    buttonLabelOpened,
     buttonLabelClosed,
     buttonVariant,
     className,
@@ -54,14 +54,14 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
                         size="md"
                         iconRight={isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN}
                     >
-                        {isOpen ? buttonLabelOpen : buttonLabelClosed}
+                        {isOpen ? buttonLabelOpened : buttonLabelClosed}
                     </Button>
                 ) : (
                     <button
                         onClick={toggle}
                         className="group flex items-center text-primary-400 hover:text-primary-600 active:text-primary-800"
                     >
-                        {isOpen ? buttonLabelOpen : buttonLabelClosed}
+                        {isOpen ? buttonLabelOpened : buttonLabelClosed}
                         <Icon
                             icon={isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN}
                             size="sm"
