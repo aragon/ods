@@ -65,7 +65,7 @@
     "framer-motion": "^11.0.0",
     "react-dropzone": "^14.2.0",
     "react-imask": "^7.6.0",
-    "sanitize-html": "^2.13.0",
+    "@types/sanitize-html": "^2",
     "tiptap-markdown": "^0.8.10"
   },
   "peerDependencies": {

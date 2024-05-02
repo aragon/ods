@@ -3,16 +3,19 @@ import TipTapLink from '@tiptap/extension-link';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import classNames from 'classnames';
-import { useEffect, type ComponentProps } from 'react';
+import { useEffect, type ComponentPropsWithoutRef } from 'react';
 import sanitizeHtml from 'sanitize-html';
 import { Markdown } from 'tiptap-markdown';
 
-export interface IDocumentParserProps extends Omit<ComponentProps<'div'>, 'ref'> {
-    stringDocument: string;
+export interface IDocumentParserProps extends Omit<ComponentPropsWithoutRef<'div'>, 'ref'> {
+    /**
+     * The stringified document of Markdown or HTML to parse into a styled output.
+     */
+    document: string;
 }
 
 export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
-    const { children, className, stringDocument, ...otherProps } = props;
+    const { children, className, document, ...otherProps } = props;
     const parser = useEditor({
         editable: false,
         extensions: [
@@ -33,11 +36,8 @@ export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
 
     useEffect(() => {
         if (parser) {
-            const safeHTML = sanitizeHtml(stringDocument, {
+            const safeHTML = sanitizeHtml(document, {
                 allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'del']),
-                allowedClasses: {
-                    code: ['language-*', 'lang-*'],
-                },
                 allowedAttributes: {
                     ...sanitizeHtml.defaults.allowedAttributes,
                     img: ['src', 'alt'],
@@ -48,9 +48,14 @@ export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
             });
             parser.commands.setContent(safeHTML, true);
         }
-    }, [parser, stringDocument]);
+    }, [parser, document]);
 
-    const proseClassnames = classNames('prose', className);
-
-    return <EditorContent editor={parser} className={proseClassnames} data-testid="doc-parser" {...otherProps} />;
+    return (
+        <EditorContent
+            editor={parser}
+            className={classNames('prose', className)}
+            data-testid="doc-parser"
+            {...otherProps}
+        />
+    );
 };
