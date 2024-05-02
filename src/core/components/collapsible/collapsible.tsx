@@ -57,12 +57,15 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
                         {isOpen ? buttonLabelOpen : buttonLabelClosed}
                     </Button>
                 ) : (
-                    <button onClick={toggle} className="flex items-center text-primary-400">
+                    <button
+                        onClick={toggle}
+                        className="group flex items-center text-primary-400 hover:text-primary-600 active:text-primary-800"
+                    >
                         {isOpen ? buttonLabelOpen : buttonLabelClosed}
                         <Icon
                             icon={isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN}
                             size="sm"
-                            className="ml-2 text-primary-300"
+                            className="ml-2 text-primary-300 group-hover:text-primary-500 group-active:text-primary-700"
                         />
                     </button>
                 )}
