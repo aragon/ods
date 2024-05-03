@@ -16,13 +16,13 @@ export const DaoDataListItemSkeleton: React.FC<IDaoDataListItemSkeletonProps> = 
         >
             <div className="grid gap-y-4 py-1 md:py-1.5">
                 <div className=" flex w-full justify-between space-x-4">
-                    <div className="grid w-full gap-y-2 text-neutral-800 md:w-2/3">
-                        <StateSkeletonBar size="2xl" responsiveSize={{ md: '2xl' }} width="100%" />
+                    <div className="grid w-full gap-y-1.5 text-neutral-800 md:w-2/3">
+                        <StateSkeletonBar size="xl" responsiveSize={{ md: '2xl' }} width="100%" />
                         <StateSkeletonBar size="md" responsiveSize={{ md: 'lg' }} width="50%" />
                     </div>
-                    <StateSkeletonCircular className="shrink-0" size="lg" responsiveSize={{ md: 'xl' }} />
+                    <StateSkeletonCircular className="shrink-0" size="lg" />
                 </div>
-                <div className="flex flex-col gap-y-2">
+                <div className="flex flex-col gap-y-1.5">
                     <StateSkeletonBar size="md" responsiveSize={{ md: 'lg' }} width="100%" />
                     <StateSkeletonBar size="md" responsiveSize={{ md: 'lg' }} width="85%" />
                 </div>
