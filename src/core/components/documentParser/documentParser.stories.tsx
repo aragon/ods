@@ -17,9 +17,8 @@ type Story = StoryObj<typeof DocumentParser>;
  */
 export const Default: Story = {
     args: {
-        stringDocument: 'Hello, world!',
+        document: 'Hello, world!',
     },
-    render: (args) => <DocumentParser {...args} />,
 };
 
 /**
@@ -27,7 +26,7 @@ export const Default: Story = {
  */
 export const WithMarkdown: Story = {
     args: {
-        stringDocument: `# Markdown Heading
+        document: `# Markdown Heading
 
 This is a **markdown** ~~formatted text~~ with \`inline code\`.
 
@@ -41,7 +40,6 @@ const x = 10;
 ![Sample Image](https://via.placeholder.com/150x150)
 `,
     },
-    render: (args) => <DocumentParser {...args} />,
 };
 
 /**
@@ -49,7 +47,7 @@ const x = 10;
  */
 export const WithHTML: Story = {
     args: {
-        stringDocument: `
+        document: `
 <h1>HTML Heading</h1>
 <p>This is a <strong>HTML</strong> <del>formatted text</del> with <code>inline code</code>.</p>
 <ul>
@@ -63,7 +61,6 @@ export const WithHTML: Story = {
 <img src="https://via.placeholder.com/150x150" alt="Sample Image">
 `,
     },
-    render: (args) => <DocumentParser {...args} />,
 };
 
 /**
@@ -71,7 +68,7 @@ export const WithHTML: Story = {
  */
 export const WithMixedContent: Story = {
     args: {
-        stringDocument: `
+        document: `
 # Heading in Markdown
 
 This is a paragraph in **Markdown** with some *emphasis*.
@@ -92,7 +89,6 @@ This is a paragraph in **Markdown** with some *emphasis*.
 <a href="https://example.com" title="Example Link">Example Link</a>
 `,
     },
-    render: (args) => <DocumentParser {...args} />,
 };
 
 export default meta;

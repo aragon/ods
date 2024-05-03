@@ -5,7 +5,7 @@ import { DocumentParser, type IDocumentParserProps } from './documentParser';
 describe('<DocumentParser /> component', () => {
     const createTestComponent = (props?: Partial<IDocumentParserProps>) => {
         const completeProps: IDocumentParserProps = {
-            stringDocument: '<p>Hello World</p>',
+            document: '<p>Hello World</p>',
             ...props,
         };
 
@@ -13,22 +13,22 @@ describe('<DocumentParser /> component', () => {
     };
 
     it('renders without crashing', () => {
-        const stringDocument = '<p>Hello World</p>';
-        render(createTestComponent({ stringDocument }));
+        const document = '<p>Hello World</p>';
+        render(createTestComponent({ document }));
         expect(screen.getByTestId('doc-parser')).toBeInTheDocument();
     });
 
     it('correctly sanitizes and sets content', async () => {
-        const stringDocument = '<script>alert("xss");</script><p>Valid Content</p>';
-        render(createTestComponent({ stringDocument }));
+        const document = '<script>alert("xss");</script><p>Valid Content</p>';
+        render(createTestComponent({ document }));
         const content = await screen.findByText('Valid Content');
         expect(content).toBeInTheDocument();
         expect(screen.queryByText('alert("xss");')).not.toBeInTheDocument();
     });
 
-    it('renders images when included in stringDocument', async () => {
-        const stringDocument = '<img src="test.jpg" alt="test image">';
-        render(createTestComponent({ stringDocument }));
+    it('renders images when included in document prop', async () => {
+        const document = '<img src="test.jpg" alt="test image">';
+        render(createTestComponent({ document }));
         const image = await screen.findByAltText('test image');
         expect(image).toBeInTheDocument();
     });

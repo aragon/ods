@@ -3,11 +3,11 @@ import TipTapLink from '@tiptap/extension-link';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import classNames from 'classnames';
-import { useEffect, type ComponentPropsWithoutRef } from 'react';
+import { type ComponentPropsWithoutRef } from 'react';
 import sanitizeHtml from 'sanitize-html';
 import { Markdown } from 'tiptap-markdown';
 
-export interface IDocumentParserProps extends Omit<ComponentPropsWithoutRef<'div'>, 'ref'> {
+export interface IDocumentParserProps extends ComponentPropsWithoutRef<'div'> {
     /**
      * The stringified document of Markdown or HTML to parse into a styled output.
      */
@@ -16,6 +16,18 @@ export interface IDocumentParserProps extends Omit<ComponentPropsWithoutRef<'div
 
 export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
     const { children, className, document, ...otherProps } = props;
+
+    const safeHTML = sanitizeHtml(document, {
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'del']),
+        allowedAttributes: {
+            ...sanitizeHtml.defaults.allowedAttributes,
+            img: ['src', 'alt'],
+            a: ['href', 'title'],
+        },
+
+        disallowedTagsMode: 'recursiveEscape',
+    });
+
     const parser = useEditor({
         editable: false,
         extensions: [
@@ -32,23 +44,8 @@ export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
                 openOnClick: false,
             }),
         ],
+        content: safeHTML,
     });
-
-    useEffect(() => {
-        if (parser) {
-            const safeHTML = sanitizeHtml(document, {
-                allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'del']),
-                allowedAttributes: {
-                    ...sanitizeHtml.defaults.allowedAttributes,
-                    img: ['src', 'alt'],
-                    a: ['href', 'title'],
-                },
-
-                disallowedTagsMode: 'recursiveEscape',
-            });
-            parser.commands.setContent(safeHTML, true);
-        }
-    }, [parser, document]);
 
     return (
         <EditorContent
