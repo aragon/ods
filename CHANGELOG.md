@@ -16,6 +16,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump `actions/checkout` from 4.1.3 to 4.1.4
 -   Bump `peter-evans/find-comment` from 2.4.0 to 3.1.0
 -   Bump `actions/github-script` from 6.4.1 to 7.0.1
+-   Bump `ejs` from 3.1.9 to 3.1.10
+-   Bump minor and patch dependencies
 
 ## [1.0.25] - 2024-04-24
 
