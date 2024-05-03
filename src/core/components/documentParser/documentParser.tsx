@@ -31,13 +31,7 @@ export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
     const parser = useEditor({
         editable: false,
         extensions: [
-            StarterKit.configure({
-                codeBlock: {
-                    HTMLAttributes: {
-                        class: 'language-html',
-                    },
-                },
-            }),
+            StarterKit,
             Image,
             Markdown,
             TipTapLink.configure({
