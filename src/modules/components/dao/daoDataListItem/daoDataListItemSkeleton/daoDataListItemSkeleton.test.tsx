@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { DataList } from '../../../../../core';
 import { DaoDataListItem, type IDaoDataListItemSkeletonProps } from '../../daoDataListItem';
 
-describe('<DaoDataListItemStructure /> component', () => {
+describe('<DaoDataListItem.Skeleton /> component', () => {
     const createTestComponent = (props?: Partial<IDaoDataListItemSkeletonProps>) => {
         const completeProps: IDaoDataListItemSkeletonProps = { ...props };
 
