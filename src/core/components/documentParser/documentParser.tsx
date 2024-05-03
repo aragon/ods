@@ -16,39 +16,37 @@ export interface IDocumentParserProps extends ComponentPropsWithoutRef<'div'> {
 
 export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
     const { children, className, document, ...otherProps } = props;
+
+    const sanitizeDocument = (document: string): string => {
+        return sanitizeHtml(document, {
+            allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'del']),
+            allowedAttributes: {
+                ...sanitizeHtml.defaults.allowedAttributes,
+                img: ['src', 'alt'],
+                a: ['href', 'title'],
+            },
+            disallowedTagsMode: 'recursiveEscape',
+        });
+    };
+
     const parser = useEditor({
         editable: false,
         extensions: [
-            StarterKit.configure({
-                codeBlock: {
-                    HTMLAttributes: {
-                        class: 'language-html',
-                    },
-                },
-            }),
+            StarterKit,
             Image,
             Markdown,
             TipTapLink.configure({
                 openOnClick: false,
             }),
         ],
+        content: sanitizeDocument(document),
     });
 
     useEffect(() => {
         if (parser) {
-            const safeHTML = sanitizeHtml(document, {
-                allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'del']),
-                allowedAttributes: {
-                    ...sanitizeHtml.defaults.allowedAttributes,
-                    img: ['src', 'alt'],
-                    a: ['href', 'title'],
-                },
-
-                disallowedTagsMode: 'recursiveEscape',
-            });
-            parser.commands.setContent(safeHTML, true);
+            parser.commands.setContent(sanitizeDocument(document), true);
         }
-    }, [parser, document]);
+    }, [document, parser]);
 
     return (
         <EditorContent
