@@ -7,6 +7,7 @@ export * from './cards';
 export * from './checkbox';
 export * from './dataList';
 export * from './dialogs';
+export * from './documentParser';
 export * from './dropdown';
 export * from './heading';
 export * from './icon';
