@@ -53,6 +53,8 @@
     "@radix-ui/react-switch": "^1.0.0",
     "@radix-ui/react-toggle-group": "^1.0.0",
     "@radix-ui/react-tooltip": "^1.0.0",
+    "@tiptap/extension-code-block": "^2.3.0",
+    "@tiptap/extension-image": "^2.3.0",
     "@tiptap/extension-link": "^2.3.0",
     "@tiptap/extension-placeholder": "^2.3.0",
     "@tiptap/pm": "^2.3.0",
@@ -62,7 +64,9 @@
     "classnames": "^2.0.0",
     "framer-motion": "^11.0.0",
     "react-dropzone": "^14.2.0",
-    "react-imask": "^7.6.0"
+    "react-imask": "^7.6.0",
+    "sanitize-html": "^2.13.0",
+    "tiptap-markdown": "^0.8.10"
   },
   "peerDependencies": {
     "@tailwindcss/typography": "^0.5.0",
@@ -99,6 +103,7 @@
     "@testing-library/react": "^15.0.5",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
+    "@types/sanitize-html": "^2.9.0",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
     "autoprefixer": "^10.4.19",
