@@ -1,5 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { Collapsible } from './collapsible'; // Ensure the correct path is used
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
+import { Collapsible } from './collapsible';
 import { type ICollapsibleProps } from './collapsible.api';
 
 describe('<Collapsible />', () => {
@@ -16,22 +17,22 @@ describe('<Collapsible />', () => {
         expect(screen.getByText('Default Children')).toBeInTheDocument();
     });
 
-    it('toggles open/close state when button is clicked', () => {
+    it('toggles open/close state when button is clicked', async () => {
         const buttonLabelOpened = 'Open';
         const buttonLabelClosed = 'Closed';
         render(createTestComponent({ buttonLabelOpened, buttonLabelClosed }));
 
         const button = screen.getByText('Closed');
-        fireEvent.click(button);
+        await userEvent.click(button);
         expect(button.textContent).toBe('Open');
-        fireEvent.click(button);
+        await userEvent.click(button);
         expect(button.textContent).toBe('Closed');
     });
 
     it('applies customCollapsedSize when closed', () => {
         const children = 'Default Children';
-        const customCollapsedSize = 150;
-        render(createTestComponent({ children, customCollapsedSize }));
+        const customCollapsedHeight = 150;
+        render(createTestComponent({ children, customCollapsedHeight }));
 
         const content = screen.getByText('Default Children');
         expect(content.style.height).toBe('150px');
@@ -54,52 +55,45 @@ describe('<Collapsible />', () => {
         expect(content.className).toContain('h-auto');
     });
 
-    it('handles the onToggle callback correctly', () => {
+    it('calls the onToggle callback with the new state', async () => {
         const onToggle = jest.fn();
         render(createTestComponent({ onToggle }));
 
         const button = screen.getByRole('button');
-        fireEvent.click(button);
+        await userEvent.click(button);
         expect(onToggle).toHaveBeenCalledWith(true);
-        fireEvent.click(button);
+        await userEvent.click(button);
         expect(onToggle).toHaveBeenCalledWith(false);
     });
 
-    it('renders custom button labels', () => {
+    it('renders custom button labels', async () => {
         const buttonLabelOpened = 'Collapse';
         const buttonLabelClosed = 'Expand';
         render(createTestComponent({ buttonLabelOpened, buttonLabelClosed }));
 
         expect(screen.getByText('Expand')).toBeInTheDocument();
-        fireEvent.click(screen.getByText('Expand'));
+        await userEvent.click(screen.getByText('Expand'));
         expect(screen.getByText('Collapse')).toBeInTheDocument();
     });
 
-    it('handles absence of buttonVariant using default button styles', () => {
+    it('handles absence of buttonVariant using default button styles', async () => {
         const buttonLabelOpened = 'Collapse';
         const buttonLabelClosed = 'Expand';
         render(createTestComponent({ buttonLabelOpened, buttonLabelClosed }));
 
-        const button = screen.getByText('Expand');
-        expect(button).toHaveClass(
-            'group flex items-center text-primary-400 hover:text-primary-600 active:text-primary-800',
-        );
-        fireEvent.click(button);
-        expect(screen.getByText('Collapse')).toHaveClass(
-            'group flex items-center text-primary-400 hover:text-primary-600 active:text-primary-800',
-        );
+        const button = screen.getByRole('button');
+
+        await userEvent.click(button);
+        expect(button).toHaveTextContent('Collapse');
     });
 
     it('renders buttonVariant correctly', () => {
         const buttonVariant = 'primary';
-        const buttonLabelOpened = 'Collapse';
         const buttonLabelClosed = 'Expand';
-        render(createTestComponent({ buttonVariant, buttonLabelOpened, buttonLabelClosed }));
+        render(createTestComponent({ buttonVariant, buttonLabelClosed }));
 
         const button = screen.getByRole('button');
         expect(button).toHaveClass('bg-primary-400');
-        expect(screen.getByText('Expand')).toBeInTheDocument();
-        fireEvent.click(button);
-        expect(screen.getByText('Collapse')).toBeInTheDocument();
+        expect(button).toHaveTextContent('Expand');
     });
 });

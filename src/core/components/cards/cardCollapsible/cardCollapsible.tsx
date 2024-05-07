@@ -3,11 +3,9 @@ import { useState } from 'react';
 import { Collapsible, type ICollapsibleProps } from '../../collapsible';
 import { Card } from '../card';
 
-export type CollapsedSize = 'sm' | 'md' | 'lg';
+export interface ICardCollapsibleProps extends Omit<ICollapsibleProps, 'buttonVariant' | 'isOpen'> {}
 
-export interface ICollapsibleCardProps extends Omit<ICollapsibleProps, 'buttonVariant'> {}
-
-export const CardCollapsible: React.FC<ICollapsibleCardProps> = (props) => {
+export const CardCollapsible: React.FC<ICardCollapsibleProps> = (props) => {
     const {
         collapsedSize,
         children,
@@ -15,19 +13,24 @@ export const CardCollapsible: React.FC<ICollapsibleCardProps> = (props) => {
         buttonLabelOpened,
         buttonLabelClosed,
         defaultOpen,
-        customCollapsedSize,
+        customCollapsedHeight,
         ...otherProps
     } = props;
 
     const [isOpen, setIsOpen] = useState(defaultOpen);
+    const [isOverflowing, setIsOverflowing] = useState(false);
 
     const handleToggle = (toggle: boolean) => {
         setIsOpen(toggle);
     };
+    const handleOverflow = (overflow: boolean) => {
+        setIsOverflowing(overflow);
+    };
 
-    const cardCollapsibleClassName = classNames('relative px-4 pt-4 transition-all duration-300 md:px-6 md:pt-6');
-    const blinderClassNames = classNames(
-        'absolute bottom-0 left-0 z-10 flex h-32 w-full items-end bg-gradient-to-t from-neutral-0 from-40% to-transparent px-4 transition-all duration-300 md:px-6',
+    const cardCollapsibleClassName = classNames('relative px-4 pt-4 md:px-6 md:pt-6');
+    const innerContentWrapperClassName = classNames({ 'mb-14': isOverflowing }, { 'mb-4 md:mb-6': !isOverflowing });
+    const footerClassName = classNames(
+        'absolute bottom-0 left-0 z-10 flex h-32 w-full items-end bg-gradient-to-t from-neutral-0 from-40% to-transparent px-4 md:px-6',
         { 'h-auto': isOpen },
     );
 
@@ -37,14 +40,15 @@ export const CardCollapsible: React.FC<ICollapsibleCardProps> = (props) => {
                 className={cardCollapsibleClassName}
                 defaultOpen={defaultOpen}
                 collapsedSize={collapsedSize}
-                customCollapsedSize={customCollapsedSize}
+                customCollapsedHeight={customCollapsedHeight}
                 buttonLabelOpened={buttonLabelOpened}
                 buttonLabelClosed={buttonLabelClosed}
                 buttonVariant="tertiary"
-                blinderClassName={blinderClassNames}
+                footerClassName={footerClassName}
                 onToggle={handleToggle}
+                onOverflow={handleOverflow}
             >
-                <div className="mb-14">{children}</div>
+                <div className={innerContentWrapperClassName}>{children}</div>
             </Collapsible>
         </Card>
     );

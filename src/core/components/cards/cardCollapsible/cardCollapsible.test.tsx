@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { CardCollapsible, type ICollapsibleCardProps } from './cardCollapsible'; // Ensure the correct path is used
+import { CardCollapsible, type ICardCollapsibleProps } from './cardCollapsible';
 
 describe('<CardCollapsible />', () => {
-    const createTestComponent = (props?: Partial<ICollapsibleCardProps>) => {
+    const createTestComponent = (props?: Partial<ICardCollapsibleProps>) => {
         const completeProps = { ...props };
 
         return <CardCollapsible {...completeProps} />;
@@ -47,17 +47,17 @@ describe('<CardCollapsible />', () => {
         render(createTestComponent({ children }));
         // eslint-disable-next-line testing-library/no-node-access
         const content = screen.getByText('Content of the card').parentNode?.parentNode as HTMLElement;
-        screen.debug(content);
+
         expect(content.className).toContain('relative px-4 pt-4 transition-all duration-300 md:px-6 md:pt-6');
     });
 
     it('handles custom collapsed size', () => {
         const children = 'Content of the card';
-        const customCollapsedSize = 200;
-        render(createTestComponent({ children, customCollapsedSize }));
+        const customCollapsedHeight = 200;
+        render(createTestComponent({ children, customCollapsedHeight }));
         // eslint-disable-next-line testing-library/no-node-access
         const content = screen.getByText('Content of the card').parentNode as HTMLElement;
 
-        expect(content.style.height).toBe(`${customCollapsedSize}px`);
+        expect(content.style.height).toBe(`${customCollapsedHeight}px`);
     });
 });

@@ -1,1 +1,1 @@
-export { CardCollapsible } from './cardCollapsible';
+export { CardCollapsible, type ICardCollapsibleProps } from './cardCollapsible';

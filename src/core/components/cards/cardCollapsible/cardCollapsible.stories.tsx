@@ -22,7 +22,7 @@ type Story = StoryObj<typeof CardCollapsible>;
  * Default usage example of the CardCollapsible component.
  */
 export const Default: Story = {
-    args: { buttonLabelClosed: 'Read more', buttonLabelOpen: 'Read less' },
+    args: { buttonLabelClosed: 'Read more', buttonLabelOpened: 'Read less' },
     render: (args) => (
         <CardCollapsible {...args}>
             <p>
@@ -64,15 +64,11 @@ export const Default: Story = {
 export const WithImage: Story = {
     args: {
         buttonLabelClosed: 'See more',
-        buttonLabelOpen: 'See less',
+        buttonLabelOpened: 'See less',
     },
     render: (args) => (
         <CardCollapsible {...args}>
-            <img
-                src="https://source.unsplash.com/800x600/?landscape"
-                alt="A beautiful landscape"
-                className="h-auto w-full"
-            />
+            <img src="https://source.unsplash.com/800x600/?landscape" alt="A beautiful landscape" />
         </CardCollapsible>
     ),
 };

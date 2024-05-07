@@ -1,5 +1,5 @@
 import { type ComponentProps } from 'react';
-import { ButtonVariant } from '../button';
+import { type ButtonVariant } from '../button';
 
 export type CollapsedSize = 'sm' | 'md' | 'lg';
 
@@ -9,9 +9,13 @@ export interface ICollapsibleProps extends ComponentProps<'div'> {
      */
     collapsedSize?: CollapsedSize;
     /**
-     * Custom size for the collapsible container that will override collapsedSize prop. See 'Spacing' docs for valid input values.
+     * Custom pixel height for the collapsible container that will override collapsedSize prop if defined.
      */
-    customCollapsedSize?: number;
+    customCollapsedHeight?: number;
+    /**
+     * Controlled state of the collapsible container. @default false
+     */
+    isOpen?: boolean;
     /**
      * Default state of the collapsible container. @default false
      */
@@ -29,11 +33,15 @@ export interface ICollapsibleProps extends ComponentProps<'div'> {
      */
     buttonVariant?: ButtonVariant;
     /**
-     * Additional class names to apply to the blinder container (area that wraps the trigger).
+     * Additional class names to apply to the footer (area that wraps the trigger below content).
      */
-    blinderClassName?: string;
+    footerClassName?: string;
     /**
      * Callback function that is called when the collapsible container is toggled.
      */
     onToggle?: (isOpen: boolean) => void;
+    /**
+     * Callback function that is called when the collapsible content overflows the container.
+     */
+    onOverflow?: (isOverflowing: boolean) => void;
 }
