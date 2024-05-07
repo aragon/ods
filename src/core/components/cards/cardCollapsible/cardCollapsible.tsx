@@ -27,17 +27,17 @@ export const CardCollapsible: React.FC<ICardCollapsibleProps> = (props) => {
         setIsOverflowing(overflow);
     };
 
-    const cardCollapsibleClassName = classNames('relative px-4 pt-4 md:px-6 md:pt-6');
-    const innerContentWrapperClassName = classNames({ 'mb-14': isOverflowing }, { 'mb-4 md:mb-6': !isOverflowing });
+    const collapsibleClassName = classNames('relative p-4 md:p-6');
+    const innerContentWrapperClassName = classNames({ 'mb-14': isOverflowing });
     const footerClassName = classNames(
-        'absolute bottom-0 left-0 z-10 flex h-32 w-full items-end bg-gradient-to-t from-neutral-0 from-40% to-transparent px-4 md:px-6',
-        { 'h-auto': isOpen },
+        'absolute bottom-0 left-0 z-10 flex h-28 w-full items-end rounded-xl bg-gradient-to-t from-neutral-0 from-[62%] to-transparent px-4 pb-4 md:h-32 md:px-6 md:pb-6',
+        { 'h-auto md:h-auto': isOpen },
     );
 
     return (
         <Card className={className} {...otherProps}>
             <Collapsible
-                className={cardCollapsibleClassName}
+                className={collapsibleClassName}
                 defaultOpen={defaultOpen}
                 collapsedSize={collapsedSize}
                 customCollapsedHeight={customCollapsedHeight}

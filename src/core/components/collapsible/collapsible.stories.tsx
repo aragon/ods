@@ -110,7 +110,7 @@ export const Controlled: Story = {
         };
 
         return (
-            <Collapsible {...args} isOpen={isOpen} onToggle={handleToggle} footerClassName="p-4">
+            <Collapsible {...args} isOpen={isOpen} onToggle={handleToggle}>
                 <p>
                     This is some example content within the Collapsible component. When expanded, the content will be
                     fully visible.

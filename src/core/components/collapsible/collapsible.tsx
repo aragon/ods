@@ -59,22 +59,20 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
             observer.observe(content);
         }
 
-        window.addEventListener('resize', checkOverflow);
-
         checkOverflow();
 
         return () => {
             observer.disconnect();
-            window.removeEventListener('resize', checkOverflow);
         };
     }, [maxCollapsedHeight, onOverflow]);
 
     const getMaxHeight = !isOpen ? `${maxCollapsedHeight}px` : `${maxHeight}px`;
 
     const contentClassNames = classNames(
-        'overflow-hidden transition-all duration-300', // base
-        { 'mb-4 md:mb-6': isOverflowing }, // overflowing
+        'overflow-hidden transition-all', // base
     );
+
+    const baseFooterClassName = classNames({ 'mt-4': isOverflowing }, footerClassName);
 
     return (
         <div className={className} {...otherProps}>
@@ -82,7 +80,7 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
                 {children}
             </div>
             {isOverflowing && (
-                <div className={footerClassName}>
+                <div className={baseFooterClassName}>
                     {buttonVariant ? (
                         <Button
                             onClick={toggle}
