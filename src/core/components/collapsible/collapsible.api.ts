@@ -29,19 +29,15 @@ export interface ICollapsibleProps extends ComponentProps<'div'> {
      */
     buttonLabelOpened?: string;
     /**
+     * Show overlay when the collapsible container is open.
+     */
+    showOverlay?: boolean;
+    /**
      * Override the generic trigger button with an ODS Button component by passing a variant.
      */
     buttonVariant?: ButtonVariant;
     /**
-     * Additional class names to apply to the footer (area that wraps the trigger below content).
-     */
-    footerClassName?: string;
-    /**
      * Callback function that is called when the collapsible container is toggled.
      */
     onToggle?: (isOpen: boolean) => void;
-    /**
-     * Callback function that is called when the collapsible content overflows the container.
-     */
-    onOverflow?: (isOverflowing: boolean) => void;
 }

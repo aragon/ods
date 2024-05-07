@@ -81,6 +81,7 @@ export const WithImage: Story = {
     args: {
         buttonLabelClosed: 'See more',
         buttonLabelOpened: 'See less',
+        defaultOpen: true,
     },
     render: (args) => (
         <Collapsible {...args}>
@@ -103,7 +104,7 @@ export const Controlled: Story = {
         collapsedSize: 'sm',
     },
     render: (args) => {
-        const [isOpen, setIsOpen] = useState(true);
+        const [isOpen, setIsOpen] = useState(false);
 
         const handleToggle = (toggle: boolean) => {
             setIsOpen(toggle);

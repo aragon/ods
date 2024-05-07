@@ -18,10 +18,9 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
     buttonLabelOpened,
     buttonLabelClosed,
     buttonVariant,
+    showOverlay = false,
     className,
-    footerClassName,
     onToggle,
-    onOverflow,
     children,
     ...otherProps
 }) => {
@@ -50,7 +49,6 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
                 const isContentOverflowing = contentHeight > maxCollapsedHeight;
                 setIsOverflowing(isContentOverflowing);
                 setMaxHeight(isContentOverflowing ? contentHeight : maxCollapsedHeight);
-                onOverflow?.(isContentOverflowing);
             }
         };
 
@@ -64,23 +62,31 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
         return () => {
             observer.disconnect();
         };
-    }, [maxCollapsedHeight, onOverflow]);
+    }, [maxCollapsedHeight]);
 
     const getMaxHeight = !isOpen ? `${maxCollapsedHeight}px` : `${maxHeight}px`;
 
+    const outerClassName = classNames('relative', className);
     const contentClassNames = classNames(
         'overflow-hidden transition-all', // base
     );
 
-    const baseFooterClassName = classNames({ 'mt-4': isOverflowing }, footerClassName);
+    const overlayClassName = classNames(
+        'left-0 z-10 flex w-full items-end bg-gradient-to-t from-neutral-0 from-40% to-transparent',
+        { 'absolute bottom-0': !isOpen },
+        { 'h-28 md:h-32': !isOpen },
+        { 'h-auto md:h-auto mt-4': isOpen },
+    );
+
+    const footerClassName = classNames({ 'mt-4': isOverflowing });
 
     return (
-        <div className={className} {...otherProps}>
+        <div className={outerClassName} {...otherProps}>
             <div ref={contentRef} style={{ maxHeight: getMaxHeight }} className={contentClassNames}>
                 {children}
             </div>
             {isOverflowing && (
-                <div className={baseFooterClassName}>
+                <div className={showOverlay ? overlayClassName : footerClassName}>
                     {buttonVariant ? (
                         <Button
                             onClick={toggle}
