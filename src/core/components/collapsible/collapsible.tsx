@@ -17,7 +17,6 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
     defaultOpen = false,
     buttonLabelOpened,
     buttonLabelClosed,
-    buttonVariant,
     showOverlay = false,
     className,
     onToggle,
@@ -65,33 +64,31 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
         };
     }, [maxCollapsedHeight]);
 
-    const getMaxHeight = !isOpen ? `${maxCollapsedHeight}px` : `${maxHeight}px`;
+    const parsedMaxHeight = !isOpen ? `${maxCollapsedHeight}px` : `${maxHeight}px`;
 
     const outerClassName = classNames('relative', { 'bg-neutral-0': showOverlay }, className);
     const contentClassNames = classNames(
         'overflow-hidden transition-all', // base
     );
 
-    const overlayClassName = classNames(
-        'left-0 z-10 flex w-full items-end bg-gradient-to-t from-neutral-0 from-40% to-transparent',
-        { 'absolute bottom-0': !isOpen },
-        { 'h-28 md:h-32': !isOpen },
-        { 'h-auto md:h-auto mt-4': isOpen },
+    const footerClassName = classNames(
+        { 'left-0 z-10 flex w-full items-end bg-gradient-to-t from-neutral-0 from-40% to-transparent': showOverlay },
+        { 'absolute bottom-0 h-28 md:h-32': !isOpen && showOverlay },
+        { 'h-auto md:h-auto mt-4': isOpen && showOverlay },
+        { 'mt-4': isOverflowing && !showOverlay },
     );
-
-    const footerClassName = classNames({ 'mt-4': isOverflowing });
 
     return (
         <div className={outerClassName} {...otherProps}>
-            <div ref={contentRef} style={{ maxHeight: getMaxHeight }} className={contentClassNames}>
+            <div ref={contentRef} style={{ maxHeight: parsedMaxHeight }} className={contentClassNames}>
                 {children}
             </div>
             {isOverflowing && (
-                <div className={showOverlay ? overlayClassName : footerClassName}>
-                    {buttonVariant ? (
+                <div className={footerClassName}>
+                    {showOverlay ? (
                         <Button
                             onClick={toggle}
-                            variant={buttonVariant}
+                            variant="tertiary"
                             size="md"
                             iconRight={isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN}
                         >

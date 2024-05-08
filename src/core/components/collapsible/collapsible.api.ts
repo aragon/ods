@@ -1,5 +1,4 @@
 import { type ComponentProps } from 'react';
-import { type ButtonVariant } from '../button';
 
 export type CollapsedSize = 'sm' | 'md' | 'lg';
 
@@ -29,11 +28,7 @@ export interface ICollapsibleProps extends ComponentProps<'div'> {
      */
     buttonLabelOpened?: string;
     /**
-     * Override the generic trigger button with an ODS Button component by passing a variant.
-     */
-    buttonVariant?: ButtonVariant;
-    /**
-     * Show overlay when the collapsible container is open.
+     * Show overlay when the collapsible container is open. @default false
      */
     showOverlay?: boolean;
     /**

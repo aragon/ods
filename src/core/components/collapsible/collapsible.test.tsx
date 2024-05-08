@@ -126,21 +126,10 @@ describe('<Collapsible /> component', () => {
         expect(button).toHaveTextContent('Collapse');
     });
 
-    it('renders buttonVariant correctly', () => {
-        const buttonVariant = 'primary';
-        const buttonLabelClosed = 'Expand';
-        render(createTestComponent({ buttonVariant, buttonLabelClosed }));
-
-        const button = screen.getByRole('button');
-        expect(button).toHaveClass('bg-primary-400');
-        expect(button).toHaveTextContent('Expand');
-    });
-
-    it('shows overlay correctly instead of base footer when enabled', () => {
+    it('renders an overlay with proper button when showOverlay prop is set to true', () => {
         const showOverlay = true;
         render(createTestComponent({ showOverlay }));
         const button = screen.getByRole('button');
-        // eslint-disable-next-line testing-library/no-node-access
-        expect(button.parentElement).not.toHaveClass('mt-4');
+        expect(button).toHaveClass('bg-neutral-0');
     });
 });
