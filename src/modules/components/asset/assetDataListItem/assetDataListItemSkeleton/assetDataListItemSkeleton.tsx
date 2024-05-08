@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import type React from 'react';
 import { DataList, type IDataListItemProps } from '../../../../../core';
 import { StateSkeletonBar } from '../../../../../core/components/states/stateSkeletonBar';
@@ -8,17 +9,25 @@ export interface IAssetDataListItemSkeletonProps extends IDataListItemProps {}
 export const AssetDataListItemSkeleton: React.FC<IAssetDataListItemSkeletonProps> = (props) => {
     const { className, ...otherProps } = props;
     return (
-        <DataList.Item {...otherProps}>
-            <div className="flex w-full gap-x-3 py-0 md:py-1.5">
-                <StateSkeletonCircular responsiveSize={{ md: 'md' }} />
-                <div className=" flex w-full justify-between">
-                    <div className="flex flex-col gap-y-0.5">
-                        <StateSkeletonBar size="md" width="w-1/2" />
-                        <StateSkeletonBar size="md" width="w-1/4" />
+        <DataList.Item
+            tabIndex={0}
+            aria-busy="true"
+            aria-label="loading"
+            className={classNames('flex flex-col gap-y-4 bg-neutral-0 py-4 md:py-5', className)}
+            {...otherProps}
+        >
+            <div className="flex w-full items-center gap-x-3 py-0.5">
+                <StateSkeletonCircular className="shrink-0" responsiveSize={{ md: 'lg' }} />
+                <div className="flex w-full justify-between">
+                    <div className="flex w-full flex-col gap-y-0.5">
+                        <StateSkeletonBar className="shrink-0" responsiveSize={{ md: 'lg' }} width="100%" />
+                        <div className="flex size-full items-center justify-start md:w-1/2">
+                            <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="50%" />
+                        </div>
                     </div>
-                    <div className="flex flex-col items-end justify-center gap-y-0.5">
-                        <StateSkeletonBar size="md" width="w-1/6" />
-                        <StateSkeletonBar size="md" width="w-1/8" />
+                    <div className="flex w-full flex-col items-end gap-y-0.5">
+                        <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="40%" />
+                        <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="33%" />
                     </div>
                 </div>
             </div>
