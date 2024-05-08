@@ -29,13 +29,13 @@ export interface ICollapsibleProps extends ComponentProps<'div'> {
      */
     buttonLabelOpened?: string;
     /**
-     * Show overlay when the collapsible container is open.
-     */
-    showOverlay?: boolean;
-    /**
      * Override the generic trigger button with an ODS Button component by passing a variant.
      */
     buttonVariant?: ButtonVariant;
+    /**
+     * Show overlay when the collapsible container is open.
+     */
+    showOverlay?: boolean;
     /**
      * Callback function that is called when the collapsible container is toggled.
      */

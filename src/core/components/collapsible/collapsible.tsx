@@ -47,6 +47,7 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
             if (content) {
                 const contentHeight = content.scrollHeight;
                 const isContentOverflowing = contentHeight > maxCollapsedHeight;
+
                 setIsOverflowing(isContentOverflowing);
                 setMaxHeight(isContentOverflowing ? contentHeight : maxCollapsedHeight);
             }
@@ -66,7 +67,7 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
 
     const getMaxHeight = !isOpen ? `${maxCollapsedHeight}px` : `${maxHeight}px`;
 
-    const outerClassName = classNames('relative', className);
+    const outerClassName = classNames('relative', { 'bg-neutral-0': showOverlay }, className);
     const contentClassNames = classNames(
         'overflow-hidden transition-all', // base
     );

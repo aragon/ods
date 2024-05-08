@@ -3,12 +3,35 @@ import { userEvent } from '@testing-library/user-event';
 import { Collapsible } from './collapsible';
 import { type ICollapsibleProps } from './collapsible.api';
 
-describe('<Collapsible />', () => {
+describe('<Collapsible /> component', () => {
     const createTestComponent = (props?: Partial<ICollapsibleProps>) => {
         const completeProps = { ...props };
 
         return <Collapsible {...completeProps} />;
     };
+
+    let originalResizeObserver: typeof global.ResizeObserver;
+
+    beforeAll(() => {
+        originalResizeObserver = global.ResizeObserver;
+        global.ResizeObserver = class {
+            observe() {}
+            unobserve() {}
+            disconnect() {}
+        };
+    });
+
+    afterAll(() => {
+        global.ResizeObserver = originalResizeObserver;
+    });
+
+    beforeEach(() => {
+        jest.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(500);
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
 
     it('renders without crashing', () => {
         const children = 'Default Children';
@@ -17,9 +40,40 @@ describe('<Collapsible />', () => {
         expect(screen.getByText('Default Children')).toBeInTheDocument();
     });
 
-    it('toggles open/close state when button is clicked', async () => {
+    it('uses default collapsedSize on collapsible content', () => {
+        const children = 'Default Children';
+        render(createTestComponent({ children }));
+
+        const content = screen.getByText('Default Children');
+        expect(content.style.maxHeight).toBe('256px');
+    });
+
+    it('applies customCollapsedHeight correctly', () => {
+        const children = 'Default Children';
+        const customCollapsedHeight = 150;
+        render(createTestComponent({ children, customCollapsedHeight }));
+
+        const content = screen.getByText('Default Children');
+        expect(content.style.maxHeight).toBe('150px');
+    });
+
+    it('handles non-overflowing content correctly', () => {
+        const children = 'Default Children';
+        const customCollapsedHeight = 300;
         const buttonLabelOpened = 'Open';
         const buttonLabelClosed = 'Closed';
+        jest.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(200);
+        render(createTestComponent({ children, customCollapsedHeight, buttonLabelClosed, buttonLabelOpened }));
+        const content = screen.getByText('Default Children');
+        expect(content.style.maxHeight).toBe('300px');
+        expect(screen.queryByText(buttonLabelOpened)).not.toBeInTheDocument();
+        expect(screen.queryByText(buttonLabelClosed)).not.toBeInTheDocument();
+    });
+
+    it('toggles opened/closed state when button is clicked', async () => {
+        const buttonLabelOpened = 'Open';
+        const buttonLabelClosed = 'Closed';
+
         render(createTestComponent({ buttonLabelOpened, buttonLabelClosed }));
 
         const button = screen.getByText('Closed');
@@ -29,30 +83,15 @@ describe('<Collapsible />', () => {
         expect(button.textContent).toBe('Closed');
     });
 
-    it('applies customCollapsedSize when closed', () => {
-        const children = 'Default Children';
-        const customCollapsedHeight = 150;
-        render(createTestComponent({ children, customCollapsedHeight }));
-
-        const content = screen.getByText('Default Children');
-        expect(content.style.height).toBe('150px');
-    });
-
-    it('uses default collapsedSize when closed', () => {
-        const children = 'Default Children';
-        const collapsedSize = 'sm';
-        render(createTestComponent({ children, collapsedSize }));
-
-        const content = screen.getByText('Default Children');
-        expect(content.className).toContain('h-32');
-    });
-
     it('renders open when defaultOpen is true', () => {
         const children = 'Default Children';
         const defaultOpen = true;
-        render(createTestComponent({ children, defaultOpen }));
-        const content = screen.getByText('Default Children');
-        expect(content.className).toContain('h-auto');
+        const buttonLabelOpened = 'Open';
+        const buttonLabelClosed = 'Closed';
+        render(createTestComponent({ children, buttonLabelOpened, buttonLabelClosed, defaultOpen }));
+        const button = screen.getByRole('button');
+        expect(button.textContent).toBe(buttonLabelOpened);
+        expect(button.textContent).not.toBe(buttonLabelClosed);
     });
 
     it('calls the onToggle callback with the new state', async () => {
@@ -95,5 +134,13 @@ describe('<Collapsible />', () => {
         const button = screen.getByRole('button');
         expect(button).toHaveClass('bg-primary-400');
         expect(button).toHaveTextContent('Expand');
+    });
+
+    it('shows overlay correctly instead of base footer when enabled', () => {
+        const showOverlay = true;
+        render(createTestComponent({ showOverlay }));
+        const button = screen.getByRole('button');
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(button.parentElement).not.toHaveClass('mt-4');
     });
 });
