@@ -23,9 +23,7 @@ export const Default: Story = {
     args: {},
     render: () => (
         <DataList.Root entityLabel="Daos">
-            <DataList.Container>
-                <DaoDataListItem.Skeleton />
-            </DataList.Container>
+            <DataList.Container SkeletonElement={DaoDataListItem.Skeleton} />
         </DataList.Root>
     ),
 };
