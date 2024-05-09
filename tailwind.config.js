@@ -246,46 +246,46 @@ module.exports = {
                         h1: {
                             marginTop: theme('spacing.2'),
                             marginBottom: theme('spacing.10'),
-                            fontSize: theme('fontSize.4xl'),
-                            '@screen md': {
-                                fontSize: theme('fontSize.5xl'),
-                            },
-                        },
-                        h2: {
-                            marginTop: theme('spacing.2'),
-                            marginBottom: theme('spacing.8'),
-                            fontSize: theme('fontSize.3xl'),
-                            '@screen md': {
-                                fontSize: theme('fontSize.4xl'),
-                            },
-                        },
-                        h3: {
-                            marginTop: theme('spacing.2'),
-                            marginBottom: theme('spacing.6'),
                             fontSize: theme('fontSize.2xl'),
                             '@screen md': {
                                 fontSize: theme('fontSize.3xl'),
                             },
                         },
-                        h4: {
-                            marginBottom: theme('spacing.4'),
+                        h2: {
+                            marginTop: theme('spacing.2'),
+                            marginBottom: theme('spacing.8'),
                             fontSize: theme('fontSize.xl'),
                             '@screen md': {
                                 fontSize: theme('fontSize.2xl'),
                             },
                         },
-                        h5: {
-                            marginBottom: theme('spacing.2'),
+                        h3: {
+                            marginTop: theme('spacing.2'),
+                            marginBottom: theme('spacing.6'),
                             fontSize: theme('fontSize.lg'),
                             '@screen md': {
                                 fontSize: theme('fontSize.xl'),
                             },
                         },
-                        h6: {
-                            marginBottom: theme('spacing.1'),
+                        h4: {
+                            marginBottom: theme('spacing.4'),
                             fontSize: theme('fontSize.base'),
                             '@screen md': {
                                 fontSize: theme('fontSize.lg'),
+                            },
+                        },
+                        h5: {
+                            marginBottom: theme('spacing.2'),
+                            fontSize: theme('fontSize.sm'),
+                            '@screen md': {
+                                fontSize: theme('fontSize.base'),
+                            },
+                        },
+                        h6: {
+                            marginBottom: theme('spacing.1'),
+                            fontSize: theme('fontSize.xs'),
+                            '@screen md': {
+                                fontSize: theme('fontSize.sm'),
                             },
                         },
                         p: {
@@ -334,7 +334,6 @@ module.exports = {
                             backgroundColor: theme('colors.neutral.900'),
                             color: theme('colors.neutral.50'),
                             padding: theme('spacing.1'),
-                            fontWeight: '400',
                             'border-radius': '0.25rem',
                         },
                         'code::before': {
