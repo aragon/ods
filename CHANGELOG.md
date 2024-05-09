@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Implement `AssetDataListItem.Skeleton` and `DaoDataListItem.Skeleton` module components
+
 ## [1.0.27] - 2024-05-08
 
 ### Added
