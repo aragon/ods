@@ -13,19 +13,19 @@ export const AssetDataListItemSkeleton: React.FC<IAssetDataListItemSkeletonProps
             tabIndex={0}
             aria-busy="true"
             aria-label="loading"
-            className={classNames('flex flex-col gap-y-4 bg-neutral-0 py-4 md:py-5', className)}
+            className={classNames('flex flex-col gap-y-4 bg-neutral-0 py-3 md:py-3.5', className)}
             {...otherProps}
         >
-            <div className="flex w-full items-center gap-x-3 py-0.5">
+            <div className="flex w-full items-center gap-x-3 py-0.5 md:py-1.5">
                 <StateSkeletonCircular className="shrink-0" responsiveSize={{ md: 'lg' }} />
                 <div className="flex w-full justify-between">
-                    <div className="flex w-full flex-col gap-y-0.5">
+                    <div className="flex w-full flex-col gap-y-0.5 md:gap-y-1">
                         <StateSkeletonBar className="shrink-0" responsiveSize={{ md: 'lg' }} width="100%" />
                         <div className="flex size-full items-center justify-start md:w-1/2">
                             <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="50%" />
                         </div>
                     </div>
-                    <div className="flex w-full flex-col items-end gap-y-0.5">
+                    <div className="flex w-full flex-col items-end gap-y-0.5 md:gap-y-1">
                         <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="40%" />
                         <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="33%" />
                     </div>
