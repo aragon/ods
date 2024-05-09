@@ -22,7 +22,7 @@ type Story = StoryObj<typeof DaoDataListItem.Skeleton>;
 export const Default: Story = {
     args: {},
     render: () => (
-        <DataList.Root entityLabel="Daos">
+        <DataList.Root entityLabel="DAO" state="initialLoading" pageSize={1}>
             <DataList.Container SkeletonElement={DaoDataListItem.Skeleton} />
         </DataList.Root>
     ),
