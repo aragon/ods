@@ -9,14 +9,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `Accordion` core component
--   Implement `DaoDataListItem.Skeleton` module component
+-   Implement `AssetDataListItem.Skeleton` and `DaoDataListItem.Skeleton` module components
+
+## [1.0.27] - 2024-05-08
+
+### Added
+
+-   Implement `Collapsible`, and `CardCollapsible` core components
+
+## [1.0.26] - 2024-05-06
+
+### Added
+
+-   Implement `DocumentParser` and `Accordion` core component
 
 ### Changed
 
 -   Bump `actions/checkout` from 4.1.3 to 4.1.4
 -   Bump `peter-evans/find-comment` from 2.4.0 to 3.1.0
 -   Bump `actions/github-script` from 6.4.1 to 7.0.1
+-   Bump `ejs` from 3.1.9 to 3.1.10
 -   Bump minor and patch dependencies
 
 ## [1.0.25] - 2024-04-24
