@@ -20,8 +20,8 @@ export const MemberDataListItemSkeleton: React.FC<IMemberDataListItemSkeletonPro
                 <StateSkeletonBar size="lg" responsiveSize={{ md: 'xl' }} width="100%" />
 
                 <div className="flex w-full flex-col gap-y-2 md:gap-y-2.5">
-                    <StateSkeletonBar size="md" width="70%" />
-                    <StateSkeletonBar size="md" width="80%" />
+                    <StateSkeletonBar width="70%" />
+                    <StateSkeletonBar width="80%" />
                 </div>
             </div>
         </DataList.Item>
