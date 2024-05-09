@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `AssetDataListItem.Skeleton` and `DaoDataListItem.Skeleton` module components
 
+### Fixed
+
+-   Prose styling to match design system, better handling for `<code>` elements
+
 ## [1.0.27] - 2024-05-08
 
 ### Added
