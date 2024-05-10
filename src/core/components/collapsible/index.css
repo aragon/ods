@@ -1,4 +1,4 @@
 :root {
   /* Z-index property of the collapsible overlay */
-  --ods-dialog-overlay-z-index: auto;
+  --ods-collapsible-overlay-z-index: auto;
 }
