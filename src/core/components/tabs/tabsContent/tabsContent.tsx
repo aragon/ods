@@ -3,6 +3,5 @@ import { TabsContent as RadixTabsContent, type TabsContentProps as RadixTabsCont
 export interface ITabsContentProps extends RadixTabsContentProps {}
 
 export const TabsContent: React.FC<ITabsContentProps> = (props) => {
-    const { children, ...otherProps } = props;
-    return <RadixTabsContent {...otherProps}>{children}</RadixTabsContent>;
+    return <RadixTabsContent {...props} />;
 };

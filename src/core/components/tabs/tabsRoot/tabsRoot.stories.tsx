@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ITabsRootProps, Tabs } from '..';
 import { Card } from '../../cards';
+import { IconType } from '../../icon';
 
 /**
- * Accordion.Container can contain multiple Accordion.Items which comprises an Accordion.Header and its collapsible Accordion.Content.
+ * Tabs.Root can contain multiple Tabs.Triggers in the Tabs.List these tabs will coordinate with what to show in each Tabs.Content by matching their value prop.
  */
 const meta: Meta<typeof Tabs.Root> = {
     title: 'Core/Components/Tabs/Tabs.Root',
@@ -17,24 +18,48 @@ const meta: Meta<typeof Tabs.Root> = {
     },
 };
 
+const content = [
+    {
+        value: '1',
+        label: 'Tab 1',
+        content: 'Item 1 Content',
+    },
+    {
+        value: '2',
+        label: 'Tab 2',
+        content: 'Item 2 Content',
+    },
+    {
+        value: '3',
+        label: 'Tab 3',
+        content: 'Item 3 Content',
+    },
+];
+
 type Story = StoryObj<typeof Tabs.Root>;
 
 const reusableStoryComponent = (props: ITabsRootProps) => {
     return (
         <Tabs.Root {...props}>
             <Tabs.List>
-                <Tabs.Trigger value="1">Tab 1</Tabs.Trigger>
-                <Tabs.Trigger value="2">Tab 2</Tabs.Trigger>
-                <Tabs.Trigger value="3">Tab 3</Tabs.Trigger>
+                <Tabs.Trigger label="Tab 1" value="1" />
+                <Tabs.Trigger label="Tab 2" value="2" />
+                <Tabs.Trigger label="Tab 3" value="3" iconRight={IconType.BLOCKCHAIN_BLOCK} />
             </Tabs.List>
             <Tabs.Content value="1">
-                <Card className="p-4">Content 1</Card>
+                <div className="flex h-24 w-96 items-center justify-center border border-dashed border-info-300 bg-info-100">
+                    Item 1 Content
+                </div>
             </Tabs.Content>
             <Tabs.Content value="2">
-                <Card className="p-4">Content 2</Card>
+                <div className="flex h-24 w-96 items-center justify-center border border-dashed border-info-300 bg-info-100">
+                    Item 2 Content
+                </div>
             </Tabs.Content>
             <Tabs.Content value="3">
-                <Card className="p-4">Content 3</Card>
+                <div className="flex h-24 w-96 items-center justify-center border border-dashed border-info-300 bg-info-100">
+                    Item 3 Content
+                </div>
             </Tabs.Content>
         </Tabs.Root>
     );
@@ -46,6 +71,16 @@ const reusableStoryComponent = (props: ITabsRootProps) => {
 export const Default: Story = {
     args: {},
     render: (args) => reusableStoryComponent(args),
+};
+
+export const Underlined: Story = {
+    args: { isUnderlined: true },
+    render: (args) => reusableStoryComponent(args),
+};
+
+export const InsideCard: Story = {
+    args: { defaultValue: '2' },
+    render: (args) => <Card className="p-6">{reusableStoryComponent(args)}</Card>,
 };
 
 export default meta;
