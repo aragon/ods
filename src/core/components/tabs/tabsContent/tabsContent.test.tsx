@@ -1,14 +1,24 @@
-import { render } from '@testing-library/react';
-import { Props } from './tabsContent';
+import { render, screen } from '@testing-library/react';
+import { Tabs, type ITabsContentProps } from '../../tabs';
 
-describe('tabsContent', () => {
-    const defaultProps: Props = {};
+describe('<Tabs.Content /> component', () => {
+    const createTestComponent = (props?: Partial<ITabsContentProps>) => {
+        const completeProps: ITabsContentProps = {
+            value: '1',
+            ...props,
+        };
+        return (
+            <Tabs.Root>
+                <Tabs.Content {...completeProps} />
+            </Tabs.Root>
+        );
+    };
 
-    it('should render', () => {
-        const props = { ...defaultProps };
-        const { asFragment, queryByText } = render(<tabsContent {...props} />);
+    it('should render content without crashing', () => {
+        const children = 'Item Content';
+        const forceMount = true;
+        render(createTestComponent({ children, forceMount }));
 
-        expect(asFragment()).toMatchSnapshot();
-        expect(queryByText('tabsContent')).toBeTruthy();
+        expect(screen.getByText(children)).toBeInTheDocument();
     });
 });

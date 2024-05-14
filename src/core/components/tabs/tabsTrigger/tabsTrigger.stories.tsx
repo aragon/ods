@@ -1,14 +1,42 @@
-import { Meta, Story } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { Tabs, type ITabsTriggerProps } from '..';
 
-import tabsTrigger, { Props } from './tabsTrigger';
+/**
+ * Tabs.Root can contain multiple Tabs.Triggers inside it's requisite Tabs.List. These tabs will coordinate with what Tabs.Content to show by matching their value prop.
+ */
+const meta: Meta<typeof Tabs.Trigger> = {
+    title: 'Core/Components/Tabs/Tabs.Trigger',
+    component: Tabs.Trigger,
+    tags: ['autodocs'],
+    parameters: {
+        design: {
+            type: 'figma',
+            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/branch/P0GeJKqILL7UXvaqu5Jj7V/Aragon-ODS?m=auto&node-id=15855%3A27684',
+        },
+    },
+};
 
-export default {
-    title: 'coponent/tabsTrigger',
-    component: tabsTrigger,
-    argTypes: {},
-} as Meta;
+type Story = StoryObj<typeof Tabs.Trigger>;
 
-const Template: Story<Props> = (args) => <tabsTrigger {...args} />;
+const reusableStoryComponent = (props: ITabsTriggerProps) => {
+    return (
+        <Tabs.Root>
+            <Tabs.List>
+                <Tabs.Trigger {...props} />
+            </Tabs.List>
+        </Tabs.Root>
+    );
+};
 
-export const Default = Template.bind({});
-Default.args = {};
+/**
+ * Default usage example of a single Tabs.Trigger component.
+ */
+export const Default: Story = {
+    args: {
+        label: 'Tab 1',
+        value: '1',
+    },
+    render: (args) => reusableStoryComponent(args),
+};
+
+export default meta;

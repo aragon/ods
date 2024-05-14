@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ITabsRootProps, Tabs } from '..';
+import { Tabs, type ITabsRootProps } from '..';
 import { Card } from '../../cards';
 import { IconType } from '../../icon';
 
 /**
- * Tabs.Root can contain multiple Tabs.Triggers in the Tabs.List these tabs will coordinate with what to show in each Tabs.Content by matching their value prop.
+ * Tabs.Root can contain multiple Tabs.Triggers inside it's requisite Tabs.List. These tabs will coordinate with what Tabs.Content to show by matching their value prop.
  */
 const meta: Meta<typeof Tabs.Root> = {
     title: 'Core/Components/Tabs/Tabs.Root',
@@ -17,24 +17,6 @@ const meta: Meta<typeof Tabs.Root> = {
         },
     },
 };
-
-const content = [
-    {
-        value: '1',
-        label: 'Tab 1',
-        content: 'Item 1 Content',
-    },
-    {
-        value: '2',
-        label: 'Tab 2',
-        content: 'Item 2 Content',
-    },
-    {
-        value: '3',
-        label: 'Tab 3',
-        content: 'Item 3 Content',
-    },
-];
 
 type Story = StoryObj<typeof Tabs.Root>;
 
@@ -66,18 +48,24 @@ const reusableStoryComponent = (props: ITabsRootProps) => {
 };
 
 /**
- * Default usage example of a full Accordion component.
+ * Default usage example of a full Tabs component.
  */
 export const Default: Story = {
     args: {},
     render: (args) => reusableStoryComponent(args),
 };
 
+/**
+ * Usage example of a Tabs component with the isUnderlined prop set to true.
+ */
 export const Underlined: Story = {
     args: { isUnderlined: true },
     render: (args) => reusableStoryComponent(args),
 };
 
+/**
+ * Usage example of a Tabs component inside a Card component with the defaultValue set.
+ */
 export const InsideCard: Story = {
     args: { defaultValue: '2' },
     render: (args) => <Card className="p-6">{reusableStoryComponent(args)}</Card>,

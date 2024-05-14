@@ -1,2 +1,1 @@
-export { TabsContext, TabsProvider, useTabsContext } from './tabsContext';
-export { TabsRoot, type ITabsRootProps } from './tabsRoot';
+export { TabsContext, TabsRoot, type ITabsRootProps } from './tabsRoot';
