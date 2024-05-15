@@ -7,27 +7,27 @@ export interface ITabsRootProps extends Omit<RadixTabsProps, 'orientation'> {
      */
     defaultValue?: string;
     /**
-     * Whether or not the Tabs.List should use an underlined style. @default false
+     * Whether the Tabs.List should use an underlined style. @default false
      */
     isUnderlined?: boolean;
 }
 
-export interface TabsContextType {
+export interface ITabsContext {
     /**
      * Whether the tabs share a common underline style implementation via the Tabs.List.
      */
     isUnderlined: boolean;
 }
 
-export const TabsContext = createContext<TabsContextType>({ isUnderlined: false });
+export const TabsContext = createContext<ITabsContext>({ isUnderlined: false });
 
 export const TabsRoot: React.FC<ITabsRootProps> = (props) => {
-    const { className, children, defaultValue, isUnderlined = false, ...otherProps } = props;
-    const tabsContext = useMemo(() => ({ isUnderlined }), [isUnderlined]);
+    const { children, isUnderlined = false, ...otherProps } = props;
+    const tabsContextValue = useMemo(() => ({ isUnderlined }), [isUnderlined]);
 
     return (
-        <RadixTabsRoot defaultValue={defaultValue} orientation="horizontal" className={className} {...otherProps}>
-            <TabsContext.Provider value={tabsContext}>{children}</TabsContext.Provider>
+        <RadixTabsRoot orientation="horizontal" {...otherProps}>
+            <TabsContext.Provider value={tabsContextValue}>{children}</TabsContext.Provider>
         </RadixTabsRoot>
     );
 };
