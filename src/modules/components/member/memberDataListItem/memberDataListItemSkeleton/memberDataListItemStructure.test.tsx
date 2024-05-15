@@ -12,6 +12,7 @@ describe('<MemberDataListItem.Skeleton /> component', () => {
             </DataList.Root>
         );
     };
+
     it('has correct accessibility attributes', () => {
         render(createTestComponent());
         const listItem = screen.getByLabelText('loading');
