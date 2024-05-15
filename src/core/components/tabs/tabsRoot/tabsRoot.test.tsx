@@ -1,11 +1,10 @@
-// TabsRoot.test.tsx
 import { render, screen } from '@testing-library/react';
 import { useContext } from 'react';
 import { Tabs, TabsContext, type ITabsRootProps } from '../../tabs';
 
 const TestChild: React.FC = () => {
     const context = useContext(TabsContext);
-    return <div data-testid="child">{context.isUnderlined ? 'Underlined' : 'Not Underlined'}</div>;
+    return <div>{context.isUnderlined ? 'Underlined' : 'Not Underlined'}</div>;
 };
 
 describe('<Tabs.Root /> component', () => {
@@ -16,10 +15,10 @@ describe('<Tabs.Root /> component', () => {
         return <Tabs.Root {...completeProps} />;
     };
 
-    it('should render without crashing', () => {
+    it('should render with !isUnderlined by default', () => {
         const children = <TestChild />;
         render(createTestComponent({ children }));
-        expect(screen.getByTestId('child')).toBeInTheDocument();
+        expect(screen.getByText('Not Underlined')).toBeInTheDocument();
     });
 
     it('should provide the correct context value', () => {
@@ -27,6 +26,6 @@ describe('<Tabs.Root /> component', () => {
         const isUnderlined = true;
 
         render(createTestComponent({ isUnderlined, children }));
-        expect(screen.getByTestId('child')).toHaveTextContent('Underlined');
+        expect(screen.getByText('Underlined')).toBeInTheDocument();
     });
 });

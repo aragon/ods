@@ -9,7 +9,7 @@ export interface ITabsTriggerProps extends RadixTabsTriggerProps {
      */
     label: string;
     /**
-     * Value of the tab is meant to pair with the Tabs.Content value prop.
+     * Value linking Tabs.Trigger to its corresponding Tabs.Content
      */
     value: string;
     /**

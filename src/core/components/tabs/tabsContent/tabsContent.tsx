@@ -2,7 +2,7 @@ import { TabsContent as RadixTabsContent, type TabsContentProps as RadixTabsCont
 
 export interface ITabsContentProps extends RadixTabsContentProps {
     /**
-     * Value of the Tabs.Trigger that this Tabs.Content should be associated with.
+     * Value linking Tabs.Content to its corresponding Tabs.Trigger
      */
     value: string;
 }

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { IconType } from '../../icon';
 import { Tabs, type ITabsTriggerProps } from '../../tabs';
 
-describe('<TabsTrigger /> component', () => {
+describe('<Tabs.Trigger /> component', () => {
     const createTestComponent = (props?: Partial<ITabsTriggerProps>, isUnderlined?: boolean) => {
         const completeProps: ITabsTriggerProps = {
             label: 'Tab 1',
@@ -20,10 +20,9 @@ describe('<TabsTrigger /> component', () => {
     };
 
     it('should render without crashing', () => {
-        const label = 'Tab 2';
-        render(createTestComponent({ label }));
+        render(createTestComponent());
 
-        expect(screen.getByText(label)).toBeInTheDocument();
+        expect(screen.getByText('Tab 1')).toBeInTheDocument();
     });
 
     it('should pass the correct value prop', () => {
