@@ -3,11 +3,14 @@ import { type ComponentPropsWithRef } from 'react';
 import { useDefinitionListContext } from '../definitionListContext'; // Correct import path to your context file
 
 export interface IDefinitionListItemProps extends ComponentPropsWithRef<'div'> {
-    label: string;
+    /**
+     * The term to be displayed in the definition list item.
+     */
+    term: string;
 }
 
 export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) => {
-    const { label, children, className, ...otherProps } = props;
+    const { term, children, className, ...otherProps } = props;
     useDefinitionListContext();
 
     return (
@@ -18,8 +21,10 @@ export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) =>
             )}
             {...otherProps}
         >
-            <dt className="shrink-0 text-base font-normal leading-tight md:w-40">{label}</dt>
-            <dd className="size-full">{children}</dd>
+            <dt className="line-clamp-1 shrink-0 text-base font-normal leading-relaxed text-neutral-800 md:line-clamp-6 md:w-40">
+                {term}
+            </dt>
+            <dd className="size-full text-base font-normal leading-relaxed text-neutral-800">{children}</dd>
         </div>
     );
 };

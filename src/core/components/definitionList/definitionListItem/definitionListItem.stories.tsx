@@ -16,15 +16,33 @@ const meta: Meta<typeof DefinitionList.Item> = {
 type Story = StoryObj<typeof DefinitionList.Item>;
 
 /**
- * Default usage of the DefinitionListItem component.
+ * Default usage of the DefinitionList.Item component.
  */
 export const Default: Story = {
     args: {
-        label: 'First Item',
+        term: 'First Item Term',
     },
     render: (props: IDefinitionListItemProps) => (
         <DefinitionList.Container>
             <DefinitionList.Item {...props}>First item description</DefinitionList.Item>
+        </DefinitionList.Container>
+    ),
+};
+
+/**
+ * Example usage of the DefinitionList.Item component with component child as definition description.
+ */
+export const WithComponent: Story = {
+    args: {
+        term: 'First Item Term',
+    },
+    render: (props: IDefinitionListItemProps) => (
+        <DefinitionList.Container>
+            <DefinitionList.Item {...props}>
+                <div className="flex h-96 w-full items-center justify-center border border-dashed bg-success-100">
+                    Any React Node Child
+                </div>
+            </DefinitionList.Item>
         </DefinitionList.Container>
     ),
 };
