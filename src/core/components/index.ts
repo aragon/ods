@@ -19,6 +19,7 @@ export * from './radioGroup';
 export * from './spinner';
 export * from './states';
 export * from './switch';
+export * from './tabs';
 export * from './tag';
 export * from './textAreas';
 export * from './toggles';
