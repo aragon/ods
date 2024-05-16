@@ -22,14 +22,14 @@ describe('<Tabs.Trigger /> component', () => {
     it('should render without crashing', () => {
         render(createTestComponent());
 
-        expect(screen.getByText('Tab 1')).toBeInTheDocument();
+        expect(screen.getByRole('tab')).toBeInTheDocument();
     });
 
     it('should pass the correct value prop', () => {
         const value = 'complex1';
         render(createTestComponent({ value }));
 
-        const triggerElement = screen.getByText('Tab 1');
+        const triggerElement = screen.getByRole('tab');
         expect(triggerElement).toHaveAttribute('id', `radix-:r2:-trigger-${value}`);
     });
 

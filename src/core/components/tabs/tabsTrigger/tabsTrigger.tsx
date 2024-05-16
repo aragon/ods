@@ -33,6 +33,7 @@ export const TabsTrigger: React.FC<ITabsTriggerProps> = (props) => {
     );
 
     const iconClassNames = classNames(
+        'group-data-[state=active]:text-neutral-800',
         'text-neutral-500',
         'group-hover:text-neutral-300',
         'group-active:text-neutral-600',
