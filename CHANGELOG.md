@@ -11,10 +11,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `MemberDataListItem.Skeleton`, `AssetDataListItem.Skeleton`, and `DaoDataListItem.Skeleton` module
     components
+-   Custom CSS property added for `Collapsible` to adjust z-index
 
 ### Fixed
 
 -   Prose styling to match design system, better handling for `<code>` elements
+-   Move z-index on Collapsible optional overlay to CSS as 'auto'
+-   Fixed disabled styling of AvatarIcon for disabled `AccordionItem`
 
 ## [1.0.27] - 2024-05-08
 
