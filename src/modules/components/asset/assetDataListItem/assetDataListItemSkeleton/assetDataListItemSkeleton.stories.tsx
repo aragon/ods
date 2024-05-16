@@ -22,10 +22,8 @@ type Story = StoryObj<typeof AssetDataListItem.Skeleton>;
 export const Default: Story = {
     args: {},
     render: () => (
-        <DataList.Root entityLabel="Daos">
-            <DataList.Container>
-                <AssetDataListItem.Skeleton />
-            </DataList.Container>
+        <DataList.Root entityLabel="Asset" state="initialLoading" pageSize={1}>
+            <DataList.Container SkeletonElement={AssetDataListItem.Skeleton} />
         </DataList.Root>
     ),
 };
