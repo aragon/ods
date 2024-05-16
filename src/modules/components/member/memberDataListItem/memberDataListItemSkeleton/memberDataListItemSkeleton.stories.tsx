@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { IMemberDataListItemSkeletonProps, MemberDataListItem } from '../../../..';
+import { MemberDataListItem } from '../../../..';
 import { DataList } from '../../../../../core';
 
 const meta: Meta<typeof MemberDataListItem.Skeleton> = {
@@ -20,8 +20,7 @@ type Story = StoryObj<typeof MemberDataListItem.Skeleton>;
  * Default usage example of the MemberDataListItemSkeleton component.
  */
 export const Default: Story = {
-    args: {},
-    render: (args: IMemberDataListItemSkeletonProps) => (
+    render: () => (
         <DataList.Root entityLabel="Proposal" state="initialLoading" pageSize={1}>
             <DataList.Container SkeletonElement={MemberDataListItem.Skeleton} />
         </DataList.Root>
