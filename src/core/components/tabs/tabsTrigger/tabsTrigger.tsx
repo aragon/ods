@@ -23,7 +23,7 @@ export const TabsTrigger: React.FC<ITabsTriggerProps> = (props) => {
     const { isUnderlined } = useContext(TabsContext);
 
     const triggerClassNames = classNames(
-        'group flex cursor-pointer items-center gap-x-4 rounded-t border-primary-400 py-3 text-base font-normal leading-tight text-neutral-500', // base
+        'group line-clamp-1 flex cursor-pointer items-center gap-x-4 rounded-t border-primary-400 py-3 text-base font-normal leading-tight text-neutral-500', // base
         'hover:text-neutral-800', // hover
         'active:data-[state=active]:text-neutral-800 active:data-[state=active]:shadow-[inset_0_0_0_0,0_1px_0_0] active:data-[state=active]:shadow-primary-400', // active click
         'focus:outline-none', // focus -- might need style updates pending conversation
