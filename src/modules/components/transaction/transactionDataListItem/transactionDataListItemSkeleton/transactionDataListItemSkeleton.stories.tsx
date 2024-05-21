@@ -3,7 +3,7 @@ import { TransactionDataListItem } from '../../../..';
 import { DataList } from '../../../../../core';
 
 const meta: Meta<typeof TransactionDataListItem.Skeleton> = {
-    title: 'Modules/Components/Transaction/TransactionDataListItem.Skeleton',
+    title: 'Modules/Components/Transaction/TransactionDataListItem/TransactionDataListItem.Skeleton',
     component: TransactionDataListItem.Skeleton,
     tags: ['autodocs'],
     parameters: {

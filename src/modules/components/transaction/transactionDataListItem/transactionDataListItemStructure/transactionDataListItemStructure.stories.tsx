@@ -4,7 +4,7 @@ import { TransactionDataListItemStructure } from './transactionDataListItemStruc
 import { TransactionStatus, TransactionType } from './transactionDataListItemStructure.api';
 
 const meta: Meta<typeof TransactionDataListItemStructure> = {
-    title: 'Modules/Components/Transaction/TransactionDataListItem.Structure',
+    title: 'Modules/Components/Transaction/TransactionDataListItem/TransactionDataListItem.Structure',
     component: TransactionDataListItemStructure,
     tags: ['autodocs'],
     parameters: {
