@@ -17,8 +17,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Bump NPM minor and patch dependencies
 -   Bump minor and patch dependencies of Github workflows
--   Expose onValue prop for `Accordion` core component
+-   Expose `onValueChange` property on `Accordion` core component
 -   Update type extensions for `Tabs.Root` core component to allow forward ref
+-   Update `OdsModulesProvider` component to render the `OdsCoreProvider` context.
 
 ## [1.0.28] - 2024-05-16
 
@@ -54,7 +55,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump `actions/github-script` from 6.4.1 to 7.0.1
 -   Bump `ejs` from 3.1.9 to 3.1.10
 -   Bump minor and patch dependencies
--   Update `OdsModulesProvider` component to render the `OdsCoreProvider` context.
 
 ## [1.0.25] - 2024-04-24
 
