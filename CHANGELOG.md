@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Implement `TransactionDataListItem.Skeleton` module component
+
 ### Changed
 
 -   Bump NPM minor and patch dependencies
