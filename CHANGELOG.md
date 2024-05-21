@@ -11,6 +11,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `TransactionDataListItem.Skeleton` module component
 
+### Changed
+
+-   Bump NPM minor and patch dependencies
+-   Bump minor and patch dependencies of Github workflows
+
 ## [1.0.28] - 2024-05-16
 
 ### Added
