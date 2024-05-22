@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import { type ComponentPropsWithRef } from 'react';
-import { useDefinitionListContext } from '../definitionListContext'; // Correct import path to your context file
 
 export interface IDefinitionListItemProps extends ComponentPropsWithRef<'div'> {
     /**
@@ -11,12 +10,11 @@ export interface IDefinitionListItemProps extends ComponentPropsWithRef<'div'> {
 
 export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) => {
     const { term, children, className, ...otherProps } = props;
-    useDefinitionListContext();
 
     return (
         <div
             className={classNames(
-                'flex w-full flex-col items-start justify-between gap-y-2 border-b border-neutral-100 py-3 last:border-none md:flex md:flex-row md:gap-x-6 md:py-4',
+                'flex w-full flex-col items-baseline justify-between gap-y-2 border-b border-neutral-100 py-3 last:border-none md:flex md:flex-row md:gap-x-6 md:py-4',
                 className,
             )}
             {...otherProps}

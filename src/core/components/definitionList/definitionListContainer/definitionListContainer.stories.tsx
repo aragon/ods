@@ -16,17 +16,17 @@ const meta: Meta<typeof DefinitionList.Container> = {
 type Story = StoryObj<typeof DefinitionList.Container>;
 
 /**
- * Default usage of the DefinitionListContainer component with no definitions as children.
+ * Default usage of the DefinitionList.Container component with no definitions as children.
  */
-export const Loaded: Story = {
+export const Default: Story = {
     render: (props: IDefinitionListContainerProps) => (
         <DefinitionList.Container {...props}>Empty Container</DefinitionList.Container>
     ),
 };
 /**
- * Example usage of the DefinitionListContainer component with three definitions.
+ * Example usage of the DefinitionList.Container component with three definitions.
  */
-export const Default: Story = {
+export const Loaded: Story = {
     render: (props: IDefinitionListContainerProps) => (
         <DefinitionList.Container {...props}>
             <DefinitionList.Item term="Standard Definition Term">

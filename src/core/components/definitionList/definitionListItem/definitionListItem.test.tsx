@@ -5,7 +5,6 @@ describe('<DefinitionList.Item /> component', () => {
     const createTestComponent = (props?: Partial<IDefinitionListItemProps>) => {
         const completeProps: IDefinitionListItemProps = {
             term: 'Default Term',
-            children: 'Default Description',
             ...props,
         };
 
@@ -16,10 +15,21 @@ describe('<DefinitionList.Item /> component', () => {
         );
     };
 
-    it('renders without crashing', () => {
-        render(createTestComponent());
+    it('renders the specified term correctly', () => {
+        const term = 'Custom Term';
+        render(createTestComponent({ term }));
 
-        expect(screen.getByText('Default Term')).toBeInTheDocument();
-        expect(screen.getByText('Default Description')).toBeInTheDocument();
+        const termLabel = screen.queryByRole('term');
+
+        expect(termLabel).toHaveTextContent(term);
+    });
+
+    it('renders the specified description correctly', () => {
+        const children = 'Custom Description';
+        render(createTestComponent({ children }));
+
+        const description = screen.queryByRole('definition');
+
+        expect(description).toHaveTextContent(children);
     });
 });
