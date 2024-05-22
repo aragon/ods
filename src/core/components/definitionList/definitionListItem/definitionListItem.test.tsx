@@ -8,11 +8,7 @@ describe('<DefinitionList.Item /> component', () => {
             ...props,
         };
 
-        return (
-            <DefinitionList.Container>
-                <DefinitionList.Item {...completeProps} />
-            </DefinitionList.Container>
-        );
+        return <DefinitionList.Item {...completeProps} />;
     };
 
     it('renders the specified term correctly', () => {
