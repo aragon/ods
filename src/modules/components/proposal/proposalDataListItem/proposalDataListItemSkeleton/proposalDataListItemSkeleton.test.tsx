@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { DataList } from '../../../../../core';
 import { ProposalDataListItemSkeleton, type IProposalDataListItemSkeletonProps } from './proposalDataListItemSkeleton';
 
-describe('<ProposalDataListItemSkeleton /> component', () => {
+describe('<ProposalDataListItem.Skeleton /> component', () => {
     const createTestComponent = (props?: Partial<IProposalDataListItemSkeletonProps>) => {
         const completeProps: IProposalDataListItemSkeletonProps = { ...props };
 

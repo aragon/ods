@@ -1,14 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { type RefAttributes } from 'react';
-import { Accordion } from '..';
-import { AccordionContainer, type IAccordionContainerProps } from './accordionContainer';
+import { Accordion, type IAccordionContainerProps } from '..';
 
 /**
  * Accordion.Container can contain multiple Accordion.Items which comprises an Accordion.Header and its collapsible Accordion.Content.
  */
-const meta: Meta<typeof AccordionContainer> = {
+const meta: Meta<typeof Accordion.Container> = {
     title: 'Core/Components/Accordion/Accordion.Container',
-    component: AccordionContainer,
+    component: Accordion.Container,
     tags: ['autodocs'],
     parameters: {
         design: {
@@ -18,7 +17,7 @@ const meta: Meta<typeof AccordionContainer> = {
     },
 };
 
-type Story = StoryObj<typeof AccordionContainer>;
+type Story = StoryObj<typeof Accordion.Container>;
 
 const reusableStoryComponent = (props: IAccordionContainerProps & RefAttributes<HTMLDivElement>, count: number) => {
     return (
