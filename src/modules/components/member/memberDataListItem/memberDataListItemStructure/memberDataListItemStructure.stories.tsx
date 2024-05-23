@@ -3,7 +3,7 @@ import { DataList } from '../../../../../core';
 import { MemberDataListItemStructure } from './memberDataListItemStructure';
 
 const meta: Meta<typeof MemberDataListItemStructure> = {
-    title: 'Modules/Components/Member/MemberDataListItem.Structure',
+    title: 'Modules/Components/Member/MemberDataListItem/MemberDataListItem.Structure',
     component: MemberDataListItemStructure,
     tags: ['autodocs'],
     parameters: {

@@ -7,8 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-### Fixed
+### Added
 
+-   Implement `DefinitionList` core component
+-   Implement `TransactionDataListItem.Skeleton` module component
+
+### Changed
+
+-   Bump NPM minor and patch dependencies
+-   Bump minor and patch dependencies of Github workflows
 -   Expose onValue prop for `Accordion` core component
 -   Update type extensions for `Tabs.Root` core component to allow forward ref
 

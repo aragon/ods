@@ -1,5 +1,5 @@
 import { Tabs as RadixTabsRoot, type TabsProps as RadixTabsProps } from '@radix-ui/react-tabs';
-import { createContext, forwardRef, useMemo, type ForwardRefExoticComponent } from 'react';
+import { createContext, forwardRef, useMemo } from 'react';
 
 export interface ITabsRootProps extends Omit<RadixTabsProps, 'orientation'> {
     /**
@@ -21,17 +21,15 @@ export interface ITabsContext {
 
 export const TabsContext = createContext<ITabsContext>({ isUnderlined: false });
 
-export const TabsRoot: ForwardRefExoticComponent<ITabsRootProps> = forwardRef<HTMLDivElement, ITabsRootProps>(
-    (props, ref) => {
-        const { children, isUnderlined = false, ...otherProps } = props;
-        const tabsContextValue = useMemo(() => ({ isUnderlined }), [isUnderlined]);
+export const TabsRoot = forwardRef<HTMLDivElement, ITabsRootProps>((props, ref) => {
+    const { children, isUnderlined = false, ...otherProps } = props;
+    const tabsContextValue = useMemo(() => ({ isUnderlined }), [isUnderlined]);
 
-        return (
-            <RadixTabsRoot ref={ref} orientation="horizontal" {...otherProps}>
-                <TabsContext.Provider value={tabsContextValue}>{children}</TabsContext.Provider>
-            </RadixTabsRoot>
-        );
-    },
-);
+    return (
+        <RadixTabsRoot ref={ref} orientation="horizontal" {...otherProps}>
+            <TabsContext.Provider value={tabsContextValue}>{children}</TabsContext.Provider>
+        </RadixTabsRoot>
+    );
+});
 
-TabsRoot.displayName = 'TabsRoot';
+TabsRoot.displayName = 'Tabs.Root';
