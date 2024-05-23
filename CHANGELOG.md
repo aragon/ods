@@ -11,7 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `DefinitionList` core component
 -   Implement `TransactionDataListItem.Skeleton` module component
--   Implement `OdsCoreProvider`, `LinkBase` and `AvatarBase` components to support `Link` and `Image` NextJs components.
+-   Implement `OdsCoreProvider`, `LinkBase` and `AvatarBase` core components to support `Link` and `Image` NextJs
+    components.
 
 ### Changed
 
