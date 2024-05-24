@@ -11,13 +11,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `DefinitionList` core component
 -   Implement `TransactionDataListItem.Skeleton` module component
+-   Implement `OdsCoreProvider`, `LinkBase` and `AvatarBase` core components to support `Link` and `Image` NextJs
+    components.
 
 ### Changed
 
 -   Bump NPM minor and patch dependencies
 -   Bump minor and patch dependencies of Github workflows
--   Expose onValue prop for `Accordion` core component
+-   Expose `onValueChange` property on `Accordion` core component
 -   Update type extensions for `Tabs.Root` core component to allow forward ref
+-   Update `OdsModulesProvider` component to render the `OdsCoreProvider` context.
 
 ## [1.0.28] - 2024-05-16
 

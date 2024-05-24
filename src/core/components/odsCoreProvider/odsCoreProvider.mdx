@@ -1,0 +1,43 @@
+import { ArgTypes, Meta, Description, Title, Subtitle } from '@storybook/blocks';
+import { OdsCoreProvider } from './odsCoreProvider';
+
+<Meta title="Core/Components/OdsCoreProvider" />
+
+<Title>OdsCoreProvider</Title>
+
+The `<OdsCoreProvider />` is a React context that defines the image and link elements to be rendered across all the ODS
+components, defaulting such values to `<img />` and `<a />` tags. The provider is used by the `<AvatarBase />` and
+`<LinkBase />` components, which are in turn used by all the other core and module components.
+
+The provider becomes particularly useful when an application needs to employ framework-specific images or links, such as
+the `<Image />` and `<Link />` components from Next.js.
+
+**Usage example**
+
+```typescript
+import { OdsCoreProvider } from '@aragon-ods';
+import NextImage from 'next/image';
+import NextLink from 'next/link';
+
+const CustomImage: React.FC<ComponentProps<'img'>> = ({ src = '', alt = 'image', width, height, ...otherProps }) => (
+    <NextImage src={src} fill={true} alt={alt} {...otherProps} />
+);
+
+const CustomLink: React.FC<ComponentProps<'a'>> = ({ href = {}, ...otherProps }) => (
+    <NextLink href={href} {...otherProps} />
+);
+
+const coreProviderValues = { Img: CustomImage, Link: CustomLink };
+
+export const Application = () => {
+    return (
+        <OdsCoreProvider values={coreProviderValues}>
+            /* Your application */
+        </OdsCoreProvider>
+    )
+}
+```
+
+Refer to the component's properties below for more details on the default configuration objects used for each provider.
+
+<ArgTypes of={OdsCoreProvider} />

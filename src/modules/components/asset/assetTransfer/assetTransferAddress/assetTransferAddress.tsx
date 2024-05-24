@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Icon, IconType } from '../../../../../core';
+import { Icon, IconType, LinkBase } from '../../../../../core';
 import { type ICompositeAddress } from '../../../../types';
 import { addressUtils } from '../../../../utils';
 import { MemberAvatar } from '../../../member';
@@ -31,7 +31,7 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
             : addressUtils.truncateAddress(participant.address);
 
     return (
-        <a
+        <LinkBase
             href={assembledHref}
             target="_blank"
             rel="noopener noreferrer"
@@ -58,7 +58,7 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
             )}
         >
             <MemberAvatar
-                className="shrink-0 group-hover:shadow-neutral-md group-active:shadow-none"
+                className="group-hover:shadow-neutral-md group-active:shadow-none"
                 responsiveSize={{ md: 'md' }}
                 ensName={participant.name}
                 address={participant.address}
@@ -78,6 +78,6 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                     />
                 </div>
             </div>
-        </a>
+        </LinkBase>
     );
 };

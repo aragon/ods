@@ -14,6 +14,7 @@ export * from './icon';
 export * from './illustrations';
 export * from './input';
 export * from './link';
+export * from './odsCoreProvider';
 export * from './progress';
 export * from './radioGroup';
 export * from './spinner';
