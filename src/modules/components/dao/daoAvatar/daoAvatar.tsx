@@ -24,7 +24,7 @@ export const DaoAvatar: React.FC<IDaoAvatarProps> = (props) => {
             fallback={
                 <span
                     className={classNames(
-                        'flex size-full shrink-0 items-center justify-center rounded-full bg-primary-400',
+                        'flex size-full items-center justify-center rounded-full bg-primary-400',
                         'text-xs leading-tight text-neutral-0 md:text-sm lg:text-lg',
                         className,
                     )}

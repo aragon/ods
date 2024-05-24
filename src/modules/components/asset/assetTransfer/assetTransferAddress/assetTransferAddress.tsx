@@ -58,7 +58,7 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
             )}
         >
             <MemberAvatar
-                className="shrink-0 group-hover:shadow-neutral-md group-active:shadow-none"
+                className="group-hover:shadow-neutral-md group-active:shadow-none"
                 responsiveSize={{ md: 'md' }}
                 ensName={participant.name}
                 address={participant.address}
