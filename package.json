@@ -147,10 +147,8 @@
   },
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/types/src/index.d.ts",
-        "default": "./dist/index.es.js"
-      }
+      "types": "./dist/types/src/index.d.ts",
+      "default": "./dist/index.es.js"
     },
     "./index.css": "./index.css",
     "./build.css": "./build.css",
