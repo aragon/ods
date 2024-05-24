@@ -16,12 +16,16 @@ export interface IAccordionContainerBaseProps<TMulti extends boolean>
      * The value of the item to expand when initially rendered and type is "single". Use when you do not need to control the state of the items.
      */
     defaultValue?: AccordionMultiValue<TMulti>;
+    /**
+     * When the current value (open section) changes, this function will be called.
+     */
+    onValueChange?: (value: AccordionMultiValue<TMulti>) => void;
 }
 
 export type IAccordionContainerProps = IAccordionContainerBaseProps<true> | IAccordionContainerBaseProps<false>;
 
 export const AccordionContainer = forwardRef<HTMLDivElement, IAccordionContainerProps>((props, ref) => {
-    const { children, className, isMulti, defaultValue, ...otherProps } = props;
+    const { children, className, isMulti, defaultValue, onValueChange, ...otherProps } = props;
 
     const accordionContainerClasses = classNames('grow bg-neutral-0', className);
 
@@ -30,6 +34,7 @@ export const AccordionContainer = forwardRef<HTMLDivElement, IAccordionContainer
             <RadixAccordionRoot
                 className={accordionContainerClasses}
                 defaultValue={defaultValue}
+                onValueChange={onValueChange}
                 type="multiple"
                 ref={ref}
                 {...otherProps}
@@ -42,6 +47,7 @@ export const AccordionContainer = forwardRef<HTMLDivElement, IAccordionContainer
         <RadixAccordionRoot
             className={accordionContainerClasses}
             defaultValue={defaultValue}
+            onValueChange={onValueChange}
             type="single"
             collapsible={true}
             ref={ref}
