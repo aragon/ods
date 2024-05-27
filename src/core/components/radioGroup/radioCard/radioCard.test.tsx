@@ -45,13 +45,13 @@ describe('<RadioCard/> component', () => {
         expect(screen.getByRole('radio')).not.toBeChecked();
     });
 
-    it('renders the SUCCESS icon when checked', () => {
+    it('renders the RADIO_SELECTED icon when checked', () => {
         render(createTestComponent());
 
         const radioButton = screen.getByRole('radio');
 
         fireEvent.click(radioButton);
-        const checkedIcon = screen.getByTestId(IconType.SUCCESS);
+        const checkedIcon = screen.getByTestId(IconType.RADIO_SELECTED);
 
         expect(checkedIcon).toBeVisible();
         expect(screen.getByRole('radio')).toBeChecked();
