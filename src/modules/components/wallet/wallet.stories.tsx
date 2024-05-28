@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Wallet from './wallet';
+import { Wallet } from './wallet';
 
 const meta: Meta<typeof Wallet> = {
     title: 'Modules/Components/Wallet/Wallet',
@@ -8,7 +8,7 @@ const meta: Meta<typeof Wallet> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/branch/P0GeJKqILL7UXvaqu5Jj7V/Aragon-ODS?m=auto&node-id=10451-13526&t=Z0BNScOUrUSFlYnu-1',
+            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Aragon-ODS?m=auto&node-id=10451-13526&t=DIlkZ1JJt516kxyh-1',
         },
     },
 };
@@ -16,7 +16,7 @@ const meta: Meta<typeof Wallet> = {
 type Story = StoryObj<typeof Wallet>;
 
 /**
- * Default usage example of the MemberAvatar component.
+ * Default usage of the Wallet component.
  */
 export const Default: Story = {};
 
