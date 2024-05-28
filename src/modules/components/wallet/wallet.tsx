@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 import { useAccount, useConnect, useDisconnect, useEnsName, type CreateConnectorFn } from 'wagmi';
-import { injected, metaMask, safe, walletConnect, type InjectedParameters } from 'wagmi/connectors';
+import { injected, walletConnect, type InjectedParameters } from 'wagmi/connectors';
 import { StateSkeletonBar, StateSkeletonCircular } from '../../../core';
 import { addressUtils } from '../../utils';
 import { MemberAvatar } from '../member';
+
 export interface IWalletProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     /**
      * Callback fired when the user connects their wallet.
@@ -16,7 +17,7 @@ export interface IWalletProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
     /**
      * The preferred connector to use. @default injected
      */
-    connector?: 'injected' | 'metaMask' | 'walletConnect' | 'safe';
+    connector?: 'injected' | 'walletConnect';
     /**
      * If selecting WalletConnect as the connector, you must pass WalletConnect project ID. Required for WalletConnect -- see https://docs.walletconnect.com/
      */
@@ -27,6 +28,17 @@ export interface IWalletProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
     disabled?: boolean;
 }
 
+const getPreferredConnector = (connector: 'injected' | 'walletConnect', projectId?: string) => {
+    switch (connector) {
+        case 'injected':
+            return injected();
+        case 'walletConnect':
+            return walletConnect({ projectId: projectId ?? '' });
+        default:
+            return injected();
+    }
+};
+
 export const Wallet: React.FC<IWalletProps> = (props) => {
     const { onConnect, onDisconnect, connector = 'injected', projectId, disabled, ...otherProps } = props;
     const { connect, isPending: connectPending } = useConnect();
@@ -34,42 +46,25 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
     const { address, isConnected, isDisconnected } = useAccount();
     const { data: ensName } = useEnsName({ address });
 
-    const preferredConnector = (connector: 'injected' | 'metaMask' | 'walletConnect' | 'safe') => {
-        switch (connector) {
-            case 'injected':
-                return injected();
-            case 'metaMask':
-                return metaMask();
-            case 'walletConnect':
-                return walletConnect({ projectId: projectId ?? '' });
-            case 'safe':
-                return safe();
-            default:
-                return injected;
-        }
-    };
-
-    const handleClick = () => {
+    const handleClick = async () => {
         if (isConnected) {
             disconnect();
-            if (onDisconnect) {
-                onDisconnect();
-            }
+            onDisconnect?.();
         } else {
-            connect({ connector: preferredConnector(connector) as CreateConnectorFn<InjectedParameters> });
-            if (onConnect) {
-                onConnect();
-            }
+            connect({
+                connector: getPreferredConnector(connector, projectId) as CreateConnectorFn<InjectedParameters>,
+            });
+            onConnect?.();
         }
     };
 
     const isPending = disconnectPending || connectPending;
 
     const buttonClassName = classNames(
-        'flex h-12 items-center rounded-full border border-neutral-100 bg-neutral-0 px-4 py-1 text-neutral-500 transition-all', // base
-        'hover:border-neutral-200', // hover
-        'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
-        'active:bg-neutral-50 active:text-neutral-800', // active
+        'flex h-12 items-center rounded-full border border-neutral-100 bg-neutral-0 px-4 py-1 text-neutral-500 transition-all',
+        'hover:border-neutral-200',
+        'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
+        'active:bg-neutral-50 active:text-neutral-800',
         {
             '!p-1 md:!pl-4': isConnected || isPending,
         },
@@ -93,7 +88,9 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
 
             {isConnected && (
                 <>
-                    <div className="hidden md:mr-3 md:block">{ensName ?? addressUtils.truncateAddress(address)}</div>
+                    <div title={ensName ?? address} className="hidden min-w-0 max-w-24 truncate md:mr-3 md:block">
+                        {ensName ?? addressUtils.truncateAddress(address)}
+                    </div>
                     <MemberAvatar size="md" address={address} />
                 </>
             )}
