@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+-   Update minor and patch dependencies
+-   Update `yarn` version from `4.1.1` to `4.2.2`
+
 ## [1.0.31] - 2024-05-24
 
 ### Fixed
