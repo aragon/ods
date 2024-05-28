@@ -72,7 +72,7 @@ const variantToIconClassNames: Record<ButtonVariant, string> = {
 };
 
 const variantToSpinnerVariant: Record<ButtonVariant, SpinnerVariant> = {
-    primary: 'primary',
+    primary: 'primaryInverted',
     secondary: 'primary',
     tertiary: 'neutral',
     ghost: 'primary',
