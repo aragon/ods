@@ -11,53 +11,71 @@ import type { ButtonContext, ButtonSize, ButtonVariant, IButtonProps } from './b
 // Using aria-disabled: instead of disabled: modifier in order to make the modifier work for buttons and links
 const variantToClassNames: Record<ButtonVariant, string[]> = {
     primary: [
-        'bg-primary-400 text-neutral-0 border-primary-400', // Default
-        'hover:bg-primary-500 hover:border-primary-500 hover:shadow-primary-md', // Hover
+        'bg-primary-400 text-neutral-0 border-primary-400 shadow-primary-sm', // Default
+        'hover:bg-primary-500 hover:border-primary-500 hover:shadow-primary', // Hover
         'active:bg-primary-800 active:border-primary-800', // Active
         'focus-visible:ring-primary', // Focus
-        'aria-disabled:bg-primary-100 aria-disabled:text-primary-300 aria-disabled:border-primary-100', // Disabled
+        'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     secondary: [
-        'bg-neutral-0 text-primary-400 border-neutral-100', // Default
-        'hover:border-neutral-200 hover:shadow-neutral-md', // Hover
-        'active:border-primary-400', // Active
+        'bg-neutral-0 text-primary-400 border-primary-100 shadow-primary-sm', // Default
+        'hover:border-primary-200 hover:bg-primary-50 hover:shadow-primary', // Hover
+        'active:border-primary-400 active:bg-neutral-0', // Active
         'focus-visible:ring-primary', // Focus
         'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     tertiary: [
-        'bg-neutral-0 text-neutral-600 border-neutral-100', // Default
-        'hover:border-neutral-200 hover:shadow-neutral-md', // Hover
-        'active:border-neutral-300', // Active
+        'bg-neutral-0 text-neutral-500 border-neutral-100 shadow-neutral-sm', // Default
+        'hover:bg-neutral-50 hover:border-neutral-200 hover:shadow-neutral', // Hover
+        'active:bg-neutral-0 active:border-neutral-400 active:text-neutral-800', // Active
         'focus-visible:ring-primary', // Focus
         'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
+    ghost: [
+        'bg-transparent border-transparent text-primary-400', // Default
+        'hover:bg-neutral-0', // Hover
+        'active:bg-neutral-0 active:text-primary-600', // Active
+        'focus-visible:ring-primary', // Focus
+        'aria-disabled:text-neutral-300', // Disabled
+    ],
     success: [
-        'bg-success-100 text-success-800 border-success-300', // Default
-        'hover:border-success-400 hover:shadow-success-md', // Hover
-        'active:border-success-500', // Active
+        'bg-success-100 text-success-800 border-success-300 shadow-success-sm', // Default
+        'hover:border-success-500 hover:shadow-success', // Hover
+        'active:bg-neutral-0 active:border-success-600', // Active
         'focus-visible:ring-success', // Focus
-        'aria-disabled:bg-success-100 aria-disabled:text-success-400 aria-disabled:border-success-200', // Disabled
+        'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     warning: [
-        'bg-warning-100 text-warning-800 border-warning-300', // Default
-        'hover:border-warning-400 hover:shadow-warning-md', // Hover
-        'active:border-warning-500', // Active
+        'bg-warning-100 text-warning-800 border-warning-300 shadow-warning-sm', // Default
+        'hover:border-warning-500 hover:shadow-warning', // Hover
+        'active:bg-neutral-0 active:border-warning-600', // Active
         'focus-visible:ring-warning', // Focus
-        'aria-disabled:bg-warning-100 aria-disabled:text-warning-400 aria-disabled:border-warning-200', // Disabled
+        'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     critical: [
-        'bg-critical-100 text-critical-800 border-critical-300', // Default
-        'hover:border-critical-400 hover:shadow-critical-md', // Hover
-        'active:border-critical-500', // Active
+        'bg-critical-100 text-critical-800 border-critical-300 shadow-critical-sm', // Default
+        'hover:border-critical-500 hover:shadow-critical', // Hover
+        'active:bg-neutral-0 active:border-critical-600', // Active
         'focus-visible:ring-critical', // Focus
-        'aria-disabled:bg-critical-100 aria-disabled:text-critical-400 aria-disabled:border-critical-200', // Disabled
+        'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
 };
 
+const variantToIconClassNames: Record<ButtonVariant, string> = {
+    primary: 'text-neutral-0',
+    secondary: 'text-primary-300 group-hover:text-primary-400 group-active:text-primary-400',
+    tertiary: 'text-neutral-300 group-hover:text-neutral-500 group-active:text-neutral-500',
+    ghost: 'text-neutral-300 group-hover:text-neutral-400 group-active:text-neutral-400',
+    success: 'text-success-500 group-hover:text-success-600 group-active:text-success-600',
+    warning: 'text-warning-500 group-hover:text-warning-600 group-active:text-warning-600',
+    critical: 'text-critical-500 group-hover:text-critical-600 group-active:text-critical-600',
+};
+
 const variantToSpinnerVariant: Record<ButtonVariant, SpinnerVariant> = {
-    primary: 'primary',
-    secondary: 'neutral',
+    primary: 'primaryInverted',
+    secondary: 'primary',
     tertiary: 'neutral',
+    ghost: 'primary',
     success: 'success',
     warning: 'warning',
     critical: 'critical',
@@ -175,10 +193,11 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
     const buttonContext = isOnlyIcon ? 'onlyIcon' : 'default';
 
     const commonClasses = [
-        'flex flex-row items-center justify-center', // Layout
-        'leading-tight font-semibold', // Typography
+        'flex flex-row items-center justify-center group', // Layout
+        'leading-tight font-normal', // Typography
         'border transition-all cursor:pointer', // Commons
         'outline-none focus:outline-none focus-visible:ring focus-visible:ring-offset', // States
+        'active:shadow-none aria-disabled:shadow-none', // Active/Disabled states
     ];
 
     const variantClasses = variantToClassNames[variant].filter((classes) => {
@@ -192,6 +211,11 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
 
         return true;
     });
+
+    const iconClassNames = classNames(
+        'transition-all group-aria-disabled:text-neutral-300',
+        variantToIconClassNames[variant],
+    );
 
     const sizeClassNames = responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClassNames);
     const contextClassNames = responsiveUtils.generateClassNames(
@@ -226,10 +250,11 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
     const displayIconRight = !isLoading && iconRight != null && !isOnlyIcon;
 
     const commonProps = { className: classes, 'aria-disabled': isDisabled };
+    const commonIconProps = { size: iconSize, responsiveSize: iconResponsiveSize, className: iconClassNames };
 
     const buttonContent = (
         <>
-            {displayIconLeft && <Icon icon={iconLeft} size={iconSize} responsiveSize={iconResponsiveSize} />}
+            {displayIconLeft && <Icon icon={iconLeft} {...commonIconProps} />}
             {isLoading && (
                 <Spinner
                     size={spinnerSize}
@@ -238,7 +263,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
                 />
             )}
             {!isOnlyIcon && <div className="px-1">{children}</div>}
-            {displayIconRight && <Icon icon={iconRight} size={iconSize} responsiveSize={iconResponsiveSize} />}
+            {displayIconRight && <Icon icon={iconRight} {...commonIconProps} />}
         </>
     );
 

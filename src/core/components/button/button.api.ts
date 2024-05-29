@@ -2,7 +2,7 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react';
 import type { ResponsiveAttribute } from '../../types';
 import type { IconType } from '../icon';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'critical';
+export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'success' | 'warning' | 'critical';
 export type ButtonContext = 'default' | 'onlyIcon';
 export type ButtonSize = 'lg' | 'md' | 'sm';
 
