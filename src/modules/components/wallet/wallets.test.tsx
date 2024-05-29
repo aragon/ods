@@ -17,7 +17,7 @@ const mockWagmiHook = <T,>(hook: jest.SpyInstance, defaultValue: T, overrides?: 
     hook.mockReturnValue({ ...defaultValue, ...overrides });
 };
 
-describe('<Wallet /> component', () => {
+const setupMocks = () => {
     const useConnectMock = jest.spyOn(wagmi, 'useConnect');
     const useDisconnectMock = jest.spyOn(wagmi, 'useDisconnect');
     const useAccountMock = jest.spyOn(wagmi, 'useAccount');
@@ -25,70 +25,34 @@ describe('<Wallet /> component', () => {
 
     const defaultConnect = {
         connect: jest.fn(),
-        connectors: [],
-        data: undefined,
-        error: null,
-        isError: false,
         isIdle: true,
         isPending: false,
         isSuccess: false,
-        reset: jest.fn(),
         status: 'idle',
-        variables: undefined,
     };
 
     const defaultDisconnect = {
         disconnect: jest.fn(),
-        data: undefined,
-        error: null,
-        isError: false,
         isIdle: true,
         isPending: false,
         isSuccess: false,
-        reset: jest.fn(),
         status: 'idle',
-        variables: undefined,
     };
 
     const defaultAccount = {
         address: undefined as string | undefined,
-        connector: undefined,
         isConnected: false,
         isConnecting: false,
         isDisconnected: true,
-        isReconnecting: false,
         status: 'disconnected',
-        addresses: undefined,
-        chain: undefined,
-        chainId: undefined,
     };
 
     const defaultEnsName = {
         data: undefined as string | undefined,
-        isError: false,
-        isFetching: false,
         isLoading: false,
         isSuccess: false,
-        refetch: jest.fn(),
-        error: null,
         isPending: true,
-        isLoadingError: false,
-        isRefetchError: false,
         status: 'pending',
-        dataUpdatedAt: 0,
-        errorUpdatedAt: 0,
-        failureCount: 0,
-        failureReason: null,
-        errorUpdateCount: 0,
-        isFetched: false,
-        isFetchedAfterMount: false,
-        isInitialLoading: false,
-        isPaused: false,
-        isPlaceholderData: false,
-        isRefetching: false,
-        isStale: false,
-        fetchStatus: 'idle',
-        queryKey: [],
     };
 
     beforeEach(() => {
@@ -101,6 +65,30 @@ describe('<Wallet /> component', () => {
     afterEach(() => {
         jest.resetAllMocks();
     });
+
+    return {
+        useConnectMock,
+        useDisconnectMock,
+        useAccountMock,
+        useEnsNameMock,
+        defaultConnect,
+        defaultDisconnect,
+        defaultAccount,
+        defaultEnsName,
+    };
+};
+
+describe('<Wallet /> component', () => {
+    const {
+        useConnectMock,
+        useDisconnectMock,
+        useAccountMock,
+        useEnsNameMock,
+        defaultConnect,
+        defaultDisconnect,
+        defaultAccount,
+        defaultEnsName,
+    } = setupMocks();
 
     const createTestComponent = (props?: Partial<IWalletProps>, queryClient?: QueryClient) => {
         return render(
@@ -131,7 +119,6 @@ describe('<Wallet /> component', () => {
         mockWagmiHook(useAccountMock, defaultAccount, {
             address: '0x123',
             isConnected: true,
-            isReconnecting: true,
             status: 'reconnecting',
         });
         mockWagmiHook(useDisconnectMock, defaultDisconnect, { disconnect: disconnectMock });
@@ -155,8 +142,6 @@ describe('<Wallet /> component', () => {
         mockWagmiHook(useAccountMock, defaultAccount, {
             address: '0x123',
             isConnected: true,
-            isReconnecting: true,
-            status: 'reconnecting',
         });
         mockWagmiHook(useEnsNameMock, defaultEnsName, { data: 'vitalik.eth', isSuccess: true, status: 'success' });
 
@@ -169,8 +154,6 @@ describe('<Wallet /> component', () => {
         mockWagmiHook(useAccountMock, defaultAccount, {
             address: '0x123',
             isConnected: true,
-            isReconnecting: true,
-            status: 'reconnecting',
         });
 
         createTestComponent();
@@ -191,12 +174,7 @@ describe('<Wallet /> component', () => {
         const onConnect = jest.fn();
         const connectMock = jest.fn(() => {
             act(() => {
-                mockWagmiHook(useAccountMock, defaultAccount, {
-                    address: '0x123',
-                    isConnected: true,
-                    isReconnecting: true,
-                    status: 'reconnecting',
-                });
+                mockWagmiHook(useAccountMock, defaultAccount);
             });
         });
         mockWagmiHook(useConnectMock, defaultConnect, { connect: connectMock });
@@ -224,8 +202,6 @@ describe('<Wallet /> component', () => {
         mockWagmiHook(useAccountMock, defaultAccount, {
             address: '0x123',
             isConnected: true,
-            isReconnecting: true,
-            status: 'reconnecting',
         });
 
         createTestComponent({ onDisconnect });
