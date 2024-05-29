@@ -10,11 +10,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 -   Implement `Wallet` module component
+-   Implement `ghost` variant for `Button` component
+-   Implement `primaryInverted` variant for `Spinner` component
 
 ### Changed
 
 -   Update minor and patch dependencies
 -   Update `yarn` version from `4.1.1` to `4.2.2`
+-   Update sizes of `Avatar` core component
+-   Update style of `Button`, `CheckboxCard`, `InputContainer`, `RadioCard`, `Spinner` and `Switch` components
+-   Cleanup size class definitions to use `size-*` instead of `h-* w-*`
 
 ## [1.0.31] - 2024-05-24
 
