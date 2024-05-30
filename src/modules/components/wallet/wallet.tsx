@@ -91,7 +91,7 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
                     <div title={ensName ?? address} className="hidden min-w-0 max-w-24 truncate md:mr-3 md:block">
                         {ensName ?? addressUtils.truncateAddress(address)}
                     </div>
-                    <MemberAvatar size="md" address={address} />
+                    <MemberAvatar size="lg" address={address} />
                 </>
             )}
         </button>
