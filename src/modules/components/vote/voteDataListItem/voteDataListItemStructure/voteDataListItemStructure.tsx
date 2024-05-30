@@ -21,7 +21,7 @@ export interface IVoteDataListItemStructureProps extends IDataListItemProps {
      */
     voteIndicator: 'yes' | 'no' | 'abstain' | 'approved' | 'none';
     /**
-     * If token-based voting, the amount of tokens voted.
+     * If token-based voting, the amount of token voting power used.
      */
     voteTokenAmount?: number | string;
     /**
@@ -52,7 +52,7 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
     const centerInfoClassNames = classNames(
         'flex w-full flex-col gap-y-1 text-base font-normal leading-tight md:gap-y-1.5 md:text-lg',
         {
-            'py-3.5': !isTokenVoting,
+            'py-3 md:py-3.5': !isTokenVoting,
         },
     );
     return (
