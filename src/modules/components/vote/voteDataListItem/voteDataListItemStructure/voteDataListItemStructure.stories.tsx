@@ -3,7 +3,7 @@ import { VoteDataListItem } from '..';
 import { DataList } from '../../../../../core';
 
 const meta: Meta<typeof VoteDataListItem.Structure> = {
-    title: 'Modules/Components/Votes/VotesDataListItem/VotesDataListItem.Structure',
+    title: 'Modules/Components/Vote/VoteDataListItem/VoteDataListItem.Structure',
     component: VoteDataListItem.Structure,
     tags: ['autodocs'],
     parameters: {
@@ -17,9 +17,9 @@ const meta: Meta<typeof VoteDataListItem.Structure> = {
 type Story = StoryObj<typeof VoteDataListItem.Structure>;
 
 /**
- * Default usage example of the VotesDataListItem module component.
+ * Usage example of the VotesDataListItem module component for a token based vote.
  */
-export const Default: Story = {
+export const TokenVoting: Story = {
     args: {
         voter: { address: '0x1234567890123456789012345678901234567890', name: 'vitalik.eth' },
         voteIndicator: 'yes',
@@ -27,7 +27,24 @@ export const Default: Story = {
         voteTokenSymbol: 'PDC',
     },
     render: (args) => (
-        <DataList.Root entityLabel="Members">
+        <DataList.Root entityLabel="Votes">
+            <DataList.Container>
+                <VoteDataListItem.Structure {...args} />
+            </DataList.Container>
+        </DataList.Root>
+    ),
+};
+
+/**
+ * Usage example of the VotesDataListItem module component for a multisig vote.
+ */
+export const Multisig: Story = {
+    args: {
+        voter: { address: '0x1234567890123456789012345678901234567890', name: 'vitalik.eth' },
+        voteIndicator: 'approved',
+    },
+    render: (args) => (
+        <DataList.Root entityLabel="Votes">
             <DataList.Container>
                 <VoteDataListItem.Structure {...args} />
             </DataList.Container>
