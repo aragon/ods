@@ -17,7 +17,7 @@ export interface IWalletProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
 }
 
 export const Wallet: React.FC<IWalletProps> = (props) => {
-    const { user, isConnected, onClick, disabled, ...otherProps } = props;
+    const { user, isConnected = false, onClick, disabled, ...otherProps } = props;
     const { isPending: connectPending } = useConnect();
     const { isPending: disconnectPending } = useDisconnect();
 
