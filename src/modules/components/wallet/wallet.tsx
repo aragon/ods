@@ -1,62 +1,25 @@
 import classNames from 'classnames';
-import { useAccount, useConnect, useDisconnect, useEnsName, type CreateConnectorFn } from 'wagmi';
-import { injected, walletConnect, type InjectedParameters } from 'wagmi/connectors';
+import { useConnect, useDisconnect } from 'wagmi';
 import { StateSkeletonBar, StateSkeletonCircular } from '../../../core';
+import { type ICompositeAddress } from '../../types';
 import { addressUtils } from '../../utils';
 import { MemberAvatar } from '../member';
 
 export interface IWalletProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     /**
-     * Callback fired when the user connects their wallet.
+     * The connected user details.
      */
-    onConnect?: () => void;
+    user: ICompositeAddress;
     /**
-     * Callback fired when the user disconnects their wallet.
+     * Whether or not the app is connected to a wallet.
      */
-    onDisconnect?: () => void;
-    /**
-     * The preferred connector to use. @default injected
-     */
-    connector?: 'injected' | 'walletConnect';
-    /**
-     * If selecting WalletConnect as the connector, you must pass WalletConnect project ID. Required for WalletConnect -- see https://docs.walletconnect.com/
-     */
-    projectId?: string;
-    /**
-     * If `true`, the wallet button will be disabled.
-     */
-    disabled?: boolean;
+    isConnected: boolean;
 }
 
-const getPreferredConnector = (connector: 'injected' | 'walletConnect', projectId?: string) => {
-    switch (connector) {
-        case 'injected':
-            return injected();
-        case 'walletConnect':
-            return walletConnect({ projectId: projectId ?? '' });
-        default:
-            return injected();
-    }
-};
-
 export const Wallet: React.FC<IWalletProps> = (props) => {
-    const { onConnect, onDisconnect, connector = 'injected', projectId, disabled, ...otherProps } = props;
-    const { connect, isPending: connectPending } = useConnect();
-    const { disconnect, isPending: disconnectPending } = useDisconnect();
-    const { address, isConnected, isDisconnected } = useAccount();
-    const { data: ensName } = useEnsName({ address });
-
-    const handleClick = async () => {
-        if (isConnected) {
-            disconnect();
-            onDisconnect?.();
-        } else {
-            connect({
-                connector: getPreferredConnector(connector, projectId) as CreateConnectorFn<InjectedParameters>,
-            });
-            onConnect?.();
-        }
-    };
+    const { user, isConnected, onClick, disabled, ...otherProps } = props;
+    const { isPending: connectPending } = useConnect();
+    const { isPending: disconnectPending } = useDisconnect();
 
     const isPending = disconnectPending || connectPending;
 
@@ -74,8 +37,8 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
     );
 
     return (
-        <button className={buttonClassName} onClick={handleClick} disabled={isPending || disabled} {...otherProps}>
-            {isDisconnected && <div>Connect</div>}
+        <button className={buttonClassName} onClick={onClick} disabled={isPending || disabled} {...otherProps}>
+            {!isConnected && <div>Connect</div>}
 
             {connectPending && (
                 <>
@@ -88,10 +51,13 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
 
             {isConnected && (
                 <>
-                    <div title={ensName ?? address} className="hidden min-w-0 max-w-24 truncate md:mr-3 md:block">
-                        {ensName ?? addressUtils.truncateAddress(address)}
+                    <div
+                        title={user.name ?? user.address}
+                        className="hidden min-w-0 max-w-24 truncate md:mr-3 md:block"
+                    >
+                        {user.name ?? addressUtils.truncateAddress(user.address)}
                     </div>
-                    <MemberAvatar size="lg" address={address} />
+                    <MemberAvatar size="lg" address={user.address} />
                 </>
             )}
         </button>
