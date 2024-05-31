@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { useAccount } from 'wagmi';
 import {
     DataList,
     NumberFormat,
@@ -17,17 +18,21 @@ export interface IVoteDataListItemStructureProps extends IDataListItemProps {
      */
     voter: ICompositeAddress;
     /**
-     * The way the voter used their voting power.
+     * Whether the voter is a delegate of the current user or not.
      */
-    voteIndicator: 'yes' | 'no' | 'abstain' | 'approved' | 'none';
+    isDelegate?: boolean;
+    /**
+     * The vote of the user.
+     */
+    voteIndicator: 'yes' | 'no' | 'abstain' | 'approved';
     /**
      * If token-based voting, the amount of token voting power used.
      */
-    voteTokenAmount?: number | string;
+    votingPower?: number | string;
     /**
-     * If token-based voting, the symbol of the token voted.
+     * If token-based voting, the symbol of the voting power used.
      */
-    voteTokenSymbol?: string;
+    tokenSymbol?: string;
 }
 
 const voteIndicatorToTagVariant: Record<IVoteDataListItemStructureProps['voteIndicator'], TagVariant> = {
@@ -35,20 +40,26 @@ const voteIndicatorToTagVariant: Record<IVoteDataListItemStructureProps['voteInd
     no: 'critical',
     abstain: 'neutral',
     approved: 'primary',
-    none: 'neutral',
 };
 
 export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps> = (props) => {
-    const { voter, voteTokenAmount, voteTokenSymbol, voteIndicator, ...otherProps } = props;
+    const { voter, isDelegate, votingPower, tokenSymbol, voteIndicator, ...otherProps } = props;
+    const { address: currentUserAddress, isConnected } = useAccount();
+
+    const isCurrentUser = isConnected && currentUserAddress === addressUtils.getChecksum(voter.address);
+
+    console.log('isCurrentUser', isCurrentUser);
+    console.log('currentUserAddress', currentUserAddress, 'voter.address', voter.address);
+
     const resolvedUserHandle =
         voter.name != null && voter.name !== '' ? voter.name : addressUtils.truncateAddress(voter.address);
 
-    const formattedTokenNumber = formatterUtils.formatNumber(voteTokenAmount, {
+    const formattedTokenNumber = formatterUtils.formatNumber(votingPower, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
     });
-    const formattedTokenVote = `${formattedTokenNumber} ${voteTokenSymbol}`;
+    const formattedTokenVote = `${formattedTokenNumber} ${tokenSymbol}`;
 
-    const isTokenVoting = voteTokenAmount != null && voteTokenSymbol != null;
+    const isTokenVoting = votingPower != null && tokenSymbol != null;
     const centerInfoClassNames = classNames(
         'flex w-full flex-col gap-y-1 text-base font-normal leading-tight md:gap-y-1.5 md:text-lg',
         {
@@ -60,7 +71,11 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
             <div className="flex items-center gap-x-3 md:gap-x-4">
                 <MemberAvatar address={voter.address} ensName={voter.name} responsiveSize={{ md: 'md' }} />
                 <div className={centerInfoClassNames}>
-                    <span className="text-neutral-800">{resolvedUserHandle}</span>
+                    <span className="flex items-center gap-x-1 text-neutral-800 md:gap-x-1.5">
+                        {resolvedUserHandle}
+                        {isDelegate && !isCurrentUser && <Tag variant="primary" label="Your Delegate" />}
+                        {isCurrentUser && <Tag variant="neutral" label="You" />}
+                    </span>
                     {isTokenVoting && <span className="text-neutral-500">{formattedTokenVote}</span>}
                 </div>
                 {voteIndicator && (

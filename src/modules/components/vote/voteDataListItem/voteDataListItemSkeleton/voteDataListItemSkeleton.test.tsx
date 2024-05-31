@@ -2,12 +2,12 @@ import { render, screen } from '@testing-library/react';
 import { VoteDataListItem, type IVoteDataListItemSkeletonProps } from '../..';
 import { DataList } from '../../../../../core';
 
-describe('<DaoDataListItem.Skeleton /> component', () => {
+describe('<VoteDataListItem.Skeleton /> component', () => {
     const createTestComponent = (props?: Partial<IVoteDataListItemSkeletonProps>) => {
         const completeProps: IVoteDataListItemSkeletonProps = { ...props };
 
         return (
-            <DataList.Root entityLabel="Proposal">
+            <DataList.Root entityLabel="Vote">
                 <VoteDataListItem.Skeleton {...completeProps} />
             </DataList.Root>
         );

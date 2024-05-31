@@ -17,11 +17,11 @@ const meta: Meta<typeof VoteDataListItem.Skeleton> = {
 type Story = StoryObj<typeof VoteDataListItem.Skeleton>;
 
 /**
- * Default usage example of the MemberDataListItemSkeleton component.
+ * Default usage example of the VoteDataListItem.Skeleton component.
  */
 export const Default: Story = {
     render: () => (
-        <DataList.Root entityLabel="Proposal" state="initialLoading" pageSize={1}>
+        <DataList.Root entityLabel="Vote" state="initialLoading" pageSize={1}>
             <DataList.Container SkeletonElement={VoteDataListItem.Skeleton} />
         </DataList.Root>
     ),

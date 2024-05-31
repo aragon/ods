@@ -15,7 +15,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
--   Update `addressUtils` to show first 6 characters with `truncateAddress` method
 -   Update minor and patch dependencies
 -   Update `yarn` version from `4.1.1` to `4.2.2`
 -   Update sizes of `Avatar` core component
