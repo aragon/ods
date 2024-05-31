@@ -23,8 +23,8 @@ export const TokenVoting: Story = {
     args: {
         voter: { address: '0x1234567890123456789012345678901234567890', name: 'vitalik.eth' },
         voteIndicator: 'yes',
-        voteTokenAmount: 1230000,
-        voteTokenSymbol: 'PDC',
+        votingPower: 1230000,
+        tokenSymbol: 'PDC',
     },
     render: (args) => (
         <DataList.Root entityLabel="Votes">

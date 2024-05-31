@@ -48,9 +48,6 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
 
     const isCurrentUser = isConnected && currentUserAddress === addressUtils.getChecksum(voter.address);
 
-    console.log('isCurrentUser', isCurrentUser);
-    console.log('currentUserAddress', currentUserAddress, 'voter.address', voter.address);
-
     const resolvedUserHandle =
         voter.name != null && voter.name !== '' ? voter.name : addressUtils.truncateAddress(voter.address);
 
