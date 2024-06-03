@@ -35,7 +35,7 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
 
     const { address: currentUserAddress, isConnected } = useAccount();
 
-    const isCurrentUser = isConnected && address && currentUserAddress === addressUtils.getChecksum(address);
+    const isCurrentUser = isConnected && address && addressUtils.isAddressEqual(currentUserAddress, address);
 
     const resolvedUserHandle = ensName != null && ensName !== '' ? ensName : addressUtils.truncateAddress(address);
 
@@ -51,7 +51,7 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                         avatarSrc={avatarSrc}
                         responsiveSize={{ md: 'md' }}
                     />
-                    {isDelegate && !isCurrentUser && <Tag variant="info" label="Your delegate" />}
+                    {isDelegate && !isCurrentUser && <Tag variant="info" label="Your Delegate" />}
                     {isCurrentUser && <Tag variant="neutral" label="You" />}
                 </div>
 

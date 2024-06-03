@@ -43,10 +43,10 @@ const voteIndicatorToTagVariant: Record<IVoteDataListItemStructureProps['voteInd
 };
 
 export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps> = (props) => {
-    const { voter, isDelegate, votingPower, tokenSymbol, voteIndicator, ...otherProps } = props;
+    const { voter, isDelegate, votingPower, tokenSymbol, voteIndicator, className, ...otherProps } = props;
     const { address: currentUserAddress, isConnected } = useAccount();
 
-    const isCurrentUser = isConnected && currentUserAddress === addressUtils.getChecksum(voter.address);
+    const isCurrentUser = isConnected && addressUtils.isAddressEqual(currentUserAddress, voter.address);
 
     const resolvedUserHandle =
         voter.name != null && voter.name !== '' ? voter.name : addressUtils.truncateAddress(voter.address);
@@ -64,25 +64,19 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
         },
     );
     return (
-        <DataList.Item {...otherProps}>
-            <div className="flex items-center gap-x-3 md:gap-x-4">
-                <MemberAvatar address={voter.address} ensName={voter.name} responsiveSize={{ md: 'md' }} />
-                <div className={centerInfoClassNames}>
-                    <span className="flex items-center gap-x-1 text-neutral-800 md:gap-x-1.5">
-                        {resolvedUserHandle}
-                        {isDelegate && !isCurrentUser && <Tag variant="primary" label="Your delegate" />}
-                        {isCurrentUser && <Tag variant="neutral" label="You" />}
-                    </span>
-                    {isTokenVoting && <span className="text-neutral-500">{formattedTokenVote}</span>}
-                </div>
-                {voteIndicator && (
-                    <Tag
-                        variant={voteIndicatorToTagVariant[voteIndicator]}
-                        className="capitalize"
-                        label={voteIndicator}
-                    />
-                )}
+        <DataList.Item className={classNames('flex items-center gap-x-3 md:gap-x-4', className)} {...otherProps}>
+            <MemberAvatar address={voter.address} ensName={voter.name} responsiveSize={{ md: 'md' }} />
+            <div className={centerInfoClassNames}>
+                <span className="flex items-center gap-x-1 text-neutral-800 md:gap-x-1.5">
+                    {resolvedUserHandle}
+                    {isDelegate && !isCurrentUser && <Tag variant="primary" label="Your delegate" />}
+                    {isCurrentUser && <Tag variant="neutral" label="You" />}
+                </span>
+                {isTokenVoting && <span className="text-neutral-500">{formattedTokenVote}</span>}
             </div>
+            {voteIndicator && (
+                <Tag variant={voteIndicatorToTagVariant[voteIndicator]} className="capitalize" label={voteIndicator} />
+            )}
         </DataList.Item>
     );
 };

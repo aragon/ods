@@ -1,19 +1,10 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { getAddress, isAddress } from 'viem';
-import { useAccount } from 'wagmi';
+import * as viem from 'viem';
+import * as wagmi from 'wagmi';
 import { DataList, NumberFormat, formatterUtils } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
 import { VoteDataListItemStructure, type IVoteDataListItemStructureProps } from '../../voteDataListItem';
-
-jest.mock('wagmi', () => ({
-    useAccount: jest.fn(),
-}));
-
-jest.mock('viem', () => ({
-    isAddress: jest.fn(),
-    getAddress: jest.fn(),
-}));
 
 jest.mock('../../../../../core/components/tag', () => ({
     Tag: ({ label }: { label: string }) => <div data-testid="tag">{label}</div>,
@@ -24,6 +15,10 @@ jest.mock('../../../member', () => ({
 }));
 
 describe('<VoteDataListItemStructure /> component', () => {
+    const isAddressSpy = jest.spyOn(viem, 'isAddress');
+    const getAddressSpy = jest.spyOn(viem, 'getAddress');
+    const useAccountSpy = jest.spyOn(wagmi, 'useAccount');
+
     const createTestComponent = (props?: Partial<IVoteDataListItemStructureProps>) => {
         const completeProps: IVoteDataListItemStructureProps = {
             voter: { address: '0x1D03D98c0aac1f83860cec5156116FE68725642E' },
@@ -41,15 +36,21 @@ describe('<VoteDataListItemStructure /> component', () => {
     };
 
     beforeEach(() => {
-        (isAddress as unknown as jest.Mock).mockImplementation(() => true);
-        (getAddress as jest.Mock).mockImplementation((address: string) => address);
-        (useAccount as jest.Mock).mockReturnValue({
-            address: '0x1234567890123456789012345678901234567890',
-            isConnected: true,
-        });
+        isAddressSpy.mockImplementation(() => true);
+        getAddressSpy.mockImplementation((address: string) => `0x${address}`);
+        useAccountSpy.mockImplementation(
+            jest.fn().mockReturnValue({
+                address: '0x1234567890123456789012345678901234567890',
+                isConnected: true,
+            }),
+        );
     });
 
-    it('renders with minimum props', () => {
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('renders the vote and the voter information', () => {
         const voter = { address: '0x1D03D98c0aac1f83860cec5156116FE68725642E' };
         const voteIndicator = 'no';
         render(createTestComponent({ voter, voteIndicator }));
@@ -81,6 +82,8 @@ describe('<VoteDataListItemStructure /> component', () => {
 
     it('renders the "You" tag if the voter is the current user', () => {
         const voter = { address: '0x1234567890123456789012345678901234567890' };
+        useAccountSpy.mockImplementation(jest.fn().mockReturnValue({ address: voter.address, isConnected: true }));
+
         render(createTestComponent({ voter }));
 
         expect(screen.getByText('You')).toBeInTheDocument();
