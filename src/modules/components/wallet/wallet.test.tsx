@@ -19,17 +19,13 @@ describe('<Wallet /> component', () => {
     const useEnsNameMock = jest.spyOn(wagmi, 'useEnsName');
 
     const createTestComponent = (props?: Partial<IWalletProps>, queryClient?: QueryClient) => {
-        const defaultProps = {
-            user: {
-                address: '0x1234567890123456789012345678901234567890',
-            },
-            isConnected: false,
+        const completeProps = {
             ...props,
         };
 
         return render(
             <OdsModulesProvider queryClient={queryClient}>
-                <Wallet {...defaultProps} />
+                <Wallet {...completeProps} />
             </OdsModulesProvider>,
         );
     };
@@ -49,13 +45,14 @@ describe('<Wallet /> component', () => {
     });
 
     it('renders member avatar when connected', () => {
-        const isConnected = true;
-        createTestComponent({ isConnected });
+        const user = {
+            address: '0x0987654321098765432109876543210987654321',
+        };
+        createTestComponent({ user });
         expect(screen.getByTestId('member-avatar-mock')).toBeInTheDocument();
     });
 
-    it('renders user address when connected', () => {
-        const isConnected = true;
+    it('renders user address when connected and user has no ENS name linked', () => {
         const user = {
             address: '0x0987654321098765432109876543210987654321',
         };
@@ -64,18 +61,32 @@ describe('<Wallet /> component', () => {
             isLoading: false,
         } as wagmi.UseEnsNameReturnType);
 
-        createTestComponent({ user, isConnected });
+        createTestComponent({ user });
         expect(screen.getByText('0x09…4321')).toBeInTheDocument();
     });
 
-    it('renders user name when provided and connected', () => {
-        const isConnected = true;
+    it('renders user name when connected and has ENS name linked', () => {
         const user = {
             address: '0x0987654321098765432109876543210987654321',
             name: 'aragon.eth',
         };
-        createTestComponent({ user, isConnected });
+
+        createTestComponent({ user });
         expect(screen.getByText('aragon.eth')).toBeInTheDocument();
         expect(screen.queryByText('0x09…4321')).not.toBeInTheDocument();
+    });
+
+    it('renders user name when connected and has no ENS name linked', () => {
+        const user = {
+            address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+        };
+        jest.spyOn(wagmi, 'useEnsName').mockReturnValue({
+            data: 'vitalik.eth',
+            isLoading: false,
+        } as wagmi.UseEnsNameReturnType);
+
+        createTestComponent({ user });
+        expect(screen.getByText('vitalik.eth')).toBeInTheDocument();
+        expect(screen.queryByText('0xd8…6045')).not.toBeInTheDocument();
     });
 });
