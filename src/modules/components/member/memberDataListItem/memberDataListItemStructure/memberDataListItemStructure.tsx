@@ -51,7 +51,7 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                         avatarSrc={avatarSrc}
                         responsiveSize={{ md: 'md' }}
                     />
-                    {isDelegate && !isCurrentUser && <Tag variant="info" label="Your Delegate" />}
+                    {isDelegate && !isCurrentUser && <Tag variant="info" label="Your delegate" />}
                     {isCurrentUser && <Tag variant="neutral" label="You" />}
                 </div>
 

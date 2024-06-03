@@ -86,11 +86,11 @@ describe('<VoteDataListItemStructure /> component', () => {
         expect(screen.getByText('You')).toBeInTheDocument();
     });
 
-    it('renders "Your Delegate" tag if the voter is a delegate of the current user', () => {
+    it('renders "Your delegate" tag if the voter is a delegate of the current user', () => {
         const voter = { address: '0x1D03D98c0aac1f83860cec5156116FE68725642E' };
         const isDelegate = true;
         render(createTestComponent({ voter, isDelegate }));
 
-        expect(screen.getByText('Your Delegate')).toBeInTheDocument();
+        expect(screen.getByText('Your delegate')).toBeInTheDocument();
     });
 });

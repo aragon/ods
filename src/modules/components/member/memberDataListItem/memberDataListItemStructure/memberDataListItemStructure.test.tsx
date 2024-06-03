@@ -53,11 +53,11 @@ describe('<MemberDataListItem /> component', () => {
         expect(avatar).toBeInTheDocument();
     });
 
-    it('conditionally renders the "Your Delegate" tag', async () => {
+    it('conditionally renders the "Your delegate" tag', async () => {
         const address = '0x0987654321098765432109876543210987654321';
         render(createTestComponent({ isDelegate: true, address }));
 
-        expect(screen.getByText('Your Delegate')).toBeInTheDocument();
+        expect(screen.getByText('Your delegate')).toBeInTheDocument();
     });
 
     it('renders the ENS user handle instead of address if provided', async () => {

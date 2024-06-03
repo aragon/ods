@@ -70,7 +70,7 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
                 <div className={centerInfoClassNames}>
                     <span className="flex items-center gap-x-1 text-neutral-800 md:gap-x-1.5">
                         {resolvedUserHandle}
-                        {isDelegate && !isCurrentUser && <Tag variant="primary" label="Your Delegate" />}
+                        {isDelegate && !isCurrentUser && <Tag variant="primary" label="Your delegate" />}
                         {isCurrentUser && <Tag variant="neutral" label="You" />}
                     </span>
                     {isTokenVoting && <span className="text-neutral-500">{formattedTokenVote}</span>}
