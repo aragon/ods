@@ -16,7 +16,7 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
     const { user, className, ...otherProps } = props;
     const { data: ensName, isLoading: ensLoading } = useEnsName({
         address: user != null ? addressUtils.getChecksum(user.address) : undefined,
-        query: { enabled: user != null && user.name != null },
+        query: { enabled: user?.name != null },
     });
 
     const buttonClassName = classNames(
