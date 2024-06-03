@@ -39,13 +39,13 @@ export const WithAddress: Story = {
 };
 
 /**
- * Example usage of a connected Wallet component with additional ENS handle.
+ * Example usage of a connected Wallet component with additional ENS handle provided.
  */
 export const WithEnsName: Story = {
     args: {
         user: {
-            address: '0x1234567890123456789012345678901234567890',
-            name: 'aragon.eth',
+            address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+            name: 'vitalik.eth',
         },
         isConnected: true,
     },
