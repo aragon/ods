@@ -23,6 +23,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update style of `Button`, `CheckboxCard`, `InputContainer`, `RadioCard`, `Spinner` and `Switch` components
 -   Cleanup size class definitions to use `size-*` instead of `h-* w-*`
 
+### Fixed
+
+-   Fix responsiveness classes and utilities to support style for screens below `sm` breakpoint
+
 ## [1.0.31] - 2024-05-24
 
 ### Fixed
