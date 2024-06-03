@@ -25,28 +25,32 @@ export interface ISpinnerProps extends HTMLAttributes<HTMLDivElement> {
 
 const responsiveSizeClassNames: ResponsiveAttributeClassMap<SpinnerSize> = {
     sm: {
-        sm: 'size-4 border-[1.6px]',
+        default: 'size-4 border-[1.6px]',
+        sm: 'sm:size-4 sm:border-[1.6px]',
         md: 'md:size-4 md:border-[1.6px]',
         lg: 'lg:size-4 lg:border-[1.6px]',
         xl: 'xl:size-4 xl:border-[1.6px]',
         '2xl': '2xl:size-4 2xl:border-[1.6px]',
     },
     md: {
-        sm: 'size-5 border-2',
+        default: 'size-5 border-2',
+        sm: 'sm:size-5 sm:border-2',
         md: 'md:size-5 md:border-2',
         lg: 'lg:size-5 lg:border-2',
         xl: 'xl:size-5 xl:border-2',
         '2xl': '2xl:size-5 2xl:border-2',
     },
     lg: {
-        sm: 'size-6 border-[2.4px]',
+        default: 'size-6 border-[2.4px]',
+        sm: 'sm:size-6 sm:border-[2.4px]',
         md: 'md:size-6 md:border-[2.4px]',
         lg: 'lg:size-6 lg:border-[2.4px]',
         xl: 'xl:size-6 xl:border-[2.4px]',
         '2xl': '2xl:size-6 2xl:border-[2.4px]',
     },
     xl: {
-        sm: 'size-8 border-[3.2px]',
+        default: 'size-8 border-[3.2px]',
+        sm: 'sm:size-8 sm:border-[3.2px]',
         md: 'md:size-8 md:border-[3.2px]',
         lg: 'lg:size-8 lg:border-[3.2px]',
         xl: 'xl:size-8 xl:border-[3.2px]',
@@ -67,7 +71,7 @@ const variantToClassNames: Record<SpinnerVariant, string> = {
  * Spinner UI component
  */
 export const Spinner: React.FC<ISpinnerProps> = (props) => {
-    const { size = 'md', responsiveSize = {}, variant = 'neutral', className, ...otherProps } = props;
+    const { size = 'md', responsiveSize, variant = 'neutral', className, ...otherProps } = props;
 
     const sizeClassNames = responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClassNames);
 

@@ -30,15 +30,15 @@ export interface IStateSkeletonBarProps extends ComponentPropsWithoutRef<'span'>
 }
 
 const responsiveSizeClasses: ResponsiveAttributeClassMap<StateSkeletonBarSize> = {
-    sm: { sm: 'h-3', md: 'md:h-3', lg: 'lg:h-3', xl: 'xl:h-3', '2xl': '2xl:h-3' },
-    md: { sm: 'h-4', md: 'md:h-4', lg: 'lg:h-4', xl: 'xl:h-4', '2xl': '2xl:h-4' },
-    lg: { sm: 'h-5', md: 'md:h-5', lg: 'lg:h-5', xl: 'xl:h-5', '2xl': '2xl:h-5' },
-    xl: { sm: 'h-6', md: 'md:h-6', lg: 'lg:h-6', xl: 'xl:h-6', '2xl': '2xl:h-6' },
-    '2xl': { sm: 'h-8', md: 'md:h-8', lg: 'lg:h-8', xl: 'xl:h-8', '2xl': '2xl:h-8' },
+    sm: { default: 'h-3', sm: 'sm:h-3', md: 'md:h-3', lg: 'lg:h-3', xl: 'xl:h-3', '2xl': '2xl:h-3' },
+    md: { default: 'h-4', sm: 'sm:h-4', md: 'md:h-4', lg: 'lg:h-4', xl: 'xl:h-4', '2xl': '2xl:h-4' },
+    lg: { default: 'h-5', sm: 'sm:h-5', md: 'md:h-5', lg: 'lg:h-5', xl: 'xl:h-5', '2xl': '2xl:h-5' },
+    xl: { default: 'h-6', sm: 'sm:h-6', md: 'md:h-6', lg: 'lg:h-6', xl: 'xl:h-6', '2xl': '2xl:h-6' },
+    '2xl': { default: 'h-8', sm: 'sm:h-8', md: 'md:h-8', lg: 'lg:h-8', xl: 'xl:h-8', '2xl': '2xl:h-8' },
 };
 
 export const StateSkeletonBar = forwardRef<HTMLDivElement, IStateSkeletonBarProps>((props, ref) => {
-    const { className, responsiveSize = {}, size = 'md', style, width = 160, ...otherProps } = props;
+    const { className, responsiveSize, size = 'md', style, width = 160, ...otherProps } = props;
 
     const classes = classNames(
         'animate-pulse rounded-full bg-neutral-50',

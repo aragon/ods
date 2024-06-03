@@ -55,21 +55,24 @@ const avatarVariantToContainerClassNames: Record<AvatarIconVariant | 'white', st
 
 const responsiveSizeClasses: ResponsiveAttributeClassMap<AvatarIconSize> = {
     sm: {
-        sm: 'size-6',
+        default: 'size-6',
+        sm: 'sm:size-6',
         md: 'md:size-6',
         lg: 'lg:size-6',
         xl: 'xl:size-6',
         '2xl': '2xl:size-6',
     },
     md: {
-        sm: 'size-8',
+        default: 'size-8',
+        sm: 'sm:size-8',
         md: 'md:size-8',
         lg: 'lg:size-8',
         xl: 'xl:size-8',
         '2xl': '2xl:size-8',
     },
     lg: {
-        sm: 'size-10',
+        default: 'size-10',
+        sm: 'sm:size-10',
         md: 'md:size-10',
         lg: 'lg:size-10',
         xl: 'xl:size-10',
@@ -78,7 +81,7 @@ const responsiveSizeClasses: ResponsiveAttributeClassMap<AvatarIconSize> = {
 };
 
 export const AvatarIcon: React.FC<IAvatarIconProps> = (props) => {
-    const { className, icon, variant = 'neutral', size = 'sm', responsiveSize = {}, backgroundWhite, ...rest } = props;
+    const { className, icon, variant = 'neutral', size = 'sm', responsiveSize, backgroundWhite, ...rest } = props;
 
     const containerClasses = classNames(
         'flex items-center justify-center rounded-full',
