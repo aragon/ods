@@ -87,8 +87,8 @@ __metadata:
     "@types/jest": "npm:^29.5.12"
     "@types/react-dom": "npm:^18.3.0"
     "@types/sanitize-html": "npm:^2.9.0"
-    "@typescript-eslint/eslint-plugin": "npm:^7.10.0"
-    "@typescript-eslint/parser": "npm:^7.10.0"
+    "@typescript-eslint/eslint-plugin": "npm:^7.12.0"
+    "@typescript-eslint/parser": "npm:^7.12.0"
     autoprefixer: "npm:^10.4.19"
     blockies-ts: "npm:^1.0.0"
     classnames: "npm:^2.0.0"
@@ -96,7 +96,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-plugin-import: "npm:^2.29.1"
     eslint-plugin-jsx-a11y: "npm:^6.8.0"
-    eslint-plugin-react: "npm:^7.34.1"
+    eslint-plugin-react: "npm:^7.34.2"
     eslint-plugin-react-hooks: "npm:^4.6.2"
     eslint-plugin-storybook: "npm:^0.8.0"
     eslint-plugin-tailwindcss: "npm:^3.17.0"
@@ -107,7 +107,7 @@ __metadata:
     jest-environment-jsdom: "npm:^29.7.0"
     lint-staged: "npm:^15.2.5"
     postcss: "npm:^8.4.38"
-    prettier: "npm:^3.2.5"
+    prettier: "npm:^3.3.0"
     prettier-plugin-organize-imports: "npm:^3.2.4"
     prettier-plugin-tailwindcss: "npm:^0.6.1"
     react: "npm:^18.3.1"
@@ -124,15 +124,15 @@ __metadata:
     tiptap-markdown: "npm:^0.8.10"
     ts-jest: "npm:^29.1.3"
     typescript: "npm:^5.4.5"
-    viem: "npm:^2.12.5"
-    wagmi: "npm:^2.9.7"
+    viem: "npm:^2.13.3"
+    wagmi: "npm:^2.9.8"
   peerDependencies:
     "@tailwindcss/typography": ^0.5.0
     "@tanstack/react-query": ^5.39.0
     react: ^18.2.0
     react-dom: ^18.2.0
     tailwindcss: ^3.4.0
-    viem: ^2.12.0
+    viem: ^2.13.0
     wagmi: ^2.9.0
   languageName: unknown
   linkType: soft
@@ -6710,7 +6710,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^7.10.0":
+"@typescript-eslint/eslint-plugin@npm:^7.12.0":
   version: 7.12.0
   resolution: "@typescript-eslint/eslint-plugin@npm:7.12.0"
   dependencies:
@@ -6733,7 +6733,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^7.10.0":
+"@typescript-eslint/parser@npm:^7.12.0":
   version: 7.12.0
   resolution: "@typescript-eslint/parser@npm:7.12.0"
   dependencies:
@@ -10589,7 +10589,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:^7.34.1":
+"eslint-plugin-react@npm:^7.34.2":
   version: 7.34.2
   resolution: "eslint-plugin-react@npm:7.34.2"
   dependencies:
@@ -16241,7 +16241,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.2.5":
+"prettier@npm:^3.3.0":
   version: 3.3.0
   resolution: "prettier@npm:3.3.0"
   bin:
@@ -19670,9 +19670,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:^2.12.5":
-  version: 2.13.3
-  resolution: "viem@npm:2.13.3"
+"viem@npm:^2.13.3":
+  version: 2.13.5
+  resolution: "viem@npm:2.13.5"
   dependencies:
     "@adraffy/ens-normalize": "npm:1.10.0"
     "@noble/curves": "npm:1.2.0"
@@ -19687,7 +19687,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/45468301853dfda37ba3fa18b0a738b4595646910602dacbffe401b766cabdad5e5a533cd7839a39f4c98de6bc102743f23fcf6019dea644013070171bb9482b
+  checksum: 10c0/23b3427385cf952373f272e3653ad9769f617d55a4d0a7b9a66f498653eec8afdee87fb275036868d6b33aa3aef30922ba35057738f202b5edc34e03d7f4d80a
   languageName: node
   linkType: hard
 
@@ -19707,7 +19707,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:^2.9.7":
+"wagmi@npm:^2.9.8":
   version: 2.9.8
   resolution: "wagmi@npm:2.9.8"
   dependencies:
