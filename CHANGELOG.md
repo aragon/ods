@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Update minor and patch dependencies
 -   Update `yarn` version from `4.1.1` to `4.2.2`
+-   Bump `@testing-library/react` from `15.0.7` to `16.0.0`
 -   Update sizes of `Avatar` core component
 -   Update style of `Button`, `CheckboxCard`, `InputContainer`, `RadioCard`, `Spinner` and `Switch` components
 -   Cleanup size class definitions to use `size-*` instead of `h-* w-*`
