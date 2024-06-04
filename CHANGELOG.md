@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 -   Fix responsiveness classes and utilities to support style for screens below `sm` breakpoint
+-   Export module utilities
 
 ## [1.0.31] - 2024-05-24
 
