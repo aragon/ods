@@ -15,7 +15,7 @@ export const DaoDataListItemSkeleton: React.FC<IDaoDataListItemSkeletonProps> = 
             {...otherProps}
         >
             <div className="grid gap-y-5 py-1.5">
-                <div className=" flex w-full justify-between space-x-4">
+                <div className="flex w-full justify-between space-x-4">
                     <div className="grid w-full gap-y-3 text-neutral-800 md:w-2/3 md:gap-y-2">
                         <StateSkeletonBar size="xl" responsiveSize={{ md: '2xl' }} width="100%" />
                         <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="50%" />

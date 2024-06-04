@@ -14,7 +14,7 @@ export const MemberDataListItemSkeleton: React.FC<IMemberDataListItemSkeletonPro
             className={classNames('bg-neutral-0 py-3 md:py-3.5', className)}
             {...otherProps}
         >
-            <div className="flex flex-col items-start justify-center gap-y-3 py-2 md:min-w-44 md:gap-y-4 md:py-3 ">
+            <div className="flex flex-col items-start justify-center gap-y-3 py-2 md:min-w-44 md:gap-y-4 md:py-3">
                 <StateSkeletonCircular size="sm" responsiveSize={{ md: 'lg' }} />
 
                 <StateSkeletonBar size="lg" responsiveSize={{ md: 'xl' }} width="100%" />
