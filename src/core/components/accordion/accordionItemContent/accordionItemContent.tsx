@@ -10,7 +10,7 @@ export const AccordionItemContent = forwardRef<HTMLDivElement, IAccordionItemCon
     return (
         <RadixAccordionContent
             className={classNames(
-                'overflow-hidden ', // default styles
+                'overflow-hidden', // default styles
                 'data-[state=open]:animate-[accordionExpand_0.3s_cubic-bezier(0.87,_0,_0.13,_1)_forwards]', // expanding animation
                 'data-[state=closed]:animate-[accordionCollapse_0.3s_cubic-bezier(0.87,_0,_0.13,_1)_forwards]', // collapsing animation
                 className,
