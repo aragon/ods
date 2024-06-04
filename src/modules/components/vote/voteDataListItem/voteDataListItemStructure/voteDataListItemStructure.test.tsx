@@ -38,12 +38,10 @@ describe('<VoteDataListItemStructure /> component', () => {
     beforeEach(() => {
         isAddressSpy.mockImplementation(() => true);
         getAddressSpy.mockImplementation((address: string) => `0x${address}`);
-        useAccountSpy.mockImplementation(
-            jest.fn().mockReturnValue({
-                address: '0x1234567890123456789012345678901234567890',
-                isConnected: true,
-            }),
-        );
+        useAccountSpy.mockReturnValue({
+            address: '0x1234567890123456789012345678901234567890' as viem.Address,
+            isConnected: true,
+        } as wagmi.UseAccountReturnType);
     });
 
     afterEach(() => {
@@ -82,7 +80,7 @@ describe('<VoteDataListItemStructure /> component', () => {
 
     it('renders the "You" tag if the voter is the current user', () => {
         const voter = { address: '0x1234567890123456789012345678901234567890' };
-        useAccountSpy.mockImplementation(jest.fn().mockReturnValue({ address: voter.address, isConnected: true }));
+        useAccountSpy.mockReturnValue({ address: voter.address, isConnected: true } as wagmi.UseAccountReturnType);
 
         render(createTestComponent({ voter }));
 
