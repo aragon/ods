@@ -53,7 +53,7 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                         className={classNames('text-sm leading-tight md:text-base', {
                             'text-info-800': status === 'active',
                             'text-warning-800': status === 'challenged' || status === 'vetoed',
-                            'text-neutral-800 ': ongoing === false,
+                            'text-neutral-800': ongoing === false,
                         })}
                     >
                         {/* TODO: apply internationalization [APP-2627]; apply relative date formatter [APP-2944] */}

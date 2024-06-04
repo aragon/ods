@@ -41,7 +41,7 @@ describe('<TransactionDataListItem.Structure /> component', () => {
             ...props,
         };
         return (
-            <DataList.Root entityLabel="Daos">
+            <DataList.Root entityLabel="Transactions">
                 <DataList.Container>
                     <TransactionDataListItemStructure {...defaultProps} />
                 </DataList.Container>

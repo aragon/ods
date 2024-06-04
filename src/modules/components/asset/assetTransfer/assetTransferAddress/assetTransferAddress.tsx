@@ -42,8 +42,8 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                 'active:border-neutral-300 active:shadow-none', //active
                 'md:w-1/2 md:p-6', //responsive
                 {
-                    'rounded-t-xl  md:rounded-l-xl md:rounded-r-none': txRole === 'sender', // sender base
-                    'rounded-b-xl  md:rounded-l-none md:rounded-r-xl md:pl-8': txRole === 'recipient', // recipient base
+                    'rounded-t-xl md:rounded-l-xl md:rounded-r-none': txRole === 'sender', // sender base
+                    'rounded-b-xl md:rounded-l-none md:rounded-r-xl md:pl-8': txRole === 'recipient', // recipient base
                 },
                 {
                     'border-x border-t md:border-y md:border-l md:border-r-0': txRole === 'sender', // sender borders

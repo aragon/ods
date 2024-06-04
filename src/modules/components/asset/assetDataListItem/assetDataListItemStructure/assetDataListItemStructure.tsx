@@ -80,7 +80,7 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
                 <div className="flex items-center">
                     <Avatar src={logoSrc} responsiveSize={{ md: 'md', sm: 'sm' }} className="block" />
                 </div>
-                <div className=" flex w-full justify-between">
+                <div className="flex w-full justify-between">
                     <div className="flex flex-col gap-y-0.5">
                         <span className="truncate text-sm leading-tight text-neutral-800 md:text-base">{name}</span>
                         <p className="text-sm leading-tight text-neutral-500 md:text-base">
