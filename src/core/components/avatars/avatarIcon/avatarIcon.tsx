@@ -84,7 +84,7 @@ export const AvatarIcon: React.FC<IAvatarIconProps> = (props) => {
     const { className, icon, variant = 'neutral', size = 'sm', responsiveSize, backgroundWhite, ...rest } = props;
 
     const containerClasses = classNames(
-        'flex items-center justify-center rounded-full',
+        'flex shrink-0 items-center justify-center rounded-full',
         avatarVariantToContainerClassNames[backgroundWhite ? 'white' : variant],
         responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClasses),
         className,

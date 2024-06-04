@@ -76,7 +76,7 @@ export const Spinner: React.FC<ISpinnerProps> = (props) => {
     const sizeClassNames = responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClassNames);
 
     const spinnerClassNames = classNames(
-        'animate-spin rounded-full',
+        'shrink-0 animate-spin rounded-full',
         variantToClassNames[variant],
         sizeClassNames,
         className,

@@ -64,7 +64,7 @@ export const StateSkeletonCircular = forwardRef<HTMLDivElement, IStateSkeletonCi
     const { className, responsiveSize, size = 'md', ...otherProps } = props;
 
     const classes = classNames(
-        'animate-pulse rounded-full bg-neutral-50',
+        'shrink-0 animate-pulse rounded-full bg-neutral-50',
         responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClasses),
         className,
     );
