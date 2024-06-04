@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update style of `Button`, `CheckboxCard`, `InputContainer`, `RadioCard`, `Spinner` and `Switch` components
 -   Cleanup size class definitions to use `size-*` instead of `h-* w-*`
 -   Cleanup `shink-0` class usage across components
+-   Add `data-testid` attribute to svg files
 
 ### Fixed
 
