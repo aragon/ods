@@ -18,6 +18,7 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
         address: user != null ? addressUtils.getChecksum(user.address) : undefined,
         query: { enabled: user?.name != null },
     });
+    const resolvedUserHandle = user?.name ?? ensName ?? addressUtils.truncateAddress(user?.address);
 
     const buttonClassName = classNames(
         'flex items-center rounded-full border border-neutral-100 bg-neutral-0 text-neutral-500 transition-all',
@@ -41,12 +42,7 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
                         title={user.name ?? user.address}
                         className="hidden min-w-0 max-w-24 items-center truncate md:mr-3 md:flex"
                     >
-                        {user.name ??
-                            (ensLoading ? (
-                                <StateSkeletonBar size="lg" />
-                            ) : (
-                                ensName ?? addressUtils.truncateAddress(user.address)
-                            ))}
+                        {ensLoading ? <StateSkeletonBar size="lg" /> : resolvedUserHandle}
                     </div>
                     <MemberAvatar size="lg" ensName={user.name} address={user.address} />
                 </>
