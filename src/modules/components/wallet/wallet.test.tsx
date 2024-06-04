@@ -11,7 +11,7 @@ jest.mock('../member', () => ({
 jest.mock('../../utils/addressUtils', () => ({
     addressUtils: {
         getChecksum: jest.fn((address) => address),
-        truncateAddress: jest.fn((address) => `${address.slice(0, 4)}…${address.slice(-4)}`),
+        truncateAddress: jest.fn((address) => `${address?.slice(0, 4)}…${address?.slice(-4)}`),
     },
 }));
 
