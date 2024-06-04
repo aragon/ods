@@ -56,7 +56,7 @@ describe('<Wallet /> component', () => {
         const user = {
             address: '0x0987654321098765432109876543210987654321',
         };
-        jest.spyOn(wagmi, 'useEnsName').mockReturnValue({
+        useEnsNameMock.mockReturnValue({
             data: null,
             isLoading: false,
         } as wagmi.UseEnsNameReturnType);
@@ -69,7 +69,7 @@ describe('<Wallet /> component', () => {
         const user = {
             address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
         };
-        jest.spyOn(wagmi, 'useEnsName').mockReturnValue({
+        useEnsNameMock.mockReturnValue({
             data: 'vitalik.eth',
             isLoading: false,
         } as wagmi.UseEnsNameReturnType);
@@ -84,7 +84,7 @@ describe('<Wallet /> component', () => {
             address: '0x0987654321098765432109876543210987654321',
             name: 'vitalik.eth',
         };
-        jest.spyOn(wagmi, 'useEnsName').mockReturnValue({
+        useEnsNameMock.mockReturnValue({
             data: 'vitalikeviltwin.eth',
             isLoading: false,
         } as wagmi.UseEnsNameReturnType);
