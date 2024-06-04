@@ -57,5 +57,11 @@ export const Icon: React.FC<IIconProps> = (props) => {
 
     const sizeClassNames = responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClassNames);
 
-    return <IconComponent className={classNames('shrink-0', sizeClassNames, className)} {...otherProps} />;
+    return (
+        <IconComponent
+            className={classNames('shrink-0', sizeClassNames, className)}
+            data-testid={icon}
+            {...otherProps}
+        />
+    );
 };
