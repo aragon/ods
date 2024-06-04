@@ -80,19 +80,13 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                 <div className="flex items-center gap-x-3 md:gap-x-4">
                     {status === TransactionStatus.SUCCESS && (
                         <AvatarIcon
-                            className="shrink-0"
                             variant={txVariantList[type]}
                             icon={txIconTypeList[type]}
                             responsiveSize={{ md: 'md' }}
                         />
                     )}
                     {status === TransactionStatus.FAILED && (
-                        <AvatarIcon
-                            className="shrink-0"
-                            variant="critical"
-                            icon={IconType.CLOSE}
-                            responsiveSize={{ md: 'md' }}
-                        />
+                        <AvatarIcon variant="critical" icon={IconType.CLOSE} responsiveSize={{ md: 'md' }} />
                     )}
                     {status === TransactionStatus.PENDING && (
                         <div className="flex size-6 shrink-0 items-center justify-center md:size-8">

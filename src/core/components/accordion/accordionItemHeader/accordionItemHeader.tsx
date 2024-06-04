@@ -25,7 +25,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                 {children}
                 <AvatarIcon
                     icon={IconType.CHEVRON_DOWN}
-                    className="shrink-0 transition-transform group-data-[state=open]:rotate-180 *:group-data-[disabled]:text-neutral-100"
+                    className="transition-transform group-data-[state=open]:rotate-180 *:group-data-[disabled]:text-neutral-100"
                 />
             </RadixAccordionTrigger>
         </RadixAccordionHeader>

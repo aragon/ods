@@ -13,5 +13,5 @@ export const IllustrationObject: React.FC<IIllustrationObjectProps> = (props) =>
     const { object, ...otherProps } = props;
     const IllustrationObject = illustrationObjectList[object];
 
-    return <IllustrationObject {...otherProps} />;
+    return <IllustrationObject data-testid={object} {...otherProps} />;
 };

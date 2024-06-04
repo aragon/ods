@@ -22,6 +22,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update sizes of `Avatar` core component
 -   Update style of `Button`, `CheckboxCard`, `InputContainer`, `RadioCard`, `Spinner` and `Switch` components
 -   Cleanup size class definitions to use `size-*` instead of `h-* w-*`
+-   Cleanup `shink-0` class usage across components
+-   Add `data-testid` attribute to svg files
+
+### Fixed
+
+-   Fix responsiveness classes and utilities to support style for screens below `sm` breakpoint
+-   Export module utilities
 
 ## [1.0.31] - 2024-05-24
 

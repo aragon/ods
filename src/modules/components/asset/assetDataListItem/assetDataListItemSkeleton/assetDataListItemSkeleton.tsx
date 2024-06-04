@@ -17,7 +17,7 @@ export const AssetDataListItemSkeleton: React.FC<IAssetDataListItemSkeletonProps
             {...otherProps}
         >
             <div className="flex w-full items-center gap-x-3 py-0.5 md:py-1.5">
-                <StateSkeletonCircular className="shrink-0" responsiveSize={{ md: 'lg' }} />
+                <StateSkeletonCircular responsiveSize={{ md: 'lg' }} />
                 <div className="flex w-full justify-between">
                     <div className="flex w-full flex-col gap-y-1 md:gap-y-1.5">
                         <StateSkeletonBar className="shrink-0" responsiveSize={{ md: 'lg' }} width="100%" />

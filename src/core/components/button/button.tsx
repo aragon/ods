@@ -83,21 +83,24 @@ const variantToSpinnerVariant: Record<ButtonVariant, SpinnerVariant> = {
 
 const responsiveSizeClassNames: ResponsiveAttributeClassMap<ButtonSize> = {
     sm: {
-        sm: 'h-[32px] text-sm rounded-lg gap-0.5',
+        default: 'h-[32px] text-sm rounded-lg gap-0.5',
+        sm: 'sm:h-[32px] sm:text-sm sm:rounded-lg sm:gap-0.5',
         md: 'md:h-[32px] md:text-sm md:rounded-lg md:gap-0.5',
         lg: 'lg:h-[32px] lg:text-sm lg:rounded-lg lg:gap-0.5',
         xl: 'xl:h-[32px] xl:text-sm xl:rounded-lg xl:gap-0.5',
         '2xl': '2xl:h-[32px] 2xl:text-sm 2xl:rounded-lg 2xl:gap-0.5',
     },
     md: {
-        sm: 'h-[40px] text-base rounded-xl gap-1',
+        default: 'h-[40px] text-base rounded-xl gap-1',
+        sm: 'sm:h-[40px] sm:text-base sm:rounded-xl sm:gap-1',
         md: 'md:h-[40px] md:text-base md:rounded-xl md:gap-1',
         lg: 'lg:h-[40px] lg:text-base lg:rounded-xl lg:gap-1',
         xl: 'xl:h-[40px] xl:text-base xl:rounded-xl xl:gap-1',
         '2xl': '2xl:h-[40px] 2xl:text-base 2xl:rounded-xl 2xl:gap-1',
     },
     lg: {
-        sm: 'h-[48px] text-base rounded-xl gap-1',
+        default: 'h-[48px] text-base rounded-xl gap-1',
+        sm: 'sm:h-[48px] sm:text-base sm:rounded-xl sm:gap-1',
         md: 'md:h-[48px] md:text-base md:rounded-xl md:gap-1',
         lg: 'lg:h-[48px] lg:text-base lg:rounded-xl lg:gap-1',
         xl: 'xl:h-[48px] xl:text-base xl:rounded-xl xl:gap-1',
@@ -107,21 +110,24 @@ const responsiveSizeClassNames: ResponsiveAttributeClassMap<ButtonSize> = {
 
 const responsiveDefaultContextClassNames: ResponsiveAttributeClassMap<ButtonSize> = {
     sm: {
-        sm: 'min-w-[80px] px-2',
+        default: 'min-w-[80px] px-2',
+        sm: 'sm:min-w-[80px] sm:px-2',
         md: 'md:min-w-[80px] md:px-2',
         lg: 'lg:min-w-[80px] lg:px-2',
         xl: 'xl:min-w-[80px] xl:px-2',
         '2xl': '2xl:min-w-[80px] 2xl:px-2',
     },
     md: {
-        sm: 'min-w-[96px] px-3',
+        default: 'min-w-[96px] px-3',
+        sm: 'sm:min-w-[96px] sm:px-3',
         md: 'md:min-w-[96px] md:px-3',
         lg: 'lg:min-w-[96px] lg:px-3',
         xl: 'xl:min-w-[96px] xl:px-3',
         '2xl': '2xl:min-w-[96px] 2xl:px-3',
     },
     lg: {
-        sm: 'min-w-[112px] px-4',
+        default: 'min-w-[112px] px-4',
+        sm: 'sm:min-w-[112px] sm:px-4',
         md: 'md:min-w-[112px] md:px-4',
         lg: 'lg:min-w-[112px] lg:px-4',
         xl: 'xl:min-w-[112px] xl:px-4',
@@ -131,21 +137,24 @@ const responsiveDefaultContextClassNames: ResponsiveAttributeClassMap<ButtonSize
 
 const responsiveOnlyIconContextClassNames: ResponsiveAttributeClassMap<ButtonSize> = {
     sm: {
-        sm: 'w-[32px]',
+        default: 'w-[32px]',
+        sm: 'sm:w-[32px]',
         md: 'md:w-[32px]',
         lg: 'lg:w-[32px]',
         xl: 'xl:w-[32px]',
         '2xl': '2xl:w-[32px]',
     },
     md: {
-        sm: 'w-[40px]',
+        default: 'w-[40px]',
+        sm: 'sm:w-[40px]',
         md: 'md:w-[40px]',
         lg: 'lg:w-[40px]',
         xl: 'xl:w-[40px]',
         '2xl': '2xl:w-[40px]',
     },
     lg: {
-        sm: 'w-[48px]',
+        default: 'w-[48px]',
+        sm: 'sm:w-[48px]',
         md: 'md:w-[48px]',
         lg: 'lg:w-[48px]',
         xl: 'xl:w-[48px]',

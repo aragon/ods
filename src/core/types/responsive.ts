@@ -1,4 +1,4 @@
-export type Breakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type Breakpoint = 'default' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 /**
  * Size key of a component that is responsive.
@@ -16,16 +16,18 @@ export type ResponsiveAttribute<TSize> = Partial<Record<Breakpoint, TSize>>;
  * Example:
  *
  * type ButtonSize = 'big' | 'small';
- * type Breakpoint = 'sm' | 'md' | 'lg';
+ * type Breakpoint = 'default' | 'sm' | 'md' | 'lg';
  *
  * const responsiveButtonSizeClassNames: ResponsiveAttributeClassMap<ButtonSize> = {
  *      'big': {
- *          'sm': 'w-40',
+ *          'default': 'w-40',
+ *          'sm': 'sm:w-40',
  *          'md': 'md:w-40',
  *          'lg': 'lg:w-40',
  *      },
  *      'small': {
- *          'sm': 'w-20',
+ *          'default': 'w-20',
+ *          'sm': 'sm:w-20',
  *          'md': 'md:w-20',
  *          'lg': 'lg-w-20',
  *      }

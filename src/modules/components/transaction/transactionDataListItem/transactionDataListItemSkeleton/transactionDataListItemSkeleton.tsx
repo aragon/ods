@@ -6,7 +6,7 @@ export const TransactionDataListItemSkeleton: React.FC<ITransactionDataListItemS
     return (
         <DataList.Item tabIndex={0} aria-busy="true" aria-label="loading" {...props}>
             <div className="flex w-full items-center justify-between gap-x-3 border border-neutral-0 py-3 md:py-3.5">
-                <StateSkeletonCircular className="shrink-0" size="sm" responsiveSize={{ md: 'md' }} />
+                <StateSkeletonCircular size="sm" responsiveSize={{ md: 'md' }} />
                 <div className="flex w-full items-center gap-x-3 md:gap-x-4">
                     <div className="flex w-full flex-col items-start gap-y-1 md:w-3/4">
                         <StateSkeletonBar width="100%" responsiveSize={{ md: 'lg' }} />
