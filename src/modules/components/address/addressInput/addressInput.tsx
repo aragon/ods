@@ -15,37 +15,21 @@ import {
     useInputProps,
     type IInputComponentProps,
 } from '../../../../core';
+import { useWindowSize } from '../../../../core/hooks';
 import type { IWeb3ComponentProps } from '../../../types';
 import { addressUtils, ensUtils } from '../../../utils';
 import { MemberAvatar } from '../../member';
 
 export interface IAddressInputResolvedValue {
-    /**
-     * Address value.
-     */
     address?: string;
-    /**
-     * ENS name linked to the given address.
-     */
     name?: string;
 }
 
 export interface IAddressInputProps
     extends Omit<IInputComponentProps<HTMLTextAreaElement>, 'maxLength' | 'value' | 'onChange'>,
         IWeb3ComponentProps {
-    /**
-     * Current value of the address input.
-     */
     value?: string;
-    /**
-     * Callback called whenever the current input value (address or ens) changes.
-     */
     onChange?: (value?: string) => void;
-    /**
-     * Callback called with the address value object when the user input is valid. The component will output the address
-     * in checksum format and the ENS name normalised. The value will be set to undefined when the user input is not a
-     * valid address nor a valid ens name.
-     */
     onAccept?: (value?: IAddressInputResolvedValue) => void;
 }
 
@@ -105,9 +89,6 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const toggleDisplayMode = () => {
         const newInputValue = displayMode === 'address' ? ensName : ensAddress;
         onChange?.(newInputValue ?? '');
-
-        // Update the debounced value without waiting for the debounce timeout to avoid delays on displaying the
-        // ENS/Address buttons because of delayed queries
         setDebouncedValue(newInputValue ?? '');
     };
 
@@ -128,28 +109,22 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         onBlur?.(event);
     };
 
-    // Trigger onChange property when value is a valid address or ENS
     useEffect(() => {
         if (isLoading) {
             return;
         }
 
         if (ensAddress) {
-            // User input is a valid ENS name
             const normalizedEns = normalize(debouncedValue);
             onAccept?.({ address: ensAddress, name: normalizedEns });
         } else if (isDebouncedValueValidAddress) {
-            // User input is a valid address with or without a ENS name linked to it
             const checksumAddress = addressUtils.getChecksum(debouncedValue);
             onAccept?.({ address: checksumAddress, name: ensName ?? undefined });
         } else {
-            // User input is not a valid address nor ENS name
             onAccept?.(undefined);
         }
     }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, isLoading, onAccept]);
 
-    // Update react-query cache to avoid fetching the ENS address when the ENS name has been successfully resolved.
-    // E.g. user types 0x..123 which is resolved into test.eth, therefore set test.eth as resolved ENS name of 0x..123
     useEffect(() => {
         if (ensName) {
             const queryKey = [...ensAddressQueryKey];
@@ -158,8 +133,6 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         }
     }, [queryClient, ensName, debouncedValue, ensAddressQueryKey]);
 
-    // Update react-query cache to avoid fetching the ENS name when the ENS address has been successfully resolved.
-    // E.g. user types test.eth which is resolved into 0x..123, therefore set 0x..123 as resolved ENS address of test.eth
     useEffect(() => {
         if (ensAddress) {
             const queryKey = [...ensNameQueryKey];
@@ -168,28 +141,29 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         }
     }, [queryClient, ensAddress, debouncedValue, ensNameQueryKey]);
 
-    // Resize textarea element on user input depending on the focus state of the textarea
     useEffect(() => {
         if (inputRef.current) {
-            // Needed to trigger a calculation for the new scrollHeight of the textarea
             inputRef.current.style.height = 'auto';
-
             const newHeight = `${inputRef.current.scrollHeight}px`;
             inputRef.current.style.height = newHeight;
         }
     }, [value, isFocused]);
 
-    // Display the address or ENS as truncated when the value is a valid address or ENS and input is not focused
     const displayTruncatedAddress = addressUtils.isAddress(value) && !isFocused;
     const displayTruncatedEns = ensUtils.isEnsName(value) && !isFocused;
 
     const addressValue = ensAddress ?? (addressUtils.isAddress(value) ? value : undefined);
 
-    const processedValue = displayTruncatedAddress
-        ? addressUtils.truncateAddress(value)
-        : displayTruncatedEns
-          ? ensUtils.truncateEns(value)
-          : value;
+    const { width, breakpoints } = useWindowSize();
+
+    const processedValue =
+        width < breakpoints['sm'] && (displayTruncatedAddress || displayTruncatedEns)
+            ? displayTruncatedAddress
+                ? addressUtils.truncateAddress(value)
+                : displayTruncatedEns
+                  ? ensUtils.truncateEns(value)
+                  : value
+            : value;
 
     return (
         <InputContainer {...containerProps}>
