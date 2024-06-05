@@ -7,6 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Implement `windowUtils` class setup and `useWindowSize` hook with breakpoints
+
+### Changed
+
+-   Update logic for `AddressInput` to use `useWindowSize` hook so that existing truncation logic is 'sm' breakpoint
+    specific
+
 ## [1.0.32] - 2024-06-04
 
 ### Added
