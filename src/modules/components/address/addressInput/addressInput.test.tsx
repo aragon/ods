@@ -1,10 +1,11 @@
 import { QueryClient } from '@tanstack/react-query';
 import { act, render, screen, within } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import type { Address } from 'viem';
 import type { UseEnsAddressReturnType, UseEnsNameReturnType } from 'wagmi';
 import * as wagmi from 'wagmi';
 import { IconType, clipboardUtils } from '../../../../core';
+import * as useWindowSizeModule from '../../../../core/hooks/useWindowSize';
 import { addressUtils } from '../../../utils';
 import { OdsModulesProvider } from '../../odsModulesProvider';
 import { AddressInput, type IAddressInputProps } from './addressInput';
@@ -13,14 +14,15 @@ jest.mock('../../member', () => ({
     MemberAvatar: () => <div data-testid="member-avatar-mock" />,
 }));
 
+jest.mock('../../../../core/hooks/useWindowSize');
+
 describe('<AddressInput /> component', () => {
     const pasteMock = jest.spyOn(clipboardUtils, 'paste');
     const copyMock = jest.spyOn(clipboardUtils, 'copy');
-
     const getChecksumMock = jest.spyOn(addressUtils, 'getChecksum');
-
     const useEnsAddressMock = jest.spyOn(wagmi, 'useEnsAddress');
     const useEnsNameMock = jest.spyOn(wagmi, 'useEnsName');
+    const useWindowSizeMock = jest.spyOn(useWindowSizeModule, 'useWindowSize');
 
     beforeEach(() => {
         getChecksumMock.mockImplementation((value) => value as Address);
@@ -34,14 +36,19 @@ describe('<AddressInput /> component', () => {
             isFetching: false,
             queryKey: ['', {}],
         } as unknown as UseEnsNameReturnType);
+        useWindowSizeMock.mockReturnValue({
+            width: 1024,
+            height: 768,
+            breakpoints: { sm: 640 },
+        });
     });
 
     afterEach(() => {
         pasteMock.mockReset();
         copyMock.mockReset();
-
         useEnsAddressMock.mockReset();
         useEnsNameMock.mockReset();
+        useWindowSizeMock.mockReset();
     });
 
     const createTestComponent = (props?: Partial<IAddressInputProps>, queryClient?: QueryClient) => {
@@ -110,7 +117,7 @@ describe('<AddressInput /> component', () => {
     it('renders a copy button to copy current input value when current value is a valid address', async () => {
         const value = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
         render(createTestComponent({ value }));
-        const copyButton = screen.getAllByRole('button').find((button) => within(button).findByTestId(IconType.COPY));
+        const copyButton = screen.getAllByRole('button').find((button) => within(button).queryByTestId(IconType.COPY));
         expect(copyButton).toBeInTheDocument();
         await userEvent.click(copyButton!);
         expect(copyMock).toHaveBeenCalledWith(value);
@@ -163,19 +170,69 @@ describe('<AddressInput /> component', () => {
         expect(onChange).toHaveBeenCalledWith(addressValue);
     });
 
-    it('displays a truncated address when address is valid and input is not focused', async () => {
+    it('displays a truncated address when address is valid, input is not focused, and width is below sm breakpoint', async () => {
+        useWindowSizeMock.mockReturnValue({
+            width: 620,
+            height: 620,
+            breakpoints: { sm: 640 },
+        });
+
         const value = '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d';
         render(createTestComponent({ value }));
+
+        act(() => screen.getByRole('textbox').blur());
+
         expect(screen.getByDisplayValue('0xee…251d')).toBeInTheDocument();
+
         act(() => screen.getByRole('textbox').focus());
         expect(screen.getByDisplayValue(value)).toBeInTheDocument();
     });
 
-    it('displays a truncated ENS name when ENS is valid and input is not focused', async () => {
+    it('does not display a truncated address when address is valid, input is not focused, and width is above sm breakpoint', async () => {
+        useWindowSizeMock.mockReturnValue({
+            width: 700,
+            height: 620,
+            breakpoints: { sm: 640 },
+        });
+
+        const value = '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d';
+        render(createTestComponent({ value }));
+
+        act(() => screen.getByRole('textbox').blur());
+
+        expect(screen.getByDisplayValue(value)).toBeInTheDocument();
+    });
+
+    it('displays a truncated ENS name when ENS is valid, input is not focused, and width is below sm breakpoint', async () => {
+        useWindowSizeMock.mockReturnValue({
+            width: 620,
+            height: 620,
+            breakpoints: { sm: 640 },
+        });
+
         const value = 'longensname.eth';
         render(createTestComponent({ value }));
+
+        act(() => screen.getByRole('textbox').blur());
+
         expect(screen.getByDisplayValue('longe…eth')).toBeInTheDocument();
+
         act(() => screen.getByRole('textbox').focus());
+        expect(screen.getByDisplayValue(value)).toBeInTheDocument();
+    });
+
+    it('does not display a truncated ENS name when ENS is valid, input is not focused, and width is above sm breakpoint', async () => {
+        useWindowSizeMock.mockReturnValue({
+            width: 700,
+            height: 620,
+            breakpoints: { sm: 640 },
+        });
+
+        const value = 'longensname.eth';
+        render(createTestComponent({ value }));
+
+        act(() => screen.getByRole('textbox').blur());
+
         expect(screen.getByDisplayValue(value)).toBeInTheDocument();
     });
 
