@@ -1,6 +1,6 @@
 import { QueryClient } from '@tanstack/react-query';
 import { act, render, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import type { Address } from 'viem';
 import type { UseEnsAddressReturnType, UseEnsNameReturnType } from 'wagmi';
 import * as wagmi from 'wagmi';
