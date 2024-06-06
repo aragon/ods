@@ -5,6 +5,7 @@ export * from './breadcrumbs';
 export * from './button';
 export * from './cards';
 export * from './checkbox';
+export * from './collapsible';
 export * from './dataList';
 export * from './definitionList';
 export * from './dialogs';

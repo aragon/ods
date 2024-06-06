@@ -4,7 +4,8 @@ export type CollapsedSize = 'sm' | 'md' | 'lg';
 
 export interface ICollapsibleProps extends ComponentProps<'div'> {
     /**
-     * The initial height of the collapsible container while closed. @default md
+     * The initial height of the collapsible container while closed.
+     * @default md
      */
     collapsedSize?: CollapsedSize;
     /**
@@ -12,11 +13,13 @@ export interface ICollapsibleProps extends ComponentProps<'div'> {
      */
     customCollapsedHeight?: number;
     /**
-     * Controlled state of the collapsible container. @default false
+     * Controlled state of the collapsible container.
+     * @default false
      */
     isOpen?: boolean;
     /**
-     * Default state of the collapsible container. @default false
+     * Default state of the collapsible container.
+     * @default false
      */
     defaultOpen?: boolean;
     /**
@@ -28,7 +31,8 @@ export interface ICollapsibleProps extends ComponentProps<'div'> {
      */
     buttonLabelOpened?: string;
     /**
-     * Show overlay when the collapsible container is open. @default false
+     * Show overlay when the collapsible container is open.
+     * @default false
      */
     showOverlay?: boolean;
     /**
