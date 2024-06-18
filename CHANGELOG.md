@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+-   Bump `@rollup/plugin-commonjs` from `25.0.8` to `26.0.1`
+
 ## [1.0.33] - 2024-06-06
 
 ### Fixed
