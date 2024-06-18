@@ -11,6 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Bump `@rollup/plugin-commonjs` from `25.0.8` to `26.0.1`
 -   Update minor and patch dependencies of Github workflows
+-   Update minor and patch NPM dependencies
+-   Update `yarn` version to `4.3.0`
 
 ## [1.0.33] - 2024-06-06
 
