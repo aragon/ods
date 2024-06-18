@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { ToggleGroup } from '../toggleGroup';
 import { Toggle, type IToggleProps } from './toggle';
 
@@ -29,9 +30,10 @@ describe('<Toggle /> component', () => {
         expect(screen.getByRole('radio')).toBeDisabled();
     });
 
-    it('renders the toggle as active when clicked', () => {
+    it('renders the toggle as active when clicked', async () => {
+        const user = userEvent.setup();
         render(createTestComponent());
-        fireEvent.click(screen.getByRole('radio'));
+        await user.click(screen.getByRole('radio'));
         expect(screen.getByRole('radio')).toBeChecked();
     });
 });

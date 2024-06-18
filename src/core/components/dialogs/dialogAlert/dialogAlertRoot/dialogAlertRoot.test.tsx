@@ -28,11 +28,12 @@ describe('<DialogAlert.Root/> component', () => {
     });
 
     it('calls the given click handler when the action button is clicked', async () => {
+        const user = userEvent.setup();
         const handleActionBtnClick = jest.fn();
 
         render(createTestComponent({ open: true, children: <button onClick={handleActionBtnClick} /> }));
 
-        await userEvent.click(screen.getByRole('button'));
+        await user.click(screen.getByRole('button'));
 
         expect(handleActionBtnClick).toHaveBeenCalled();
     });

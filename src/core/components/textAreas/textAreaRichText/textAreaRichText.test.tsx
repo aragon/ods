@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import ReactDOM from 'react-dom';
 import { IconType } from '../../icon';
 import { TextAreaRichText, type ITextAreaRichTextProps } from './textAreaRichText';
@@ -36,12 +37,14 @@ describe('<TextAreaRichText /> component', () => {
     it('disables the textbox when the disabled property is set to true', async () => {
         const disabled = true;
         render(createTestComponent({ disabled }));
-        expect((await screen.findByRole('textbox')).getAttribute('contenteditable')).toEqual('false');
+        const textbox = await screen.findByRole('textbox');
+        expect(textbox.getAttribute('contenteditable')).toEqual('false');
     });
 
     it('generates a random id for the textbox when the id property is not set', async () => {
         render(createTestComponent());
-        expect((await screen.findByRole('textbox')).getAttribute('aria-labelledby')).toBeDefined();
+        const textbox = await screen.findByRole('textbox');
+        expect(textbox.getAttribute('aria-labelledby')).toBeDefined();
     });
 
     it('calls the onChange property on input change', async () => {
@@ -51,17 +54,19 @@ describe('<TextAreaRichText /> component', () => {
         expect(onChange).toHaveBeenCalled();
     });
 
-    it('renders the textarea as a React portal on expand action click', () => {
+    it('renders the textarea as a React portal on expand action click', async () => {
+        const user = userEvent.setup();
         render(createTestComponent());
-        fireEvent.click(screen.getByTestId(IconType.EXPAND));
+        await user.click(screen.getByTestId(IconType.EXPAND));
         expect(createPortalMock).toHaveBeenCalled();
         expect(document.body.style.overflow).toEqual('hidden');
     });
 
-    it('reset the expanded state on ESC key down', () => {
+    it('resets the expanded state on ESC key down', async () => {
+        const user = userEvent.setup();
         render(createTestComponent());
-        fireEvent.click(screen.getByTestId(IconType.EXPAND));
-        fireEvent.keyDown(window, { key: 'Escape' });
+        await user.click(screen.getByTestId(IconType.EXPAND));
+        await user.keyboard('{Escape}');
         expect(document.body.style.overflow).toEqual('auto');
     });
 });

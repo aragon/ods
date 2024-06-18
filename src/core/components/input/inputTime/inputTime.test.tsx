@@ -1,4 +1,5 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 import * as Utils from '../../../utils';
 import { IconType } from '../../icon';
@@ -29,7 +30,8 @@ describe('<InputTime /> component', () => {
         expect(timeInput.type).toEqual('time');
     });
 
-    it('renders a button which opens the time picker on click', () => {
+    it('renders a button which opens the time picker on click', async () => {
+        const user = userEvent.setup();
         const showPicker = jest.fn();
         useRefMock.mockReturnValue({ current: { showPicker } });
         mergeRefMock.mockReturnValue(() => null);
@@ -40,7 +42,7 @@ describe('<InputTime /> component', () => {
         expect(timeButton).toBeInTheDocument();
         expect(within(timeButton).getByTestId(IconType.CLOCK)).toBeInTheDocument();
 
-        fireEvent.click(timeButton);
+        await user.click(timeButton);
         expect(showPicker).toHaveBeenCalled();
     });
 

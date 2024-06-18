@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { RadioGroup } from '..';
 import { IconType } from '../../icon';
 import { Radio, type IRadioProps } from './radio';
@@ -9,7 +10,7 @@ describe('<Radio/> component', () => {
 
         return (
             <RadioGroup name="Test Group">
-                <Radio {...completeProps} />;
+                <Radio {...completeProps} />
             </RadioGroup>
         );
     };
@@ -35,12 +36,13 @@ describe('<Radio/> component', () => {
         expect(screen.getByRole('radio')).not.toBeChecked();
     });
 
-    it('renders the RADIO_SELECTED icon when checked', () => {
+    it('renders the RADIO_SELECTED icon when checked', async () => {
+        const user = userEvent.setup();
         render(createTestComponent());
 
         const radioButton = screen.getByRole('radio');
 
-        fireEvent.click(radioButton);
+        await user.click(radioButton);
         const checkedIcon = screen.getByTestId(IconType.RADIO_SELECTED);
 
         expect(checkedIcon).toBeVisible();

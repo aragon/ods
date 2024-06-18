@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import type { ChainedCommands, Editor } from '@tiptap/react';
 import { IconType } from '../../icon';
 import { TextAreaRichTextActions, type ITextAreaRichTextActionsProps } from './textAreaRichTextActions';
@@ -37,14 +38,15 @@ describe('<TextAreaRichTextActions /> component', () => {
         expect(screen.queryByTestId(IconType.RICHTEXT_LINK_REMOVE)).not.toBeInTheDocument();
     });
 
-    it('renders the unset link action instead of the set one when current active node is not a link', () => {
+    it('renders the unset link action instead of the set one when current active node is a link', () => {
         const editor = { isActive: () => true } as unknown as Editor;
         render(createTestComponent({ editor }));
         expect(screen.getByTestId(IconType.RICHTEXT_LINK_REMOVE)).toBeInTheDocument();
         expect(screen.queryByTestId(IconType.RICHTEXT_LINK_ADD)).not.toBeInTheDocument();
     });
 
-    it('correctly handles the italic, bold and unordered / ordered actions', () => {
+    it('correctly handles the italic, bold and unordered / ordered actions', async () => {
+        const user = userEvent.setup();
         const actions: Array<{ method: keyof ChainedCommands; icon: IconType }> = [
             { method: 'toggleBold', icon: IconType.RICHTEXT_BOLD },
             { method: 'toggleItalic', icon: IconType.RICHTEXT_ITALIC },
@@ -63,32 +65,35 @@ describe('<TextAreaRichTextActions /> component', () => {
         const editor = { isActive: jest.fn(), chain: () => ({ focus: () => editorActions }) } as unknown as Editor;
         render(createTestComponent({ editor }));
 
-        actions.forEach(({ method, icon }) => {
+        for (const { method, icon } of actions) {
             expect(screen.getByTestId(icon)).toBeInTheDocument();
-            fireEvent.click(screen.getByTestId(icon));
+            await user.click(screen.getByTestId(icon));
             expect(editorActions[method]).toHaveBeenCalled();
-        });
+        }
     });
 
-    it('correctly handles the expand action', () => {
+    it('correctly handles the expand action', async () => {
+        const user = userEvent.setup();
         const onExpandClick = jest.fn();
         render(createTestComponent({ onExpandClick }));
-        fireEvent.click(screen.getByTestId(IconType.EXPAND));
+        await user.click(screen.getByTestId(IconType.EXPAND));
         expect(onExpandClick).toHaveBeenCalled();
     });
 
-    it('correctly handles the unset link action', () => {
+    it('correctly handles the unset link action', async () => {
+        const user = userEvent.setup();
         const action = { unsetLink: jest.fn(() => ({ run: jest.fn() })) };
         const editor = {
             isActive: () => true,
             chain: () => ({ focus: () => ({ extendMarkRange: () => action }) }),
         } as unknown as Editor;
         render(createTestComponent({ editor }));
-        fireEvent.click(screen.getByTestId(IconType.RICHTEXT_LINK_REMOVE));
+        await user.click(screen.getByTestId(IconType.RICHTEXT_LINK_REMOVE));
         expect(action.unsetLink).toHaveBeenCalled();
     });
 
-    it('correctly handles the set link action', () => {
+    it('correctly handles the set link action', async () => {
+        const user = userEvent.setup();
         const newUrl = 'https://aragon.org';
         const previousUrl = 'https://test.com';
         windowPromptMock.mockReturnValue(newUrl);
@@ -101,12 +106,13 @@ describe('<TextAreaRichTextActions /> component', () => {
         } as unknown as Editor;
         render(createTestComponent({ editor }));
 
-        fireEvent.click(screen.getByTestId(IconType.RICHTEXT_LINK_ADD));
+        await user.click(screen.getByTestId(IconType.RICHTEXT_LINK_ADD));
         expect(windowPromptMock).toHaveBeenCalledWith('URL', previousUrl);
         expect(action.setLink).toHaveBeenCalledWith({ href: newUrl });
     });
 
-    it('unsets the current link when new url is empty', () => {
+    it('unsets the current link when new url is empty', async () => {
+        const user = userEvent.setup();
         const newUrl = '';
         windowPromptMock.mockReturnValue(newUrl);
 
@@ -118,7 +124,7 @@ describe('<TextAreaRichTextActions /> component', () => {
         } as unknown as Editor;
         render(createTestComponent({ editor }));
 
-        fireEvent.click(screen.getByTestId(IconType.RICHTEXT_LINK_ADD));
+        await user.click(screen.getByTestId(IconType.RICHTEXT_LINK_ADD));
         expect(action.unsetLink).toHaveBeenCalled();
     });
 });

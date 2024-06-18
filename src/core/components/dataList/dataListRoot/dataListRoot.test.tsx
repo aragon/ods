@@ -24,6 +24,7 @@ describe('<DataList.Root /> component', () => {
     });
 
     it('provides a function that increases the internal current page and triggers the onLoadMore callback', async () => {
+        const user = userEvent.setup();
         const onLoadMore = jest.fn();
         const ChildrenComponent = () => {
             const { currentPage, handleLoadMore } = useDataListContext();
@@ -41,7 +42,7 @@ describe('<DataList.Root /> component', () => {
             </DataListRoot>,
         );
 
-        await userEvent.click(screen.getByRole('button'));
+        await user.click(screen.getByRole('button'));
         expect(screen.getByText('1')).toBeInTheDocument();
         expect(onLoadMore).toHaveBeenCalled();
     });

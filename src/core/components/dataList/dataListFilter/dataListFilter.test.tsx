@@ -49,10 +49,11 @@ describe('<DataList.Filter /> component', () => {
     });
 
     it('calls the onSearchValueChange callback on search value change', async () => {
+        const user = userEvent.setup();
         const props = { onSearchValueChange: jest.fn() };
         const value = 't';
         render(createTestComponent({ props }));
-        await userEvent.type(screen.getByRole('searchbox'), value);
+        await user.type(screen.getByRole('searchbox'), value);
         expect(props.onSearchValueChange).toHaveBeenCalledWith(value);
     });
 
@@ -77,9 +78,10 @@ describe('<DataList.Filter /> component', () => {
     });
 
     it('calls the onSearchValueChange callback with undefined on clear icon click', async () => {
+        const user = userEvent.setup();
         const props = { searchValue: 'test', onSearchValueChange: jest.fn() };
         render(createTestComponent({ props }));
-        await userEvent.click(screen.getByTestId(IconType.CLOSE));
+        await user.click(screen.getByTestId(IconType.CLOSE));
         expect(props.onSearchValueChange).toHaveBeenCalledWith(undefined);
     });
 });

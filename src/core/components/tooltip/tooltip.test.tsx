@@ -34,12 +34,13 @@ describe('<Tooltip/> component', () => {
     });
 
     it(`renders the tooltip content when the trigger is hovered on`, async () => {
+        const user = userEvent.setup();
         const trigger = 'test-trigger';
         const content = 'test-content';
 
         render(createTestComponent({ content, children: trigger }));
 
-        await userEvent.hover(screen.getByText(trigger));
+        await user.hover(screen.getByText(trigger));
         const tooltip = await screen.findByRole('tooltip');
 
         expect(tooltip).toBeInTheDocument();
@@ -47,12 +48,13 @@ describe('<Tooltip/> component', () => {
     });
 
     it('calls onOpenChange with true on trigger hover', async () => {
+        const user = userEvent.setup();
         const handleOpenChange = jest.fn();
         const trigger = 'test-trigger';
 
         render(createTestComponent({ children: trigger, onOpenChange: handleOpenChange }));
 
-        await userEvent.hover(screen.getByText(trigger));
+        await user.hover(screen.getByText(trigger));
         await waitFor(() => expect(handleOpenChange).toHaveBeenCalledWith(true));
     });
 });

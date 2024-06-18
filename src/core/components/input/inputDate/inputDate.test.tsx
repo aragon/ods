@@ -1,4 +1,5 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 import * as Utils from '../../../utils';
 import { IconType } from '../../icon';
@@ -40,7 +41,8 @@ describe('<InputDate /> component', () => {
         expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
 
-    it('renders a button which opens the date picker on click', () => {
+    it('renders a button which opens the date picker on click', async () => {
+        const user = userEvent.setup();
         const showPicker = jest.fn();
         useRefMock.mockReturnValue({ current: { showPicker } });
         mergeRefMock.mockReturnValue(() => null);
@@ -50,7 +52,7 @@ describe('<InputDate /> component', () => {
         expect(calendarButton).toBeInTheDocument();
         expect(within(calendarButton).getByTestId(IconType.CALENDAR)).toBeInTheDocument();
 
-        fireEvent.click(calendarButton);
+        await user.click(calendarButton);
         expect(showPicker).toHaveBeenCalled();
     });
 });
