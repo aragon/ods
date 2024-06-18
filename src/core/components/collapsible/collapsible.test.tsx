@@ -71,15 +71,16 @@ describe('<Collapsible /> component', () => {
     });
 
     it('toggles opened/closed state when button is clicked', async () => {
+        const user = userEvent.setup();
         const buttonLabelOpened = 'Open';
         const buttonLabelClosed = 'Closed';
 
         render(createTestComponent({ buttonLabelOpened, buttonLabelClosed }));
 
         const button = screen.getByText('Closed');
-        await userEvent.click(button);
+        await user.click(button);
         expect(button.textContent).toBe('Open');
-        await userEvent.click(button);
+        await user.click(button);
         expect(button.textContent).toBe('Closed');
     });
 
@@ -95,34 +96,37 @@ describe('<Collapsible /> component', () => {
     });
 
     it('calls the onToggle callback with the new state', async () => {
+        const user = userEvent.setup();
         const onToggle = jest.fn();
         render(createTestComponent({ onToggle }));
 
         const button = screen.getByRole('button');
-        await userEvent.click(button);
+        await user.click(button);
         expect(onToggle).toHaveBeenCalledWith(true);
-        await userEvent.click(button);
+        await user.click(button);
         expect(onToggle).toHaveBeenCalledWith(false);
     });
 
     it('renders custom button labels', async () => {
+        const user = userEvent.setup();
         const buttonLabelOpened = 'Collapse';
         const buttonLabelClosed = 'Expand';
         render(createTestComponent({ buttonLabelOpened, buttonLabelClosed }));
 
         expect(screen.getByText('Expand')).toBeInTheDocument();
-        await userEvent.click(screen.getByText('Expand'));
+        await user.click(screen.getByText('Expand'));
         expect(screen.getByText('Collapse')).toBeInTheDocument();
     });
 
     it('handles absence of buttonVariant using default button styles', async () => {
+        const user = userEvent.setup();
         const buttonLabelOpened = 'Collapse';
         const buttonLabelClosed = 'Expand';
         render(createTestComponent({ buttonLabelOpened, buttonLabelClosed }));
 
         const button = screen.getByRole('button');
 
-        await userEvent.click(button);
+        await user.click(button);
         expect(button).toHaveTextContent('Collapse');
     });
 

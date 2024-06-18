@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { IconType } from '../../icon';
 import * as InputHooks from '../hooks';
 import { InputNumber, type IInputNumberProps } from './inputNumber';
@@ -47,10 +48,11 @@ describe('<InputNumber /> component', () => {
             useNumberMaskMock.mockReset();
         });
 
-        const testIncrementLogic = ({
+        const testIncrementLogic = async ({
             expectedValue,
             ...props
         }: Partial<IInputNumberProps> & { expectedValue: string }) => {
+            const user = userEvent.setup();
             const setValue = jest.fn();
             const hookResult = {
                 setValue,
@@ -62,39 +64,39 @@ describe('<InputNumber /> component', () => {
             render(createTestComponent({ ...props }));
 
             const [, incrementButton] = screen.getAllByRole<HTMLButtonElement>('button');
-            fireEvent.click(incrementButton);
+            await user.click(incrementButton);
 
             expect(setValue).toHaveBeenCalledWith(expectedValue);
         };
 
-        it('should increment by one (1) with default parameters', () => {
-            testIncrementLogic({ expectedValue: '1' });
+        it('should increment by one (1) with default parameters', async () => {
+            await testIncrementLogic({ expectedValue: '1' });
         });
 
-        it('should return the maximum when the newly generated value exceeds the maximum', () => {
+        it('should return the maximum when the newly generated value exceeds the maximum', async () => {
             const max = 5;
             const step = 2;
             const value = '4';
-            testIncrementLogic({ max, step, value, expectedValue: max.toString() });
+            await testIncrementLogic({ max, step, value, expectedValue: max.toString() });
         });
 
-        it('should increment by floating point value when the step is a float', () => {
+        it('should increment by floating point value when the step is a float', async () => {
             const value = '1';
             const step = 0.5;
-            testIncrementLogic({ step, value, expectedValue: (Number(value) + step).toString() });
+            await testIncrementLogic({ step, value, expectedValue: (Number(value) + step).toString() });
         });
 
-        it('should round down to the nearest multiple of the step before incrementing by the step value', () => {
+        it('should round down to the nearest multiple of the step before incrementing by the step value', async () => {
             const value = '1';
             const step = 0.3;
-            testIncrementLogic({ step, value, expectedValue: '1.2' });
+            await testIncrementLogic({ step, value, expectedValue: '1.2' });
         });
 
-        it('should increment to the minimum when no value is provided', () => {
+        it('should increment to the minimum when no value is provided', async () => {
             const step = 6;
             const min = 5;
             const max = 10;
-            testIncrementLogic({ step, min, max, expectedValue: min.toString() });
+            await testIncrementLogic({ step, min, max, expectedValue: min.toString() });
         });
     });
 
@@ -105,10 +107,11 @@ describe('<InputNumber /> component', () => {
             useNumberMaskMock.mockReset();
         });
 
-        const testDecrementLogic = ({
+        const testDecrementLogic = async ({
             expectedValue,
             ...props
         }: Partial<IInputNumberProps> & { expectedValue: string }) => {
+            const user = userEvent.setup();
             const setValue = jest.fn();
             const hookResult = {
                 setValue,
@@ -120,28 +123,28 @@ describe('<InputNumber /> component', () => {
             render(createTestComponent({ ...props }));
 
             const [decrementButton] = screen.getAllByRole<HTMLButtonElement>('button');
-            fireEvent.click(decrementButton);
+            await user.click(decrementButton);
 
             expect(setValue).toHaveBeenCalledWith(expectedValue);
         };
 
-        it('should decrement by step', () => {
+        it('should decrement by step', async () => {
             const value = '10';
             const step = 2;
             const expectedValue = (10 - 2).toString();
-            testDecrementLogic({ value, step, expectedValue });
+            await testDecrementLogic({ value, step, expectedValue });
         });
 
-        it('should decrement to the minimum when no value provided', () => {
+        it('should decrement to the minimum when no value provided', async () => {
             const step = 2;
             const min = 1;
-            testDecrementLogic({ step, min, expectedValue: min.toString() });
+            await testDecrementLogic({ step, min, expectedValue: min.toString() });
         });
 
-        it('should decrement to the closest multiple of the step smaller than the value', () => {
+        it('should decrement to the closest multiple of the step smaller than the value', async () => {
             const value = '10';
             const step = 3;
-            testDecrementLogic({ value, step, expectedValue: '9' });
+            await testDecrementLogic({ value, step, expectedValue: '9' });
         });
     });
 });

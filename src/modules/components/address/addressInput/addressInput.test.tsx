@@ -68,14 +68,16 @@ describe('<AddressInput /> component', () => {
     });
 
     it('calls the onChange property on input field change', async () => {
+        const user = userEvent.setup();
         const input = '0';
         const onChange = jest.fn();
         render(createTestComponent({ onChange }));
-        await userEvent.type(screen.getByRole('textbox'), input);
+        await user.type(screen.getByRole('textbox'), input);
         expect(onChange).toHaveBeenCalledWith(input);
     });
 
     it('renders a paste button to read and paste the user clipboard into the input field', async () => {
+        const user = userEvent.setup();
         const userClipboard = 'vitalik.eth';
         pasteMock.mockResolvedValue(userClipboard);
         const onChange = jest.fn();
@@ -84,7 +86,7 @@ describe('<AddressInput /> component', () => {
         const pasteButton = screen.getByRole('button', { name: 'Paste' });
         expect(pasteButton).toBeInTheDocument();
 
-        await userEvent.click(pasteButton);
+        await user.click(pasteButton);
         expect(onChange).toHaveBeenCalledWith(userClipboard);
     });
 
@@ -95,6 +97,7 @@ describe('<AddressInput /> component', () => {
     });
 
     it('renders a clear button to clear current input value when input is focused', async () => {
+        const user = userEvent.setup();
         const value = 'test-value';
         const onChange = jest.fn();
         render(createTestComponent({ value, onChange }));
@@ -103,16 +106,17 @@ describe('<AddressInput /> component', () => {
         const clearButton = screen.getByRole('button', { name: 'Clear' });
         expect(clearButton).toBeInTheDocument();
 
-        await userEvent.click(clearButton);
+        await user.click(clearButton);
         expect(onChange).toHaveBeenCalledWith(undefined);
     });
 
     it('renders a copy button to copy current input value when current value is a valid address', async () => {
+        const user = userEvent.setup();
         const value = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
         render(createTestComponent({ value }));
         const copyButton = screen.getAllByRole('button').find((button) => within(button).findByTestId(IconType.COPY));
         expect(copyButton).toBeInTheDocument();
-        await userEvent.click(copyButton!);
+        await user.click(copyButton!);
         expect(copyMock).toHaveBeenCalledWith(value);
     });
 
@@ -136,6 +140,7 @@ describe('<AddressInput /> component', () => {
     });
 
     it('displays a button to display the ENS value linked to the address input when address has ENS linked', async () => {
+        const user = userEvent.setup();
         const ensValue = 'vitalik.eth';
         const value = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
         const onChange = jest.fn();
@@ -145,11 +150,12 @@ describe('<AddressInput /> component', () => {
         const ensButton = screen.getByRole('button', { name: 'ENS' });
         expect(ensButton).toBeInTheDocument();
 
-        await userEvent.click(ensButton);
+        await user.click(ensButton);
         expect(onChange).toHaveBeenCalledWith(ensValue);
     });
 
     it('displays a button to display the address value linked to the ENS input when ENS is linked to an address', async () => {
+        const user = userEvent.setup();
         const addressValue: Address = '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d';
         const value = 'cdixon.eth';
         const onChange = jest.fn();
@@ -159,7 +165,7 @@ describe('<AddressInput /> component', () => {
         const addressButton = screen.getByRole('button', { name: '0x …' });
         expect(addressButton).toBeInTheDocument();
 
-        await userEvent.click(addressButton);
+        await user.click(addressButton);
         expect(onChange).toHaveBeenCalledWith(addressValue);
     });
 

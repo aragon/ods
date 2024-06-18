@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { RadioGroup, type IRadioGroupProps } from '..';
 import { Radio } from '../radio';
 
@@ -31,7 +32,7 @@ describe('<RadioGroup /> component', () => {
         });
     });
 
-    it('set the radio group value correctly', () => {
+    it('sets the radio group value correctly', () => {
         const value = '1';
         const children = [<Radio value={value} label="1" key={1} />, <Radio value="2" label="2" key={2} />];
 
@@ -41,14 +42,15 @@ describe('<RadioGroup /> component', () => {
         expect(inputRadioElement).toHaveValue(value);
     });
 
-    it('calls `onValueChange` when a radio button is clicked', () => {
+    it('calls `onValueChange` when a radio button is clicked', async () => {
+        const user = userEvent.setup();
         const handleValueChange = jest.fn();
         const value = '1';
         const children = [<Radio value={value} label="1" key={1} />];
 
         render(createTestComponent({ children, onValueChange: handleValueChange }));
 
-        fireEvent.click(screen.getByRole('radio'));
+        await user.click(screen.getByRole('radio'));
         expect(handleValueChange).toHaveBeenCalledWith(value);
     });
 });

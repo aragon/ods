@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { Switch, type ISwitchProps } from './switch';
 
 describe('<Switch /> component', () => {
@@ -37,22 +38,24 @@ describe('<Switch /> component', () => {
         expect(screen.getByRole('switch')).toHaveAttribute('id');
     });
 
-    it('invokes callback on state change and toggles state value', () => {
+    it('invokes callback on state change and toggles state value', async () => {
+        const user = userEvent.setup();
         const mockCallback = jest.fn();
         render(createTestComponent({ checked: true, onCheckedChanged: mockCallback }));
 
         const switchElement = screen.getByRole('switch');
-        fireEvent.click(switchElement);
+        await user.click(switchElement);
 
         expect(mockCallback).toHaveBeenCalledWith(false);
     });
 
-    it('renders as disabled when disabled prop is true', () => {
+    it('renders as disabled when disabled prop is true', async () => {
+        const user = userEvent.setup();
         const mockCallback = jest.fn();
         render(createTestComponent({ disabled: true, onCheckedChanged: mockCallback }));
 
         const switchElement = screen.getByRole('switch');
-        fireEvent.click(switchElement);
+        await user.click(switchElement);
 
         expect(switchElement).toBeDisabled();
         expect(mockCallback).not.toHaveBeenCalled();

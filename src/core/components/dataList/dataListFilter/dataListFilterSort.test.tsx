@@ -54,12 +54,13 @@ describe('<DataListFilterSort /> component', () => {
     });
 
     it('renders the specified sort items on sort button click', async () => {
+        const user = userEvent.setup();
         const sortItems = [
             { value: 't1', label: 'Test 1', type: 'ASC' as const },
             { value: 't2', label: 'Test 2', type: 'ASC' as const },
         ];
         render(createTestComponent({ sortItems }));
-        await userEvent.click(screen.getByRole('button'));
+        await user.click(screen.getByRole('button'));
 
         expect(screen.getAllByRole('menuitem').length).toEqual(sortItems.length);
         expect(screen.getByRole('menuitem', { name: sortItems[0].label })).toBeInTheDocument();
@@ -67,14 +68,15 @@ describe('<DataListFilterSort /> component', () => {
     });
 
     it('calls the onSortChange callback with selected sort item value on sort item click', async () => {
+        const user = userEvent.setup();
         const onSortChange = jest.fn();
         const sortItems = [
             { value: 'value1', label: 'label1', type: 'ASC' as const },
             { value: 'value2', label: 'label2', type: 'ASC' as const },
         ];
         render(createTestComponent({ sortItems, onSortChange }));
-        await userEvent.click(screen.getByRole('button'));
-        await userEvent.click(screen.getByRole('menuitem', { name: sortItems[1].label }));
+        await user.click(screen.getByRole('button'));
+        await user.click(screen.getByRole('menuitem', { name: sortItems[1].label }));
         expect(onSortChange).toHaveBeenCalledWith(sortItems[1].value);
     });
 });

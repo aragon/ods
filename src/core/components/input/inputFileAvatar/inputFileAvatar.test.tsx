@@ -56,6 +56,7 @@ describe('<InputFileAvatar /> component', () => {
     });
 
     it('displays a preview and calls the onFileSelect callback when a valid file is selected', async () => {
+        const user = userEvent.setup();
         const label = 'test-label';
         const fileSrc = 'https://chucknorris.com/image.png';
         const file = new File(['(⌐□_□)'], fileSrc, { type: 'image/png' });
@@ -63,7 +64,7 @@ describe('<InputFileAvatar /> component', () => {
         createObjectURLMock.mockReturnValue(fileSrc);
 
         render(createTestComponent({ label, onFileSelect }));
-        await userEvent.upload(screen.getByLabelText(label), file);
+        await user.upload(screen.getByLabelText(label), file);
         const previewImg = await screen.findByRole<HTMLImageElement>('img');
 
         expect(previewImg).toBeInTheDocument();
@@ -72,21 +73,23 @@ describe('<InputFileAvatar /> component', () => {
     });
 
     it('clears the current file selection on close button click after an image has been selected', async () => {
+        const user = userEvent.setup();
         const label = 'test-label';
         const file = new File(['something'], 'test.png', { type: 'image/png' });
         createObjectURLMock.mockReturnValue('file-src');
 
         render(createTestComponent({ label }));
-        await userEvent.upload(screen.getByLabelText(label), file);
+        await user.upload(screen.getByLabelText(label), file);
         const cancelButton = await screen.findByRole('button');
         expect(cancelButton).toBeInTheDocument();
 
-        await userEvent.click(cancelButton);
+        await user.click(cancelButton);
         expect(screen.getByTestId(IconType.PLUS)).toBeInTheDocument();
         expect(screen.queryByRole('img')).not.toBeInTheDocument();
     });
 
     it('calls onFileError when file has incorrect dimensions', async () => {
+        const user = userEvent.setup();
         const originalWidth = global.Image.prototype.width;
         global.Image.prototype.width = 800;
 
@@ -96,7 +99,7 @@ describe('<InputFileAvatar /> component', () => {
         const minDimension = 1000;
 
         render(createTestComponent({ label, onFileError, minDimension }));
-        await userEvent.upload(screen.getByLabelText(label), file);
+        await user.upload(screen.getByLabelText(label), file);
         await waitFor(() => expect(onFileError).toHaveBeenCalledWith(InputFileAvatarError.WRONG_DIMENSION));
 
         global.Image.prototype.width = originalWidth;

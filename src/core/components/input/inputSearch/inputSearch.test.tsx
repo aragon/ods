@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { IconType } from '../../icon';
 import { InputSearch, type IInputSearchProps } from './inputSearch';
 
@@ -9,7 +10,7 @@ describe('<InputSearch /> component', () => {
         return <InputSearch {...completeProps} />;
     };
 
-    it('renders a input search field with a search icon', () => {
+    it('renders an input search field with a search icon', () => {
         render(createTestComponent());
         expect(screen.getByRole('searchbox')).toBeInTheDocument();
         expect(screen.getByTestId(IconType.SEARCH)).toBeInTheDocument();
@@ -36,27 +37,31 @@ describe('<InputSearch /> component', () => {
         expect(screen.getByRole('progressbar')).toBeInTheDocument();
     });
 
-    it('correctly handles styles on focus and blur and calls the onBlur and onFocus props', () => {
+    it('correctly handles styles on focus and blur and calls the onBlur and onFocus props', async () => {
+        const user = userEvent.setup();
         const onFocus = jest.fn();
         const onBlur = jest.fn();
         render(createTestComponent({ onFocus, onBlur }));
+        const searchbox = screen.getByRole('searchbox');
         const searchIcon = screen.getByTestId(IconType.SEARCH);
 
-        fireEvent.focus(screen.getByRole('searchbox'));
+        await user.click(searchbox);
         expect(searchIcon.getAttribute('class')).toContain('text-neutral-600');
         expect(onFocus).toHaveBeenCalled();
 
-        fireEvent.blur(screen.getByRole('searchbox'));
+        await user.tab();
         expect(searchIcon.getAttribute('class')).not.toContain('text-neutral-600');
         expect(onBlur).toHaveBeenCalled();
     });
 
-    it('clears input value on clear icon click', () => {
+    it('clears input value on clear icon click', async () => {
+        const user = userEvent.setup();
         const initialValue = 'test';
         render(createTestComponent());
-        fireEvent.change(screen.getByRole('searchbox'), { target: { value: initialValue } });
-        expect(screen.getByRole<HTMLInputElement>('searchbox').value).toEqual(initialValue);
-        fireEvent.click(screen.getByRole('button'));
-        expect(screen.getByRole<HTMLInputElement>('searchbox').value).toEqual('');
+        const searchbox = screen.getByRole<HTMLInputElement>('searchbox');
+        await user.type(searchbox, initialValue);
+        expect(searchbox.value).toEqual(initialValue);
+        await user.click(screen.getByRole('button'));
+        expect(searchbox.value).toEqual('');
     });
 });
