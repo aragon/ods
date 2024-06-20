@@ -11,7 +11,7 @@ const config: StorybookConfig = {
         '@storybook/addon-designs',
         '@storybook/addon-mdx-gfm',
         '@storybook/addon-webpack5-compiler-babel',
-        '@chromatic-com/storybook'
+        '@chromatic-com/storybook',
     ],
 
     framework: {
@@ -39,7 +39,7 @@ const config: StorybookConfig = {
         return webpackConfig;
     },
 
-    docs: {}
+    docs: {},
 };
 
 export default config;
