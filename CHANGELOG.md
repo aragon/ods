@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+-   Ensure `MemberAvatar` component only creates the blockies url on client environment
+
 ### Changed
 
 -   Bump `@rollup/plugin-commonjs` from `25.0.8` to `26.0.1`
@@ -16,6 +20,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update unit tests to use userEvent instead of fireEvent
 -   Move all form items under a `forms` folder
 -   Upgrade storybook to v8
+-   Update `MemberDataListItem` component to support `votingPower` property set as string
+
+### Added
+
+-   Create `ssrUtils` core utilities
 
 ### Added
 
