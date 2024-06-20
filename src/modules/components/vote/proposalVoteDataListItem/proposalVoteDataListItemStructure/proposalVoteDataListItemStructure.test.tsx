@@ -10,10 +10,6 @@ jest.mock('../../../../../core/components/tag', () => ({
     Tag: ({ label }: { label: string }) => <div data-testid="tag">{label}</div>,
 }));
 
-jest.mock('./proposalVoteDataListItemStructure', () => ({
-    ProposalVoteDataListItemStructure: () => <div data-testid="proposal-vote-dataListItem" />,
-}));
-
 describe('<ProposalVoteDataListItemStructure /> component', () => {
     const createTestComponent = (props?: Partial<IProposalVoteDataListItemStructureProps>) => {
         const completeProps: IProposalVoteDataListItemStructureProps = {
@@ -38,19 +34,18 @@ describe('<ProposalVoteDataListItemStructure /> component', () => {
     });
 
     it('renders the vote and the proposal information', () => {
-        render(
-            createTestComponent({
-                id: 'PIP-06',
-                title: 'Introduction of Layer 2 Scaling Solutions',
-                voteIndicator: 'no',
-                date: '2 days ago',
-            }),
-        );
+        const id = 'PIP-06';
+        const voteIndicator = 'no';
+        render(createTestComponent({ id, voteIndicator }));
 
-        // expect(screen.getByTestId('proposal-vote-dataListItem')).toBeInTheDocument();
-        // expect(screen.getByTestId('tag')).toHaveTextContent('no');
+        expect(screen.getByTestId('tag')).toHaveTextContent(voteIndicator);
+        expect(screen.getByText(id)).toBeInTheDocument();
+    });
 
-        const childrenOK = screen.getByText('PIP-06');
-        expect(childrenOK).toBeInTheDocument();
+    it('renders the date if available', () => {
+        const date = '2 days ago';
+        render(createTestComponent({ date }));
+
+        expect(screen.getByText(date)).toBeInTheDocument();
     });
 });
