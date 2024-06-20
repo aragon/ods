@@ -4,13 +4,13 @@ import { voteIndicatorToTagVariant } from '../../voteDataListItem/voteDataListIt
 
 export interface IProposalVoteDataListItemStructureProps extends IDataListItemProps {
     /**
-     * The account details of the voter.
-     */
-    title: string;
-    /**
      * The ID of proposal.
      */
     id: string;
+    /**
+     * The account details of the voter.
+     */
+    title: string;
     /**
      * The vote of the user.
      */

@@ -27,7 +27,7 @@ export const TokenVoting: Story = {
         date: '1 minute ago',
     },
     render: (args) => (
-        <DataList.Root entityLabel="Votes">
+        <DataList.Root entityLabel="proposalVote">
             <DataList.Container>
                 <ProposalVoteDataListItem.Structure {...args} />
             </DataList.Container>
@@ -46,7 +46,7 @@ export const Multisig: Story = {
         date: '1 minute ago',
     },
     render: (args) => (
-        <DataList.Root entityLabel="Votes">
+        <DataList.Root entityLabel="proposalVote">
             <DataList.Container>
                 <ProposalVoteDataListItem.Structure {...args} />
             </DataList.Container>
