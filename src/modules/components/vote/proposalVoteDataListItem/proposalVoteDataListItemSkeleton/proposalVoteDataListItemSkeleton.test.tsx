@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react';
-import { ProposalVoteDataListItem, type IProposalVoteDataListItemSkeletonProps } from '../..';
+import { VoteProposalDataListItem, type IVoteProposalDataListItemSkeletonProps } from '../..';
 import { DataList } from '../../../../../core';
 
-describe('<ProposalVoteDataListItem.Skeleton /> component', () => {
-    const createTestComponent = (props?: Partial<IProposalVoteDataListItemSkeletonProps>) => {
-        const completeProps: IProposalVoteDataListItemSkeletonProps = { ...props };
+describe('<VoteProposalDataListItem.Skeleton /> component', () => {
+    const createTestComponent = (props?: Partial<IVoteProposalDataListItemSkeletonProps>) => {
+        const completeProps: IVoteProposalDataListItemSkeletonProps = { ...props };
 
         return (
             <DataList.Root entityLabel="proposalVote">
-                <ProposalVoteDataListItem.Skeleton {...completeProps} />
+                <VoteProposalDataListItem.Skeleton {...completeProps} />
             </DataList.Root>
         );
     };

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { DataList, Tag, type IDataListItemProps } from '../../../../../core';
 import { voteIndicatorToTagVariant } from '../../voteDataListItem/voteDataListItemStructure/voteDataListItemStructure';
 
-export interface IProposalVoteDataListItemStructureProps extends IDataListItemProps {
+export interface IVoteProposalDataListItemStructureProps extends IDataListItemProps {
     /**
      * The ID of proposal.
      */
@@ -22,7 +22,7 @@ export interface IProposalVoteDataListItemStructureProps extends IDataListItemPr
     date?: string;
 }
 
-export const ProposalVoteDataListItemStructure: React.FC<IProposalVoteDataListItemStructureProps> = (props) => {
+export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListItemStructureProps> = (props) => {
     const { title, id, voteIndicator, date, className, ...otherProps } = props;
 
     return (

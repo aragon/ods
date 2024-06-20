@@ -1,10 +1,10 @@
-import { ProposalVoteDataListItemSkeleton } from './proposalVoteDataListItemSkeleton';
-import { ProposalVoteDataListItemStructure } from './proposalVoteDataListItemStructure';
+import { VoteProposalDataListItemSkeleton } from './voteProposalDataListItemSkeleton';
+import { VoteProposalDataListItemStructure } from './voteProposalDataListItemStructure';
 
-export const ProposalVoteDataListItem = {
-    Structure: ProposalVoteDataListItemStructure,
-    Skeleton: ProposalVoteDataListItemSkeleton,
+export const VoteProposalDataListItem = {
+    Structure: VoteProposalDataListItemStructure,
+    Skeleton: VoteProposalDataListItemSkeleton,
 };
 
-export * from './proposalVoteDataListItemSkeleton';
-export * from './proposalVoteDataListItemStructure';
+export * from './voteProposalDataListItemSkeleton';
+export * from './voteProposalDataListItemStructure';

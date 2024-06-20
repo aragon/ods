@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProposalVoteDataListItem } from '..';
+import { VoteProposalDataListItem } from '..';
 import { DataList } from '../../../../../core';
 
-const meta: Meta<typeof ProposalVoteDataListItem.Structure> = {
-    title: 'Modules/Components/Vote/ProposalVoteDataListItem/ProposalVoteDataListItem.Structure',
-    component: ProposalVoteDataListItem.Structure,
+const meta: Meta<typeof VoteProposalDataListItem.Structure> = {
+    title: 'Modules/Components/Vote/VoteProposalDataListItem/VoteProposalDataListItem.Structure',
+    component: VoteProposalDataListItem.Structure,
     tags: ['autodocs'],
     parameters: {
         design: {
@@ -14,7 +14,7 @@ const meta: Meta<typeof ProposalVoteDataListItem.Structure> = {
     },
 };
 
-type Story = StoryObj<typeof ProposalVoteDataListItem.Structure>;
+type Story = StoryObj<typeof VoteProposalDataListItem.Structure>;
 
 /**
  * Usage example of the VotesDataListItem module component for a token based vote.
@@ -29,7 +29,7 @@ export const TokenVoting: Story = {
     render: (args) => (
         <DataList.Root entityLabel="proposalVote">
             <DataList.Container>
-                <ProposalVoteDataListItem.Structure {...args} />
+                <VoteProposalDataListItem.Structure {...args} />
             </DataList.Container>
         </DataList.Root>
     ),
@@ -48,7 +48,7 @@ export const Multisig: Story = {
     render: (args) => (
         <DataList.Root entityLabel="proposalVote">
             <DataList.Container>
-                <ProposalVoteDataListItem.Structure {...args} />
+                <VoteProposalDataListItem.Structure {...args} />
             </DataList.Container>
         </DataList.Root>
     ),

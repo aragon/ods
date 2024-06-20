@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProposalVoteDataListItem } from '..';
+import { VoteProposalDataListItem } from '..';
 import { DataList } from '../../../../../core';
 
-const meta: Meta<typeof ProposalVoteDataListItem.Skeleton> = {
-    title: 'Modules/Components/Vote/ProposalVoteDataListItem/ProposalVoteDataListItem.Skeleton',
-    component: ProposalVoteDataListItem.Skeleton,
+const meta: Meta<typeof VoteProposalDataListItem.Skeleton> = {
+    title: 'Modules/Components/Vote/VoteProposalDataListItem/VoteProposalDataListItem.Skeleton',
+    component: VoteProposalDataListItem.Skeleton,
     tags: ['autodocs'],
     parameters: {
         design: {
@@ -14,15 +14,15 @@ const meta: Meta<typeof ProposalVoteDataListItem.Skeleton> = {
     },
 };
 
-type Story = StoryObj<typeof ProposalVoteDataListItem.Skeleton>;
+type Story = StoryObj<typeof VoteProposalDataListItem.Skeleton>;
 
 /**
- * Default usage example of the ProposalVoteDataListItem.Skeleton component.
+ * Default usage example of the VoteProposalDataListItem.Skeleton component.
  */
 export const Default: Story = {
     render: () => (
         <DataList.Root entityLabel="Vote" state="initialLoading" pageSize={1}>
-            <DataList.Container SkeletonElement={ProposalVoteDataListItem.Skeleton} />
+            <DataList.Container SkeletonElement={VoteProposalDataListItem.Skeleton} />
         </DataList.Root>
     ),
 };

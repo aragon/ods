@@ -1,2 +1,2 @@
-export * from './proposalVoteDataListItem';
+export * from './voteProposalDataListItem';
 export * from './voteDataListItem';

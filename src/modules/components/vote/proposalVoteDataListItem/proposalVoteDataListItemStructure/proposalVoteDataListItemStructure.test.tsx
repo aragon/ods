@@ -2,17 +2,17 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { DataList } from '../../../../../core';
 import {
-    ProposalVoteDataListItemStructure,
-    type IProposalVoteDataListItemStructureProps,
-} from './proposalVoteDataListItemStructure';
+    VoteProposalDataListItemStructure,
+    type IVoteProposalDataListItemStructureProps,
+} from './voteProposalDataListItemStructure';
 
 jest.mock('../../../../../core/components/tag', () => ({
     Tag: ({ label }: { label: string }) => <div data-testid="tag">{label}</div>,
 }));
 
-describe('<ProposalVoteDataListItemStructure /> component', () => {
-    const createTestComponent = (props?: Partial<IProposalVoteDataListItemStructureProps>) => {
-        const completeProps: IProposalVoteDataListItemStructureProps = {
+describe('<VoteProposalDataListItemStructure /> component', () => {
+    const createTestComponent = (props?: Partial<IVoteProposalDataListItemStructureProps>) => {
+        const completeProps: IVoteProposalDataListItemStructureProps = {
             id: 'PIP-06',
             title: 'Introduction of Layer 2 Scaling Solutions',
             voteIndicator: 'yes',
@@ -23,7 +23,7 @@ describe('<ProposalVoteDataListItemStructure /> component', () => {
         return (
             <DataList.Root entityLabel="proposalVote">
                 <DataList.Container>
-                    <ProposalVoteDataListItemStructure {...completeProps} />
+                    <VoteProposalDataListItemStructure {...completeProps} />
                 </DataList.Container>
             </DataList.Root>
         );
