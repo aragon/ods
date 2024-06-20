@@ -24,7 +24,7 @@ export interface IVoteDataListItemStructureProps extends IDataListItemProps {
     /**
      * The vote of the user.
      */
-    voteIndicator: 'yes' | 'no' | 'abstain' | 'approved';
+    voteIndicator: 'yes' | 'no' | 'abstain' | 'approve';
     /**
      * If token-based voting, the amount of token voting power used.
      */
@@ -35,11 +35,11 @@ export interface IVoteDataListItemStructureProps extends IDataListItemProps {
     tokenSymbol?: string;
 }
 
-const voteIndicatorToTagVariant: Record<IVoteDataListItemStructureProps['voteIndicator'], TagVariant> = {
+export const voteIndicatorToTagVariant: Record<IVoteDataListItemStructureProps['voteIndicator'], TagVariant> = {
     yes: 'success',
     no: 'critical',
     abstain: 'neutral',
-    approved: 'primary',
+    approve: 'primary',
 };
 
 export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps> = (props) => {
