@@ -7,7 +7,29 @@ const config: StorybookConfig = {
     addons: [
         '@storybook/addon-links',
         '@storybook/addon-essentials',
-        { name: '@storybook/addon-styling', options: { postCss: true } },
+        {
+            name: '@storybook/addon-styling-webpack',
+            options: {
+                rules: [
+                    // Replaces existing CSS rules to support PostCSS
+                    {
+                        test: /\.css$/,
+                        use: [
+                            'style-loader',
+                            {
+                                loader: 'css-loader',
+                                options: { importLoaders: 1 },
+                            },
+                            {
+                                // Gets options from `postcss.config.js`
+                                loader: 'postcss-loader',
+                                options: { implementation: require.resolve('postcss') },
+                            },
+                        ],
+                    },
+                ],
+            },
+        },
         '@storybook/addon-designs',
         '@storybook/addon-mdx-gfm',
         '@storybook/addon-webpack5-compiler-babel',
