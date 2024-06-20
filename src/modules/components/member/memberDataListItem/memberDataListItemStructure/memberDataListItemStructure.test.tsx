@@ -1,26 +1,22 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { getAddress, isAddress } from 'viem';
-import { useAccount } from 'wagmi';
+import * as wagmi from 'wagmi';
 import { DataList } from '../../../../../core';
 import { MemberDataListItemStructure, type IMemberDataListItemProps } from './memberDataListItemStructure';
-
-jest.mock('viem', () => ({
-    isAddress: jest.fn(),
-    getAddress: jest.fn(),
-}));
-
-jest.mock('viem/ens', () => ({
-    normalize: jest.fn(),
-}));
-
-jest.mock('wagmi', () => ({
-    useAccount: jest.fn(),
-}));
 
 jest.mock('../../memberAvatar', () => ({ MemberAvatar: () => <div data-testid="member-avatar-mock" /> }));
 
 describe('<MemberDataListItem /> component', () => {
+    const useAccountMock = jest.spyOn(wagmi, 'useAccount');
+
+    beforeEach(() => {
+        useAccountMock.mockReturnValue({} as wagmi.UseAccountReturnType);
+    });
+
+    afterEach(() => {
+        useAccountMock.mockReset();
+    });
+
     const createTestComponent = (props?: Partial<IMemberDataListItemProps>) => {
         const completeProps: IMemberDataListItemProps = {
             address: '0x1234567890123456789012345678901234567890',
@@ -35,16 +31,6 @@ describe('<MemberDataListItem /> component', () => {
             </DataList.Root>
         );
     };
-
-    beforeEach(() => {
-        (isAddress as unknown as jest.Mock).mockImplementation(() => true);
-        (getAddress as jest.Mock).mockImplementation((address: string) => address);
-
-        (useAccount as jest.Mock).mockReturnValue({
-            address: '0x1234567890123456789012345678901234567890',
-            isConnected: true,
-        });
-    });
 
     it('renders the avatar', async () => {
         render(createTestComponent());
@@ -62,12 +48,11 @@ describe('<MemberDataListItem /> component', () => {
 
     it('renders the ENS user handle instead of address if provided', async () => {
         const ensName = 'testUserHandle';
+        const address = '0x000000633b68f5D8D3a86593ebB815b4663BCBe0';
         render(createTestComponent({ ensName }));
 
         expect(screen.getByRole('heading', { name: ensName })).toBeInTheDocument();
-        expect(
-            screen.queryByRole('heading', { name: '0x1234567890123456789012345678901234567890' }),
-        ).not.toBeInTheDocument();
+        expect(screen.queryByRole('heading', { name: address })).not.toBeInTheDocument();
     });
 
     it('conditionally renders the delegation count and formats it', async () => {
@@ -97,7 +82,8 @@ describe('<MemberDataListItem /> component', () => {
     });
 
     it('renders the "You" tag when the user is the current account', async () => {
-        const address = '0x1234567890123456789012345678901234567890';
+        const address = '0x50ce432B38eE98dE5Fa375D5125aA6d0d054E662';
+        useAccountMock.mockReturnValue({ isConnected: true, address } as unknown as wagmi.UseAccountReturnType);
         render(createTestComponent({ address }));
 
         expect(screen.getByText('You')).toBeInTheDocument();

@@ -15,7 +15,7 @@ export interface IMemberDataListItemProps extends IDataListItemProps {
     /**
      * The total voting power of the member.
      */
-    votingPower?: number;
+    votingPower?: number | string;
     /**
      * ENS name of the user.
      */
@@ -39,7 +39,13 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
 
     const resolvedUserHandle = ensName != null && ensName !== '' ? ensName : addressUtils.truncateAddress(address);
 
-    const hasDelegationOrVotingPower = delegationCount > 0 || votingPower > 0;
+    const hasVotingPower = Number(votingPower) > 0;
+    const hasDelegationOrVotingPower = delegationCount > 0 || hasVotingPower;
+
+    const formattedDelegationCount = formatterUtils.formatNumber(delegationCount, {
+        format: NumberFormat.GENERIC_SHORT,
+    });
+    const formattedVotingPower = formatterUtils.formatNumber(votingPower, { format: NumberFormat.GENERIC_SHORT });
 
     return (
         <DataList.Item className="min-w-fit !py-0 px-4 md:px-6" {...otherProps}>
@@ -63,13 +69,13 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                     <div className="flex flex-col gap-y-2">
                         {delegationCount > 0 && (
                             <Heading size="h5" as="h2">
-                                {formatterUtils.formatNumber(delegationCount, { format: NumberFormat.GENERIC_SHORT })}
+                                <span>{formattedDelegationCount}</span>
                                 <span className="text-neutral-500">{` Delegation${delegationCount === 1 ? '' : 's'}`}</span>
                             </Heading>
                         )}
-                        {votingPower > 0 && (
+                        {hasVotingPower && (
                             <Heading size="h5" as="h2">
-                                {formatterUtils.formatNumber(votingPower, { format: NumberFormat.GENERIC_SHORT })}
+                                <span>{formattedVotingPower}</span>
                                 <span className="text-neutral-500"> Voting Power</span>
                             </Heading>
                         )}
