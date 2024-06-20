@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Implement `ProposalVoteDataListItem` with Structure and Skeleton module
+
 ### Changed
 
 -   Bump `@rollup/plugin-commonjs` from `25.0.8` to `26.0.1`
