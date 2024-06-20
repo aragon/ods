@@ -9,7 +9,6 @@ import { Wallet } from './wallet';
 const meta: Meta<typeof Wallet> = {
     title: 'Modules/Components/Wallet/Wallet',
     component: Wallet,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

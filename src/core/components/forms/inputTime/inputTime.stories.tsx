@@ -5,7 +5,6 @@ import { InputTime, type IInputTimeProps } from './inputTime';
 const meta: Meta<typeof InputTime> = {
     title: 'Core/Components/Forms/InputTime',
     component: InputTime,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

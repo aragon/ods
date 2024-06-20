@@ -6,7 +6,6 @@ import { CheckboxGroup } from './checkboxGroup';
 const meta: Meta<typeof CheckboxGroup> = {
     title: 'Core/Components/Checkbox/CheckboxGroup',
     component: CheckboxGroup,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

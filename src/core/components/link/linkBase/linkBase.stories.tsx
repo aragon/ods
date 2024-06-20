@@ -4,7 +4,6 @@ import { LinkBase } from './linkBase';
 const meta: Meta<typeof LinkBase> = {
     title: 'Core/Components/Link/LinkBase',
     component: LinkBase,
-    tags: ['autodocs'],
 };
 
 type Story = StoryObj<typeof LinkBase>;

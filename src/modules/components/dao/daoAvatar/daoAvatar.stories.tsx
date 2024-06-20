@@ -4,7 +4,6 @@ import { DaoAvatar } from './daoAvatar';
 const meta: Meta<typeof DaoAvatar> = {
     title: 'Modules/Components/Dao/DaoAvatar',
     component: DaoAvatar,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

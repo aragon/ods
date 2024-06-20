@@ -5,7 +5,6 @@ import { TextArea, type ITextAreaProps } from './textArea';
 const meta: Meta<typeof TextArea> = {
     title: 'Core/Components/Forms/TextArea',
     component: TextArea,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

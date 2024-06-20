@@ -6,7 +6,6 @@ import { Button } from '../../../button';
 const meta: Meta<typeof DialogAlert.Root> = {
     title: 'Core/Components/Dialogs/DialogAlert/DialogAlert.Root',
     component: DialogAlert.Root,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

@@ -5,7 +5,6 @@ const meta: Meta<typeof Heading> = {
     title: 'Core/Components/Heading',
     component: Heading,
 
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

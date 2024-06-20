@@ -5,7 +5,6 @@ import { CardSummary } from './cardSummary';
 const meta: Meta<typeof CardSummary> = {
     title: 'Core/Components/Cards/CardSummary',
     component: CardSummary,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

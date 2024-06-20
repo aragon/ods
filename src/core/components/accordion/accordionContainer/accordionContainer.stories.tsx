@@ -8,7 +8,6 @@ import { Accordion, type IAccordionContainerProps } from '..';
 const meta: Meta<typeof Accordion.Container> = {
     title: 'Core/Components/Accordion/Accordion.Container',
     component: Accordion.Container,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

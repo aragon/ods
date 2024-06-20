@@ -4,7 +4,6 @@ import { Avatar } from './avatar';
 const meta: Meta<typeof Avatar> = {
     title: 'Core/Components/Avatars/Avatar',
     component: Avatar,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

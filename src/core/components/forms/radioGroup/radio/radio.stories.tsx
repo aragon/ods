@@ -5,7 +5,6 @@ import { Radio } from './radio';
 const meta: Meta<typeof Radio> = {
     title: 'Core/Components/Forms/Radio',
     component: Radio,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

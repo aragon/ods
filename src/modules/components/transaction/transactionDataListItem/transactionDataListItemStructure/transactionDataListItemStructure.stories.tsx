@@ -6,7 +6,6 @@ import { TransactionStatus, TransactionType } from './transactionDataListItemStr
 const meta: Meta<typeof TransactionDataListItemStructure> = {
     title: 'Modules/Components/Transaction/TransactionDataListItem/TransactionDataListItem.Structure',
     component: TransactionDataListItemStructure,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

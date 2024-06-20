@@ -4,7 +4,6 @@ import { InputDate } from './inputDate';
 const meta: Meta<typeof InputDate> = {
     title: 'Core/Components/Forms/InputDate',
     component: InputDate,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

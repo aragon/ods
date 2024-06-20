@@ -4,7 +4,6 @@ import { CheckboxCard } from './checkboxCard';
 const meta: Meta<typeof CheckboxCard> = {
     title: 'Core/Components/Checkbox/CheckboxCard',
     component: CheckboxCard,
-    tags: ['autodocs'],
     argTypes: {
         disabled: { control: 'boolean' },
     },

@@ -4,7 +4,6 @@ import { DataList } from '../index';
 const meta: Meta<typeof DataList.Pagination> = {
     title: 'Core/Components/DataList/DataList.Pagination',
     component: DataList.Pagination,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

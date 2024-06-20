@@ -4,7 +4,6 @@ import { DefinitionList, type IDefinitionListContainerProps } from '../index';
 const meta: Meta<typeof DefinitionList.Container> = {
     title: 'Core/Components/DefinitionList/DefinitionList.Container',
     component: DefinitionList.Container,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
