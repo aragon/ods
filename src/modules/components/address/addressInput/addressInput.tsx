@@ -64,7 +64,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const currentChain = wagmiConfig.chains.find(({ id }) => id === processedChainId);
 
-    const blockExplorerUrl = currentChain ? blockExplorerUtils.getAddressUrl(value, currentChain) : undefined;
+    const addressUrl = currentChain ? blockExplorerUtils.getAddressUrl(value, currentChain) : undefined;
 
     const supportEnsNames = currentChain?.contracts?.ensRegistry != null;
 
@@ -225,7 +225,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                         <Button
                             variant="tertiary"
                             size="sm"
-                            href={blockExplorerUrl}
+                            href={addressUrl}
                             target="_blank"
                             iconLeft={IconType.LINK_EXTERNAL}
                         />
