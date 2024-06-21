@@ -43,7 +43,7 @@ export interface ITooltipProps {
     /**
      * Children elements to trigger the tooltip.
      */
-    children: ReactNode;
+    children?: ReactNode;
 }
 
 const variantToArrowFill: Record<TooltipVariant, string> = {

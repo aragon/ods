@@ -15,6 +15,10 @@ export interface IRadioGroupProps extends Omit<ComponentProps<'div'>, 'orientati
      * The name of the radio group.
      */
     name?: string;
+    /**
+     * Whether the radio group is disabled.
+     */
+    disabled?: boolean;
 }
 
 /**
@@ -25,13 +29,14 @@ export interface IRadioGroupProps extends Omit<ComponentProps<'div'>, 'orientati
  * [documentation](https://www.radix-ui.com/primitives/docs/components/radio-group#root).
  */
 export const RadioGroup = forwardRef<HTMLDivElement, IRadioGroupProps>(
-    ({ className, value, onValueChange, name, ...rest }, ref) => {
+    ({ className, value, onValueChange, name, disabled, ...rest }, ref) => {
         return (
             <PrimitiveRadioGroup
                 ref={ref}
                 value={value}
                 onValueChange={onValueChange}
                 name={name}
+                disabled={disabled}
                 className={classNames('flex min-w-0 flex-col gap-y-2 md:gap-y-3', className)}
                 {...rest}
             />

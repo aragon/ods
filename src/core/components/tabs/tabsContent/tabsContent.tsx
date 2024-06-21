@@ -6,6 +6,10 @@ export interface ITabsContentProps extends ComponentProps<'div'> {
      * Value linking Tabs.Content to its corresponding Tabs.Trigger
      */
     value: string;
+    /**
+     * When `true`, the content will stay mounted even when inactive.
+     */
+    forceMount?: true;
 }
 
 /**
@@ -16,6 +20,6 @@ export interface ITabsContentProps extends ComponentProps<'div'> {
  * [documentation](https://www.radix-ui.com/primitives/docs/components/tabs#content).
  */
 export const TabsContent: React.FC<ITabsContentProps> = (props) => {
-    const { value, ...rest } = props;
-    return <RadixTabsContent value={value} {...rest} />;
+    const { value, forceMount, ...rest } = props;
+    return <RadixTabsContent value={value} forceMount={forceMount} {...rest} />;
 };
