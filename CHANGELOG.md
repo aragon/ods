@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update `yarn` version to `4.3.0`
 -   Update unit tests to use userEvent instead of fireEvent
 -   Move all form items under a `forms` folder
+-   Upgrade storybook to v8
 
 ## [1.0.33] - 2024-06-06
 

@@ -4,7 +4,6 @@ import { IllustrationObject } from './illustrationObject';
 const meta: Meta<typeof IllustrationObject> = {
     title: 'Core/Components/Illustrations/IllustrationObject',
     component: IllustrationObject,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

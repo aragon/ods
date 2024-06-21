@@ -4,7 +4,6 @@ import { Card } from './card';
 const meta: Meta<typeof Card> = {
     title: 'Core/Components/Cards/Card',
     component: Card,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

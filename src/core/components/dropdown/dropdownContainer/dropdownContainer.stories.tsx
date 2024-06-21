@@ -5,7 +5,6 @@ import { Dropdown, type IDropdownContainerProps } from '../index';
 const meta: Meta<typeof Dropdown.Container> = {
     title: 'Core/Components/Dropdown/Dropdown.Container',
     component: Dropdown.Container,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

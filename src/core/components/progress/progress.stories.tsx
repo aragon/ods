@@ -5,7 +5,6 @@ import { Progress, type IProgressProps } from '.';
 const meta: Meta<typeof Progress> = {
     title: 'Core/Components/Progress',
     component: Progress,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

@@ -5,7 +5,6 @@ import { TextAreaRichText, type ITextAreaRichTextProps } from './textAreaRichTex
 const meta: Meta<typeof TextAreaRichText> = {
     title: 'Core/Components/Forms/TextAreaRichText',
     component: TextAreaRichText,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

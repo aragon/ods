@@ -5,7 +5,6 @@ import { DaoDataListItemStructure } from './daoDataListItemStructure';
 const meta: Meta<typeof DaoDataListItemStructure> = {
     title: 'Modules/Components/Dao/DaoDataListItem/DaoDataListItem.Structure',
     component: DaoDataListItemStructure,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

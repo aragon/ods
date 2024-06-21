@@ -5,7 +5,6 @@ import { EmptyState } from './emptyState';
 const meta: Meta<typeof EmptyState> = {
     title: 'Core/Components/States/EmptyState',
     component: EmptyState,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

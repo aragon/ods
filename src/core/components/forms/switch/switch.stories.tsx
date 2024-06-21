@@ -5,7 +5,6 @@ import { Switch, type ISwitchProps } from './switch';
 const meta: Meta<typeof Switch> = {
     title: 'Core/Components/Forms/Switch',
     component: Switch,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

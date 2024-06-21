@@ -4,7 +4,6 @@ import { DataList, ProposalDataListItem } from '../../../../..';
 const meta: Meta<typeof ProposalDataListItem.Skeleton> = {
     title: 'Modules/Components/Proposal/ProposalDataListItem/ProposalDataListItem.Skeleton',
     component: ProposalDataListItem.Skeleton,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

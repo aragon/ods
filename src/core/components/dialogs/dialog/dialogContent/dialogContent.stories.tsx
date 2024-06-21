@@ -7,7 +7,6 @@ import { type IDialogContentProps } from './dialogContent';
 const meta: Meta<typeof Dialog.Content> = {
     title: 'Core/Components/Dialogs/Dialog/Dialog.Content',
     component: Dialog.Content,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

@@ -9,7 +9,6 @@ import { IconType } from '../../icon';
 const meta: Meta<typeof Tabs.Root> = {
     title: 'Core/Components/Tabs/Tabs.Root',
     component: Tabs.Root,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

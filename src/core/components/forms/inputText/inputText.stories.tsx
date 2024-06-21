@@ -6,7 +6,6 @@ import type { IInputTextProps } from './inputText.api';
 const meta: Meta<typeof InputText> = {
     title: 'Core/Components/Forms/InputText',
     component: InputText,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

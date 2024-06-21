@@ -5,7 +5,6 @@ import { AssetDataListItemStructure } from './assetDataListItemStructure';
 const meta: Meta<typeof AssetDataListItemStructure> = {
     title: 'Modules/Components/Asset/AssetDataListItem/AssetDataListItem.Structure',
     component: AssetDataListItemStructure,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

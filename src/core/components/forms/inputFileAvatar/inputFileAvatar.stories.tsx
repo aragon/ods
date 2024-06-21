@@ -4,7 +4,6 @@ import { InputFileAvatar } from './inputFileAvatar';
 const meta: Meta<typeof InputFileAvatar> = {
     title: 'Core/Components/Forms/InputFileAvatar',
     component: InputFileAvatar,
-    tags: ['autodocs'],
 
     parameters: {
         design: {

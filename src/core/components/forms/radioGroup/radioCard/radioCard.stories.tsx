@@ -5,7 +5,6 @@ import { RadioCard } from './radioCard';
 const meta: Meta<typeof RadioCard> = {
     title: 'Core/Components/Forms/RadioCard',
     component: RadioCard,
-    tags: ['autodocs'],
     argTypes: {
         disabled: { control: 'boolean' },
     },

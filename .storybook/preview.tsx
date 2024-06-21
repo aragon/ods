@@ -5,7 +5,6 @@ import './style.css';
 
 const preview: Preview = {
     parameters: {
-        actions: { argTypesRegex: '^on[A-Z].*' },
         controls: {
             matchers: {
                 color: /(background|color)$/i,
@@ -45,6 +44,7 @@ const preview: Preview = {
             ],
         },
     },
+
     decorators: [
         (Story) => (
             <OdsModulesProvider>
@@ -54,6 +54,8 @@ const preview: Preview = {
             </OdsModulesProvider>
         ),
     ],
+
+    tags: ['autodocs'],
 };
 
 export default preview;

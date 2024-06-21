@@ -4,7 +4,6 @@ import { StatePingAnimation } from './statePingAnimation';
 const meta: Meta<typeof StatePingAnimation> = {
     title: 'Core/Components/States/StatePingAnimation',
     component: StatePingAnimation,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

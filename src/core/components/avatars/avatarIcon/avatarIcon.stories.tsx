@@ -6,7 +6,6 @@ import { AvatarIcon } from './avatarIcon';
 const meta: Meta<typeof AvatarIcon> = {
     title: 'Core/Components/Avatars/AvatarIcon',
     component: AvatarIcon,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

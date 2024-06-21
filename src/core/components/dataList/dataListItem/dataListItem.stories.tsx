@@ -4,7 +4,6 @@ import { DataList } from '../index';
 const meta: Meta<typeof DataList.Item> = {
     title: 'Core/Components/DataList/DataList.Item',
     component: DataList.Item,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

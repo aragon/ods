@@ -4,7 +4,6 @@ import { InputContainer } from './inputContainer';
 const meta: Meta<typeof InputContainer> = {
     title: 'Core/Components/Forms/InputContainer',
     component: InputContainer,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

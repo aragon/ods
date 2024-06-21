@@ -7,7 +7,6 @@ import { type IDialogHeaderProps } from './dialogHeader';
 const meta: Meta<typeof Dialog.Header> = {
     title: 'Core/Components/Dialogs/Dialog/Dialog.Header',
     component: Dialog.Header,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

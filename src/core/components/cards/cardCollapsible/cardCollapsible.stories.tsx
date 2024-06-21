@@ -7,7 +7,6 @@ import { CardCollapsible } from './cardCollapsible';
 const meta: Meta<typeof CardCollapsible> = {
     title: 'Core/Components/Cards/CardCollapsible',
     component: CardCollapsible,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

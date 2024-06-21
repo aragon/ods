@@ -7,7 +7,6 @@ import { RadioGroup, type IRadioGroupProps } from './radioGroup';
 const meta: Meta<typeof RadioGroup> = {
     title: 'Core/Components/Forms/RadioGroup',
     component: RadioGroup,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
