@@ -49,9 +49,9 @@ export const TokenMemberWithoutVotingPower: Story = {
 };
 
 /**
- * Example of the MemberDataList module component with a TokenVoting member without delegators.
+ * Example of the MemberDataList module component with a TokenVoting member with voting power.
  */
-export const TokenMemberWithoutDelegators: Story = {
+export const TokenMemberWithVotingPower: Story = {
     args: {
         address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
         delegationCount: 0,
