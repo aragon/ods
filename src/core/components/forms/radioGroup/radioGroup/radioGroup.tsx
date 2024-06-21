@@ -2,11 +2,15 @@ import { RadioGroup as PrimitiveRadioGroup } from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
 import { forwardRef, type ComponentProps } from 'react';
 
-export interface IRadioGroupProps extends Omit<ComponentProps<'div'>, 'orientation' | 'dir' | 'defaultValue'> {
+export interface IRadioGroupProps extends Omit<ComponentProps<'div'>, 'orientation' | 'dir'> {
     /**
      * The value of the selected radio item.
      */
     value?: string;
+    /**
+     * The default value of the selected radio item.
+     */
+    defaultValue?: string;
     /**
      * Callback when the value changes.
      */
@@ -29,11 +33,12 @@ export interface IRadioGroupProps extends Omit<ComponentProps<'div'>, 'orientati
  * [documentation](https://www.radix-ui.com/primitives/docs/components/radio-group#root).
  */
 export const RadioGroup = forwardRef<HTMLDivElement, IRadioGroupProps>(
-    ({ className, value, onValueChange, name, disabled, ...rest }, ref) => {
+    ({ className, value, defaultValue, onValueChange, name, disabled, ...rest }, ref) => {
         return (
             <PrimitiveRadioGroup
                 ref={ref}
                 value={value}
+                defaultValue={defaultValue}
                 onValueChange={onValueChange}
                 name={name}
                 disabled={disabled}
