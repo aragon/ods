@@ -24,12 +24,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Create `ssrUtils` core utilities
-
-### Added
-
 -   Handle new `layoutClassnames` property on `DataList.Container` component to simplify implementation of custom
     `DataList` layouts
+-   Create `ssrUtils` core utilities
 
 ## [1.0.33] - 2024-06-06
 
