@@ -19,13 +19,6 @@ export interface ITabsTriggerProps extends ComponentProps<'button'> {
     iconRight?: IconType;
 }
 
-/**
- * `TabsTrigger` component
- *
- * This component is based on the Radix-UI tabs trigger implementation.
- * An exhaustive list of its properties can be found in the corresponding Radix primitive
- * [documentation](https://www.radix-ui.com/primitives/docs/components/tabs#trigger).
- */
 export const TabsTrigger: React.FC<ITabsTriggerProps> = (props) => {
     const { label, iconRight, className, value, ...otherProps } = props;
     const { isUnderlined } = useContext(TabsContext);
