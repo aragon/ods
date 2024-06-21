@@ -37,10 +37,10 @@ const ListItemComponentLoading = () => (
     </DataListItem>
 );
 
-interface IStaticListComponentProps extends IDataListRootProps, Pick<IDataListContainerProps, 'wrapperClassnames'> {}
+interface IStaticListComponentProps extends IDataListRootProps, Pick<IDataListContainerProps, 'layoutClassName'> {}
 
 const StaticListComponent = (props: IStaticListComponentProps) => {
-    const { itemsCount, wrapperClassnames, ...otherProps } = props;
+    const { itemsCount, layoutClassName, ...otherProps } = props;
 
     const [searchValue, setSearchValue] = useState<string>();
     const [activeSort, setActiveSort] = useState('id_asc');
@@ -86,7 +86,7 @@ const StaticListComponent = (props: IStaticListComponentProps) => {
                 onSortChange={setActiveSort}
                 sortItems={sortItems}
             />
-            <DataList.Container emptyFilteredState={emptyFilteredState} wrapperClassnames={wrapperClassnames}>
+            <DataList.Container emptyFilteredState={emptyFilteredState} layoutClassName={layoutClassName}>
                 {filteredUsers?.map((id) => <ListItemComponent key={id} id={id} />)}
             </DataList.Container>
             <DataList.Pagination />
@@ -113,7 +113,7 @@ export const CustomLayout: Story = {
         pageSize: 9,
         itemsCount: 21,
     },
-    render: (props) => <StaticListComponent wrapperClassnames="grid grid-cols-1 lg:grid-cols-3" {...props} />,
+    render: (props) => <StaticListComponent layoutClassName="grid grid-cols-1 lg:grid-cols-3" {...props} />,
 };
 
 const getUsers = (dbUsers: number[] = [], search = '', page = 0, sort = 'id_asc', pageSize = 6) => {

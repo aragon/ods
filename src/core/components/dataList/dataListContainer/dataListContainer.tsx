@@ -26,15 +26,23 @@ export interface IDataListContainerProps extends ComponentProps<'div'> {
      */
     emptyFilteredState?: IDataListContainerState;
     /**
-     * Classes for the children wrapper component. To be used to apply custom layouts to the children components without
-     * affecting the empty/error state layouts.
+     * Classes applied only when displaying the DataListItem components. To be used to apply custom layouts to the
+     * children components without affecting the empty/error state layouts.
      */
-    wrapperClassnames?: string;
+    layoutClassName?: string;
 }
 
 export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
-    const { children, SkeletonElement, errorState, emptyState, emptyFilteredState, wrapperClassnames, ...otherProps } =
-        props;
+    const {
+        children,
+        className,
+        SkeletonElement,
+        errorState,
+        emptyState,
+        emptyFilteredState,
+        layoutClassName,
+        ...otherProps
+    } = props;
 
     const { state, pageSize, currentPage, setChildrenItemCount } = useDataListContext();
 
@@ -55,25 +63,24 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
     const displayItems =
         state === 'fetchingNextPage' || state === 'idle' || state === 'loading' || state === 'filtered';
 
+    const isError = state === 'error';
     const isEmpty = state === 'idle' && childrenItemCount === 0;
     const isEmptyFiltered = state === 'filtered' && childrenItemCount === 0;
 
-    const completeWrapperClassnames = classNames('flex flex-col gap-2', wrapperClassnames);
+    const applyLayoutClassName = !isError && !isEmpty && !isEmptyFiltered;
 
     useEffect(() => {
         setChildrenItemCount(childrenItemCount);
     }, [setChildrenItemCount, childrenItemCount]);
 
     return (
-        <div aria-busy={displayLoadingElements} {...otherProps}>
-            {displayLoadingElements && (
-                <div className={completeWrapperClassnames}>
-                    {loadingItems.map((_value, index) => (
-                        <SkeletonLoader key={index} />
-                    ))}
-                </div>
-            )}
-            {state === 'error' && errorState != null && (
+        <div
+            className={classNames('flex flex-col gap-2', applyLayoutClassName && layoutClassName, className)}
+            aria-busy={displayLoadingElements}
+            {...otherProps}
+        >
+            {displayLoadingElements && loadingItems.map((_value, index) => <SkeletonLoader key={index} />)}
+            {isError && errorState != null && (
                 <CardEmptyState objectIllustration={{ object: 'ERROR' }} {...errorState} />
             )}
             {isEmpty && emptyState != null && (
@@ -82,7 +89,7 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
             {isEmptyFiltered && emptyFilteredState != null && (
                 <CardEmptyState objectIllustration={{ object: 'NOT_FOUND' }} {...emptyFilteredState} />
             )}
-            {displayItems && <div className={completeWrapperClassnames}>{paginatedChildren}</div>}
+            {displayItems && paginatedChildren}
         </div>
     );
 };
