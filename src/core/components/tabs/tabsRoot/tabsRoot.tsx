@@ -30,7 +30,7 @@ export interface ITabsContext {
 export const TabsContext = createContext<ITabsContext>({ isUnderlined: false });
 
 export const TabsRoot = forwardRef<HTMLDivElement, ITabsRootProps>((props, ref) => {
-    const { children, isUnderlined = false, defaultValue, value, onValueChange, className, ...otherProps } = props;
+    const { children, isUnderlined = false, defaultValue, value, onValueChange, ...otherProps } = props;
     const tabsContextValue = useMemo(() => ({ isUnderlined }), [isUnderlined]);
 
     return (
@@ -39,7 +39,6 @@ export const TabsRoot = forwardRef<HTMLDivElement, ITabsRootProps>((props, ref) 
             defaultValue={defaultValue}
             value={value}
             onValueChange={onValueChange}
-            className={className}
             orientation="horizontal"
             {...otherProps}
         >
