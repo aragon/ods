@@ -25,10 +25,24 @@ export interface IDataListContainerProps extends ComponentProps<'div'> {
      * Empty state displayed the the data list has no elements to render for the current applied filters.
      */
     emptyFilteredState?: IDataListContainerState;
+    /**
+     * Classes applied only when displaying the DataListItem components. To be used to apply custom layouts to the
+     * children components without affecting the empty/error state layouts.
+     */
+    layoutClassName?: string;
 }
 
 export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
-    const { children, className, SkeletonElement, errorState, emptyState, emptyFilteredState, ...otherProps } = props;
+    const {
+        children,
+        className,
+        SkeletonElement,
+        errorState,
+        emptyState,
+        emptyFilteredState,
+        layoutClassName,
+        ...otherProps
+    } = props;
 
     const { state, pageSize, currentPage, setChildrenItemCount } = useDataListContext();
 
@@ -49,8 +63,11 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
     const displayItems =
         state === 'fetchingNextPage' || state === 'idle' || state === 'loading' || state === 'filtered';
 
+    const isError = state === 'error';
     const isEmpty = state === 'idle' && childrenItemCount === 0;
     const isEmptyFiltered = state === 'filtered' && childrenItemCount === 0;
+
+    const applyLayoutClassName = !isError && !isEmpty && !isEmptyFiltered;
 
     useEffect(() => {
         setChildrenItemCount(childrenItemCount);
@@ -58,12 +75,12 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
 
     return (
         <div
-            className={classNames('flex flex-col gap-2', className)}
+            className={classNames('flex flex-col gap-2', applyLayoutClassName && layoutClassName, className)}
             aria-busy={displayLoadingElements}
             {...otherProps}
         >
             {displayLoadingElements && loadingItems.map((_value, index) => <SkeletonLoader key={index} />)}
-            {state === 'error' && errorState != null && (
+            {isError && errorState != null && (
                 <CardEmptyState objectIllustration={{ object: 'ERROR' }} {...errorState} />
             )}
             {isEmpty && emptyState != null && (
