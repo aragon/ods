@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.34] - 2024-06-21
+
 ### Fixed
 
 -   Ensure `MemberAvatar` component only creates the blockies url on client environment
