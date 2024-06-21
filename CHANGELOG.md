@@ -17,6 +17,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Move all form items under a `forms` folder
 -   Upgrade storybook to v8
 
+### Added
+
+-   Handle new `wrapperClassnames` property on `DataList.Container` component to simplify implementation of custom
+    `DataList` layouts
+
 ## [1.0.33] - 2024-06-06
 
 ### Fixed
