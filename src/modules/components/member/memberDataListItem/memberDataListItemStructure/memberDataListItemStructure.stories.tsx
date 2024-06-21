@@ -32,9 +32,44 @@ export const Default: Story = {
 };
 
 /**
- * Example of the MemberDataList module component with fully loaded props and token voting.
+ * Example of the MemberDataList module component with a TokenVoting member without voting power.
  */
-export const Loaded: Story = {
+export const TokenMemberWithoutVotingPower: Story = {
+    args: {
+        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+        votingPower: 0,
+    },
+    render: (args) => (
+        <DataList.Root entityLabel="Members">
+            <DataList.Container>
+                <MemberDataListItemStructure {...args} />
+            </DataList.Container>{' '}
+        </DataList.Root>
+    ),
+};
+
+/**
+ * Example of the MemberDataList module component with a TokenVoting member without delegators.
+ */
+export const TokenMemberWithoutDelegators: Story = {
+    args: {
+        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+        delegationCount: 0,
+        votingPower: 4820,
+    },
+    render: (args) => (
+        <DataList.Root entityLabel="Members">
+            <DataList.Container>
+                <MemberDataListItemStructure {...args} />
+            </DataList.Container>{' '}
+        </DataList.Root>
+    ),
+};
+
+/**
+ * Example of the MemberDataList module component with complete props.
+ */
+export const Complete: Story = {
     args: {
         isDelegate: true,
         ensName: 'vitalik.eth',
