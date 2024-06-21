@@ -3,20 +3,8 @@ import classNames from 'classnames';
 import { useContext, type ComponentProps } from 'react';
 import { TabsContext } from '../tabsRoot/tabsRoot';
 
-export interface ITabsListProps extends ComponentProps<'div'> {
-    /**
-     * Custom class name for additional styling.
-     */
-    className?: string;
-}
+export interface ITabsListProps extends ComponentProps<'div'> {}
 
-/**
- * `TabsList` component
- *
- * This component is based on the Radix-UI tabs list implementation.
- * An exhaustive list of its properties can be found in the corresponding Radix primitive
- * [documentation](https://www.radix-ui.com/primitives/docs/components/tabs#list).
- */
 export const TabsList: React.FC<ITabsListProps> = (props) => {
     const { children, className, ...otherProps } = props;
     const { isUnderlined } = useContext(TabsContext);
