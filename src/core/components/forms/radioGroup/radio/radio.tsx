@@ -1,9 +1,9 @@
-import { RadioGroupIndicator, RadioGroupItem, type RadioGroupItemProps } from '@radix-ui/react-radio-group';
+import { RadioGroupIndicator, RadioGroupItem } from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
-import { forwardRef, useId } from 'react';
+import { forwardRef, useId, type ComponentProps } from 'react';
 import { Icon, IconType } from '../../../icon';
 
-export interface IRadioProps extends RadioGroupItemProps {
+export interface IRadioProps extends ComponentProps<'button'> {
     /**
      * Radio label
      */
@@ -13,6 +13,14 @@ export interface IRadioProps extends RadioGroupItemProps {
      * @default right
      */
     labelPosition?: 'left' | 'right';
+    /**
+     * The value of the radio item.
+     */
+    value: string;
+    /**
+     * Indicates if the radio is disabled.
+     */
+    disabled?: boolean;
 }
 
 /**
@@ -26,7 +34,7 @@ export interface IRadioProps extends RadioGroupItemProps {
  */
 
 export const Radio = forwardRef<HTMLButtonElement, IRadioProps>(
-    ({ label, labelPosition = 'right', id, value, className, ...rest }, ref) => {
+    ({ label, labelPosition = 'right', id, value, disabled, className, ...rest }, ref) => {
         const randomId = useId();
         const processedId = id ?? randomId;
 
@@ -46,7 +54,14 @@ export const Radio = forwardRef<HTMLButtonElement, IRadioProps>(
 
         return (
             <div className={classNames('flex items-center px-0.5', className)}>
-                <RadioGroupItem id={processedId} value={value} className={itemClasses} ref={ref} {...rest}>
+                <RadioGroupItem
+                    id={processedId}
+                    value={value}
+                    disabled={disabled}
+                    className={itemClasses}
+                    ref={ref}
+                    {...rest}
+                >
                     <Icon
                         icon={IconType.RADIO}
                         className="text-neutral-300 group-hover:text-primary-400 group-disabled:text-neutral-300 group-data-[state=checked]:hidden"
