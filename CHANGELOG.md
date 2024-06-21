@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Move all form items under a `forms` folder
 -   Upgrade storybook to v8
 -   Update `MemberDataListItem` component to support `votingPower` property set as string
+-   Remove Radix props dependency
 
 ### Added
 
