@@ -1,11 +1,11 @@
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
 import classNames from 'classnames';
-import { forwardRef, useId } from 'react';
+import { forwardRef, useId, type ComponentProps } from 'react';
 import { Icon, IconType } from '../../icon';
 
 export type CheckboxState = RadixCheckbox.CheckedState;
 
-export interface ICheckboxProps extends Omit<RadixCheckbox.CheckboxProps, 'asChild'> {
+export interface ICheckboxProps extends ComponentProps<'button'> {
     /**
      * Label of the checkbox.
      */
@@ -15,10 +15,26 @@ export interface ICheckboxProps extends Omit<RadixCheckbox.CheckboxProps, 'asChi
      * @default right
      */
     labelPosition?: 'right' | 'left';
+    /**
+     * The checked state of the checkbox.
+     */
+    checked?: CheckboxState;
+    /**
+     * Callback when the checked state changes.
+     */
+    onCheckedChange?: (checked: CheckboxState) => void;
+    /**
+     * Indicates if the checkbox is disabled.
+     */
+    disabled?: boolean;
+    /**
+     * Id of the checkbox.
+     */
+    id?: string;
 }
 
 export const Checkbox = forwardRef<HTMLButtonElement, ICheckboxProps>((props, ref) => {
-    const { label, labelPosition = 'right', id, className, ...otherProps } = props;
+    const { label, labelPosition = 'right', checked, onCheckedChange, disabled, id, className, ...otherProps } = props;
 
     // Generate random id if id property is not set
     const randomId = useId();
@@ -35,6 +51,9 @@ export const Checkbox = forwardRef<HTMLButtonElement, ICheckboxProps>((props, re
         >
             <RadixCheckbox.Root
                 id={processedId}
+                checked={checked}
+                onCheckedChange={onCheckedChange}
+                disabled={disabled}
                 className={classNames(
                     'group/checkbox peer rounded',
                     'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
