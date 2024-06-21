@@ -91,7 +91,6 @@
     "@storybook/addon-designs": "^8.0.2",
     "@storybook/addon-essentials": "^8.1.10",
     "@storybook/addon-links": "^8.1.10",
-    "@storybook/addon-mdx-gfm": "^8.1.10",
     "@storybook/addon-styling-webpack": "^1.0.0",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.3",
     "@storybook/blocks": "^8.1.10",

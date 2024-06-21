@@ -31,7 +31,6 @@ const config: StorybookConfig = {
             },
         },
         '@storybook/addon-designs',
-        '@storybook/addon-mdx-gfm',
         '@storybook/addon-webpack5-compiler-babel',
     ],
 
