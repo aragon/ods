@@ -17,6 +17,7 @@ import {
 } from '../../../../core';
 import type { IWeb3ComponentProps } from '../../../types';
 import { addressUtils, ensUtils } from '../../../utils';
+import { blockExplorerUtils } from '../../../utils/blockExplorer';
 import { MemberAvatar } from '../../member';
 
 export interface IAddressInputResolvedValue {
@@ -62,7 +63,8 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const processedChainId = chainId ?? wagmiConfig.chains[0].id;
 
     const currentChain = wagmiConfig.chains.find(({ id }) => id === processedChainId);
-    const blockExplorerUrl = `${currentChain?.blockExplorers?.default.url}/address/${value}`;
+
+    const blockExplorerUrl = currentChain ? blockExplorerUtils.getAddressUrl(value, currentChain) : undefined;
 
     const supportEnsNames = currentChain?.contracts?.ensRegistry != null;
 
