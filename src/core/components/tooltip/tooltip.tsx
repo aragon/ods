@@ -83,12 +83,6 @@ export const Tooltip: React.FC<ITooltipProps> = (props) => {
         ...otherProps
     } = props;
 
-    const contentClassName = classNames(
-        variantToContentClassName[variant],
-        'flex min-h-6 items-center rounded px-1.5 text-sm font-semibold leading-tight',
-        className,
-    );
-
     return (
         <Provider>
             <Root
@@ -100,7 +94,15 @@ export const Tooltip: React.FC<ITooltipProps> = (props) => {
             >
                 <Trigger>{children}</Trigger>
                 <Portal>
-                    <Content className={contentClassName} sideOffset={1} {...otherProps}>
+                    <Content
+                        className={classNames(
+                            variantToContentClassName[variant],
+                            'flex min-h-6 items-center rounded px-1.5 text-sm font-semibold leading-tight',
+                            className,
+                        )}
+                        sideOffset={1}
+                        {...otherProps}
+                    >
                         {content}
                         <Arrow className={classNames(variantToArrowFill[variant], 'h-1 w-3')} />
                     </Content>
