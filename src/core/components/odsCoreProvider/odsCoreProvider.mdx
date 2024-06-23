@@ -38,6 +38,28 @@ export const Application = () => {
 }
 ```
 
+## Localization
+
+The `copy` property in the `OdsCoreProvider` provides localized text copy for the core components. It is an object that
+adheres to the `IOdsCoreCopy` interface, which includes all the text strings used within the ODS core components. This
+allows for easy localization of the application by switching the `copy` object based on the user's language preference.
+
+The ODS library provides copies for a few popular languages. You can implement the `IOdsCoreCopy` interface for any
+language and provide it as a prop to the provider.
+
+**Usage example**
+
+```tsx
+import { OdsCoreProvider, esCopy } from '@aragon-ods';
+
+const coreProviderValues = { copy: esCopy };
+
+export const Application = () => {
+    return <OdsCoreProvider values={coreProviderValues}>/* Your application */</OdsCoreProvider>;
+};
+```
+
 Refer to the component's properties below for more details on the default configuration objects used for each provider.
 
 <ArgTypes of={OdsCoreProvider} />
+```
