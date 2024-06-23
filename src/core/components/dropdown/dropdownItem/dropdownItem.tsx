@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React, { type ComponentProps } from 'react';
 import { Icon, IconType } from '../../icon';
 
-export interface IDropdownItemProps extends Omit<ComponentProps<'div'>, 'dir' | 'onSelect'> {
+export interface IDropdownItemProps extends Omit<ComponentProps<'div'>, 'onSelect'> {
     /**
      * Renders the dropdown item as selected when set to true.
      */
