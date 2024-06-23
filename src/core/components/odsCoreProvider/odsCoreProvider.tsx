@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, type ReactNode } from 'react';
+import { enCopy, type IOdsCoreCopy } from '../../copy';
 
 export interface IOdsCoreContext {
     /**
@@ -11,6 +12,10 @@ export interface IOdsCoreContext {
      * @default 'a'
      */
     Link: React.FC | 'a';
+    /**
+     * Text copy for the core components.
+     */
+    copy: IOdsCoreCopy;
 }
 
 export interface IOdsCoreProviderProps {
@@ -24,7 +29,7 @@ export interface IOdsCoreProviderProps {
     children?: ReactNode;
 }
 
-const odsCoreContextDefaults: IOdsCoreContext = { Img: 'img', Link: 'a' };
+const odsCoreContextDefaults: IOdsCoreContext = { Img: 'img', Link: 'a', copy: enCopy };
 
 const odsCoreContext = createContext<IOdsCoreContext>(odsCoreContextDefaults);
 
@@ -35,6 +40,7 @@ export const OdsCoreProvider: React.FC<IOdsCoreProviderProps> = (props) => {
         () => ({
             Img: values?.Img ?? odsCoreContextDefaults.Img,
             Link: values?.Link ?? odsCoreContextDefaults.Link,
+            copy: values?.copy ?? odsCoreContextDefaults.copy,
         }),
         [values],
     );

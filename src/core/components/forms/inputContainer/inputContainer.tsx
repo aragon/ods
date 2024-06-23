@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { forwardRef } from 'react';
 import { AlertInline } from '../../alerts';
+import { useOdsCoreContext } from '../../odsCoreProvider';
 import { Tag } from '../../tag';
 import type { IInputContainerProps, InputVariant } from './inputContainer.api';
 
@@ -32,6 +33,7 @@ const variantToClassNames: Record<InputVariant | 'disabled', string[]> = {
  * including `label`, `helpText` and more.
  */
 export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((props, ref) => {
+    const { copy } = useOdsCoreContext();
     const {
         label,
         variant = 'default',
@@ -72,8 +74,7 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
                     {label && (
                         <div className="flex flex-row items-center gap-3">
                             <p className="text-base font-normal leading-tight text-neutral-800 md:text-lg">{label}</p>
-                            {/* TODO: apply internationalisation to Optional label [APP-2627] */}
-                            {isOptional && <Tag variant="neutral" label="Optional" />}
+                            {isOptional && <Tag variant="neutral" label={copy.inputOptionalLabel} />}
                         </div>
                     )}
                     {helpText && (
