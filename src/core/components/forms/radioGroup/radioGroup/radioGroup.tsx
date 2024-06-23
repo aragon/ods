@@ -25,13 +25,6 @@ export interface IRadioGroupProps extends Omit<ComponentProps<'div'>, 'orientati
     disabled?: boolean;
 }
 
-/**
- * `RadioGroup` component
- *
- * This component is based on the Radix-UI radio group implementation.
- * An exhaustive list of its properties can be found in the corresponding Radix primitive
- * [documentation](https://www.radix-ui.com/primitives/docs/components/radio-group#root).
- */
 export const RadioGroup = forwardRef<HTMLDivElement, IRadioGroupProps>(
     ({ className, value, defaultValue, onValueChange, name, disabled, ...rest }, ref) => {
         return (

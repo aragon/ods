@@ -62,13 +62,6 @@ const variantToContentClassName: Record<TooltipVariant, string> = {
     warning: 'bg-warning-300 text-warning-900 shadow-warning-md',
 };
 
-/**
- * `Tooltip` component
- *
- * This component is based on the Radix-UI tooltip implementation.
- * An exhaustive list of its properties can be found in the corresponding Radix primitive
- * [documentation](https://www.radix-ui.com/primitives/docs/components/tooltip).
- */
 export const Tooltip: React.FC<ITooltipProps> = (props) => {
     const {
         children,

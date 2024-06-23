@@ -35,10 +35,6 @@ export interface IRadioCardProps extends ComponentProps<'button'> {
 /**
  * `RadioCard` component
  *
- * This component is based on the Radix-UI radio implementation.
- * An exhaustive list of its properties can be found in the corresponding Radix primitive
- * [documentation](https://www.radix-ui.com/primitives/docs/components/radio-group#item).
- *
  * **NOTE**: The component must be used inside a `<RadioGroup />` component in order to work properly.
  */
 export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>(
