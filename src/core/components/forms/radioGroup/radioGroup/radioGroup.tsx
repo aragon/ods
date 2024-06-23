@@ -2,7 +2,7 @@ import { RadioGroup as PrimitiveRadioGroup } from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
 import { forwardRef, type ComponentProps } from 'react';
 
-export interface IRadioGroupProps extends Omit<ComponentProps<'div'>, 'orientation' | 'dir'> {
+export interface IRadioGroupProps extends Omit<ComponentProps<'div'>, 'dir'> {
     /**
      * The value of the selected radio item.
      */
