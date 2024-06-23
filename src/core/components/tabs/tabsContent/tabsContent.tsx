@@ -13,6 +13,5 @@ export interface ITabsContentProps extends ComponentProps<'div'> {
 }
 
 export const TabsContent: React.FC<ITabsContentProps> = (props) => {
-    const { value, forceMount, ...rest } = props;
-    return <RadixTabsContent value={value} forceMount={forceMount} {...rest} />;
+    return <RadixTabsContent {...props} />;
 };
