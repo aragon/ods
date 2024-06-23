@@ -25,21 +25,20 @@ export interface IRadioGroupProps extends Omit<ComponentProps<'div'>, 'orientati
     disabled?: boolean;
 }
 
-export const RadioGroup = forwardRef<HTMLDivElement, IRadioGroupProps>(
-    ({ className, value, defaultValue, onValueChange, name, disabled, ...rest }, ref) => {
-        return (
-            <PrimitiveRadioGroup
-                ref={ref}
-                value={value}
-                defaultValue={defaultValue}
-                onValueChange={onValueChange}
-                name={name}
-                disabled={disabled}
-                className={classNames('flex min-w-0 flex-col gap-y-2 md:gap-y-3', className)}
-                {...rest}
-            />
-        );
-    },
-);
+export const RadioGroup = forwardRef<HTMLDivElement, IRadioGroupProps>((props, ref) => {
+    const { className, value, defaultValue, onValueChange, name, disabled, ...rest } = props;
+    return (
+        <PrimitiveRadioGroup
+            ref={ref}
+            value={value}
+            defaultValue={defaultValue}
+            onValueChange={onValueChange}
+            name={name}
+            disabled={disabled}
+            className={classNames('flex min-w-0 flex-col gap-y-2 md:gap-y-3', className)}
+            {...rest}
+        />
+    );
+});
 
 RadioGroup.displayName = 'RadioGroup';
