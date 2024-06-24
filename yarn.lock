@@ -86,6 +86,7 @@ __metadata:
     "@tiptap/react": "npm:^2.4.0"
     "@tiptap/starter-kit": "npm:^2.4.0"
     "@types/jest": "npm:^29.5.12"
+    "@types/luxon": "npm:^3"
     "@types/react-dom": "npm:^18.3.0"
     "@types/sanitize-html": "npm:^2.9.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.13.1"
@@ -107,6 +108,7 @@ __metadata:
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
     lint-staged: "npm:^15.2.7"
+    luxon: "npm:^3.4.4"
     postcss: "npm:^8.4.38"
     postcss-loader: "npm:^8.1.1"
     prettier: "npm:^3.3.2"
@@ -6043,6 +6045,13 @@ __metadata:
   version: 4.17.0
   resolution: "@types/lodash@npm:4.17.0"
   checksum: 10c0/4c5b41c9a6c41e2c05d08499e96f7940bcf194dcfa84356235b630da920c2a5e05f193618cea76006719bec61c76617dff02defa9d29934f9f6a76a49291bd8f
+  languageName: node
+  linkType: hard
+
+"@types/luxon@npm:^3":
+  version: 3.4.2
+  resolution: "@types/luxon@npm:3.4.2"
+  checksum: 10c0/d835467de3daf7e17ba78b50bb5a14efd94272439ca067990d71332a54b311544459c69623eddd243b511b28d70194c9591a9ee8cf9c038962c965f991affd7e
   languageName: node
   linkType: hard
 
@@ -13616,6 +13625,13 @@ __metadata:
   dependencies:
     yallist: "npm:^4.0.0"
   checksum: 10c0/cb53e582785c48187d7a188d3379c181b5ca2a9c78d2bce3e7dee36f32761d1c42983da3fe12b55cb74e1779fa94cdc2e5367c028a9b35317184ede0c07a30a9
+  languageName: node
+  linkType: hard
+
+"luxon@npm:^3.4.4":
+  version: 3.4.4
+  resolution: "luxon@npm:3.4.4"
+  checksum: 10c0/02e26a0b039c11fd5b75e1d734c8f0332c95510f6a514a9a0991023e43fb233884da02d7f966823ffb230632a733fc86d4a4b1e63c3fbe00058b8ee0f8c728af
   languageName: node
   linkType: hard
 

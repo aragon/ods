@@ -1,4 +1,12 @@
-import { NumberFormat, numberFormats, type DynamicOption, type INumberFormat } from './formatterUtilsDefinitions';
+import { DateTime, type DurationUnit } from 'luxon';
+import {
+    DateFormat,
+    NumberFormat,
+    dateFormats,
+    numberFormats,
+    type DynamicOption,
+    type INumberFormat,
+} from './formatterUtilsDefinitions';
 
 export interface IFormatNumberOptions extends INumberFormat {
     /**
@@ -8,10 +16,19 @@ export interface IFormatNumberOptions extends INumberFormat {
     format?: NumberFormat;
 }
 
+export interface IFormatDateOptions {
+    /**
+     * Date format to use.
+     * @default YEAR_MONTH_DAY_TIME
+     */
+    format?: DateFormat;
+}
+
 const cache: Record<string, Intl.NumberFormat> = {};
 
 class FormatterUtils {
     numberLocale = 'en';
+    dateLocale = 'en';
     currencyLocale = 'USD';
 
     private baseSymbolRanges = [
@@ -21,6 +38,8 @@ class FormatterUtils {
         { value: 1e6, symbol: () => 'M' },
         { value: 1e3, symbol: () => 'K' },
     ];
+
+    private relativeDateOrder: DurationUnit[] = ['years', 'months', 'days', 'hours', 'minutes', 'seconds'];
 
     formatNumber = (value: number | string | null | undefined, options: IFormatNumberOptions = {}): string | null => {
         const { format = NumberFormat.GENERIC_LONG, ...otherOptions } = options;
@@ -93,6 +112,46 @@ class FormatterUtils {
 
         return formattedValue;
     };
+
+    formatDate = (value: DateTime | number | string | undefined, options: IFormatDateOptions = {}) => {
+        const { format = DateFormat.YEAR_MONTH_DAY_TIME } = options;
+        const dateFormat = dateFormats[format];
+
+        if (value == null) {
+            return null;
+        }
+
+        const dateObject =
+            typeof value === 'string'
+                ? DateTime.fromISO(value)
+                : typeof value === 'number'
+                  ? DateTime.fromMillis(this.isMillisTimestamp(value) ? value : value * 1000)
+                  : value;
+
+        // Use relative calendar date if date to format is yesterday, today or tomorrow
+        const useRelativeCalendar = Math.abs(dateObject.diffNow('days').days) <= 1;
+
+        if (format === DateFormat.DURATION) {
+            const fullDateDiff = dateObject.diffNow(this.relativeDateOrder);
+            const dateUnit = this.relativeDateOrder.find((unit) => Math.abs(fullDateDiff.get(unit)) > 0);
+
+            return dateObject.diffNow(dateUnit).toHuman();
+        }
+
+        if (useRelativeCalendar) {
+            // TODO: add time for YEAR_MONTH_DAY_TIME format
+            return dateObject.toRelativeCalendar({ locale: this.dateLocale });
+        }
+
+        if (format === DateFormat.RELATIVE) {
+            return dateObject.toRelative({ locale: this.dateLocale });
+        }
+
+        return dateObject.toLocaleString({ ...dateFormat, hourCycle: 'h23' }, { locale: this.dateLocale });
+    };
+
+    private isMillisTimestamp = (value?: number | string): boolean =>
+        typeof value === 'number' && value.toString().length > 32;
 
     private getDynamicOption = <TOptionValue extends string | number = number>(
         value: number,

@@ -1,3 +1,5 @@
+import { DateTime, type DateTimeFormatOptions } from 'luxon';
+
 export type DynamicOptionFunction<TOptionValue> = (value: number) => TOptionValue | undefined;
 export type DynamicOption<TOptionValue extends string | number = number> =
     | TOptionValue
@@ -102,4 +104,20 @@ export const numberFormats: Record<NumberFormat, INumberFormat> = {
         fixedFractionDigits: 2,
         isPercentage: true,
     },
+};
+
+export enum DateFormat {
+    YEAR_MONTH_DAY_TIME = 'YEAR_MONTH_DAY_TIME',
+    YEAR_MONTH_DAY = 'YEAR_MONTH_DAY',
+    YEAR_MONTH = 'YEAR_MONTH',
+    DURATION = 'DURATION',
+    RELATIVE = 'RELATIVE',
+}
+
+export const dateFormats: Record<DateFormat, DateTimeFormatOptions> = {
+    [DateFormat.YEAR_MONTH_DAY_TIME]: DateTime.DATETIME_FULL,
+    [DateFormat.YEAR_MONTH_DAY]: DateTime.DATE_FULL,
+    [DateFormat.YEAR_MONTH]: { year: 'numeric', month: 'long' },
+    [DateFormat.DURATION]: {},
+    [DateFormat.RELATIVE]: {},
 };

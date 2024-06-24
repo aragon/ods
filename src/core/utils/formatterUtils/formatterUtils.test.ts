@@ -1,5 +1,5 @@
 import { formatterUtils } from './formatterUtils';
-import { NumberFormat } from './formatterUtilsDefinitions';
+import { DateFormat, NumberFormat } from './formatterUtilsDefinitions';
 
 /* Using big values to fully test the formatter */
 /* eslint-disable @typescript-eslint/no-loss-of-precision */
@@ -198,6 +198,35 @@ describe('formatter utils', () => {
                     formatterUtils.formatNumber(value, { format: NumberFormat.PERCENTAGE_SHORT, ...options }),
                 ).toEqual(result);
             });
+        });
+    });
+
+    describe.only('date formatting', () => {
+        describe('YEAR_MONTH_DAY_TIME format', () => {
+            // TODO
+        });
+
+        describe('YEAR_MONTH_DAY format', () => {
+            test.each([
+                { value: '2023-06-17T13:21:24', result: 'June 17, 2023' },
+                { value: '2018-01-01T10:11:12', result: 'January 1, 2018' },
+            ])('formats $value as $result using YEAR_MONTH_DAY format', ({ value, result }) => {
+                expect(formatterUtils.formatDate(value, { format: DateFormat.YEAR_MONTH_DAY })).toEqual(result);
+            });
+
+            it('formats to relative calendar when date diff is less or equal than 1', () => {});
+        });
+
+        describe('YEAR_MONTH format', () => {
+            // TODO
+        });
+
+        describe('DURATION format', () => {
+            // TODO
+        });
+
+        describe('RELATIVE format', () => {
+            // TODO
         });
     });
 });
