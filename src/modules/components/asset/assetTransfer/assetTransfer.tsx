@@ -1,8 +1,7 @@
 import classNames from 'classnames';
-import { useConfig } from 'wagmi';
 import { Avatar, AvatarIcon, IconType, LinkBase, NumberFormat, formatterUtils } from '../../../../core';
+import { useBlockExplorer } from '../../../hooks';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../types';
-import { blockExplorerUtils } from '../../../utils/blockExplorer';
 import { AssetTransferAddress } from './assetTransferAddress';
 
 export interface IAssetTransferProps extends IWeb3ComponentProps {
@@ -45,30 +44,10 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
 }
 
 export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
-    const {
-        sender,
-        recipient,
-        assetName,
-        assetIconSrc,
-        assetAmount,
-        assetSymbol,
-        assetFiatPrice,
-        chainId,
-        hash,
-        wagmiConfig: wagmiConfigProps,
-    } = props;
+    const { sender, recipient, assetName, assetIconSrc, assetAmount, assetSymbol, assetFiatPrice, chainId, hash } =
+        props;
 
-    const wagmiConfigProvider = useConfig();
-
-    const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
-
-    const processedChainId = chainId ?? wagmiConfig.chains[0].id;
-
-    const currentChain = wagmiConfig.chains.find(({ id }) => id === processedChainId);
-
-    const blockExplorerAssembledHref = currentChain
-        ? blockExplorerUtils.getTransactionUrl(hash, currentChain)
-        : undefined;
+    const { getChainEntityUrl } = useBlockExplorer();
 
     const formattedTokenValue = formatterUtils.formatNumber(assetAmount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
@@ -96,9 +75,11 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                 <AssetTransferAddress
                     txRole="sender"
                     participant={sender}
-                    addressUrl={
-                        currentChain ? blockExplorerUtils.getAddressUrl(sender.address, currentChain) : undefined
-                    }
+                    addressUrl={getChainEntityUrl({
+                        chainId,
+                        type: 'address',
+                        id: sender.address,
+                    })}
                 />
                 <div className="border-t border-neutral-100 md:border-l" />
                 <AvatarIcon
@@ -112,13 +93,15 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                 <AssetTransferAddress
                     txRole="recipient"
                     participant={recipient}
-                    addressUrl={
-                        currentChain ? blockExplorerUtils.getAddressUrl(recipient.address, currentChain) : undefined
-                    }
+                    addressUrl={getChainEntityUrl({
+                        chainId,
+                        type: 'address',
+                        id: recipient.address,
+                    })}
                 />
             </div>
             <LinkBase
-                href={blockExplorerAssembledHref}
+                href={getChainEntityUrl({ chainId, type: 'tx', id: hash })}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={assetTransferClassNames}

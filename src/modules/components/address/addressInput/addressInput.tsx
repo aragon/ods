@@ -15,9 +15,9 @@ import {
     useInputProps,
     type IInputComponentProps,
 } from '../../../../core';
+import { useBlockExplorer } from '../../../hooks';
 import type { IWeb3ComponentProps } from '../../../types';
 import { addressUtils, ensUtils } from '../../../utils';
-import { blockExplorerUtils } from '../../../utils/blockExplorer';
 import { MemberAvatar } from '../../member';
 
 export interface IAddressInputResolvedValue {
@@ -64,7 +64,13 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const currentChain = wagmiConfig.chains.find(({ id }) => id === processedChainId);
 
-    const addressUrl = currentChain ? blockExplorerUtils.getAddressUrl(value, currentChain) : undefined;
+    const { getChainEntityUrl } = useBlockExplorer();
+
+    const addressUrl = getChainEntityUrl({
+        type: 'address',
+        chainId: processedChainId,
+        id: value,
+    });
 
     const supportEnsNames = currentChain?.contracts?.ensRegistry != null;
 
