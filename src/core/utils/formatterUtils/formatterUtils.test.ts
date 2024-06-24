@@ -1,3 +1,4 @@
+import { Settings } from 'luxon';
 import { formatterUtils } from './formatterUtils';
 import { DateFormat, NumberFormat } from './formatterUtilsDefinitions';
 
@@ -5,6 +6,13 @@ import { DateFormat, NumberFormat } from './formatterUtilsDefinitions';
 /* eslint-disable @typescript-eslint/no-loss-of-precision */
 
 describe('formatter utils', () => {
+    const originalNow = Settings.now;
+
+    afterEach(() => {
+        Settings.now = originalNow;
+        Settings.defaultZone = 'utc';
+    });
+
     describe('number formatting', () => {
         describe('generic amounts', () => {
             test.each([
@@ -202,27 +210,49 @@ describe('formatter utils', () => {
     });
 
     describe.only('date formatting', () => {
+        const setTime = (now?: string) => {
+            Settings.now = () => (now != null ? new Date(now) : new Date()).valueOf();
+        };
+
         describe('YEAR_MONTH_DAY_TIME format', () => {
             // TODO
         });
 
-        describe('YEAR_MONTH_DAY format', () => {
+        describe.only('YEAR_MONTH_DAY format', () => {
             test.each([
                 { value: '2023-06-17T13:21:24', result: 'June 17, 2023' },
                 { value: '2018-01-01T10:11:12', result: 'January 1, 2018' },
-            ])('formats $value as $result using YEAR_MONTH_DAY format', ({ value, result }) => {
+                { value: '2001-05-21T20:10:52', result: 'tomorrow', now: '2001-05-20T05:05:00' },
+                { value: '2001-05-20T23:55:59', result: 'today', now: '2001-05-20T05:05:00' },
+                { value: '2001-05-21T00:00:05', result: 'tomorrow', now: '2001-05-20T05:05:00' },
+                { value: '2001-05-19T22:05:01', result: 'yesterday', now: '2001-05-20T05:05:00' },
+                { value: '2001-05-18T23:05:01', result: 'May 18, 2001', now: '2001-05-20T05:05:00' },
+                { value: '2001-05-22T00:00:01', result: 'May 22, 2001', now: '2001-05-20T05:05:00' },
+            ])('formats $value as $result using YEAR_MONTH_DAY format (now: $now)', ({ now, value, result }) => {
+                setTime(now);
                 expect(formatterUtils.formatDate(value, { format: DateFormat.YEAR_MONTH_DAY })).toEqual(result);
             });
-
-            it('formats to relative calendar when date diff is less or equal than 1', () => {});
         });
 
         describe('YEAR_MONTH format', () => {
-            // TODO
+            test.each([
+                { value: '2024-08-11T11:11:00', result: 'August 2024' },
+                { value: '2012-10-01T10:01:10', result: 'October 2012' },
+                { value: '2027-01-01T09:05:10', result: 'January 2027', now: '2027-01-01T09:05:10' },
+            ])('formats $value as $result using YEAR_MONTH format (now: $now)', ({ value, result, now }) => {
+                setTime(now);
+                expect(formatterUtils.formatDate(value, { format: DateFormat.YEAR_MONTH })).toEqual(result);
+            });
         });
 
         describe('DURATION format', () => {
-            // TODO
+            test.each([
+                { value: '2000-02-10T11:11:48', result: '7 second', now: '2000-02-10T11:11:55' },
+                // { value: '2000-02-10T11:11:48', result: '1 second', now: '2000-02-10T11:11:48' },
+            ])('formats $value as $result using DURATION format (now: $now)', ({ value, result, now }) => {
+                setTime(now);
+                expect(formatterUtils.formatDate(value, { format: DateFormat.DURATION })).toEqual(result);
+            });
         });
 
         describe('RELATIVE format', () => {

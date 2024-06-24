@@ -1,9 +1,9 @@
 import { DateTime, type DateTimeFormatOptions } from 'luxon';
 
-export type DynamicOptionFunction<TOptionValue> = (value: number) => TOptionValue | undefined;
-export type DynamicOption<TOptionValue extends string | number = number> =
+export type DynamicOptionFunction<TValue, TOptionValue> = (value: TValue) => TOptionValue | undefined;
+export type DynamicOption<TValue = number, TOptionValue extends string | number | boolean = number> =
     | TOptionValue
-    | DynamicOptionFunction<TOptionValue>;
+    | DynamicOptionFunction<TValue, TOptionValue>;
 
 export interface INumberFormat {
     /**
@@ -114,10 +114,38 @@ export enum DateFormat {
     RELATIVE = 'RELATIVE',
 }
 
-export const dateFormats: Record<DateFormat, DateTimeFormatOptions> = {
-    [DateFormat.YEAR_MONTH_DAY_TIME]: DateTime.DATETIME_FULL,
-    [DateFormat.YEAR_MONTH_DAY]: DateTime.DATE_FULL,
-    [DateFormat.YEAR_MONTH]: { year: 'numeric', month: 'long' },
-    [DateFormat.DURATION]: {},
-    [DateFormat.RELATIVE]: {},
+export interface IDateFormat extends DateTimeFormatOptions {
+    /**
+     * Formats the date as relative calendar (yesterday, today, tomorrow, ..) when set to true.
+     */
+    useRelativeCalendar?: boolean;
+    /**
+     * Formats the date as relative (1 day ago, in 2 days, ..) when set to true.
+     */
+    useRelativeDay?: boolean;
+    /**
+     * Returns the date diff using the biggest unit greater than 1 (1 day, 7 hours, 22 seconds) when set to true /
+     */
+    isDuration?: boolean;
+}
+
+export const dateFormats: Record<DateFormat, IDateFormat> = {
+    [DateFormat.YEAR_MONTH_DAY_TIME]: {
+        ...DateTime.DATETIME_FULL,
+        useRelativeCalendar: true,
+    },
+    [DateFormat.YEAR_MONTH_DAY]: {
+        ...DateTime.DATE_FULL,
+        useRelativeCalendar: true,
+    },
+    [DateFormat.YEAR_MONTH]: {
+        year: 'numeric',
+        month: 'long',
+    },
+    [DateFormat.DURATION]: {
+        isDuration: true,
+    },
+    [DateFormat.RELATIVE]: {
+        useRelativeDay: true,
+    },
 };

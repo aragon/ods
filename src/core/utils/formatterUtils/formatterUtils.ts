@@ -115,7 +115,7 @@ class FormatterUtils {
 
     formatDate = (value: DateTime | number | string | undefined, options: IFormatDateOptions = {}) => {
         const { format = DateFormat.YEAR_MONTH_DAY_TIME } = options;
-        const dateFormat = dateFormats[format];
+        const { useRelativeCalendar, useRelativeDay, isDuration, ...dateFormat } = dateFormats[format];
 
         if (value == null) {
             return null;
@@ -128,23 +128,22 @@ class FormatterUtils {
                   ? DateTime.fromMillis(this.isMillisTimestamp(value) ? value : value * 1000)
                   : value;
 
-        // Use relative calendar date if date to format is yesterday, today or tomorrow
-        const useRelativeCalendar = Math.abs(dateObject.diffNow('days').days) <= 1;
+        const shouldUseRelativeCalendar = useRelativeCalendar && this.isYesterdayTodayTomorrow(dateObject);
 
-        if (format === DateFormat.DURATION) {
-            const fullDateDiff = dateObject.diffNow(this.relativeDateOrder);
-            const dateUnit = this.relativeDateOrder.find((unit) => Math.abs(fullDateDiff.get(unit)) > 0);
-
-            return dateObject.diffNow(dateUnit).toHuman();
-        }
-
-        if (useRelativeCalendar) {
+        if (shouldUseRelativeCalendar) {
             // TODO: add time for YEAR_MONTH_DAY_TIME format
             return dateObject.toRelativeCalendar({ locale: this.dateLocale });
         }
 
-        if (format === DateFormat.RELATIVE) {
+        if (useRelativeDay) {
             return dateObject.toRelative({ locale: this.dateLocale });
+        }
+
+        if (isDuration) {
+            const fullDateDiff = dateObject.diffNow(this.relativeDateOrder);
+            const dateUnit = this.relativeDateOrder.find((unit) => Math.abs(fullDateDiff.get(unit)) > 0);
+
+            return dateObject.diffNow(dateUnit).toHuman();
         }
 
         return dateObject.toLocaleString({ ...dateFormat, hourCycle: 'h23' }, { locale: this.dateLocale });
@@ -153,9 +152,16 @@ class FormatterUtils {
     private isMillisTimestamp = (value?: number | string): boolean =>
         typeof value === 'number' && value.toString().length > 32;
 
-    private getDynamicOption = <TOptionValue extends string | number = number>(
-        value: number,
-        option?: DynamicOption<TOptionValue>,
+    private isYesterdayTodayTomorrow = (value: DateTime): boolean => {
+        const today = DateTime.local().startOf('day');
+        const datesToCheck = [today.minus({ day: 1 }), today, today.plus({ day: 1 })];
+
+        return datesToCheck.some((date) => date.hasSame(value, 'day'));
+    };
+
+    private getDynamicOption = <TValue = number, TOptionValue extends string | number | boolean = number>(
+        value: TValue,
+        option?: DynamicOption<TValue, TOptionValue>,
     ): TOptionValue | undefined => (typeof option === 'function' ? option(value) : option);
 
     private getDecimalPlaces = (value: number) => value.toString().split('.')[0].length;
