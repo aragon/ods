@@ -1,9 +1,10 @@
-import { TabsTrigger as RadixTabsTrigger, type TabsTriggerProps as RadixTabsTriggerProps } from '@radix-ui/react-tabs';
+import { TabsTrigger as RadixTabsTrigger } from '@radix-ui/react-tabs';
 import classNames from 'classnames';
-import { useContext } from 'react';
+import { useContext, type ComponentProps } from 'react';
 import { Icon, type IconType } from '../../icon';
 import { TabsContext } from '../tabsRoot/tabsRoot';
-export interface ITabsTriggerProps extends RadixTabsTriggerProps {
+
+export interface ITabsTriggerProps extends ComponentProps<'button'> {
     /**
      * The label of the tab.
      */
@@ -19,7 +20,7 @@ export interface ITabsTriggerProps extends RadixTabsTriggerProps {
 }
 
 export const TabsTrigger: React.FC<ITabsTriggerProps> = (props) => {
-    const { label, iconRight, className, ...otherProps } = props;
+    const { label, iconRight, className, value, ...otherProps } = props;
     const { isUnderlined } = useContext(TabsContext);
 
     const triggerClassNames = classNames(
@@ -41,7 +42,7 @@ export const TabsTrigger: React.FC<ITabsTriggerProps> = (props) => {
     );
 
     return (
-        <RadixTabsTrigger className={triggerClassNames} {...otherProps}>
+        <RadixTabsTrigger className={triggerClassNames} value={value} {...otherProps}>
             {label}
             {iconRight && <Icon icon={iconRight} size="sm" className={iconClassNames} />}
         </RadixTabsTrigger>

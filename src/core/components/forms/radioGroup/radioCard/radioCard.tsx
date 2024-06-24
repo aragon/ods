@@ -1,11 +1,11 @@
-import { RadioGroupIndicator, RadioGroupItem, type RadioGroupItemProps } from '@radix-ui/react-radio-group';
+import { RadioGroupIndicator, RadioGroupItem } from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
-import { forwardRef, useId } from 'react';
+import { forwardRef, useId, type ComponentProps } from 'react';
 import { Avatar } from '../../../avatars';
 import { Icon, IconType } from '../../../icon';
 import { Tag, type ITagProps } from '../../../tag';
 
-export interface IRadioCardProps extends RadioGroupItemProps {
+export interface IRadioCardProps extends ComponentProps<'button'> {
     /**
      * Radio card avatar image source
      */
@@ -22,20 +22,23 @@ export interface IRadioCardProps extends RadioGroupItemProps {
      * Radio card tag
      */
     tag?: ITagProps;
+    /**
+     * The value of the radio item.
+     */
+    value: string;
+    /**
+     * Indicates if the radio is disabled.
+     */
+    disabled?: boolean;
 }
 
 /**
  * `RadioCard` component
  *
- * This component is based on the Radix-UI radio implementation.
- * An exhaustive list of its properties can be found in the corresponding Radix primitive
- * [documentation](https://www.radix-ui.com/primitives/docs/components/radio-group#item).
- *
  * **NOTE**: The component must be used inside a `<RadioGroup />` component in order to work properly.
  */
 export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, ref) => {
-    const { value, id, className, tag, avatar, label, description, ...rest } = props;
-
+    const { value, id, className, tag, avatar, label, description, disabled, ...rest } = props;
     const randomId = useId();
     const processedId = id ?? randomId;
     const labelId = `${processedId}-label`;
@@ -63,6 +66,7 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
             id={processedId}
             ref={ref}
             value={value}
+            disabled={disabled}
             className={containerClasses}
             aria-labelledby={labelId}
             {...rest}

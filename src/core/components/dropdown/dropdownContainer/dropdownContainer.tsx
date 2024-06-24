@@ -1,10 +1,10 @@
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu';
 import classNames from 'classnames';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState, type ComponentProps, type ReactNode } from 'react';
 import { Button, type IButtonProps } from '../../button';
 import { IconType } from '../../icon';
 
-export interface IDropdownContainerProps extends RadixDropdown.DropdownMenuProps {
+export interface IDropdownContainerProps extends Omit<ComponentProps<'div'>, 'dir'> {
     /**
      * Size of the dropdown trigger.
      * @default lg
@@ -36,6 +36,18 @@ export interface IDropdownContainerProps extends RadixDropdown.DropdownMenuProps
      * Disables the dropdown when set to true.
      */
     disabled?: boolean;
+    /**
+     * Whether the dropdown is open by default.
+     */
+    defaultOpen?: boolean;
+    /**
+     * Whether the dropdown is open.
+     */
+    open?: boolean;
+    /**
+     * Callback when the open state changes.
+     */
+    onOpenChange?: (open: boolean) => void;
 }
 
 export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {

@@ -1,20 +1,11 @@
-import {
-    Arrow,
-    Content,
-    Portal,
-    Provider,
-    Root,
-    Trigger,
-    type TooltipContentProps,
-    type TooltipProps,
-} from '@radix-ui/react-tooltip';
+import { Arrow, Content, Portal, Provider, Root, Trigger } from '@radix-ui/react-tooltip';
 import classNames from 'classnames';
 import type React from 'react';
 import { type ReactNode } from 'react';
 
 export type TooltipVariant = 'neutral' | 'info' | 'warning' | 'critical' | 'success';
 
-export interface ITooltipProps extends Omit<TooltipProps, 'asChild'>, Omit<TooltipContentProps, 'content' | 'asChild'> {
+export interface ITooltipProps {
     /**
      * Content of the tooltip
      */
@@ -24,6 +15,35 @@ export interface ITooltipProps extends Omit<TooltipProps, 'asChild'>, Omit<Toolt
      * @default neutral
      */
     variant?: TooltipVariant;
+    /**
+     * The open state of the tooltip when it is initially rendered. Use when you do not need to control its open state.
+     */
+    defaultOpen?: boolean;
+    /**
+     * The controlled open state of the tooltip. Must be used in conjunction with `onOpenChange`.
+     */
+    open?: boolean;
+    /**
+     * Event handler called when the open state of the tooltip changes.
+     */
+    onOpenChange?: (open: boolean) => void;
+    /**
+     * The duration from when the mouse enters the trigger until the tooltip opens.
+     * @default 300
+     */
+    delayDuration?: number;
+    /**
+     * When `true`, hovering the content will keep the tooltip open.
+     */
+    disableHoverableContent?: boolean;
+    /**
+     * Additional class names for the tooltip content.
+     */
+    className?: string;
+    /**
+     * Children elements to trigger the tooltip.
+     */
+    children?: ReactNode;
 }
 
 const variantToArrowFill: Record<TooltipVariant, string> = {
@@ -42,13 +62,6 @@ const variantToContentClassName: Record<TooltipVariant, string> = {
     warning: 'bg-warning-300 text-warning-900 shadow-warning-md',
 };
 
-/**
- * `Tooltip` component
- *
- * This component is based on the Radix-UI tooltip implementation.
- * An exhaustive list of its properties can be found in the corresponding Radix primitive
- * [documentation](https://www.radix-ui.com/primitives/docs/components/tooltip).
- */
 export const Tooltip: React.FC<ITooltipProps> = (props) => {
     const {
         children,
@@ -59,10 +72,9 @@ export const Tooltip: React.FC<ITooltipProps> = (props) => {
         disableHoverableContent,
         variant = 'neutral',
         onOpenChange,
-        ...contentProps
+        className,
+        ...otherProps
     } = props;
-
-    const { className: contentClassName, ...otherContentProps } = contentProps;
 
     return (
         <Provider>
@@ -79,10 +91,10 @@ export const Tooltip: React.FC<ITooltipProps> = (props) => {
                         className={classNames(
                             variantToContentClassName[variant],
                             'flex min-h-6 items-center rounded px-1.5 text-sm font-semibold leading-tight',
-                            contentClassName,
+                            className,
                         )}
                         sideOffset={1}
-                        {...otherContentProps}
+                        {...otherProps}
                     >
                         {content}
                         <Arrow className={classNames(variantToArrowFill[variant], 'h-1 w-3')} />
