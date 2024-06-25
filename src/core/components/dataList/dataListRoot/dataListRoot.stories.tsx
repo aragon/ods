@@ -3,13 +3,12 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Avatar } from '../../avatars';
 import { IconType } from '../../icon';
 import { DataListItem } from '../dataListItem';
-import { DataList, type IDataListRootProps } from '../index';
+import { DataList, type IDataListContainerProps, type IDataListRootProps } from '../index';
 import type { DataListState } from './dataListRoot';
 
 const meta: Meta<typeof DataList.Root> = {
     title: 'Core/Components/DataList/DataList.Root',
     component: DataList.Root,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
@@ -38,8 +37,10 @@ const ListItemComponentLoading = () => (
     </DataListItem>
 );
 
-const StaticListComponent = (props: IDataListRootProps) => {
-    const { itemsCount, ...otherProps } = props;
+interface IStaticListComponentProps extends IDataListRootProps, Pick<IDataListContainerProps, 'layoutClassName'> {}
+
+const StaticListComponent = (props: IStaticListComponentProps) => {
+    const { itemsCount, layoutClassName, ...otherProps } = props;
 
     const [searchValue, setSearchValue] = useState<string>();
     const [activeSort, setActiveSort] = useState('id_asc');
@@ -85,7 +86,7 @@ const StaticListComponent = (props: IDataListRootProps) => {
                 onSortChange={setActiveSort}
                 sortItems={sortItems}
             />
-            <DataList.Container emptyFilteredState={emptyFilteredState}>
+            <DataList.Container emptyFilteredState={emptyFilteredState} layoutClassName={layoutClassName}>
                 {filteredUsers?.map((id) => <ListItemComponent key={id} id={id} />)}
             </DataList.Container>
             <DataList.Pagination />
@@ -102,6 +103,17 @@ export const StaticList: Story = {
         itemsCount: 21,
     },
     render: (props) => <StaticListComponent {...props} />,
+};
+
+/**
+ * Usage of the DataList.Root component with a custom layout for the DataList.Item components
+ */
+export const CustomLayout: Story = {
+    args: {
+        pageSize: 9,
+        itemsCount: 21,
+    },
+    render: (props) => <StaticListComponent layoutClassName="grid grid-cols-1 lg:grid-cols-3" {...props} />,
 };
 
 const getUsers = (dbUsers: number[] = [], search = '', page = 0, sort = 'id_asc', pageSize = 6) => {

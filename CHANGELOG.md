@@ -13,12 +13,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+-   Remove Radix props dependency
+
+## [1.0.34] - 2024-06-21
+
+### Fixed
+
+-   Ensure `MemberAvatar` component only creates the blockies url on client environment
+
+### Changed
+
 -   Bump `@rollup/plugin-commonjs` from `25.0.8` to `26.0.1`
 -   Update minor and patch dependencies of Github workflows
 -   Update minor and patch NPM dependencies
 -   Update `yarn` version to `4.3.0`
 -   Update unit tests to use userEvent instead of fireEvent
 -   Move all form items under a `forms` folder
+-   Upgrade storybook to v8
+-   Update `MemberDataListItem` component to support `votingPower` property set as string
+
+### Added
+
+-   Handle new `layoutClassnames` property on `DataList.Container` component to simplify implementation of custom
+    `DataList` layouts
+-   Create `ssrUtils` core utilities
 
 ## [1.0.33] - 2024-06-06
 

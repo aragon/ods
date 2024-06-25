@@ -1,11 +1,12 @@
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
 import classNames from 'classnames';
-import { forwardRef, useId } from 'react';
+import { forwardRef, useId, type ComponentProps } from 'react';
 import { Avatar } from '../../avatars';
 import { Icon, IconType } from '../../icon';
 import { Tag, type ITagProps } from '../../tag';
+import { type CheckboxState } from '../checkbox/checkbox';
 
-export interface ICheckboxCardProps extends Omit<RadixCheckbox.CheckboxProps, 'asChild'> {
+export interface ICheckboxCardProps extends ComponentProps<'button'> {
     /**
      * Avatar of the checkbox card.
      */
@@ -22,10 +23,26 @@ export interface ICheckboxCardProps extends Omit<RadixCheckbox.CheckboxProps, 'a
      * Optional tag for the checkbox.
      */
     tag?: ITagProps;
+    /**
+     * The checked state of the checkbox.
+     */
+    checked?: CheckboxState;
+    /**
+     * Callback when the checked state changes.
+     */
+    onCheckedChange?: (checked: CheckboxState) => void;
+    /**
+     * Indicates if the checkbox is disabled.
+     */
+    disabled?: boolean;
+    /**
+     * Id of the checkbox.
+     */
+    id?: string;
 }
 
 export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((props, ref) => {
-    const { id, avatar, label, description, tag, className, ...otherProps } = props;
+    const { id, avatar, label, description, tag, className, checked, onCheckedChange, disabled, ...otherProps } = props;
 
     // Generate random id if id property is not set
     const randomId = useId();
@@ -37,6 +54,9 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
             id={processedId}
             ref={ref}
             aria-labelledby={labelId}
+            checked={checked}
+            onCheckedChange={onCheckedChange}
+            disabled={disabled}
             className={classNames(
                 'group flex h-16 min-w-0 flex-row items-center gap-3 outline-none transition-all md:h-20', // Layout
                 'rounded-xl border bg-neutral-0 px-4 py-3 md:gap-4 md:px-6 md:py-4', // Style

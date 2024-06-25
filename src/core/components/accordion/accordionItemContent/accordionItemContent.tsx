@@ -2,7 +2,7 @@ import { AccordionContent as RadixAccordionContent } from '@radix-ui/react-accor
 import classNames from 'classnames';
 import { forwardRef, type ComponentPropsWithRef } from 'react';
 
-export interface IAccordionItemContentProps extends ComponentPropsWithRef<typeof RadixAccordionContent> {}
+export interface IAccordionItemContentProps extends ComponentPropsWithRef<'div'> {}
 
 export const AccordionItemContent = forwardRef<HTMLDivElement, IAccordionItemContentProps>((props, ref) => {
     const { children, className, ...otherProps } = props;

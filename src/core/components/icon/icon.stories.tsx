@@ -5,7 +5,6 @@ import { IconType } from './iconType';
 const meta: Meta<typeof Icon> = {
     title: 'Core/Components/Icon',
     component: Icon,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

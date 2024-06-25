@@ -7,7 +7,6 @@ import { IconType } from '../../../icon';
 const meta: Meta<typeof DialogAlert.Footer> = {
     title: 'Core/Components/Dialogs/DialogAlert/DialogAlert.Footer',
     component: DialogAlert.Footer,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

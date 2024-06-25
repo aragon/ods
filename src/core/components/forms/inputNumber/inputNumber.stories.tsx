@@ -5,7 +5,6 @@ import { InputNumber, type IInputNumberProps } from './inputNumber';
 const meta: Meta<typeof InputNumber> = {
     title: 'Core/Components/Forms/InputNumber',
     component: InputNumber,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

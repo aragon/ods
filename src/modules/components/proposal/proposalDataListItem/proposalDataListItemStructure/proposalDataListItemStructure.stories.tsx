@@ -6,7 +6,6 @@ import { type IProposalDataListItemStructureProps } from './proposalDataListItem
 const meta: Meta<typeof ProposalDataListItem.Structure> = {
     title: 'Modules/Components/Proposal/ProposalDataListItem/ProposalDataListItem.Structure',
     component: ProposalDataListItem.Structure,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

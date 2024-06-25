@@ -5,7 +5,6 @@ import { CardEmptyState } from '.';
 const meta: Meta<typeof CardEmptyState> = {
     title: 'Core/Components/Cards/CardEmptyState',
     component: CardEmptyState,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

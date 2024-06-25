@@ -1,9 +1,9 @@
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu';
 import classNames from 'classnames';
-import React from 'react';
+import React, { type ComponentProps } from 'react';
 import { Icon, IconType } from '../../icon';
 
-export interface IDropdownItemProps extends Omit<RadixDropdown.DropdownMenuItemProps, 'asChild'> {
+export interface IDropdownItemProps extends Omit<ComponentProps<'div'>, 'onSelect'> {
     /**
      * Renders the dropdown item as selected when set to true.
      */
@@ -30,6 +30,14 @@ export interface IDropdownItemProps extends Omit<RadixDropdown.DropdownMenuItemP
      * Rel attribute of the dropdown link.
      */
     rel?: string;
+    /**
+     * Disables the dropdown item when set to true.
+     */
+    disabled?: boolean;
+    /**
+     * Callback when the dropdown item is selected.
+     */
+    onSelect?: (event: Event) => void;
 }
 
 export const DropdownItem: React.FC<IDropdownItemProps> = (props) => {

@@ -1,9 +1,9 @@
-import { TabsList as RadixTabsList, type TabsListProps as RadixTabsListProps } from '@radix-ui/react-tabs';
+import { TabsList as RadixTabsList } from '@radix-ui/react-tabs';
 import classNames from 'classnames';
-import { useContext } from 'react';
+import { useContext, type ComponentProps } from 'react';
 import { TabsContext } from '../tabsRoot/tabsRoot';
 
-export interface ITabsListProps extends RadixTabsListProps {}
+export interface ITabsListProps extends ComponentProps<'div'> {}
 
 export const TabsList: React.FC<ITabsListProps> = (props) => {
     const { children, className, ...otherProps } = props;

@@ -4,7 +4,6 @@ import { MemberAvatar } from './memberAvatar';
 const meta: Meta<typeof MemberAvatar> = {
     title: 'Modules/Components/Member/MemberAvatar',
     component: MemberAvatar,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

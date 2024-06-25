@@ -8,7 +8,6 @@ import { Collapsible } from './collapsible';
 const meta: Meta<typeof Collapsible> = {
     title: 'Core/Components/Collapsible',
     component: Collapsible,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useAccount } from 'wagmi';
 import { DataList, Heading, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
@@ -15,7 +16,7 @@ export interface IMemberDataListItemProps extends IDataListItemProps {
     /**
      * The total voting power of the member.
      */
-    votingPower?: number;
+    votingPower?: number | string;
     /**
      * ENS name of the user.
      */
@@ -31,7 +32,7 @@ export interface IMemberDataListItemProps extends IDataListItemProps {
 }
 
 export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (props) => {
-    const { isDelegate, delegationCount = 0, votingPower = 0, avatarSrc, ensName, address, ...otherProps } = props;
+    const { isDelegate, delegationCount, votingPower, avatarSrc, ensName, address, ...otherProps } = props;
 
     const { address: currentUserAddress, isConnected } = useAccount();
 
@@ -39,7 +40,12 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
 
     const resolvedUserHandle = ensName != null && ensName !== '' ? ensName : addressUtils.truncateAddress(address);
 
-    const hasDelegationOrVotingPower = delegationCount > 0 || votingPower > 0;
+    const isTokenVotingMember = delegationCount != null || votingPower != null;
+
+    const formattedDelegationCount = formatterUtils.formatNumber(delegationCount, {
+        format: NumberFormat.GENERIC_SHORT,
+    });
+    const formattedVotingPower = formatterUtils.formatNumber(votingPower, { format: NumberFormat.GENERIC_SHORT });
 
     return (
         <DataList.Item className="min-w-fit !py-0 px-4 md:px-6" {...otherProps}>
@@ -59,20 +65,20 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                     {resolvedUserHandle}
                 </Heading>
 
-                {hasDelegationOrVotingPower && (
+                {isTokenVotingMember && (
                     <div className="flex flex-col gap-y-2">
-                        {delegationCount > 0 && (
-                            <Heading size="h5" as="h2">
-                                {formatterUtils.formatNumber(delegationCount, { format: NumberFormat.GENERIC_SHORT })}
-                                <span className="text-neutral-500">{` Delegation${delegationCount === 1 ? '' : 's'}`}</span>
-                            </Heading>
-                        )}
-                        {votingPower > 0 && (
-                            <Heading size="h5" as="h2">
-                                {formatterUtils.formatNumber(votingPower, { format: NumberFormat.GENERIC_SHORT })}
-                                <span className="text-neutral-500"> Voting Power</span>
-                            </Heading>
-                        )}
+                        <Heading
+                            size="h5"
+                            as="h2"
+                            className={classNames({ invisible: delegationCount == null || delegationCount === 0 })}
+                        >
+                            <span>{formattedDelegationCount}</span>
+                            <span className="text-neutral-500"> Delegations</span>
+                        </Heading>
+                        <Heading size="h5" as="h2">
+                            <span>{formattedVotingPower}</span>
+                            <span className="text-neutral-500"> Voting Power</span>
+                        </Heading>
                     </div>
                 )}
             </div>

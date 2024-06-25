@@ -7,7 +7,6 @@ import { DocumentParser } from './documentParser';
 const meta: Meta<typeof DocumentParser> = {
     title: 'Core/Components/DocumentParser',
     component: DocumentParser,
-    tags: ['autodocs'],
 };
 
 type Story = StoryObj<typeof DocumentParser>;

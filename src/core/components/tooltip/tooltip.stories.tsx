@@ -5,7 +5,6 @@ import { Tooltip, type ITooltipProps } from './tooltip';
 const meta: Meta<typeof Tooltip> = {
     title: 'Core/Components/Tooltip',
     component: Tooltip,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

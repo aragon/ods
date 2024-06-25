@@ -5,7 +5,6 @@ import { InputSearch, type IInputSearchProps } from './inputSearch';
 const meta: Meta<typeof InputSearch> = {
     title: 'Core/Components/Forms/InputSearch',
     component: InputSearch,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

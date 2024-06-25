@@ -4,7 +4,6 @@ import { Breadcrumbs } from './breadcrumbs';
 const meta: Meta<typeof Breadcrumbs> = {
     title: 'Core/Components/Breadcrumbs',
     component: Breadcrumbs,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

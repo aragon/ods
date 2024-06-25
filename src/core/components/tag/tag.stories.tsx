@@ -4,7 +4,6 @@ import { Tag } from './tag';
 const meta: Meta<typeof Tag> = {
     title: 'Core/Components/Tag',
     component: Tag,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

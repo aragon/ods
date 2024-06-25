@@ -4,7 +4,6 @@ import { AlertCard } from './alertCard';
 const meta: Meta<typeof AlertCard> = {
     title: 'Core/Components/Alerts/AlertCard',
     component: AlertCard,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

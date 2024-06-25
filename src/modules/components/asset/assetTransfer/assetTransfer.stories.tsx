@@ -4,7 +4,6 @@ import { AssetTransfer } from './assetTransfer';
 const meta: Meta<typeof AssetTransfer> = {
     title: 'Modules/Components/Asset/AssetTransfer',
     component: AssetTransfer,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

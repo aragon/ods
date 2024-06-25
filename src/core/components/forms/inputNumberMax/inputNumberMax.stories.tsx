@@ -5,7 +5,6 @@ import { InputNumberMax, type IInputNumberMaxProps } from './inputNumberMax';
 const meta: Meta<typeof InputNumberMax> = {
     title: 'Core/Components/Forms/InputNumberMax',
     component: InputNumberMax,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

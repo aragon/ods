@@ -4,7 +4,6 @@ import { Spinner } from './spinner';
 const meta: Meta<typeof Spinner> = {
     title: 'Core/Components/Spinner',
     component: Spinner,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

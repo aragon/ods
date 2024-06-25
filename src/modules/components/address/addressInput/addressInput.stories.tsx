@@ -5,7 +5,6 @@ import { AddressInput, type IAddressInputProps, type IAddressInputResolvedValue 
 const meta: Meta<typeof AddressInput> = {
     title: 'Modules/Components/Address/AddressInput',
     component: AddressInput,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

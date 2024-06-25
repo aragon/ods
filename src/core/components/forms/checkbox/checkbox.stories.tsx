@@ -5,7 +5,6 @@ import { Checkbox, type CheckboxState, type ICheckboxProps } from './checkbox';
 const meta: Meta<typeof Checkbox> = {
     title: 'Core/Components/Checkbox/Checkbox',
     component: Checkbox,
-    tags: ['autodocs'],
     argTypes: {
         disabled: { type: 'boolean' },
     },

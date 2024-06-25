@@ -5,7 +5,6 @@ import { AlertInline } from './alertInline';
 const meta: Meta<typeof AlertInline> = {
     title: 'Core/Components/Alerts/AlertInline',
     component: AlertInline,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

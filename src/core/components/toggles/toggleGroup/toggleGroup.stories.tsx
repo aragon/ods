@@ -6,7 +6,6 @@ import { ToggleGroup, type IToggleGroupProps } from './toggleGroup';
 const meta: Meta<typeof ToggleGroup> = {
     title: 'Core/Components/Toggles/ToggleGroup',
     component: ToggleGroup,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

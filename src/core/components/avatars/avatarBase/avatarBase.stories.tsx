@@ -4,7 +4,6 @@ import { AvatarBase } from './avatarBase';
 const meta: Meta<typeof AvatarBase> = {
     title: 'Core/Components/Avatars/AvatarBase',
     component: AvatarBase,
-    tags: ['autodocs'],
 };
 
 type Story = StoryObj<typeof AvatarBase>;
