@@ -81,7 +81,7 @@ export const Avatar: React.FC<IAvatarProps> = (props) => {
         className,
     );
 
-    const handleOnLoadingStatusChange = (status: RadixAvatar.ImageLoadingStatus) => {
+    const handleOnLoadingStatusChange = (status: string) => {
         setImgLoading(status === 'loading');
     };
 
