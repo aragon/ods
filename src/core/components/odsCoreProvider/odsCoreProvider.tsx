@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, type ReactNode } from 'react';
-import { enCopy, type IOdsCoreCopy } from '../../copy';
+import { getCopyForLocale, odsDefaultLocale, type IOdsCoreCopy } from '../../copy';
 
 export interface IOdsCoreContext {
     /**
@@ -12,6 +12,10 @@ export interface IOdsCoreContext {
      * @default 'a'
      */
     Link: React.FC | 'a';
+    /**
+     * Locale for the core components.
+     */
+    locale: string;
     /**
      * Text copy for the core components.
      */
@@ -29,21 +33,29 @@ export interface IOdsCoreProviderProps {
     children?: ReactNode;
 }
 
-const odsCoreContextDefaults: IOdsCoreContext = { Img: 'img', Link: 'a', copy: enCopy };
+const odsCoreContextDefaults: IOdsCoreContext = {
+    Img: 'img',
+    Link: 'a',
+    locale: odsDefaultLocale,
+    copy: getCopyForLocale(odsDefaultLocale),
+};
 
 const odsCoreContext = createContext<IOdsCoreContext>(odsCoreContextDefaults);
 
 export const OdsCoreProvider: React.FC<IOdsCoreProviderProps> = (props) => {
     const { values, children } = props;
 
-    const contextValues = useMemo(
-        () => ({
+    const contextValues = useMemo(() => {
+        const locale = values?.locale ?? odsCoreContextDefaults.locale;
+        const copy = getCopyForLocale(locale);
+
+        return {
             Img: values?.Img ?? odsCoreContextDefaults.Img,
             Link: values?.Link ?? odsCoreContextDefaults.Link,
-            copy: values?.copy ?? odsCoreContextDefaults.copy,
-        }),
-        [values],
-    );
+            copy,
+            locale,
+        };
+    }, [values]);
 
     return <odsCoreContext.Provider value={contextValues}>{children}</odsCoreContext.Provider>;
 };

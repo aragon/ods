@@ -1,6 +1,6 @@
 import { render, renderHook, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import { enCopy } from '../../copy';
+import { getCopyForLocale, odsDefaultLocale } from '../../copy';
 import {
     OdsCoreProvider,
     useOdsCoreContext,
@@ -27,7 +27,7 @@ describe('<OdsCoreProvider /> component', () => {
     });
 
     it('correctly sets the context values', () => {
-        const context = { Img: () => 'img', Link: () => 'link', copy: enCopy };
+        const context = { Img: () => 'img', Link: () => 'link', copy: getCopyForLocale(odsDefaultLocale) };
         const { result } = renderHook(() => useOdsCoreContext(), { wrapper: createHookWrapper(context) });
         expect(result.current).toEqual(context);
     });
