@@ -4,8 +4,17 @@ import { useChains } from 'wagmi';
 type ChainEntityType = 'address' | 'tx' | 'token';
 
 interface IChainEntity {
+    /**
+     * The type of the chain entity (address, tx, token)
+     */
     type: ChainEntityType;
+    /**
+     * The ID of the chain (optional), if not provided, the first chain is used
+     */
     chainId?: number;
+    /**
+     * The ID of the entity (.e.g. tx hash for a tx)
+     */
     id: string;
 }
 
