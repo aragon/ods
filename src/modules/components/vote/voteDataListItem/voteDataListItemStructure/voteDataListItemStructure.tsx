@@ -1,16 +1,10 @@
 import classNames from 'classnames';
 import { useAccount } from 'wagmi';
-import {
-    DataList,
-    NumberFormat,
-    Tag,
-    formatterUtils,
-    type IDataListItemProps,
-    type TagVariant,
-} from '../../../../../core';
+import { DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { type ICompositeAddress } from '../../../../types';
 import { addressUtils } from '../../../../utils';
 import { MemberAvatar } from '../../../member';
+import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export interface IVoteDataListItemStructureProps extends IDataListItemProps {
     /**
@@ -24,7 +18,7 @@ export interface IVoteDataListItemStructureProps extends IDataListItemProps {
     /**
      * The vote of the user.
      */
-    voteIndicator: 'yes' | 'no' | 'abstain' | 'approve';
+    voteIndicator: VoteIndicator;
     /**
      * If token-based voting, the amount of token voting power used.
      */
@@ -34,13 +28,6 @@ export interface IVoteDataListItemStructureProps extends IDataListItemProps {
      */
     tokenSymbol?: string;
 }
-
-export const voteIndicatorToTagVariant: Record<IVoteDataListItemStructureProps['voteIndicator'], TagVariant> = {
-    yes: 'success',
-    no: 'critical',
-    abstain: 'neutral',
-    approve: 'primary',
-};
 
 export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps> = (props) => {
     const { voter, isDelegate, votingPower, tokenSymbol, voteIndicator, className, ...otherProps } = props;

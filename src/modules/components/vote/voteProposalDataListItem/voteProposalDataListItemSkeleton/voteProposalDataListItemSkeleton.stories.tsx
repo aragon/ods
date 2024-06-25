@@ -5,7 +5,6 @@ import { DataList } from '../../../../../core';
 const meta: Meta<typeof VoteProposalDataListItem.Skeleton> = {
     title: 'Modules/Components/Vote/VoteProposalDataListItem/VoteProposalDataListItem.Skeleton',
     component: VoteProposalDataListItem.Skeleton,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

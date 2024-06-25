@@ -16,7 +16,6 @@ describe('<VoteProposalDataListItemStructure /> component', () => {
             id: 'PIP-06',
             title: 'Introduction of Layer 2 Scaling Solutions',
             voteIndicator: 'yes',
-            date: '2 days ago',
             ...props,
         };
 
@@ -28,10 +27,6 @@ describe('<VoteProposalDataListItemStructure /> component', () => {
             </DataList.Root>
         );
     };
-
-    afterEach(() => {
-        jest.clearAllMocks();
-    });
 
     it('renders the vote and the proposal information', () => {
         const id = 'PIP-06';
