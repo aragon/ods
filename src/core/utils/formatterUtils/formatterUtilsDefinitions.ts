@@ -124,7 +124,7 @@ export interface IDateFormat extends DateTimeFormatOptions {
      */
     useRelativeDay?: boolean;
     /**
-     * Returns the date diff using the biggest unit greater than 1 (1 day, 7 hours, 22 seconds) when set to true /
+     * Returns the absolute date diff using the biggest unit greater than 1 (1 day, 7 hours, 22 seconds) when set to true.
      */
     isDuration?: boolean;
 }

@@ -1,4 +1,4 @@
-import { DateTime, type DurationUnit } from 'luxon';
+import { DateTime, Duration, type DurationUnit } from 'luxon';
 import {
     DateFormat,
     NumberFormat,
@@ -140,10 +140,11 @@ class FormatterUtils {
         }
 
         if (isDuration) {
-            const fullDateDiff = dateObject.diffNow(this.relativeDateOrder);
-            const dateUnit = this.relativeDateOrder.find((unit) => Math.abs(fullDateDiff.get(unit)) > 0);
+            const dateDiff = dateObject.diffNow(this.relativeDateOrder);
+            const nonZeroUnit = this.relativeDateOrder.find((unit) => Math.abs(dateDiff.get(unit)) > 0) ?? 'seconds';
+            const roundedDiffUnit = Duration.fromObject({ [nonZeroUnit]: Math.floor(dateDiff.get(nonZeroUnit)) });
 
-            return dateObject.diffNow(dateUnit).toHuman();
+            return roundedDiffUnit.valueOf() < 0 ? roundedDiffUnit.negate().toHuman() : roundedDiffUnit.toHuman();
         }
 
         return dateObject.toLocaleString({ ...dateFormat, hourCycle: 'h23' }, { locale: this.dateLocale });

@@ -247,8 +247,19 @@ describe('formatter utils', () => {
 
         describe('DURATION format', () => {
             test.each([
-                { value: '2000-02-10T11:11:48', result: '7 second', now: '2000-02-10T11:11:55' },
-                // { value: '2000-02-10T11:11:48', result: '1 second', now: '2000-02-10T11:11:48' },
+                { value: '2000-02-10T11:11:48', result: '7 seconds', now: '2000-02-10T11:11:55' },
+                { value: '2000-02-10T11:11:48', result: '0 seconds', now: '2000-02-10T11:11:48' },
+                { value: '2000-02-10T11:11:45', result: '1 second', now: '2000-02-10T11:11:44' },
+                { value: '2000-02-10T11:12:59', result: '1 minute', now: '2000-02-10T11:11:10' },
+                { value: '2000-02-10T12:10:55', result: '59 minutes', now: '2000-02-10T11:11:55' },
+                { value: '2000-02-10T12:11:56', result: '1 hour', now: '2000-02-10T11:11:55' },
+                { value: '2000-02-11T09:11:56', result: '22 hours', now: '2000-02-10T11:11:55' },
+                { value: '2000-02-11T23:55:01', result: '1 day', now: '2000-02-10T11:11:55' },
+                { value: '2001-04-02T11:41:11', result: '30 days', now: '2001-03-03T11:41:11' },
+                { value: '2001-04-05T20:26:00', result: '1 month', now: '2001-03-03T11:41:11' },
+                { value: '2002-03-03T22:12:08', result: '11 months', now: '2001-03-03T22:12:09' },
+                { value: '2002-03-03T22:12:09', result: '1 year', now: '2001-03-03T22:12:09' },
+                { value: '2024-06-25T22:12:09', result: '31 years', now: '1993-06-19T08:10:10' },
             ])('formats $value as $result using DURATION format (now: $now)', ({ value, result, now }) => {
                 setTime(now);
                 expect(formatterUtils.formatDate(value, { format: DateFormat.DURATION })).toEqual(result);
@@ -256,7 +267,23 @@ describe('formatter utils', () => {
         });
 
         describe('RELATIVE format', () => {
-            // TODO
+            test.each([
+                { value: '2020-02-09T20:17:41', result: '18 hours ago', now: '2020-02-10T14:39:51' },
+                { value: '2020-02-10T13:25:42', result: '1 hour ago', now: '2020-02-10T14:39:51' },
+                { value: '2020-02-10T13:58:44', result: '41 minutes ago', now: '2020-02-10T14:39:51' },
+                { value: '2020-02-10T14:39:49', result: '2 seconds ago', now: '2020-02-10T14:39:51' },
+                { value: '2020-02-10T14:39:51', result: 'in 0 seconds', now: '2020-02-10T14:39:51' },
+                { value: '2004-10-25T20:21:33', result: 'in 10 seconds', now: '2004-10-25T20:21:23' },
+                { value: '2004-10-26T20:21:22', result: 'in 23 hours', now: '2004-10-25T20:21:23' },
+                { value: '2004-10-26T20:21:23', result: 'in 1 day', now: '2004-10-25T20:21:23' },
+                { value: '2004-11-24T20:21:23', result: 'in 30 days', now: '2004-10-25T20:21:23' },
+                { value: '2004-11-29T12:12:41', result: 'in 1 month', now: '2004-10-25T20:21:23' },
+                { value: '2011-10-10T11:01:00', result: 'in 1 year', now: '2010-04-10T11:01:00' },
+                { value: '2019-11-20T11:01:00', result: 'in 9 years', now: '2010-04-10T11:01:00' },
+            ])('formats $value as $result using RELATIVE format (now: $now)', ({ value, result, now }) => {
+                setTime(now);
+                expect(formatterUtils.formatDate(value, { format: DateFormat.RELATIVE })).toEqual(result);
+            });
         });
     });
 });
