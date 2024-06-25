@@ -209,16 +209,30 @@ describe('formatter utils', () => {
         });
     });
 
-    describe.only('date formatting', () => {
+    describe('date formatting', () => {
         const setTime = (now?: string) => {
             Settings.now = () => (now != null ? new Date(now) : new Date()).valueOf();
         };
 
-        describe('YEAR_MONTH_DAY_TIME format', () => {
+        describe('date parsing', () => {
             // TODO
         });
 
-        describe.only('YEAR_MONTH_DAY format', () => {
+        describe('YEAR_MONTH_DAY_TIME format', () => {
+            test.each([
+                { value: '2009-01-02T10:10:41', result: 'January 2, 2009 at 10:10' },
+                { value: '2024-10-23T15:33:12', result: 'October 23, 2024 at 15:33' },
+                { value: '2024-10-23T15:10:00', result: 'today at 15:10', now: '2024-10-23T15:33:12' },
+                { value: '2024-10-22T00:10:12', result: 'yesterday at 00:10', now: '2024-10-23T15:33:12' },
+                { value: '2024-10-24T23:59:59', result: 'tomorrow at 23:59', now: '2024-10-23T15:33:12' },
+                { value: '2024-10-25T00:00:00', result: 'October 25, 2024 at 00:00', now: '2024-10-23T15:33:12' },
+            ])('formats $value as $result using YEAR_MONTH_DAY_TIME format (now: $now)', ({ now, value, result }) => {
+                setTime(now);
+                expect(formatterUtils.formatDate(value, { format: DateFormat.YEAR_MONTH_DAY_TIME })).toEqual(result);
+            });
+        });
+
+        describe('YEAR_MONTH_DAY format', () => {
             test.each([
                 { value: '2023-06-17T13:21:24', result: 'June 17, 2023' },
                 { value: '2018-01-01T10:11:12', result: 'January 1, 2018' },

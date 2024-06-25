@@ -115,7 +115,7 @@ class FormatterUtils {
 
     formatDate = (value: DateTime | number | string | undefined, options: IFormatDateOptions = {}) => {
         const { format = DateFormat.YEAR_MONTH_DAY_TIME } = options;
-        const { useRelativeCalendar, useRelativeDay, isDuration, ...dateFormat } = dateFormats[format];
+        const { useRelativeCalendar, useRelativeDate, isDuration, ...dateFormat } = dateFormats[format];
 
         if (value == null) {
             return null;
@@ -131,11 +131,19 @@ class FormatterUtils {
         const shouldUseRelativeCalendar = useRelativeCalendar && this.isYesterdayTodayTomorrow(dateObject);
 
         if (shouldUseRelativeCalendar) {
-            // TODO: add time for YEAR_MONTH_DAY_TIME format
-            return dateObject.toRelativeCalendar({ locale: this.dateLocale });
+            const relativeCalendarDate = dateObject.toRelativeCalendar({ locale: this.dateLocale });
+            const dateTime = dateObject.toLocaleString(
+                { ...DateTime.TIME_SIMPLE, hourCycle: 'h23' },
+                { locale: this.dateLocale },
+            );
+            const dateLiteral = this.getDateLiteral();
+
+            return useRelativeCalendar === 'with-time'
+                ? `${relativeCalendarDate}${dateLiteral}${dateTime}`
+                : relativeCalendarDate;
         }
 
-        if (useRelativeDay) {
+        if (useRelativeDate) {
             return dateObject.toRelative({ locale: this.dateLocale });
         }
 
@@ -158,6 +166,15 @@ class FormatterUtils {
         const datesToCheck = [today.minus({ day: 1 }), today, today.plus({ day: 1 })];
 
         return datesToCheck.some((date) => date.hasSame(value, 'day'));
+    };
+
+    private getDateLiteral = () => {
+        const dateTimeFormat = new Intl.DateTimeFormat(this.dateLocale, DateTime.DATETIME_FULL);
+        const dateTimeParts = dateTimeFormat.formatToParts();
+        const hourPartIndex = dateTimeParts.findIndex((part) => part.type === 'hour');
+        const timeLiteral = dateTimeParts[hourPartIndex - 1];
+
+        return timeLiteral?.value ?? ', ';
     };
 
     private getDynamicOption = <TValue = number, TOptionValue extends string | number | boolean = number>(

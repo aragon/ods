@@ -116,13 +116,15 @@ export enum DateFormat {
 
 export interface IDateFormat extends DateTimeFormatOptions {
     /**
-     * Formats the date as relative calendar (yesterday, today, tomorrow, ..) when set to true.
+     * Formats the date as relative calendar (yesterday, today, tomorrow, ..) when set to true. The date is formatted
+     * to a relative date only when the specified date is either yesterday, today or tomorrow. When the option is set
+     * to "with-time", the time is also added to the relative date.
      */
-    useRelativeCalendar?: boolean;
+    useRelativeCalendar?: 'default' | 'with-time';
     /**
-     * Formats the date as relative (1 day ago, in 2 days, ..) when set to true.
+     * Formats the date as relative (1 day ago, in 2 days, 2 hours ago, ..) when set to true.
      */
-    useRelativeDay?: boolean;
+    useRelativeDate?: boolean;
     /**
      * Returns the absolute date diff using the biggest unit greater than 1 (1 day, 7 hours, 22 seconds) when set to true.
      */
@@ -132,11 +134,12 @@ export interface IDateFormat extends DateTimeFormatOptions {
 export const dateFormats: Record<DateFormat, IDateFormat> = {
     [DateFormat.YEAR_MONTH_DAY_TIME]: {
         ...DateTime.DATETIME_FULL,
-        useRelativeCalendar: true,
+        timeZoneName: undefined,
+        useRelativeCalendar: 'with-time',
     },
     [DateFormat.YEAR_MONTH_DAY]: {
         ...DateTime.DATE_FULL,
-        useRelativeCalendar: true,
+        useRelativeCalendar: 'default',
     },
     [DateFormat.YEAR_MONTH]: {
         year: 'numeric',
@@ -146,6 +149,6 @@ export const dateFormats: Record<DateFormat, IDateFormat> = {
         isDuration: true,
     },
     [DateFormat.RELATIVE]: {
-        useRelativeDay: true,
+        useRelativeDate: true,
     },
 };
