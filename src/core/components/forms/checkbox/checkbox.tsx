@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { forwardRef, useId, type ComponentProps } from 'react';
 import { Icon, IconType } from '../../icon';
 
-export type CheckboxState = RadixCheckbox.CheckedState;
+export type CheckboxState = boolean | 'indeterminate';
 
 export interface ICheckboxProps extends ComponentProps<'button'> {
     /**
