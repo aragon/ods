@@ -1,31 +1,12 @@
 import { renderHook } from '@testing-library/react';
-import { useChains } from 'wagmi';
+import * as wagmi from 'wagmi';
+import { mainnet, polygon } from 'wagmi/chains';
 import { useBlockExplorer } from './useBlockExplorer';
 
-jest.mock('wagmi', () => ({
-    useChains: jest.fn(),
-}));
-
 describe('useBlockExplorer', () => {
-    const mockChains = [
-        {
-            id: 1,
-            name: 'Ethereum',
-            blockExplorers: { default: { url: 'https://etherscan.io' } },
-        },
-        {
-            id: 137,
-            name: 'Polygon',
-            blockExplorers: { default: { url: 'https://polygonscan.com' } },
-        },
-    ];
-
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
-
     it('generates correct URL for different entity types and chain IDs', () => {
-        (useChains as jest.Mock).mockReturnValue(mockChains);
+        jest.spyOn(wagmi, 'useChains').mockReturnValue([mainnet, polygon]);
+
         const { result } = renderHook(() => useBlockExplorer());
         expect(result.current.getChainEntityUrl({ type: 'address', chainId: 1, id: '0x123' })).toEqual(
             'https://etherscan.io/address/0x123',
@@ -36,7 +17,9 @@ describe('useBlockExplorer', () => {
     });
 
     it('throws an error when block explorer URL is missing', () => {
-        (useChains as jest.Mock).mockReturnValue([{ id: 1, name: 'Ethereum' }]);
+        const { blockExplorers, ...chainWithoutBlockExplorer } = mainnet;
+        jest.spyOn(wagmi, 'useChains').mockReturnValue([chainWithoutBlockExplorer]);
+
         const { result } = renderHook(() => useBlockExplorer());
         expect(() => result.current.getChainEntityUrl({ type: 'address', chainId: 1, id: '0x123' })).toThrow(
             'useBlockExplorer: Block explorer URL not found for chain with id 1',
