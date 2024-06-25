@@ -24,12 +24,9 @@ export const useBlockExplorer = () => {
     const getChainEntityUrl = useCallback(
         ({ type, chainId, id }: IChainEntity) => {
             const chain = chainId ? chains.find((chain) => chain.id === chainId) : chains[0];
-            if (!chain) {
-                throw new Error(`useBlockExplorer: Chain with id ${chainId} not found`);
-            }
-            const baseUrl = chain.blockExplorers?.default?.url;
+            const baseUrl = chain?.blockExplorers?.default?.url;
             if (!baseUrl) {
-                throw new Error(`useBlockExplorer: Block explorer URL not found for network: ${chain.name}`);
+                throw new Error(`useBlockExplorer: Block explorer URL not found for chain with id ${chainId}`);
             }
 
             return `${baseUrl}/${type}/${id}`;

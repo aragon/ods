@@ -35,19 +35,11 @@ describe('useBlockExplorer', () => {
         );
     });
 
-    it('throws an error when chain ID is not found', () => {
-        (useChains as jest.Mock).mockReturnValue([]);
-        const { result } = renderHook(() => useBlockExplorer());
-        expect(() => result.current.getChainEntityUrl({ type: 'address', chainId: 999, id: '0x123' })).toThrow(
-            'useBlockExplorer: Chain with id 999 not found',
-        );
-    });
-
     it('throws an error when block explorer URL is missing', () => {
         (useChains as jest.Mock).mockReturnValue([{ id: 1, name: 'Ethereum' }]);
         const { result } = renderHook(() => useBlockExplorer());
         expect(() => result.current.getChainEntityUrl({ type: 'address', chainId: 1, id: '0x123' })).toThrow(
-            'useBlockExplorer: Block explorer URL not found for network: Ethereum',
+            'useBlockExplorer: Block explorer URL not found for chain with id 1',
         );
     });
 });
