@@ -44,10 +44,20 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
 }
 
 export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
-    const { sender, recipient, assetName, assetIconSrc, assetAmount, assetSymbol, assetFiatPrice, chainId, hash } =
-        props;
+    const {
+        sender,
+        recipient,
+        assetName,
+        assetIconSrc,
+        assetAmount,
+        assetSymbol,
+        assetFiatPrice,
+        chainId,
+        hash,
+        wagmiConfig,
+    } = props;
 
-    const { getChainEntityUrl } = useBlockExplorer();
+    const { getChainEntityUrl } = useBlockExplorer(wagmiConfig);
 
     const formattedTokenValue = formatterUtils.formatNumber(assetAmount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,

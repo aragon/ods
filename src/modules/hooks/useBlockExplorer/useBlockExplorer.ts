@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useChains } from 'wagmi';
+import { useChains, type Config } from 'wagmi';
 
 type ChainEntityType = 'address' | 'tx' | 'token';
 
@@ -18,8 +18,9 @@ interface IChainEntity {
     id: string;
 }
 
-export const useBlockExplorer = () => {
-    const chains = useChains();
+export const useBlockExplorer = (wagmiConfig?: Pick<Config, 'chains'>) => {
+    const globalChains = useChains();
+    const chains = wagmiConfig?.chains ?? globalChains;
 
     const getChainEntityUrl = useCallback(
         ({ type, chainId, id }: IChainEntity) => {
