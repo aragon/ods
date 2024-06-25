@@ -209,12 +209,12 @@ describe('formatter utils', () => {
         });
     });
 
-    describe.only('date formatting', () => {
+    describe('date formatting', () => {
         const setTime = (now?: string) => {
             Settings.now = () => (now != null ? new Date(now) : new Date()).valueOf();
         };
 
-        describe.only('date parsing', () => {
+        describe('date parsing', () => {
             it('supports dates in DateTime format', () => {
                 const date = DateTime.fromISO('2016-05-25T09:08:34.123');
                 expect(formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME })).toEqual(
@@ -230,10 +230,14 @@ describe('formatter utils', () => {
             });
 
             it('supports dates in milliseconds format', () => {
-                const date = 1719315072012;
+                const date = 1613984914000;
                 expect(formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME })).toEqual(
-                    'July 20, 2020 at 02:04',
+                    'February 22, 2021 at 09:08',
                 );
+            });
+
+            it('returns null when date is not defined', () => {
+                expect(formatterUtils.formatDate(undefined, { format: DateFormat.YEAR_MONTH_DAY_TIME })).toBeNull();
             });
         });
 

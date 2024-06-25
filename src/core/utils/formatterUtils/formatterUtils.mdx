@@ -20,7 +20,7 @@ export const FormatExampleTable = ({ values, formats, isDate }) => (
                 <tr key={value}>
                     <td>{value}</td>
                     {formats.map((format) => (
-                        <td key={format}>
+                        <td key={format} className="first-letter:capitalize">
                             {isDate
                                 ? formatterUtils.formatDate(value, { format })
                                 : formatterUtils.formatNumber(value, { format })}
@@ -144,7 +144,7 @@ today or tomorrow.
 <FormatExampleTable
     values={[
         '2009-01-02T10:10:41.049Z',
-        '2024-10-23T15:33:12.049Z',
+        '2023-10-23T15:33:12.049Z',
         DateTime.utc().plus({ hours: 3 }).toISO(),
         DateTime.utc().minus({ hours: 23 }).toISO(),
         DateTime.utc().plus({ hours: 24 }).toISO(),
@@ -163,11 +163,69 @@ format when the date is yesterday, today or tomorrow.
 <FormatExampleTable
     values={[
         '2009-01-02T10:10:41.049Z',
-        '2024-10-23T15:33:12.049Z',
+        '2023-10-23T15:33:12.049Z',
         DateTime.utc().plus({ hours: 3 }).toISO(),
         DateTime.utc().minus({ hours: 23 }).toISO(),
         DateTime.utc().plus({ hours: 24 }).toISO(),
     ]}
     formats={[DateFormat.YEAR_MONTH_DAY]}
+    isDate={true}
+/>
+
+### YEAR_MONTH
+
+The `YEAR_MONTH` format only displays the year and month of the specified date and never uses a "friendly" format.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[
+        '2009-01-02T10:10:41.049Z',
+        '2023-10-23T15:33:12.049Z',
+        DateTime.utc().plus({ hours: 3 }).toISO(),
+        DateTime.utc().minus({ hours: 23 }).toISO(),
+        DateTime.utc().plus({ hours: 24 }).toISO(),
+    ]}
+    formats={[DateFormat.YEAR_MONTH]}
+    isDate={true}
+/>
+
+### DURATION
+
+The `DURATION` format returns the date difference between the specified date and now. It uses the largest date unit that
+is greater than 1.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[
+        '2009-01-02T10:10:41.049Z',
+        '2023-10-23T15:33:12.049Z',
+        DateTime.utc().minus({ hours: 23 }).toISO(),
+        DateTime.utc().minus({ seconds: 1 }).toISO(),
+        DateTime.utc().plus({ hours: 25 }).toISO(),
+        DateTime.utc().plus({ months: 4 }).toISO(),
+    ]}
+    formats={[DateFormat.DURATION]}
+    isDate={true}
+/>
+
+### RELATIVE
+
+Similiarly to the `DURATION` format, the `RELATIVE` format returns the date difference between the specified date and
+now and displays if the date is in the past or in the future.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[
+        '2009-01-02T10:10:41.049Z',
+        '2023-10-23T15:33:12.049Z',
+        DateTime.utc().minus({ hours: 23 }).toISO(),
+        DateTime.utc().minus({ seconds: 1 }).toISO(),
+        DateTime.utc().plus({ hours: 25 }).toISO(),
+        DateTime.utc().plus({ months: 4 }).toISO(),
+    ]}
+    formats={[DateFormat.RELATIVE]}
     isDate={true}
 />
