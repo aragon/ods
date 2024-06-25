@@ -13,8 +13,8 @@ jest.mock('../../../../../core/components/tag', () => ({
 describe('<VoteProposalDataListItemStructure /> component', () => {
     const createTestComponent = (props?: Partial<IVoteProposalDataListItemStructureProps>) => {
         const completeProps: IVoteProposalDataListItemStructureProps = {
-            id: 'PIP-06',
-            title: 'Introduction of Layer 2 Scaling Solutions',
+            proposalId: 'PIP-06',
+            proposalTitle: 'Introduction of Layer 2 Scaling Solutions',
             voteIndicator: 'yes',
             ...props,
         };
@@ -29,12 +29,12 @@ describe('<VoteProposalDataListItemStructure /> component', () => {
     };
 
     it('renders the vote and the proposal information', () => {
-        const id = 'PIP-06';
+        const proposalId = 'PIP-06';
         const voteIndicator = 'no';
-        render(createTestComponent({ id, voteIndicator }));
+        render(createTestComponent({ proposalId, voteIndicator }));
 
         expect(screen.getByTestId('tag')).toHaveTextContent(voteIndicator);
-        expect(screen.getByText(id)).toBeInTheDocument();
+        expect(screen.getByText(proposalId)).toBeInTheDocument();
     });
 
     it('renders the date if available', () => {

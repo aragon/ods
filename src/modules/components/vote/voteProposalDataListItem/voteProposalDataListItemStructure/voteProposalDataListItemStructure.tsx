@@ -22,7 +22,7 @@ export interface IVoteProposalDataListItemStructureProps extends IDataListItemPr
 }
 
 export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListItemStructureProps> = (props) => {
-    const { title, id, voteIndicator, date, className, ...otherProps } = props;
+    const { proposalTitle, proposalId, voteIndicator, date, className, ...otherProps } = props;
 
     return (
         <DataList.Item
@@ -30,8 +30,8 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
             {...otherProps}
         >
             <div className="flex items-center gap-x-1 text-base font-normal leading-tight md:gap-x-1.5 md:text-lg">
-                <span className="text-ellipsis whitespace-nowrap text-neutral-500">{id}</span>
-                <span className="truncate text-neutral-800">{title}</span>
+                <span className="text-ellipsis whitespace-nowrap text-neutral-500">{proposalId}</span>
+                <span className="truncate text-neutral-800">{proposalTitle}</span>
             </div>
             <div className="flex items-center gap-x-1 text-sm font-normal leading-tight text-neutral-500 md:gap-x-1.5 md:text-base">
                 <span>Voted</span>

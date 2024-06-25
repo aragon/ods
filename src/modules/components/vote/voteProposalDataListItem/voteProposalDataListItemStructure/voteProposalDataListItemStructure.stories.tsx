@@ -5,7 +5,6 @@ import { DataList } from '../../../../../core';
 const meta: Meta<typeof VoteProposalDataListItem.Structure> = {
     title: 'Modules/Components/Vote/VoteProposalDataListItem/VoteProposalDataListItem.Structure',
     component: VoteProposalDataListItem.Structure,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
@@ -21,8 +20,8 @@ type Story = StoryObj<typeof VoteProposalDataListItem.Structure>;
  */
 export const TokenVoting: Story = {
     args: {
-        id: 'PIP-06',
-        title: 'Introduction of Layer 2 Scaling Solutions',
+        proposalId: 'PIP-06',
+        proposalTitle: 'Introduction of Layer 2 Scaling Solutions',
         voteIndicator: 'yes',
         date: '1 minute ago',
     },
@@ -40,8 +39,8 @@ export const TokenVoting: Story = {
  */
 export const Multisig: Story = {
     args: {
-        id: 'PIP-06',
-        title: 'Introduction of Layer 2 Scaling Solutions',
+        proposalId: 'PIP-06',
+        proposalTitle: 'Introduction of Layer 2 Scaling Solutions',
         voteIndicator: 'approve',
         date: '1 minute ago',
     },
