@@ -40,7 +40,7 @@ export const TokenVoting: Story = {
 export const Multisig: Story = {
     args: {
         voter: { address: '0x1234567890123456789012345678901234567890', name: 'vitalik.eth' },
-        voteIndicator: 'approved',
+        voteIndicator: 'approve',
     },
     render: (args) => (
         <DataList.Root entityLabel="Votes">
