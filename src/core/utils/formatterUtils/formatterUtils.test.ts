@@ -1,4 +1,4 @@
-import { Settings } from 'luxon';
+import { DateTime, Settings } from 'luxon';
 import { formatterUtils } from './formatterUtils';
 import { DateFormat, NumberFormat } from './formatterUtilsDefinitions';
 
@@ -209,13 +209,32 @@ describe('formatter utils', () => {
         });
     });
 
-    describe('date formatting', () => {
+    describe.only('date formatting', () => {
         const setTime = (now?: string) => {
             Settings.now = () => (now != null ? new Date(now) : new Date()).valueOf();
         };
 
-        describe('date parsing', () => {
-            // TODO
+        describe.only('date parsing', () => {
+            it('supports dates in DateTime format', () => {
+                const date = DateTime.fromISO('2016-05-25T09:08:34.123');
+                expect(formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME })).toEqual(
+                    'May 25, 2016 at 09:08',
+                );
+            });
+
+            it('supports dates in ISO format', () => {
+                const date = '2020-07-20T02:04:33';
+                expect(formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME })).toEqual(
+                    'July 20, 2020 at 02:04',
+                );
+            });
+
+            it('supports dates in milliseconds format', () => {
+                const date = 1719315072012;
+                expect(formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME })).toEqual(
+                    'July 20, 2020 at 02:04',
+                );
+            });
         });
 
         describe('YEAR_MONTH_DAY_TIME format', () => {

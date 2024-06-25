@@ -125,7 +125,7 @@ class FormatterUtils {
             typeof value === 'string'
                 ? DateTime.fromISO(value)
                 : typeof value === 'number'
-                  ? DateTime.fromMillis(this.isMillisTimestamp(value) ? value : value * 1000)
+                  ? DateTime.fromMillis(value)
                   : value;
 
         const shouldUseRelativeCalendar = useRelativeCalendar && this.isYesterdayTodayTomorrow(dateObject);
@@ -157,9 +157,6 @@ class FormatterUtils {
 
         return dateObject.toLocaleString({ ...dateFormat, hourCycle: 'h23' }, { locale: this.dateLocale });
     };
-
-    private isMillisTimestamp = (value?: number | string): boolean =>
-        typeof value === 'number' && value.toString().length > 32;
 
     private isYesterdayTodayTomorrow = (value: DateTime): boolean => {
         const today = DateTime.local().startOf('day');
