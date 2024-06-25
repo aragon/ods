@@ -44,18 +44,18 @@ __metadata:
     "@babel/preset-env": "npm:^7.24.7"
     "@babel/preset-react": "npm:^7.24.7"
     "@babel/preset-typescript": "npm:^7.24.7"
-    "@radix-ui/react-accordion": "npm:^1.1.0"
-    "@radix-ui/react-alert-dialog": "npm:^1.0.0"
-    "@radix-ui/react-avatar": "npm:^1.0.0"
-    "@radix-ui/react-checkbox": "npm:^1.0.0"
-    "@radix-ui/react-dialog": "npm:^1.0.0"
-    "@radix-ui/react-dropdown-menu": "npm:^2.0.0"
-    "@radix-ui/react-progress": "npm:^1.0.0"
-    "@radix-ui/react-radio-group": "npm:^1.1.0"
-    "@radix-ui/react-switch": "npm:^1.0.0"
-    "@radix-ui/react-tabs": "npm:^1.0.0"
-    "@radix-ui/react-toggle-group": "npm:^1.0.0"
-    "@radix-ui/react-tooltip": "npm:^1.0.0"
+    "@radix-ui/react-accordion": "npm:^1.2.0"
+    "@radix-ui/react-alert-dialog": "npm:^1.1.0"
+    "@radix-ui/react-avatar": "npm:^1.1.0"
+    "@radix-ui/react-checkbox": "npm:^1.1.0"
+    "@radix-ui/react-dialog": "npm:^1.1.0"
+    "@radix-ui/react-dropdown-menu": "npm:^2.1.0"
+    "@radix-ui/react-progress": "npm:^1.1.0"
+    "@radix-ui/react-radio-group": "npm:^1.2.0"
+    "@radix-ui/react-switch": "npm:^1.1.0"
+    "@radix-ui/react-tabs": "npm:^1.1.0"
+    "@radix-ui/react-toggle-group": "npm:^1.1.0"
+    "@radix-ui/react-tooltip": "npm:^1.1.0"
     "@rollup/plugin-commonjs": "npm:^26.0.1"
     "@rollup/plugin-image": "npm:^3.0.3"
     "@rollup/plugin-node-resolve": "npm:^15.2.3"
@@ -74,7 +74,7 @@ __metadata:
     "@svgr/webpack": "npm:^8.1.0"
     "@tailwindcss/typography": "npm:^0.5.12"
     "@tanstack/react-query": "npm:^5.45.1"
-    "@testing-library/dom": "npm:^10.1.0"
+    "@testing-library/dom": "npm:^10.2.0"
     "@testing-library/jest-dom": "npm:^6.4.6"
     "@testing-library/react": "npm:^16.0.0"
     "@testing-library/user-event": "npm:^14.5.2"
@@ -96,11 +96,11 @@ __metadata:
     cross-env: "npm:^7.0.3"
     eslint: "npm:^8.57.0"
     eslint-plugin-import: "npm:^2.29.1"
-    eslint-plugin-jsx-a11y: "npm:^6.8.0"
-    eslint-plugin-react: "npm:^7.34.2"
+    eslint-plugin-jsx-a11y: "npm:^6.9.0"
+    eslint-plugin-react: "npm:^7.34.3"
     eslint-plugin-react-hooks: "npm:^4.6.2"
     eslint-plugin-storybook: "npm:^0.8.0"
-    eslint-plugin-tailwindcss: "npm:^3.17.3"
+    eslint-plugin-tailwindcss: "npm:^3.17.4"
     eslint-plugin-testing-library: "npm:^6.2.2"
     framer-motion: "npm:^11.2.0"
     husky: "npm:^9.0.11"
@@ -125,16 +125,16 @@ __metadata:
     tailwindcss: "npm:^3.4.4"
     tiptap-markdown: "npm:^0.8.10"
     ts-jest: "npm:^29.1.5"
-    typescript: "npm:^5.4.5"
-    viem: "npm:^2.14.2"
-    wagmi: "npm:^2.10.2"
+    typescript: "npm:^5.5.2"
+    viem: "npm:^2.16.2"
+    wagmi: "npm:^2.10.5"
   peerDependencies:
     "@tailwindcss/typography": ^0.5.0
     "@tanstack/react-query": ^5.45.0
     react: ^18.2.0
     react-dom: ^18.2.0
     tailwindcss: ^3.4.0
-    viem: ^2.14.0
+    viem: ^2.16.0
     wagmi: ^2.10.0
   languageName: unknown
   linkType: soft
@@ -1624,7 +1624,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.19.4, @babel/runtime@npm:^7.20.6, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.19.4, @babel/runtime@npm:^7.20.6, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.9.2":
   version: 7.24.5
   resolution: "@babel/runtime@npm:7.24.5"
   dependencies:
@@ -2508,9 +2508,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/sdk-communication-layer@npm:0.26.0":
-  version: 0.26.0
-  resolution: "@metamask/sdk-communication-layer@npm:0.26.0"
+"@metamask/sdk-communication-layer@npm:0.26.2":
+  version: 0.26.2
+  resolution: "@metamask/sdk-communication-layer@npm:0.26.2"
   dependencies:
     bufferutil: "npm:^4.0.8"
     date-fns: "npm:^2.29.3"
@@ -2523,7 +2523,7 @@ __metadata:
     eventemitter2: ^6.4.7
     readable-stream: ^3.6.2
     socket.io-client: ^4.5.1
-  checksum: 10c0/5589d3d6aad185ef6b74f2b44cd05b7046236fb49c20ca765e876ae32a269672e45a12fb939044a02280f070bf50d938dcb01b22319b72c779ebdd266f196870
+  checksum: 10c0/32ac9d3febb2cb250d7a6cb4714077335f651fceb0562a85e9723475622b5caa5d9f0d39f8983349258f62c34e46eec14f366c0d56baf3b4cfbaa4d1c157c387
   languageName: node
   linkType: hard
 
@@ -2549,13 +2549,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/sdk@npm:0.26.0":
-  version: 0.26.0
-  resolution: "@metamask/sdk@npm:0.26.0"
+"@metamask/sdk@npm:0.26.2":
+  version: 0.26.2
+  resolution: "@metamask/sdk@npm:0.26.2"
   dependencies:
     "@metamask/onboarding": "npm:^1.0.1"
     "@metamask/providers": "npm:^15.0.0"
-    "@metamask/sdk-communication-layer": "npm:0.26.0"
+    "@metamask/sdk-communication-layer": "npm:0.26.2"
     "@metamask/sdk-install-modal-web": "npm:0.26.0"
     "@types/dom-screen-wake-lock": "npm:^1.0.0"
     bowser: "npm:^2.9.0"
@@ -2583,7 +2583,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10c0/b2aa7bcdcd591960858d6eff27ea502b98750d5626572be51a53cb038d78b8ad3110334b1525db4b61a04c7b02f16debe1844e630ac0aa0f56b0bba3c26543ea
+  checksum: 10c0/111918dd70ab44fa9cd3d62bb07d8226d51520d5fcc38cda264d427941d5bb7986db9c1fcf3ed891f674d802bf3d712840147887635baf51ea7d9c6fb19971c4
   languageName: node
   linkType: hard
 
@@ -2967,7 +2967,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-accordion@npm:^1.1.0":
+"@radix-ui/react-accordion@npm:^1.2.0":
   version: 1.2.0
   resolution: "@radix-ui/react-accordion@npm:1.2.0"
   dependencies:
@@ -2994,7 +2994,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-alert-dialog@npm:^1.0.0":
+"@radix-ui/react-alert-dialog@npm:^1.1.0":
   version: 1.1.1
   resolution: "@radix-ui/react-alert-dialog@npm:1.1.1"
   dependencies:
@@ -3037,7 +3037,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-avatar@npm:^1.0.0":
+"@radix-ui/react-avatar@npm:^1.1.0":
   version: 1.1.0
   resolution: "@radix-ui/react-avatar@npm:1.1.0"
   dependencies:
@@ -3059,7 +3059,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-checkbox@npm:^1.0.0":
+"@radix-ui/react-checkbox@npm:^1.1.0":
   version: 1.1.0
   resolution: "@radix-ui/react-checkbox@npm:1.1.0"
   dependencies:
@@ -3133,21 +3133,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-compose-refs@npm:1.0.1":
-  version: 1.0.1
-  resolution: "@radix-ui/react-compose-refs@npm:1.0.1"
-  dependencies:
-    "@babel/runtime": "npm:^7.13.10"
-  peerDependencies:
-    "@types/react": "*"
-    react: ^16.8 || ^17.0 || ^18.0
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-  checksum: 10c0/be06f8dab35b5a1bffa7a5982fb26218ddade1acb751288333e3b89d7b4a7dfb5a6371be83876dac0ec2ebe0866d295e8618b778608e1965342986ea448040ec
-  languageName: node
-  linkType: hard
-
 "@radix-ui/react-compose-refs@npm:1.1.0":
   version: 1.1.0
   resolution: "@radix-ui/react-compose-refs@npm:1.1.0"
@@ -3174,7 +3159,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-dialog@npm:1.1.1, @radix-ui/react-dialog@npm:^1.0.0, @radix-ui/react-dialog@npm:^1.0.5":
+"@radix-ui/react-dialog@npm:1.1.1, @radix-ui/react-dialog@npm:^1.0.5, @radix-ui/react-dialog@npm:^1.1.0":
   version: 1.1.1
   resolution: "@radix-ui/react-dialog@npm:1.1.1"
   dependencies:
@@ -3242,7 +3227,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-dropdown-menu@npm:^2.0.0":
+"@radix-ui/react-dropdown-menu@npm:^2.1.0":
   version: 2.1.1
   resolution: "@radix-ui/react-dropdown-menu@npm:2.1.1"
   dependencies:
@@ -3439,7 +3424,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-progress@npm:^1.0.0":
+"@radix-ui/react-progress@npm:^1.1.0":
   version: 1.1.0
   resolution: "@radix-ui/react-progress@npm:1.1.0"
   dependencies:
@@ -3459,7 +3444,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-radio-group@npm:^1.1.0":
+"@radix-ui/react-radio-group@npm:^1.2.0":
   version: 1.2.0
   resolution: "@radix-ui/react-radio-group@npm:1.2.0"
   dependencies:
@@ -3514,7 +3499,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-slot@npm:1.1.0":
+"@radix-ui/react-slot@npm:1.1.0, @radix-ui/react-slot@npm:^1.0.2":
   version: 1.1.0
   resolution: "@radix-ui/react-slot@npm:1.1.0"
   dependencies:
@@ -3529,23 +3514,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-slot@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@radix-ui/react-slot@npm:1.0.2"
-  dependencies:
-    "@babel/runtime": "npm:^7.13.10"
-    "@radix-ui/react-compose-refs": "npm:1.0.1"
-  peerDependencies:
-    "@types/react": "*"
-    react: ^16.8 || ^17.0 || ^18.0
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-  checksum: 10c0/3af6ea4891e6fa8091e666802adffe7718b3cd390a10fa9229a5f40f8efded9f3918ea01b046103d93923d41cc32119505ebb6bde76cad07a87b6cf4f2119347
-  languageName: node
-  linkType: hard
-
-"@radix-ui/react-switch@npm:^1.0.0":
+"@radix-ui/react-switch@npm:^1.1.0":
   version: 1.1.0
   resolution: "@radix-ui/react-switch@npm:1.1.0"
   dependencies:
@@ -3570,7 +3539,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-tabs@npm:^1.0.0":
+"@radix-ui/react-tabs@npm:^1.1.0":
   version: 1.1.0
   resolution: "@radix-ui/react-tabs@npm:1.1.0"
   dependencies:
@@ -3596,7 +3565,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-toggle-group@npm:^1.0.0":
+"@radix-ui/react-toggle-group@npm:^1.1.0":
   version: 1.1.0
   resolution: "@radix-ui/react-toggle-group@npm:1.1.0"
   dependencies:
@@ -3642,7 +3611,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-tooltip@npm:^1.0.0":
+"@radix-ui/react-tooltip@npm:^1.1.0":
   version: 1.1.1
   resolution: "@radix-ui/react-tooltip@npm:1.1.1"
   dependencies:
@@ -5381,7 +5350,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/dom@npm:^10.1.0":
+"@testing-library/dom@npm:^10.2.0":
   version: 10.2.0
   resolution: "@testing-library/dom@npm:10.2.0"
   dependencies:
@@ -6493,12 +6462,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wagmi/connectors@npm:5.0.17":
-  version: 5.0.17
-  resolution: "@wagmi/connectors@npm:5.0.17"
+"@wagmi/connectors@npm:5.0.18":
+  version: 5.0.18
+  resolution: "@wagmi/connectors@npm:5.0.18"
   dependencies:
     "@coinbase/wallet-sdk": "npm:4.0.3"
-    "@metamask/sdk": "npm:0.26.0"
+    "@metamask/sdk": "npm:0.26.2"
     "@safe-global/safe-apps-provider": "npm:0.18.1"
     "@safe-global/safe-apps-sdk": "npm:8.1.0"
     "@walletconnect/ethereum-provider": "npm:2.13.0"
@@ -6511,7 +6480,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/23abacd3219a00d6b21a4c58189a78166c18b015fb928b99b1dffb9197b2df14f91422f413070b231e3aca4493e3f01f8ecce84a3d7f0f2f46cea84abafe7ed3
+  checksum: 10c0/6bac8237f4d3ac3054767cdbbb21f2f1d82b39c83f70bba7196a0bfffad98331ff875d5eb8d43ba1b84561b091810ef6b8803fc8576537aa154664094de50016
   languageName: node
   linkType: hard
 
@@ -9886,14 +9855,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-module-lexer@npm:^1.2.1":
-  version: 1.5.2
-  resolution: "es-module-lexer@npm:1.5.2"
-  checksum: 10c0/20b6c668691ee81781a0ae56930560c23aa28fb934fce9137820f12ae3726a25626010cbd8ed1775c217d3bae108e23dd7b805f923133dc633bfbbc2b0020524
-  languageName: node
-  linkType: hard
-
-"es-module-lexer@npm:^1.5.0":
+"es-module-lexer@npm:^1.2.1, es-module-lexer@npm:^1.5.0":
   version: 1.5.3
   resolution: "es-module-lexer@npm:1.5.3"
   checksum: 10c0/0f50b655490d1048432eac6eec94d99d3933119666ae82be578c3db1ea4b2c594118a336f6b7a3c4e2815355dcc9a469d880acef1c45aa656a5aae8c8ae8e5f6
@@ -10141,7 +10103,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsx-a11y@npm:^6.8.0":
+"eslint-plugin-jsx-a11y@npm:^6.9.0":
   version: 6.9.0
   resolution: "eslint-plugin-jsx-a11y@npm:6.9.0"
   dependencies:
@@ -10176,7 +10138,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:^7.34.2":
+"eslint-plugin-react@npm:^7.34.3":
   version: 7.34.3
   resolution: "eslint-plugin-react@npm:7.34.3"
   dependencies:
@@ -10218,7 +10180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-tailwindcss@npm:^3.17.3":
+"eslint-plugin-tailwindcss@npm:^3.17.4":
   version: 3.17.4
   resolution: "eslint-plugin-tailwindcss@npm:3.17.4"
   dependencies:
@@ -13023,21 +12985,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jiti@npm:^1.20.0":
+"jiti@npm:^1.20.0, jiti@npm:^1.21.0":
   version: 1.21.6
   resolution: "jiti@npm:1.21.6"
   bin:
     jiti: bin/jiti.js
   checksum: 10c0/05b9ed58cd30d0c3ccd3c98209339e74f50abd9a17e716f65db46b6a35812103f6bde6e134be7124d01745586bca8cc5dae1d0d952267c3ebe55171949c32e56
-  languageName: node
-  linkType: hard
-
-"jiti@npm:^1.21.0":
-  version: 1.21.0
-  resolution: "jiti@npm:1.21.0"
-  bin:
-    jiti: bin/jiti.js
-  checksum: 10c0/7f361219fe6c7a5e440d5f1dba4ab763a5538d2df8708cdc22561cf25ea3e44b837687931fca7cdd8cdd9f567300e90be989dd1321650045012d8f9ed6aab07f
   languageName: node
   linkType: hard
 
@@ -16557,20 +16510,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recast@npm:^0.23.3":
-  version: 0.23.6
-  resolution: "recast@npm:0.23.6"
-  dependencies:
-    ast-types: "npm:^0.16.1"
-    esprima: "npm:~4.0.0"
-    source-map: "npm:~0.6.1"
-    tiny-invariant: "npm:^1.3.3"
-    tslib: "npm:^2.0.1"
-  checksum: 10c0/589c1a96aea7656a844f56278ffe99e3360717991955e9409221f2c1582a922f8179c803c8d35ca61743facfa0ad895acfe73dcc76076e0717db04c508166d44
-  languageName: node
-  linkType: hard
-
-"recast@npm:^0.23.5":
+"recast@npm:^0.23.3, recast@npm:^0.23.5":
   version: 0.23.9
   resolution: "recast@npm:0.23.9"
   dependencies:
@@ -18562,7 +18502,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.4.5":
+"typescript@npm:^5.5.2":
   version: 5.5.2
   resolution: "typescript@npm:5.5.2"
   bin:
@@ -18572,7 +18512,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.4.5#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5.5.2#optional!builtin<compat/typescript>":
   version: 5.5.2
   resolution: "typescript@patch:typescript@npm%3A5.5.2#optional!builtin<compat/typescript>::version=5.5.2&hash=b45daf"
   bin:
@@ -19095,7 +19035,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:^2.14.2":
+"viem@npm:^2.16.2":
   version: 2.16.2
   resolution: "viem@npm:2.16.2"
   dependencies:
@@ -19132,11 +19072,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:^2.10.2":
-  version: 2.10.5
-  resolution: "wagmi@npm:2.10.5"
+"wagmi@npm:^2.10.5":
+  version: 2.10.6
+  resolution: "wagmi@npm:2.10.6"
   dependencies:
-    "@wagmi/connectors": "npm:5.0.17"
+    "@wagmi/connectors": "npm:5.0.18"
     "@wagmi/core": "npm:2.11.5"
     use-sync-external-store: "npm:1.2.0"
   peerDependencies:
@@ -19147,7 +19087,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/0c250c0b9d98a8603b2a47812b998a6573a1778fc66e8b95e1da777416089884b1979aa8e4b140ad4e709dc332af151a0e373f08c0d06794230ac394dbc0b207
+  checksum: 10c0/862922bbdb164b5161e3a92d39f1930fe2a95dff3ec3f8f4a48ff7dec4f8e9c3a99dd9f65bab19f026e0853c6f4e7f3dcf7a49d42e905b24792737a4138377ac
   languageName: node
   linkType: hard
 
