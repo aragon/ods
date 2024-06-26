@@ -13,7 +13,7 @@ interface IChainEntity {
      */
     chainId?: number;
     /**
-     * The ID of the entity (.e.g. tx hash for a tx)
+     * The ID of the entity (e.g. tx hash for a tx)
      */
     id: string;
 }
