@@ -74,7 +74,7 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
                     {label && (
                         <div className="flex flex-row items-center gap-3">
                             <p className="text-base font-normal leading-tight text-neutral-800 md:text-lg">{label}</p>
-                            {isOptional && <Tag variant="neutral" label={copy.inputOptionalLabel} />}
+                            {isOptional && <Tag variant="neutral" label={copy.inputContainer.optionalLabel} />}
                         </div>
                     )}
                     {helpText && (

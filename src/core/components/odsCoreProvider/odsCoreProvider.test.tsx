@@ -1,6 +1,6 @@
 import { render, renderHook, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import { getCopyForLocale, odsDefaultLocale } from '../../copy';
+import { getCopyForLocale, odsDefaultLocale } from '../../assets/copy';
 import {
     OdsCoreProvider,
     useOdsCoreContext,

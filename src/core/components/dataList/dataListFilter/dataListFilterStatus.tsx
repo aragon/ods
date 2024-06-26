@@ -1,10 +1,13 @@
 import classNames from 'classnames';
+import { useOdsCoreContext } from '../../odsCoreProvider';
 import { useDataListContext } from '../dataListContext';
 
 export interface IDataListFilterStatusProps {}
 
 export const DataListFilterStatus: React.FC<IDataListFilterStatusProps> = () => {
     const { state, itemsCount = 0, entityLabel } = useDataListContext();
+
+    const { copy } = useOdsCoreContext();
 
     const isInitialLoading = state === 'initialLoading';
     const isLoading = state === 'loading';
@@ -30,12 +33,11 @@ export const DataListFilterStatus: React.FC<IDataListFilterStatusProps> = () => 
                     <span>{entityLabel}</span>
                 </>
             )}
-            {/* TODO: apply internationalisation to Loading, Filtering and Found labels [APP-2627] */}
-            {isInitialLoading && `Loading ${entityLabel}`}
-            {isLoading && `Filtering ${entityLabel}`}
+            {isInitialLoading && copy.dataListFilterStatus.loadingEntity(entityLabel)}
+            {isLoading && copy.dataListFilterStatus.filteringEntity(entityLabel)}
             {isFiltered && (
                 <>
-                    <span>Found </span>
+                    <span>{copy.dataListFilterStatus.found} </span>
                     <span className="text-primary-400">{itemsCount} </span>
                     <span>{entityLabel}</span>
                 </>
