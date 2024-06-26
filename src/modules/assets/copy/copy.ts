@@ -28,7 +28,7 @@ export const enCopy: IOdsModulesCopy = {
     },
     proposalDataListItemStructure: {
         by: 'By',
-        creatorsNumber: (count) => `${count}+ ${count > 1 ? 'Creators' : 'Creator'}`,
+        creatorsNumber: (count) => `${count}+ ${count > 1 ? 'creators' : 'creator'}`,
     },
     voteDataListItemStructure: {
         yourDelegate: 'Your delegate',

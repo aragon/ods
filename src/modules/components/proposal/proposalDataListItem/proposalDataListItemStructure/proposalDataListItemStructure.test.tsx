@@ -10,7 +10,10 @@ import {
     type ProposalStatus,
 } from './proposalDataListItemStructure.api';
 
-jest.mock('wagmi', () => ({ useAccount: jest.fn() }));
+jest.mock('wagmi', () => ({
+    ...jest.requireActual('wagmi'),
+    useAccount: jest.fn(),
+}));
 jest.mock('viem/utils', () => ({ isAddress: jest.fn().mockReturnValue(true) }));
 
 describe('<ProposalDataListItemStructure/> component', () => {
