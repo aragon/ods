@@ -13,6 +13,10 @@ export const ApprovalThresholdResult: React.FC<IApprovalThresholdResultProps> = 
 
     const { copy } = useOdsModulesContext();
 
+    const formattedApprovalThreshold = formatterUtils.formatNumber(approvalThreshold, {
+        format: NumberFormat.GENERIC_SHORT,
+    })!;
+
     return (
         <div className="flex w-full flex-col gap-y-2 rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 shadow-neutral-sm md:gap-y-3 md:px-6 md:py-5">
             <div className="flex flex-1 gap-x-3 leading-tight text-neutral-800 md:gap-x-6 md:text-lg">
@@ -29,9 +33,7 @@ export const ApprovalThresholdResult: React.FC<IApprovalThresholdResultProps> = 
                 <span className="text-primary-400">
                     {formatterUtils.formatNumber(approvalAmount, { format: NumberFormat.GENERIC_SHORT })}
                 </span>
-                <span>{copy.approvalThresholdResult.of}</span>
-                <span>{formatterUtils.formatNumber(approvalThreshold, { format: NumberFormat.GENERIC_SHORT })}</span>
-                <span>{copy.approvalThresholdResult.members}</span>
+                <span>{copy.approvalThresholdResult.outOf(formattedApprovalThreshold)}</span>
             </div>
         </div>
     );

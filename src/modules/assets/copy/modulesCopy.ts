@@ -20,8 +20,7 @@ export const modulesCopy = {
     },
     approvalThresholdResult: {
         stage: 'Stage',
-        of: 'of',
-        members: 'Members',
+        outOf: (threshold: string) => `of ${threshold} members`,
     },
     majorityVotingResult: {
         winningOption: 'Winning Option',
