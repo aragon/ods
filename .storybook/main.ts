@@ -40,6 +40,7 @@ const config: StorybookConfig = {
     },
 
     typescript: {
+        // Use react-docgen-typescript to generate args descriptions from component props comments
         reactDocgen: 'react-docgen-typescript',
     },
 
