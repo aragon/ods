@@ -5,12 +5,13 @@ import { OdsCoreProvider } from './odsCoreProvider';
 
 <Title>OdsCoreProvider</Title>
 
-The `<OdsCoreProvider />` is a React context that defines the image and link elements to be rendered across all the ODS
-components, defaulting such values to `<img />` and `<a />` tags. The provider is used by the `<AvatarBase />` and
-`<LinkBase />` components, which are in turn used by all the other core and module components.
+The `<OdsCoreProvider />` is a React context that defines the image, link elements, and copy texts to be rendered across
+all the ODS components, defaulting such values to `<img />`, `<a />` tags, and a default set of copy texts. The provider
+is used by the `<AvatarBase />` and `<LinkBase />` components, which are in turn used by all the other core and module
+components.
 
 The provider becomes particularly useful when an application needs to employ framework-specific images or links, such as
-the `<Image />` and `<Link />` components from Next.js.
+the `<Image />` and `<Link />` components from Next.js, or when specific copy texts need to be customized.
 
 **Usage example**
 
@@ -36,39 +37,4 @@ export const Application = () => {
         </OdsCoreProvider>
     )
 }
-```
-
-## Localization
-
-**Supported locale usage example**
-
-```tsx
-import { OdsCoreProvider } from '@aragon-ods';
-
-const coreProviderValues = { locale: 'es' };
-
-export const Application = () => {
-    return <OdsCoreProvider values={coreProviderValues}>/* Your application */</OdsCoreProvider>;
-};
-```
-
-**Unsupported locale usage example**
-
-```tsx
-import { OdsCoreProvider, IOdsCoreCopy } from '@aragon-ods';
-
-const byCopy: IOdsCoreCopy = {
-    inputOptionalLabel: 'Неабавязкова',
-};
-
-const coreProviderValues = { locale: 'by', copy: byCopy };
-
-export const Application = () => {
-    return <OdsCoreProvider values={coreProviderValues}>/* Your application */</OdsCoreProvider>;
-};
-```
-
-Refer to the component's properties below for more details on the default configuration objects used for each provider.
-
-<ArgTypes of={OdsCoreProvider} />
 ```
