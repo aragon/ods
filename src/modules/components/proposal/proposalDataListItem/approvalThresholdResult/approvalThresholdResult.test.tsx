@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { NumberFormat, formatterUtils } from '../../../../../core';
+import { modulesCopy } from '../../../../assets';
 import { ApprovalThresholdResult, type IApprovalThresholdResultProps } from './approvalThresholdResult';
 
 describe('<ApprovalThresholdResult /> component', () => {
@@ -36,7 +37,7 @@ describe('<ApprovalThresholdResult /> component', () => {
         expect(progressbar.getAttribute('data-value')).toEqual(expectedPercentage.toString());
 
         expect(screen.getByText(expectedApproval)).toBeInTheDocument();
-        expect(screen.getByText(expectedThreshold)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.approvalThresholdResult.outOf(expectedThreshold))).toBeInTheDocument();
     });
 
     it('renders the stage title and stage id when provided', () => {
