@@ -1,6 +1,10 @@
-import { type IOdsCoreCopy } from './IOdsCoreCopy';
+/**
+ * Object representing the structure of copy texts used in various parts of the ODS Core package.
+ * Each property in the object corresponds to a specific component or feature, containing the necessary
+ * text labels or functions that return text strings.
+ */
 
-export const enCopy: IOdsCoreCopy = {
+export const coreCopy = {
     inputContainer: {
         optionalLabel: 'Optional',
     },
@@ -21,3 +25,5 @@ export const enCopy: IOdsCoreCopy = {
         max: 'Max',
     },
 };
+
+export type CoreCopy = typeof coreCopy;

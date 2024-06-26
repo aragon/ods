@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, type ReactNode } from 'react';
-import { enCopy, type IOdsCoreCopy } from '../../assets';
+import { coreCopy, type CoreCopy } from '../../assets';
 
 export interface IOdsCoreContext {
     /**
@@ -15,7 +15,7 @@ export interface IOdsCoreContext {
     /**
      * Copy for the core components.
      */
-    copy: IOdsCoreCopy;
+    copy: CoreCopy;
 }
 
 export interface IOdsCoreProviderProps {
@@ -32,7 +32,7 @@ export interface IOdsCoreProviderProps {
 const odsCoreContextDefaults: IOdsCoreContext = {
     Img: 'img',
     Link: 'a',
-    copy: enCopy,
+    copy: coreCopy,
 };
 
 const odsCoreContext = createContext<IOdsCoreContext>(odsCoreContextDefaults);

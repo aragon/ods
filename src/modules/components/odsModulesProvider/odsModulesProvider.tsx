@@ -4,13 +4,13 @@ import { createClient, http } from 'viem';
 import { WagmiProvider, createConfig, type Config } from 'wagmi';
 import { arbitrum, arbitrumSepolia, base, baseSepolia, mainnet, polygon, polygonAmoy, sepolia } from 'wagmi/chains';
 import { OdsCoreProvider, type IOdsCoreProviderProps } from '../../../core';
-import { enCopy, type IOdsModulesCopy } from '../../assets';
+import { modulesCopy, type ModulesCopy } from '../../assets';
 
 export interface IOdsModulesContext {
     /**
      * Copy for the modules components.
      */
-    copy: IOdsModulesCopy;
+    copy: ModulesCopy;
 }
 
 const defaultWagmiConfig = createConfig({
@@ -56,7 +56,7 @@ export interface IOdsModulesProviderProps {
 }
 
 const odsModulesContextDefaults: IOdsModulesContext = {
-    copy: enCopy,
+    copy: modulesCopy,
 };
 
 const odsModulesContext = createContext<IOdsModulesContext>(odsModulesContextDefaults);

@@ -1,6 +1,6 @@
 import { render, renderHook, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import { enCopy, type IOdsCoreCopy } from '../../assets';
+import { coreCopy, type CoreCopy } from '../../assets';
 import {
     OdsCoreProvider,
     useOdsCoreContext,
@@ -27,10 +27,10 @@ describe('<OdsCoreProvider /> component', () => {
     });
 
     it('correctly sets the context values', () => {
-        const customCopy: IOdsCoreCopy = {
-            ...enCopy,
+        const customCopy: CoreCopy = {
+            ...coreCopy,
             inputContainer: {
-                ...enCopy.inputContainer,
+                ...coreCopy.inputContainer,
                 optionalLabel: 'Not required',
             },
         };

@@ -1,6 +1,10 @@
-import { type IOdsModulesCopy } from './IOdsModulesCopy';
+/**
+ * Object representing the structure of copy texts used in various parts of the ODS Modules package.
+ * Each property in the object corresponds to a specific component or feature, containing the necessary
+ * text labels or functions that return text strings.
+ */
 
-export const enCopy: IOdsModulesCopy = {
+export const modulesCopy = {
     addressInput: {
         clear: 'Clear',
         paste: 'Paste',
@@ -28,7 +32,7 @@ export const enCopy: IOdsModulesCopy = {
     },
     proposalDataListItemStructure: {
         by: 'By',
-        creatorsNumber: (count) => `${count}+ ${count > 1 ? 'creators' : 'creator'}`,
+        creatorsNumber: (count: number) => `${count}+ ${count > 1 ? 'creators' : 'creator'}`,
     },
     voteDataListItemStructure: {
         yourDelegate: 'Your delegate',
@@ -41,3 +45,5 @@ export const enCopy: IOdsModulesCopy = {
         connect: 'Connect',
     },
 };
+
+export type ModulesCopy = typeof modulesCopy;

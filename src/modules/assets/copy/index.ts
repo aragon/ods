@@ -1,2 +1,1 @@
-export * from './copy';
-export * from './IOdsModulesCopy';
+export * from './modulesCopy';
