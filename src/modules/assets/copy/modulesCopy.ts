@@ -32,7 +32,7 @@ export const modulesCopy = {
     },
     proposalDataListItemStructure: {
         by: 'By',
-        creatorsNumber: (count: number) => `${count}+ ${count > 1 ? 'creators' : 'creator'}`,
+        creators: 'creators',
     },
     voteDataListItemStructure: {
         yourDelegate: 'Your delegate',

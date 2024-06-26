@@ -76,7 +76,9 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                 >
                     {copy.proposalDataListItemStructure.by}
                     {showParsedPublisher === false && (
-                        <span>{copy.proposalDataListItemStructure.creatorsNumber(3)}</span>
+                        <span>
+                            {maxPublishersDisplayed}+ {copy.proposalDataListItemStructure.creators}
+                        </span>
                     )}
                     {showParsedPublisher &&
                         parsedPublisher.map(({ label, link }, index) => (
