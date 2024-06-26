@@ -4,7 +4,7 @@ import { DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } 
 import { type ICompositeAddress } from '../../../../types';
 import { addressUtils } from '../../../../utils';
 import { MemberAvatar } from '../../../member';
-import { useOdsModulesContext } from '../../../odsModulesProvider/odsModulesProvider';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export interface IVoteDataListItemStructureProps extends IDataListItemProps {

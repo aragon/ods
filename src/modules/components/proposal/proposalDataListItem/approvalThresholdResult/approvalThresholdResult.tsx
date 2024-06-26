@@ -1,5 +1,5 @@
 import { NumberFormat, Progress, formatterUtils } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider/odsModulesProvider';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { type IApprovalThresholdResult } from '../proposalDataListItemStructure';
 
 export interface IApprovalThresholdResultProps extends IApprovalThresholdResult {}

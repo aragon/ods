@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type React from 'react';
 import { useMemo } from 'react';
 import { Avatar, DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider/odsModulesProvider';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 
 export interface IAssetDataListItemStructureProps extends IDataListItemProps {
     /**

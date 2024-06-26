@@ -19,7 +19,7 @@ import { useBlockExplorer } from '../../../hooks';
 import type { IWeb3ComponentProps } from '../../../types';
 import { addressUtils, ensUtils } from '../../../utils';
 import { MemberAvatar } from '../../member';
-import { useOdsModulesContext } from '../../odsModulesProvider/odsModulesProvider';
+import { useOdsModulesContext } from '../../odsModulesProvider';
 
 export interface IAddressInputResolvedValue {
     /**

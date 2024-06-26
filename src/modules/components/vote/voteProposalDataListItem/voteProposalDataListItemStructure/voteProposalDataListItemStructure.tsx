@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { DataList, Tag, type IDataListItemProps } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider/odsModulesProvider';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export interface IVoteProposalDataListItemStructureProps extends IDataListItemProps {

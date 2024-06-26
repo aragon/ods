@@ -7,7 +7,7 @@ import {
     type StatePingAnimationVariant,
     type TagVariant,
 } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider/odsModulesProvider';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { type IProposalDataListItemStructureProps, type ProposalStatus } from '../proposalDataListItemStructure';
 
 export interface IProposalDataListItemStatusProps

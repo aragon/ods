@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useAccount } from 'wagmi';
 import { DataList, Link, Tag } from '../../../../../core';
 import { addressUtils } from '../../../../utils/addressUtils';
-import { useOdsModulesContext } from '../../../odsModulesProvider/odsModulesProvider';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ApprovalThresholdResult } from '../approvalThresholdResult';
 import { MajorityVotingResult } from '../majorityVotingResult';
 import { ProposalDataListItemStatus } from '../proposalDataListItemStatus';

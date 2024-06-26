@@ -1,5 +1,5 @@
 import { Progress } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider/odsModulesProvider';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { type IMajorityVotingResult } from '../proposalDataListItemStructure';
 
 export interface IMajorityVotingResultProps extends IMajorityVotingResult {}

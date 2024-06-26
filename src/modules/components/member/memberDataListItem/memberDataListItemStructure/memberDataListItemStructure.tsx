@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useAccount } from 'wagmi';
 import { DataList, Heading, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
-import { useOdsModulesContext } from '../../../odsModulesProvider/odsModulesProvider';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { MemberAvatar } from '../../memberAvatar';
 
 export interface IMemberDataListItemProps extends IDataListItemProps {

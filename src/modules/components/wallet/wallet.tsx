@@ -4,7 +4,7 @@ import { StateSkeletonBar } from '../../../core';
 import { type ICompositeAddress } from '../../types';
 import { addressUtils } from '../../utils';
 import { MemberAvatar } from '../member';
-import { useOdsModulesContext } from '../odsModulesProvider/odsModulesProvider';
+import { useOdsModulesContext } from '../odsModulesProvider';
 
 export interface IWalletProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     /**
