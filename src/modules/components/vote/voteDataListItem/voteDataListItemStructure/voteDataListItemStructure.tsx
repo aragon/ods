@@ -4,6 +4,7 @@ import { DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } 
 import { type ICompositeAddress } from '../../../../types';
 import { addressUtils } from '../../../../utils';
 import { MemberAvatar } from '../../../member';
+import { useOdsModulesContext } from '../../../odsModulesProvider/odsModulesProvider';
 import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export interface IVoteDataListItemStructureProps extends IDataListItemProps {
@@ -33,6 +34,8 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
     const { voter, isDelegate, votingPower, tokenSymbol, voteIndicator, className, ...otherProps } = props;
     const { address: currentUserAddress, isConnected } = useAccount();
 
+    const { copy } = useOdsModulesContext();
+
     const isCurrentUser = isConnected && addressUtils.isAddressEqual(currentUserAddress, voter.address);
 
     const resolvedUserHandle =
@@ -56,8 +59,10 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
             <div className={centerInfoClassNames}>
                 <span className="flex items-center gap-x-1 text-neutral-800 md:gap-x-1.5">
                     {resolvedUserHandle}
-                    {isDelegate && !isCurrentUser && <Tag variant="primary" label="Your delegate" />}
-                    {isCurrentUser && <Tag variant="neutral" label="You" />}
+                    {isDelegate && !isCurrentUser && (
+                        <Tag variant="primary" label={copy.voteDataListItemStructure.yourDelegate} />
+                    )}
+                    {isCurrentUser && <Tag variant="neutral" label={copy.voteDataListItemStructure.you} />}
                 </span>
                 {isTokenVoting && <span className="text-neutral-500">{formattedTokenVote}</span>}
             </div>

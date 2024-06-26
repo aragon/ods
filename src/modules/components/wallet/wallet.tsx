@@ -4,6 +4,7 @@ import { StateSkeletonBar } from '../../../core';
 import { type ICompositeAddress } from '../../types';
 import { addressUtils } from '../../utils';
 import { MemberAvatar } from '../member';
+import { useOdsModulesContext } from '../odsModulesProvider/odsModulesProvider';
 
 export interface IWalletProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     /**
@@ -20,6 +21,8 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
     });
     const resolvedUserHandle = user?.name ?? ensName ?? addressUtils.truncateAddress(user?.address);
 
+    const { copy } = useOdsModulesContext();
+
     const buttonClassName = classNames(
         'flex items-center rounded-full border border-neutral-100 bg-neutral-0 text-neutral-500 transition-all',
         'hover:border-neutral-200',
@@ -34,7 +37,7 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
 
     return (
         <button className={buttonClassName} {...otherProps}>
-            {!user && 'Connect'}
+            {!user && copy.wallet.connect}
 
             {user && (
                 <>

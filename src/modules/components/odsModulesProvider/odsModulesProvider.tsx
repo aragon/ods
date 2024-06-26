@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { createContext, useMemo, type ReactNode } from 'react';
+import { createContext, useContext, useMemo, type ReactNode } from 'react';
 import { createClient, http } from 'viem';
 import { WagmiProvider, createConfig, type Config } from 'wagmi';
 import { arbitrum, arbitrumSepolia, base, baseSepolia, mainnet, polygon, polygonAmoy, sepolia } from 'wagmi/chains';
@@ -86,4 +86,10 @@ export const OdsModulesProvider: React.FC<IOdsModulesProviderProps> = (props) =>
             </WagmiProvider>
         </odsModulesContext.Provider>
     );
+};
+
+export const useOdsModulesContext = (): Required<IOdsModulesContext> => {
+    const values = useContext(odsModulesContext);
+
+    return values;
 };

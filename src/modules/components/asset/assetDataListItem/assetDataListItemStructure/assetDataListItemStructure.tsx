@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import type React from 'react';
 import { useMemo } from 'react';
 import { Avatar, DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
+import { useOdsModulesContext } from '../../../odsModulesProvider/odsModulesProvider';
 
 export interface IAssetDataListItemStructureProps extends IDataListItemProps {
     /**
@@ -44,6 +45,8 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
         const oldFiatAmount = (100 / (priceChange + 100)) * fiatAmount;
         return fiatAmount - oldFiatAmount;
     }, [fiatAmount, fiatPrice, priceChange]);
+
+    const { copy } = useOdsModulesContext();
 
     const changedAmountClasses = classNames(
         'text-sm font-normal leading-tight md:text-base',
@@ -100,7 +103,9 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
                                 </div>
                             </>
                         ) : (
-                            <span className="text-sm leading-tight text-neutral-800 md:text-base">Unknown</span>
+                            <span className="text-sm leading-tight text-neutral-800 md:text-base">
+                                {copy.assetDataListItemStructure.unknown}
+                            </span>
                         )}
                     </div>
                 </div>

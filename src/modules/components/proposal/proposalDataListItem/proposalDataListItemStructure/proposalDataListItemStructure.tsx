@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { useAccount } from 'wagmi';
 import { DataList, Link, Tag } from '../../../../../core';
 import { addressUtils } from '../../../../utils/addressUtils';
+import { useOdsModulesContext } from '../../../odsModulesProvider/odsModulesProvider';
 import { ApprovalThresholdResult } from '../approvalThresholdResult';
 import { MajorityVotingResult } from '../majorityVotingResult';
 import { ProposalDataListItemStatus } from '../proposalDataListItemStatus';
@@ -41,6 +42,8 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
 
     const { address: connectedAddress, isConnected } = useAccount({ config });
 
+    const { copy } = useOdsModulesContext();
+
     const ongoing = status === 'active' || status === 'challenged' || status === 'vetoed';
 
     const parsedPublisher = Array.isArray(publisher)
@@ -71,8 +74,10 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                         'min-h-5 gap-x-0.5 text-sm leading-tight text-neutral-600 md:min-h-6 md:gap-x-1 md:text-base',
                     )}
                 >
-                    By
-                    {showParsedPublisher === false && <span>3+ creators</span>}
+                    {copy.proposalDataListItemStructure.by}
+                    {showParsedPublisher === false && (
+                        <span>{copy.proposalDataListItemStructure.creatorsNumber(3)}</span>
+                    )}
                     {showParsedPublisher &&
                         parsedPublisher.map(({ label, link }, index) => (
                             <span key={label} className="truncate">
