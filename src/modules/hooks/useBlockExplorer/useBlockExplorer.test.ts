@@ -3,7 +3,7 @@ import * as wagmi from 'wagmi';
 import { mainnet, polygon } from 'wagmi/chains';
 import { useBlockExplorer } from './useBlockExplorer';
 
-describe('useBlockExplorer', () => {
+describe('useBlockExplorer hook', () => {
     it('generates correct URL for different entity types and chain IDs', () => {
         jest.spyOn(wagmi, 'useChains').mockReturnValue([mainnet, polygon]);
 
