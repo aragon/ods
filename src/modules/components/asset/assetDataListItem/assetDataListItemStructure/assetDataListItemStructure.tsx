@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import type React from 'react';
 import { useMemo } from 'react';
-import { Avatar, DataList, NumberFormat, Tag, useFormatter, type IDataListItemProps } from '../../../../../core';
+import { Avatar, DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 
 export interface IAssetDataListItemStructureProps extends IDataListItemProps {
     /**
@@ -32,7 +32,6 @@ export interface IAssetDataListItemStructureProps extends IDataListItemProps {
 }
 
 export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructureProps> = (props) => {
-    const { formatNumber } = useFormatter();
     const { logoSrc, name, amount, symbol, fiatPrice, priceChange = 0, ...otherProps } = props;
 
     const fiatAmount = Number(amount ?? 0) * Number(fiatPrice ?? 0);
@@ -55,22 +54,22 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
 
     const tagVariant = priceChange > 0 ? 'success' : priceChange < 0 ? 'critical' : 'neutral';
 
-    const formattedAmount = formatNumber(amount, {
+    const formattedAmount = formatterUtils.formatNumber(amount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
         fallback: '',
     });
 
-    const formattedPrice = formatNumber(fiatAmount, {
+    const formattedPrice = formatterUtils.formatNumber(fiatAmount, {
         format: NumberFormat.FIAT_TOTAL_SHORT,
         fallback: '-',
     });
 
-    const formattedPriceChanged = formatNumber(fiatAmountChanged, {
+    const formattedPriceChanged = formatterUtils.formatNumber(fiatAmountChanged, {
         format: NumberFormat.FIAT_TOTAL_SHORT,
         withSign: true,
     });
 
-    const formattedPriceChangedPercentage = formatNumber(priceChange / 100, {
+    const formattedPriceChangedPercentage = formatterUtils.formatNumber(priceChange / 100, {
         format: NumberFormat.PERCENTAGE_SHORT,
         withSign: true,
     });

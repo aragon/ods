@@ -15,7 +15,7 @@ export const enCopy: IOdsCoreCopy = {
     },
     dataListPagination: {
         more: 'More',
-        outOf: ({ total, entityLabel }) => `of ${total} ${entityLabel}`,
+        outOf: ({ total, entityLabel }: { total: number; entityLabel: string }) => `of ${total} ${entityLabel}`,
     },
     inputNumberMax: {
         max: 'Max',
