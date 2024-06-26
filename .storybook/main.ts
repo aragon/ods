@@ -39,6 +39,10 @@ const config: StorybookConfig = {
         options: {},
     },
 
+    typescript: {
+        reactDocgen: 'react-docgen-typescript',
+    },
+
     webpackFinal: (webpackConfig) => {
         // Remove any svg loader already set and use @svgr/webpack to load svgs on Storybook
         const svgWebpackRule = webpackConfig.module?.rules?.find((rule) => {
