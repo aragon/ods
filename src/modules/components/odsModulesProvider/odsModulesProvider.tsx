@@ -88,7 +88,7 @@ export const OdsModulesProvider: React.FC<IOdsModulesProviderProps> = (props) =>
     );
 };
 
-export const useOdsModulesContext = (): Required<IOdsModulesContext> => {
+export const useOdsModulesContext = (): IOdsModulesContext => {
     const values = useContext(odsModulesContext);
 
     return values;
