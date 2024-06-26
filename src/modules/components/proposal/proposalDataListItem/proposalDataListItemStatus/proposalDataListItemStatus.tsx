@@ -59,7 +59,7 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                             'text-neutral-800': ongoing === false,
                         })}
                     >
-                        {ongoingAndVoted ? copy.proposalDataListItemStatus.youHaveVoted : date}
+                        {ongoingAndVoted ? copy.proposalDataListItemStatus.voted : date}
                     </span>
                     {ongoingAndVoted && <AvatarIcon icon={IconType.CHECKMARK} responsiveSize={{ md: 'md' }} />}
                     {ongoing && !voted && <StatePingAnimation variant={ongoingStatusToPingVariant[status]} />}
