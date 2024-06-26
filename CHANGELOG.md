@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Remove Radix props dependency
 -   Update minor and patch Github action dependencies
 -   Update minor and patch NPM dependencies
--   Revert to using 
+-   Revert to using `react-docgen-typescript` for Storybook documentation generation
 
 ## [1.0.34] - 2024-06-21
 
