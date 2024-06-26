@@ -15,6 +15,7 @@ import {
     useInputProps,
     type IInputComponentProps,
 } from '../../../../core';
+import { useBlockExplorer } from '../../../hooks';
 import type { IWeb3ComponentProps } from '../../../types';
 import { addressUtils, ensUtils } from '../../../utils';
 import { MemberAvatar } from '../../member';
@@ -62,7 +63,14 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const processedChainId = chainId ?? wagmiConfig.chains[0].id;
 
     const currentChain = wagmiConfig.chains.find(({ id }) => id === processedChainId);
-    const blockExplorerUrl = `${currentChain?.blockExplorers?.default.url}/address/${value}`;
+
+    const { getChainEntityUrl } = useBlockExplorer();
+
+    const addressUrl = getChainEntityUrl({
+        type: 'address',
+        chainId: processedChainId,
+        id: value,
+    });
 
     const supportEnsNames = currentChain?.contracts?.ensRegistry != null;
 
@@ -223,7 +231,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                         <Button
                             variant="tertiary"
                             size="sm"
-                            href={blockExplorerUrl}
+                            href={addressUrl}
                             target="_blank"
                             iconLeft={IconType.LINK_EXTERNAL}
                         />

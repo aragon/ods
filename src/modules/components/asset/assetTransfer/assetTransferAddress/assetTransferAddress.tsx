@@ -18,13 +18,12 @@ export interface IAssetTransferAddressProps {
     /**
      * URL of the block explorer.
      */
-    blockExplorerUrl?: string;
+    addressUrl?: string;
 }
 
 export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props) => {
-    const { participant, blockExplorerUrl, txRole } = props;
+    const { participant, addressUrl, txRole } = props;
 
-    const assembledHref = blockExplorerUrl != null ? `${blockExplorerUrl}/address/${participant.address}` : undefined;
     const resolvedUserHandle =
         participant.name != null && participant.name !== ''
             ? participant.name
@@ -32,7 +31,7 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
 
     return (
         <LinkBase
-            href={assembledHref}
+            href={addressUrl}
             target="_blank"
             rel="noopener noreferrer"
             className={classNames(
