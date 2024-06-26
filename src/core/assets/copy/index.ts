@@ -1,2 +1,2 @@
-export * from './IOdsCoreCopy';
 export * from './copy';
+export * from './IOdsCoreCopy';

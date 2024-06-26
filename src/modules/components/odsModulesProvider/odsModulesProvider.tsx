@@ -1,9 +1,17 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import type { ReactNode } from 'react';
+import { createContext, useMemo, type ReactNode } from 'react';
 import { createClient, http } from 'viem';
 import { WagmiProvider, createConfig, type Config } from 'wagmi';
 import { arbitrum, arbitrumSepolia, base, baseSepolia, mainnet, polygon, polygonAmoy, sepolia } from 'wagmi/chains';
 import { OdsCoreProvider, type IOdsCoreProviderProps } from '../../../core';
+import { enCopy, type IOdsModulesCopy } from '../../assets';
+
+export interface IOdsModulesContext {
+    /**
+     * Copy for the modules components.
+     */
+    copy: IOdsModulesCopy;
+}
 
 const defaultWagmiConfig = createConfig({
     chains: [mainnet, sepolia, base, baseSepolia, polygon, polygonAmoy, arbitrum, arbitrumSepolia],
@@ -38,19 +46,44 @@ export interface IOdsModulesProviderProps {
      */
     coreProviderValues?: IOdsCoreProviderProps['values'];
     /**
+     * Context provider values.
+     */
+    values?: Partial<IOdsModulesContext>;
+    /**
      * Children of the provider.
      */
     children?: ReactNode;
 }
 
+const odsModulesContextDefaults: IOdsModulesContext = {
+    copy: enCopy,
+};
+
+const odsModulesContext = createContext<IOdsModulesContext>(odsModulesContextDefaults);
+
 export const OdsModulesProvider: React.FC<IOdsModulesProviderProps> = (props) => {
-    const { queryClient = defaultQueryClient, wagmiConfig = defaultWagmiConfig, coreProviderValues, children } = props;
+    const {
+        queryClient = defaultQueryClient,
+        wagmiConfig = defaultWagmiConfig,
+        coreProviderValues,
+        children,
+        values,
+    } = props;
+
+    const contextValues = useMemo(
+        () => ({
+            copy: values?.copy ?? odsModulesContextDefaults.copy,
+        }),
+        [values],
+    );
 
     return (
-        <WagmiProvider config={wagmiConfig}>
-            <QueryClientProvider client={queryClient}>
-                <OdsCoreProvider values={coreProviderValues}>{children}</OdsCoreProvider>
-            </QueryClientProvider>
-        </WagmiProvider>
+        <odsModulesContext.Provider value={contextValues}>
+            <WagmiProvider config={wagmiConfig}>
+                <QueryClientProvider client={queryClient}>
+                    <OdsCoreProvider values={coreProviderValues}>{children}</OdsCoreProvider>
+                </QueryClientProvider>
+            </WagmiProvider>
+        </odsModulesContext.Provider>
     );
 };

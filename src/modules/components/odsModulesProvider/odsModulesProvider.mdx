@@ -15,7 +15,11 @@ wrapped using the following providers:
 -   `<WagmiProvider />`: needed to know which chain and RPC endpoint to use when fetching blockchain data;
 -   `<QueryClientProvider />`: needed to cache the data fetched from the blockchain;
 
-The provider also renders the `<OdsCoreProvider />` and passes the values set in the `coreProviderValues` property.
+The provider also renders the `<OdsCoreProvider />` and passes the values set in the `coreProviderValues` property and
+the values set in the `values` property for module-specific configurations.
+
+-   `values` (optional): Partial object of type `IOdsModulesContext` to override default context values.
+    -   `copy`: Object of type `IOdsModulesCopy` to customize the text labels used within the modules components.
 
 Refer to the component's properties below for more details on the default configuration objects used for each provider.
 
