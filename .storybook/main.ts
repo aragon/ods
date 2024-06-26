@@ -39,6 +39,11 @@ const config: StorybookConfig = {
         options: {},
     },
 
+    typescript: {
+        // Use react-docgen-typescript to generate args descriptions from component props comments
+        reactDocgen: 'react-docgen-typescript',
+    },
+
     webpackFinal: (webpackConfig) => {
         // Remove any svg loader already set and use @svgr/webpack to load svgs on Storybook
         const svgWebpackRule = webpackConfig.module?.rules?.find((rule) => {
