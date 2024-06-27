@@ -48,6 +48,20 @@ export interface IDropdownContainerProps extends Omit<ComponentProps<'div'>, 'di
      * Callback when the open state changes.
      */
     onOpenChange?: (open: boolean) => void;
+    /**
+     * Sets a max width to the dropdown content as the remaining width between the trigger and the boundary edge.
+     * @default true
+     */
+    constrainContentWidth?: boolean;
+    /**
+     * Sets a max height to the dropdown content as the remaining height between the trigger and the boundary edge.
+     * @default true
+     */
+    constrainContentHeight?: boolean;
+    /**
+     * Additional classnames for the dropdown container (e.g. for setting a max width for the dropdown items).
+     */
+    contentClassNames?: string;
 }
 
 export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
@@ -63,6 +77,9 @@ export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
         disabled,
         align = 'start',
         customTrigger,
+        constrainContentWidth = true,
+        constrainContentHeight = true,
+        contentClassNames,
         ...otherProps
     } = props;
 
@@ -102,8 +119,10 @@ export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
                 <RadixDropdown.Content
                     className={classNames(
                         'flex min-w-48 flex-col gap-1.5 overflow-auto rounded-xl border border-neutral-100 bg-neutral-0 p-2 shadow-neutral-sm',
-                        'max-h-[var(--radix-dropdown-menu-content-available-height)] max-w-[var(--radix-dropdown-menu-content-available-width)]',
                         'z-[var(--ods-dropdown-container-content-z-index)]',
+                        { 'max-h-[var(--radix-dropdown-menu-content-available-height)]': constrainContentHeight },
+                        { 'max-w-[var(--radix-dropdown-menu-content-available-width)]': constrainContentWidth },
+                        contentClassNames,
                     )}
                     onCloseAutoFocus={(event) => event.preventDefault()}
                     align={align}

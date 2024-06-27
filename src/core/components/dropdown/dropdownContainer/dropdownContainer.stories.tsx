@@ -59,6 +59,19 @@ export const Controlled: Story = {
     },
 };
 
+/**
+ * Usage of the DropdownContainer component with a max width for the dropdown items.
+ */
+export const WithMaxWidth: Story = {
+    render: (props: IDropdownContainerProps) => (
+        <Dropdown.Container {...props} label="Max width" constrainContentWidth={false} contentClassNames="max-w-52">
+            <Dropdown.Item>
+                A vert long description for the dropdown item that will eventualy be truncated
+            </Dropdown.Item>
+        </Dropdown.Container>
+    ),
+};
+
 const SelectionComponent = (props: IDropdownContainerProps) => {
     const items = [
         { id: 'all-daos', label: 'All DAOs' },
