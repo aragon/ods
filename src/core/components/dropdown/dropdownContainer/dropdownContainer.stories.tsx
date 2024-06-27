@@ -39,21 +39,19 @@ export const OnlyIcon: Story = {
     ),
 };
 
-const ControlledComponent = (props: IDropdownContainerProps) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    return (
-        <Dropdown.Container open={isOpen} onOpenChange={setIsOpen} {...props}>
-            <Dropdown.Item>Controlled item</Dropdown.Item>
-        </Dropdown.Container>
-    );
-};
-
 /**
  * Controlled usage of the DropdownContainer component.
  */
 export const Controlled: Story = {
-    render: (props: IDropdownContainerProps) => <ControlledComponent {...props} />,
+    render: (props: IDropdownContainerProps) => {
+        const [isOpen, setIsOpen] = useState(false);
+
+        return (
+            <Dropdown.Container open={isOpen} onOpenChange={setIsOpen} {...props}>
+                <Dropdown.Item>Controlled item</Dropdown.Item>
+            </Dropdown.Container>
+        );
+    },
     args: {
         label: 'Controlled dropdown',
     },

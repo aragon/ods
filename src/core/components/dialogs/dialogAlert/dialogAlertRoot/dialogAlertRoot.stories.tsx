@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { DialogAlert, type IDialogAlertRootProps } from '..';
+import { DialogAlert } from '..';
 import { Button } from '../../../button';
 
 const meta: Meta<typeof DialogAlert.Root> = {
@@ -16,38 +16,36 @@ const meta: Meta<typeof DialogAlert.Root> = {
 
 type Story = StoryObj<typeof DialogAlert.Root>;
 
-const ControlledComponent = (props: IDialogAlertRootProps) => {
-    const [open, setOpen] = useState(false);
-
-    const handleCloseModal = () => {
-        setOpen(false);
-    };
-
-    return (
-        <>
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Show DialogAlert
-            </Button>
-            <DialogAlert.Root {...props} open={open} onOpenChange={setOpen}>
-                <DialogAlert.Header title="DialogAlert Title" />
-                <DialogAlert.Content>
-                    <p>Very important content here!</p>
-                </DialogAlert.Content>
-                <DialogAlert.Footer
-                    actionButton={{ label: 'Action', onClick: handleCloseModal }}
-                    cancelButton={{ label: 'Cancel', onClick: handleCloseModal }}
-                />
-            </DialogAlert.Root>
-        </>
-    );
-};
-
 /**
  * Default usage of the `DialogAlert.Root` component
  */
 export const Default: Story = {
     args: {},
-    render: (props) => <ControlledComponent {...props} />,
+    render: (props) => {
+        const [open, setOpen] = useState(false);
+
+        const handleCloseModal = () => {
+            setOpen(false);
+        };
+
+        return (
+            <>
+                <Button variant="primary" onClick={() => setOpen(true)}>
+                    Show DialogAlert
+                </Button>
+                <DialogAlert.Root {...props} open={open} onOpenChange={setOpen}>
+                    <DialogAlert.Header title="DialogAlert Title" />
+                    <DialogAlert.Content>
+                        <p>Very important content here!</p>
+                    </DialogAlert.Content>
+                    <DialogAlert.Footer
+                        actionButton={{ label: 'Action', onClick: handleCloseModal }}
+                        cancelButton={{ label: 'Cancel', onClick: handleCloseModal }}
+                    />
+                </DialogAlert.Root>
+            </>
+        );
+    },
 };
 
 export default meta;

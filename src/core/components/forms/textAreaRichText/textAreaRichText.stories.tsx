@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { TextAreaRichText, type ITextAreaRichTextProps } from './textAreaRichText';
+import { TextAreaRichText } from './textAreaRichText';
 
 const meta: Meta<typeof TextAreaRichText> = {
     title: 'Core/Components/Forms/TextAreaRichText',
@@ -24,19 +24,17 @@ export const Default: Story = {
     },
 };
 
-const ControlledComponent = (props: ITextAreaRichTextProps) => {
-    const [value, setValue] = useState(
-        '<p>Hello <strong>dev</strong>, check this <a href="https://aragon.org" target="_blank">link</a>.</p>',
-    );
-
-    return <TextAreaRichText value={value} onChange={setValue} {...props} />;
-};
-
 /**
  * Usage example of a controlled TextAreaRichText component.
  */
 export const Controlled: Story = {
-    render: ({ onChange, ...props }) => <ControlledComponent {...props} />,
+    render: ({ onChange, ...props }) => {
+        const [value, setValue] = useState(
+            '<p>Hello <strong>dev</strong>, check this <a href="https://aragon.org" target="_blank">link</a>.</p>',
+        );
+
+        return <TextAreaRichText value={value} onChange={setValue} {...props} />;
+    },
 };
 
 export default meta;
