@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `VoteProposalDataListItem` with Structure and Skeleton module
 -   Add `useBlockExplorer` hook to generate block explorer links
+-   Add `formatDate` utility function to `formatterUtils` to format dates
 
 ### Changed
 
