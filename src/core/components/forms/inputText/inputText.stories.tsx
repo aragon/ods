@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ChangeEvent } from 'react';
 import { InputText } from './inputText';
-import type { IInputTextProps } from './inputText.api';
 
 const meta: Meta<typeof InputText> = {
     title: 'Core/Components/Forms/InputText',
@@ -25,19 +24,17 @@ export const Default: Story = {
     },
 };
 
-const ControlledComponent = (props: IInputTextProps) => {
-    const [value, setValue] = useState<string>('');
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value);
-
-    return <InputText value={value} onChange={handleChange} {...props} />;
-};
-
 /**
  * Usage example of a controlled input.
  */
 export const Controlled: Story = {
-    render: (props) => <ControlledComponent {...props} />,
+    render: (props) => {
+        const [value, setValue] = useState<string>('');
+
+        const handleChange = (event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value);
+
+        return <InputText value={value} onChange={handleChange} {...props} />;
+    },
     args: {
         placeholder: 'Controlled input',
     },
