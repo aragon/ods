@@ -43,7 +43,7 @@ export const OnlyIcon: Story = {
  * Controlled usage of the DropdownContainer component.
  */
 export const Controlled: Story = {
-    render: (props: IDropdownContainerProps) => {
+    render: (props) => {
         const [isOpen, setIsOpen] = useState(false);
 
         return (
