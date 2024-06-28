@@ -19,6 +19,7 @@ import { useBlockExplorer } from '../../../hooks';
 import type { IWeb3ComponentProps } from '../../../types';
 import { addressUtils, ensUtils } from '../../../utils';
 import { MemberAvatar } from '../../member';
+import { useOdsModulesContext } from '../../odsModulesProvider';
 
 export interface IAddressInputResolvedValue {
     /**
@@ -78,6 +79,8 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const [debouncedValue, setDebouncedValue] = useDebouncedValue(value, { delay: 300 });
     const [isFocused, setIsFocused] = useState(false);
+
+    const { copy } = useOdsModulesContext();
 
     const isDebouncedValueValidEns = ensUtils.isEnsName(debouncedValue);
     const isDebouncedValueValidAddress = addressUtils.isAddress(debouncedValue);
@@ -245,12 +248,12 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                 )}
                 {value.length > 0 && isFocused && (
                     <Button variant="tertiary" size="sm" onMouseDown={handleClearClick}>
-                        Clear
+                        {copy.addressInput.clear}
                     </Button>
                 )}
                 {value.length === 0 && (
                     <Button variant="tertiary" size="sm" onClick={handlePasteClick}>
-                        Paste
+                        {copy.addressInput.paste}
                     </Button>
                 )}
             </div>

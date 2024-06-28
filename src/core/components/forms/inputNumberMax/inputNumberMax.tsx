@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { Button } from '../../button';
+import { useOdsCoreContext } from '../../odsCoreProvider';
 import { useInputProps, useNumberMask, type IUseNumberMaskProps } from '../hooks';
 import { InputContainer, type IInputComponentProps } from '../inputContainer';
 
@@ -23,6 +24,8 @@ export const InputNumberMax: React.FC<IInputNumberMaxProps> = (props) => {
 
     const { ref, setValue } = useNumberMask({ min, max, value, onChange });
 
+    const { copy } = useOdsCoreContext();
+
     const handleMaxClick = () => setValue(max.toString());
 
     return (
@@ -38,8 +41,7 @@ export const InputNumberMax: React.FC<IInputNumberMaxProps> = (props) => {
             />
             {!disabled && (
                 <Button size="sm" variant="tertiary" className="mr-2" onClick={handleMaxClick}>
-                    {/* TODO: apply internationalisation to Max label [APP-2627] */}
-                    Max
+                    {copy.inputNumberMax.max}
                 </Button>
             )}
         </InputContainer>

@@ -3,6 +3,7 @@ import { useState, type ChangeEvent, type ComponentProps } from 'react';
 import { AvatarIcon } from '../../avatars';
 import { Button } from '../../button';
 import { Icon, IconType } from '../../icon';
+import { useOdsCoreContext } from '../../odsCoreProvider';
 import { Spinner } from '../../spinner';
 import { useDataListContext } from '../dataListContext';
 import { DataListFilterSort } from './dataListFilterSort';
@@ -71,6 +72,8 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
 
     const { state } = useDataListContext();
 
+    const { copy } = useOdsCoreContext();
+
     const handleInputFocus = () => setIsFocused(true);
     const handleInputBlur = () => setIsFocused(false);
 
@@ -123,8 +126,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                                 onClick={onFilterClick}
                                 className="hidden md:flex"
                             >
-                                {/* TODO: apply internationalisation to Filter label [APP-2627] */}
-                                Filter
+                                {copy.dataListFilter.filter}
                             </Button>
                             <Button
                                 iconLeft={IconType.FILTER}
@@ -140,8 +142,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                         sortItems={sortItems}
                         onSortChange={onSortChange}
                         triggerClassNames="hidden md:flex"
-                        /* TODO: apply internationalisation to Sort label [APP-2627] */
-                        triggerLabel="Sort"
+                        triggerLabel={copy.dataListFilter.sort}
                     />
                     <DataListFilterSort
                         activeSort={activeSort}

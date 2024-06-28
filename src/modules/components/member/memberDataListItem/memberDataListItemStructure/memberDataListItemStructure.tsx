@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { useAccount } from 'wagmi';
 import { DataList, Heading, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { MemberAvatar } from '../../memberAvatar';
 
 export interface IMemberDataListItemProps extends IDataListItemProps {
@@ -36,6 +37,8 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
 
     const { address: currentUserAddress, isConnected } = useAccount();
 
+    const { copy } = useOdsModulesContext();
+
     const isCurrentUser = isConnected && address && addressUtils.isAddressEqual(currentUserAddress, address);
 
     const resolvedUserHandle = ensName != null && ensName !== '' ? ensName : addressUtils.truncateAddress(address);
@@ -57,8 +60,10 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                         avatarSrc={avatarSrc}
                         responsiveSize={{ md: 'md' }}
                     />
-                    {isDelegate && !isCurrentUser && <Tag variant="info" label="Your Delegate" />}
-                    {isCurrentUser && <Tag variant="neutral" label="You" />}
+                    {isDelegate && !isCurrentUser && (
+                        <Tag variant="info" label={copy.memberDataListItemStructure.yourDelegate} />
+                    )}
+                    {isCurrentUser && <Tag variant="neutral" label={copy.memberDataListItemStructure.you} />}
                 </div>
 
                 <Heading className="inline-block w-full truncate" size="h2" as="h1">
@@ -73,11 +78,11 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                             className={classNames({ invisible: delegationCount == null || delegationCount === 0 })}
                         >
                             <span>{formattedDelegationCount}</span>
-                            <span className="text-neutral-500"> Delegations</span>
+                            <span className="text-neutral-500"> {copy.memberDataListItemStructure.delegations}</span>
                         </Heading>
                         <Heading size="h5" as="h2">
                             <span>{formattedVotingPower}</span>
-                            <span className="text-neutral-500"> Voting Power</span>
+                            <span className="text-neutral-500"> {copy.memberDataListItemStructure.votingPower}</span>
                         </Heading>
                     </div>
                 )}

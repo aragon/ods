@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { DataList, Tag, type IDataListItemProps } from '../../../../../core';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export interface IVoteProposalDataListItemStructureProps extends IDataListItemProps {
@@ -24,6 +25,8 @@ export interface IVoteProposalDataListItemStructureProps extends IDataListItemPr
 export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListItemStructureProps> = (props) => {
     const { proposalTitle, proposalId, voteIndicator, date, className, ...otherProps } = props;
 
+    const { copy } = useOdsModulesContext();
+
     return (
         <DataList.Item
             className={classNames('flex flex-col gap-x-3 gap-y-1 md:gap-x-4 md:gap-y-1.5 md:text-lg', className)}
@@ -34,7 +37,7 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
                 <span className="truncate text-neutral-800">{proposalTitle}</span>
             </div>
             <div className="flex items-center gap-x-1 text-sm font-normal leading-tight text-neutral-500 md:gap-x-1.5 md:text-base">
-                <span>Voted</span>
+                <span>{copy.voteProposalDataListItemStructure.voted}</span>
                 <Tag
                     variant={voteIndicatorToTagVariant[voteIndicator]}
                     className="capitalize"

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import * as wagmi from 'wagmi';
 import { DataList } from '../../../../../core';
+import { modulesCopy } from '../../../../assets';
 import { addressUtils } from '../../../../utils/addressUtils';
 import { ProposalDataListItemStructure, maxPublishersDisplayed } from './proposalDataListItemStructure';
 import {
@@ -10,7 +11,10 @@ import {
     type ProposalStatus,
 } from './proposalDataListItemStructure.api';
 
-jest.mock('wagmi', () => ({ useAccount: jest.fn() }));
+jest.mock('wagmi', () => ({
+    ...jest.requireActual('wagmi'),
+    useAccount: jest.fn(),
+}));
 jest.mock('viem/utils', () => ({ isAddress: jest.fn().mockReturnValue(true) }));
 
 describe('<ProposalDataListItemStructure/> component', () => {
@@ -138,7 +142,9 @@ describe('<ProposalDataListItemStructure/> component', () => {
                 render(createTestComponent({ result: testProps, type: 'approvalThreshold', status }));
 
                 expect(screen.getByText(testProps.approvalAmount)).toBeInTheDocument();
-                expect(screen.getByText(testProps.approvalThreshold)).toBeInTheDocument();
+                expect(
+                    screen.getByText(modulesCopy.approvalThresholdResult.outOf(testProps.approvalThreshold.toString())),
+                ).toBeInTheDocument();
             });
         });
 
@@ -151,7 +157,9 @@ describe('<ProposalDataListItemStructure/> component', () => {
             render(createTestComponent({ result: testProps, type: 'approvalThreshold', status: 'expired' }));
 
             expect(screen.queryByText(testProps.approvalAmount)).not.toBeInTheDocument();
-            expect(screen.queryByText(testProps.approvalThreshold)).not.toBeInTheDocument();
+            expect(
+                screen.queryByText(modulesCopy.approvalThresholdResult.outOf(testProps.approvalThreshold.toString())),
+            ).not.toBeInTheDocument();
         });
     });
 
