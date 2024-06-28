@@ -1,1 +1,1 @@
-export * from './useBlockExplorer';
+export { ChainEntityType, useBlockExplorer, type IChainEntity } from './useBlockExplorer';

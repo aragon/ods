@@ -7,7 +7,7 @@ export enum ChainEntityType {
     TOKEN = 'token',
 }
 
-interface IChainEntity {
+export interface IChainEntity {
     /**
      * The type of the chain entity (address, tx, token)
      */
