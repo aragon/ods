@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+-   Format dates with `formatterUtils` within components
+
 ## [1.0.36] - 2024-06-28
 
 ### Changed
