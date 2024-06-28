@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+-   Reduce the use of controlled components in stories to improve code visibility in Storybook
+
 ## [1.0.35] - 2024-06-28
 
 ### Added
@@ -23,7 +27,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update minor and patch Github action dependencies
 -   Update minor and patch NPM dependencies
 -   Revert to using `react-docgen-typescript` for Storybook documentation generation
--   Reduce the use of controlled components in stories to improve code visibility in Storybook
 
 ## [1.0.34] - 2024-06-21
 
