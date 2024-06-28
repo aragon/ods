@@ -15,7 +15,7 @@ import {
     useInputProps,
     type IInputComponentProps,
 } from '../../../../core';
-import { useBlockExplorer } from '../../../hooks';
+import { useBlockExplorer, ChainEntityType } from '../../../hooks';
 import type { IWeb3ComponentProps } from '../../../types';
 import { addressUtils, ensUtils } from '../../../utils';
 import { MemberAvatar } from '../../member';
@@ -68,7 +68,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const { getChainEntityUrl } = useBlockExplorer();
 
     const addressUrl = getChainEntityUrl({
-        type: 'address',
+        type: ChainEntityType.ADDRESS,
         chainId: processedChainId,
         id: value,
     });
