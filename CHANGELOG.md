@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+-   Reduce the use of controlled components in stories to improve code visibility in Storybook
+
 ## [1.0.35] - 2024-06-28
 
 ### Added

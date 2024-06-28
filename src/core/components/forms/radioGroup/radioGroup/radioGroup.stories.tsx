@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Radio } from '../radio';
 import { RadioCard } from '../radioCard';
-import { RadioGroup, type IRadioGroupProps } from './radioGroup';
+import { RadioGroup } from './radioGroup';
 
 const meta: Meta<typeof RadioGroup> = {
     title: 'Core/Components/Forms/RadioGroup',
@@ -73,22 +73,20 @@ export const RadioCardVariant: Story = {
     },
 };
 
-const ControlledComponent = (props: IRadioGroupProps) => {
-    const [value, setValue] = useState('1');
-    return (
-        <RadioGroup {...props} value={value} onValueChange={setValue}>
-            <Radio label="Option one" value="1" />
-            <Radio label="Option two" value="2" />
-            <Radio label="Option three" value="3" />
-        </RadioGroup>
-    );
-};
-
 /**
  * Usage example of a controlled `RadioGroup` component.
  */
 export const Controlled: Story = {
-    render: (props) => <ControlledComponent {...props} />,
+    render: (props) => {
+        const [value, setValue] = useState('1');
+        return (
+            <RadioGroup {...props} value={value} onValueChange={setValue}>
+                <Radio label="Option one" value="1" />
+                <Radio label="Option two" value="2" />
+                <Radio label="Option three" value="3" />
+            </RadioGroup>
+        );
+    },
     args: {
         name: 'Options',
         value: '1',

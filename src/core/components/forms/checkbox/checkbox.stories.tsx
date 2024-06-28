@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useEffect, useState } from 'react';
-import { Checkbox, type CheckboxState, type ICheckboxProps } from './checkbox';
+import { Checkbox, type CheckboxState } from './checkbox';
 
 const meta: Meta<typeof Checkbox> = {
     title: 'Core/Components/Checkbox/Checkbox',
@@ -25,17 +25,15 @@ export const Default: Story = {
     args: { label: 'Default' },
 };
 
-const ControlledComponent = (props: ICheckboxProps) => {
-    const [checked, setChecked] = useState<CheckboxState>(false);
-
-    return <Checkbox checked={checked} onCheckedChange={setChecked} {...props} />;
-};
-
 /**
  * Usage of a controlled Checkbox component.
  */
 export const Controlled: Story = {
-    render: (props) => <ControlledComponent {...props} />,
+    render: (props) => {
+        const [checked, setChecked] = useState<CheckboxState>(false);
+
+        return <Checkbox checked={checked} onCheckedChange={setChecked} {...props} />;
+    },
     args: { label: 'Controlled' },
 };
 

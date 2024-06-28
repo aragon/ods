@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { InputNumber, type IInputNumberProps } from './inputNumber';
+import { InputNumber } from './inputNumber';
 
 const meta: Meta<typeof InputNumber> = {
     title: 'Core/Components/Forms/InputNumber',
@@ -24,17 +24,15 @@ export const Default: Story = {
     },
 };
 
-const ControlledComponent = (props: IInputNumberProps) => {
-    const [value, setValue] = useState<string>('1');
-
-    return <InputNumber value={value} onChange={setValue} {...props} />;
-};
-
 /**
  * Usage example of a controlled `InputNumber` component.
  */
 export const Controlled: Story = {
-    render: ({ onChange, ...props }) => <ControlledComponent {...props} />,
+    render: ({ onChange, ...props }) => {
+        const [value, setValue] = useState<string>('1');
+
+        return <InputNumber value={value} onChange={setValue} {...props} />;
+    },
 };
 
 export default meta;

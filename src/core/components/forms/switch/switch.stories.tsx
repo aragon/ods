@@ -30,14 +30,12 @@ export const Uncontrolled: Story = {
 /**
  * Controlled usage of the `Switch` component
  */
-const ControlledComponent = (props: ISwitchProps) => {
-    const [checked, setChecked] = useState(false);
-
-    return <Switch checked={checked} onCheckedChanged={setChecked} {...props} />;
-};
-
 export const Controlled: Story = {
-    render: ({ onCheckedChanged, ...props }: ISwitchProps) => <ControlledComponent {...props} />,
+    render: ({ onCheckedChanged, ...props }: ISwitchProps) => {
+        const [checked, setChecked] = useState(false);
+
+        return <Switch checked={checked} onCheckedChanged={setChecked} {...props} />;
+    },
     args: {
         label: 'Show testnets',
         name: 'testnet',

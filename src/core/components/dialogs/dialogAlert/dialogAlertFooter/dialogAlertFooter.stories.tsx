@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { DialogAlert, type IDialogAlertFooterProps } from '..';
+import { DialogAlert } from '..';
 import { Button } from '../../../button';
 import { IconType } from '../../../icon';
 
@@ -17,31 +17,29 @@ const meta: Meta<typeof DialogAlert.Footer> = {
 
 type Story = StoryObj<typeof DialogAlert.Footer>;
 
-const ControlledComponent = (props: IDialogAlertFooterProps) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <>
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Show DialogAlert
-            </Button>
-            <DialogAlert.Root open={open} onOpenChange={setOpen}>
-                <DialogAlert.Header title="DialogAlert Title" />
-                <DialogAlert.Content>
-                    <p>Very important content here!</p>
-                </DialogAlert.Content>
-                <DialogAlert.Footer {...props} />
-            </DialogAlert.Root>
-        </>
-    );
-};
-
 /**
  * Default usage of the `DialogAlert.Footer` component
  */
 export const Default: Story = {
     args: { actionButton: { label: 'Action', iconLeft: IconType.SUCCESS }, cancelButton: { label: 'Cancel' } },
-    render: (props) => <ControlledComponent {...props} />,
+    render: (props) => {
+        const [open, setOpen] = useState(false);
+
+        return (
+            <>
+                <Button variant="primary" onClick={() => setOpen(true)}>
+                    Show DialogAlert
+                </Button>
+                <DialogAlert.Root open={open} onOpenChange={setOpen}>
+                    <DialogAlert.Header title="DialogAlert Title" />
+                    <DialogAlert.Content>
+                        <p>Very important content here!</p>
+                    </DialogAlert.Content>
+                    <DialogAlert.Footer {...props} />
+                </DialogAlert.Root>
+            </>
+        );
+    },
 };
 
 export default meta;

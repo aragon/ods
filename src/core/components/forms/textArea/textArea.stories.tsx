@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ChangeEvent } from 'react';
-import { TextArea, type ITextAreaProps } from './textArea';
+import { TextArea } from './textArea';
 
 const meta: Meta<typeof TextArea> = {
     title: 'Core/Components/Forms/TextArea',
@@ -24,19 +24,17 @@ export const Default: Story = {
     },
 };
 
-const ControlledComponent = (props: ITextAreaProps) => {
-    const [value, setValue] = useState<string>('');
-
-    const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => setValue(event.target.value);
-
-    return <TextArea value={value} onChange={handleChange} {...props} />;
-};
-
 /**
  * Usage example of a controlled TextArea.
  */
 export const Controlled: Story = {
-    render: (props) => <ControlledComponent {...props} />,
+    render: (props) => {
+        const [value, setValue] = useState<string>('');
+
+        const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => setValue(event.target.value);
+
+        return <TextArea value={value} onChange={handleChange} {...props} />;
+    },
     args: {
         placeholder: 'Controlled TextArea',
     },
