@@ -1,9 +1,13 @@
 import { useCallback } from 'react';
 import { useChains, type Config } from 'wagmi';
 
-type ChainEntityType = 'address' | 'tx' | 'token';
+export enum ChainEntityType {
+    ADDRESS = 'address',
+    TRANSACTION = 'tx',
+    TOKEN = 'token',
+}
 
-interface IChainEntity {
+export interface IGetChainEntityUrlParams {
     /**
      * The type of the chain entity (address, tx, token)
      */
@@ -15,7 +19,7 @@ interface IChainEntity {
     /**
      * The ID of the entity (e.g. tx hash for a tx)
      */
-    id: string;
+    id?: string;
 }
 
 export const useBlockExplorer = (wagmiConfig?: Pick<Config, 'chains'>) => {
@@ -23,7 +27,7 @@ export const useBlockExplorer = (wagmiConfig?: Pick<Config, 'chains'>) => {
     const chains = wagmiConfig?.chains ?? globalChains;
 
     const getChainEntityUrl = useCallback(
-        ({ type, chainId, id }: IChainEntity) => {
+        ({ type, chainId, id }: IGetChainEntityUrlParams) => {
             const chain = chainId ? chains.find((chain) => chain.id === chainId) : chains[0];
             const baseUrl = chain?.blockExplorers?.default?.url;
             if (!baseUrl) {

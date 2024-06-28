@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { Avatar, AvatarIcon, IconType, LinkBase, NumberFormat, formatterUtils } from '../../../../core';
-import { useBlockExplorer } from '../../../hooks';
+import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../types';
 import { AssetTransferAddress } from './assetTransferAddress';
 
@@ -87,7 +87,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                     participant={sender}
                     addressUrl={getChainEntityUrl({
                         chainId,
-                        type: 'address',
+                        type: ChainEntityType.ADDRESS,
                         id: sender.address,
                     })}
                 />
@@ -105,13 +105,13 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                     participant={recipient}
                     addressUrl={getChainEntityUrl({
                         chainId,
-                        type: 'address',
+                        type: ChainEntityType.ADDRESS,
                         id: recipient.address,
                     })}
                 />
             </div>
             <LinkBase
-                href={getChainEntityUrl({ chainId, type: 'tx', id: hash })}
+                href={getChainEntityUrl({ chainId, type: ChainEntityType.TRANSACTION, id: hash })}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={assetTransferClassNames}

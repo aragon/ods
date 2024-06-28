@@ -1,1 +1,1 @@
-export * from './useBlockExplorer';
+export { ChainEntityType, useBlockExplorer, type IGetChainEntityUrlParams } from './useBlockExplorer';
