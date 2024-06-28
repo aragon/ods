@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Reduce the use of controlled components in stories to improve code visibility in Storybook
+-   Export `DateFormat` and additional types for handling dates with the `FormatterUtils`
+-   Update required parameters of `useBlockExplorer` hook, implement enum for chain entity types
 
 ## [1.0.35] - 2024-06-28
 

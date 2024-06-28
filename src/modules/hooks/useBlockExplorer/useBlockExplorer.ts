@@ -4,8 +4,8 @@ import { useChains, type Config } from 'wagmi';
 export enum ChainEntityType {
     ADDRESS = 'address',
     TRANSACTION = 'tx',
-    TOKEN = 'token'
-} 
+    TOKEN = 'token',
+}
 
 interface IChainEntity {
     /**
