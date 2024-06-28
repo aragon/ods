@@ -1,4 +1,4 @@
-export * from './assets/copy';
+export * from './assets';
 export * from './components';
 export * from './hooks';
 export * from './types';

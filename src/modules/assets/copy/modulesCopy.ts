@@ -3,7 +3,6 @@
  * Each property in the object corresponds to a specific component or feature, containing the necessary
  * text labels or functions that return text strings.
  */
-
 export const modulesCopy = {
     addressInput: {
         clear: 'Clear',
