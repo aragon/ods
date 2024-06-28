@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Add `useBlockExplorer` hook to generate block explorer links
 -   Add `formatDate` utility function to `formatterUtils` to format dates
 -   Add support for copy customization
+-   Add `contentClassNames` property to `Dropdown.Container` component to support custom max width
 
 ### Changed
 

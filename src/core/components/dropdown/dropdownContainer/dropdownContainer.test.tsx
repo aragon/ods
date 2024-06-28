@@ -88,4 +88,14 @@ describe('<Dropdown.Container /> component', () => {
 
         expect(trigger).not.toHaveFocus();
     });
+
+    it('does not set any max width or height to the dropdown container when the constrainContentWidth and constrainContentHeight properties are set to false', async () => {
+        const user = userEvent.setup();
+        const constrainContentWidth = false;
+        const constrainContentHeight = false;
+        render(createTestComponent({ constrainContentHeight, constrainContentWidth }));
+        await user.click(screen.getByRole('button'));
+        expect(screen.getByRole('menu').className).not.toMatch(/max-w/);
+        expect(screen.getByRole('menu').className).not.toMatch(/max-h/);
+    });
 });
