@@ -1,7 +1,11 @@
 import { useCallback } from 'react';
 import { useChains, type Config } from 'wagmi';
 
-type ChainEntityType = 'address' | 'tx' | 'token';
+export enum ChainEntityType {
+    ADDRESS = 'address',
+    TRANSACTION = 'tx',
+    TOKEN = 'token'
+} 
 
 interface IChainEntity {
     /**
@@ -15,7 +19,7 @@ interface IChainEntity {
     /**
      * The ID of the entity (e.g. tx hash for a tx)
      */
-    id: string;
+    id?: string;
 }
 
 export const useBlockExplorer = (wagmiConfig?: Pick<Config, 'chains'>) => {
