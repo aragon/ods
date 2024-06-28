@@ -7,7 +7,7 @@ export enum ChainEntityType {
     TOKEN = 'token',
 }
 
-export interface IChainEntity {
+export interface IGetChainEntityUrlParams {
     /**
      * The type of the chain entity (address, tx, token)
      */
@@ -27,7 +27,7 @@ export const useBlockExplorer = (wagmiConfig?: Pick<Config, 'chains'>) => {
     const chains = wagmiConfig?.chains ?? globalChains;
 
     const getChainEntityUrl = useCallback(
-        ({ type, chainId, id }: IChainEntity) => {
+        ({ type, chainId, id }: IGetChainEntityUrlParams) => {
             const chain = chainId ? chains.find((chain) => chain.id === chainId) : chains[0];
             const baseUrl = chain?.blockExplorers?.default?.url;
             if (!baseUrl) {
