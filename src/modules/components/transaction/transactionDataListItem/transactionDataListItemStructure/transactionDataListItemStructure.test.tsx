@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import * as wagmi from 'wagmi';
 import { DataList, NumberFormat, formatterUtils } from '../../../../../core';
+import { DateFormat } from '../../../../../core/utils/formatterUtils/formatterUtilsDefinitions';
 import { TransactionDataListItemStructure } from './transactionDataListItemStructure';
 import {
     TransactionStatus,
@@ -85,10 +86,11 @@ describe('<TransactionDataListItem.Structure /> component', () => {
         expect(closeIcon).toBeInTheDocument();
     });
 
-    it('renders the provided timestamp correctly', () => {
+    it('renders the provided date correctly', () => {
         const date = '2000-01-01T00:00:00Z';
         render(createTestComponent({ date }));
-        expect(screen.getByText(date)).toBeInTheDocument();
+        const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME })!;
+        expect(screen.getByText(formattedDate)).toBeInTheDocument();
     });
 
     it('renders with the correct block explorer URL', async () => {

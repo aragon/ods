@@ -40,6 +40,7 @@ export const Withdraw: Story = {
         type: TransactionType.WITHDRAW,
         tokenAmount: 10,
         tokenSymbol: 'ETH',
+        date: 1613984914000,
     },
     render: (args) => (
         <DataList.Root entityLabel="Transactions">
@@ -57,6 +58,7 @@ export const Failed: Story = {
         tokenSymbol: 'ETH',
         tokenAmount: 10,
         tokenPrice: 100,
+        date: 1613984914000,
     },
     render: (args) => (
         <DataList.Root entityLabel="Transactions">

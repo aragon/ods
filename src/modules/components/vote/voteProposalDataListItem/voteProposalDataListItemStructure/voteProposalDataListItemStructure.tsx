@@ -18,7 +18,7 @@ export interface IVoteProposalDataListItemStructureProps extends IDataListItemPr
      */
     voteIndicator: VoteIndicator;
     /**
-     *  Date of your vote on the proposal in ISO format or as a timestamp
+     *  Date of the vote on the proposal in ISO format or as a timestamp
      */
     date?: number | string;
 }
