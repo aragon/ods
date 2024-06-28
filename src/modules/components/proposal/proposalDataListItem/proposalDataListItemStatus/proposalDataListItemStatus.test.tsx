@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import { IconType } from '../../../../../core';
+import { IconType, formatterUtils } from '../../../../../core';
+import { DateFormat } from '../../../../../core/utils/formatterUtils/formatterUtilsDefinitions';
 import { type ProposalStatus } from '../proposalDataListItemStructure';
 import { ProposalDataListItemStatus, type IProposalDataListItemStatusProps } from './proposalDataListItemStatus';
 
 describe('<ProposalDataListItemStatus /> component', () => {
     const createTestComponent = (props?: Partial<IProposalDataListItemStatusProps>) => {
-        const completeProps: IProposalDataListItemStatusProps = { date: 'test date', status: 'accepted', ...props };
+        const completeProps: IProposalDataListItemStatusProps = { date: 1719563030308, status: 'accepted', ...props };
 
         return <ProposalDataListItemStatus {...completeProps} />;
     };
@@ -13,12 +14,13 @@ describe('<ProposalDataListItemStatus /> component', () => {
     const ongoingStatuses = ['active', 'challenged', 'vetoed'];
 
     it('displays the date, calendar icon and status', () => {
-        const date = 'test date';
+        const date = 1719563030308;
         const status = 'accepted';
 
         render(createTestComponent({ date, status }));
 
-        expect(screen.getByText(date)).toBeInTheDocument();
+        const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })!;
+        expect(screen.getByText(formattedDate)).toBeInTheDocument();
         expect(screen.getByText(status)).toBeInTheDocument();
         expect(screen.getByTestId(IconType.CALENDAR)).toBeInTheDocument();
     });
@@ -32,7 +34,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
     });
 
     it("only displays the date for proposals with a status that is not 'draft'", () => {
-        const date = 'test date';
+        const date = 1719563030308;
         const status = 'draft';
 
         render(createTestComponent({ date, status }));
@@ -44,10 +46,11 @@ describe('<ProposalDataListItemStatus /> component', () => {
 
     ongoingStatuses.forEach((status) => {
         it(`displays the date and a pinging indicator when the status is '${status}' and voted is false`, () => {
-            const date = 'test date';
+            const date = 1719563030308;
             render(createTestComponent({ date, status: status as ProposalStatus, voted: false }));
 
-            expect(screen.getByText(date)).toBeInTheDocument();
+            const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })!;
+            expect(screen.getByText(formattedDate)).toBeInTheDocument();
             expect(screen.getByTestId('statePingAnimation')).toBeInTheDocument();
         });
     });

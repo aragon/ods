@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import * as wagmi from 'wagmi';
-import { DataList } from '../../../../../core';
+import { DataList, formatterUtils } from '../../../../../core';
+import { DateFormat } from '../../../../../core/utils/formatterUtils/formatterUtilsDefinitions';
 import { modulesCopy } from '../../../../assets';
 import { addressUtils } from '../../../../utils/addressUtils';
 import { ProposalDataListItemStructure, maxPublishersDisplayed } from './proposalDataListItemStructure';
@@ -125,7 +126,8 @@ describe('<ProposalDataListItemStructure/> component', () => {
         expect(screen.getByText(testProps.title)).toBeInTheDocument();
         expect(screen.getByText(testProps.summary)).toBeInTheDocument();
         expect(screen.getByText(testProps.status)).toBeInTheDocument();
-        expect(screen.getByText(testProps.date)).toBeInTheDocument();
+        const formattedDate = formatterUtils.formatDate(testProps.date, { format: DateFormat.RELATIVE })!;
+        expect(screen.getByText(formattedDate)).toBeInTheDocument();
         expect(screen.getByText(testProps.id)).toBeInTheDocument();
         expect(screen.getByText(testProps.tag)).toBeInTheDocument();
         expect(screen.getByText(addressUtils.truncateAddress(testProps.publisher.address))).toBeInTheDocument();

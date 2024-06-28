@@ -4,9 +4,11 @@ import {
     IconType,
     StatePingAnimation,
     Tag,
+    formatterUtils,
     type StatePingAnimationVariant,
     type TagVariant,
 } from '../../../../../core';
+import { DateFormat } from '../../../../../core/utils/formatterUtils/formatterUtilsDefinitions';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { type IProposalDataListItemStructureProps, type ProposalStatus } from '../proposalDataListItemStructure';
 
@@ -60,6 +62,9 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                         })}
                     >
                         {ongoingAndVoted ? copy.proposalDataListItemStatus.voted : date}
+                        {ongoingAndVoted
+                            ? "You've voted"
+                            : formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })}
                     </span>
                     {ongoingAndVoted && <AvatarIcon icon={IconType.CHECKMARK} responsiveSize={{ md: 'md' }} />}
                     {ongoing && !voted && <StatePingAnimation variant={ongoingStatusToPingVariant[status]} />}
