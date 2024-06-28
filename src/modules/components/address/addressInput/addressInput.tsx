@@ -15,7 +15,7 @@ import {
     useInputProps,
     type IInputComponentProps,
 } from '../../../../core';
-import { useBlockExplorer, ChainEntityType } from '../../../hooks';
+import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import type { IWeb3ComponentProps } from '../../../types';
 import { addressUtils, ensUtils } from '../../../utils';
 import { MemberAvatar } from '../../member';

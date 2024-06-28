@@ -1,2 +1,9 @@
-export { formatterUtils, type IFormatNumberOptions, type IFormatDateOptions } from './formatterUtils';
-export { NumberFormat, numberFormats, DateFormat, dateFormats, type INumberFormat, type IDateFormat } from './formatterUtilsDefinitions';
+export { formatterUtils, type IFormatDateOptions, type IFormatNumberOptions } from './formatterUtils';
+export {
+    DateFormat,
+    NumberFormat,
+    dateFormats,
+    numberFormats,
+    type IDateFormat,
+    type INumberFormat,
+} from './formatterUtilsDefinitions';
