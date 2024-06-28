@@ -2,9 +2,11 @@ import classNames from 'classnames';
 import {
     AvatarIcon,
     IconType,
+    RhythmicRerender,
     StatePingAnimation,
     Tag,
     formatterUtils,
+    useOdsCoreContext,
     type StatePingAnimationVariant,
     type TagVariant,
 } from '../../../../../core';
@@ -48,6 +50,7 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
     const showStatusMetadata = status !== 'draft';
 
     const { copy } = useOdsModulesContext();
+    const { copy: coreCopy } = useOdsCoreContext();
 
     return (
         <div className="flex items-center gap-x-4 md:gap-x-6">
@@ -61,10 +64,22 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                             'text-neutral-800': ongoing === false,
                         })}
                     >
-                        {ongoingAndVoted ? copy.proposalDataListItemStatus.voted : date}
-                        {ongoingAndVoted
-                            ? "You've voted"
-                            : formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })}
+                        {ongoingAndVoted ? (
+                            copy.proposalDataListItemStatus.voted
+                        ) : (
+                            <RhythmicRerender
+                                render={(now) => {
+                                    const formattedDuration = formatterUtils.formatDate(date, {
+                                        format: DateFormat.DURATION,
+                                    })!;
+
+                                    const suffix =
+                                        new Date(date!).getTime() > now ? coreCopy.date.left : coreCopy.date.ago;
+
+                                    return `${formattedDuration} ${suffix}`;
+                                }}
+                            />
+                        )}
                     </span>
                     {ongoingAndVoted && <AvatarIcon icon={IconType.CHECKMARK} responsiveSize={{ md: 'md' }} />}
                     {ongoing && !voted && <StatePingAnimation variant={ongoingStatusToPingVariant[status]} />}

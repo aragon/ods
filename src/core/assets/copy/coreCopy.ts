@@ -23,6 +23,10 @@ export const coreCopy = {
     inputNumberMax: {
         max: 'Max',
     },
+    date: {
+        ago: 'ago',
+        left: 'left',
+    },
 };
 
 export type CoreCopy = typeof coreCopy;

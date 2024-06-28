@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
+import { DateTime } from 'luxon';
 import * as wagmi from 'wagmi';
-import { DataList, formatterUtils } from '../../../../../core';
-import { DateFormat } from '../../../../../core/utils/formatterUtils/formatterUtilsDefinitions';
+import { DataList } from '../../../../../core';
 import { modulesCopy } from '../../../../assets';
 import { addressUtils } from '../../../../utils/addressUtils';
 import { ProposalDataListItemStructure, maxPublishersDisplayed } from './proposalDataListItemStructure';
@@ -112,7 +112,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
     it('renders with the given properties', () => {
         const testProps = {
             tag: 'OSx updates',
-            date: new Date().toISOString(),
+            date: DateTime.now().plus({ hours: 5, minutes: 15 }).toMillis(),
             publisher: { address: '0x0000000000000000000000000000000000000000', link: '#' },
             status: 'active',
             summary: 'Example Summary',
@@ -126,7 +126,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
         expect(screen.getByText(testProps.title)).toBeInTheDocument();
         expect(screen.getByText(testProps.summary)).toBeInTheDocument();
         expect(screen.getByText(testProps.status)).toBeInTheDocument();
-        const formattedDate = formatterUtils.formatDate(testProps.date, { format: DateFormat.RELATIVE })!;
+        const formattedDate = '5 hours left';
         expect(screen.getByText(formattedDate)).toBeInTheDocument();
         expect(screen.getByText(testProps.id)).toBeInTheDocument();
         expect(screen.getByText(testProps.tag)).toBeInTheDocument();
