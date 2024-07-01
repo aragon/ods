@@ -1,20 +1,24 @@
 import { act, render, screen } from '@testing-library/react';
-import { Rerender } from './rerender';
+import { type IRerenderProps, Rerender } from './rerender';
 
 describe('<Rerender /> component', () => {
     beforeEach(() => {
         jest.useFakeTimers();
     });
 
+    const createTestComponent = (props?: Partial<IRerenderProps>) => {
+        return render(<Rerender {...props}>{(time) => <div>Current Time: {time}</div>}</Rerender>);
+    };
+
     it('renders the initial time', () => {
         const currentTime = Date.now();
-        render(<Rerender>{(time) => <div>Current Time: {time}</div>}</Rerender>);
+        createTestComponent();
 
         expect(screen.getByText(`Current Time: ${currentTime}`)).toBeInTheDocument();
     });
 
     it('updates time at the specified interval', () => {
-        render(<Rerender intervalDuration={1000}>{(time) => <div>Current Time: {time}</div>}</Rerender>);
+        createTestComponent({ intervalDuration: 1000 });
 
         // Fast-forward time by 1 second
         act(() => {
@@ -36,9 +40,7 @@ describe('<Rerender /> component', () => {
     it('clears the interval on unmount', () => {
         const clearIntervalSpy = jest.spyOn(window, 'clearInterval');
 
-        const { unmount } = render(
-            <Rerender intervalDuration={1000}>{(time) => <div>Current Time: {time}</div>}</Rerender>,
-        );
+        const { unmount } = createTestComponent({ intervalDuration: 1000 });
 
         unmount();
 
