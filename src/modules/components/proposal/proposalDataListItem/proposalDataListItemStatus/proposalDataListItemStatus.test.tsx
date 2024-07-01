@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { IconType, formatterUtils } from '../../../../../core';
-import { DateFormat } from '../../../../../core/utils/formatterUtils/formatterUtilsDefinitions';
+import { DateFormat, IconType, formatterUtils } from '../../../../../core';
 import { type ProposalStatus } from '../proposalDataListItemStructure';
 import { ProposalDataListItemStatus, type IProposalDataListItemStatusProps } from './proposalDataListItemStatus';
 

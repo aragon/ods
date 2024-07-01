@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import {
     AvatarIcon,
+    DateFormat,
     IconType,
     Rerender,
     StatePingAnimation,
@@ -9,7 +10,6 @@ import {
     type StatePingAnimationVariant,
     type TagVariant,
 } from '../../../../../core';
-import { DateFormat } from '../../../../../core/utils/formatterUtils/formatterUtilsDefinitions';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { type IProposalDataListItemStructureProps, type ProposalStatus } from '../proposalDataListItemStructure';
 

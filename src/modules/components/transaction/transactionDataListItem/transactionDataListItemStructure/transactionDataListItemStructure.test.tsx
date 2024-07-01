@@ -1,7 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import * as wagmi from 'wagmi';
-import { DataList, NumberFormat, formatterUtils } from '../../../../../core';
-import { DateFormat } from '../../../../../core/utils/formatterUtils/formatterUtilsDefinitions';
+import { DataList, DateFormat, NumberFormat, formatterUtils } from '../../../../../core';
 import { TransactionDataListItemStructure } from './transactionDataListItemStructure';
 import {
     TransactionStatus,

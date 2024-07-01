@@ -1,6 +1,5 @@
 import classNames from 'classnames';
-import { DataList, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
-import { DateFormat } from '../../../../../core/utils/formatterUtils/formatterUtilsDefinitions';
+import { DataList, DateFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 

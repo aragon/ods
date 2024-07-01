@@ -3,13 +3,13 @@ import { useChains } from 'wagmi';
 import {
     AvatarIcon,
     DataList,
+    DateFormat,
     IconType,
     NumberFormat,
     Spinner,
     formatterUtils,
     type AvatarIconVariant,
 } from '../../../../../core';
-import { DateFormat } from '../../../../../core/utils/formatterUtils/formatterUtilsDefinitions';
 import {
     TransactionStatus,
     TransactionType,
