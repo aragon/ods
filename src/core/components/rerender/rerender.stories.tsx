@@ -12,9 +12,7 @@ type Story = StoryObj<typeof Rerender>;
  * Default usage example of the Rerender component.
  */
 export const Default: Story = {
-    render: (args) => (
-        <Rerender intervalDuration={args.intervalDuration}>{(time) => <div>Current Time: {time}</div>}</Rerender>
-    ),
+    render: (args) => <Rerender {...args}>{(time) => <div>Current Time: {time}</div>}</Rerender>,
     args: {
         intervalDuration: 1000,
     },
