@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { act, render, screen } from '@testing-library/react';
-import { Rerender } from './Rerender';
+import { Rerender } from './rerender';
 
 jest.useFakeTimers();
 

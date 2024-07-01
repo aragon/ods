@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Rerender } from './Rerender';
+import { Rerender } from './rerender';
 
 const meta: Meta<typeof Rerender> = {
     title: 'Core/Components/Rerender',
