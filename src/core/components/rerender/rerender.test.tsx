@@ -2,9 +2,11 @@ import '@testing-library/jest-dom';
 import { act, render, screen } from '@testing-library/react';
 import { Rerender } from './rerender';
 
-jest.useFakeTimers();
-
 describe('<Rerender /> component', () => {
+    beforeEach(() => {
+        jest.useFakeTimers();
+    });
+
     it('renders the initial time', () => {
         const currentTime = Date.now();
         render(<Rerender>{(time) => <div>Current Time: {time}</div>}</Rerender>);
