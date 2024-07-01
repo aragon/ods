@@ -7,18 +7,32 @@ describe('<Rerender /> component', () => {
     });
 
     const createTestComponent = (props?: Partial<IRerenderProps>) => {
-        return render(<Rerender {...props}>{(time) => <div>Current Time: {time}</div>}</Rerender>);
+        const completeProps: IRerenderProps = {
+            children: jest.fn(),
+            ...props,
+        };
+
+        return <Rerender {...completeProps} />;
     };
 
     it('renders the initial time', () => {
         const currentTime = Date.now();
-        createTestComponent();
+        render(
+            createTestComponent({
+                children: (time) => <div>Current Time: {time}</div>,
+            }),
+        );
 
         expect(screen.getByText(`Current Time: ${currentTime}`)).toBeInTheDocument();
     });
 
     it('updates time at the specified interval', () => {
-        createTestComponent({ intervalDuration: 1000 });
+        render(
+            createTestComponent({
+                children: (time) => <div>Current Time: {time}</div>,
+                intervalDuration: 1000,
+            }),
+        );
 
         // Fast-forward time by 1 second
         act(() => {
@@ -40,7 +54,11 @@ describe('<Rerender /> component', () => {
     it('clears the interval on unmount', () => {
         const clearIntervalSpy = jest.spyOn(window, 'clearInterval');
 
-        const { unmount } = createTestComponent({ intervalDuration: 1000 });
+        const { unmount } = render(
+            createTestComponent({
+                children: (time) => <div>Current Time: {time}</div>,
+            }),
+        );
 
         unmount();
 
