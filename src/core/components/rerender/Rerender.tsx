@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 
-interface RerenderProps {
+export interface IRerenderProps {
     /**
      * The duration in milliseconds between each rerender.
      * @default 1000
@@ -19,7 +19,7 @@ interface RerenderProps {
  * (in milliseconds) to its child function. Useful for dynamically updating content based
  * on time-sensitive data.
  */
-export const Rerender = ({ intervalDuration = 1000, children }: RerenderProps): JSX.Element => {
+export const Rerender = ({ intervalDuration = 1000, children }: IRerenderProps): JSX.Element => {
     const [time, setTime] = useState(Date.now());
 
     useEffect(() => {
