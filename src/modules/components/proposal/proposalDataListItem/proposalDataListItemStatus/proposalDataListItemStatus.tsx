@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import {
     AvatarIcon,
     IconType,
-    RhythmicRerender,
+    Rerender,
     StatePingAnimation,
     Tag,
     formatterUtils,
@@ -67,8 +67,8 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                         {ongoingAndVoted ? (
                             copy.proposalDataListItemStatus.voted
                         ) : (
-                            <RhythmicRerender
-                                render={(now) => {
+                            <Rerender>
+                                {(now) => {
                                     const formattedDuration = formatterUtils.formatDate(date, {
                                         format: DateFormat.DURATION,
                                     })!;
@@ -78,7 +78,7 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
 
                                     return `${formattedDuration} ${suffix}`;
                                 }}
-                            />
+                            </Rerender>
                         )}
                     </span>
                     {ongoingAndVoted && <AvatarIcon icon={IconType.CHECKMARK} responsiveSize={{ md: 'md' }} />}
