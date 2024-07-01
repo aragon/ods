@@ -17,6 +17,7 @@ export * from './illustrations';
 export * from './link';
 export * from './odsCoreProvider';
 export * from './progress';
+export * from './rerender';
 export * from './spinner';
 export * from './states';
 export * from './tabs';

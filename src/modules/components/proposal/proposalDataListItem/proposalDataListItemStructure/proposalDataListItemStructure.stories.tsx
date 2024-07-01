@@ -22,8 +22,8 @@ const basePublisher = {
 };
 
 const baseArgs: Omit<IProposalDataListItemStructureProps, 'result' | 'publisher'> = {
-    date: '5 days left',
-    status: 'draft',
+    date: 1719963030308,
+    status: 'active',
     title: 'This is a very serious proposal to send funds to a wallet address',
     summary: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel eleifend neque, in mattis eros. 
         Integer ornare dapibus sem sit amet viverra. Sed blandit ipsum quis erat elementum lacinia.

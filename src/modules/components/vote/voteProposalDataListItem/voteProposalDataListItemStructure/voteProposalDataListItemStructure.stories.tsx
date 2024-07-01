@@ -23,7 +23,7 @@ export const TokenVoting: Story = {
         proposalId: 'PIP-06',
         proposalTitle: 'Introduction of Layer 2 Scaling Solutions',
         voteIndicator: 'yes',
-        date: '1 minute ago',
+        date: 1613984914000,
     },
     render: (args) => (
         <DataList.Root entityLabel="proposalVote">
@@ -42,7 +42,7 @@ export const Multisig: Story = {
         proposalId: 'PIP-06',
         proposalTitle: 'Introduction of Layer 2 Scaling Solutions',
         voteIndicator: 'approve',
-        date: '1 minute ago',
+        date: 1613984914000,
     },
     render: (args) => (
         <DataList.Root entityLabel="proposalVote">

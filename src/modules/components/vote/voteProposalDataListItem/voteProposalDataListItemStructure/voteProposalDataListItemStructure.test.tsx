@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
+import { DateTime } from 'luxon';
 import { DataList } from '../../../../../core';
 import {
     VoteProposalDataListItemStructure,
@@ -38,9 +39,9 @@ describe('<VoteProposalDataListItemStructure /> component', () => {
     });
 
     it('renders the date if available', () => {
-        const date = '2 days ago';
+        const date = DateTime.now().minus({ days: 2 }).toMillis();
         render(createTestComponent({ date }));
 
-        expect(screen.getByText(date)).toBeInTheDocument();
+        expect(screen.getByText('2 days ago')).toBeInTheDocument();
     });
 });

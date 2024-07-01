@@ -24,9 +24,9 @@ export interface IProposalDataListItemStructureBaseProps<TType extends ProposalT
      */
     id?: string;
     /**
-     * Indicates date relative to the proposal status
+     *  Date relative to the proposal status in ISO format or as a timestamp
      */
-    date?: string;
+    date?: string | number;
     /**
      * Optional tag indicating proposal type
      */

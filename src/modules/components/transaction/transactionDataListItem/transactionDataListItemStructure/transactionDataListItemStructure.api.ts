@@ -45,9 +45,9 @@ export interface ITransactionDataListItemProps extends IDataListItemProps {
      */
     status?: TransactionStatus;
     /**
-     * The Unix timestamp of the transaction.
+     *  Date of transaction in ISO format or as a timestamp
      */
-    date: string;
+    date: number | string;
     /**
      * The transaction hash.
      */

@@ -3,6 +3,7 @@ import { useChains } from 'wagmi';
 import {
     AvatarIcon,
     DataList,
+    DateFormat,
     IconType,
     NumberFormat,
     Spinner,
@@ -97,7 +98,9 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                         <span className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
                             {txHeadingStringList[type]}
                         </span>
-                        <p className="text-sm font-normal leading-tight text-neutral-500 md:text-base">{date}</p>
+                        <p className="text-sm font-normal leading-tight text-neutral-500 md:text-base">
+                            {formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME })}
+                        </p>
                     </div>
                 </div>
 

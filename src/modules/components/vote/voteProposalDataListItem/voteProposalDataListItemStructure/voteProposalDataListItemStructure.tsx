@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { DataList, Tag, type IDataListItemProps } from '../../../../../core';
+import { DataList, DateFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
@@ -17,9 +17,9 @@ export interface IVoteProposalDataListItemStructureProps extends IDataListItemPr
      */
     voteIndicator: VoteIndicator;
     /**
-     * Formatted date of the user's vote on the proposal
+     *  Date of the vote on the proposal in ISO format or as a timestamp
      */
-    date?: string;
+    date?: number | string;
 }
 
 export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListItemStructureProps> = (props) => {
@@ -44,7 +44,7 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
                     label={voteIndicator}
                     data-testid="tag"
                 />
-                <p className="mx-1">{date}</p>
+                {date && <p className="mx-1">{formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })}</p>}
             </div>
         </DataList.Item>
     );

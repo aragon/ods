@@ -1,9 +1,12 @@
 import classNames from 'classnames';
 import {
     AvatarIcon,
+    DateFormat,
     IconType,
+    Rerender,
     StatePingAnimation,
     Tag,
+    formatterUtils,
     type StatePingAnimationVariant,
     type TagVariant,
 } from '../../../../../core';
@@ -59,7 +62,24 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                             'text-neutral-800': ongoing === false,
                         })}
                     >
-                        {ongoingAndVoted ? copy.proposalDataListItemStatus.voted : date}
+                        {ongoingAndVoted ? (
+                            copy.proposalDataListItemStatus.voted
+                        ) : (
+                            <Rerender>
+                                {(now) => {
+                                    const formattedDuration = formatterUtils.formatDate(date, {
+                                        format: DateFormat.DURATION,
+                                    })!;
+
+                                    const suffix =
+                                        new Date(date!).getTime() > now
+                                            ? copy.proposalDataListItemStatus.left
+                                            : copy.proposalDataListItemStatus.ago;
+
+                                    return `${formattedDuration} ${suffix}`;
+                                }}
+                            </Rerender>
+                        )}
                     </span>
                     {ongoingAndVoted && <AvatarIcon icon={IconType.CHECKMARK} responsiveSize={{ md: 'md' }} />}
                     {ongoing && !voted && <StatePingAnimation variant={ongoingStatusToPingVariant[status]} />}

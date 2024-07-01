@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { DateTime } from 'luxon';
 import * as wagmi from 'wagmi';
 import { DataList } from '../../../../../core';
 import { modulesCopy } from '../../../../assets';
@@ -111,7 +112,6 @@ describe('<ProposalDataListItemStructure/> component', () => {
     it('renders with the given properties', () => {
         const testProps = {
             tag: 'OSx updates',
-            date: new Date().toISOString(),
             publisher: { address: '0x0000000000000000000000000000000000000000', link: '#' },
             status: 'active',
             summary: 'Example Summary',
@@ -125,10 +125,25 @@ describe('<ProposalDataListItemStructure/> component', () => {
         expect(screen.getByText(testProps.title)).toBeInTheDocument();
         expect(screen.getByText(testProps.summary)).toBeInTheDocument();
         expect(screen.getByText(testProps.status)).toBeInTheDocument();
-        expect(screen.getByText(testProps.date)).toBeInTheDocument();
         expect(screen.getByText(testProps.id)).toBeInTheDocument();
         expect(screen.getByText(testProps.tag)).toBeInTheDocument();
         expect(screen.getByText(addressUtils.truncateAddress(testProps.publisher.address))).toBeInTheDocument();
+    });
+
+    describe('date rendering', () => {
+        it('renders the correct time left', () => {
+            const date = DateTime.now().plus({ hours: 5, minutes: 15 }).toMillis();
+            render(createTestComponent({ date }));
+            const formattedDate = '5 hours left';
+            expect(screen.getByText(formattedDate)).toBeInTheDocument();
+        });
+
+        it('renders the correct time ago', () => {
+            const date = DateTime.now().minus({ hours: 5, minutes: 15 }).toMillis();
+            render(createTestComponent({ date }));
+            const formattedDate = '5 hours ago';
+            expect(screen.getByText(formattedDate)).toBeInTheDocument();
+        });
     });
 
     describe("'approvalThreshold' type", () => {
