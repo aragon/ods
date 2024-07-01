@@ -27,6 +27,8 @@ export const modulesCopy = {
     },
     proposalDataListItemStatus: {
         voted: "You've voted",
+        ago: 'ago',
+        left: 'left',
     },
     proposalDataListItemStructure: {
         by: 'By',

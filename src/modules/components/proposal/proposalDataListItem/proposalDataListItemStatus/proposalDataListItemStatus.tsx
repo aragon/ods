@@ -6,7 +6,6 @@ import {
     StatePingAnimation,
     Tag,
     formatterUtils,
-    useOdsCoreContext,
     type StatePingAnimationVariant,
     type TagVariant,
 } from '../../../../../core';
@@ -50,7 +49,6 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
     const showStatusMetadata = status !== 'draft';
 
     const { copy } = useOdsModulesContext();
-    const { copy: coreCopy } = useOdsCoreContext();
 
     return (
         <div className="flex items-center gap-x-4 md:gap-x-6">
@@ -74,7 +72,9 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                                     })!;
 
                                     const suffix =
-                                        new Date(date!).getTime() > now ? coreCopy.date.left : coreCopy.date.ago;
+                                        new Date(date!).getTime() > now
+                                            ? copy.proposalDataListItemStatus.left
+                                            : copy.proposalDataListItemStatus.ago;
 
                                     return `${formattedDuration} ${suffix}`;
                                 }}
