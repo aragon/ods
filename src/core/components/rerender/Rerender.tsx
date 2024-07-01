@@ -19,7 +19,9 @@ export interface IRerenderProps {
  * (in milliseconds) to its child function. Useful for dynamically updating content based
  * on time-sensitive data.
  */
-export const Rerender = ({ intervalDuration = 1000, children }: IRerenderProps): JSX.Element => {
+export const Rerender: React.FC<IRerenderProps> = (props): JSX.Element => {
+    const { intervalDuration = 1000, children } = props;
+
     const [time, setTime] = useState(Date.now());
 
     useEffect(() => {
