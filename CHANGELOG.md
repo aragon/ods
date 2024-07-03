@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Format dates with `formatterUtils` within components
+-   Update minor and patch NPM dependencies
 
 ## [1.0.36] - 2024-06-28
 
