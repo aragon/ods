@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Bump `prettier-plugin-organize-imports` to 4.0.0
+-   Update minor and patch NPM dependencies
 
 ## [1.0.37] - 2024-07-08
 
