@@ -61,7 +61,7 @@ __metadata:
     "@rollup/plugin-node-resolve": "npm:^15.2.3"
     "@rollup/plugin-terser": "npm:^0.4.4"
     "@rollup/plugin-typescript": "npm:^11.1.6"
-    "@storybook/addon-designs": "npm:^8.0.2"
+    "@storybook/addon-designs": "npm:^8.0.3"
     "@storybook/addon-essentials": "npm:^8.1.11"
     "@storybook/addon-links": "npm:^8.1.11"
     "@storybook/addon-styling-webpack": "npm:^1.0.0"
@@ -73,8 +73,8 @@ __metadata:
     "@svgr/rollup": "npm:^8.1.0"
     "@svgr/webpack": "npm:^8.1.0"
     "@tailwindcss/typography": "npm:^0.5.12"
-    "@tanstack/react-query": "npm:^5.49.2"
-    "@testing-library/dom": "npm:^10.2.0"
+    "@tanstack/react-query": "npm:^5.50.1"
+    "@testing-library/dom": "npm:^10.3.1"
     "@testing-library/jest-dom": "npm:^6.4.6"
     "@testing-library/react": "npm:^16.0.0"
     "@testing-library/user-event": "npm:^14.5.2"
@@ -89,8 +89,8 @@ __metadata:
     "@types/luxon": "npm:^3.4.2"
     "@types/react-dom": "npm:^18.3.0"
     "@types/sanitize-html": "npm:^2.9.0"
-    "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
-    "@typescript-eslint/parser": "npm:^7.15.0"
+    "@typescript-eslint/eslint-plugin": "npm:^7.16.0"
+    "@typescript-eslint/parser": "npm:^7.16.0"
     autoprefixer: "npm:^10.4.19"
     blockies-ts: "npm:^1.0.0"
     classnames: "npm:^2.0.0"
@@ -118,7 +118,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     react-dropzone: "npm:^14.2.0"
     react-imask: "npm:^7.6.0"
-    rollup: "npm:^4.18.0"
+    rollup: "npm:^4.18.1"
     rollup-plugin-peer-deps-external: "npm:^2.2.4"
     rollup-plugin-postcss: "npm:^4.0.2"
     rollup-plugin-visualizer: "npm:^5.12.0"
@@ -126,17 +126,17 @@ __metadata:
     storybook: "npm:^8.1.11"
     tailwindcss: "npm:^3.4.4"
     tiptap-markdown: "npm:^0.8.10"
-    ts-jest: "npm:^29.1.5"
-    typescript: "npm:^5.5.2"
-    viem: "npm:^2.16.5"
+    ts-jest: "npm:^29.2.0"
+    typescript: "npm:^5.5.3"
+    viem: "npm:^2.17.3"
     wagmi: "npm:^2.10.8"
   peerDependencies:
     "@tailwindcss/typography": ^0.5.0
-    "@tanstack/react-query": ^5.49.0
+    "@tanstack/react-query": ^5.50.0
     react: ^18.2.0
     react-dom: ^18.2.0
     tailwindcss: ^3.4.0
-    viem: ^2.16.0
+    viem: ^2.17.0
     wagmi: ^2.10.0
   languageName: unknown
   linkType: soft
@@ -4351,7 +4351,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-designs@npm:^8.0.2":
+"@storybook/addon-designs@npm:^8.0.3":
   version: 8.0.3
   resolution: "@storybook/addon-designs@npm:8.0.3"
   dependencies:
@@ -5379,7 +5379,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^5.49.2":
+"@tanstack/react-query@npm:^5.50.1":
   version: 5.50.1
   resolution: "@tanstack/react-query@npm:5.50.1"
   dependencies:
@@ -5390,7 +5390,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/dom@npm:^10.2.0":
+"@testing-library/dom@npm:^10.3.1":
   version: 10.3.1
   resolution: "@testing-library/dom@npm:10.3.1"
   dependencies:
@@ -6321,7 +6321,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^7.14.1":
+"@typescript-eslint/eslint-plugin@npm:^7.16.0":
   version: 7.16.0
   resolution: "@typescript-eslint/eslint-plugin@npm:7.16.0"
   dependencies:
@@ -6344,7 +6344,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^7.15.0":
+"@typescript-eslint/parser@npm:^7.16.0":
   version: 7.16.0
   resolution: "@typescript-eslint/parser@npm:7.16.0"
   dependencies:
@@ -16976,7 +16976,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^4.18.0":
+"rollup@npm:^4.18.1":
   version: 4.18.1
   resolution: "rollup@npm:4.18.1"
   dependencies:
@@ -18352,7 +18352,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^29.1.5":
+"ts-jest@npm:^29.2.0":
   version: 29.2.0
   resolution: "ts-jest@npm:29.2.0"
   dependencies:
@@ -18556,7 +18556,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.5.2":
+"typescript@npm:^5.5.3":
   version: 5.5.3
   resolution: "typescript@npm:5.5.3"
   bin:
@@ -18566,7 +18566,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.5.2#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5.5.3#optional!builtin<compat/typescript>":
   version: 5.5.3
   resolution: "typescript@patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=b45daf"
   bin:
@@ -19089,7 +19089,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:^2.16.5":
+"viem@npm:^2.17.3":
   version: 2.17.3
   resolution: "viem@npm:2.17.3"
   dependencies:
