@@ -40,12 +40,12 @@ export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> 
     return (
         <DataList.Item {...otherProps}>
             <div className="grid gap-y-4 py-1 md:py-1.5">
-                <div className="flex w-full justify-between">
-                    <div className="grid gap-y-1.5 text-neutral-800">
-                        <Heading size="h2" as="h1">
+                <div className="flex w-full justify-between gap-2">
+                    <div className="grid shrink gap-y-1.5 text-neutral-800">
+                        <Heading size="h2" as="h1" className="truncate">
                             {name}
                         </Heading>
-                        <Heading size="h4" as="h2">
+                        <Heading size="h4" as="h2" className="truncate">
                             {ens ?? address}
                         </Heading>
                     </div>
