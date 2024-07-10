@@ -14,11 +14,11 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
     humanIllustration,
 }) => {
     const containerClassNames = classNames(
-        'grid w-[320px] md:w-[640px]', // Defaults
+        'grid w-full', // Defaults
         { 'grid-cols-1 justify-items-center text-center p-6 md:p-12': isStacked }, // Stacked
         { 'gap-4 md:gap-6': isStacked && humanIllustration != null }, // Staked & Human illustration
-        { 'grid-cols-[auto_max-content] gap-4 p-4 items-center': !isStacked }, // Horizontal
-        { 'md:grid-cols-[auto_max-content] md:px-6 md:py-5': !isStacked }, // Responsive horizontal
+        { 'grid-cols-[auto_64px] gap-4 p-4 items-center': !isStacked }, // Horizontal
+        { 'md:grid-cols-[auto_80px] md:px-6 md:py-5': !isStacked }, // Responsive horizontal
         className,
     );
 
@@ -27,8 +27,8 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
             {humanIllustration && (
                 <IllustrationHuman
                     className={classNames({
-                        'mb-4 h-auto !w-[295px] md:mb-6 md:!w-[400px]': isStacked,
-                        'align-self-center order-last !w-[80px] justify-self-end md:!w-[172px]': !isStacked,
+                        'mb-4 h-auto w-full max-w-[400px] md:mb-6': isStacked,
+                        'order-last h-auto w-full max-w-20 justify-self-end': !isStacked,
                     })}
                     {...humanIllustration}
                 />
@@ -36,9 +36,8 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
             {objectIllustration && (
                 <IllustrationObject
                     className={classNames({
-                        'h-auto w-[160px]': isStacked,
-                        'order-last h-auto w-[80px] justify-self-end rounded-full bg-neutral-50 md:w-[96px]':
-                            !isStacked,
+                        'h-auto w-full max-w-[160px]': isStacked,
+                        'order-last h-auto w-full max-w-20 justify-self-end rounded-full bg-neutral-50': !isStacked,
                     })}
                     {...objectIllustration}
                 />

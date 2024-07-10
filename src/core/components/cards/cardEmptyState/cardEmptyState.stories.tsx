@@ -26,4 +26,17 @@ export const Default: Story = {
     },
 };
 
+export const HumanIllustration: Story = {
+    args: {
+        heading: 'Heading',
+        humanIllustration: {
+            body: 'VOTING',
+            hairs: 'MIDDLE',
+            accessory: 'EARRINGS_RHOMBUS',
+            sunglasses: 'BIG_ROUNDED',
+            expression: 'SMILE',
+        },
+    },
+};
+
 export default meta;
