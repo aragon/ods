@@ -3,7 +3,7 @@ import { Card } from '../card';
 
 export const CardEmptyState: React.FC<IEmptyStateProps> = (props) => {
     return (
-        <Card className="flex justify-center">
+        <Card className="mx-auto flex w-full justify-center">
             <EmptyState {...props} />
         </Card>
     );

@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
+-   Remove fixed width from `EmptyState` core component
+-   Center `CardEmptyState` core component
 -   Truncate long strings on `DaoDataListItem`, `AssetDataListItem`, `VoteDataListItem` module components
 
 ### Changed
