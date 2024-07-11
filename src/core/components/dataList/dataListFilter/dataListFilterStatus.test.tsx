@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { DataListContextProvider, type IDataListContext } from '../dataListContext';
 import { dataListTestUtils } from '../dataListTestUtils';
 import { DataListFilterStatus, type IDataListFilterStatusProps } from './dataListFilterStatus';
-import userEvent from '@testing-library/user-event';
 
 describe('<DataListFilterStatus /> component', () => {
     const createTestComponent = (values?: {
