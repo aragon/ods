@@ -7,12 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
--   Remove fixed width from `EmptyState` core component
--   Center `CardEmptyState` core component
-
 ### Fixed
 
 -   Truncate long strings on `DaoDataListItem`, `AssetDataListItem`, `VoteDataListItem` module components
+-   Remove fixed width from `EmptyState` core component
+-   Center `CardEmptyState` core component
 
 ### Changed
 
