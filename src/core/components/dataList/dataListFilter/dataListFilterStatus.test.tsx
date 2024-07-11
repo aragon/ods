@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { DataListContextProvider, type IDataListContext } from '../dataListContext';
 import { dataListTestUtils } from '../dataListTestUtils';
 import { DataListFilterStatus, type IDataListFilterStatusProps } from './dataListFilterStatus';
+import userEvent from '@testing-library/user-event';
 
 describe('<DataListFilterStatus /> component', () => {
     const createTestComponent = (values?: {
@@ -54,5 +55,21 @@ describe('<DataListFilterStatus /> component', () => {
         const context = { state: 'idle' as const, entityLabel: 'test', itemsCount: 0 };
         render(createTestComponent({ context }));
         expect(screen.queryByText(context.entityLabel)).not.toBeInTheDocument();
+    });
+
+    it('renders the reset filters button when the onResetFiltersClick property is defined', () => {
+        const props = { onResetFiltersClick: jest.fn() };
+        const context = { state: 'filtered' as const };
+        render(createTestComponent({ props, context }));
+        expect(screen.getByRole('button', { name: 'Reset all filters' })).toBeInTheDocument();
+    });
+
+    it('calls the onResetFiltersClick callback on button click', async () => {
+        const user = userEvent.setup();
+        const props = { onResetFiltersClick: jest.fn() };
+        const context = { state: 'filtered' as const };
+        render(createTestComponent({ props, context }));
+        await user.click(screen.getByRole('button', { name: 'Reset all filters' }));
+        expect(props.onResetFiltersClick).toHaveBeenCalled();
     });
 });

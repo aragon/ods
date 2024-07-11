@@ -1,10 +1,13 @@
 import classNames from 'classnames';
+import { Button } from '../../button';
 import { useOdsCoreContext } from '../../odsCoreProvider';
 import { useDataListContext } from '../dataListContext';
 
-export interface IDataListFilterStatusProps {}
+export interface IDataListFilterStatusProps {
+    onResetFiltersClick?: () => void;
+}
 
-export const DataListFilterStatus: React.FC<IDataListFilterStatusProps> = () => {
+export const DataListFilterStatus: React.FC<IDataListFilterStatusProps> = ({ onResetFiltersClick }) => {
     const { state, itemsCount = 0, entityLabel } = useDataListContext();
 
     const { copy } = useOdsCoreContext();
@@ -20,28 +23,35 @@ export const DataListFilterStatus: React.FC<IDataListFilterStatusProps> = () => 
     }
 
     return (
-        <p
-            className={classNames(
-                'px-3 text-sm font-normal leading-tight text-neutral-500 md:text-base',
-                { 'text-primary-400': isLoading || isInitialLoading },
-                { 'text-neutral-500': displayItemsCount },
-            )}
-        >
-            {displayItemsCount && (
-                <>
-                    <span className="text-neutral-800">{itemsCount} </span>
-                    <span>{entityLabel}</span>
-                </>
-            )}
-            {isInitialLoading && copy.dataListFilterStatus.loadingEntity(entityLabel)}
-            {isLoading && copy.dataListFilterStatus.filteringEntity(entityLabel)}
+        <div className="flex h-10 items-center justify-between">
+            <p
+                className={classNames(
+                    'px-3 text-sm font-normal leading-tight text-neutral-500 md:text-base',
+                    { 'text-primary-400': isLoading || isInitialLoading },
+                    { 'text-neutral-500': displayItemsCount },
+                )}
+            >
+                {displayItemsCount && (
+                    <>
+                        <span className="text-neutral-800">{itemsCount} </span>
+                        <span>{entityLabel}</span>
+                    </>
+                )}
+                {isInitialLoading && copy.dataListFilterStatus.loadingEntity(entityLabel)}
+                {isLoading && copy.dataListFilterStatus.filteringEntity(entityLabel)}
+                {isFiltered && (
+                    <>
+                        <span>{copy.dataListFilterStatus.found} </span>
+                        <span className="text-primary-400">{itemsCount} </span>
+                        <span>{entityLabel}</span>
+                    </>
+                )}
+            </p>
             {isFiltered && (
-                <>
-                    <span>{copy.dataListFilterStatus.found} </span>
-                    <span className="text-primary-400">{itemsCount} </span>
-                    <span>{entityLabel}</span>
-                </>
+                <Button size="sm" onClick={onResetFiltersClick} variant="ghost" responsiveSize={{ md: 'md' }}>
+                    {copy.dataListFilter.reset}
+                </Button>
             )}
-        </p>
+        </div>
     );
 };
