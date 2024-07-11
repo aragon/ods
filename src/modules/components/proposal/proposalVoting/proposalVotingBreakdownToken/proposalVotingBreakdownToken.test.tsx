@@ -1,0 +1,5 @@
+describe('<ProposalVotingBreakdownToken /> component', () => {
+    it('', () => {
+        //
+    });
+});

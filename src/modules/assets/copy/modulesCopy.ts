@@ -69,6 +69,11 @@ export const modulesCopy = {
         by: 'By',
         creators: 'creators',
     },
+    proposalVotingTabs: {
+        breakdown: 'Breakdown',
+        votes: 'Votes',
+        details: 'Details',
+    },
     voteDataListItemStructure: {
         yourDelegate: 'Your delegate',
         you: 'You',

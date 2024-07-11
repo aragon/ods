@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 import { Accordion, type IAccordionItemProps, StatePingAnimation, invariant } from '../../../../../core';
+import { ProposalVotingTab } from '../proposalVotingDefinitions';
+import { ProposalVotingTabs } from '../proposalVotingTabs';
 
 export interface IProposalVotingStageProps extends IAccordionItemProps {
     /**
@@ -16,8 +18,9 @@ export interface IProposalVotingStageProps extends IAccordionItemProps {
     startDate: number | string;
     /**
      * Default tab displayed for the current stage.
+     * @default ProposalVotingTab.BREAKDOWN
      */
-    defaultTab?: string; // TODO: tab type
+    defaultTab?: ProposalVotingTab;
     /**
      * Index of the stage.
      */
@@ -29,7 +32,7 @@ export interface IProposalVotingStageProps extends IAccordionItemProps {
 }
 
 export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) => {
-    const { name, status, startDate, defaultTab, index, children, ...otherProps } = props;
+    const { name, status, startDate, defaultTab = ProposalVotingTab.BREAKDOWN, index, children, ...otherProps } = props;
 
     invariant(
         index != null,
@@ -50,7 +53,9 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                     <p className="mt-1 text-sm font-normal leading-tight text-neutral-500">Stage {index + 1}</p>
                 </div>
             </Accordion.ItemHeader>
-            <Accordion.ItemContent>{children}</Accordion.ItemContent>
+            <Accordion.ItemContent>
+                <ProposalVotingTabs defaultValue={defaultTab}>{children}</ProposalVotingTabs>
+            </Accordion.ItemContent>
         </Accordion.Item>
     );
 };

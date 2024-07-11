@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ProposalVotingStage } from '../proposalVotingStage';
+import { ProposalVotingTabs } from '../proposalVotingTabs';
 import { ProposalVotingContainer } from './proposalVotingContainer';
 
 const meta: Meta<typeof ProposalVotingContainer> = {
@@ -16,9 +17,9 @@ const meta: Meta<typeof ProposalVotingContainer> = {
 type Story = StoryObj<typeof ProposalVotingContainer>;
 
 /**
- * Default usage example of the ProposalVotingContainer module component.
+ * Usage example of the ProposalVotingContainer module component for multi-stage proposals
  */
-export const Default: Story = {
+export const MultiStage: Story = {
     render: (args) => (
         <ProposalVotingContainer {...args} style={{ maxWidth: 560 }}>
             <ProposalVotingStage name="Token holder voting" status="active" startDate={0} value="token-holder" />
@@ -29,6 +30,21 @@ export const Default: Story = {
         title: 'Voting',
         description:
             'The proposal must pass all governance stages to be accepted and potential onchain actions to execute.',
+    },
+};
+
+/**
+ * Usage example of the ProposalVotingContainer module component for single-stage proposals
+ */
+export const Single: Story = {
+    render: (args) => (
+        <ProposalVotingContainer {...args} style={{ maxWidth: 560 }}>
+            <ProposalVotingTabs />
+        </ProposalVotingContainer>
+    ),
+    args: {
+        title: 'Voting',
+        description: 'The proposal must pass the voting to be accepted and potential onchain actions to execute.',
     },
 };
 

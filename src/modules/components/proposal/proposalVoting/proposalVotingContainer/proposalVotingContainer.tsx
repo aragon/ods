@@ -1,7 +1,6 @@
 import classNames from 'classnames';
-import React, { type ComponentProps, type ReactElement } from 'react';
+import React, { Children, type ComponentProps, type ReactNode } from 'react';
 import { Accordion, Card, Heading } from '../../../../../core';
-import type { IProposalVotingStageProps } from '../proposalVotingStage';
 
 export interface IProposalVotingContainerProps extends ComponentProps<'div'> {
     /**
@@ -15,26 +14,30 @@ export interface IProposalVotingContainerProps extends ComponentProps<'div'> {
     /**
      * Children of the container.
      */
-    children: Array<ReactElement<IProposalVotingStageProps>>;
+    children: ReactNode;
 }
 
 export const ProposalVotingContainer: React.FC<IProposalVotingContainerProps> = (props) => {
     const { title, description, className, children, ...otherProps } = props;
 
-    const isMultiStage = children.length > 1;
+    const processedChildren = Children.toArray(children);
+    const isMultiStage = processedChildren.length > 1;
 
     return (
         <Card className={classNames('flex flex-col', { '': isMultiStage }, className)} {...otherProps}>
             <div className="flex flex-col gap-3 p-4 md:p-6">
                 <Heading size="h2">{title}</Heading>
                 <p className="text-base font-normal leading-normal text-neutral-500">{description}</p>
+                {/* TODO: start date for single stage proposals */}
             </div>
             {isMultiStage && (
                 <Accordion.Container isMulti={false}>
-                    {children.map((child, index) => React.cloneElement(child, { ...child.props, index }))}
+                    {processedChildren.map((child, index) =>
+                        React.isValidElement(child) ? React.cloneElement(child, { ...child.props, index }) : child,
+                    )}
                 </Accordion.Container>
             )}
-            {!isMultiStage && children}
+            {!isMultiStage && <div className="px-12 pb-6 pt-1">{children}</div>}
         </Card>
     );
 };
