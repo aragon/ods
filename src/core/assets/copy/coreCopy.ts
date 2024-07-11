@@ -10,7 +10,7 @@ export const coreCopy = {
     dataListFilter: {
         filter: 'Filter',
         sort: 'Sort',
-        reset: 'Reset all filters'
+        reset: 'Reset all filters',
     },
     dataListFilterStatus: {
         found: 'Found',
