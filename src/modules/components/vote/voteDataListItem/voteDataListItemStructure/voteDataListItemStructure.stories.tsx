@@ -51,4 +51,26 @@ export const Multisig: Story = {
     ),
 };
 
+/**
+ * Usage example of the VotesDataListItem module component for a token based vote with large number and long ens name.
+ */
+export const TokenVotingLongNames: Story = {
+    args: {
+        voter: {
+            address: '0x1234567890123456789012345678901234567890',
+            name: 'theLongestEnsDomainEverThatWillTruncateWhenNeeded.eth',
+        },
+        voteIndicator: 'yes',
+        votingPower: 123456789,
+        tokenSymbol: 'PDC',
+    },
+    render: (args) => (
+        <DataList.Root entityLabel="Votes">
+            <DataList.Container>
+                <VoteDataListItem.Structure {...args} />
+            </DataList.Container>
+        </DataList.Root>
+    ),
+};
+
 export default meta;
