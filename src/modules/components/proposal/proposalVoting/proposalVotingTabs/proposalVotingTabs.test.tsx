@@ -1,0 +1,5 @@
+describe('<ProposalVotingTabs /> component', () => {
+    it('', () => {
+        //
+    });
+});
