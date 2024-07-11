@@ -48,7 +48,7 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
 
     const isTokenVoting = votingPower != null && tokenSymbol != null;
     const centerInfoClassNames = classNames(
-        'flex w-full flex-col gap-y-1 text-base font-normal leading-tight md:gap-y-1.5 md:text-lg',
+        'flex w-full min-w-0 shrink flex-col gap-y-1 text-base font-normal leading-tight md:gap-y-1.5 md:text-lg',
         {
             'py-3 md:py-3.5': !isTokenVoting,
         },
@@ -58,13 +58,13 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
             <MemberAvatar address={voter.address} ensName={voter.name} responsiveSize={{ md: 'md' }} />
             <div className={centerInfoClassNames}>
                 <span className="flex items-center gap-x-1 text-neutral-800 md:gap-x-1.5">
-                    {resolvedUserHandle}
+                    <span className="truncate">{resolvedUserHandle}</span>
                     {isDelegate && !isCurrentUser && (
                         <Tag variant="primary" label={copy.voteDataListItemStructure.yourDelegate} />
                     )}
                     {isCurrentUser && <Tag variant="neutral" label={copy.voteDataListItemStructure.you} />}
                 </span>
-                {isTokenVoting && <span className="text-neutral-500">{formattedTokenVote}</span>}
+                {isTokenVoting && <span className="truncate text-neutral-500">{formattedTokenVote}</span>}
             </div>
             {voteIndicator && (
                 <Tag variant={voteIndicatorToTagVariant[voteIndicator]} className="capitalize" label={voteIndicator} />

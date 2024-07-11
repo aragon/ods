@@ -104,7 +104,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                     </div>
                 </div>
 
-                <div className="flex flex-col items-end gap-y-0.5">
+                <div className="flex flex-col items-end gap-y-0.5 truncate">
                     <span className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
                         {formattedTokenAmount}
                     </span>

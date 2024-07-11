@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+-   Truncate long strings on `DaoDataListItem`, `AssetDataListItem`, `VoteDataListItem` module components
+
 ### Changed
 
 -   Bump `prettier-plugin-organize-imports` to 4.0.0
