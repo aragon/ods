@@ -15,6 +15,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+-   Add new `variant` prop to core `Progress` component, which defaults to `primary`
+-   Add new optional `indicator` prop to core `Progress` component
 -   Bump `prettier-plugin-organize-imports` to 4.0.0
 -   Update minor and patch NPM dependencies
 
