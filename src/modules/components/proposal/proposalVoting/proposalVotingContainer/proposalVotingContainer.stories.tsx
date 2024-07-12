@@ -1,11 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProposalVotingStage } from '../proposalVotingStage';
-import { ProposalVotingTabs } from '../proposalVotingTabs';
-import { ProposalVotingContainer } from './proposalVotingContainer';
+import { ProposalVoting } from '../index';
 
-const meta: Meta<typeof ProposalVotingContainer> = {
+const meta: Meta<typeof ProposalVoting.Container> = {
     title: 'Modules/Components/Proposal/ProposalVoting/ProposalVoting.Container',
-    component: ProposalVotingContainer,
+    component: ProposalVoting.Container,
     parameters: {
         design: {
             type: 'figma',
@@ -14,17 +12,25 @@ const meta: Meta<typeof ProposalVotingContainer> = {
     },
 };
 
-type Story = StoryObj<typeof ProposalVotingContainer>;
+type Story = StoryObj<typeof ProposalVoting.Container>;
 
 /**
  * Usage example of the ProposalVotingContainer module component for multi-stage proposals
  */
 export const MultiStage: Story = {
     render: (args) => (
-        <ProposalVotingContainer {...args} style={{ maxWidth: 560 }}>
-            <ProposalVotingStage name="Token holder voting" status="active" startDate={0} value="token-holder" />
-            <ProposalVotingStage name="Founders approval" status="pending" startDate={0} value="founders" />
-        </ProposalVotingContainer>
+        <ProposalVoting.Container {...args} style={{ maxWidth: 560 }}>
+            <ProposalVoting.Stage name="Token holder voting" status="active" startDate={0} value="token-holder">
+                <ProposalVoting.BreakdownToken />
+                <ProposalVoting.Votes />
+                <ProposalVoting.Details />
+            </ProposalVoting.Stage>
+            <ProposalVoting.Stage name="Founders approval" status="pending" startDate={0} value="founders">
+                <ProposalVoting.BreakdownMultisig />
+                <ProposalVoting.Votes />
+                <ProposalVoting.Details />
+            </ProposalVoting.Stage>
+        </ProposalVoting.Container>
     ),
     args: {
         title: 'Voting',
@@ -36,11 +42,15 @@ export const MultiStage: Story = {
 /**
  * Usage example of the ProposalVotingContainer module component for single-stage proposals
  */
-export const Single: Story = {
+export const SingleStage: Story = {
     render: (args) => (
-        <ProposalVotingContainer {...args} style={{ maxWidth: 560 }}>
-            <ProposalVotingTabs />
-        </ProposalVotingContainer>
+        <ProposalVoting.Container {...args} style={{ maxWidth: 560 }}>
+            <ProposalVoting.Tabs>
+                <ProposalVoting.BreakdownToken />
+                <ProposalVoting.Votes />
+                <ProposalVoting.Details />
+            </ProposalVoting.Tabs>
+        </ProposalVoting.Container>
     ),
     args: {
         title: 'Voting',
