@@ -85,6 +85,7 @@ const StaticListComponent = (props: IStaticListComponentProps) => {
                 activeSort={activeSort}
                 onSortChange={setActiveSort}
                 sortItems={sortItems}
+                onResetFiltersClick={() => setSearchValue(undefined)}
             />
             <DataList.Container emptyFilteredState={emptyFilteredState} layoutClassName={layoutClassName}>
                 {filteredUsers?.map((id) => <ListItemComponent key={id} id={id} />)}
@@ -244,6 +245,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
                 activeSort={activeSort}
                 onSortChange={setActiveSort}
                 sortItems={sortItems}
+                onResetFiltersClick={() => setSearchValue(undefined)}
             />
             <DataList.Container
                 SkeletonElement={ListItemComponentLoading}
