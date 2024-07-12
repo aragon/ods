@@ -64,6 +64,12 @@ describe('<DataListFilterStatus /> component', () => {
         expect(screen.getByRole('button', { name: 'Reset all filters' })).toBeInTheDocument();
     });
 
+    it('does not render the reset filters button when the onResetFiltersClick property is not defined', () => {
+        const context = { state: 'filtered' as const };
+        render(createTestComponent({ context }));
+        expect(screen.queryByRole('button', { name: 'Reset all filters' })).not.toBeInTheDocument();
+    });
+
     it('calls the onResetFiltersClick callback on button click', async () => {
         const user = userEvent.setup();
         const props = { onResetFiltersClick: jest.fn() };

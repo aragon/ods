@@ -4,6 +4,9 @@ import { useOdsCoreContext } from '../../odsCoreProvider';
 import { useDataListContext } from '../dataListContext';
 
 export interface IDataListFilterStatusProps {
+    /**
+     * Callback to clear all active filters
+     */
     onResetFiltersClick?: () => void;
 }
 
@@ -47,7 +50,7 @@ export const DataListFilterStatus: React.FC<IDataListFilterStatusProps> = ({ onR
                     </>
                 )}
             </p>
-            {isFiltered && (
+            {isFiltered && onResetFiltersClick && (
                 <Button size="sm" onClick={onResetFiltersClick} variant="ghost" responsiveSize={{ md: 'md' }}>
                     {copy.dataListFilter.reset}
                 </Button>
