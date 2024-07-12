@@ -2,7 +2,7 @@ import * as RadixProgress from '@radix-ui/react-progress';
 import classNames from 'classnames';
 import type { ResponsiveAttributeClassMap } from '../../types';
 import { responsiveUtils } from '../../utils';
-import type { IProgressProps, ProgressSize } from './progress.api';
+import type { IProgressProps, ProgressSize, ProgressVariant } from './progress.api';
 
 const responsiveSizeClassNames: ResponsiveAttributeClassMap<ProgressSize> = {
     sm: {
@@ -23,8 +23,15 @@ const responsiveSizeClassNames: ResponsiveAttributeClassMap<ProgressSize> = {
     },
 };
 
+const variantToClassNames: Record<ProgressVariant, string> = {
+    primary: 'bg-primary-400',
+    neutral: 'bg-neutral-400',
+    success: 'bg-success-400',
+    critical: 'bg-critical-500'
+}
+
 export const Progress: React.FC<IProgressProps> = (props) => {
-    const { value, size = 'md', responsiveSize, className, ...otherProps } = props;
+    const { value, size = 'md', responsiveSize, className, variant = 'primary', ...otherProps } = props;
 
     const processedValue = Math.min(Math.max(1, value), 100);
 
@@ -39,7 +46,7 @@ export const Progress: React.FC<IProgressProps> = (props) => {
         <RadixProgress.Root value={processedValue} className={containerClassNames} {...otherProps}>
             <RadixProgress.Indicator
                 className={classNames(
-                    'h-full rounded-l-xl bg-primary-400 transition-[border-radius,width] duration-500 ease-in-out',
+                    `h-full rounded-l-xl ${variantToClassNames[variant]} transition-[border-radius,width] duration-500 ease-in-out`,
                     { 'rounded-r-xl': processedValue === 100 },
                 )}
                 style={{ width: `${processedValue}%` }}
