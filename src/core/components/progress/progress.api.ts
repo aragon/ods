@@ -22,4 +22,8 @@ export interface IProgressProps extends HTMLAttributes<HTMLDivElement> {
      * @default primary
      */
     variant?: ProgressVariant;
+    /**
+     * Indicator value
+     */
+    indicator?: number;
 }

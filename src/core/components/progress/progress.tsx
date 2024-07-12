@@ -27,20 +27,17 @@ const variantToClassNames: Record<ProgressVariant, string> = {
     primary: 'bg-primary-400',
     neutral: 'bg-neutral-400',
     success: 'bg-success-400',
-    critical: 'bg-critical-500'
-}
+    critical: 'bg-critical-500',
+};
 
 export const Progress: React.FC<IProgressProps> = (props) => {
-    const { value, size = 'md', responsiveSize, className, variant = 'primary', ...otherProps } = props;
+    const { value, size = 'md', responsiveSize, className, variant = 'primary', indicator, ...otherProps } = props;
 
     const processedValue = Math.min(Math.max(1, value), 100);
-
+    const processedIndicator = indicator && Math.min(Math.max(1, indicator), 100);
+    const indicatorHeight = size === 'md' ? 'h-4' : 'h-2';
     const sizeClassNames = responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClassNames);
-    const containerClassNames = classNames(
-        'relative w-full overflow-hidden rounded-xl bg-neutral-100',
-        sizeClassNames,
-        className,
-    );
+    const containerClassNames = classNames('relative w-full rounded-xl bg-neutral-100', sizeClassNames, className);
 
     return (
         <RadixProgress.Root value={processedValue} className={containerClassNames} {...otherProps}>
@@ -51,6 +48,17 @@ export const Progress: React.FC<IProgressProps> = (props) => {
                 )}
                 style={{ width: `${processedValue}%` }}
             />
+            {processedIndicator && (
+                <div
+                    data-testid="progress-indicator"
+                    className={`absolute inset-y-0 flex ${indicatorHeight} self-center`}
+                    style={{ left: `${processedIndicator}%`, transform: 'translateX(-50%)' }}
+                >
+                    <div className="h-full w-0.5 bg-neutral-50" />
+                    <div className="h-full w-0.5 rounded-full bg-neutral-400" />
+                    <div className="h-full w-0.5 bg-neutral-50" />
+                </div>
+            )}
         </RadixProgress.Root>
     );
 };
