@@ -53,6 +53,10 @@ export interface IDataListFilterProps extends Omit<ComponentProps<'div'>, 'onCha
      * Callback called on filter button click. The filter button is not displayed when the callback is not defined.
      */
     onFilterClick?: () => void;
+    /**
+     * Callback called on reset filters button click. The reset filters button is not displayed when the callback is not defined.
+     */
+    onResetFiltersClick?: () => void;
 }
 
 export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
@@ -65,6 +69,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
         activeSort,
         sortItems,
         onSortChange,
+        onResetFiltersClick,
         ...otherProps
     } = props;
 
@@ -152,7 +157,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                     />
                 </div>
             </div>
-            <DataListFilterStatus />
+            <DataListFilterStatus onResetFiltersClick={onResetFiltersClick} />
         </div>
     );
 };
