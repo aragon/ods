@@ -6,7 +6,7 @@ import { DialogHeader, type IDialogHeaderProps } from './dialogHeader';
 
 describe('<Dialog.Header/> component', () => {
     const createTestComponent = (props?: Partial<IDialogHeaderProps>) => {
-        const completeProps: IDialogHeaderProps = { title: 'title', ...props };
+        const completeProps: IDialogHeaderProps = { title: 'title', description: 'test', ...props };
 
         return (
             <DialogRoot open={true}>

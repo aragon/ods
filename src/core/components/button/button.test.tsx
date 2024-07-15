@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import { testLogger } from '../../test';
 import { IconType } from '../icon';
 import { Button } from './button';
 import type { IButtonProps } from './button.api';
@@ -90,6 +91,8 @@ describe('<Button /> component', () => {
     });
 
     it('supports the onClick property on link variant', async () => {
+        // Suppress "Not implemented: navigation" warning
+        testLogger.suppressErrors();
         const user = userEvent.setup();
         const onClick = jest.fn();
         const href = '/test';
