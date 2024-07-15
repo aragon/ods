@@ -1,8 +1,8 @@
-import { Tabs } from '../../../../../core';
+import { type ITabsContentProps, Tabs } from '../../../../../core';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 
-export interface IProposalVotingVotesProps {}
+export interface IProposalVotingVotesProps extends Omit<ITabsContentProps, 'value'> {}
 
-export const ProposalVotingVotes: React.FC<IProposalVotingVotesProps> = () => {
-    return <Tabs.Content value={ProposalVotingTab.VOTES}>Votes</Tabs.Content>;
+export const ProposalVotingVotes: React.FC<IProposalVotingVotesProps> = (props) => {
+    return <Tabs.Content value={ProposalVotingTab.VOTES} {...props} />;
 };

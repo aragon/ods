@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { DataList } from '../../../../../core';
+import { VoteDataListItem } from '../../../vote';
 import { ProposalVoting } from '../index';
 
 const meta: Meta<typeof ProposalVoting.Container> = {
@@ -21,7 +23,15 @@ export const MultiStage: Story = {
     render: (args) => (
         <ProposalVoting.Container {...args} style={{ maxWidth: 560 }}>
             <ProposalVoting.Stage name="Token holder voting" status="active" startDate={0} value="token-holder">
-                <ProposalVoting.BreakdownToken />
+                <ProposalVoting.BreakdownToken
+                    tokenSymbol="ARA"
+                    totalYes={8000}
+                    totalNo={1000}
+                    totalAbstain={1000}
+                    supportThreshold={50}
+                    minParticipation={15}
+                    tokenTotalSupply={200000}
+                />
                 <ProposalVoting.Votes />
                 <ProposalVoting.Details />
             </ProposalVoting.Stage>
@@ -43,15 +53,43 @@ export const MultiStage: Story = {
  * Usage example of the ProposalVotingContainer module component for single-stage proposals
  */
 export const SingleStage: Story = {
-    render: (args) => (
-        <ProposalVoting.Container {...args} style={{ maxWidth: 560 }}>
-            <ProposalVoting.Tabs>
-                <ProposalVoting.BreakdownToken />
-                <ProposalVoting.Votes />
-                <ProposalVoting.Details />
-            </ProposalVoting.Tabs>
-        </ProposalVoting.Container>
-    ),
+    render: (args) => {
+        const votes = [
+            {
+                voter: { address: '0x123', ens: 'cgero.eth' },
+                isDelegate: true,
+                voteIndicator: 'yes',
+                votingPower: 47289374,
+                tokenSymbol: 'ARA',
+            },
+        ] as const;
+
+        return (
+            <ProposalVoting.Container {...args} style={{ maxWidth: 560 }}>
+                <ProposalVoting.Tabs>
+                    <ProposalVoting.BreakdownToken
+                        tokenSymbol="ARA"
+                        totalYes={8000}
+                        totalNo={1000}
+                        totalAbstain={1000}
+                        supportThreshold={50}
+                        minParticipation={15}
+                        tokenTotalSupply={200000}
+                    />
+                    <ProposalVoting.Votes>
+                        <DataList.Root entityLabel="Votes">
+                            <DataList.Container>
+                                {votes.map((vote) => (
+                                    <VoteDataListItem.Structure key={vote.voter.address} {...vote} />
+                                ))}
+                            </DataList.Container>
+                        </DataList.Root>
+                    </ProposalVoting.Votes>
+                    <ProposalVoting.Details />
+                </ProposalVoting.Tabs>
+            </ProposalVoting.Container>
+        );
+    },
     args: {
         title: 'Voting',
         description: 'The proposal must pass the voting to be accepted and potential onchain actions to execute.',

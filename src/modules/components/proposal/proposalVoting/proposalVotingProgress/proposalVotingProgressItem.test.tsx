@@ -1,0 +1,5 @@
+describe('<ProposalVotingProgressItem /> component', () => {
+    it('', () => {
+        //
+    });
+});

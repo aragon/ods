@@ -1,21 +1,21 @@
 import classNames from 'classnames';
-import { AvatarIcon, IconType, Progress, type IProgressProps } from '../../../../../core';
+import { AvatarIcon, IconType, NumberFormat, Progress, formatterUtils, type IProgressProps } from '../../../../../core';
 
 // TODO: to be removed when implemented in progress component
 export type ProgressVariant = 'primary' | 'success' | 'critical' | 'neutral';
 
-export interface IProposalVotingProgressDescription {
+export interface IProposalVotingProgressItemDescription {
     /**
      * Value of the description highlighted.
      */
-    value: string;
+    value: string | null;
     /**
      * Text of the description.
      */
     text: string;
 }
 
-export interface IProposalVotingProgressProps extends IProgressProps {
+export interface IProposalVotingProgressItemProps extends IProgressProps {
     /**
      * Name of the voting progress.
      */
@@ -23,7 +23,7 @@ export interface IProposalVotingProgressProps extends IProgressProps {
     /**
      * Description of the voting progress displayed below the progress bar.
      */
-    description: IProposalVotingProgressDescription;
+    description: IProposalVotingProgressItemDescription;
     /**
      * Displays the progress bar value as percentage when set to true.
      */
@@ -47,7 +47,7 @@ const variantToNameClassNames: Record<ProgressVariant, string> = {
     success: 'text-success-800',
 };
 
-export const ProposalVotingProgress: React.FC<IProposalVotingProgressProps> = (props) => {
+export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemProps> = (props) => {
     const {
         name,
         description,
@@ -61,6 +61,7 @@ export const ProposalVotingProgress: React.FC<IProposalVotingProgressProps> = (p
     } = props;
 
     const statusIcon = value >= (indicator ?? 100) ? IconType.CHECKMARK : IconType.CLOSE;
+    const formattedPercentage = formatterUtils.formatNumber(value / 100, { format: NumberFormat.PERCENTAGE_SHORT });
 
     return (
         <div className={classNames('flex grow flex-col gap-3', className)}>
@@ -75,7 +76,17 @@ export const ProposalVotingProgress: React.FC<IProposalVotingProgressProps> = (p
                 </p>
                 {(showPercentage != null || showStatusIcon != null) && (
                     <div className="flex flex-row gap-2">
-                        {showPercentage && <p className="text-base font-normal leading-tight md:text-lg">{value}%</p>}
+                        {showPercentage && (
+                            <p
+                                className={classNames(
+                                    'text-base font-normal leading-tight text-neutral-500 md:text-lg',
+                                    { 'text-neutral-500': variant !== 'primary' },
+                                    { 'text-primary-400': variant === 'primary' },
+                                )}
+                            >
+                                {formattedPercentage}
+                            </p>
+                        )}
                         {showStatusIcon && <AvatarIcon icon={statusIcon} />}
                     </div>
                 )}
