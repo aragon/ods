@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
-import { Accordion, type IAccordionItemProps, StatePingAnimation, invariant } from '../../../../../core';
+import { useRef, type ReactNode } from 'react';
+import { Accordion, StatePingAnimation, invariant, type IAccordionItemProps } from '../../../../../core';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { ProposalVotingTabs } from '../proposalVotingTabs';
 
@@ -34,6 +34,8 @@ export interface IProposalVotingStageProps extends IAccordionItemProps {
 export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) => {
     const { name, status, startDate, defaultTab = ProposalVotingTab.BREAKDOWN, index, children, ...otherProps } = props;
 
+    const accordionContentRef = useRef<HTMLDivElement>(null);
+
     invariant(
         index != null,
         'ProposalVotingStage: component must be used inside a ProposalVotingContainer to work properly.',
@@ -53,8 +55,10 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                     <p className="mt-1 text-sm font-normal leading-tight text-neutral-500">Stage {index + 1}</p>
                 </div>
             </Accordion.ItemHeader>
-            <Accordion.ItemContent>
-                <ProposalVotingTabs defaultValue={defaultTab}>{children}</ProposalVotingTabs>
+            <Accordion.ItemContent ref={accordionContentRef}>
+                <ProposalVotingTabs defaultValue={defaultTab} accordionRef={accordionContentRef}>
+                    {children}
+                </ProposalVotingTabs>
             </Accordion.ItemContent>
         </Accordion.Item>
     );
