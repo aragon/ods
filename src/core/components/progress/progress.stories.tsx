@@ -22,23 +22,18 @@ export const Default: Story = {
     args: {
         value: 50,
     },
-    render: (props) => {
-        return <Progress {...props} />;
-    },
 };
 
 /**
- *  Progress component with indicator example.
+ * Progress component with indicator example.
  */
 export const WithIndicator: Story = {
     args: {
         value: 70,
         indicator: 50,
     },
-    render: (props) => {
-        return <Progress {...props} />;
-    },
 };
+
 /**
  * Separate functional component for animated progress.
  */
