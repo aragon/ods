@@ -57,6 +57,16 @@ const tokenVotes: IVoteDataListItemStructureProps[] = [
     },
 ];
 
+const tokenSettings = [
+    { term: 'Strategy', value: '1 Token → 1 Vote' },
+    { term: 'Voting options', value: 'Yes, Abstain, or No' },
+    { term: 'Minimum support', value: '>50%' },
+    { term: 'Minimum participation (Quorum)', value: '≥62.42K of 1M DEGEN (≥6.942)' },
+    { term: 'Early execution', value: 'Yes' },
+    { term: 'Vote replacement', value: 'No' },
+    { term: 'Minimum duration', value: '7 days' },
+];
+
 /**
  * Usage example of the ProposalVotingContainer module component for multi-stage proposals
  */
@@ -84,7 +94,7 @@ export const MultiStage: Story = {
                         <DataList.Pagination />
                     </DataList.Root>
                 </ProposalVoting.Votes>
-                <ProposalVoting.Details />
+                <ProposalVoting.Details settings={tokenSettings} />
             </ProposalVoting.Stage>
             <ProposalVoting.Stage name="Founders approval" status="pending" startDate={0} value="founders">
                 <ProposalVoting.BreakdownMultisig />
@@ -127,7 +137,7 @@ export const SingleStage: Story = {
                         <DataList.Pagination />
                     </DataList.Root>
                 </ProposalVoting.Votes>
-                <ProposalVoting.Details />
+                <ProposalVoting.Details settings={tokenSettings} />
             </ProposalVoting.Tabs>
         </ProposalVoting.Container>
     ),
