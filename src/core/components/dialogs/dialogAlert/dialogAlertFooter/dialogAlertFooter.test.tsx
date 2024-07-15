@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { DialogAlertHeader } from '../dialogAlertHeader';
 import { DialogAlertRoot } from '../dialogAlertRoot';
 import { DialogAlertFooter, type IDialogAlertFooterProps } from './dialogAlertFooter';
 
@@ -12,6 +13,7 @@ describe('<DialogAlert.Footer/> component', () => {
 
         return (
             <DialogAlertRoot open={true}>
+                <DialogAlertHeader title="title" description="description" />
                 <DialogAlertFooter {...completeProps} />;
             </DialogAlertRoot>
         );
