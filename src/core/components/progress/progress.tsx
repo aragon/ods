@@ -34,7 +34,8 @@ export const Progress: React.FC<IProgressProps> = (props) => {
     const { value, size = 'md', responsiveSize, className, variant = 'primary', indicator, ...otherProps } = props;
 
     const processedValue = Math.min(Math.max(1, value), 100);
-    const processedIndicator = indicator && Math.min(Math.max(1, indicator), 100);
+    const processedIndicator =
+        indicator !== undefined && indicator !== null ? Math.min(Math.max(1, indicator), 100) : null;
     const indicatorHeight = size === 'md' ? 'h-4' : 'h-2';
     const sizeClassNames = responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClassNames);
     const containerClassNames = classNames('relative w-full rounded-xl bg-neutral-100', sizeClassNames, className);
