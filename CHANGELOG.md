@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+-   Add new `variant` prop to core `Progress` component, which defaults to `primary`
+-   Add new optional `indicator` prop to core `Progress` component
 -   Add reset filter functionality to `DataListFilter` core component
 
 ### Fixed
