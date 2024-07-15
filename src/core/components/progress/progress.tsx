@@ -23,6 +23,25 @@ const responsiveSizeClassNames: ResponsiveAttributeClassMap<ProgressSize> = {
     },
 };
 
+const responsiveIndicatorSizeClassNames: ResponsiveAttributeClassMap<ProgressSize> = {
+    sm: {
+        default: 'h-2',
+        sm: 'sm:h-2',
+        md: 'md:h-2',
+        lg: 'lg:h-2',
+        xl: 'xl:h-2',
+        '2xl': '2xl:h-2',
+    },
+    md: {
+        default: 'h-4',
+        sm: 'sm:h-4',
+        md: 'md:h-4',
+        lg: 'lg:h-4',
+        xl: 'xl:h-4',
+        '2xl': '2xl:h-4',
+    },
+};
+
 const variantToClassNames: Record<ProgressVariant, string> = {
     primary: 'bg-primary-400',
     neutral: 'bg-neutral-400',
@@ -36,9 +55,14 @@ export const Progress: React.FC<IProgressProps> = (props) => {
     const processedValue = Math.min(Math.max(1, value), 100);
     const processedIndicator =
         indicator !== undefined && indicator !== null ? Math.min(Math.max(1, indicator), 100) : null;
-    const indicatorHeight = size === 'md' ? 'h-4' : 'h-2';
+    const indicatorSizeClassNames = responsiveUtils.generateClassNames(
+        size,
+        responsiveSize,
+        responsiveIndicatorSizeClassNames,
+    );
     const sizeClassNames = responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClassNames);
     const containerClassNames = classNames('relative w-full rounded-xl bg-neutral-100', sizeClassNames, className);
+    const indicatorClassNames = classNames('absolute inset-y-0 flex self-center', indicatorSizeClassNames);
 
     return (
         <RadixProgress.Root value={processedValue} className={containerClassNames} {...otherProps}>
@@ -52,7 +76,7 @@ export const Progress: React.FC<IProgressProps> = (props) => {
             {processedIndicator && (
                 <div
                     data-testid="progress-indicator"
-                    className={`absolute inset-y-0 flex ${indicatorHeight} self-center`}
+                    className={indicatorClassNames}
                     style={{ left: `${processedIndicator}%`, transform: 'translateX(-50%)' }}
                 >
                     <div className="h-full w-0.5 bg-neutral-50" />
