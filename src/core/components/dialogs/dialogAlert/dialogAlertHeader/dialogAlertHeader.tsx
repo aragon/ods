@@ -1,4 +1,5 @@
-import { Title } from '@radix-ui/react-alert-dialog';
+import { Description, Title } from '@radix-ui/react-alert-dialog';
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import classNames from 'classnames';
 import { useContext, type ComponentPropsWithoutRef } from 'react';
 import { AvatarIcon } from '../../../avatars';
@@ -10,6 +11,10 @@ export interface IDialogAlertHeaderProps extends ComponentPropsWithoutRef<'div'>
      * Title summarizing dialog's content or purpose.
      */
     title: string;
+    /**
+     * Optional visually hidden description announced when the dialog is opened for accessibility.
+     */
+    description?: string;
 }
 
 const dialogAlertVariantToIcon: Record<DialogAlertVariant, IconType> = {
@@ -32,7 +37,7 @@ const dialogAlertVariantToTitleClass: Record<DialogAlertVariant, string> = {
  * **NOTE**: This component must be used inside a `<DialogAlert.Root />` component.
  */
 export const DialogAlertHeader: React.FC<IDialogAlertHeaderProps> = (props) => {
-    const { title, ...otherProps } = props;
+    const { title, description, ...otherProps } = props;
     const { variant } = useContext(DialogAlertContext);
 
     return (
@@ -49,6 +54,11 @@ export const DialogAlertHeader: React.FC<IDialogAlertHeaderProps> = (props) => {
                 >
                     {title}
                 </Title>
+                {description && (
+                    <VisuallyHidden.Root>
+                        <Description>{description}</Description>
+                    </VisuallyHidden.Root>
+                )}
             </div>
             <AvatarIcon icon={dialogAlertVariantToIcon[variant]} variant={variant} size="lg" />
         </div>
