@@ -23,6 +23,5 @@ describe('<DialogAlert.Header/> component', () => {
         const description = 'test-description';
         render(createTestComponent({ description }));
         expect(screen.getByText(description)).toBeInTheDocument();
-        screen.debug();
     });
 });
