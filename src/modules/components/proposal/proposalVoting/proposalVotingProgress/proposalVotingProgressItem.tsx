@@ -64,7 +64,7 @@ export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemPro
     const formattedPercentage = formatterUtils.formatNumber(value / 100, { format: NumberFormat.PERCENTAGE_SHORT });
 
     return (
-        <div className={classNames('flex grow flex-col gap-3', className)}>
+        <div className={classNames('flex w-full grow flex-col gap-3', className)}>
             <div className="flex flex-row items-center justify-between">
                 <p
                     className={classNames(

@@ -22,7 +22,7 @@ export const ProposalVotingTabs: React.FC<IProposalVotingTabsProps> = (props) =>
                 <Tabs.Trigger label={copy.proposalVotingTabs.votes} value={ProposalVotingTab.VOTES} />
                 <Tabs.Trigger label={copy.proposalVotingTabs.details} value={ProposalVotingTab.DETAILS} />
             </Tabs.List>
-            {children}
+            <div className="flex grow flex-col">{children}</div>
         </Tabs.Root>
     );
 };
