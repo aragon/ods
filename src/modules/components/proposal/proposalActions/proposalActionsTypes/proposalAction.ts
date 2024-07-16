@@ -26,6 +26,10 @@ export interface IProposalActionInputData {
 
 export interface IProposalAction {
   /**
+   * The address of the contract the proposal is attempting to interact with
+   */
+  contractAddress: string;
+  /**
    * The address to send the transaction from
    */
   from: string;

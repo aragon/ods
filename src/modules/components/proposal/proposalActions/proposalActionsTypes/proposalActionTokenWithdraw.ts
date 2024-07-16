@@ -43,5 +43,9 @@ export interface IProposalActionWithdrawToken extends IProposalAction {
      * Token price in USD
      */
     priceUsd: string;
+    /**
+     * Token address
+     */
+    address: string;
   };
 }
