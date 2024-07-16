@@ -1,1 +1,5 @@
-export { type IProposalActionsContextProps , ProposalActionsProvider, useProposalActionsContext } from './proposalActionsContext';
+export {
+    ProposalActionsProvider,
+    useProposalActionsContext,
+    type IProposalActionsContextProps,
+} from './proposalActionsContext';

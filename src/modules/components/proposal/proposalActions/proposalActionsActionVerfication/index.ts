@@ -1,1 +1,4 @@
-export { type IProposalActionsActionVerificationProps, ProposalActionsActionVerification } from './proposalActionsActionVerfication';
+export {
+    ProposalActionsActionVerification,
+    type IProposalActionsActionVerificationProps,
+} from './proposalActionsActionVerfication';

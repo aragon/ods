@@ -1,4 +1,4 @@
-import type { IProposalActionWithdrawToken } from "../../proposalActionsTypes";
+import type { IProposalActionWithdrawToken } from '../../proposalActionsTypes';
 
 export const withdrawActionsMock: IProposalActionWithdrawToken[] = [
     {
@@ -27,7 +27,7 @@ export const withdrawActionsMock: IProposalActionWithdrawToken[] = [
             priceUsd: '1.00',
             address: '0xdAC17Ffad2ee523a2206206994597C13D831ec7',
         },
-    } ,
+    },
     {
         type: 'withdrawToken',
         contractAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',

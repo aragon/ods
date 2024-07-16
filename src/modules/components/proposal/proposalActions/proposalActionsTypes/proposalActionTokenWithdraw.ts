@@ -1,51 +1,50 @@
-import type { ICompositeAddress } from "../../../../types";
-import type { IProposalAction } from "./proposalAction";
-
+import type { ICompositeAddress } from '../../../../types';
+import type { IProposalAction } from './proposalAction';
 
 export interface IProposalActionWithdrawToken extends IProposalAction {
-  /**
-   * Withdraw token action
-   */
-  type: 'withdrawToken';
-  /**
-   * Sender address, object with address and optional ensName
-   */
-  sender: ICompositeAddress;
-  /**
-   * Receiver address, object with address and optional ensName
-   */
-  receiver: ICompositeAddress;
-  /**
-   * Amount to withdraw
-   */
-  amount: string;
-  /**
-   * Token details of the token to withdraw
-   */
-  token: {
     /**
-     * Token name
+     * Withdraw token action
      */
-    name: string;
+    type: 'withdrawToken';
     /**
-     * Token symbol
+     * Sender address, object with address and optional ensName
      */
-    symbol: string;
+    sender: ICompositeAddress;
     /**
-     * Token decimals
+     * Receiver address, object with address and optional ensName
      */
-    decimals: number;
+    receiver: ICompositeAddress;
     /**
-     * Token logo
+     * Amount to withdraw
      */
-    logo: string;
+    amount: string;
     /**
-     * Token price in USD
+     * Token details of the token to withdraw
      */
-    priceUsd: string;
-    /**
-     * Token address
-     */
-    address: string;
-  };
+    token: {
+        /**
+         * Token name
+         */
+        name: string;
+        /**
+         * Token symbol
+         */
+        symbol: string;
+        /**
+         * Token decimals
+         */
+        decimals: number;
+        /**
+         * Token logo
+         */
+        logo: string;
+        /**
+         * Token price in USD
+         */
+        priceUsd: string;
+        /**
+         * Token address
+         */
+        address: string;
+    };
 }

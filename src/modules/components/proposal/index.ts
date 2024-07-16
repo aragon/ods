@@ -1,2 +1,2 @@
-export * from './proposalDataListItem';
 export * from './proposalActions';
+export * from './proposalDataListItem';

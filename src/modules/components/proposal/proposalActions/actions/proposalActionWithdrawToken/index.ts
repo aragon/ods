@@ -1,1 +1,1 @@
-export { ProposalActionWithdrawToken, type IProposalActionWithdrawTokenProps } from './proposalActionWithdrawToken'
+export { ProposalActionWithdrawToken, type IProposalActionWithdrawTokenProps } from './proposalActionWithdrawToken';

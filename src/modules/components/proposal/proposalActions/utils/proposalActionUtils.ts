@@ -1,21 +1,18 @@
-import { ProposalActionWithdrawToken } from "../actions/proposalActionWithdrawToken/proposalActionWithdrawToken";
-import type { IProposalActionWithdrawToken, IProposalAction } from "../proposalActionsTypes";
-
-
+import { ProposalActionWithdrawToken } from '../actions/proposalActionWithdrawToken/proposalActionWithdrawToken';
+import type { IProposalAction, IProposalActionWithdrawToken } from '../proposalActionsTypes';
 
 class ProposalActionsUtils {
-  public getActionComponent(action: IProposalAction) {
-    if (this.isWithdrawTokenAction(action)) {
-      return () => ProposalActionWithdrawToken({ action });
+    public getActionComponent(action: IProposalAction) {
+        if (this.isWithdrawTokenAction(action)) {
+            return () => ProposalActionWithdrawToken({ action });
+        }
+
+        return null;
     }
-    
-    return null;
-  }
 
-  public isWithdrawTokenAction(action: Partial<IProposalAction>): action is IProposalActionWithdrawToken {
-    return action.type === 'withdrawToken';
-  }
-
+    public isWithdrawTokenAction(action: Partial<IProposalAction>): action is IProposalActionWithdrawToken {
+        return action.type === 'withdrawToken';
+    }
 }
 
 export const proposalActionsUtils = new ProposalActionsUtils();
