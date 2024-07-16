@@ -1,0 +1,1 @@
+export { type IProposalActionsActionVerificationProps, ProposalActionsActionVerification } from './proposalActionsActionVerfication';
