@@ -1,50 +1,76 @@
 import { renderHook } from '@testing-library/react';
 import * as wagmi from 'wagmi';
-import { mainnet, polygon } from 'wagmi/chains';
+import { type Chain, mainnet, polygon, sepolia } from 'wagmi/chains';
 import { ChainEntityType, useBlockExplorer } from './useBlockExplorer';
 
 describe('useBlockExplorer hook', () => {
     const useChainsSpy = jest.spyOn(wagmi, 'useChains');
 
+    beforeEach(() => {
+        useChainsSpy.mockReturnValue([mainnet]);
+    });
+
     afterEach(() => {
         useChainsSpy.mockReset();
     });
 
-    it('generates correct URL for different entity types and chain IDs', () => {
-        useChainsSpy.mockReturnValue([mainnet, polygon]);
+    describe('blockExplorer', () => {
+        it('returns the block explorer definitions for the given chain id from the specified list of chains', () => {
+            const chains: [Chain, ...Chain[]] = [mainnet, polygon, sepolia];
+            const chainId = polygon.id;
+            const { result } = renderHook(() => useBlockExplorer({ chains, chainId }));
+            expect(result.current.blockExplorer).toEqual(polygon.blockExplorers.default);
+        });
 
-        const { result } = renderHook(() => useBlockExplorer());
-        expect(result.current.getChainEntityUrl({ type: ChainEntityType.ADDRESS, chainId: 1, id: '0x123' })).toEqual(
-            'https://etherscan.io/address/0x123',
-        );
-        expect(
-            result.current.getChainEntityUrl({ type: ChainEntityType.TRANSACTION, id: '0xabc', chainId: 137 }),
-        ).toEqual('https://polygonscan.com/tx/0xabc');
+        it('returns the block explorer definitions for the given chain id from the chains defined on wagmi provider', () => {
+            useChainsSpy.mockReturnValue([polygon, sepolia]);
+            const chainId = sepolia.id;
+            const { result } = renderHook(() => useBlockExplorer({ chainId }));
+            expect(result.current.blockExplorer).toEqual(sepolia.blockExplorers.default);
+        });
+
+        it('returns the block explorer of the first chain in the chains prop when chainId is not defined', () => {
+            const chains: [Chain, ...Chain[]] = [mainnet, sepolia, polygon];
+            const { result } = renderHook(() => useBlockExplorer({ chains }));
+            expect(result.current.blockExplorer).toEqual(chains[0].blockExplorers?.default);
+        });
+
+        it('returns the block explorer of the first chain in the wagmi config when chainId and chains are not defined', () => {
+            useChainsSpy.mockReturnValue([sepolia, polygon]);
+            const { result } = renderHook(() => useBlockExplorer());
+            expect(result.current.blockExplorer).toEqual(sepolia.blockExplorers?.default);
+        });
+
+        it('returns the block explorer set to undefined when chain definitions cannot be found for the given chain id', () => {
+            const chains: [Chain, ...Chain[]] = [mainnet, polygon];
+            const { result } = renderHook(() => useBlockExplorer({ chains, chainId: sepolia.id }));
+            expect(result.current.blockExplorer).toBeUndefined();
+        });
+
+        it('returns the block explorer set to undefined when related chain definitions does not include info about the block explorer', () => {
+            const { blockExplorers, ...mainnetWithoutBlockExplorer } = mainnet;
+            useChainsSpy.mockReturnValue([mainnetWithoutBlockExplorer]);
+            const { result } = renderHook(() => useBlockExplorer({ chainId: mainnet.id }));
+            expect(result.current.blockExplorer).toBeUndefined();
+        });
     });
 
-    it('throws an error when block explorer URL is missing', () => {
-        const { blockExplorers, ...chainWithoutBlockExplorer } = mainnet;
-        useChainsSpy.mockReturnValue([chainWithoutBlockExplorer]);
+    describe('buildEntityUrl', () => {
+        it('generates correct URL for different entity types', () => {
+            useChainsSpy.mockReturnValue([mainnet, polygon]);
 
-        const { result } = renderHook(() => useBlockExplorer());
-        expect(() =>
-            result.current.getChainEntityUrl({ type: ChainEntityType.ADDRESS, chainId: 1, id: '0x123' }),
-        ).toThrow('useBlockExplorer: Block explorer URL not found for chain with id 1');
-    });
+            const { result } = renderHook(() => useBlockExplorer({ chainId: mainnet.id }));
+            const addressUrl = result.current.buildEntityUrl({ type: ChainEntityType.ADDRESS, id: '0x123' });
+            expect(addressUrl).toMatch(/address\/0x123/);
 
-    it('uses the first chain set on the wagmi provider when chainId property is not set', () => {
-        useChainsSpy.mockReturnValue([mainnet, polygon]);
+            const transactionUrl = result.current.buildEntityUrl({ type: ChainEntityType.TRANSACTION, id: '0xabc' });
+            expect(transactionUrl).toMatch(/tx\/0xabc/);
+        });
 
-        const { result } = renderHook(() => useBlockExplorer());
-        expect(result.current.getChainEntityUrl({ type: ChainEntityType.ADDRESS, id: '0x123' })).toEqual(
-            'https://etherscan.io/address/0x123',
-        );
-    });
-
-    it('uses the first chain passed as parameters when chainId is not defined', () => {
-        const { result } = renderHook(() => useBlockExplorer({ chains: [polygon, mainnet] }));
-        expect(result.current.getChainEntityUrl({ type: ChainEntityType.ADDRESS, id: '0x123' })).toEqual(
-            'https://polygonscan.com/address/0x123',
-        );
+        it('throws an error when block explorer info is missing', () => {
+            useChainsSpy.mockReturnValue([sepolia]);
+            const { result } = renderHook(() => useBlockExplorer({ chainId: mainnet.id }));
+            expect(() => result.current.buildEntityUrl({ type: ChainEntityType.ADDRESS, id: '0x123' })).toThrow();
+        });
     });
 });
