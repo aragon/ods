@@ -8,7 +8,7 @@ export interface IProposalVotingProgressItemDescription {
     /**
      * Value of the description highlighted.
      */
-    value: string | null;
+    value: string | number | null;
     /**
      * Text of the description.
      */
@@ -55,7 +55,10 @@ export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemPro
         ...otherProps
     } = props;
 
-    const statusIcon = value >= (indicator ?? 100) ? IconType.CHECKMARK : IconType.CLOSE;
+    const isThresholdReached = value >= (indicator ?? 100);
+    const statusIcon = isThresholdReached ? IconType.CHECKMARK : IconType.CLOSE;
+    const statusVariant = isThresholdReached ? 'primary' : 'neutral';
+
     const formattedPercentage = formatterUtils.formatNumber(value / 100, { format: NumberFormat.PERCENTAGE_SHORT });
 
     return (
@@ -82,7 +85,7 @@ export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemPro
                                 {formattedPercentage}
                             </p>
                         )}
-                        {showStatusIcon && <AvatarIcon icon={statusIcon} />}
+                        {showStatusIcon && <AvatarIcon icon={statusIcon} variant={statusVariant} />}
                     </div>
                 )}
             </div>

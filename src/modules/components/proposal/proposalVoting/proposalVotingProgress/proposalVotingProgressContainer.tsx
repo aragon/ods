@@ -18,7 +18,7 @@ export const ProposalVotingProgressContainer: React.FC<IProposalVotingProgressCo
         'md:flex-row md:*:pr-6 md:*:border-r md:*:border-r-neutral-100 md:*:pb-0 md:*:border-b-neutral-0';
 
     const containerClassNames = classNames(
-        'flex gap-6 rounded-xl border border-neutral-100 px-4 py-3 shadow-neutral-sm md:p-6',
+        'flex gap-6 rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 shadow-neutral-sm md:p-6',
         '[&>*:last-child]:border-none [&>*:last-child]:p-0',
         colClassNames,
         direction === 'row' && rowClassNames,

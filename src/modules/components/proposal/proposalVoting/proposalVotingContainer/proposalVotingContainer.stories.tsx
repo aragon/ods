@@ -139,7 +139,7 @@ export const MultiStage: Story = {
                     <ProposalVoting.Details settings={tokenSettings} />
                 </ProposalVoting.Stage>
                 <ProposalVoting.Stage name="Founders approval" status="pending" startDate={0} value="founders">
-                    <ProposalVoting.BreakdownMultisig />
+                    <ProposalVoting.BreakdownMultisig approvalsAmount={4} minApprovals={4} membersCount={8} />
                     <ProposalVoting.Votes>
                         <DataList.Root itemsCount={filteredMultisigVotes.length} entityLabel="Votes">
                             <DataList.Filter searchValue={multisigSearch} onSearchValueChange={setMultisigSearch} />
