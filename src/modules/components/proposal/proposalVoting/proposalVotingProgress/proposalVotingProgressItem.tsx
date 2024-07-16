@@ -33,11 +33,6 @@ export interface IProposalVotingProgressItemProps extends IProgressProps {
      * "success" status icon when value is equal or greater than indicator, and a "failed" status icon otherwise.
      */
     showStatusIcon?: boolean;
-    /**
-     * TODO: to be removed when included in progress component
-     */
-    variant?: ProgressVariant;
-    indicator?: number;
 }
 
 const variantToNameClassNames: Record<ProgressVariant, string> = {
@@ -91,7 +86,7 @@ export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemPro
                     </div>
                 )}
             </div>
-            <Progress value={value} size="md" {...otherProps} />
+            <Progress value={value} size="md" indicator={indicator} variant={variant} {...otherProps} />
             <div className="flex flex-row gap-0.5 text-base font-normal leading-tight md:text-lg">
                 <p className="text-neutral-800">{description.value}</p>
                 <p className="text-neutral-500">{description.text}</p>
