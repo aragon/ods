@@ -82,6 +82,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
                     >
                         {renderActionsForTab('basic')}
                     </Accordion.Container>
+                    {/* TODO: implement button cluster and logic */}
                     <Button onClick={handleToggleAll} variant="tertiary" className="mx-6 mb-6">
                         {expandedItems.length === actions.length ? 'Collapse All' : 'Expand All'}
                     </Button>

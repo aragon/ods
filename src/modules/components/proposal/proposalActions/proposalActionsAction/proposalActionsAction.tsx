@@ -1,5 +1,6 @@
-import { Accordion, IconType, Link } from '../../../../../core';
-import { addressUtils } from '../../../../utils';
+import { Accordion } from '../../../../../core';
+import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
+
 import { useProposalActionsContext } from '../proposalActionsContext';
 import type { IProposalAction } from '../proposalActionsTypes';
 import { proposalActionsUtils } from '../utils';
@@ -10,7 +11,7 @@ export interface IProposalActionsActionProps {
      */
     action: IProposalAction;
     /**
-     * Index of the action
+     * Index of the action being mapped by its parent ProposalActions.Container
      */
     index: number;
     /**
@@ -30,20 +31,14 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
 
     const isDisabled = !ActionComponent;
 
-    if (action.inputData == null) {
-        return null;
-    }
-
     return (
         <Accordion.Item value={`${index}`} disabled={isDisabled}>
             <Accordion.ItemHeader onClick={onToggle}>
                 <div className="flex flex-col items-start">
-                    <div>{actionTypeToStringMapping[action.type]}</div>
-                    <div className="flex items-center gap-2 text-sm">
-                        <p className="text-neutral-600">{addressUtils.truncateAddress(action.inputData.contract)}</p>
-                        {/* TODO: implement verified component based on action type */}
-                        <Link iconRight={IconType.SUCCESS}>Verified</Link>
+                    <div className="text-lg">
+                        {action.inputData == null ? 'Not verified' : actionTypeToStringMapping[action.type]}
                     </div>
+                    <ProposalActionsActionVerification action={action} />
                 </div>
             </Accordion.ItemHeader>
             <Accordion.ItemContent>
