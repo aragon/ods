@@ -18,7 +18,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4.1.7
       - name: Setup Node
-        uses: actions/setup-node@v4.0.2
+        uses: actions/setup-node@v4.0.3
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: ${{ env.NODE_CACHE }}
@@ -33,7 +33,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body-includes: "Storybook IPFS Hash: "
       - name: Setup Python
-        uses: actions/setup-python@v5.1.0
+        uses: actions/setup-python@v5.1.1
         with:
           python-version: "3.x"
           architecture: "x64"

@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Bump `prettier-plugin-organize-imports` to 4.0.0
 -   Update minor and patch NPM dependencies
+-   Update minor and patch Github workflow dependencies
 
 ## [1.0.37] - 2024-07-08
 
