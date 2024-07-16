@@ -1,5 +1,5 @@
 import { ProposalActionWithdrawToken } from "../actions/proposalActionWithdrawToken/proposalActionWithdrawToken";
-import type { IProposalActionWithdrawToken, IProposalAction } from "../proposalActionTypes";
+import type { IProposalActionWithdrawToken, IProposalAction } from "../proposalActionsTypes";
 
 
 

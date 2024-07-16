@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Accordion, Button, Heading, Tabs } from '../../../../../core';
+import { Accordion, Button, Card, Heading, Tabs } from '../../../../../core';
 import { ProposalActionsAction } from '../proposalActionsAction';
 import { useProposalActionsContext } from '../proposalActionsContext';
-import { type IProposalAction } from '../proposalActionTypes';
+import { type IProposalAction } from '../proposalActionsTypes';
 
 export interface IProposalActionsContainerProps {
     /**
@@ -66,7 +66,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
     };
 
     return (
-        <section className="w-full">
+        <Card className="w-full">
             <Heading className="px-6 pt-4">Actions</Heading>
             <Tabs.Root defaultValue={activeTab} onValueChange={(value) => setActiveTab(value)}>
                 <Tabs.List className="px-6">
@@ -82,13 +82,13 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
                     >
                         {renderActionsForTab('basic')}
                     </Accordion.Container>
-                    <Button onClick={handleToggleAll} variant="tertiary">
+                    <Button onClick={handleToggleAll} variant="tertiary" className="mx-6 mb-6">
                         {expandedItems.length === actions.length ? 'Collapse All' : 'Expand All'}
                     </Button>
                 </Tabs.Content>
                 <Tabs.Content value="composer">{renderActionsForTab('composer')}</Tabs.Content>
                 <Tabs.Content value="code">{renderActionsForTab('code')}</Tabs.Content>
             </Tabs.Root>
-        </section>
+        </Card>
     );
 };

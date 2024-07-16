@@ -1,4 +1,4 @@
-import type { IProposalActionWithdrawToken, IProposalAction } from "../../proposalActionTypes";
+import type { IProposalActionWithdrawToken, IProposalAction } from "../../proposalActionsTypes";
 
 
 export const withdrawActionsMock: IProposalAction[] = [

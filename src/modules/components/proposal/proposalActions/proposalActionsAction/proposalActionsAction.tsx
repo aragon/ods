@@ -1,7 +1,7 @@
 import { Accordion, IconType, Link } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
 import { useProposalActionsContext } from '../proposalActionsContext';
-import type { IProposalAction } from '../proposalActionTypes';
+import type { IProposalAction } from '../proposalActionsTypes';
 import { proposalActionsUtils } from '../utils';
 
 export interface IProposalActionsActionProps {

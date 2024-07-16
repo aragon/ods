@@ -1,14 +1,14 @@
 import { AssetTransfer } from '../../../../asset';
-import type { IProposalActionWithdrawToken } from '../../proposalActionTypes';
+import type { IProposalActionWithdrawToken } from '../../proposalActionsTypes';
 
-interface ProposalActionWithdrawTokenProps {
+export interface IProposalActionWithdrawTokenProps {
     /**
      * Withdraw token action
      */
     action: IProposalActionWithdrawToken;
 }
 
-export const ProposalActionWithdrawToken: React.FC<ProposalActionWithdrawTokenProps> = (props) => {
+export const ProposalActionWithdrawToken: React.FC<IProposalActionWithdrawTokenProps> = (props) => {
     const { action } = props;
     return (
         <AssetTransfer
