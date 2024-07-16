@@ -67,10 +67,10 @@ describe('useBlockExplorer hook', () => {
             expect(transactionUrl).toMatch(/tx\/0xabc/);
         });
 
-        it('throws an error when block explorer info is missing', () => {
+        it('returns undefined when block explorer info is missing', () => {
             useChainsSpy.mockReturnValue([sepolia]);
             const { result } = renderHook(() => useBlockExplorer({ chainId: mainnet.id }));
-            expect(() => result.current.buildEntityUrl({ type: ChainEntityType.ADDRESS, id: '0x123' })).toThrow();
+            expect(() => result.current.buildEntityUrl({ type: ChainEntityType.ADDRESS, id: '0x123' })).toBeUndefined();
         });
     });
 });

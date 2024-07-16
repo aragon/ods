@@ -43,13 +43,9 @@ export const useBlockExplorer = (params?: IUseBlockExplorerParams) => {
         ({ type, id }: IBuildEntityUrlParams) => {
             const baseUrl = blockExplorer?.url;
 
-            if (baseUrl == null) {
-                throw new Error(`useBlockExplorer: Block explorer URL not found for chain with id ${chainId}`);
-            }
-
-            return `${baseUrl}/${type}/${id}`;
+            return baseUrl != null ? `${baseUrl}/${type}/${id}` : undefined;
         },
-        [blockExplorer, chainId],
+        [blockExplorer],
     );
 
     return { blockExplorer, buildEntityUrl };
