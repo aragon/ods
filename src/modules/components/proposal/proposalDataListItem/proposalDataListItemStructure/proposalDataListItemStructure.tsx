@@ -14,7 +14,7 @@ function parsePublisher(publisher: IPublisher, isConnected: boolean, connectedAd
     const publisherIsConnected = isConnected && addressUtils.isAddressEqual(publisher.address, connectedAddress);
     const publisherLabel = publisherIsConnected
         ? 'You'
-        : publisher.name ?? addressUtils.truncateAddress(publisher.address);
+        : (publisher.name ?? addressUtils.truncateAddress(publisher.address));
 
     return { label: publisherLabel, link: publisher.link };
 }
