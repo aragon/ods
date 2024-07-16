@@ -43,13 +43,6 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
             </Accordion.ItemHeader>
             <Accordion.ItemContent>
                 {activeTab === 'basic' && ActionComponent && <ActionComponent />}
-                {activeTab === 'composer' && (
-                    <div>
-                        <div>Function: {action.inputData?.function}</div>
-                        <div>Parameters: {JSON.stringify(action.inputData?.parameters, null, 2)}</div>
-                    </div>
-                )}
-                {activeTab === 'code' && <pre>{JSON.stringify(action, null, 2)}</pre>}
             </Accordion.ItemContent>
         </Accordion.Item>
     );

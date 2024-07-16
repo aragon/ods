@@ -45,9 +45,10 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
                 ));
             case 'composer':
                 return actions.map((action, index) => (
-                    <div key={`composer-${index}`}>
-                        <p>Function Name: {action.inputData?.function}</p>
-                        <p>Contract Address: {action.to}</p>
+                    <div className="mb-6 flex flex-col gap-y-1" key={`composer-${index}`}>
+                        <p className="text-lg font-semibold">Function Name: {action.inputData?.function}</p>
+                        <p>Contract Address: {action.contractAddress}</p>
+                        <p>Input Data: {JSON.stringify(action.inputData, null, 2)}</p>
                     </div>
                 ));
             case 'code':
@@ -85,12 +86,18 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
                         {renderActionsForTab('basic')}
                     </Accordion.Container>
                     {/* TODO: implement button cluster and logic */}
-                    <Button onClick={handleToggleAll} variant="tertiary" className="mx-4 mb-4 md:mx-6 md:mb-6">
-                        {expandedItems.length === actions.length ? 'Collapse All' : 'Expand All'}
-                    </Button>
+                    {actions.length > 1 && (
+                        <Button onClick={handleToggleAll} variant="tertiary" className="mx-4 mb-4 md:mx-6 md:mb-6">
+                            {expandedItems.length === actions.length ? 'Collapse All' : 'Expand All'}
+                        </Button>
+                    )}
                 </Tabs.Content>
-                <Tabs.Content value="composer">{renderActionsForTab('composer')}</Tabs.Content>
-                <Tabs.Content value="code">{renderActionsForTab('code')}</Tabs.Content>
+                <Tabs.Content className="p-4 md:p-6" value="composer">
+                    {renderActionsForTab('composer')}
+                </Tabs.Content>
+                <Tabs.Content className="p-4 md:p-6" value="code">
+                    {renderActionsForTab('code')}
+                </Tabs.Content>
             </Tabs.Root>
         </Card>
     );
