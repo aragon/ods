@@ -67,7 +67,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
 
     return (
         <Card className="w-full">
-            <Heading size="h2" className="px-4 pt-4 md:px-6">
+            <Heading size="h2" className="px-4 pt-4 md:px-6 md:pt-6">
                 Actions
             </Heading>
             <Tabs.Root defaultValue={activeTab} onValueChange={(value) => setActiveTab(value)}>
@@ -76,7 +76,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
                     <Tabs.Trigger label="Composer" value="composer" />
                     <Tabs.Trigger label="Code" value="code" />
                 </Tabs.List>
-                <Tabs.Content value="basic" className="grid grid-cols-1 gap-y-4">
+                <Tabs.Content value="basic" className="grid grid-cols-1 gap-y-2 md:gap-y-4">
                     <Accordion.Container
                         isMulti={true}
                         value={expandedItems}
