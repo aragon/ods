@@ -27,11 +27,10 @@ export const ProposalActionsActionVerification: React.FC<IProposalActionsActionV
             case 'withdrawToken': {
                 const withdrawAction = action as IProposalActionWithdrawToken;
                 verificationLabel = `${withdrawAction.token.name}`;
-
                 break;
             }
             default: {
-                verificationLabel = 'Verified Contract';
+                verificationLabel = 'Verified';
             }
         }
     }
