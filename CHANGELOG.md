@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.38] - 2024-07-16
+
 ### Added
 
 -   Add new `variant` prop to core `Progress` component, which defaults to `primary`
