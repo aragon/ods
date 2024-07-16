@@ -1,4 +1,4 @@
-import { Accordion } from '../../../../../core';
+import { Accordion, Heading } from '../../../../../core';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
 
 import { useProposalActionsContext } from '../proposalActionsContext';
@@ -35,9 +35,9 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
         <Accordion.Item value={`${index}`} disabled={isDisabled}>
             <Accordion.ItemHeader onClick={onToggle}>
                 <div className="flex flex-col items-start">
-                    <div className="text-lg">
+                    <Heading size="h4">
                         {action.inputData == null ? 'Not verified' : actionTypeToStringMapping[action.type]}
-                    </div>
+                    </Heading>
                     <ProposalActionsActionVerification action={action} />
                 </div>
             </Accordion.ItemHeader>

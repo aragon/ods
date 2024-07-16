@@ -1,11 +1,8 @@
-import classNames from 'classnames';
-import { Icon, IconType, Link } from '../../../../../core';
-import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
-import type { IWeb3ComponentProps } from '../../../../types';
+import { Heading, Icon, IconType } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
 import type { IProposalAction, IProposalActionWithdrawToken } from '../proposalActionsTypes';
 
-export interface IProposalActionsActionVerificationProps extends IWeb3ComponentProps {
+export interface IProposalActionsActionVerificationProps {
     /**
      * Proposal action base
      */
@@ -13,62 +10,43 @@ export interface IProposalActionsActionVerificationProps extends IWeb3ComponentP
 }
 
 export const ProposalActionsActionVerification: React.FC<IProposalActionsActionVerificationProps> = (props) => {
-    const { action, wagmiConfig } = props;
-
-    const { getChainEntityUrl } = useBlockExplorer(wagmiConfig);
+    const { action } = props;
 
     let verificationLabel: string | undefined = undefined;
-    let verificationLink: string | undefined = undefined;
     let iconType = IconType.SUCCESS;
     let contractAddressClassName = 'text-neutral-500';
+    let iconClassName = 'text-primary-300';
 
     if (!action.inputData) {
-        verificationLabel = 'Not verified';
+        verificationLabel = undefined;
         iconType = IconType.WARNING;
         contractAddressClassName = 'text-warning-800';
+        iconClassName = 'text-warning-500';
     } else {
         switch (action.type) {
             case 'withdrawToken': {
                 const withdrawAction = action as IProposalActionWithdrawToken;
                 verificationLabel = `${withdrawAction.token.name}`;
-                verificationLink = getChainEntityUrl({
-                    chainId: 1,
-                    type: ChainEntityType.ADDRESS,
-                    id: withdrawAction.token.address,
-                });
+
                 break;
             }
             default: {
                 verificationLabel = 'Verified Contract';
-                verificationLink = getChainEntityUrl({
-                    // TODO - get chain id from the action if coming from the backend
-                    chainId: 1,
-                    type: ChainEntityType.ADDRESS,
-                    id: action.contractAddress,
-                });
             }
         }
     }
 
-    const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        event.stopPropagation();
-    };
-
     return (
-        <div className="flex items-center gap-2">
-            <p className={classNames(contractAddressClassName)}>
+        <div className="flex items-center gap-x-1.5">
+            <Heading size="h5" className={contractAddressClassName}>
                 {addressUtils.truncateAddress(action.contractAddress)}
-            </p>
-            {verificationLink ? (
-                <>
-                    <Link href={verificationLink} onClick={handleLinkClick} target="_blank">
-                        {verificationLabel}
-                    </Link>
-                    <Icon className="text-primary-300" icon={iconType} />
-                </>
-            ) : (
-                <Icon className="text-warning-500" icon={iconType} />
+            </Heading>
+            {verificationLabel && (
+                <Heading size="h5" className="text-primary-400">
+                    {verificationLabel}
+                </Heading>
             )}
+            <Icon className={iconClassName} icon={iconType} />
         </div>
     );
 };

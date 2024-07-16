@@ -67,9 +67,11 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
 
     return (
         <Card className="w-full">
-            <Heading className="px-6 pt-4">Actions</Heading>
+            <Heading size="h2" className="px-4 pt-4 md:px-6">
+                Actions
+            </Heading>
             <Tabs.Root defaultValue={activeTab} onValueChange={(value) => setActiveTab(value)}>
-                <Tabs.List className="px-6">
+                <Tabs.List className="px-4 md:px-6">
                     <Tabs.Trigger label="Basic" value="basic" />
                     <Tabs.Trigger label="Composer" value="composer" />
                     <Tabs.Trigger label="Code" value="code" />
@@ -83,7 +85,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
                         {renderActionsForTab('basic')}
                     </Accordion.Container>
                     {/* TODO: implement button cluster and logic */}
-                    <Button onClick={handleToggleAll} variant="tertiary" className="mx-6 mb-6">
+                    <Button onClick={handleToggleAll} variant="tertiary" className="mx-4 mb-4 md:mx-6 md:mb-6">
                         {expandedItems.length === actions.length ? 'Collapse All' : 'Expand All'}
                     </Button>
                 </Tabs.Content>
