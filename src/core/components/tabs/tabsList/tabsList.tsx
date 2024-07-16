@@ -9,7 +9,7 @@ export const TabsList: React.FC<ITabsListProps> = (props) => {
     const { children, className, ...otherProps } = props;
     const { isUnderlined } = useContext(TabsContext);
 
-    const tabsListClassNames = classNames('flex gap-x-6', { 'border-b border-neutral-200': isUnderlined }, className);
+    const tabsListClassNames = classNames('flex gap-x-6', { 'border-b border-neutral-100': isUnderlined }, className);
 
     return (
         <RadixTabsList className={tabsListClassNames} {...otherProps}>

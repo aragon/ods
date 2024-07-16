@@ -70,7 +70,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
             <Heading size="h2" className="px-4 pt-4 md:px-6 md:pt-6">
                 Actions
             </Heading>
-            <Tabs.Root defaultValue={activeTab} onValueChange={(value) => setActiveTab(value)}>
+            <Tabs.Root defaultValue={activeTab} onValueChange={(value) => setActiveTab(value)} isUnderlined={true}>
                 <Tabs.List className="px-4 md:px-6">
                     <Tabs.Trigger label="Basic" value="basic" />
                     <Tabs.Trigger label="Composer" value="composer" />
