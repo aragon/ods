@@ -65,13 +65,8 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const currentChain = wagmiConfig.chains.find(({ id }) => id === processedChainId);
 
-    const { getChainEntityUrl } = useBlockExplorer();
-
-    const addressUrl = getChainEntityUrl({
-        type: ChainEntityType.ADDRESS,
-        chainId: processedChainId,
-        id: value,
-    });
+    const { buildEntityUrl } = useBlockExplorer({ chainId: processedChainId });
+    const addressUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: value });
 
     const supportEnsNames = currentChain?.contracts?.ensRegistry != null;
 

@@ -57,7 +57,11 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         wagmiConfig,
     } = props;
 
-    const { getChainEntityUrl } = useBlockExplorer(wagmiConfig);
+    const { buildEntityUrl } = useBlockExplorer({ chains: wagmiConfig?.chains, chainId });
+
+    const senderUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: sender.address });
+    const recipientUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: recipient.address });
+    const transactionUrl = buildEntityUrl({ type: ChainEntityType.TRANSACTION, id: hash });
 
     const formattedTokenValue = formatterUtils.formatNumber(assetAmount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
@@ -82,15 +86,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
     return (
         <div className="flex size-full flex-col gap-y-2 md:gap-y-3">
             <div className="relative flex h-full flex-col rounded-xl bg-neutral-0 md:flex-row">
-                <AssetTransferAddress
-                    txRole="sender"
-                    participant={sender}
-                    addressUrl={getChainEntityUrl({
-                        chainId,
-                        type: ChainEntityType.ADDRESS,
-                        id: sender.address,
-                    })}
-                />
+                <AssetTransferAddress txRole="sender" participant={sender} addressUrl={senderUrl} />
                 <div className="border-t border-neutral-100 md:border-l" />
                 <AvatarIcon
                     icon={IconType.CHEVRON_DOWN}
@@ -100,18 +96,10 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                         'md:left-1/2 md:-translate-x-1/2 md:-rotate-90', //responsive
                     )}
                 />
-                <AssetTransferAddress
-                    txRole="recipient"
-                    participant={recipient}
-                    addressUrl={getChainEntityUrl({
-                        chainId,
-                        type: ChainEntityType.ADDRESS,
-                        id: recipient.address,
-                    })}
-                />
+                <AssetTransferAddress txRole="recipient" participant={recipient} addressUrl={recipientUrl} />
             </div>
             <LinkBase
-                href={getChainEntityUrl({ chainId, type: ChainEntityType.TRANSACTION, id: hash })}
+                href={transactionUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={assetTransferClassNames}
