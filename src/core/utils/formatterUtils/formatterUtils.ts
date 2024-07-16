@@ -90,7 +90,7 @@ class FormatterUtils {
 
         const baseRange = this.baseSymbolRanges.find((range) => Math.abs(processedValue) >= range.value);
         const baseRangeDenominator =
-            processedValue > 1e15 ? 10 ** (this.getDecimalPlaces(processedValue) - 1) : baseRange?.value ?? 1;
+            processedValue > 1e15 ? 10 ** (this.getDecimalPlaces(processedValue) - 1) : (baseRange?.value ?? 1);
 
         if (useBaseSymbol) {
             processedValue = processedValue / baseRangeDenominator;
