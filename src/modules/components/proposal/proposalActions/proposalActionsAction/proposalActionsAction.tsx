@@ -31,7 +31,7 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
     const isDisabled = !ActionComponent;
 
     return (
-        <Accordion.Item value={`${index}`} disabled={isDisabled}>
+        <Accordion.Item value={`${index}-action`} disabled={isDisabled}>
             <Accordion.ItemHeader onClick={onToggle}>
                 <div className="flex flex-col items-start">
                     <Heading size="h4">

@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.0.39] - 2024-07-16
 
+### 
+
+-   Added ProposalAction module component
+
 ### Changed
 
 -   Update minor and patch NPM dependencies

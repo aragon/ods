@@ -31,15 +31,15 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
         if (expandedItems.length === actions.length) {
             setExpandedItems([]);
         } else {
-            setExpandedItems(actions.map((_, index) => `${index}`));
+            setExpandedItems(actions.map((_, index) => `${index}-action`));
         }
     };
 
     const handleToggleItem = (index: number) => {
-        if (expandedItems.includes(`${index}`)) {
-            setExpandedItems(expandedItems.filter((item) => item !== `${index}`));
+        if (expandedItems.includes(`${index}-action`)) {
+            setExpandedItems(expandedItems.filter((item) => item !== `${index}-action`));
         } else {
-            setExpandedItems([...expandedItems, `${index}`]);
+            setExpandedItems([...expandedItems, `${index}-action`]);
         }
     };
 
