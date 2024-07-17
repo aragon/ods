@@ -1,1 +1,6 @@
-export { ChainEntityType, useBlockExplorer, type IGetChainEntityUrlParams } from './useBlockExplorer';
+export {
+    ChainEntityType,
+    useBlockExplorer,
+    type IBuildEntityUrlParams,
+    type IUseBlockExplorerParams,
+} from './useBlockExplorer';

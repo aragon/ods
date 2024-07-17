@@ -7,9 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.39] - 2024-07-16
+
 ### Changed
 
 -   Update minor and patch NPM dependencies
+-   Update `useBlockExplorer` hook to return information about the block explorer
 
 ## [1.0.38] - 2024-07-16
 
