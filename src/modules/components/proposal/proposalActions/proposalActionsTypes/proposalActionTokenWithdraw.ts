@@ -1,11 +1,11 @@
 import type { ICompositeAddress } from '../../../../types';
-import type { IProposalAction } from './proposalAction';
+import type { IProposalAction, ProposalActionType } from './proposalAction';
 
 export interface IProposalActionWithdrawToken extends IProposalAction {
     /**
      * Withdraw token action
      */
-    type: 'withdrawToken';
+    type: ProposalActionType.WITHDRAW_TOKEN;
     /**
      * Sender address, object with address and optional ensName
      */

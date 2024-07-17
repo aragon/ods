@@ -1,5 +1,6 @@
 import { type ICompositeAddress } from '../../../../../types';
 import type { IProposalActionWithdrawToken } from '../../proposalActionsTypes';
+import { ProposalActionType } from '../../proposalActionsTypes/proposalAction';
 
 export const generateCompositeAddress = (address?: Partial<ICompositeAddress>): ICompositeAddress => ({
     address: '0xDefaultAddress',
@@ -10,7 +11,7 @@ export const generateCompositeAddress = (address?: Partial<ICompositeAddress>): 
 export const generateProposalActionWithdrawToken = (
     action?: Partial<IProposalActionWithdrawToken>,
 ): IProposalActionWithdrawToken => ({
-    type: 'withdrawToken',
+    type: ProposalActionType.WITHDRAW_TOKEN,
     sender: generateCompositeAddress({ address: '0xDefaultSender' }),
     receiver: generateCompositeAddress({ address: '0xDefaultReceiver' }),
     token: {

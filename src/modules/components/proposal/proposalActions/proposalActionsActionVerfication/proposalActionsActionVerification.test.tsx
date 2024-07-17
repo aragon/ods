@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
 import type { IProposalAction, IProposalActionWithdrawToken } from '../proposalActionsTypes';
+import { ProposalActionType } from '../proposalActionsTypes/proposalAction';
 import { ProposalActionsActionVerification } from './proposalActionsActionVerfication';
 
 jest.mock('../../../../utils', () => ({
@@ -48,7 +49,7 @@ describe('<ProposalActionsActionVerification /> component', () => {
                 priceUsd: '1.00',
                 address: '0xTokenAddress',
             },
-            type: 'withdrawToken',
+            type: ProposalActionType.WITHDRAW_TOKEN,
         });
         render(createTestComponent(action));
 
