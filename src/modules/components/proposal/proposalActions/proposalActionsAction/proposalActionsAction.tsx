@@ -28,7 +28,6 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
     const { action, index, onToggle } = props;
     const { activeTab } = useProposalActionsContext();
     const ActionComponent = proposalActionsUtils.getActionComponent(action);
-
     const isDisabled = !ActionComponent;
 
     return (

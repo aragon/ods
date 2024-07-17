@@ -1,1 +1,1 @@
-export { proposalActionsUtils } from './proposalActionUtils';
+export { proposalActionsUtils } from './proposalActionsUtils';

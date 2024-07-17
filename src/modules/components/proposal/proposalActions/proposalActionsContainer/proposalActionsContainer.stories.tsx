@@ -21,6 +21,11 @@ type Story = StoryObj<typeof ProposalActions.Container>;
 export const TokenWithdraw: Story = {
     args: {
         actions: withdrawActionsMock,
+        tabs: [
+            { label: 'Basic', value: 'basic' },
+            { label: 'Composer', value: 'composer' },
+            { label: 'Code', value: 'code' },
+        ],
         containerName: 'Actions',
     },
     render: (props) => (

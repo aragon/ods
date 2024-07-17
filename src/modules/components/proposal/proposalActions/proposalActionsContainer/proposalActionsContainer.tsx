@@ -13,10 +13,17 @@ export interface IProposalActionsContainerProps {
      * Callback to handle action selection
      */
     containerName: string;
+    /**
+     * Tabs list to display with values
+     */
+    tabs: Array<{
+        label: string;
+        value: string;
+    }>;
 }
 
 export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> = (props) => {
-    const { actions, containerName } = props;
+    const { actions, tabs, containerName } = props;
     const { activeTab, setActiveTab } = useProposalActionsContext();
     const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
@@ -77,9 +84,9 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
             </Heading>
             <Tabs.Root defaultValue={activeTab} onValueChange={(value) => setActiveTab(value)} isUnderlined={true}>
                 <Tabs.List className="px-4 md:px-6">
-                    <Tabs.Trigger label="Basic" value="basic" />
-                    <Tabs.Trigger label="Composer" value="composer" />
-                    <Tabs.Trigger label="Code" value="code" />
+                    {tabs.map((tab) => (
+                        <Tabs.Trigger key={tab.value} label={tab.label} value={tab.value} />
+                    ))}
                 </Tabs.List>
                 <Tabs.Content value="basic" className="grid grid-cols-1 gap-y-2 md:gap-y-4">
                     <Accordion.Container
