@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Tabs } from '../../../../../core';
+import { IconType, Tabs } from '../../../../../core';
 import { testLogger } from '../../../../../core/test';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import {
@@ -30,7 +30,7 @@ describe('<ProposalVotingBreakdownMultisig /> component', () => {
         expect(tabPabel.id).toContain(ProposalVotingTab.BREAKDOWN);
     });
 
-    it('throws invariant error when memberCount is set to 0', () => {
+    it('throws error when memberCount is set to 0', () => {
         testLogger.suppressErrors();
         const membersCount = 0;
         expect(() => render(createTestComponent({ membersCount }))).toThrow();
@@ -57,5 +57,21 @@ describe('<ProposalVotingBreakdownMultisig /> component', () => {
         expect(screen.getByText('Minimum Approval')).toBeInTheDocument();
         expect(screen.getByText('1K')).toBeInTheDocument();
         expect(screen.getByText('of 12.35K Members')).toBeInTheDocument();
+    });
+
+    it('renders success indicator on min approvals reached', () => {
+        const approvalsAmount = 4;
+        const minApprovals = 3;
+        const membersCount = 5;
+        render(createTestComponent({ approvalsAmount, minApprovals, membersCount }));
+        expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();
+    });
+
+    it('renders failure indicator on min approvals reached', () => {
+        const approvalsAmount = 2;
+        const minApprovals = 3;
+        const membersCount = 3;
+        render(createTestComponent({ approvalsAmount, minApprovals, membersCount }));
+        expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
     });
 });

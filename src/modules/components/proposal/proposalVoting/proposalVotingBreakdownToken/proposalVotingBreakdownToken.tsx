@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import { type ITabsContentProps, NumberFormat, Tabs, formatterUtils } from '../../../../../core';
+import { type ITabsContentProps, NumberFormat, Tabs, formatterUtils, invariant } from '../../../../../core';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { ProposalVotingProgress } from '../proposalVotingProgress';
 
@@ -47,13 +48,17 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
         ...otherProps
     } = props;
 
+    const { copy } = useOdsModulesContext();
+
     const optionValues = [
-        { name: 'Yes', value: Number(totalYes), variant: 'success' },
-        { name: 'Abstain', value: Number(totalAbstain), variant: 'neutral' },
-        { name: 'No', value: Number(totalNo), variant: 'critical' },
+        { name: copy.proposalVotingBreakdownToken.option.yes, value: Number(totalYes), variant: 'success' },
+        { name: copy.proposalVotingBreakdownToken.option.abstain, value: Number(totalAbstain), variant: 'neutral' },
+        { name: copy.proposalVotingBreakdownToken.option.no, value: Number(totalNo), variant: 'critical' },
     ] as const;
 
     const totalSupplyNumber = Number(tokenTotalSupply);
+
+    invariant(totalSupplyNumber > 0, 'ProposalVotingBreakdownToken: tokenTotalSupply must be greater than 0');
 
     const totalVotes = optionValues.reduce((accumulator, option) => accumulator + option.value, 0);
     const formattedTotalVotes = formatterUtils.formatNumber(totalVotes, { format: NumberFormat.GENERIC_SHORT });
@@ -64,7 +69,7 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
     });
 
     const winningOption = Math.max(...optionValues.map((option) => option.value));
-    const winningOptionPercentage = (winningOption / totalVotes) * 100;
+    const winningOptionPercentage = totalVotes > 0 ? (winningOption / totalVotes) * 100 : 0;
     const formattedWinninOption = formatterUtils.formatNumber(winningOption, { format: NumberFormat.GENERIC_SHORT });
 
     const currentParticipationPercentage = (totalVotes / totalSupplyNumber) * 100;
@@ -83,7 +88,7 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
                     <ProposalVotingProgress.Item
                         key={name}
                         name={name}
-                        value={(value / totalVotes) * 100}
+                        value={totalVotes > 0 ? (value / totalVotes) * 100 : 0}
                         indicator={supportThreshold}
                         description={{
                             value: formatterUtils.formatNumber(value, { format: NumberFormat.GENERIC_SHORT }),
@@ -95,20 +100,27 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
             </ProposalVotingProgress.Container>
             <ProposalVotingProgress.Container direction="col">
                 <ProposalVotingProgress.Item
-                    name="Support"
+                    name={copy.proposalVotingBreakdownToken.support.name}
                     value={winningOptionPercentage}
-                    description={{ value: formattedWinninOption, text: `of ${formattedTotalVotes} ${tokenSymbol}` }}
+                    description={{
+                        value: formattedWinninOption,
+                        text: copy.proposalVotingBreakdownToken.support.description(
+                            `${formattedTotalVotes} ${tokenSymbol}`,
+                        ),
+                    }}
                     showPercentage={true}
                     showStatusIcon={true}
                     variant={supportReached ? 'primary' : 'neutral'}
                     indicator={supportThreshold}
                 />
                 <ProposalVotingProgress.Item
-                    name="Minimum participation"
+                    name={copy.proposalVotingBreakdownToken.support.name}
                     value={currentParticipationPercentage}
                     description={{
                         value: formattedTotalVotes,
-                        text: `of ${formattedMinParticipationToken} ${tokenSymbol}`,
+                        text: copy.proposalVotingBreakdownToken.support.description(
+                            `${formattedMinParticipationToken} ${tokenSymbol}`,
+                        ),
                     }}
                     showPercentage={true}
                     showStatusIcon={true}

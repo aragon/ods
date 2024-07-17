@@ -78,6 +78,21 @@ export const modulesCopy = {
         name: 'Minimum Approval',
         description: (count: string | null) => `of ${count} Members`,
     },
+    proposalVotingBreakdownToken: {
+        option: {
+            yes: 'Yes',
+            no: 'No',
+            abstain: 'Abstain',
+        },
+        support: {
+            name: 'Support',
+            description: (value: string) => `of ${value}`,
+        },
+        minParticipation: {
+            name: 'Minimum participation',
+            description: (value: string) => `of ${value}`,
+        },
+    },
     voteDataListItemStructure: {
         yourDelegate: 'Your delegate',
         you: 'You',
