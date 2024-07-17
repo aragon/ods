@@ -1,10 +1,11 @@
+import classNames from 'classnames';
 import { useState } from 'react';
-import { Accordion, Button, Card, Heading, Tabs } from '../../../../../core';
+import { Accordion, Button, Card, Heading, type ICardProps, Tabs } from '../../../../../core';
 import { ProposalActionsAction } from '../proposalActionsAction';
 import { useProposalActionsContext } from '../proposalActionsContext';
 import { type IProposalAction } from '../proposalActionsTypes';
 
-export interface IProposalActionsContainerProps {
+export interface IProposalActionsContainerProps extends ICardProps {
     /**
      * Actions to display
      */
@@ -23,7 +24,7 @@ export interface IProposalActionsContainerProps {
 }
 
 export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> = (props) => {
-    const { actions, tabs, containerName } = props;
+    const { actions, tabs, containerName, className } = props;
     const { activeTab, setActiveTab } = useProposalActionsContext();
     const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
@@ -78,7 +79,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
     };
 
     return (
-        <Card className="w-full">
+        <Card className={classNames('w-full', className)}>
             <Heading size="h2" className="px-4 pt-4 md:px-6 md:pt-6">
                 {containerName}
             </Heading>

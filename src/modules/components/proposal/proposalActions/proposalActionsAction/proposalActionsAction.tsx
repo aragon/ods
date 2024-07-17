@@ -15,7 +15,7 @@ export interface IProposalActionsActionProps {
      */
     index: number;
     /**
-     * Toggle accordion callback for two way binding
+     * Toggle accordion callback for notifying the parent container to update after click
      */
     onToggle: () => void;
 }
@@ -28,10 +28,13 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
     const { action, index, onToggle } = props;
     const { activeTab } = useProposalActionsContext();
     const ActionComponent = proposalActionsUtils.getActionComponent(action);
-    const isDisabled = !ActionComponent;
+
+    if (!ActionComponent) {
+        return null;
+    }
 
     return (
-        <Accordion.Item value={`${index}-action`} disabled={isDisabled}>
+        <Accordion.Item value={`${index}-action`}>
             <Accordion.ItemHeader onClick={onToggle}>
                 <div className="flex flex-col items-start">
                     <Heading size="h4">

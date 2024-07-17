@@ -1,3 +1,7 @@
+export enum ProposalActionType {
+    WITHDRAW_TOKEN = 'withdrawToken',
+}
+
 export interface IProposalActionInputDataParameter {
     /**
      * The name of the parameter
