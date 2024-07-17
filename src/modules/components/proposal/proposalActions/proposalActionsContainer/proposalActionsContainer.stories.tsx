@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ProposalActions, ProposalActionsProvider } from '..';
-import { withdrawActionsMock } from '../actions/proposalActionWithdrawToken/mocks';
+import { withdrawActionsMock } from '../actions/mocks/proposalActionWithdrawToken';
 
 const meta: Meta<typeof ProposalActions.Container> = {
     title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Container',
@@ -21,6 +21,7 @@ type Story = StoryObj<typeof ProposalActions.Container>;
 export const TokenWithdraw: Story = {
     args: {
         actions: withdrawActionsMock,
+        containerName: 'Actions',
     },
     render: (props) => (
         <ProposalActionsProvider>

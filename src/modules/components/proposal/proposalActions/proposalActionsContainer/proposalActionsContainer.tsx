@@ -9,10 +9,14 @@ export interface IProposalActionsContainerProps {
      * Actions to display
      */
     actions: IProposalAction[];
+    /**
+     * Callback to handle action selection
+     */
+    containerName: string;
 }
 
 export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> = (props) => {
-    const { actions } = props;
+    const { actions, containerName } = props;
     const { activeTab, setActiveTab } = useProposalActionsContext();
     const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
@@ -69,7 +73,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
     return (
         <Card className="w-full">
             <Heading size="h2" className="px-4 pt-4 md:px-6 md:pt-6">
-                Actions
+                {containerName}
             </Heading>
             <Tabs.Root defaultValue={activeTab} onValueChange={(value) => setActiveTab(value)} isUnderlined={true}>
                 <Tabs.List className="px-4 md:px-6">
