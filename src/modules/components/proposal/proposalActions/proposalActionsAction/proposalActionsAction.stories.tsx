@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ProposalActions } from '..';
 import { Accordion } from '../../../../../core';
-import { ProposalActionsProvider } from '../proposalActionsContext';
 import { withdrawActionsMock } from '../actions/mocks/proposalActionWithdrawToken';
+import { ProposalActionsProvider } from '../proposalActionsContext';
 
 const meta: Meta<typeof ProposalActions.Action> = {
     title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Action',

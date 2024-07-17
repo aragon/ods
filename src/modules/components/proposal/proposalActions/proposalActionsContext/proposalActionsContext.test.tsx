@@ -26,7 +26,7 @@ describe('ProposalActionsContext', () => {
 
     it('throws an error when used outside the provider', () => {
         testLogger.suppressErrors();
-        
+
         expect(() => renderHook(() => useProposalActionsContext())).toThrow();
     });
 
