@@ -74,6 +74,10 @@ export const modulesCopy = {
         votes: 'Votes',
         details: 'Details',
     },
+    proposalVotingBreakdownMultisig: {
+        name: 'Minimum Approval',
+        description: (count: string | null) => `of ${count} Members`,
+    },
     voteDataListItemStructure: {
         yourDelegate: 'Your delegate',
         you: 'You',
