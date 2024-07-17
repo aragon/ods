@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import type { IProposalAction, IProposalActionWithdrawToken } from '../proposalActionsTypes';
+import { generateProposalActionGeneric } from '../actions/generators/proposalActionGeneric';
+import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
 import { proposalActionsUtils } from './proposalActionsUtils';
 
 jest.mock('../actions/proposalActionWithdrawToken/proposalActionWithdrawToken', () => ({
@@ -8,26 +9,7 @@ jest.mock('../actions/proposalActionWithdrawToken/proposalActionWithdrawToken', 
 
 describe('ProposalActionsUtils', () => {
     it('returns ProposalActionWithdrawToken component for withdrawToken action', () => {
-        const action: IProposalActionWithdrawToken = {
-            type: 'withdrawToken',
-            sender: { address: '0xSender' },
-            receiver: { address: '0xReceiver' },
-            amount: '100',
-            token: {
-                name: 'TokenName',
-                symbol: 'TKN',
-                decimals: 18,
-                logo: 'logo.png',
-                priceUsd: '1.00',
-                address: '0xTokenAddress',
-            },
-            contractAddress: '0xContract',
-            from: '0xFrom',
-            to: '0xTo',
-            data: '',
-            value: '0',
-            inputData: null,
-        };
+        const action = generateProposalActionWithdrawToken();
 
         const Component = proposalActionsUtils.getActionComponent(action) as React.ComponentType;
         render(<Component />);
@@ -35,15 +17,7 @@ describe('ProposalActionsUtils', () => {
     });
 
     it('returns null for unknown action type', () => {
-        const action: IProposalAction = {
-            type: 'unknownType',
-            contractAddress: '0xContract',
-            from: '0xFrom',
-            to: '0xTo',
-            data: '',
-            value: '0',
-            inputData: null,
-        };
+        const action = generateProposalActionGeneric();
 
         const Component = proposalActionsUtils.getActionComponent(action);
         expect(Component).toBeNull();
