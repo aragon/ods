@@ -1,4 +1,5 @@
 import { Accordion, Heading } from '../../../../../core';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
 import type { IProposalAction } from '../proposalActionsTypes';
 import { proposalActionsUtils } from '../utils';
@@ -25,6 +26,7 @@ const actionTypeToStringMapping: Record<string, string> = {
 export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {
     const { action, index, onToggle } = props;
     const ActionComponent = proposalActionsUtils.getActionComponent(action);
+    const { copy } = useOdsModulesContext();
 
     if (!ActionComponent) {
         return null;
@@ -37,7 +39,9 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
             <Accordion.ItemHeader onClick={onToggle}>
                 <div className="flex flex-col items-start">
                     <Heading size="h4">
-                        {action.inputData == null ? 'Not verified' : actionTypeToStringMapping[action.type]}
+                        {action.inputData == null
+                            ? copy.proposalActionsAction.notVerified
+                            : actionTypeToStringMapping[action.type]}
                     </Heading>
                     <ProposalActionsActionVerification action={action} />
                 </div>

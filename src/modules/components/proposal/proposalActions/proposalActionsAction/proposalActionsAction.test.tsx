@@ -3,6 +3,7 @@ import { Accordion } from '../../../../../core';
 import { OdsModulesProvider } from '../../../odsModulesProvider';
 import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
 
+import { modulesCopy } from '../../../../assets';
 import { type IProposalActionsActionProps, ProposalActionsAction } from './proposalActionsAction';
 
 describe('<ProposalActionsAction /> component', () => {
@@ -39,7 +40,7 @@ describe('<ProposalActionsAction /> component', () => {
         const action = generateProposalActionWithdrawToken({ inputData: null });
         render(createTestComponent({ action }));
 
-        expect(screen.getByText('Not verified')).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalActionsAction.notVerified)).toBeInTheDocument();
     });
 
     it('does not render the component when action type does not have a correlated ActionComponent', () => {

@@ -25,6 +25,16 @@ export const modulesCopy = {
         winningOption: 'Winning Option',
         stage: 'Stage',
     },
+    proposalActionsContainer: {
+        containerName: 'Actions',
+        collapse: 'Collapse all',
+        expand: 'Expand all',
+        footerMessage:
+            'The proposal must pass all voting stages above before the binding onchain actions are able to be executed.',
+    },
+    proposalActionsAction: {
+        notVerified: 'Not verified',
+    },
     proposalDataListItemStatus: {
         voted: "You've voted",
         ago: 'ago',

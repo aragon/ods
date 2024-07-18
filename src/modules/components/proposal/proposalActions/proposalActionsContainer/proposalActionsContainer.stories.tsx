@@ -19,12 +19,7 @@ type Story = StoryObj<typeof ProposalActions.Container>;
  * Usage example of the ProposalActions.Container module component with mocked TokenWithdraw actions.
  */
 export const TokenWithdraw: Story = {
-    args: {
-        containerName: 'Actions',
-        footerMessage:
-            'The proposal must pass all voting stages above before the binding onchain actions are able to be executed.',
-    },
-    render: (props) => {
+    render: () => {
         const actions = [
             generateProposalActionWithdrawToken({
                 contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
@@ -36,7 +31,7 @@ export const TokenWithdraw: Story = {
             }),
         ];
         return (
-            <ProposalActions.Container {...props}>
+            <ProposalActions.Container>
                 {actions.map((action, index) => (
                     <ProposalActions.Action key={`action-${index}`} action={action} index={index} />
                 ))}

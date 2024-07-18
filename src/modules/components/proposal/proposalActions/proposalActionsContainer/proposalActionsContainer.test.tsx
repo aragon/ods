@@ -12,22 +12,15 @@ describe('<ProposalActionsContainer /> component', () => {
     ];
 
     const createTestComponent = (props?: Partial<IProposalActionsContainerProps>) => {
-        const defaultProps: IProposalActionsContainerProps = {
-            actions,
-            containerName: 'Test Container',
+        const completeProps: IProposalActionsContainerProps = {
             ...props,
         };
         return render(
             <OdsModulesProvider>
-                <ProposalActionsContainer {...defaultProps} />
+                <ProposalActionsContainer {...completeProps} />
             </OdsModulesProvider>,
         );
     };
-
-    it('renders without crashing', () => {
-        createTestComponent();
-        expect(screen.getByText('Test Container')).toBeInTheDocument();
-    });
 
     it('renders single child correctly', () => {
         const children = <ProposalActionsAction action={actions[0]} index={0} />;
@@ -46,34 +39,32 @@ describe('<ProposalActionsContainer /> component', () => {
 
     it('handles toggling all items', async () => {
         const actions = [
-            generateProposalActionWithdrawToken({sender: {name: 'vitalik.eth', address: '0x1234567890abcdef1234567890abcdef12345678'}}),
-            generateProposalActionWithdrawToken({sender: {name: 'vitalik.eth', address: '0x1234567890abcdef1234567890abcdef12345678'}}),
+            generateProposalActionWithdrawToken({
+                sender: { name: 'vitalik.eth', address: '0x1234567890abcdef1234567890abcdef12345678' },
+            }),
+            generateProposalActionWithdrawToken({
+                sender: { name: 'vitalik.eth', address: '0x1234567890abcdef1234567890abcdef12345678' },
+            }),
         ];
-    
+
         const children = [
             <ProposalActionsAction key="0" action={actions[0]} index={0} />,
             <ProposalActionsAction key="1" action={actions[1]} index={1} />,
         ];
         createTestComponent({ children });
 
-        const toggleButtonExpand = screen.getByText('Expand All');
+        const toggleButtonExpand = screen.getByText('Expand all');
         await userEvent.click(toggleButtonExpand);
-        expect(screen.getByText('Collapse All')).toBeInTheDocument();
+        expect(screen.getByText('Collapse all')).toBeInTheDocument();
         actions.forEach(() => {
             expect(screen.getAllByText(/vitalik.eth/).length).toBe(actions.length);
         });
 
-        const toggleButtonCollapse = screen.getByText('Collapse All');
+        const toggleButtonCollapse = screen.getByText('Collapse all');
         await userEvent.click(toggleButtonCollapse);
-        expect(screen.getByText('Expand All')).toBeInTheDocument();
+        expect(screen.getByText('Expand all')).toBeInTheDocument();
         actions.forEach(() => {
             expect(screen.queryAllByText(/vitalik.eth/).length).toBe(0);
         });
-    });
-
-    it('displays footer message when provided', () => {
-        const footerMessage = 'This is a footer message';
-        createTestComponent({ footerMessage });
-        expect(screen.getByText(footerMessage)).toBeInTheDocument();
     });
 });

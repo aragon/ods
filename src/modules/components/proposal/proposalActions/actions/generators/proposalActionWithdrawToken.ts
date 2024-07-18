@@ -8,7 +8,9 @@ export const generateCompositeAddress = (address?: Partial<ICompositeAddress>): 
     ...address,
 });
 
-export const generateToken = (token?: Partial<IProposalActionWithdrawToken['token']>): IProposalActionWithdrawToken['token'] => ({
+export const generateToken = (
+    token?: Partial<IProposalActionWithdrawToken['token']>,
+): IProposalActionWithdrawToken['token'] => ({
     name: 'DefaultToken',
     symbol: 'DEF',
     logo: 'default-logo.png',
