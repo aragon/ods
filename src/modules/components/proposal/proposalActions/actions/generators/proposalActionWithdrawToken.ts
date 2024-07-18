@@ -8,20 +8,23 @@ export const generateCompositeAddress = (address?: Partial<ICompositeAddress>): 
     ...address,
 });
 
+export const generateToken = (token?: Partial<IProposalActionWithdrawToken['token']>): IProposalActionWithdrawToken['token'] => ({
+    name: 'DefaultToken',
+    symbol: 'DEF',
+    logo: 'default-logo.png',
+    decimals: 0,
+    priceUsd: '',
+    address: '',
+    ...token,
+});
+
 export const generateProposalActionWithdrawToken = (
     action?: Partial<IProposalActionWithdrawToken>,
 ): IProposalActionWithdrawToken => ({
     type: ProposalActionType.WITHDRAW_TOKEN,
     sender: generateCompositeAddress({ address: '0xDefaultSender' }),
     receiver: generateCompositeAddress({ address: '0xDefaultReceiver' }),
-    token: {
-        name: 'DefaultToken',
-        symbol: 'DEF',
-        logo: 'default-logo.png',
-        decimals: 0,
-        priceUsd: '',
-        address: '',
-    },
+    token: generateToken(),
     from: '0xDefaultFrom',
     to: '0xDefaultTo',
     data: '',
