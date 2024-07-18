@@ -7,5 +7,4 @@ export const ProposalActions = {
 };
 
 export * from './actions';
-export * from './proposalActionsContext';
 export * from './proposalActionsTypes';
