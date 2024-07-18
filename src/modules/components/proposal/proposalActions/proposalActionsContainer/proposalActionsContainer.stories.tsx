@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ProposalActions } from '..';
-import { generateProposalActionWithdrawToken, generateToken } from '../actions/generators/proposalActionWithdrawToken';
+import { generateProposalAdjustMemberCount } from '../actions/generators/proposalActionAdjustMemberCount';
+import {
+    generateCompositeAddress,
+    generateProposalActionWithdrawToken,
+    generateToken,
+} from '../actions/generators/proposalActionWithdrawToken';
 
 const meta: Meta<typeof ProposalActions.Container> = {
     title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Container',
@@ -30,6 +35,41 @@ export const TokenWithdraw: Story = {
                 inputData: null,
             }),
         ];
+        return (
+            <ProposalActions.Container>
+                {actions.map((action, index) => (
+                    <ProposalActions.Action key={`action-${index}`} action={action} index={index} />
+                ))}
+            </ProposalActions.Container>
+        );
+    },
+};
+
+/**
+ * Usage example of the ProposalActions.Container module component with mocked TokenWithdraw actions.
+ */
+export const AdjustMemberCount: Story = {
+    render: () => {
+        const actions = [
+            generateProposalAdjustMemberCount({
+                changingMembers: [
+                    generateCompositeAddress({ name: 'alice.eth' }),
+                    generateCompositeAddress({ name: 'bob.eth' }),
+                ],
+                addOrRemove: 'add',
+                currentMemberCount: 10,
+            }),
+            generateProposalAdjustMemberCount({
+                changingMembers: [
+                    generateCompositeAddress({ name: 'alice.eth' }),
+                    generateCompositeAddress({ name: 'bob.eth' }),
+                ],
+                addOrRemove: 'remove',
+                currentMemberCount: 10,
+                inputData: null,
+            }),
+        ];
+
         return (
             <ProposalActions.Container>
                 {actions.map((action, index) => (
