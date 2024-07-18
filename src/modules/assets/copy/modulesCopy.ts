@@ -33,6 +33,7 @@ export const modulesCopy = {
             'The proposal must pass all voting stages above before the binding onchain actions are able to be executed.',
     },
     proposalActionsAction: {
+        actionTypeWithdrawToken: 'Withdraw assets',
         notVerified: 'Not verified',
     },
     proposalDataListItemStatus: {
