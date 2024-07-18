@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Accordion } from '../../../../../core';
-import { ProposalVoting } from '../index';
+import { ProposalVoting, ProposalVotingStatus } from '../index';
 
 const meta: Meta<typeof ProposalVoting.Stage> = {
     title: 'Modules/Components/Proposal/ProposalVoting/ProposalVoting.Stage',
@@ -21,8 +21,9 @@ type Story = StoryObj<typeof ProposalVoting.Stage>;
 export const Default: Story = {
     args: {
         name: 'Community voting',
-        status: 'active',
+        status: ProposalVotingStatus.ACCEPTED,
         startDate: '2024-07-17T08:34:22.719Z',
+        endDate: '2024-07-20T08:34:22.719Z',
     },
     render: (args) => {
         return (

@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { Button, DataList } from '../../../../core';
 import { type IVoteDataListItemStructureProps, VoteDataListItem } from '../../vote';
-import { ProposalVoting } from '../index';
+import { ProposalVoting, ProposalVotingStatus } from '../index';
 
 const meta: Meta<typeof ProposalVoting.Container> = {
     title: 'Modules/Components/Proposal/ProposalVoting/ProposalVoting',
@@ -106,16 +107,26 @@ const multisigSettings = [
  * Usage example of the ProposalVotingContainer module component for multi-stage proposals
  */
 export const MultiStage: Story = {
+    args: {
+        title: 'Voting',
+        description:
+            'The proposal must pass all governance stages to be accepted and potential onchain actions to execute.',
+        activeStage: '0',
+    },
     render: (args) => {
         const [tokenSearch, setTokenSearch] = useState<string | undefined>('');
         const [multisigSearch, setMultisigSearch] = useState<string | undefined>('');
 
         const filteredTokenVotes = filterVotes(tokenVotes, tokenSearch);
-        const filteredMultisigVotes = filterVotes(multisigVotes, multisigSearch);
 
         return (
             <ProposalVoting.Container {...args} style={{ maxWidth: 560 }}>
-                <ProposalVoting.Stage name="Token holder voting" status="active" startDate={0}>
+                <ProposalVoting.Stage
+                    name="Token holder voting"
+                    status={ProposalVotingStatus.ACTIVE}
+                    startDate={DateTime.now().toMillis()}
+                    endDate={DateTime.now().plus({ days: 5 }).toMillis()}
+                >
                     <ProposalVoting.BreakdownToken
                         tokenSymbol="ARA"
                         totalYes={getTotalVotes(tokenVotes, 'yes')}
@@ -142,16 +153,19 @@ export const MultiStage: Story = {
                     </ProposalVoting.Votes>
                     <ProposalVoting.Details settings={tokenSettings} />
                 </ProposalVoting.Stage>
-                <ProposalVoting.Stage name="Founders approval" status="pending" startDate={0}>
-                    <ProposalVoting.BreakdownMultisig approvalsAmount={5} minApprovals={4} />
+                <ProposalVoting.Stage
+                    name="Founders approval"
+                    status={ProposalVotingStatus.PENDING}
+                    startDate={DateTime.now().plus({ days: 7 }).toMillis()}
+                    endDate={DateTime.now().plus({ days: 10 }).toMillis()}
+                >
+                    <ProposalVoting.BreakdownMultisig approvalsAmount={0} minApprovals={4} />
                     <ProposalVoting.Votes>
-                        <DataList.Root itemsCount={filteredMultisigVotes.length} entityLabel="Votes">
+                        <DataList.Root itemsCount={0} entityLabel="Votes">
                             <DataList.Filter searchValue={multisigSearch} onSearchValueChange={setMultisigSearch} />
-                            <DataList.Container>
-                                {filteredMultisigVotes.map((vote) => (
-                                    <VoteDataListItem.Structure key={vote.voter.address} {...vote} />
-                                ))}
-                            </DataList.Container>
+                            <DataList.Container
+                                emptyState={{ heading: 'No votes', description: 'Stage has no votes' }}
+                            />
                             <DataList.Pagination />
                         </DataList.Root>
                     </ProposalVoting.Votes>
@@ -159,11 +173,6 @@ export const MultiStage: Story = {
                 </ProposalVoting.Stage>
             </ProposalVoting.Container>
         );
-    },
-    args: {
-        title: 'Voting',
-        description:
-            'The proposal must pass all governance stages to be accepted and potential onchain actions to execute.',
     },
 };
 
@@ -174,20 +183,17 @@ export const SingleStage: Story = {
     render: (args) => {
         const [search, setSearch] = useState<string | undefined>('');
 
-        const filteredVotes = filterVotes(tokenVotes, search);
+        const filteredVotes = filterVotes(multisigVotes, search);
 
         return (
             <ProposalVoting.Container {...args} style={{ maxWidth: 560 }}>
-                <ProposalVoting.Tabs>
-                    <ProposalVoting.BreakdownToken
-                        tokenSymbol="ARA"
-                        totalYes={getTotalVotes(tokenVotes, 'yes')}
-                        totalNo={getTotalVotes(tokenVotes, 'no')}
-                        totalAbstain={getTotalVotes(tokenVotes, 'abstain')}
-                        supportThreshold={50}
-                        minParticipation={15}
-                        tokenTotalSupply={9451231259}
-                    />
+                <ProposalVoting.Stage
+                    name="Token holder voting"
+                    status={ProposalVotingStatus.ACTIVE}
+                    startDate={DateTime.now().toMillis()}
+                    endDate={DateTime.now().plus({ hours: 7 }).toMillis()}
+                >
+                    <ProposalVoting.BreakdownMultisig approvalsAmount={4} minApprovals={5} />
                     <ProposalVoting.Votes>
                         <DataList.Root itemsCount={filteredVotes.length} entityLabel="Votes">
                             <DataList.Filter searchValue={search} onSearchValueChange={setSearch} />
@@ -199,8 +205,8 @@ export const SingleStage: Story = {
                             <DataList.Pagination />
                         </DataList.Root>
                     </ProposalVoting.Votes>
-                    <ProposalVoting.Details settings={tokenSettings} />
-                </ProposalVoting.Tabs>
+                    <ProposalVoting.Details settings={multisigSettings} />
+                </ProposalVoting.Stage>
             </ProposalVoting.Container>
         );
     },

@@ -93,6 +93,30 @@ export const modulesCopy = {
             description: (value: string) => `of ${value}`,
         },
     },
+    proposalVotingStageStatus: {
+        main: {
+            proposal: 'Proposal',
+            stage: 'Stage',
+        },
+        secondary: {
+            pending: 'is pending',
+            active: 'left to vote',
+            accepted: 'has been',
+            rejected: 'has been',
+            unreached: 'not reached',
+        },
+        status: {
+            accepted: 'accepted',
+            rejected: 'rejected',
+        },
+    },
+    proposalVotingDetails: {
+        voting: 'Voting',
+        governance: 'Governance',
+    },
+    proposalVotingStage: {
+        stage: (index: number) => `Stage ${index}`,
+    },
     voteDataListItemStructure: {
         yourDelegate: 'Your delegate',
         you: 'You',

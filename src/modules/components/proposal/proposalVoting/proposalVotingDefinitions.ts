@@ -3,3 +3,11 @@ export enum ProposalVotingTab {
     VOTES = 'VOTES',
     DETAILS = 'DETAILS',
 }
+
+export enum ProposalVotingStatus {
+    ACTIVE = 'ACTIVE',
+    PENDING = 'PENDING',
+    ACCEPTED = 'ACCEPTED',
+    REJECTED = 'REJECTED',
+    UNREACHED = 'UNREACHED',
+}

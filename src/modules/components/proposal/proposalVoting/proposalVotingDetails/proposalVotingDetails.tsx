@@ -1,7 +1,8 @@
 import classNames from 'classnames';
-import { DateTime } from 'luxon';
 import { DateFormat, DefinitionList, formatterUtils, Heading, type ITabsContentProps, Tabs } from '../../../../../core';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
+import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 
 export interface IProposalVotingDetailsSetting {
     /**
@@ -24,6 +25,12 @@ export interface IProposalVotingDetailsProps extends Omit<ITabsContentProps, 'va
 export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (props) => {
     const { className, settings, ...otherProps } = props;
 
+    const { copy } = useOdsModulesContext();
+    const { startDate, endDate } = useProposalVotingStageContext();
+
+    const formattedStartDate = formatterUtils.formatDate(startDate, { format: DateFormat.YEAR_MONTH_DAY_TIME });
+    const formattedEndDate = formatterUtils.formatDate(endDate, { format: DateFormat.YEAR_MONTH_DAY_TIME });
+
     const hasSettings = (settings ?? []).length > 0;
 
     return (
@@ -32,26 +39,18 @@ export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (pro
             className={classNames('flex flex-col gap-3', className)}
             {...otherProps}
         >
-            <Heading size="h3">Voting</Heading>
+            <Heading size="h3">{copy.proposalVotingDetails.voting}</Heading>
             <DefinitionList.Container>
                 <DefinitionList.Item term="Starts">
-                    <p className="text-neutral-500">
-                        {formatterUtils.formatDate(DateTime.now().plus({ days: 2 }), {
-                            format: DateFormat.YEAR_MONTH_DAY_TIME,
-                        })}
-                    </p>
+                    <p className="text-neutral-500 first-letter:capitalize">{formattedStartDate}</p>
                 </DefinitionList.Item>
                 <DefinitionList.Item term="Expires">
-                    <p className="text-neutral-500">
-                        {formatterUtils.formatDate(DateTime.now().plus({ days: 5 }), {
-                            format: DateFormat.YEAR_MONTH_DAY_TIME,
-                        })}
-                    </p>
+                    <p className="text-neutral-500 first-letter:capitalize">{formattedEndDate}</p>
                 </DefinitionList.Item>
             </DefinitionList.Container>
             {hasSettings && (
                 <>
-                    <Heading size="h3">Governance settings</Heading>
+                    <Heading size="h3">{copy.proposalVotingDetails.governance}</Heading>
                     <DefinitionList.Container>
                         {settings?.map(({ term, value }) => (
                             <DefinitionList.Item key={term} term={term}>

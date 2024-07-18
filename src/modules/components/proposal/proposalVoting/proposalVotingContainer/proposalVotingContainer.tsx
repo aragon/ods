@@ -28,20 +28,21 @@ export const ProposalVotingContainer: React.FC<IProposalVotingContainerProps> = 
     const isMultiStage = processedChildren.length > 1;
 
     return (
-        <Card className={classNames('flex flex-col', { '': isMultiStage }, className)} {...otherProps}>
-            <div className="flex flex-col gap-3 p-4 md:p-6">
+        <Card className={classNames('flex flex-col', className)} {...otherProps}>
+            <div className={classNames('flex flex-col gap-2 p-4 md:gap-3 md:p-6', { 'pb-2 md:pb-3': !isMultiStage })}>
                 <Heading size="h2">{title}</Heading>
                 <p className="text-base font-normal leading-normal text-neutral-500">{description}</p>
-                {/* TODO: start date for single stage proposals */}
             </div>
             {isMultiStage && (
                 <Accordion.Container isMulti={false} defaultValue={activeStage}>
                     {processedChildren.map((child, index) =>
-                        React.isValidElement(child) ? React.cloneElement(child, { ...child.props, index }) : child,
+                        React.isValidElement(child)
+                            ? React.cloneElement(child, { ...child.props, index, isMultiStage })
+                            : child,
                     )}
                 </Accordion.Container>
             )}
-            {!isMultiStage && <div className="px-12 pb-6 pt-1">{children}</div>}
+            {!isMultiStage && <div className="px-4 pb-6 pt-1 md:px-6">{children}</div>}
         </Card>
     );
 };

@@ -1,68 +1,95 @@
-import { useRef, type ReactNode } from 'react';
-import { Accordion, StatePingAnimation, invariant, type IAccordionItemProps } from '../../../../../core';
-import { ProposalVotingTab } from '../proposalVotingDefinitions';
+import classNames from 'classnames';
+import { useMemo, useRef, type ComponentProps } from 'react';
+import { Accordion, invariant } from '../../../../../core';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { ProposalVotingStatus, ProposalVotingTab } from '../proposalVotingDefinitions';
+import { ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
+import { ProposalVotingStageStatus } from '../proposalVotingStageStatus';
 import { ProposalVotingTabs } from '../proposalVotingTabs';
 
-export interface IProposalVotingStageProps extends Omit<IAccordionItemProps, 'value'> {
-    /**
-     * Name of the proposal stage.
-     */
-    name: string;
+export interface IProposalVotingStageProps extends ComponentProps<'div'> {
     /**
      * Status of the stage.
      */
-    status: 'active' | 'pending' | 'accepted' | 'rejected' | 'unreached';
+    status: ProposalVotingStatus;
     /**
      * Start date of the stage in timestamp or ISO format.
      */
     startDate: number | string;
+    /**
+     * Start date of the stage in timestamp or ISO format.
+     */
+    endDate: number | string;
     /**
      * Default tab displayed for the current stage. Defaults to details tab for pending and unreached states and to
      * breakdown tab for active, accepted and rejected states.
      */
     defaultTab?: ProposalVotingTab;
     /**
+     * Name of the proposal stage displayed for multi-stage proposals.
+     */
+    name?: string;
+    /**
      * Index of the stage.
      */
     index?: number;
     /**
-     * Children of the component rendered as content of the Accordion.
+     * Defines if the proposal has multiple stages or not.
      */
-    children?: ReactNode;
+    isMultiStage?: boolean;
 }
 
 export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) => {
-    const { name, status, startDate, defaultTab, index, children, ...otherProps } = props;
+    const { name, status, startDate, endDate, defaultTab, index, children, isMultiStage, className, ...otherProps } =
+        props;
 
-    const processedDefaultTab =
-        defaultTab ?? ['pending', 'unreached'].includes('status')
-            ? ProposalVotingTab.DETAILS
-            : ProposalVotingTab.BREAKDOWN;
+    const { copy } = useOdsModulesContext();
 
+    const stateDefaultTab = [ProposalVotingStatus.PENDING, ProposalVotingStatus.UNREACHED].includes(status)
+        ? ProposalVotingTab.DETAILS
+        : ProposalVotingTab.BREAKDOWN;
+    const processedDefaultTab = defaultTab ?? stateDefaultTab;
+    // console.log({ name, processedDefaultTab });
     const accordionContentRef = useRef<HTMLDivElement>(null);
 
+    const contextValues = useMemo(() => ({ startDate, endDate }), [startDate, endDate]);
+
     invariant(
-        index != null,
+        !isMultiStage || index != null,
         'ProposalVotingStage: component must be used inside a ProposalVotingContainer to work properly.',
     );
 
+    if (!isMultiStage) {
+        return (
+            <div className={classNames('flex flex-col gap-4 md:gap-6', className)}>
+                <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={true} />
+                <ProposalVotingTabs defaultValue={processedDefaultTab} accordionRef={accordionContentRef}>
+                    <ProposalVotingStageContextProvider value={contextValues}>
+                        {children}
+                    </ProposalVotingStageContextProvider>
+                </ProposalVotingTabs>
+            </div>
+        );
+    }
+
     return (
-        <Accordion.Item value={index.toString()} {...otherProps}>
+        <Accordion.Item value={index!.toString()} {...otherProps}>
             <Accordion.ItemHeader>
                 <div className="flex grow flex-row justify-between gap-4 md:gap-6">
                     <div className="flex flex-col gap-1">
                         <p className="text-lg font-normal leading-tight text-neutral-800">{name}</p>
-                        <div className="flex flex-row items-center gap-2">
-                            <p className="text-base font-normal leading-tight text-neutral-500">7 days left to vote</p>
-                            <StatePingAnimation />
-                        </div>
+                        <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={true} />
                     </div>
-                    <p className="mt-1 text-sm font-normal leading-tight text-neutral-500">Stage {index + 1}</p>
+                    <p className="mt-1 text-sm font-normal leading-tight text-neutral-500">
+                        {copy.proposalVotingStage.stage(index! + 1)}
+                    </p>
                 </div>
             </Accordion.ItemHeader>
             <Accordion.ItemContent ref={accordionContentRef}>
                 <ProposalVotingTabs defaultValue={processedDefaultTab} accordionRef={accordionContentRef}>
-                    {children}
+                    <ProposalVotingStageContextProvider value={contextValues}>
+                        {children}
+                    </ProposalVotingStageContextProvider>
                 </ProposalVotingTabs>
             </Accordion.ItemContent>
         </Accordion.Item>
