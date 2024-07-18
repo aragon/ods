@@ -21,6 +21,7 @@ export interface IProposalActionsActionProps {
 
 const actionTypeToStringMapping: Record<string, string> = {
     withdrawToken: 'Withdraw assets',
+    adjustMemberCount: 'Adjust member count',
 };
 
 export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {
