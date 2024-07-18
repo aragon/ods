@@ -1,7 +1,5 @@
 import { Accordion, Heading } from '../../../../../core';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
-
-import { useProposalActionsContext } from '../proposalActionsContext';
 import type { IProposalAction } from '../proposalActionsTypes';
 import { proposalActionsUtils } from '../utils';
 
@@ -17,7 +15,7 @@ export interface IProposalActionsActionProps {
     /**
      * Toggle accordion callback for notifying the parent container to update after click
      */
-    onToggle: () => void;
+    onToggle?: () => void;
 }
 
 const actionTypeToStringMapping: Record<string, string> = {
@@ -26,15 +24,16 @@ const actionTypeToStringMapping: Record<string, string> = {
 
 export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {
     const { action, index, onToggle } = props;
-    const { activeTab } = useProposalActionsContext();
     const ActionComponent = proposalActionsUtils.getActionComponent(action);
 
     if (!ActionComponent) {
         return null;
     }
 
+    const isDisabled = action.inputData == null;
+
     return (
-        <Accordion.Item value={`${index}-action`}>
+        <Accordion.Item value={isDisabled ? '' : `${index}-action`} disabled={isDisabled}>
             <Accordion.ItemHeader onClick={onToggle}>
                 <div className="flex flex-col items-start">
                     <Heading size="h4">
@@ -43,9 +42,9 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
                     <ProposalActionsActionVerification action={action} />
                 </div>
             </Accordion.ItemHeader>
-            <Accordion.ItemContent>
-                {activeTab === 'basic' && ActionComponent && <ActionComponent />}
-            </Accordion.ItemContent>
+            <Accordion.ItemContent>{ActionComponent && <ActionComponent />}</Accordion.ItemContent>
         </Accordion.Item>
     );
 };
+
+ProposalActionsAction.displayName = 'ProposalActionsAction';

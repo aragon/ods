@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ProposalActions } from '..';
 import { Accordion } from '../../../../../core';
-import { withdrawActionsMock } from '../actions/mocks/proposalActionWithdrawToken';
-import { ProposalActionsProvider } from '../proposalActionsContext';
+import { generateProposalActionWithdrawToken, generateToken } from '../actions/generators/proposalActionWithdrawToken';
 
 const meta: Meta<typeof ProposalActions.Action> = {
     title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Action',
@@ -22,14 +21,15 @@ type Story = StoryObj<typeof ProposalActions.Action>;
  */
 export const TokenWithdraw: Story = {
     args: {
-        action: withdrawActionsMock[0],
+        action: generateProposalActionWithdrawToken({
+            contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+            token: generateToken({ name: 'Ether' }),
+        }),
     },
     render: (props) => (
-        <ProposalActionsProvider>
-            <Accordion.Container isMulti={true}>
-                <ProposalActions.Action {...props} />
-            </Accordion.Container>
-        </ProposalActionsProvider>
+        <Accordion.Container isMulti={true}>
+            <ProposalActions.Action {...props} />
+        </Accordion.Container>
     ),
 };
 

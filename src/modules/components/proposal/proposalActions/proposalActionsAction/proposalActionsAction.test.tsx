@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Accordion } from '../../../../../core';
 import { OdsModulesProvider } from '../../../odsModulesProvider';
 import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
-import { ProposalActionsProvider } from '../proposalActionsContext';
+
 import { type IProposalActionsActionProps, ProposalActionsAction } from './proposalActionsAction';
 
 describe('<ProposalActionsAction /> component', () => {
@@ -16,11 +16,9 @@ describe('<ProposalActionsAction /> component', () => {
 
         return (
             <OdsModulesProvider>
-                <ProposalActionsProvider>
-                    <Accordion.Container isMulti={true}>
-                        <ProposalActionsAction {...defaultProps} />
-                    </Accordion.Container>
-                </ProposalActionsProvider>
+                <Accordion.Container isMulti={true}>
+                    <ProposalActionsAction {...defaultProps} />
+                </Accordion.Container>
             </OdsModulesProvider>
         );
     };
