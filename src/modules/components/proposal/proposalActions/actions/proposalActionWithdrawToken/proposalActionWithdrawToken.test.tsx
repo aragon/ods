@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import { AssetTransfer } from '../../../../asset';
-import { ProposalActionsProvider } from '../../proposalActionsContext';
 import type { IProposalActionWithdrawToken } from '../../proposalActionsTypes';
 import { generateProposalActionWithdrawToken } from '../generators/proposalActionWithdrawToken';
 import { type IProposalActionWithdrawTokenProps, ProposalActionWithdrawToken } from './proposalActionWithdrawToken';
@@ -15,11 +14,7 @@ describe('<ProposalActionWithdrawToken /> component', () => {
             action: generateProposalActionWithdrawToken(props),
         };
 
-        return (
-            <ProposalActionsProvider>
-                <ProposalActionWithdrawToken {...defaultProps} />
-            </ProposalActionsProvider>
-        );
+        return <ProposalActionWithdrawToken {...defaultProps} />;
     };
 
     it('renders without crashing', () => {

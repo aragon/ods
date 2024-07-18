@@ -4,7 +4,7 @@ export enum ProposalActionType {
 
 export interface IProposalActionInputDataParameter {
     /**
-     * The name of the parameter
+     * The type of the parameter
      */
     type: string;
     /**
