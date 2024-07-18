@@ -3,7 +3,7 @@ import { Accordion, StatePingAnimation, invariant, type IAccordionItemProps } fr
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { ProposalVotingTabs } from '../proposalVotingTabs';
 
-export interface IProposalVotingStageProps extends IAccordionItemProps {
+export interface IProposalVotingStageProps extends Omit<IAccordionItemProps, 'value'> {
     /**
      * Name of the proposal stage.
      */
@@ -17,8 +17,8 @@ export interface IProposalVotingStageProps extends IAccordionItemProps {
      */
     startDate: number | string;
     /**
-     * Default tab displayed for the current stage.
-     * @default ProposalVotingTab.BREAKDOWN
+     * Default tab displayed for the current stage. Defaults to details tab for pending and unreached states and to
+     * breakdown tab for active, accepted and rejected states.
      */
     defaultTab?: ProposalVotingTab;
     /**
@@ -32,7 +32,12 @@ export interface IProposalVotingStageProps extends IAccordionItemProps {
 }
 
 export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) => {
-    const { name, status, startDate, defaultTab = ProposalVotingTab.BREAKDOWN, index, children, ...otherProps } = props;
+    const { name, status, startDate, defaultTab, index, children, ...otherProps } = props;
+
+    const processedDefaultTab =
+        defaultTab ?? ['pending', 'unreached'].includes('status')
+            ? ProposalVotingTab.DETAILS
+            : ProposalVotingTab.BREAKDOWN;
 
     const accordionContentRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +47,7 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
     );
 
     return (
-        <Accordion.Item {...otherProps}>
+        <Accordion.Item value={index.toString()} {...otherProps}>
             <Accordion.ItemHeader>
                 <div className="flex grow flex-row justify-between gap-4 md:gap-6">
                     <div className="flex flex-col gap-1">
@@ -56,7 +61,7 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                 </div>
             </Accordion.ItemHeader>
             <Accordion.ItemContent ref={accordionContentRef}>
-                <ProposalVotingTabs defaultValue={defaultTab} accordionRef={accordionContentRef}>
+                <ProposalVotingTabs defaultValue={processedDefaultTab} accordionRef={accordionContentRef}>
                     {children}
                 </ProposalVotingTabs>
             </Accordion.ItemContent>

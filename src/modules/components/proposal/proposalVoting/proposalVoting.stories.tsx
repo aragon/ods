@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { DataList } from '../../../../core';
+import { Button, DataList } from '../../../../core';
 import { type IVoteDataListItemStructureProps, VoteDataListItem } from '../../vote';
 import { ProposalVoting } from '../index';
 
@@ -115,7 +115,7 @@ export const MultiStage: Story = {
 
         return (
             <ProposalVoting.Container {...args} style={{ maxWidth: 560 }}>
-                <ProposalVoting.Stage name="Token holder voting" status="active" startDate={0} value="token-holder">
+                <ProposalVoting.Stage name="Token holder voting" status="active" startDate={0}>
                     <ProposalVoting.BreakdownToken
                         tokenSymbol="ARA"
                         totalYes={getTotalVotes(tokenVotes, 'yes')}
@@ -124,7 +124,11 @@ export const MultiStage: Story = {
                         supportThreshold={50}
                         minParticipation={15}
                         tokenTotalSupply={9451231259}
-                    />
+                    >
+                        <Button variant="primary" size="md" className="md:self-start">
+                            Vote on proposal
+                        </Button>
+                    </ProposalVoting.BreakdownToken>
                     <ProposalVoting.Votes>
                         <DataList.Root itemsCount={filteredTokenVotes.length} entityLabel="Votes">
                             <DataList.Filter searchValue={tokenSearch} onSearchValueChange={setTokenSearch} />
@@ -138,8 +142,8 @@ export const MultiStage: Story = {
                     </ProposalVoting.Votes>
                     <ProposalVoting.Details settings={tokenSettings} />
                 </ProposalVoting.Stage>
-                <ProposalVoting.Stage name="Founders approval" status="pending" startDate={0} value="founders">
-                    <ProposalVoting.BreakdownMultisig approvalsAmount={4} minApprovals={4} membersCount={8} />
+                <ProposalVoting.Stage name="Founders approval" status="pending" startDate={0}>
+                    <ProposalVoting.BreakdownMultisig approvalsAmount={5} minApprovals={4} />
                     <ProposalVoting.Votes>
                         <DataList.Root itemsCount={filteredMultisigVotes.length} entityLabel="Votes">
                             <DataList.Filter searchValue={multisigSearch} onSearchValueChange={setMultisigSearch} />
