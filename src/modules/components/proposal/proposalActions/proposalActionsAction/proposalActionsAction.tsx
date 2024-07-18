@@ -19,14 +19,14 @@ export interface IProposalActionsActionProps {
     onToggle?: () => void;
 }
 
-const actionTypeToStringMapping: Record<string, string> = {
-    withdrawToken: 'Withdraw assets',
-};
-
 export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {
     const { action, index, onToggle } = props;
     const ActionComponent = proposalActionsUtils.getActionComponent(action);
     const { copy } = useOdsModulesContext();
+
+    const actionTypeToStringMapping: Record<string, string> = {
+        withdrawToken: copy.proposalActionsAction.actionTypeWithdrawToken,
+    };
 
     if (!ActionComponent) {
         return null;
