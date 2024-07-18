@@ -2,34 +2,24 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { OdsModulesProvider } from '../../../odsModulesProvider';
 import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
-import { ProposalActionsProvider } from '../proposalActionsContext';
-import type { IProposalAction } from '../proposalActionsTypes';
+import { ProposalActionsAction } from '../proposalActionsAction';
 import { type IProposalActionsContainerProps, ProposalActionsContainer } from './proposalActionsContainer';
 
 describe('<ProposalActionsContainer /> component', () => {
-    const actions: IProposalAction[] = [
+    const actions = [
         generateProposalActionWithdrawToken(),
         generateProposalActionWithdrawToken({ contractAddress: '0xAnotherAddress' }),
-    ];
-
-    const tabs = [
-        { label: 'Basic', value: 'basic' },
-        { label: 'Composer', value: 'composer' },
-        { label: 'Code', value: 'code' },
     ];
 
     const createTestComponent = (props?: Partial<IProposalActionsContainerProps>) => {
         const defaultProps: IProposalActionsContainerProps = {
             actions,
-            tabs,
             containerName: 'Test Container',
             ...props,
         };
         return render(
             <OdsModulesProvider>
-                <ProposalActionsProvider>
-                    <ProposalActionsContainer {...defaultProps} />
-                </ProposalActionsProvider>
+                <ProposalActionsContainer {...defaultProps} />
             </OdsModulesProvider>,
         );
     };
@@ -39,21 +29,32 @@ describe('<ProposalActionsContainer /> component', () => {
         expect(screen.getByText('Test Container')).toBeInTheDocument();
     });
 
-    it('renders actions correctly in basic tab', () => {
-        const actions = [
-            generateProposalActionWithdrawToken({ inputData: null }),
-            generateProposalActionWithdrawToken({ inputData: null }),
+    it('renders single child correctly', () => {
+        const children = <ProposalActionsAction action={actions[0]} index={0} />;
+        createTestComponent({ children });
+        expect(screen.getByRole('button', { name: /Withdraw assets/ })).toBeInTheDocument();
+    });
+
+    it('renders multiple children correctly', () => {
+        const children = [
+            <ProposalActionsAction key="0" action={actions[0]} index={0} />,
+            <ProposalActionsAction key="1" action={actions[1]} index={1} />,
         ];
-        createTestComponent({ actions });
-        expect(screen.getAllByText(/Not verified/).length).toBe(actions.length);
+        createTestComponent({ children });
+        expect(screen.getAllByRole('button', { name: /Withdraw assets/ })).toHaveLength(2);
     });
 
     it('handles toggling all items', async () => {
         const actions = [
-            generateProposalActionWithdrawToken({ sender: { address: '0xVitalik', name: 'vitalik.eth' } }),
-            generateProposalActionWithdrawToken({ sender: { address: '0xVitalik', name: 'vitalik.eth' } }),
+            generateProposalActionWithdrawToken({sender: {name: 'vitalik.eth', address: '0x1234567890abcdef1234567890abcdef12345678'}}),
+            generateProposalActionWithdrawToken({sender: {name: 'vitalik.eth', address: '0x1234567890abcdef1234567890abcdef12345678'}}),
         ];
-        createTestComponent({ actions });
+    
+        const children = [
+            <ProposalActionsAction key="0" action={actions[0]} index={0} />,
+            <ProposalActionsAction key="1" action={actions[1]} index={1} />,
+        ];
+        createTestComponent({ children });
 
         const toggleButtonExpand = screen.getByText('Expand All');
         await userEvent.click(toggleButtonExpand);
@@ -68,5 +69,11 @@ describe('<ProposalActionsContainer /> component', () => {
         actions.forEach(() => {
             expect(screen.queryAllByText(/vitalik.eth/).length).toBe(0);
         });
+    });
+
+    it('displays footer message when provided', () => {
+        const footerMessage = 'This is a footer message';
+        createTestComponent({ footerMessage });
+        expect(screen.getByText(footerMessage)).toBeInTheDocument();
     });
 });

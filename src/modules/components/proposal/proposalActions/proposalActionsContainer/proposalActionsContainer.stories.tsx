@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProposalActions, ProposalActionsProvider } from '..';
-import { withdrawActionsMock } from '../actions/mocks/proposalActionWithdrawToken';
+import { ProposalActions } from '..';
+import { generateProposalActionWithdrawToken, generateToken } from '../actions/generators/proposalActionWithdrawToken';
 
 const meta: Meta<typeof ProposalActions.Container> = {
     title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Container',
@@ -20,19 +20,29 @@ type Story = StoryObj<typeof ProposalActions.Container>;
  */
 export const TokenWithdraw: Story = {
     args: {
-        actions: withdrawActionsMock,
-        tabs: [
-            { label: 'Basic', value: 'basic' },
-            { label: 'Composer', value: 'composer' },
-            { label: 'Code', value: 'code' },
-        ],
         containerName: 'Actions',
+        footerMessage:
+            'The proposal must pass all voting stages above before the binding onchain actions are able to be executed.',
     },
-    render: (props) => (
-        <ProposalActionsProvider>
-            <ProposalActions.Container {...props} />
-        </ProposalActionsProvider>
-    ),
+    render: (props) => {
+        const actions = [
+            generateProposalActionWithdrawToken({
+                contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+                token: generateToken({ name: 'Ether' }),
+            }),
+            generateProposalActionWithdrawToken({
+                contractAddress: '0x1234567890abcdef1234567890abcdef12345678',
+                inputData: null,
+            }),
+        ];
+        return (
+            <ProposalActions.Container {...props}>
+                {actions.map((action, index) => (
+                    <ProposalActions.Action key={`action-${index}`} action={action} index={index} />
+                ))}
+            </ProposalActions.Container>
+        );
+    },
 };
 
 export default meta;
