@@ -6,6 +6,10 @@ import { generateProposalActionWithdrawToken } from '../actions/generators/propo
 import { modulesCopy } from '../../../../assets';
 import { type IProposalActionsActionProps, ProposalActionsAction } from './proposalActionsAction';
 
+jest.mock('../../../member', () => ({
+    MemberAvatar: () => <div>Member Pic</div>,
+}));
+
 describe('<ProposalActionsAction /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionsActionProps>) => {
         const defaultProps: IProposalActionsActionProps = {

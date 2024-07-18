@@ -5,6 +5,10 @@ import { generateProposalActionWithdrawToken } from '../actions/generators/propo
 import { ProposalActionsAction } from '../proposalActionsAction';
 import { type IProposalActionsContainerProps, ProposalActionsContainer } from './proposalActionsContainer';
 
+jest.mock('../../../member', () => ({
+    MemberAvatar: () => <div>Member Pic</div>,
+}));
+
 describe('<ProposalActionsContainer /> component', () => {
     const actions = [
         generateProposalActionWithdrawToken(),

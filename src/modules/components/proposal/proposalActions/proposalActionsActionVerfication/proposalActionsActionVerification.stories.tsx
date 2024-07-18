@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { withdrawActionsMock } from '../actions/mocks/proposalActionWithdrawToken';
+import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
 import { ProposalActionsActionVerification } from './proposalActionsActionVerfication';
 
 const meta: Meta<typeof ProposalActionsActionVerification> = {
@@ -20,7 +20,7 @@ type Story = StoryObj<typeof ProposalActionsActionVerification>;
  */
 export const Verified: Story = {
     args: {
-        action: withdrawActionsMock[0],
+        action: generateProposalActionWithdrawToken(),
     },
 };
 
@@ -29,7 +29,7 @@ export const Verified: Story = {
  */
 export const Unverified: Story = {
     args: {
-        action: withdrawActionsMock[1],
+        action: generateProposalActionWithdrawToken({ inputData: null }),
     },
 };
 
