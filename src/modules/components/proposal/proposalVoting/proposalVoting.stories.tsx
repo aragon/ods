@@ -104,7 +104,7 @@ const multisigSettings = [
 ];
 
 /**
- * Usage example of the ProposalVotingContainer module component for multi-stage proposals
+ * Usage example of the ProposalVoting module component for multi-stage proposals
  */
 export const MultiStage: Story = {
     args: {
@@ -177,9 +177,13 @@ export const MultiStage: Story = {
 };
 
 /**
- * Usage example of the ProposalVotingContainer module component for single-stage proposals
+ * Usage example of the ProposalVoting module component for single-stage proposals
  */
 export const SingleStage: Story = {
+    args: {
+        title: 'Voting',
+        description: 'The proposal must pass the voting to be accepted and potential onchain actions to execute.',
+    },
     render: (args) => {
         const [search, setSearch] = useState<string | undefined>('');
 
@@ -209,10 +213,6 @@ export const SingleStage: Story = {
                 </ProposalVoting.Stage>
             </ProposalVoting.Container>
         );
-    },
-    args: {
-        title: 'Voting',
-        description: 'The proposal must pass the voting to be accepted and potential onchain actions to execute.',
     },
 };
 
