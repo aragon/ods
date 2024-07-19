@@ -8,15 +8,13 @@ export const generateCompositeAddress = (address?: Partial<ICompositeAddress>): 
     ...address,
 });
 
-
-
 export const generateProposalAdjustMemberCount = (
     action?: Partial<IProposalActionAdjustMemberCount>,
 ): IProposalActionAdjustMemberCount => ({
-  changingMembers: [generateCompositeAddress({ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' })],
-  addOrRemove: 'add',
-  currentMemberCount: 5,  
-  type: ProposalActionType.ADJUST_MEMBER_COUNT,
+    changingMembers: [generateCompositeAddress({ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' })],
+    addOrRemove: 'add',
+    currentMemberCount: 5,  
+    type: ProposalActionType.ADJUST_MEMBER_COUNT,
     from: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
     to: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE',
     data: '',

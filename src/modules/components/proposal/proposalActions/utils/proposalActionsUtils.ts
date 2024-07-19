@@ -1,5 +1,5 @@
 
-import ProposalActionAdjustMemberCount from '../actions/proposalActionAdjustMemberCount/proposalActionAdjustMemberCount';
+import { ProposalActionAdjustMemberCount } from '../actions/proposalActionAdjustMemberCount';
 import { ProposalActionWithdrawToken } from '../actions/proposalActionWithdrawToken/proposalActionWithdrawToken';
 import type { IProposalAction, IProposalActionAdjustMemberCount, IProposalActionWithdrawToken } from '../proposalActionsTypes';
 import { ProposalActionType } from '../proposalActionsTypes/proposalAction';

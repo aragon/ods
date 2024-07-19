@@ -3,10 +3,13 @@ import { MemberDataListItem } from '../../../../member';
 import type { IProposalActionAdjustMemberCount } from '../../proposalActionsTypes';
 
 export interface IProposalActionAdjustMemberCountProps {
+    /**
+     * The action to render for Member count adjustment
+     */
     action: IProposalActionAdjustMemberCount;
 }
 
-const ProposalActionAdjustMemberCount: React.FC<IProposalActionAdjustMemberCountProps> = (props) => {
+export const ProposalActionAdjustMemberCount: React.FC<IProposalActionAdjustMemberCountProps> = (props) => {
     const { action } = props;
     return (
         <div className="flex flex-col gap-y-6">
@@ -52,10 +55,4 @@ const ProposalActionAdjustMemberCount: React.FC<IProposalActionAdjustMemberCount
             </section>
         </div>
     );
-
-    // mapping of members
-    // summary of member count +/-
-    // total members after action
 };
-
-export default ProposalActionAdjustMemberCount;
