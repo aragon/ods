@@ -74,7 +74,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
             </Heading>
             <Accordion.Container isMulti={true} value={expandedItems} onValueChange={handleAccordionValueChange}>
                 {renderChildren()}
-                <div className="mt-1 flex w-full flex-col gap-y-3 overflow-hidden px-4 pb-4 md:flex-row-reverse md:px-6 md:pb-6">
+                <div className="mt-1 flex w-full flex-col gap-y-3 overflow-hidden px-4 pb-4 md:flex-row-reverse md:gap-x-6 md:px-6 md:pb-6">
                     {childrenCount > 1 && (
                         <Button onClick={handleToggleAll} variant="tertiary" size="md" className="shrink-0 md:w-fit">
                             {expandedItems.length === childrenCount

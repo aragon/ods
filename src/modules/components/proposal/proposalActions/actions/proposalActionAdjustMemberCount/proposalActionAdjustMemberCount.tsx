@@ -22,25 +22,31 @@ const ProposalActionAdjustMemberCount: React.FC<IProposalActionAdjustMemberCount
                 </DataList.Container>
             </DataList.Root>
             <section>
-                <Heading size="h2">Summary</Heading>
+                <Heading size="h3">Summary</Heading>
                 <div>
-                    <div className="flex flex-col gap-y-1 py-3">
-                        <p>{action.addOrRemove === 'add' ? 'Added' : 'Removed'}</p>
-                        <p>
+                    <div className="flex flex-col gap-y-1 py-3 md:grid md:grid-cols-4">
+                        <p className="col-span-1 text-neutral-800">
+                            {action.addOrRemove === 'add' ? 'Added' : 'Removed'}
+                        </p>
+                        <p className="col-span-3 text-neutral-500">
                             {action.addOrRemove === 'add' ? `+` : `-`}
                             {action.changingMembers.length} members
                         </p>
-                        <div className="h-0 w-full border-b border-neutral-100" />
                     </div>
-                    <div className="flex flex-col gap-y-1 py-3">
-                        <p>Total members</p>
-                        <p>
-                            {action.addOrRemove === 'add'
-                                ? action.currentMemberCount + action.changingMembers.length
-                                : action.currentMemberCount - action.changingMembers.length}{' '}
-                            members
-                        </p>
-                        <p>This is by the current block number, and might change in the future</p>
+                    <div className="h-0 w-full border-b border-neutral-100" />
+                    <div className="flex flex-col gap-y-1 py-3 md:grid md:grid-cols-4">
+                        <p className="col-span-1 text-neutral-800">Total members</p>
+                        <div className="col-span-3 flex flex-col gap-y-1">
+                            <p className="text-neutral-500">
+                                {action.addOrRemove === 'add'
+                                    ? action.currentMemberCount + action.changingMembers.length
+                                    : action.currentMemberCount - action.changingMembers.length}{' '}
+                                members
+                            </p>
+                            <p className="text-sm text-neutral-500">
+                                This is by the current block number, and might change in the future
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
