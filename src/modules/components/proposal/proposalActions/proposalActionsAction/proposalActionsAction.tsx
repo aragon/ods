@@ -2,7 +2,7 @@ import { Accordion, Heading } from '../../../../../core';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
 import type { IProposalAction } from '../proposalActionsTypes';
-import { proposalActionsUtils } from '../utils';
+import { proposalActionsUtils } from '../proposalActionsUtils';
 
 export interface IProposalActionsActionProps {
     /**
@@ -14,14 +14,15 @@ export interface IProposalActionsActionProps {
      */
     index: number;
     /**
-     * Toggle accordion callback for notifying the parent container to update after click
+     * Custom component for the action if the action type is not supported
      */
-    onToggle?: () => void;
+    customComponent?: React.ComponentType<{ action: IProposalAction }>;
 }
 
 export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {
-    const { action, index, onToggle } = props;
-    const ActionComponent = proposalActionsUtils.getActionComponent(action);
+    const { action, index, customComponent } = props;
+    const DefaultComponent = proposalActionsUtils.getActionComponent(action);
+    const ActionComponent = customComponent ?? DefaultComponent;
     const { copy } = useOdsModulesContext();
 
     const actionTypeToStringMapping: Record<string, string> = {
@@ -35,18 +36,20 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
     const isDisabled = action.inputData == null;
 
     return (
-        <Accordion.Item value={isDisabled ? '' : `${index}-action`} disabled={isDisabled}>
-            <Accordion.ItemHeader onClick={onToggle}>
+        <Accordion.Item value={isDisabled ? '' : `${index}`} disabled={isDisabled}>
+            <Accordion.ItemHeader>
                 <div className="flex flex-col items-start">
                     <Heading size="h4">
                         {action.inputData == null
                             ? copy.proposalActionsAction.notVerified
-                            : actionTypeToStringMapping[action.type]}
+                            : actionTypeToStringMapping[action.type] || action.type}
                     </Heading>
                     <ProposalActionsActionVerification action={action} />
                 </div>
             </Accordion.ItemHeader>
-            <Accordion.ItemContent>{ActionComponent && <ActionComponent />}</Accordion.ItemContent>
+            <Accordion.ItemContent>
+                <ActionComponent action={action} />
+            </Accordion.ItemContent>
         </Accordion.Item>
     );
 };

@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
-import type { IProposalAction, IProposalActionWithdrawToken } from '../proposalActionsTypes';
-import { ProposalActionType } from '../proposalActionsTypes/proposalAction';
+import { ProposalActionType, type IProposalAction, type IProposalActionWithdrawToken } from '../proposalActionsTypes';
 import { ProposalActionsActionVerification } from './proposalActionsActionVerfication';
 
 jest.mock('../../../../utils', () => ({

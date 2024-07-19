@@ -3,7 +3,7 @@ import { userEvent } from '@testing-library/user-event';
 import { OdsModulesProvider } from '../../../odsModulesProvider';
 import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
 import { ProposalActionsAction } from '../proposalActionsAction';
-import { type IProposalActionsContainerProps, ProposalActionsContainer } from './proposalActionsContainer';
+import { type IProposalActionsContainerProps, ProposalActionsContainer } from './proposalActions';
 
 jest.mock('../../../member', () => ({
     MemberAvatar: () => <div>Member Pic</div>,

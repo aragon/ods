@@ -1,10 +1,9 @@
-import { type HTMLAttributes } from 'react';
+import { type ComponentProps } from 'react';
 import { Heading, Icon, IconType } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
-import type { IProposalAction, IProposalActionWithdrawToken } from '../proposalActionsTypes';
-import { ProposalActionType } from '../proposalActionsTypes/proposalAction';
+import { type IProposalAction } from '../proposalActionsTypes';
 
-export interface IProposalActionsActionVerificationProps extends HTMLAttributes<HTMLDivElement> {
+export interface IProposalActionsActionVerificationProps extends ComponentProps<'div'> {
     /**
      * Proposal action base
      */
@@ -14,43 +13,24 @@ export interface IProposalActionsActionVerificationProps extends HTMLAttributes<
 export const ProposalActionsActionVerification: React.FC<IProposalActionsActionVerificationProps> = (props) => {
     const { action } = props;
 
-    let verificationLabel: string | undefined;
-    let iconType = IconType.SUCCESS;
-    let contractAddressClassName: string | undefined;
-    let iconClassName: string | undefined;
-
-    if (action.inputData == null) {
-        iconType = IconType.WARNING;
-        contractAddressClassName = 'text-warning-800';
-        iconClassName = 'text-warning-500';
-    } else {
-        contractAddressClassName = 'text-neutral-500';
-        iconClassName = 'text-primary-300';
-        switch (action.type) {
-            case ProposalActionType.WITHDRAW_TOKEN: {
-                const withdrawAction = action as IProposalActionWithdrawToken;
-                verificationLabel = withdrawAction.token.name;
-                break;
-            }
-
-            default: {
-                verificationLabel = 'Verified';
-                break;
-            }
-        }
-    }
+    const contractClassName = action.inputData == null ? 'text-warning-800' : 'text-neutral-500';
+    const contractName = action.inputData?.contract;
+    const icon =
+        action.inputData == null
+            ? { className: 'text-warning-500', icon: IconType.WARNING }
+            : { className: 'text-primary-300', icon: IconType.SUCCESS };
 
     return (
         <div className="flex items-center gap-x-1.5">
-            <Heading size="h5" className={contractAddressClassName}>
+            <Heading size="h5" className={contractClassName}>
                 {addressUtils.truncateAddress(action.contractAddress)}
             </Heading>
-            {verificationLabel && (
+            {contractName && (
                 <Heading size="h5" className="text-primary-400">
-                    {verificationLabel}
+                    {contractName}
                 </Heading>
             )}
-            <Icon className={iconClassName} icon={iconType} />
+            <Icon className={icon.className} icon={icon.icon} />
         </div>
     );
 };

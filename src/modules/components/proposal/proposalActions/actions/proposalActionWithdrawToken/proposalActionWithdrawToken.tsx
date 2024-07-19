@@ -16,9 +16,10 @@ export const ProposalActionWithdrawToken: React.FC<IProposalActionWithdrawTokenP
             recipient={action.receiver}
             assetName={action.token.name}
             assetAmount={action.amount}
+            assetFiatPrice={action.token.priceUsd}
             assetSymbol={action.token.symbol}
             assetIconSrc={action.token.logo}
-            // TODO: Amend AssetTransfer hash req for proposal usage where no Tx exists yet, should disable asset link out
+            // TODO: Make hash property on AssetTransfer optional (APP-3430)
             hash=""
         />
     );
