@@ -42,7 +42,7 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
                     <Heading size="h4">
                         {action.inputData == null
                             ? copy.proposalActionsAction.notVerified
-                            : actionTypeToStringMapping[action.type] || action.type}
+                            : actionTypeToStringMapping[action.type] || action.inputData.function}
                     </Heading>
                     <ProposalActionsActionVerification action={action} />
                 </div>
