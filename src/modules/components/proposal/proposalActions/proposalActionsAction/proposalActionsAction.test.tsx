@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Accordion } from '../../../../../core';
 import { OdsModulesProvider } from '../../../odsModulesProvider';
 import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
@@ -15,7 +15,6 @@ describe('<ProposalActionsAction /> component', () => {
         const defaultProps: IProposalActionsActionProps = {
             action: generateProposalActionWithdrawToken(),
             index: 0,
-            onToggle: jest.fn(),
             ...props,
         };
 
@@ -31,13 +30,6 @@ describe('<ProposalActionsAction /> component', () => {
     it('renders without crashing', () => {
         render(createTestComponent());
         expect(screen.getByText('Withdraw assets')).toBeInTheDocument();
-    });
-
-    it('calls onToggle when header is clicked', () => {
-        const onToggle = jest.fn();
-        render(createTestComponent({ onToggle }));
-        fireEvent.click(screen.getByText('Withdraw assets'));
-        expect(onToggle).toHaveBeenCalled();
     });
 
     it('renders "Not verified" when action.inputData is null', () => {

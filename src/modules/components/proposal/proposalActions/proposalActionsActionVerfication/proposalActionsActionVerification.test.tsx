@@ -37,7 +37,7 @@ describe('<ProposalActionsActionVerification /> component', () => {
         expect(screen.getByTestId('SUCCESS')).toBeInTheDocument();
     });
 
-    it('renders token name for withdrawToken action', () => {
+    it('renders contract name if verified action', () => {
         const action: IProposalActionWithdrawToken = generateProposalActionWithdrawToken({
             contractAddress: '0xContractAddress',
             token: {
@@ -52,6 +52,6 @@ describe('<ProposalActionsActionVerification /> component', () => {
         });
         render(createTestComponent(action));
 
-        expect(screen.getByText(action.token.name)).toBeInTheDocument();
+        expect(screen.getByText(action.inputData?.contract as string)).toBeInTheDocument();
     });
 });

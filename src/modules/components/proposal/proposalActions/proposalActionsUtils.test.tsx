@@ -3,7 +3,7 @@ import { generateProposalAction } from './actions/generators/proposalAction';
 import { generateProposalActionWithdrawToken } from './actions/generators/proposalActionWithdrawToken';
 import { proposalActionsUtils } from './proposalActionsUtils';
 
-jest.mock('../actions/proposalActionWithdrawToken/proposalActionWithdrawToken', () => ({
+jest.mock('./actions', () => ({
     ProposalActionWithdrawToken: () => <div>Mock ProposalActionWithdrawToken</div>,
 }));
 
