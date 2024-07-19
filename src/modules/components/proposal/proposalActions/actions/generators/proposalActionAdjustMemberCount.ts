@@ -1,5 +1,5 @@
 import { type ICompositeAddress } from '../../../../../types';
-import type { IProposalActionAdjustMemberCount, IProposalActionWithdrawToken } from '../../proposalActionsTypes';
+import type { IProposalActionAdjustMemberCount } from '../../proposalActionsTypes';
 import { ProposalActionType } from '../../proposalActionsTypes/proposalAction';
 
 export const generateCompositeAddress = (address?: Partial<ICompositeAddress>): ICompositeAddress => ({

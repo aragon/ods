@@ -40,6 +40,14 @@ export const modulesCopy = {
         actionTypeWithdrawToken: 'Withdraw assets',
         notVerified: 'Not verified',
     },
+    proposalActionAdjustMemberCount: {
+        summary: 'Summary',
+        added: 'Added',
+        removed: 'Removed',
+        members: 'members',
+        totalMembers: 'Total members',
+        blockNote: 'This is by the current block number, and might change in the future',
+    },
     proposalDataListItemStatus: {
         voted: "You've voted",
         ago: 'ago',
