@@ -24,8 +24,16 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
     const ActionComponent = proposalActionsUtils.getActionComponent(action);
     const { copy } = useOdsModulesContext();
 
-    const actionTypeToStringMapping: Record<string, string> = {
-        withdrawToken: copy.proposalActionsAction.actionTypeWithdrawToken,
+    const getActionTypeString = () => {
+        if (proposalActionsUtils.isWithdrawTokenAction(action)) {
+            return copy.proposalActionsAction.actionTypeWithdrawToken;
+        }
+        if (proposalActionsUtils.isAdjustMemberCountAction(action)) {
+            return action.addOrRemove === 'add'
+                ? copy.proposalActionsAction.actionTypeAdjustMemberCount.addMembers
+                : copy.proposalActionsAction.actionTypeAdjustMemberCount.removeMembers;
+        }
+        return '';
     };
 
     if (!ActionComponent) {
@@ -39,9 +47,7 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
             <Accordion.ItemHeader onClick={onToggle}>
                 <div className="flex flex-col items-start">
                     <Heading size="h4">
-                        {action.inputData == null
-                            ? copy.proposalActionsAction.notVerified
-                            : actionTypeToStringMapping[action.type]}
+                        {action.inputData == null ? copy.proposalActionsAction.notVerified : getActionTypeString()}
                     </Heading>
                     <ProposalActionsActionVerification action={action} />
                 </div>

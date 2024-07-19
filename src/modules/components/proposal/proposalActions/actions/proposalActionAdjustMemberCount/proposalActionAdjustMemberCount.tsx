@@ -27,7 +27,7 @@ const ProposalActionAdjustMemberCount: React.FC<IProposalActionAdjustMemberCount
                     <div className="flex flex-col gap-y-1 py-3">
                         <p>{action.addOrRemove === 'add' ? 'Added' : 'Removed'}</p>
                         <p>
-                            {action.addOrRemove === 'add' ? '+' : '-'}
+                            {action.addOrRemove === 'add' ? `+` : `-`}
                             {action.changingMembers.length} members
                         </p>
                         <div className="h-0 w-full border-b border-neutral-100" />

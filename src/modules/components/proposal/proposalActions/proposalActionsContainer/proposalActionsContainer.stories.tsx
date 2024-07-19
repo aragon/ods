@@ -66,7 +66,7 @@ export const AdjustMemberCount: Story = {
                 ],
                 addOrRemove: 'remove',
                 currentMemberCount: 10,
-                inputData: null,
+                contractAddress: '0x1234567890abcdef1234567890abcdef12345678',
             }),
         ];
 
