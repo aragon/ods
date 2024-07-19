@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.0.39] - 2024-07-16
 
-###
+### Added
 
 -   Added ProposalAction module component
 
@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Update minor and patch NPM dependencies
 -   Update `useBlockExplorer` hook to return information about the block explorer
+-   Update interface for `Accordion.Container` to expose value prop
+-   Update styles on `Tabs.List` for latest spec
 
 ## [1.0.38] - 2024-07-16
 
