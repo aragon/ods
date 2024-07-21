@@ -36,7 +36,7 @@ export const TokenWithdraw: Story = {
     },
 };
 
-export const WithCustomAction: Story = {
+export const CustomActions: Story = {
     render: () => {
         const CustomActionComponentOne: React.FC<{ action: IProposalAction }> = ({ action }) => {
             return (
@@ -52,6 +52,19 @@ export const WithCustomAction: Story = {
         };
 
         const CustomActionComponentTwo: React.FC<{ action: IProposalAction }> = ({ action }) => {
+            return (
+                <div>
+                    <h4>Custom Action Two</h4>
+                    <p>Type: {action.type}</p>
+                    <p>From: {action.from}</p>
+                    <p>To: {action.to}</p>
+                    <p>Value: {action.value}</p>
+                    <p>Contract Address: {action.contractAddress}</p>
+                </div>
+            );
+        };
+
+        const CustomActionComponentThree: React.FC<{ action: IProposalAction }> = ({ action }) => {
             return (
                 <div>
                     <h4>Custom Action Two</h4>
@@ -94,6 +107,15 @@ export const WithCustomAction: Story = {
             },
             {
                 type: 'customActionTwo',
+                inputData: { function: 'doSomethingElse', contract: 'DAI', parameters: [] },
+                contractAddress: '0x3333333333333333333333333333333333333333',
+                from: '0x3333333333333333333333333333333333333333',
+                to: '0x4444444444444444444444444444444444444444',
+                data: '',
+                value: '20',
+            },
+            {
+                type: 'customActionT',
                 inputData: { function: 'doSomethingElse', contract: 'DAI', parameters: [] },
                 contractAddress: '0x3333333333333333333333333333333333333333',
                 from: '0x3333333333333333333333333333333333333333',

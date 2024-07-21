@@ -35,6 +35,9 @@ export const modulesCopy = {
     proposalActionsAction: {
         actionTypeWithdrawToken: 'Withdraw assets',
         notVerified: 'Not verified',
+        unknownActionTypeHeader: 'Unknown action type',
+        unknownActionTypeCopy: 'Unknown action cannot be processed. Use the block explorer to complete manually.',
+        unknownActionTypeButton: 'See contract',
     },
     proposalDataListItemStatus: {
         voted: "You've voted",

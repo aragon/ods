@@ -1,10 +1,12 @@
-import { Accordion, Heading } from '../../../../../core';
+import { Accordion, Button, Heading, IconType } from '../../../../../core';
+import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
+import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
 import type { IProposalAction } from '../proposalActionsTypes';
 import { proposalActionsUtils } from '../proposalActionsUtils';
 
-export interface IProposalActionsActionProps {
+export interface IProposalActionsActionProps extends IWeb3ComponentProps {
     /**
      * Proposal action
      */
@@ -16,24 +18,46 @@ export interface IProposalActionsActionProps {
     /**
      * Custom component for the action if the action type is not supported
      */
-    customComponent?: React.ComponentType<{ action: IProposalAction }>;
+    customComponents?: Record<string, React.ComponentType<{ action: IProposalAction }>>;
 }
 
 export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {
-    const { action, index, customComponent } = props;
-    const DefaultComponent = proposalActionsUtils.getActionComponent(action);
-    const ActionComponent = customComponent ?? DefaultComponent;
+    const { action, index, wagmiConfig, chainId, customComponents } = props;
+    const ActionComponent = proposalActionsUtils.getActionComponent(action, customComponents);
     const { copy } = useOdsModulesContext();
+
+    const { buildEntityUrl } = useBlockExplorer({ chains: wagmiConfig?.chains, chainId });
+    const contractUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: action.contractAddress });
 
     const actionTypeToStringMapping: Record<string, string> = {
         withdrawToken: copy.proposalActionsAction.actionTypeWithdrawToken,
     };
 
-    if (!ActionComponent) {
-        return null;
-    }
-
     const isDisabled = action.inputData == null;
+
+    if (!ActionComponent) {
+        return (
+            <Accordion.Item value={isDisabled ? '' : `${index}`} className="flex flex-col items-start gap-y-3">
+                <Accordion.ItemHeader>
+                    <Heading size="h4" className="text-critical-400">
+                        {copy.proposalActionsAction.unknownActionTypeHeader}
+                    </Heading>
+                </Accordion.ItemHeader>
+                <Accordion.ItemContent>
+                    <Heading size="h4">{copy.proposalActionsAction.unknownActionTypeCopy}</Heading>
+                    <Button
+                        href={contractUrl}
+                        target="_blank"
+                        size="md"
+                        iconRight={IconType.LINK_EXTERNAL}
+                        className="mt-3 max-w-fit"
+                    >
+                        {copy.proposalActionsAction.unknownActionTypeButton}
+                    </Button>
+                </Accordion.ItemContent>
+            </Accordion.Item>
+        );
+    }
 
     return (
         <Accordion.Item value={isDisabled ? '' : `${index}`} disabled={isDisabled}>

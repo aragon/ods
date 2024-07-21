@@ -50,13 +50,12 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
             </Heading>
             <Accordion.Container isMulti={true} value={expandedItems} onValueChange={handleAccordionValueChange}>
                 {actions.map((action, index) => {
-                    const CustomComponent = customActionComponents?.[action.type];
                     return (
                         <ProposalActionsAction
                             key={`action-${index}`}
                             action={action}
                             index={index}
-                            customComponent={CustomComponent}
+                            customComponents={customActionComponents}
                         />
                     );
                 })}
