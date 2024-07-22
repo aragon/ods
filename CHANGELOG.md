@@ -7,6 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Add `ProposalAction` module component
+
+### Changed
+
+-   Update interface for `Accordion.Container` to expose value prop
+-   Update styles on `Tabs.List` for latest spec
+
 ## [1.0.39] - 2024-07-16
 
 ### Changed

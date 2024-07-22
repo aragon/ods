@@ -18,7 +18,7 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
      */
     assetName: string;
     /**
-     * Icon URL of the tranferred asset.
+     * Icon URL of the transferred asset.
      */
     assetIconSrc?: string;
     /**

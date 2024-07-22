@@ -25,6 +25,14 @@ export const modulesCopy = {
         winningOption: 'Winning Option',
         stage: 'Stage',
     },
+    proposalActionsContainer: {
+        containerName: 'Actions',
+        collapse: 'Collapse all',
+        expand: 'Expand all',
+    },
+    proposalActionsAction: {
+        notVerified: 'Not verified',
+    },
     proposalDataListItemStatus: {
         voted: "You've voted",
         ago: 'ago',
