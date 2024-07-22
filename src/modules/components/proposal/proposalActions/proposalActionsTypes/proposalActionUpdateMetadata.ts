@@ -33,11 +33,11 @@ export interface IProposalActionUpdateMetadata extends IProposalAction {
   */
   type: ProposalActionType.UPDATE_METADATA
   /**
-  * proposed metadata
+  * Proposed metadata
   */
   proposedMetadata: IMetaData
   /**
-  * proposed metadata
+  * Existing metadata
   */
-  previousMetadata: IMetaData
+  existingMetadata: IMetaData
 }

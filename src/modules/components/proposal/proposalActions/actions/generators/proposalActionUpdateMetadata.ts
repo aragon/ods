@@ -15,7 +15,7 @@ export const generateProposalActionUpdateMetadata = (action?: Partial<IProposalA
     ],
   },
   type: ProposalActionType.UPDATE_METADATA,
-  previousMetadata: {
+  existingMetadata: {
     logo: 'https://i.pravatar.cc/300',
     name: 'Old name',
     links: [
