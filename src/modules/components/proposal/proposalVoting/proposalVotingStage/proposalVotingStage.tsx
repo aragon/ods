@@ -62,7 +62,7 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
     if (!isMultiStage) {
         return (
             <div className={classNames('flex flex-col gap-4 md:gap-6', className)}>
-                <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={true} />
+                <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={false} />
                 <ProposalVotingTabs defaultValue={processedDefaultTab} accordionRef={accordionContentRef}>
                     <ProposalVotingStageContextProvider value={contextValues}>
                         {children}
