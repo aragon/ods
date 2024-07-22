@@ -2,7 +2,9 @@ import { type HTMLAttributes } from 'react';
 import { type ResponsiveAttribute } from '../../types';
 
 export type ProgressSize = 'sm' | 'md';
+
 export type ProgressVariant = 'primary' | 'neutral' | 'success' | 'critical';
+
 export interface IProgressProps extends HTMLAttributes<HTMLDivElement> {
     /**
      * Size of progress component.
@@ -18,12 +20,12 @@ export interface IProgressProps extends HTMLAttributes<HTMLDivElement> {
      */
     value: number;
     /**
-     * Progress variant.
+     * Variant of the progress component.
      * @default primary
      */
     variant?: ProgressVariant;
     /**
-     * Indicator value
+     * Threshold displayed with an indicator on the progress bar.
      */
-    indicator?: number;
+    thresholdIndicator?: number;
 }

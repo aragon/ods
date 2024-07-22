@@ -50,17 +50,27 @@ const variantToClassNames: Record<ProgressVariant, string> = {
 };
 
 export const Progress: React.FC<IProgressProps> = (props) => {
-    const { value, size = 'md', responsiveSize, className, variant = 'primary', indicator, ...otherProps } = props;
+    const {
+        value,
+        size = 'md',
+        responsiveSize,
+        className,
+        variant = 'primary',
+        thresholdIndicator,
+        ...otherProps
+    } = props;
 
     const processedValue = Math.min(Math.max(1, value), 100);
-    const processedIndicator =
-        indicator !== undefined && indicator !== null ? Math.min(Math.max(1, indicator), 100) : null;
+    const processedIndicator = thresholdIndicator != null ? Math.min(Math.max(1, thresholdIndicator), 100) : null;
+
     const indicatorSizeClassNames = responsiveUtils.generateClassNames(
         size,
         responsiveSize,
         responsiveIndicatorSizeClassNames,
     );
+
     const sizeClassNames = responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClassNames);
+
     const containerClassNames = classNames('relative w-full rounded-xl bg-neutral-100', sizeClassNames, className);
     const indicatorClassNames = classNames('absolute inset-y-0 flex self-center', indicatorSizeClassNames);
 
@@ -68,8 +78,9 @@ export const Progress: React.FC<IProgressProps> = (props) => {
         <RadixProgress.Root value={processedValue} className={containerClassNames} {...otherProps}>
             <RadixProgress.Indicator
                 className={classNames(
-                    `h-full rounded-l-xl ${variantToClassNames[variant]} transition-[border-radius,width] duration-500 ease-in-out`,
+                    `h-full rounded-l-xl transition-[border-radius,width] duration-500 ease-in-out`,
                     { 'rounded-r-xl': processedValue === 100 },
+                    variantToClassNames[variant],
                 )}
                 style={{ width: `${processedValue}%` }}
             />
