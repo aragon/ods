@@ -55,12 +55,12 @@ export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemPro
         showStatusIcon,
         className,
         value,
-        indicator,
+        thresholdIndicator,
         variant = 'neutral',
         ...otherProps
     } = props;
 
-    const isThresholdReached = value >= (indicator ?? 100);
+    const isThresholdReached = value >= (thresholdIndicator ?? 100);
     const statusIcon = isThresholdReached ? IconType.CHECKMARK : IconType.CLOSE;
     const statusVariant = isThresholdReached ? 'primary' : 'neutral';
 
@@ -94,7 +94,13 @@ export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemPro
                     </div>
                 )}
             </div>
-            <Progress value={value} size="md" indicator={indicator} variant={variant} {...otherProps} />
+            <Progress
+                value={value}
+                size="md"
+                thresholdIndicator={thresholdIndicator}
+                variant={variant}
+                {...otherProps}
+            />
             <div className="flex flex-row gap-0.5 text-base font-normal leading-tight md:text-lg">
                 <p className="text-neutral-800">{description.value}</p>
                 <p className="text-neutral-500">{description.text}</p>

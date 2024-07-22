@@ -36,29 +36,29 @@ describe('<ProposalVotingProgressItem /> component', () => {
 
     it('renders a checkmark icon when showStatusIcon is set to true and value is greater or equal to indicator value', () => {
         const value = 59;
-        const indicator = 54;
+        const thresholdIndicator = 54;
         const showStatusIcon = true;
-        const { rerender } = render(createTestComponent({ value, indicator, showStatusIcon }));
+        const { rerender } = render(createTestComponent({ value, thresholdIndicator, showStatusIcon }));
         expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();
 
-        const newValue = indicator;
-        rerender(createTestComponent({ value: newValue, indicator, showStatusIcon }));
+        const newValue = thresholdIndicator;
+        rerender(createTestComponent({ value: newValue, thresholdIndicator, showStatusIcon }));
         expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();
     });
 
     it('defaults indicator value to 100 and renders a checkmark icon when value is 100', () => {
         const value = 100;
-        const indicator = undefined;
+        const thresholdIndicator = undefined;
         const showStatusIcon = true;
-        render(createTestComponent({ value, indicator, showStatusIcon }));
+        render(createTestComponent({ value, thresholdIndicator, showStatusIcon }));
         expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();
     });
 
     it('renders a close icon when showStatusIcon is set to true and value is lower than indicator value', () => {
         const value = 45;
-        const indicator = 50;
+        const thresholdIndicator = 50;
         const showStatusIcon = true;
-        render(createTestComponent({ value, indicator, showStatusIcon }));
+        render(createTestComponent({ value, thresholdIndicator, showStatusIcon }));
         expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
     });
 

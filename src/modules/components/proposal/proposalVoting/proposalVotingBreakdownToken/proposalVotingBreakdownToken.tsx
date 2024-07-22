@@ -112,7 +112,7 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
                     showPercentage={true}
                     showStatusIcon={true}
                     variant={supportReached ? 'primary' : 'neutral'}
-                    indicator={supportThreshold}
+                    thresholdIndicator={supportThreshold}
                 />
                 <ProposalVotingProgress.Item
                     name={copy.proposalVotingBreakdownToken.minParticipation.name}
