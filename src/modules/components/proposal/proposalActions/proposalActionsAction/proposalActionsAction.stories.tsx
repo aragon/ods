@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Accordion } from '../../../../../core';
+import { generateProposalActionUpdateMetadata } from '../actions/generators/proposalActionUpdateMetadata';
 import { generateProposalActionWithdrawToken, generateToken } from '../actions/generators/proposalActionWithdrawToken';
 import { ProposalActionsAction } from './proposalActionsAction';
 
@@ -26,6 +27,20 @@ export const TokenWithdraw: Story = {
             contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
             token: generateToken({ name: 'Ether' }),
         }),
+    },
+    render: (props) => (
+        <Accordion.Container isMulti={true}>
+            <ProposalActionsAction {...props} />
+        </Accordion.Container>
+    ),
+};
+
+/**
+ * Usage example of the ProposalActions.Action module component with mocked UpdateMetadata actions.
+ */
+export const UpdateMetadata: Story = {
+    args: {
+        action: generateProposalActionUpdateMetadata(),
     },
     render: (props) => (
         <Accordion.Container isMulti={true}>

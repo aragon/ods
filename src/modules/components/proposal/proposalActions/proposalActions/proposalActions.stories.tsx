@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { generateProposalActionUpdateMetadata } from '../actions/generators/proposalActionUpdateMetadata';
 import { generateProposalActionWithdrawToken, generateToken } from '../actions/generators/proposalActionWithdrawToken';
 import type { IProposalAction } from '../proposalActionsTypes';
 import { ProposalActions } from './proposalActions';
@@ -32,6 +33,16 @@ export const TokenWithdraw: Story = {
                 inputData: null,
             }),
         ];
+        return <ProposalActions actions={actions} />;
+    },
+};
+
+/**
+ * Usage example of the ProposalActions module component with mocked UpdateMetadata actions.
+ */
+export const UpdateMetadata: Story = {
+    render: () => {
+        const actions = [generateProposalActionUpdateMetadata()];
         return <ProposalActions actions={actions} />;
     },
 };

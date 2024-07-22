@@ -1,5 +1,6 @@
 import { ProposalActionWithdrawToken } from './actions';
-import { type IProposalAction, type IProposalActionWithdrawToken, ProposalActionType } from './proposalActionsTypes';
+import { ProposalActionUpdateMetadata } from './actions/proposalActionUpdateMetadata';
+import { type IProposalAction, type IProposalActionUpdateMetadata, type IProposalActionWithdrawToken, ProposalActionType } from './proposalActionsTypes';
 
 class ProposalActionsUtils {
     getActionComponent = (
@@ -14,12 +15,20 @@ class ProposalActionsUtils {
             return () => ProposalActionWithdrawToken({ action });
         }
 
+        if (this.isUpdateMetadataAction(action)) {
+            return () => ProposalActionUpdateMetadata({ action })
+        }
+
         return null;
     };
 
     isWithdrawTokenAction = (action: Partial<IProposalAction>): action is IProposalActionWithdrawToken => {
         return action.type === ProposalActionType.WITHDRAW_TOKEN;
     };
+
+    isUpdateMetadataAction = (action: Partial<IProposalAction>): action is IProposalActionUpdateMetadata => {
+        return action.type === ProposalActionType.UPDATE_METADATA
+    }
 }
 
 export const proposalActionsUtils = new ProposalActionsUtils();
