@@ -22,15 +22,15 @@ describe('<Progress /> component', () => {
         expect(progressIndicator).not.toBeInTheDocument();
     });
 
-    it('renders the progress indicator when the indicator prop is provided', () => {
-        render(createTestComponent({ indicator: 50 }));
+    it('renders a threshold indicator when the thresholdIndicator prop is provided', () => {
+        render(createTestComponent({ thresholdIndicator: 50 }));
         const progressIndicator = screen.getByTestId('progress-indicator');
         expect(progressIndicator).toBeInTheDocument();
     });
 
-    it('positions the progress indicator correctly when the indicator prop is provided', () => {
+    it('positions the threshold indicator correctly when the thresholdIndicator prop is provided', () => {
         const indicatorValue = 50;
-        render(createTestComponent({ indicator: indicatorValue }));
+        render(createTestComponent({ thresholdIndicator: indicatorValue }));
         const progressIndicator = screen.getByTestId('progress-indicator');
         expect(progressIndicator).toHaveStyle(`left: ${indicatorValue}%`);
     });

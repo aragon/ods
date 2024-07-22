@@ -1,9 +1,8 @@
 import { Accordion, Heading } from '../../../../../core';
-
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
-import type { IProposalAction } from '../proposalActionsTypes';
+import type { IProposalAction, ProposalActionComponent } from '../proposalActionsTypes';
 import { proposalActionsUtils } from '../proposalActionsUtils';
 
 export interface IProposalActionsActionProps extends IWeb3ComponentProps {
@@ -20,14 +19,16 @@ export interface IProposalActionsActionProps extends IWeb3ComponentProps {
      */
     index: number;
     /**
-     * Custom component for the action if the action type is not supported
+     * Custom component for the action
      */
-    customComponents?: Record<string, React.ComponentType<{ action: IProposalAction }>>;
+    customComponent?: ProposalActionComponent;
 }
 
 export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {
-    const { action, index, name, customComponents } = props;
-    const ActionComponent = proposalActionsUtils.getActionComponent(action, customComponents);
+    const { action, index, name, customComponent, ...web3Props } = props;
+
+    const ActionComponent = customComponent ?? proposalActionsUtils.getActionComponent(action);
+
     const { copy } = useOdsModulesContext();
 
     const isDisabled = action.inputData == null;
@@ -44,9 +45,9 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
                     <ProposalActionsActionVerification action={action} />
                 </div>
             </Accordion.ItemHeader>
-            <Accordion.ItemContent>{ActionComponent && <ActionComponent action={action} />}</Accordion.ItemContent>
+            <Accordion.ItemContent>
+                {ActionComponent && <ActionComponent action={action} {...web3Props} />}
+            </Accordion.ItemContent>
         </Accordion.Item>
     );
 };
-
-ProposalActionsAction.displayName = 'ProposalActionsAction';

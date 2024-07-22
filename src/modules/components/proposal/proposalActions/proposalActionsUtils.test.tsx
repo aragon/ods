@@ -7,11 +7,11 @@ jest.mock('./actions', () => ({
     ProposalActionWithdrawToken: () => <div>Mock ProposalActionWithdrawToken</div>,
 }));
 
-describe('ProposalActionsUtils', () => {
+describe('ProposalActions utils', () => {
     it('returns ProposalActionWithdrawToken component for withdrawToken action', () => {
         const action = generateProposalActionWithdrawToken();
 
-        const Component = proposalActionsUtils.getActionComponent(action) as React.ComponentType;
+        const Component = proposalActionsUtils.getActionComponent(action)!;
         render(<Component />);
         expect(screen.getByText('Mock ProposalActionWithdrawToken')).toBeInTheDocument();
     });

@@ -1,16 +1,10 @@
 import { ProposalActionWithdrawToken } from './actions';
 import { ProposalActionUpdateMetadata } from './actions/proposalActionUpdateMetadata';
-import { type IProposalAction, type IProposalActionUpdateMetadata, type IProposalActionWithdrawToken, ProposalActionType } from './proposalActionsTypes';
+import { type IProposalAction, type IProposalActionWithdrawToken, ProposalActionType } from './proposalActionsTypes';
+import { type IProposalActionUpdateMetadata } from './proposalActionsTypes/proposalActionUpdateMetadata';
 
 class ProposalActionsUtils {
-    getActionComponent = (
-        action: IProposalAction,
-        customComponents?: Record<string, React.ComponentType<{ action: IProposalAction }>>,
-    ) => {
-        if (customComponents?.[action.type]) {
-            return customComponents[action.type];
-        }
-
+    getActionComponent = (action: IProposalAction) => {
         if (this.isWithdrawTokenAction(action)) {
             return () => ProposalActionWithdrawToken({ action });
         }

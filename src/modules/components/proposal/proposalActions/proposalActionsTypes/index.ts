@@ -1,4 +1,5 @@
-export type { IProposalAction, IProposalActionInputData, IProposalActionInputDataParameter } from './proposalAction';
-export type { IProposalActionWithdrawToken } from './proposalActionTokenWithdraw';
-export { ProposalActionType } from './ProposalActionType';
 export type { IMetadataLink, IMetaData, IProposalActionUpdateMetadata } from './proposalActionUpdateMetadata';
+export type { IProposalAction, IProposalActionInputData, IProposalActionInputDataParameter } from './proposalAction';
+export { ProposalActionComponent, type IProposalActionComponentProps } from './proposalActionComponent';
+export { ProposalActionType } from './proposalActionType';
+export type { IProposalActionWithdrawToken } from './proposalActionWithdrawToken';
