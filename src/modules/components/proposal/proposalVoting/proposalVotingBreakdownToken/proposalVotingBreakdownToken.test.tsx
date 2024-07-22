@@ -70,10 +70,56 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
     });
 
     it('correctly renders the current winning option with support indicator', () => {
-        //
+        const totalYes = 2400;
+        const totalNo = 5000;
+        const totalAbstain = 2600;
+        const supportThreshold = 15;
+        const tokenSymbol = 'TTT';
+        render(createTestComponent({ totalAbstain, totalNo, totalYes, supportThreshold, tokenSymbol }));
+
+        // eslint-disable-next-line testing-library/no-node-access
+        const progressbarContainer = within(screen.getAllByRole('progressbar')[3].parentElement!);
+        expect(screen.getByText('Support')).toBeInTheDocument();
+        expect(progressbarContainer.getByText('50%')).toBeInTheDocument();
+        expect(progressbarContainer.getByRole('progressbar').dataset.value).toEqual('50');
+        expect(progressbarContainer.getByTestId('progress-indicator').dataset.value).toEqual(
+            supportThreshold.toString(),
+        );
+
+        const formattedValue = formatterUtils.formatNumber(totalNo, { format: NumberFormat.GENERIC_SHORT })!;
+        const formattedTotal = formatterUtils.formatNumber(totalNo + totalYes + totalAbstain, {
+            format: NumberFormat.GENERIC_SHORT,
+        })!;
+
+        expect(progressbarContainer.getByText(formattedValue)).toBeInTheDocument();
+        expect(progressbarContainer.getByText(`of ${formattedTotal} ${tokenSymbol}`)).toBeInTheDocument();
     });
 
     it('correctly renders the details for the minimum participation', () => {
-        //
+        const totalYes = 2400;
+        const totalNo = 5000;
+        const totalAbstain = 2600;
+        const tokenTotalSupply = totalYes + totalNo + totalAbstain;
+        const minParticipation = 50;
+        const tokenSymbol = 'TTT';
+        render(
+            createTestComponent({ totalAbstain, totalNo, totalYes, minParticipation, tokenTotalSupply, tokenSymbol }),
+        );
+
+        // eslint-disable-next-line testing-library/no-node-access
+        const progressbarContainer = within(screen.getAllByRole('progressbar')[4].parentElement!);
+        expect(screen.getByText('Minimum participation')).toBeInTheDocument();
+        expect(progressbarContainer.getByText('200%')).toBeInTheDocument();
+        expect(progressbarContainer.getByRole('progressbar').dataset.value).toEqual('100');
+
+        const formattedTotal = formatterUtils.formatNumber(totalNo + totalYes + totalAbstain, {
+            format: NumberFormat.GENERIC_SHORT,
+        })!;
+        const formattedMinParticipation = formatterUtils.formatNumber((tokenTotalSupply * minParticipation) / 100, {
+            format: NumberFormat.GENERIC_SHORT,
+        })!;
+
+        expect(progressbarContainer.getByText(formattedTotal)).toBeInTheDocument();
+        expect(progressbarContainer.getByText(`of ${formattedMinParticipation} ${tokenSymbol}`)).toBeInTheDocument();
     });
 });

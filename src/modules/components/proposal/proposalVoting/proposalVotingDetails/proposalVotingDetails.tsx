@@ -31,7 +31,7 @@ export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (pro
     const formattedStartDate = formatterUtils.formatDate(startDate, { format: DateFormat.YEAR_MONTH_DAY_TIME });
     const formattedEndDate = formatterUtils.formatDate(endDate, { format: DateFormat.YEAR_MONTH_DAY_TIME });
 
-    const hasSettings = (settings ?? []).length > 0;
+    const hasSettings = settings != null && settings.length > 0;
 
     return (
         <Tabs.Content
@@ -52,7 +52,7 @@ export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (pro
                 <>
                     <Heading size="h3">{copy.proposalVotingDetails.governance}</Heading>
                     <DefinitionList.Container>
-                        {settings?.map(({ term, value }) => (
+                        {settings.map(({ term, value }) => (
                             <DefinitionList.Item key={term} term={term}>
                                 <p className="text-neutral-500">{value}</p>
                             </DefinitionList.Item>

@@ -65,4 +65,10 @@ describe('<ProposalVotingStageStatus /> component', () => {
         expect(screen.getByText('not reached')).toBeInTheDocument();
         expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
     });
+
+    it('defaults to pending state when status property is not defined', () => {
+        const status = undefined;
+        render(createTestComponent({ status }));
+        expect(screen.getByText('is pending')).toBeInTheDocument();
+    });
 });
