@@ -11,19 +11,24 @@ export interface IProposalActionsProps extends ComponentProps<'div'> {
      */
     actions: IProposalAction[];
     /**
-     * Message to display in the footer
+     * Custom action names
      */
-    footerMessage?: string;
+    actionNames?: Record<string, string>;
     /**
      * Custom action components map
      */
     customActionComponents?: Record<string, React.ComponentType<{ action: IProposalAction }>>;
+    /**
+     * Message to display in the footer
+     */
+    footerMessage?: string;
 }
 
 export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
     const { copy } = useOdsModulesContext();
     const {
         actions,
+        actionNames,
         className,
         footerMessage = copy.proposalActionsContainer.footerMessage,
         customActionComponents,
@@ -52,6 +57,7 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
                 {actions.map((action, index) => {
                     return (
                         <ProposalActionsAction
+                            name={actionNames?.[action.type]}
                             key={`action-${index}`}
                             action={action}
                             index={index}

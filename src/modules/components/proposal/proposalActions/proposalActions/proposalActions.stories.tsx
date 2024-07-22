@@ -26,6 +26,13 @@ type Story = StoryObj<typeof ProposalActions>;
  */
 export const VarietyExample: Story = {
     render: () => {
+        const actionNames = {
+            withdrawToken: 'Withdraw assets',
+            addMembers: 'Add members',
+            removeMembers: 'Remove members',
+            customActionOne: 'Custom Action One',
+        };
+
         const CustomActionComponentOne: React.FC<{ action: IProposalAction }> = ({ action }) => {
             return (
                 <div>
@@ -34,7 +41,7 @@ export const VarietyExample: Story = {
                     <p>From: {action.from}</p>
                     <p>To: {action.to}</p>
                     <p>Value: {action.value}</p>
-                    <p>Contract Address: {action.contractAddress}</p>
+                    <p>Contract: {action.to}</p>
                 </div>
             );
         };
@@ -90,6 +97,7 @@ export const VarietyExample: Story = {
         return (
             <ProposalActions
                 actions={actions}
+                actionNames={actionNames}
                 customActionComponents={{
                     customActionOne: CustomActionComponentOne,
                 }}
