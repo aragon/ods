@@ -3,7 +3,7 @@ import { Accordion, Heading } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/';
-import { ProposalActionType, type IProposalAction } from '../proposalActionsTypes';
+import type { IProposalAction } from '../proposalActionsTypes';
 import { proposalActionsUtils } from '../proposalActionsUtils';
 
 export interface IProposalActionsActionProps extends IWeb3ComponentProps {

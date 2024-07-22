@@ -18,11 +18,11 @@ class ProposalActionsUtils {
         }
 
         if (this.isWithdrawTokenAction(action)) {
-            return ()=> ProposalActionWithdrawToken({action});
+            return () => ProposalActionWithdrawToken({ action });
         }
 
         if (this.isChangeMembers(action)) {
-            return ()=> ProposalActionChangeMembers({action});
+            return () => ProposalActionChangeMembers({ action });
         }
 
         return null;
