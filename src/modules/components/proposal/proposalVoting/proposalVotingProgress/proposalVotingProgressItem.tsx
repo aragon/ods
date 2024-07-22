@@ -1,8 +1,13 @@
 import classNames from 'classnames';
-import { AvatarIcon, IconType, NumberFormat, Progress, formatterUtils, type IProgressProps } from '../../../../../core';
-
-// TODO: to be removed when implemented in progress component
-export type ProgressVariant = 'primary' | 'success' | 'critical' | 'neutral';
+import {
+    AvatarIcon,
+    formatterUtils,
+    IconType,
+    NumberFormat,
+    Progress,
+    type IProgressProps,
+    type ProgressVariant,
+} from '../../../../../core';
 
 export interface IProposalVotingProgressItemDescription {
     /**
