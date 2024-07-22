@@ -38,6 +38,12 @@ export const TokenWithdraw: Story = {
 
 export const CustomActions: Story = {
     render: () => {
+        const actionNames = {
+            withdrawToken: 'Withdraw assets',
+            customActionOne: 'Custom Action One',
+            customActionTwo: 'Custom Action Two',
+        };
+
         const CustomActionComponentOne: React.FC<{ action: IProposalAction }> = ({ action }) => {
             return (
                 <div>
@@ -46,7 +52,7 @@ export const CustomActions: Story = {
                     <p>From: {action.from}</p>
                     <p>To: {action.to}</p>
                     <p>Value: {action.value}</p>
-                    <p>Contract Address: {action.contractAddress}</p>
+                    <p>Contract: {action.to}</p>
                 </div>
             );
         };
@@ -59,7 +65,7 @@ export const CustomActions: Story = {
                     <p>From: {action.from}</p>
                     <p>To: {action.to}</p>
                     <p>Value: {action.value}</p>
-                    <p>Contract Address: {action.contractAddress}</p>
+                    <p>Transaction data: {action.data}</p>
                 </div>
             );
         };
@@ -115,6 +121,7 @@ export const CustomActions: Story = {
         return (
             <ProposalActions
                 actions={actions}
+                actionNames={actionNames}
                 customActionComponents={{
                     customActionOne: CustomActionComponentOne,
                     customActionTwo: CustomActionComponentTwo,

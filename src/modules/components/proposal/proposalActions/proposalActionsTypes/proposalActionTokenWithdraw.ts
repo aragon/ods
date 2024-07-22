@@ -8,11 +8,11 @@ export interface IProposalActionWithdrawToken extends IProposalAction {
      */
     type: ProposalActionType.WITHDRAW_TOKEN;
     /**
-     * Sender address, object with address and optional ensName
+     * Sender handle--the DAO treasury in this case--object with address and optional ensName
      */
     sender: ICompositeAddress;
     /**
-     * Receiver address, object with address and optional ensName
+     * Receiver handle, object with address and optional ensName
      */
     receiver: ICompositeAddress;
     /**

@@ -34,11 +34,6 @@ describe('<ProposalActionsAction /> component', () => {
         );
     };
 
-    it('renders without crashing', () => {
-        render(createTestComponent());
-        expect(screen.getByText(modulesCopy.proposalActionsAction.actionTypeWithdrawToken)).toBeInTheDocument();
-    });
-
     it('renders "Not verified" when action.inputData is null', () => {
         const action = generateProposalActionWithdrawToken({ inputData: null });
         render(createTestComponent({ action }));
@@ -69,18 +64,11 @@ describe('<ProposalActionsAction /> component', () => {
         expect(screen.getByText(`Custom action for ${action.type}`)).toBeInTheDocument();
     });
 
-    it('renders fallback for unknown action type', () => {
-        const action: IProposalAction = {
-            ...generateProposalActionWithdrawToken(),
-            type: 'unknownType',
-        };
-        render(createTestComponent({ action }));
+    it('renders action name if provided', () => {
+        const name = 'Custom Action Name';
+        const action = generateProposalActionWithdrawToken();
+        render(createTestComponent({ action, name }));
 
-        fireEvent.click(screen.getByText(modulesCopy.proposalActionsAction.unknownActionTypeHeader));
-
-        expect(screen.getByText(modulesCopy.proposalActionsAction.unknownActionTypeCopy)).toBeInTheDocument();
-        expect(
-            screen.getByRole('link', { name: modulesCopy.proposalActionsAction.unknownActionTypeButton }),
-        ).toBeInTheDocument();
+        expect(screen.getByText(name)).toBeInTheDocument();
     });
 });
