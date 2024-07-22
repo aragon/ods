@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { Children, type ComponentProps, type ReactNode } from 'react';
+import React, { Children, type ComponentProps } from 'react';
 import { Accordion, Card, Heading } from '../../../../../core';
 
 export interface IProposalVotingContainerProps extends ComponentProps<'div'> {
@@ -15,10 +15,6 @@ export interface IProposalVotingContainerProps extends ComponentProps<'div'> {
      * Active stage that will be expanded by default for multi-stage proposals.
      */
     activeStage?: string;
-    /**
-     * Children of the container.
-     */
-    children: ReactNode;
 }
 
 export const ProposalVotingContainer: React.FC<IProposalVotingContainerProps> = (props) => {
