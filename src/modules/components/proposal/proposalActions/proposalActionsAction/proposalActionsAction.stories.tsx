@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProposalActions } from '..';
+
 import { Accordion } from '../../../../../core';
 import { generateProposalActionWithdrawToken, generateToken } from '../actions/generators/proposalActionWithdrawToken';
+import { ProposalActionsAction } from './proposalActionsAction';
 
-const meta: Meta<typeof ProposalActions.Action> = {
-    title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Action',
-    component: ProposalActions.Action,
+const meta: Meta<typeof ProposalActionsAction> = {
+    title: 'Modules/Components/Proposal/ProposalActions/ProposalActionsAction',
+    component: ProposalActionsAction,
     parameters: {
         design: {
             type: 'figma',
@@ -14,7 +15,7 @@ const meta: Meta<typeof ProposalActions.Action> = {
     },
 };
 
-type Story = StoryObj<typeof ProposalActions.Action>;
+type Story = StoryObj<typeof ProposalActionsAction>;
 
 /**
  * Usage example of the ProposalActions.Action module component with mocked TokenWithdraw actions.
@@ -28,7 +29,7 @@ export const TokenWithdraw: Story = {
     },
     render: (props) => (
         <Accordion.Container isMulti={true}>
-            <ProposalActions.Action {...props} />
+            <ProposalActionsAction {...props} />
         </Accordion.Container>
     ),
 };

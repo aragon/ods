@@ -1,3 +1,5 @@
+import { AdjustMemberCount } from "../../components/proposal/proposalActions/proposalActionsContainer/proposalActionsContainer.stories";
+
 /**
  * Object representing the structure of copy texts used in various parts of the ODS Modules package.
  * Each property in the object corresponds to a specific component or feature, containing the necessary
@@ -39,6 +41,13 @@ export const modulesCopy = {
         },
         actionTypeWithdrawToken: 'Withdraw assets',
         notVerified: 'Not verified',
+        unknownActionTypeHeader: 'Unknown action type',
+        unknownActionTypeCopy: 'Action cannot be processed and rendered. Use the block explorer to complete manually.',
+        unknownActionTypeButton: 'See contract',
+        AdjustMemberCount: {
+            addMembers: 'Add members',
+            removeMembers: 'Remove members',
+        },
     },
     proposalActionAdjustMemberCount: {
         summary: 'Summary',

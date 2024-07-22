@@ -1,6 +1,6 @@
 import type { IProposalAction } from '../../proposalActionsTypes';
 
-export const generateProposalActionGeneric = (action?: Partial<IProposalAction>): IProposalAction => ({
+export const generateProposalAction = (action?: Partial<IProposalAction>): IProposalAction => ({
     type: 'unknownType',
     contractAddress: '0xContract',
     from: '0xFrom',

@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
-import type { IProposalAction, IProposalActionWithdrawToken } from '../proposalActionsTypes';
-import { ProposalActionType } from '../proposalActionsTypes/proposalAction';
+import { ProposalActionType, type IProposalAction, type IProposalActionWithdrawToken } from '../proposalActionsTypes';
 import { ProposalActionsActionVerification } from './proposalActionsActionVerfication';
 
 jest.mock('../../../../utils', () => ({
@@ -38,7 +37,7 @@ describe('<ProposalActionsActionVerification /> component', () => {
         expect(screen.getByTestId('SUCCESS')).toBeInTheDocument();
     });
 
-    it('renders token name for withdrawToken action', () => {
+    it('renders contract name if verified action', () => {
         const action: IProposalActionWithdrawToken = generateProposalActionWithdrawToken({
             contractAddress: '0xContractAddress',
             token: {
@@ -53,6 +52,6 @@ describe('<ProposalActionsActionVerification /> component', () => {
         });
         render(createTestComponent(action));
 
-        expect(screen.getByText(action.token.name)).toBeInTheDocument();
+        expect(screen.getByText(action.inputData?.contract as string)).toBeInTheDocument();
     });
 });

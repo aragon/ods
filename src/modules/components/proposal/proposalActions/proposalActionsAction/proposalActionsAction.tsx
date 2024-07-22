@@ -1,10 +1,12 @@
-import { Accordion, Heading } from '../../../../../core';
+import { Accordion, Button, Heading, IconType } from '../../../../../core';
+import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
+import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
 import type { IProposalAction } from '../proposalActionsTypes';
-import { proposalActionsUtils } from '../utils';
+import { proposalActionsUtils } from '../proposalActionsUtils';
 
-export interface IProposalActionsActionProps {
+export interface IProposalActionsActionProps extends IWeb3ComponentProps {
     /**
      * Proposal action
      */
@@ -14,14 +16,14 @@ export interface IProposalActionsActionProps {
      */
     index: number;
     /**
-     * Toggle accordion callback for notifying the parent container to update after click
+     * Custom component for the action if the action type is not supported
      */
-    onToggle?: () => void;
+    customComponents?: Record<string, React.ComponentType<{ action: IProposalAction }>>;
 }
 
 export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {
-    const { action, index, onToggle } = props;
-    const ActionComponent = proposalActionsUtils.getActionComponent(action);
+    const { action, index, wagmiConfig, chainId, customComponents } = props;
+    const ActionComponent = proposalActionsUtils.getActionComponent(action, customComponents);
     const { copy } = useOdsModulesContext();
 
     const getActionTypeString = () => {
@@ -35,24 +37,55 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
         }
         return '';
     };
+    const { buildEntityUrl } = useBlockExplorer({ chains: wagmiConfig?.chains, chainId });
+    const contractUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: action.contractAddress });
 
-    if (!ActionComponent) {
-        return null;
-    }
+    const actionTypeToStringMapping: Record<string, string> = {
+        withdrawToken: copy.proposalActionsAction.actionTypeWithdrawToken,
+    };
 
     const isDisabled = action.inputData == null;
 
+    if (!ActionComponent) {
+        return (
+            <Accordion.Item value={isDisabled ? '' : `${index}`}>
+                <Accordion.ItemHeader>
+                    <Heading size="h4" className="text-critical-400">
+                        {getActionTypeString()}
+                    </Heading>
+                </Accordion.ItemHeader>
+                <Accordion.ItemContent>
+                    <p className="text-neutral-400">{copy.proposalActionsAction.unknownActionTypeCopy}</p>
+                    <Button
+                        href={contractUrl}
+                        target="_blank"
+                        variant="secondary"
+                        size="md"
+                        iconRight={IconType.LINK_EXTERNAL}
+                        className="mt-3 max-w-fit"
+                    >
+                        {copy.proposalActionsAction.unknownActionTypeButton}
+                    </Button>
+                </Accordion.ItemContent>
+            </Accordion.Item>
+        );
+    }
+
     return (
-        <Accordion.Item value={isDisabled ? '' : `${index}-action`} disabled={isDisabled}>
-            <Accordion.ItemHeader onClick={onToggle}>
+        <Accordion.Item value={isDisabled ? '' : `${index}`} disabled={isDisabled}>
+            <Accordion.ItemHeader>
                 <div className="flex flex-col items-start">
                     <Heading size="h4">
-                        {action.inputData == null ? copy.proposalActionsAction.notVerified : getActionTypeString()}
+                        {action.inputData == null
+                            ? copy.proposalActionsAction.notVerified
+                            : actionTypeToStringMapping[action.type] || action.inputData.function}
                     </Heading>
                     <ProposalActionsActionVerification action={action} />
                 </div>
             </Accordion.ItemHeader>
-            <Accordion.ItemContent>{ActionComponent && <ActionComponent />}</Accordion.ItemContent>
+            <Accordion.ItemContent>
+                <ActionComponent action={action} />
+            </Accordion.ItemContent>
         </Accordion.Item>
     );
 };

@@ -1,8 +1,8 @@
 
 import { ProposalActionAdjustMemberCount } from '../actions/proposalActionAdjustMemberCount';
 import { ProposalActionWithdrawToken } from '../actions/proposalActionWithdrawToken/proposalActionWithdrawToken';
-import type { IProposalAction, IProposalActionAdjustMemberCount, IProposalActionWithdrawToken } from '../proposalActionsTypes';
-import { ProposalActionType } from '../proposalActionsTypes/proposalAction';
+import { ProposalActionType, type IProposalAction, type IProposalActionAdjustMemberCount, type IProposalActionWithdrawToken } from '../proposalActionsTypes';
+
 
 class ProposalActionsUtils {
     public getActionComponent(action: IProposalAction) {

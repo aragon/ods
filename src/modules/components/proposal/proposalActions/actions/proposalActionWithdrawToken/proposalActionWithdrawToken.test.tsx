@@ -17,7 +17,7 @@ describe('<ProposalActionWithdrawToken /> component', () => {
         return <ProposalActionWithdrawToken {...defaultProps} />;
     };
 
-    it('renders without crashing', () => {
+    it('renders the AssetTransfer component', () => {
         render(createTestComponent());
         expect(screen.getByText('Mock AssetTransfer')).toBeInTheDocument();
     });
