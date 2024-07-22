@@ -2,14 +2,7 @@ import { ProposalActionWithdrawToken } from './actions';
 import { type IProposalAction, type IProposalActionWithdrawToken, ProposalActionType } from './proposalActionsTypes';
 
 class ProposalActionsUtils {
-    getActionComponent = (
-        action: IProposalAction,
-        customComponents?: Record<string, React.ComponentType<{ action: IProposalAction }>>,
-    ) => {
-        if (customComponents?.[action.type]) {
-            return customComponents[action.type];
-        }
-
+    getActionComponent = (action: IProposalAction) => {
         if (this.isWithdrawTokenAction(action)) {
             return () => ProposalActionWithdrawToken({ action });
         }

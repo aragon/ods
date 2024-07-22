@@ -9,13 +9,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Added ProposalAction module component
+-   Add `ProposalAction` module component
 
 ### Changed
 
 -   Update interface for `Accordion.Container` to expose value prop
 -   Update styles on `Tabs.List` for latest spec
--   Update styles on `Card` to handle overflowing children
 
 ## [1.0.39] - 2024-07-16
 

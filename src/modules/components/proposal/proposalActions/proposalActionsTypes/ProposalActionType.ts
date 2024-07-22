@@ -1,3 +1,3 @@
 export enum ProposalActionType {
-    WITHDRAW_TOKEN = 'withdrawToken',
+    WITHDRAW_TOKEN = 'WITHDRAW_TOKEN',
 }

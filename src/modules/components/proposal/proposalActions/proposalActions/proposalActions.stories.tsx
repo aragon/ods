@@ -21,27 +21,26 @@ type Story = StoryObj<typeof ProposalActions>;
  * Usage example of the ProposalActions module component with mocked TokenWithdraw actions.
  */
 export const TokenWithdraw: Story = {
-    render: () => {
-        const actions = [
+    args: {
+        actions: [
             generateProposalActionWithdrawToken({
-                contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+                to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
                 token: generateToken({ name: 'Ether' }),
             }),
             generateProposalActionWithdrawToken({
-                contractAddress: '0x1234567890abcdef1234567890abcdef12345678',
+                to: '0x1234567890abcdef1234567890abcdef12345678',
                 inputData: null,
             }),
-        ];
-        return <ProposalActions actions={actions} />;
+        ],
     },
 };
 
 export const CustomActions: Story = {
     render: () => {
         const actionNames = {
-            withdrawToken: 'Withdraw assets',
-            customActionOne: 'Custom Action One',
-            customActionTwo: 'Custom Action Two',
+            WITHDRAW_TOKEN: 'Withdraw assets',
+            CUSTOM_ACTION_ONE: 'Custom Action One',
+            CUSTOM_ACTION_TWO: 'Custom Action Two',
         };
 
         const CustomActionComponentOne: React.FC<{ action: IProposalAction }> = ({ action }) => {
@@ -72,7 +71,7 @@ export const CustomActions: Story = {
 
         const actions = [
             generateProposalActionWithdrawToken({
-                contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+                to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
                 token: generateToken({
                     name: 'Ether',
                     symbol: 'ETH',
@@ -90,7 +89,7 @@ export const CustomActions: Story = {
                 },
             }),
             {
-                type: 'customActionOne',
+                type: 'CUSTOM_ACTION_ONE',
                 inputData: { function: 'doSomething', contract: 'Ether', parameters: [] },
                 contractAddress: '0x1111111111111111111111111111111111111111',
                 from: '0x1111111111111111111111111111111111111111',
@@ -99,7 +98,7 @@ export const CustomActions: Story = {
                 value: '10',
             },
             {
-                type: 'customActionTwo',
+                type: 'CUSTOM_ACTION_TWO',
                 inputData: { function: 'doSomethingElse', contract: 'DAI', parameters: [] },
                 contractAddress: '0x3333333333333333333333333333333333333333',
                 from: '0x3333333333333333333333333333333333333333',
@@ -108,7 +107,7 @@ export const CustomActions: Story = {
                 value: '20',
             },
             {
-                type: 'customActionUnknown',
+                type: 'UNKNWOWN',
                 inputData: { function: 'doSomethingElse', contract: 'DAI', parameters: [] },
                 contractAddress: '0x3333333333333333333333333333333333333333',
                 from: '0x3333333333333333333333333333333333333333',
@@ -123,8 +122,8 @@ export const CustomActions: Story = {
                 actions={actions}
                 actionNames={actionNames}
                 customActionComponents={{
-                    customActionOne: CustomActionComponentOne,
-                    customActionTwo: CustomActionComponentTwo,
+                    CUSTOM_ACTION_ONE: CustomActionComponentOne,
+                    CUSTOM_ACTION_TWO: CustomActionComponentTwo,
                 }}
             />
         );

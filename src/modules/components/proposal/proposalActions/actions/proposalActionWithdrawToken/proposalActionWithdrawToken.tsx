@@ -1,15 +1,12 @@
 import { AssetTransfer } from '../../../../asset';
-import type { IProposalActionWithdrawToken } from '../../proposalActionsTypes';
+import type { IProposalActionComponentProps, IProposalActionWithdrawToken } from '../../proposalActionsTypes';
 
-export interface IProposalActionWithdrawTokenProps {
-    /**
-     * Withdraw token action
-     */
-    action: IProposalActionWithdrawToken;
-}
+export interface IProposalActionWithdrawTokenProps
+    extends IProposalActionComponentProps<IProposalActionWithdrawToken> {}
 
 export const ProposalActionWithdrawToken: React.FC<IProposalActionWithdrawTokenProps> = (props) => {
-    const { action } = props;
+    const { action, ...web3Props } = props;
+
     return (
         <AssetTransfer
             sender={action.sender}
@@ -21,6 +18,7 @@ export const ProposalActionWithdrawToken: React.FC<IProposalActionWithdrawTokenP
             assetIconSrc={action.token.logo}
             // TODO: Make hash property on AssetTransfer optional (APP-3430)
             hash=""
+            {...web3Props}
         />
     );
 };

@@ -29,14 +29,9 @@ export const modulesCopy = {
         containerName: 'Actions',
         collapse: 'Collapse all',
         expand: 'Expand all',
-        footerMessage:
-            'The proposal must pass all voting stages above before the binding onchain actions are able to be executed.',
     },
     proposalActionsAction: {
         notVerified: 'Not verified',
-        unknownActionTypeHeader: 'Unknown action type',
-        unknownActionTypeCopy: 'Action cannot be processed and rendered. Use the block explorer to complete manually.',
-        unknownActionTypeButton: 'See contract',
     },
     proposalDataListItemStatus: {
         voted: "You've voted",
