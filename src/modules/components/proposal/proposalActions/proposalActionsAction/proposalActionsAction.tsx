@@ -2,8 +2,8 @@ import { Accordion, Button, Heading, IconType } from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
-import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
-import type { IProposalAction } from '../proposalActionsTypes';
+import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/';
+import { ProposalActionType, type IProposalAction } from '../proposalActionsTypes';
 import { proposalActionsUtils } from '../proposalActionsUtils';
 
 export interface IProposalActionsActionProps extends IWeb3ComponentProps {
@@ -32,8 +32,8 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
         if (proposalActionsUtils.isWithdrawTokenAction(action)) {
             return copy.proposalActionsAction.actionTypeWithdrawToken;
         }
-        if (proposalActionsUtils.isAdjustMemberCountAction(action)) {
-            return action.addOrRemove === 'add'
+        if (proposalActionsUtils.isChangeMembers(action)) {
+            return action.type === ProposalActionType.ADD_MEMBERS
                 ? copy.proposalActionsAction.actionTypeAdjustMemberCount.addMembers
                 : copy.proposalActionsAction.actionTypeAdjustMemberCount.removeMembers;
         }

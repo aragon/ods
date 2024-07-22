@@ -2,11 +2,11 @@ import type { ICompositeAddress } from '../../../../types';
 import type { IProposalAction } from './proposalAction';
 import type { ProposalActionType } from './ProposalActionType';
 
-export interface IProposalActionAdjustMemberCount extends IProposalAction {
+export interface IProposalActionChangeMembers extends IProposalAction {
     /**
      * Adjust member count action
      */
-    type: ProposalActionType.ADJUST_MEMBER_COUNT;
+    type: ProposalActionType.ADD_MEMBERS | ProposalActionType.REMOVE_MEMBERS;
     /**
      * The members that are being added or removed
      */
@@ -15,8 +15,4 @@ export interface IProposalActionAdjustMemberCount extends IProposalAction {
      * The current member count
      */
     currentMemberCount: number;
-    /**
-     * The action to perform, either 'add' or 'remove' members
-     */
-    addOrRemove: 'add' | 'remove';
 }

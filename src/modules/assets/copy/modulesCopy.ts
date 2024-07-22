@@ -47,7 +47,7 @@ export const modulesCopy = {
             removeMembers: 'Remove members',
         },
     },
-    proposalActionAdjustMemberCount: {
+    proposalActionChangeMembers: {
         summary: 'Summary',
         added: 'Added',
         removed: 'Removed',

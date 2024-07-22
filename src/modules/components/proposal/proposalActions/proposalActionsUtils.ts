@@ -1,8 +1,9 @@
 import { ProposalActionWithdrawToken } from './actions';
-import { ProposalActionAdjustMemberCount } from './actions/proposalActionAdjustMemberCount';
+import { ProposalActionChangeMembers } from './actions/proposalActionChangeMembers/proposalActionChangeMembers';
+
 import {
     type IProposalAction,
-    type IProposalActionAdjustMemberCount,
+    type IProposalActionChangeMembers,
     type IProposalActionWithdrawToken,
     ProposalActionType,
 } from './proposalActionsTypes';
@@ -20,8 +21,8 @@ class ProposalActionsUtils {
             return ProposalActionWithdrawToken;
         }
 
-        if (this.isAdjustMemberCountAction(action)) {
-            return ProposalActionAdjustMemberCount;
+        if (this.isChangeMembers(action)) {
+            return ProposalActionChangeMembers;
         }
 
         return null;
@@ -31,10 +32,8 @@ class ProposalActionsUtils {
         return action.type === ProposalActionType.WITHDRAW_TOKEN;
     };
 
-    public isAdjustMemberCountAction = (
-        action: Partial<IProposalAction>,
-    ): action is IProposalActionAdjustMemberCount => {
-        return action.type === ProposalActionType.ADJUST_MEMBER_COUNT;
+    public isChangeMembers = (action: Partial<IProposalAction>): action is IProposalActionChangeMembers => {
+        return action.type === ProposalActionType.ADD_MEMBERS || action.type === ProposalActionType.REMOVE_MEMBERS;
     };
 }
 

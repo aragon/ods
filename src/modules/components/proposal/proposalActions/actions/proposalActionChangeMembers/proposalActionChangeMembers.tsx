@@ -1,16 +1,17 @@
 import { DataList, Heading } from '../../../../../../core';
 import { MemberDataListItem } from '../../../../member';
 import { useOdsModulesContext } from '../../../../odsModulesProvider';
-import type { IProposalActionAdjustMemberCount } from '../../proposalActionsTypes';
+import { ProposalActionType } from '../../proposalActionsTypes';
+import type { IProposalActionChangeMembers } from '../../proposalActionsTypes/proposalActionChangeMembers';
 
-export interface IProposalActionAdjustMemberCountProps {
+export interface IProposalActionChangeMembersProps {
     /**
      * The action to render for Member count adjustment
      */
-    action: IProposalActionAdjustMemberCount;
+    action: IProposalActionChangeMembers;
 }
 
-export const ProposalActionAdjustMemberCount: React.FC<IProposalActionAdjustMemberCountProps> = (props) => {
+export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersProps> = (props) => {
     const { action } = props;
     const { copy } = useOdsModulesContext();
     return (
@@ -27,17 +28,17 @@ export const ProposalActionAdjustMemberCount: React.FC<IProposalActionAdjustMemb
                 </DataList.Container>
             </DataList.Root>
             <section>
-                <Heading size="h3">{copy.proposalActionAdjustMemberCount.summary}</Heading>
+                <Heading size="h3">{copy.proposalActionChangeMembers.summary}</Heading>
                 <div>
                     <div className="flex flex-col gap-y-1 py-3 md:grid md:grid-cols-4">
                         <p className="col-span-1 text-neutral-800">
-                            {action.addOrRemove === 'add'
-                                ? copy.proposalActionAdjustMemberCount.added
-                                : copy.proposalActionAdjustMemberCount.removed}
+                            {action.type === ProposalActionType.ADD_MEMBERS
+                                ? copy.proposalActionChangeMembers.added
+                                : copy.proposalActionChangeMembers.removed}
                         </p>
                         <p className="col-span-3 text-neutral-500">
-                            {action.addOrRemove === 'add' ? `+` : `-`}
-                            {action.changingMembers.length} {copy.proposalActionAdjustMemberCount.members}
+                            {action.type === ProposalActionType.ADD_MEMBERS ? `+` : `-`}
+                            {action.changingMembers.length} {copy.proposalActionChangeMembers.members}
                         </p>
                     </div>
                     <div className="h-0 w-full border-b border-neutral-100" />
@@ -45,12 +46,12 @@ export const ProposalActionAdjustMemberCount: React.FC<IProposalActionAdjustMemb
                         <p className="col-span-1 text-neutral-800">Total members</p>
                         <div className="col-span-3 flex flex-col gap-y-1">
                             <p className="text-neutral-500">
-                                {action.addOrRemove === 'add'
+                                {action.type === ProposalActionType.ADD_MEMBERS
                                     ? action.currentMemberCount + action.changingMembers.length
                                     : action.currentMemberCount - action.changingMembers.length}{' '}
-                                {copy.proposalActionAdjustMemberCount.members}
+                                {copy.proposalActionChangeMembers.members}
                             </p>
-                            <p className="text-sm text-neutral-500">{copy.proposalActionAdjustMemberCount.blockNote}</p>
+                            <p className="text-sm text-neutral-500">{copy.proposalActionChangeMembers.blockNote}</p>
                         </div>
                     </div>
                 </div>

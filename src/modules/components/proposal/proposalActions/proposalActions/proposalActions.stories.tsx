@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import { generateProposalActionAdjustMemberCount } from '../actions/generators/proposalActionAdjustMemberCount';
+import { generateProposalActionChangeMembers } from '../actions/generators/proposalActionChangeMembers';
 import {
     generateCompositeAddress,
     generateProposalActionWithdrawToken,
     generateToken,
 } from '../actions/generators/proposalActionWithdrawToken';
-import type { IProposalAction } from '../proposalActionsTypes';
+import { ProposalActionType, type IProposalAction } from '../proposalActionsTypes';
 import { ProposalActions } from './proposalActions';
 
 const meta: Meta<typeof ProposalActions> = {
@@ -59,12 +58,12 @@ export const VarietyExample: Story = {
                     ],
                 },
             }),
-            generateProposalActionAdjustMemberCount({
+            generateProposalActionChangeMembers({
+                type: ProposalActionType.REMOVE_MEMBERS,
                 changingMembers: [
                     generateCompositeAddress({ name: 'alice.eth' }),
                     generateCompositeAddress({ name: 'bob.eth' }),
                 ],
-                addOrRemove: 'remove',
                 currentMemberCount: 10,
                 contractAddress: '0x1234567890abcdef1234567890abcdef12345678',
             }),
