@@ -1,4 +1,4 @@
-import { Accordion, Heading,  } from '../../../../../core';
+import { Accordion, Heading } from '../../../../../core';
 
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
@@ -39,14 +39,12 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
                     <Heading size="h4">
                         {action.inputData == null
                             ? copy.proposalActionsAction.notVerified
-                            : name ?? action.inputData.function}
+                            : (name ?? action.inputData.function)}
                     </Heading>
                     <ProposalActionsActionVerification action={action} />
                 </div>
             </Accordion.ItemHeader>
-            <Accordion.ItemContent>
-                {ActionComponent && <ActionComponent action={action} />}
-            </Accordion.ItemContent>
+            <Accordion.ItemContent>{ActionComponent && <ActionComponent action={action} />}</Accordion.ItemContent>
         </Accordion.Item>
     );
 };
