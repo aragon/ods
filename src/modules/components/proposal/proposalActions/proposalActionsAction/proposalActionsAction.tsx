@@ -37,17 +37,18 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
 
     if (!ActionComponent) {
         return (
-            <Accordion.Item value={isDisabled ? '' : `${index}`} className="flex flex-col items-start gap-y-3">
+            <Accordion.Item value={isDisabled ? '' : `${index}`}>
                 <Accordion.ItemHeader>
                     <Heading size="h4" className="text-critical-400">
                         {copy.proposalActionsAction.unknownActionTypeHeader}
                     </Heading>
                 </Accordion.ItemHeader>
                 <Accordion.ItemContent>
-                    <Heading size="h4">{copy.proposalActionsAction.unknownActionTypeCopy}</Heading>
+                    <p className="text-neutral-400">{copy.proposalActionsAction.unknownActionTypeCopy}</p>
                     <Button
                         href={contractUrl}
                         target="_blank"
+                        variant="secondary"
                         size="md"
                         iconRight={IconType.LINK_EXTERNAL}
                         className="mt-3 max-w-fit"

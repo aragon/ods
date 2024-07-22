@@ -64,19 +64,6 @@ export const CustomActions: Story = {
             );
         };
 
-        const CustomActionComponentThree: React.FC<{ action: IProposalAction }> = ({ action }) => {
-            return (
-                <div>
-                    <h4>Custom Action Two</h4>
-                    <p>Type: {action.type}</p>
-                    <p>From: {action.from}</p>
-                    <p>To: {action.to}</p>
-                    <p>Value: {action.value}</p>
-                    <p>Contract Address: {action.contractAddress}</p>
-                </div>
-            );
-        };
-
         const actions = [
             generateProposalActionWithdrawToken({
                 contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
@@ -115,7 +102,7 @@ export const CustomActions: Story = {
                 value: '20',
             },
             {
-                type: 'customActionT',
+                type: 'customActionUnknown',
                 inputData: { function: 'doSomethingElse', contract: 'DAI', parameters: [] },
                 contractAddress: '0x3333333333333333333333333333333333333333',
                 from: '0x3333333333333333333333333333333333333333',

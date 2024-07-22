@@ -36,7 +36,7 @@ export const modulesCopy = {
         actionTypeWithdrawToken: 'Withdraw assets',
         notVerified: 'Not verified',
         unknownActionTypeHeader: 'Unknown action type',
-        unknownActionTypeCopy: 'Unknown action cannot be processed. Use the block explorer to complete manually.',
+        unknownActionTypeCopy: 'Action cannot be processed and rendered. Use the block explorer to complete manually.',
         unknownActionTypeButton: 'See contract',
     },
     proposalDataListItemStatus: {
