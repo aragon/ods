@@ -49,7 +49,7 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
         ? ProposalVotingTab.DETAILS
         : ProposalVotingTab.BREAKDOWN;
     const processedDefaultTab = defaultTab ?? stateDefaultTab;
-    // console.log({ name, processedDefaultTab });
+
     const accordionContentRef = useRef<HTMLDivElement>(null);
 
     const contextValues = useMemo(() => ({ startDate, endDate }), [startDate, endDate]);
