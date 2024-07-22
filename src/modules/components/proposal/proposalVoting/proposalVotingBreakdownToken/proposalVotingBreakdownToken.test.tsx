@@ -68,4 +68,12 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
             expect(progressbarContainer.getByText(progressbarText)).toBeInTheDocument();
         });
     });
+
+    it('correctly renders the current winning option with support indicator', () => {
+        //
+    });
+
+    it('correctly renders the details for the minimum participation', () => {
+        //
+    });
 });
