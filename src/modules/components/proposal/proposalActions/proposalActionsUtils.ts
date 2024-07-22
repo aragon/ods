@@ -1,33 +1,39 @@
 import { ProposalActionWithdrawToken } from './actions';
-import { type IProposalAction, type IProposalActionAdjustMemberCount, type IProposalActionWithdrawToken, ProposalActionType } from './proposalActionsTypes';
-import type { ReactComponentLike } from 'prop-types';
+import { ProposalActionAdjustMemberCount } from './actions/proposalActionAdjustMemberCount';
+import {
+    type IProposalAction,
+    type IProposalActionAdjustMemberCount,
+    type IProposalActionWithdrawToken,
+    ProposalActionType,
+} from './proposalActionsTypes';
 
 class ProposalActionsUtils {
-    private actionComponentsMap: Record<string, ReactComponentLike> = {
-        [ProposalActionType.WITHDRAW_TOKEN]: ProposalActionWithdrawToken,
-    };
-
-    getActionComponent = (action: IProposalAction, customComponents?: Record<string, React.ComponentType<{ action: IProposalAction }>>) => {
+    getActionComponent = (
+        action: IProposalAction,
+        customComponents?: Record<string, React.ComponentType<{ action: IProposalAction }>>,
+    ) => {
         if (customComponents?.[action.type]) {
             return customComponents[action.type];
         }
 
         if (this.isWithdrawTokenAction(action)) {
-            return this.actionComponentsMap[ProposalActionType.WITHDRAW_TOKEN];
+            return ProposalActionWithdrawToken;
         }
 
         if (this.isAdjustMemberCountAction(action)) {
-            return this.actionComponentsMap[ProposalActionType.ADJUST_MEMBER_COUNT];
+            return ProposalActionAdjustMemberCount;
         }
 
         return null;
     };
 
-    isWithdrawTokenAction = (action: Partial<IProposalAction>): action is IProposalActionWithdrawToken => {
+    public isWithdrawTokenAction = (action: Partial<IProposalAction>): action is IProposalActionWithdrawToken => {
         return action.type === ProposalActionType.WITHDRAW_TOKEN;
     };
 
-    isAdjustMemberCountAction = (action: Partial<IProposalAction>): action is IProposalActionAdjustMemberCount => {
+    public isAdjustMemberCountAction = (
+        action: Partial<IProposalAction>,
+    ): action is IProposalActionAdjustMemberCount => {
         return action.type === ProposalActionType.ADJUST_MEMBER_COUNT;
     };
 }

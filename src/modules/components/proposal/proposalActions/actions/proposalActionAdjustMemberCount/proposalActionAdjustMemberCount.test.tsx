@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { modulesCopy } from '../../../../../assets';
 import type { IProposalActionAdjustMemberCount } from '../../proposalActionsTypes';
-import { generateProposalAdjustMemberCount } from '../generators/proposalActionAdjustMemberCount';
+import { generateProposalActionAdjustMemberCount } from '../generators/proposalActionAdjustMemberCount';
 import { ProposalActionAdjustMemberCount } from './proposalActionAdjustMemberCount';
 
 jest.mock('../../../../../../core', () => ({
@@ -27,7 +27,7 @@ jest.mock('../../../../member', () => ({
 describe('<ProposalActionAdjustMemberCount /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionAdjustMemberCount>) => {
         const defaultProps = {
-            action: generateProposalAdjustMemberCount(props),
+            action: generateProposalActionAdjustMemberCount(props),
         };
 
         return <ProposalActionAdjustMemberCount {...defaultProps} />;

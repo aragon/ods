@@ -25,6 +25,8 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
     const { action, index, wagmiConfig, chainId, customComponents } = props;
     const ActionComponent = proposalActionsUtils.getActionComponent(action, customComponents);
     const { copy } = useOdsModulesContext();
+    const { buildEntityUrl } = useBlockExplorer({ chains: wagmiConfig?.chains, chainId });
+    const contractUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: action.contractAddress });
 
     const getActionTypeString = () => {
         if (proposalActionsUtils.isWithdrawTokenAction(action)) {
@@ -37,12 +39,6 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
         }
         return '';
     };
-    const { buildEntityUrl } = useBlockExplorer({ chains: wagmiConfig?.chains, chainId });
-    const contractUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: action.contractAddress });
-
-    const actionTypeToStringMapping: Record<string, string> = {
-        withdrawToken: copy.proposalActionsAction.actionTypeWithdrawToken,
-    };
 
     const isDisabled = action.inputData == null;
 
@@ -51,7 +47,7 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
             <Accordion.Item value={isDisabled ? '' : `${index}`}>
                 <Accordion.ItemHeader>
                     <Heading size="h4" className="text-critical-400">
-                        {getActionTypeString()}
+                        {copy.proposalActionsAction.unknownActionTypeHeader}
                     </Heading>
                 </Accordion.ItemHeader>
                 <Accordion.ItemContent>
@@ -71,6 +67,8 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
         );
     }
 
+    const RenderedAction = ActionComponent as React.FC<{ action: IProposalAction }>;
+
     return (
         <Accordion.Item value={isDisabled ? '' : `${index}`} disabled={isDisabled}>
             <Accordion.ItemHeader>
@@ -78,13 +76,13 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
                     <Heading size="h4">
                         {action.inputData == null
                             ? copy.proposalActionsAction.notVerified
-                            : actionTypeToStringMapping[action.type] || action.inputData.function}
+                            : getActionTypeString() || action.inputData.function}
                     </Heading>
                     <ProposalActionsActionVerification action={action} />
                 </div>
             </Accordion.ItemHeader>
             <Accordion.ItemContent>
-                <ActionComponent action={action} />
+                <RenderedAction action={action} />
             </Accordion.ItemContent>
         </Accordion.Item>
     );

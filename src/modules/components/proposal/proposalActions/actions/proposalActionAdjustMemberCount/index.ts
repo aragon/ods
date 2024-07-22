@@ -1,1 +1,4 @@
-export { ProposalActionAdjustMemberCount, type IProposalActionAdjustMemberCountProps } from './proposalActionAdjustMemberCount';
+export {
+    ProposalActionAdjustMemberCount,
+    type IProposalActionAdjustMemberCountProps,
+} from './proposalActionAdjustMemberCount';
