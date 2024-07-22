@@ -1,5 +1,3 @@
-import { AdjustMemberCount } from "../../components/proposal/proposalActions/proposalActionsContainer/proposalActionsContainer.stories";
-
 /**
  * Object representing the structure of copy texts used in various parts of the ODS Modules package.
  * Each property in the object corresponds to a specific component or feature, containing the necessary

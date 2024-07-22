@@ -1,5 +1,5 @@
 import { ProposalActionWithdrawToken } from './actions';
-import { type IProposalAction, IProposalActionAdjustMemberCount, type IProposalActionWithdrawToken, ProposalActionType } from './proposalActionsTypes';
+import { type IProposalAction, type IProposalActionAdjustMemberCount, type IProposalActionWithdrawToken, ProposalActionType } from './proposalActionsTypes';
 import type { ReactComponentLike } from 'prop-types';
 
 class ProposalActionsUtils {
