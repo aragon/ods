@@ -19,9 +19,9 @@ const meta: Meta<typeof ProposalActions> = {
 type Story = StoryObj<typeof ProposalActions>;
 
 /**
- * Usage example of the ProposalActions module component with mocked TokenWithdraw actions.
+ * Usage example of the ProposalActions module component with mocked actions.
  */
-export const TokenWithdraw: Story = {
+export const MixedActions: Story = {
     args: {
         actions: [
             generateProposalActionWithdrawToken({
@@ -32,16 +32,8 @@ export const TokenWithdraw: Story = {
                 to: '0x1234567890abcdef1234567890abcdef12345678',
                 inputData: null,
             }),
+            generateProposalActionUpdateMetadata(),
         ],
-    },
-};
-
-/**
- * Usage example of the ProposalActions module component with mocked UpdateMetadata actions.
- */
-export const UpdateMetadata: Story = {
-    args: {
-        actions: [generateProposalActionUpdateMetadata()],
     },
 };
 

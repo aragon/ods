@@ -32,7 +32,10 @@ export const ProposalActionUpdateMetadata: React.FC<IProposalActionUpdateMetadat
                             />
                         </DefinitionList.Item>
                         <DefinitionList.Item term={modulesCopy.proposalActionsUpdateMetadata.nameTerm}>
-                            <div className="text-base leading-tight text-neutral-800">{metadataToDisplay.name}</div>
+                            <p className="text-base leading-tight text-neutral-800">{metadataToDisplay.name}</p>
+                        </DefinitionList.Item>
+                        <DefinitionList.Item term={modulesCopy.proposalActionsUpdateMetadata.descriptionTerm}>
+                            <p className="text-base leading-tight text-neutral-800">{metadataToDisplay.description}</p>
                         </DefinitionList.Item>
                         <DefinitionList.Item term={modulesCopy.proposalActionsUpdateMetadata.linkTerm}>
                             <ul>

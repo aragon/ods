@@ -8,8 +8,8 @@ export const generateProposalActionUpdateMetadata = (
     data: '',
     value: '1',
     inputData: {
-        function: 'Update Metadata',
-        contract: 'Ether',
+        function: 'Update DAO metadata',
+        contract: 'DAO',
         parameters: [
             { type: 'address', value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE' },
             { type: 'uint256', value: '1000000000000000000' },
@@ -19,6 +19,7 @@ export const generateProposalActionUpdateMetadata = (
     existingMetadata: {
         logo: 'https://i.pravatar.cc/300',
         name: 'Old name',
+        description: 'Existing DAO description.',
         links: [
             { label: 'Farcaster', href: 'https://warpcast.com/olddao', target: '_blank' },
             { label: 'X', href: 'https://x.com/olddao', target: '_blank' },
@@ -27,6 +28,7 @@ export const generateProposalActionUpdateMetadata = (
     proposedMetadata: {
         logo: 'https://i.pravatar.cc/300',
         name: 'New name',
+        description: 'Proposed DAO description.',
         links: [
             { label: 'Farcaster', href: 'https://warpcast.com/newdao', target: '_blank' },
             { label: 'X', href: 'https://x.com/newdao', target: '_blank' },

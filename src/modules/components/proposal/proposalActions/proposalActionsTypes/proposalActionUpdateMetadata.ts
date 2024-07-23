@@ -26,6 +26,10 @@ export interface IMetaData {
      */
     name: string;
     /**
+     * DAO Description.
+     */
+    description: string;
+    /**
      * Array of metadata links.
      */
     links: IMetadataLink[];

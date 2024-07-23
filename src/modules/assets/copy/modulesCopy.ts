@@ -37,6 +37,7 @@ export const modulesCopy = {
         logoTerm: 'Logo',
         nameTerm: 'Name',
         linkTerm: 'Links',
+        descriptionTerm: 'Description',
     },
     proposalDataListItemStatus: {
         voted: "You've voted",
