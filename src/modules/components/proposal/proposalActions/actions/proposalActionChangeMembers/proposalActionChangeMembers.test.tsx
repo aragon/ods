@@ -41,13 +41,13 @@ describe('<ProposalActionAdjustMemberCount /> component', () => {
     });
 
     it('renders correctly for adding members', () => {
-        const currentMemberCount = 5;
-        const changingMembers = [{ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' }];
+        const currentMembers = 5;
+        const members = [{ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' }];
         render(
             createTestComponent({
                 type: ProposalActionType.ADD_MEMBERS,
-                currentMemberCount,
-                changingMembers,
+                currentMembers,
+                members,
             }),
         );
 
@@ -56,24 +56,24 @@ describe('<ProposalActionAdjustMemberCount /> component', () => {
         ).toBeInTheDocument();
         expect(
             screen.getByText(
-                `+${changingMembers.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
+                `+${members.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
             ),
         ).toBeInTheDocument();
         expect(
             screen.getByText(
-                `${currentMemberCount + changingMembers.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
+                `${currentMembers + members.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
             ),
         ).toBeInTheDocument();
     });
 
     it('renders correctly for removing members', () => {
-        const currentMemberCount = 7;
-        const changingMembers = [{ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' }];
+        const currentMembers = 7;
+        const members = [{ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' }];
         render(
             createTestComponent({
                 type: ProposalActionType.REMOVE_MEMBERS,
-                currentMemberCount,
-                changingMembers,
+                currentMembers,
+                members,
             }),
         );
 
@@ -82,12 +82,12 @@ describe('<ProposalActionAdjustMemberCount /> component', () => {
         ).toBeInTheDocument();
         expect(
             screen.getByText(
-                `-${changingMembers.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
+                `-${members.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
             ),
         ).toBeInTheDocument();
         expect(
             screen.getByText(
-                `${currentMemberCount - changingMembers.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
+                `${currentMembers - members.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
             ),
         ).toBeInTheDocument();
     });

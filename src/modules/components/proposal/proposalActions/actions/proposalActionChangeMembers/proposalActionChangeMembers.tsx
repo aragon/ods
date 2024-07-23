@@ -18,7 +18,7 @@ export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersP
         <div className="flex flex-col gap-y-6">
             <DataList.Root entityLabel="Members">
                 <DataList.Container SkeletonElement={MemberDataListItem.Skeleton}>
-                    {action.changingMembers.map((member, index) => (
+                    {action.members.map((member, index) => (
                         <MemberDataListItem.Structure
                             key={`member-${index}`}
                             address={member.address}
@@ -38,18 +38,19 @@ export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersP
                         </p>
                         <p className="col-span-3 text-neutral-500">
                             {action.type === ProposalActionType.ADD_MEMBERS ? `+` : `-`}
-                            {action.changingMembers.length}{' '}
-                            {copy.proposalActionsAction.proposalActionChangeMembers.members}
+                            {action.members.length} {copy.proposalActionsAction.proposalActionChangeMembers.members}
                         </p>
                     </div>
                     <div className="h-0 w-full border-b border-neutral-100" />
                     <div className="flex flex-col gap-y-1 py-3 md:grid md:grid-cols-4">
-                        <p className="col-span-1 text-neutral-800">Total members</p>
+                        <p className="col-span-1 text-neutral-800">
+                            {copy.proposalActionsAction.proposalActionChangeMembers.existingMembers}
+                        </p>
                         <div className="col-span-3 flex flex-col gap-y-1">
                             <p className="text-neutral-500">
                                 {action.type === ProposalActionType.ADD_MEMBERS
-                                    ? action.currentMemberCount + action.changingMembers.length
-                                    : action.currentMemberCount - action.changingMembers.length}{' '}
+                                    ? action.currentMembers + action.members.length
+                                    : action.currentMembers - action.members.length}{' '}
                                 {copy.proposalActionsAction.proposalActionChangeMembers.members}
                             </p>
                             <p className="text-sm text-neutral-500">

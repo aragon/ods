@@ -10,9 +10,9 @@ export interface IProposalActionChangeMembers extends IProposalAction {
     /**
      * The members that are being added or removed
      */
-    changingMembers: ICompositeAddress[];
+    members: ICompositeAddress[];
     /**
-     * The current member count
+     * The number of members of the DAO when the proposal is created
      */
-    currentMemberCount: number;
+    currentMembers: number;
 }

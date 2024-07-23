@@ -1,6 +1,11 @@
 import { ProposalActionWithdrawToken } from './actions';
 import { ProposalActionChangeMembers } from './actions/proposalActionChangeMembers';
-import { type IProposalAction, type IProposalActionChangeMembers, type IProposalActionWithdrawToken, ProposalActionType } from './proposalActionsTypes';
+import {
+    type IProposalAction,
+    type IProposalActionChangeMembers,
+    type IProposalActionWithdrawToken,
+    ProposalActionType,
+} from './proposalActionsTypes';
 
 class ProposalActionsUtils {
     getActionComponent = (action: IProposalAction) => {

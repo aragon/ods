@@ -42,8 +42,8 @@ export const modulesCopy = {
                 addMembers: 'Add members',
                 removeMembers: 'Remove members',
             },
-            totalMembers: 'Total members',
-            blockNote: 'This is by the current block number, and might change in the future',
+            existingMembers: 'Existing members',
+            blockNote: 'At the block in which the proposal was created.',
         },
     },
     proposalDataListItemStatus: {
