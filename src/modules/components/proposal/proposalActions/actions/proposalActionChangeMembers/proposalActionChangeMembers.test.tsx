@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { modulesCopy } from '../../../../../assets';
-import { ProposalActionType, type IProposalActionChangeMembers } from '../../proposalActionsTypes';
+import { ProposalActionType } from '../../proposalActionsTypes';
 import { generateProposalActionChangeMembers } from '../generators/proposalActionChangeMembers';
-import { ProposalActionChangeMembers } from './proposalActionChangeMembers';
+import { type IProposalActionChangeMembersProps, ProposalActionChangeMembers } from './proposalActionChangeMembers';
 
 jest.mock('../../../../../../core', () => ({
     DataList: {
@@ -24,30 +24,24 @@ jest.mock('../../../../member', () => ({
     },
 }));
 
-describe('<ProposalActionAdjustMemberCount /> component', () => {
-    const createTestComponent = (props?: Partial<IProposalActionChangeMembers>) => {
-        const defaultProps = {
-            action: generateProposalActionChangeMembers(props),
+describe('<ProposalActionChangeMembers /> component', () => {
+    const createTestComponent = (props?: Partial<IProposalActionChangeMembersProps>) => {
+        const completeProps: IProposalActionChangeMembersProps = {
+            action: generateProposalActionChangeMembers(),
+            ...props,
         };
 
-        return <ProposalActionChangeMembers {...defaultProps} />;
+        return <ProposalActionChangeMembers {...completeProps} />;
     };
 
-    it('renders without crashing', () => {
-        render(createTestComponent());
-        expect(
-            screen.getByText(modulesCopy.proposalActionsAction.proposalActionChangeMembers.summary),
-        ).toBeInTheDocument();
-    });
-
     it('renders correctly for adding members', () => {
+        const type = ProposalActionType.ADD_MEMBERS;
         const currentMembers = 5;
         const members = [{ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' }];
+        const action = generateProposalActionChangeMembers({ type, currentMembers, members });
         render(
             createTestComponent({
-                type: ProposalActionType.ADD_MEMBERS,
-                currentMembers,
-                members,
+                action,
             }),
         );
 
@@ -67,13 +61,13 @@ describe('<ProposalActionAdjustMemberCount /> component', () => {
     });
 
     it('renders correctly for removing members', () => {
+        const type = ProposalActionType.REMOVE_MEMBERS;
         const currentMembers = 7;
         const members = [{ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' }];
+        const action = generateProposalActionChangeMembers({ type, currentMembers, members });
         render(
             createTestComponent({
-                type: ProposalActionType.REMOVE_MEMBERS,
-                currentMembers,
-                members,
+                action,
             }),
         );
 

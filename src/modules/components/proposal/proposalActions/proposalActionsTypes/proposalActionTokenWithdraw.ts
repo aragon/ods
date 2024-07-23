@@ -4,47 +4,47 @@ import type { ProposalActionType } from './proposalActionType';
 
 export interface IProposalActionWithdrawToken extends IProposalAction {
     /**
-     * Withdraw token action
+     * Withdraw token action type.
      */
     type: ProposalActionType.WITHDRAW_TOKEN;
     /**
-     * Sender handle--the DAO treasury in this case--object with address and optional ensName
+     * Sender handle (the DAO treasury in this case), object with address and optional ensName.
      */
     sender: ICompositeAddress;
     /**
-     * Receiver handle, object with address and optional ensName
+     * Receiver handle, object with address and optional ensName.
      */
     receiver: ICompositeAddress;
     /**
-     * Amount to withdraw
+     * Amount of tokens to withdraw.
      */
     amount: string;
     /**
-     * Token details of the token to withdraw
+     * Token details of the token to withdraw.
      */
     token: {
         /**
-         * Token name
+         * Token name.
          */
         name: string;
         /**
-         * Token symbol
+         * Token symbol.
          */
         symbol: string;
         /**
-         * Token decimals
+         * Token decimals.
          */
         decimals: number;
         /**
-         * Token logo
+         * Token logo.
          */
         logo: string;
         /**
-         * Token price in USD
+         * Token price in USD.
          */
         priceUsd: string;
         /**
-         * Token address
+         * Token address.
          */
         address: string;
     };

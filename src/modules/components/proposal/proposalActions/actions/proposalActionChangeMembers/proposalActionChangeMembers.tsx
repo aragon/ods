@@ -14,13 +14,14 @@ export interface IProposalActionChangeMembersProps {
 export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersProps> = (props) => {
     const { action } = props;
     const { copy } = useOdsModulesContext();
+
     return (
         <div className="flex flex-col gap-y-6">
             <DataList.Root entityLabel="Members">
-                <DataList.Container SkeletonElement={MemberDataListItem.Skeleton}>
-                    {action.members.map((member, index) => (
+                <DataList.Container>
+                    {action.members.map((member) => (
                         <MemberDataListItem.Structure
-                            key={`member-${index}`}
+                            key={member.address}
                             address={member.address}
                             ensName={member.name}
                         />

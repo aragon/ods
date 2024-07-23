@@ -3,7 +3,6 @@ import { ProposalActionType, type IProposalActionChangeMembers } from '../../pro
 
 export const generateCompositeAddress = (address?: Partial<ICompositeAddress>): ICompositeAddress => ({
     address: '0x0000000000000000000000000000000000000000',
-    name: '',
     ...address,
 });
 
