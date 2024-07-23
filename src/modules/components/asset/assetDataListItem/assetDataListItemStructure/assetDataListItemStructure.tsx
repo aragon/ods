@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import type React from 'react';
 import { useMemo } from 'react';
 import { Avatar, DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 
 export interface IAssetDataListItemStructureProps extends IDataListItemProps {
     /**
@@ -45,6 +46,8 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
         return fiatAmount - oldFiatAmount;
     }, [fiatAmount, fiatPrice, priceChange]);
 
+    const { copy } = useOdsModulesContext();
+
     const changedAmountClasses = classNames(
         'text-sm font-normal leading-tight md:text-base',
         { 'text-success-800': fiatAmountChanged > 0 },
@@ -80,10 +83,10 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
                 <div className="flex items-center">
                     <Avatar src={logoSrc} responsiveSize={{ md: 'md', sm: 'sm' }} className="block" />
                 </div>
-                <div className="flex w-full justify-between">
-                    <div className="flex flex-col gap-y-0.5">
+                <div className="flex w-full min-w-0 shrink justify-between gap-3">
+                    <div className="flex flex-col gap-y-0.5 truncate">
                         <span className="truncate text-sm leading-tight text-neutral-800 md:text-base">{name}</span>
-                        <p className="text-sm leading-tight text-neutral-500 md:text-base">
+                        <p className="truncate text-sm leading-tight text-neutral-500 md:text-base">
                             <span>{formattedAmount} </span>
                             <span className="truncate">{symbol}</span>
                         </p>
@@ -100,7 +103,9 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
                                 </div>
                             </>
                         ) : (
-                            <span className="text-sm leading-tight text-neutral-800 md:text-base">Unknown</span>
+                            <span className="text-sm leading-tight text-neutral-800 md:text-base">
+                                {copy.assetDataListItemStructure.unknown}
+                            </span>
                         )}
                     </div>
                 </div>

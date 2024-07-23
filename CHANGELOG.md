@@ -9,6 +9,114 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+-   Add `ProposalActionTokenMint` module component
+-   Add optional `hideLabelTokenVoting` and `tokenSymbol` props to the `MemberDataListItemStructure` module component
+-   Add `ProposalAction` module component
+
+### Changed
+
+-   Renamed `votingPower` prop to `tokenAmount` in the `MemberDataListItemStructure` module component
+-   Update interface for `Accordion.Container` to expose value prop
+-   Update styles on `Tabs.List` for latest spec
+-   Rename `indicator` property of `<Progress />` core component to `thresholdIndicator`
+-   Bump `softprops/action-gh-release` from 2.0.6 to 2.0.8
+-   Bump `ws` from 7.5.9 to 7.5.10
+-   Update minor and patch NPM dependencies
+
+## [1.0.39] - 2024-07-16
+
+### Changed
+
+-   Update minor and patch NPM dependencies
+-   Update `useBlockExplorer` hook to return information about the block explorer
+
+## [1.0.38] - 2024-07-16
+
+### Added
+
+-   Add new `variant` prop to core `Progress` component, which defaults to `primary`
+-   Add new optional `indicator` prop to core `Progress` component
+-   Add reset filter functionality to `DataListFilter` core component
+
+### Fixed
+
+-   Remove fixed width from `EmptyState` core component
+-   Center `CardEmptyState` core component
+-   Truncate long strings on `DaoDataListItem`, `AssetDataListItem`, `VoteDataListItem` module components
+-   Fix errors and warnings thrown on component tests
+
+### Changed
+
+-   Bump `prettier-plugin-organize-imports` to 4.0.0
+-   Update minor and patch NPM dependencies
+-   Update minor and patch Github workflow dependencies
+
+## [1.0.37] - 2024-07-08
+
+### Changed
+
+-   Format dates with `formatterUtils` within components
+-   Update minor and patch NPM dependencies
+
+## [1.0.36] - 2024-06-28
+
+### Changed
+
+-   Reduce the use of controlled components in stories to improve code visibility in Storybook
+-   Export `DateFormat` and additional types for handling dates with the `FormatterUtils`
+-   Update required parameters of `useBlockExplorer` hook, implement enum for chain entity types
+
+## [1.0.35] - 2024-06-28
+
+### Added
+
+-   Implement `VoteProposalDataListItem` with Structure and Skeleton module
+-   Add `useBlockExplorer` hook to generate block explorer links
+-   Add `formatDate` utility function to `formatterUtils` to format dates
+-   Add support for copy customization
+-   Add `contentClassNames` property to `Dropdown.Container` component to support custom max width
+
+### Changed
+
+-   Remove Radix props dependency
+-   Update minor and patch Github action dependencies
+-   Update minor and patch NPM dependencies
+-   Revert to using `react-docgen-typescript` for Storybook documentation generation
+
+## [1.0.34] - 2024-06-21
+
+### Fixed
+
+-   Ensure `MemberAvatar` component only creates the blockies url on client environment
+
+### Changed
+
+-   Bump `@rollup/plugin-commonjs` from `25.0.8` to `26.0.1`
+-   Update minor and patch dependencies of Github workflows
+-   Update minor and patch NPM dependencies
+-   Update `yarn` version to `4.3.0`
+-   Update unit tests to use userEvent instead of fireEvent
+-   Move all form items under a `forms` folder
+-   Upgrade storybook to v8
+-   Update `MemberDataListItem` component to support `votingPower` property set as string
+
+### Added
+
+-   Handle new `layoutClassnames` property on `DataList.Container` component to simplify implementation of custom
+    `DataList` layouts
+-   Create `ssrUtils` core utilities
+
+## [1.0.33] - 2024-06-06
+
+### Fixed
+
+-   Correctly export `Collapsible` core component
+
+## [1.0.32] - 2024-06-04
+
+### Added
+
+-   Implement `Wallet` module component
 -   Implement `VoteDataListItem` with Structure and Skeleton module
 -   Implement `ghost` variant for `Button` component
 -   Implement `primaryInverted` variant for `Spinner` component
@@ -21,6 +129,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update sizes of `Avatar` core component
 -   Update style of `Button`, `CheckboxCard`, `InputContainer`, `RadioCard`, `Spinner` and `Switch` components
 -   Cleanup size class definitions to use `size-*` instead of `h-* w-*`
+-   Cleanup `shink-0` class usage across components
+-   Add `data-testid` attribute to svg files
+
+### Fixed
+
+-   Fix responsiveness classes and utilities to support style for screens below `sm` breakpoint
+-   Export module utilities
 
 ## [1.0.31] - 2024-05-24
 

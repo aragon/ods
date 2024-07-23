@@ -47,22 +47,25 @@ describe('<Dropdown.Container /> component', () => {
     });
 
     it('correctly triggers the onOpenChange callback on dropdown trigger click', async () => {
+        const user = userEvent.setup();
         const onOpenChange = jest.fn();
         render(createTestComponent({ onOpenChange }));
-        await userEvent.click(screen.getByRole('button'));
+        await user.click(screen.getByRole('button'));
         expect(onOpenChange).toHaveBeenCalledWith(true);
     });
 
     it('correctly triggers the onOpenChange callback on dropdown item click', async () => {
+        const user = userEvent.setup();
         const onOpenChange = jest.fn();
         const children = [<DropdownItem key="first">First</DropdownItem>];
         render(createTestComponent({ onOpenChange, children }));
-        await userEvent.click(screen.getByRole('button'));
-        await userEvent.click(screen.getByRole('menuitem'));
+        await user.click(screen.getByRole('button'));
+        await user.click(screen.getByRole('menuitem'));
         expect(onOpenChange).toHaveBeenLastCalledWith(false);
     });
 
     it('renders the customTrigger instead of the default button when specified', async () => {
+        const user = userEvent.setup();
         const onOpenChange = jest.fn();
         const customTrigger = <button>test</button>;
         render(createTestComponent({ onOpenChange, customTrigger }));
@@ -70,18 +73,29 @@ describe('<Dropdown.Container /> component', () => {
         const trigger = screen.getByRole('button', { name: 'test' });
         expect(trigger).toBeInTheDocument();
 
-        await userEvent.click(trigger!);
+        await user.click(trigger!);
         expect(onOpenChange).toHaveBeenCalled();
     });
 
     it('prevents moving focus back to the trigger on menu close to be able to open dialogs on menu-item click', async () => {
+        const user = userEvent.setup();
         const children = <DropdownItem>item-label</DropdownItem>;
         render(createTestComponent({ children }));
         const trigger = screen.getByRole('button');
 
-        await userEvent.click(trigger);
-        await userEvent.click(screen.getByRole('menuitem'));
+        await user.click(trigger);
+        await user.click(screen.getByRole('menuitem'));
 
         expect(trigger).not.toHaveFocus();
+    });
+
+    it('does not set any max width or height to the dropdown container when the constrainContentWidth and constrainContentHeight properties are set to false', async () => {
+        const user = userEvent.setup();
+        const constrainContentWidth = false;
+        const constrainContentHeight = false;
+        render(createTestComponent({ constrainContentHeight, constrainContentWidth }));
+        await user.click(screen.getByRole('button'));
+        expect(screen.getByRole('menu').className).not.toMatch(/max-w/);
+        expect(screen.getByRole('menu').className).not.toMatch(/max-h/);
     });
 });

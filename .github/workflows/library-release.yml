@@ -21,11 +21,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.1.6
+        uses: actions/checkout@v4.1.7
         with:
           token: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Setup Node
-        uses: actions/setup-node@v4.0.2
+        uses: actions/setup-node@v4.0.3
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: ${{ env.NODE_CACHE }}

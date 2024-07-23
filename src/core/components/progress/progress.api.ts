@@ -3,6 +3,8 @@ import { type ResponsiveAttribute } from '../../types';
 
 export type ProgressSize = 'sm' | 'md';
 
+export type ProgressVariant = 'primary' | 'neutral' | 'success' | 'critical';
+
 export interface IProgressProps extends HTMLAttributes<HTMLDivElement> {
     /**
      * Size of progress component.
@@ -17,4 +19,13 @@ export interface IProgressProps extends HTMLAttributes<HTMLDivElement> {
      * Current progress to be rendered.
      */
     value: number;
+    /**
+     * Variant of the progress component.
+     * @default primary
+     */
+    variant?: ProgressVariant;
+    /**
+     * Threshold displayed with an indicator on the progress bar.
+     */
+    thresholdIndicator?: number;
 }

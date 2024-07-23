@@ -5,7 +5,6 @@ import { MemberDataListItemStructure } from './memberDataListItemStructure';
 const meta: Meta<typeof MemberDataListItemStructure> = {
     title: 'Modules/Components/Member/MemberDataListItem/MemberDataListItem.Structure',
     component: MemberDataListItemStructure,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
@@ -33,15 +32,53 @@ export const Default: Story = {
 };
 
 /**
- * Example of the MemberDataList module component with fully loaded props and token voting.
+ * Example of the MemberDataList module component with a TokenVoting member without voting power.
  */
-export const Loaded: Story = {
+export const TokenMemberWithoutVotingPower: Story = {
+    args: {
+        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+        tokenAmount: 0,
+        tokenSymbol: 'PDC',
+    },
+    render: (args) => (
+        <DataList.Root entityLabel="Members">
+            <DataList.Container>
+                <MemberDataListItemStructure {...args} />
+            </DataList.Container>{' '}
+        </DataList.Root>
+    ),
+};
+
+/**
+ * Example of the MemberDataList module component with a TokenVoting member with voting power.
+ */
+export const TokenMemberWithVotingPower: Story = {
+    args: {
+        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+        delegationCount: 0,
+        tokenAmount: 4820,
+        tokenSymbol: 'PDC',
+    },
+    render: (args) => (
+        <DataList.Root entityLabel="Members">
+            <DataList.Container>
+                <MemberDataListItemStructure {...args} />
+            </DataList.Container>{' '}
+        </DataList.Root>
+    ),
+};
+
+/**
+ * Example of the MemberDataList module component with complete props.
+ */
+export const Complete: Story = {
     args: {
         isDelegate: true,
         ensName: 'vitalik.eth',
         address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
         delegationCount: 9,
-        votingPower: 13370,
+        tokenAmount: 13370,
+        tokenSymbol: 'PDC',
     },
     render: (args) => (
         <DataList.Root entityLabel="Members">

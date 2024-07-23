@@ -5,7 +5,6 @@ import { DaoDataListItemStructure } from './daoDataListItemStructure';
 const meta: Meta<typeof DaoDataListItemStructure> = {
     title: 'Modules/Components/Dao/DaoDataListItem/DaoDataListItem.Structure',
     component: DaoDataListItemStructure,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
@@ -28,6 +27,26 @@ export const Default: Story = {
         plugin: 'token-based',
         network: 'Ethereum Mainnet',
         ens: 'patito.dao.eth',
+    },
+    render: (props) => (
+        <DataList.Root entityLabel="Daos">
+            <DataList.Container>
+                <DaoDataListItemStructure {...props} />
+            </DataList.Container>
+        </DataList.Root>
+    ),
+};
+
+/* Usage with extra long strings for name & ENS */
+export const LongNames: Story = {
+    args: {
+        name: 'A DAO With An Extremely Long Name That Should Be Truncated DAO',
+        logoSrc: 'https://cdn.discordapp.com/icons/672466989217873929/acffa3e9e09ac5962ff803a5f8649040.webp?size=240',
+        description:
+            'Papito DAO is responsible for maximizing effective coordination and collaboration between different Patito teams and enabling them to perform at their best ability with the highest velocity they can achieve. Our main focus is on managing the day-to-day tasks of the Patito Guilds, such as enabling contractual relationships, legal operations, accounting, finance, and HR. We are also responsible for addressing any issues that may arise within the teams and deploying new tools, and infrastructure to ensure smooth operations.',
+        plugin: 'token-based',
+        network: 'Ethereum Mainnet',
+        ens: 'a_dao_with_an_extremely_long_ens_name_that_should_be_truncated.dao.eth',
     },
     render: (props) => (
         <DataList.Root entityLabel="Daos">

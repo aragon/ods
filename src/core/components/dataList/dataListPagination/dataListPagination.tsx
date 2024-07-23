@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import type { ComponentProps } from 'react';
 import { Button } from '../../button';
 import { IconType } from '../../icon';
+import { useOdsCoreContext } from '../../odsCoreProvider';
 import { Progress } from '../../progress';
 import { useDataListContext } from '../dataListContext';
 
@@ -19,6 +20,8 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
         handleLoadMore,
         entityLabel,
     } = useDataListContext();
+
+    const { copy } = useOdsCoreContext();
 
     const currentlyDisplayed = Math.min(pageSize * (currentPage + 1), childrenItemCount);
 
@@ -41,17 +44,18 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
                 disabled={!hasMore}
                 isLoading={state === 'fetchingNextPage'}
             >
-                {/* TODO: apply internationalisation to More label [APP-2627] */}
-                More
+                {copy.dataListPagination.more}
             </Button>
             {itemsCount > 0 && (
                 <>
                     <Progress value={progressValue} size="sm" responsiveSize={{ md: 'md' }} />
                     <p className="shrink-0 text-base font-normal leading-tight text-neutral-500">
-                        {/* TODO: apply internationalisation to "OF" label [APP-2627] */}
                         <span className="text-neutral-800">{currentlyDisplayed} </span>
                         <span>
-                            of {itemsCount} {entityLabel}
+                            {copy.dataListPagination.outOf({
+                                total: itemsCount,
+                                entityLabel,
+                            })}
                         </span>
                     </p>
                 </>

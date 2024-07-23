@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Dialog, type IDialogRootProps } from '..';
+import { Dialog } from '..';
 import { Button } from '../../../button';
 
 const meta: Meta<typeof Dialog.Root> = {
     title: 'Core/Components/Dialogs/Dialog/Dialog.Root',
     component: Dialog.Root,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
@@ -17,35 +16,33 @@ const meta: Meta<typeof Dialog.Root> = {
 
 type Story = StoryObj<typeof Dialog.Root>;
 
-const ControlledComponent = (props: IDialogRootProps) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <>
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Show Dialog
-            </Button>
-            <Dialog.Root {...props} open={open} onOpenChange={setOpen}>
-                <Dialog.Header title="Dialog Title" />
-                <Dialog.Content>
-                    <p className="py-2 text-neutral-800">Very important content here!</p>
-                </Dialog.Content>
-                <Dialog.Footer
-                    primaryAction={{ label: 'Primary action' }}
-                    secondaryAction={{ label: 'Secondary action' }}
-                    alert={{ message: 'Very informative alert message' }}
-                />
-            </Dialog.Root>
-        </>
-    );
-};
-
 /**
  * Default usage of the `Dialog.Root` component
  */
 export const Default: Story = {
     args: {},
-    render: (props) => <ControlledComponent {...props} />,
+    render: (props) => {
+        const [open, setOpen] = useState(false);
+
+        return (
+            <>
+                <Button variant="primary" onClick={() => setOpen(true)}>
+                    Show Dialog
+                </Button>
+                <Dialog.Root {...props} open={open} onOpenChange={setOpen}>
+                    <Dialog.Header title="Dialog Title" />
+                    <Dialog.Content>
+                        <p className="py-2 text-neutral-800">Very important content here!</p>
+                    </Dialog.Content>
+                    <Dialog.Footer
+                        primaryAction={{ label: 'Primary action' }}
+                        secondaryAction={{ label: 'Secondary action' }}
+                        alert={{ message: 'Very informative alert message' }}
+                    />
+                </Dialog.Root>
+            </>
+        );
+    },
 };
 
 export default meta;

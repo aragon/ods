@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { IconType } from '../../icon';
 import { CardSummary } from './cardSummary';
 import type { ICardSummaryProps } from './cardSummary.api';
@@ -30,7 +31,8 @@ describe('<CardSummary /> component', () => {
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
 
-    it('renders the specified action', () => {
+    it('renders the specified action', async () => {
+        const user = userEvent.setup();
         const label = 'action-test';
         const onClick = jest.fn();
         const action = { label, onClick };
@@ -39,7 +41,7 @@ describe('<CardSummary /> component', () => {
         const button = screen.getByRole('button', { name: label });
         expect(button).toBeInTheDocument();
 
-        fireEvent.click(button);
+        await user.click(button);
         expect(onClick).toHaveBeenCalled();
     });
 });

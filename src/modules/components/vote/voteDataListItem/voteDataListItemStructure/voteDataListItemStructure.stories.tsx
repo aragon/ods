@@ -5,7 +5,6 @@ import { DataList } from '../../../../../core';
 const meta: Meta<typeof VoteDataListItem.Structure> = {
     title: 'Modules/Components/Vote/VoteDataListItem/VoteDataListItem.Structure',
     component: VoteDataListItem.Structure,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
@@ -41,7 +40,29 @@ export const TokenVoting: Story = {
 export const Multisig: Story = {
     args: {
         voter: { address: '0x1234567890123456789012345678901234567890', name: 'vitalik.eth' },
-        voteIndicator: 'approved',
+        voteIndicator: 'approve',
+    },
+    render: (args) => (
+        <DataList.Root entityLabel="Votes">
+            <DataList.Container>
+                <VoteDataListItem.Structure {...args} />
+            </DataList.Container>
+        </DataList.Root>
+    ),
+};
+
+/**
+ * Usage example of the VotesDataListItem module component for a token based vote with large number and long ens name.
+ */
+export const TokenVotingLongNames: Story = {
+    args: {
+        voter: {
+            address: '0x1234567890123456789012345678901234567890',
+            name: 'theLongestEnsDomainEverThatWillTruncateWhenNeeded.eth',
+        },
+        voteIndicator: 'yes',
+        votingPower: 123456789,
+        tokenSymbol: 'PDC',
     },
     render: (args) => (
         <DataList.Root entityLabel="Votes">

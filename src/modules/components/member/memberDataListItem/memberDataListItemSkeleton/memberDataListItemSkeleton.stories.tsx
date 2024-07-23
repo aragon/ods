@@ -5,7 +5,6 @@ import { DataList } from '../../../../../core';
 const meta: Meta<typeof MemberDataListItem.Skeleton> = {
     title: 'Modules/Components/Member/MemberDataListItem/MemberDataListItem.Skeleton',
     component: MemberDataListItem.Skeleton,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

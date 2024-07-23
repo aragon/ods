@@ -6,7 +6,7 @@ import { DialogHeader, type IDialogHeaderProps } from './dialogHeader';
 
 describe('<Dialog.Header/> component', () => {
     const createTestComponent = (props?: Partial<IDialogHeaderProps>) => {
-        const completeProps: IDialogHeaderProps = { title: 'title', ...props };
+        const completeProps: IDialogHeaderProps = { title: 'title', description: 'test', ...props };
 
         return (
             <DialogRoot open={true}>
@@ -38,12 +38,13 @@ describe('<Dialog.Header/> component', () => {
     });
 
     it('calls onBackClick when the back button is clicked', async () => {
+        const user = userEvent.setup();
         const handleBackClick = jest.fn();
 
         render(createTestComponent({ showBackButton: true, onBackClick: handleBackClick }));
 
         const backIcon = screen.getByTestId(IconType.CHEVRON_LEFT);
-        await userEvent.click(backIcon);
+        await user.click(backIcon);
 
         expect(handleBackClick).toHaveBeenCalled();
     });

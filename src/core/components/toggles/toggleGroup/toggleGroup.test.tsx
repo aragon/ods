@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { Toggle } from '../toggle';
 import { ToggleGroup, type IToggleGroupBaseProps, type IToggleGroupProps } from './toggleGroup';
 
@@ -22,22 +23,24 @@ describe('<ToggleGroup /> component', () => {
         expect(screen.getAllByRole('radio')).toHaveLength(children.length);
     });
 
-    it('correctly updates the active value on toggle click', () => {
+    it('correctly updates the active value on toggle click', async () => {
+        const user = userEvent.setup();
         const onChange = jest.fn();
         const value = 'test';
         const children = [<Toggle key={value} value={value} label={value} />];
         const { rerender } = render(createTestComponent({ onChange, children }));
 
-        fireEvent.click(screen.getByRole('radio'));
+        await user.click(screen.getByRole('radio'));
         expect(onChange).toHaveBeenCalledWith(value);
 
         rerender(createTestComponent({ value, onChange, children }));
 
-        fireEvent.click(screen.getByRole('radio'));
+        await user.click(screen.getByRole('radio'));
         expect(onChange).toHaveBeenCalledWith('');
     });
 
-    it('correctly updates the active values on toggle click on multi-select variant', () => {
+    it('correctly updates the active values on toggle click on multi-select variant', async () => {
+        const user = userEvent.setup();
         const onChange = jest.fn();
         const isMultiSelect = true;
         const firstValue = 'first';
@@ -48,13 +51,13 @@ describe('<ToggleGroup /> component', () => {
         ];
         const { rerender } = render(createTestComponent({ onChange, children, isMultiSelect }));
 
-        fireEvent.click(screen.getByRole('button', { name: firstValue }));
+        await user.click(screen.getByRole('button', { name: firstValue }));
         const newValue = [firstValue];
         expect(onChange).toHaveBeenCalledWith(newValue);
 
         rerender(createTestComponent({ value: newValue, onChange, children, isMultiSelect }));
 
-        fireEvent.click(screen.getByRole('button', { name: secondValue }));
+        await user.click(screen.getByRole('button', { name: secondValue }));
         expect(onChange).toHaveBeenCalledWith([...newValue, secondValue]);
     });
 });

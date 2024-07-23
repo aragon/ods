@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import { useConfig } from 'wagmi';
 import { Avatar, AvatarIcon, IconType, LinkBase, NumberFormat, formatterUtils } from '../../../../core';
+import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../types';
 import { AssetTransferAddress } from './assetTransferAddress';
 
@@ -18,7 +18,7 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
      */
     assetName: string;
     /**
-     * Icon URL of the tranferred asset.
+     * Icon URL of the transferred asset.
      */
     assetIconSrc?: string;
     /**
@@ -54,19 +54,14 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         assetFiatPrice,
         chainId,
         hash,
-        wagmiConfig: wagmiConfigProps,
+        wagmiConfig,
     } = props;
 
-    const wagmiConfigProvider = useConfig();
+    const { buildEntityUrl } = useBlockExplorer({ chains: wagmiConfig?.chains, chainId });
 
-    const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
-
-    const processedChainId = chainId ?? wagmiConfig.chains[0].id;
-
-    const currentChain = wagmiConfig.chains.find(({ id }) => id === processedChainId);
-    const blockExplorerUrl = currentChain?.blockExplorers?.default.url;
-
-    const blockExplorerAssembledHref = blockExplorerUrl ? `${blockExplorerUrl}/tx/${hash}` : undefined;
+    const senderUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: sender.address });
+    const recipientUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: recipient.address });
+    const transactionUrl = buildEntityUrl({ type: ChainEntityType.TRANSACTION, id: hash });
 
     const formattedTokenValue = formatterUtils.formatNumber(assetAmount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
@@ -91,7 +86,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
     return (
         <div className="flex size-full flex-col gap-y-2 md:gap-y-3">
             <div className="relative flex h-full flex-col rounded-xl bg-neutral-0 md:flex-row">
-                <AssetTransferAddress txRole="sender" participant={sender} blockExplorerUrl={blockExplorerUrl} />
+                <AssetTransferAddress txRole="sender" participant={sender} addressUrl={senderUrl} />
                 <div className="border-t border-neutral-100 md:border-l" />
                 <AvatarIcon
                     icon={IconType.CHEVRON_DOWN}
@@ -101,10 +96,10 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                         'md:left-1/2 md:-translate-x-1/2 md:-rotate-90', //responsive
                     )}
                 />
-                <AssetTransferAddress txRole="recipient" participant={recipient} blockExplorerUrl={blockExplorerUrl} />
+                <AssetTransferAddress txRole="recipient" participant={recipient} addressUrl={recipientUrl} />
             </div>
             <LinkBase
-                href={blockExplorerAssembledHref}
+                href={transactionUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={assetTransferClassNames}

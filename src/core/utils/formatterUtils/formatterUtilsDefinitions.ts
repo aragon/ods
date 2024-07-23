@@ -1,7 +1,9 @@
-export type DynamicOptionFunction<TOptionValue> = (value: number) => TOptionValue | undefined;
-export type DynamicOption<TOptionValue extends string | number = number> =
+import { DateTime, type DateTimeFormatOptions } from 'luxon';
+
+export type DynamicOptionFunction<TValue, TOptionValue> = (value: TValue) => TOptionValue | undefined;
+export type DynamicOption<TValue = number, TOptionValue extends string | number | boolean = number> =
     | TOptionValue
-    | DynamicOptionFunction<TOptionValue>;
+    | DynamicOptionFunction<TValue, TOptionValue>;
 
 export interface INumberFormat {
     /**
@@ -101,5 +103,52 @@ export const numberFormats: Record<NumberFormat, INumberFormat> = {
     [NumberFormat.PERCENTAGE_LONG]: {
         fixedFractionDigits: 2,
         isPercentage: true,
+    },
+};
+
+export enum DateFormat {
+    YEAR_MONTH_DAY_TIME = 'YEAR_MONTH_DAY_TIME',
+    YEAR_MONTH_DAY = 'YEAR_MONTH_DAY',
+    YEAR_MONTH = 'YEAR_MONTH',
+    DURATION = 'DURATION',
+    RELATIVE = 'RELATIVE',
+}
+
+export interface IDateFormat extends DateTimeFormatOptions {
+    /**
+     * Formats the date as relative calendar (yesterday, today, tomorrow, ..) when set to true. The date is formatted
+     * to a relative date only when the specified date is either yesterday, today or tomorrow. When the option is set
+     * to "with-time", the time is also added to the relative date.
+     */
+    useRelativeCalendar?: 'default' | 'with-time';
+    /**
+     * Formats the date as relative (1 day ago, in 2 days, 2 hours ago, ..) when set to true.
+     */
+    useRelativeDate?: boolean;
+    /**
+     * Returns the absolute date diff using the biggest unit greater than 1 (1 day, 7 hours, 22 seconds) when set to true.
+     */
+    isDuration?: boolean;
+}
+
+export const dateFormats: Record<DateFormat, IDateFormat> = {
+    [DateFormat.YEAR_MONTH_DAY_TIME]: {
+        ...DateTime.DATETIME_FULL,
+        timeZoneName: undefined,
+        useRelativeCalendar: 'with-time',
+    },
+    [DateFormat.YEAR_MONTH_DAY]: {
+        ...DateTime.DATE_FULL,
+        useRelativeCalendar: 'default',
+    },
+    [DateFormat.YEAR_MONTH]: {
+        year: 'numeric',
+        month: 'long',
+    },
+    [DateFormat.DURATION]: {
+        isDuration: true,
+    },
+    [DateFormat.RELATIVE]: {
+        useRelativeDate: true,
     },
 };

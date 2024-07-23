@@ -6,7 +6,6 @@ import { ToggleGroup, type IToggleGroupProps } from './toggleGroup';
 const meta: Meta<typeof ToggleGroup> = {
     title: 'Core/Components/Toggles/ToggleGroup',
     component: ToggleGroup,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
@@ -29,27 +28,23 @@ export const Default: Story = {
     ),
 };
 
-const ControlledComponent = (
-    props: Omit<IToggleGroupProps, 'value' | 'defaultValue' | 'onChange' | 'isMultiSelect'>,
-) => {
-    const [value, setValue] = useState<string>();
-
-    return (
-        <ToggleGroup isMultiSelect={false} value={value} onChange={setValue} {...props}>
-            <Toggle value="ethereum" label="Ethereum" />
-            <Toggle value="polygon" label="Polygon" />
-            <Toggle value="base" label="Base" />
-            <Toggle value="arbitrum" label="Arbitrum" />
-            <Toggle value="bsc" label="Binance Smart Chain" />
-        </ToggleGroup>
-    );
-};
-
 /**
  * Controlled usage example of the ToggleGroup component.
  */
 export const Controlled: Story = {
-    render: ({ value, onChange, isMultiSelect, ...props }) => <ControlledComponent {...props} />,
+    render: ({ value: omittedValue, defaultValue, onChange, isMultiSelect, ...props }) => {
+        const [value, setValue] = useState<string>();
+
+        return (
+            <ToggleGroup isMultiSelect={false} value={value} onChange={setValue} {...props}>
+                <Toggle value="ethereum" label="Ethereum" />
+                <Toggle value="polygon" label="Polygon" />
+                <Toggle value="base" label="Base" />
+                <Toggle value="arbitrum" label="Arbitrum" />
+                <Toggle value="bsc" label="Binance Smart Chain" />
+            </ToggleGroup>
+        );
+    },
 };
 
 const MultiSelectComponent = (

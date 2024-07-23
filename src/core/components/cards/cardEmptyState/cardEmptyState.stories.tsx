@@ -5,7 +5,6 @@ import { CardEmptyState } from '.';
 const meta: Meta<typeof CardEmptyState> = {
     title: 'Core/Components/Cards/CardEmptyState',
     component: CardEmptyState,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
@@ -24,6 +23,19 @@ export const Default: Story = {
     args: {
         heading: 'Heading',
         objectIllustration: { object: 'LIGHTBULB' },
+    },
+};
+
+export const HumanIllustration: Story = {
+    args: {
+        heading: 'Heading',
+        humanIllustration: {
+            body: 'VOTING',
+            hairs: 'MIDDLE',
+            accessory: 'EARRINGS_RHOMBUS',
+            sunglasses: 'BIG_ROUNDED',
+            expression: 'SMILE',
+        },
     },
 };
 

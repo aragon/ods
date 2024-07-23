@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Tooltip, type ITooltipProps } from './tooltip';
+import { Tooltip } from './tooltip';
 
 const meta: Meta<typeof Tooltip> = {
     title: 'Core/Components/Tooltip',
     component: Tooltip,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
@@ -34,18 +33,6 @@ export const Default: Story = {
     },
 };
 
-const ControlledComponent = (props: ITooltipProps) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div className="flex h-16 items-end">
-            <Tooltip {...props} open={open} onOpenChange={setOpen}>
-                <p className="border p-2 text-primary-300">Hover over me!</p>
-            </Tooltip>
-        </div>
-    );
-};
-
 /**
  * Controlled usage of the `Tooltip` component
  */
@@ -54,7 +41,15 @@ export const Controlled: Story = {
         content: 'Message',
     },
     render: (props) => {
-        return <ControlledComponent {...props} />;
+        const [open, setOpen] = useState(false);
+
+        return (
+            <div className="flex h-16 items-end">
+                <Tooltip {...props} open={open} onOpenChange={setOpen}>
+                    <p className="border p-2 text-primary-300">Hover over me!</p>
+                </Tooltip>
+            </div>
+        );
     },
 };
 

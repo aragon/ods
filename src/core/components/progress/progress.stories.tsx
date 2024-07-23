@@ -5,7 +5,6 @@ import { Progress, type IProgressProps } from '.';
 const meta: Meta<typeof Progress> = {
     title: 'Core/Components/Progress',
     component: Progress,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
@@ -23,10 +22,18 @@ export const Default: Story = {
     args: {
         value: 50,
     },
-    render: (props) => {
-        return <Progress {...props} />;
+};
+
+/**
+ * Example of progress component with a threshold indicator.
+ */
+export const WithIndicator: Story = {
+    args: {
+        value: 70,
+        thresholdIndicator: 50,
     },
 };
+
 /**
  * Separate functional component for animated progress.
  */

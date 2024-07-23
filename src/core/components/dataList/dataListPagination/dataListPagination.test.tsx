@@ -71,6 +71,7 @@ describe('<DataList.Pagination /> component', () => {
     });
 
     it('calls handleLoadMore callback with next page to load on load-more button click', async () => {
+        const user = userEvent.setup();
         const context = {
             state: 'idle' as const,
             childrenItemCount: 50,
@@ -79,7 +80,7 @@ describe('<DataList.Pagination /> component', () => {
             itemsCount: 50,
         };
         render(createTestComponent({ context }));
-        await userEvent.click(screen.getByRole('button'));
+        await user.click(screen.getByRole('button'));
         expect(context.handleLoadMore).toHaveBeenCalledWith(context.currentPage + 1);
     });
 

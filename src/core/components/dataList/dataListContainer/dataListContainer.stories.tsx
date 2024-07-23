@@ -4,7 +4,6 @@ import { DataList } from '..';
 const meta: Meta<typeof DataList.Container> = {
     title: 'Core/Components/DataList/DataList.Container',
     component: DataList.Container,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

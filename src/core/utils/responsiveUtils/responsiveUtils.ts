@@ -4,19 +4,19 @@ import type { ResponsiveAttribute, ResponsiveAttributeClassMap, ResponsiveSizeKe
 class ResponsiveUtils {
     generateClassNames<TSize extends ResponsiveSizeKey>(
         size: TSize,
-        responsiveSize: ResponsiveAttribute<TSize>,
+        responsiveSize: ResponsiveAttribute<TSize> = {},
         classes: ResponsiveAttributeClassMap<TSize>,
     ): string {
-        const defaultSize = classes[size].sm;
+        const { default: defaultClass } = classes[size];
 
         // Override with responsive size if specified.
-        const smClass = responsiveSize.sm ? classes[responsiveSize.sm].sm : defaultSize;
+        const smClass = responsiveSize.sm ? classes[responsiveSize.sm].sm : '';
         const mdClass = responsiveSize.md ? classes[responsiveSize.md].md : '';
         const lgClass = responsiveSize.lg ? classes[responsiveSize.lg].lg : '';
         const xlClass = responsiveSize.xl ? classes[responsiveSize.xl].xl : '';
         const twoXlClass = responsiveSize['2xl'] ? classes[responsiveSize['2xl']]['2xl'] : '';
 
-        return classNames(smClass, mdClass, lgClass, xlClass, twoXlClass);
+        return classNames(defaultClass, smClass, mdClass, lgClass, xlClass, twoXlClass);
     }
 }
 

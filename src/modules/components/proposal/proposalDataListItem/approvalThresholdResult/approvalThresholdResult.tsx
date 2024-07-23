@@ -1,4 +1,5 @@
 import { NumberFormat, Progress, formatterUtils } from '../../../../../core';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { type IApprovalThresholdResult } from '../proposalDataListItemStructure';
 
 export interface IApprovalThresholdResultProps extends IApprovalThresholdResult {}
@@ -10,14 +11,19 @@ export const ApprovalThresholdResult: React.FC<IApprovalThresholdResultProps> = 
     const { approvalAmount, approvalThreshold, stage } = props;
     const percentage = approvalThreshold !== 0 ? (approvalAmount / approvalThreshold) * 100 : 100;
 
+    const { copy } = useOdsModulesContext();
+
+    const formattedApprovalThreshold = formatterUtils.formatNumber(approvalThreshold, {
+        format: NumberFormat.GENERIC_SHORT,
+    })!;
+
     return (
-        //  TODO: apply internationalization to Approved By, of, Stage, and Members [APP-2627]
         <div className="flex w-full flex-col gap-y-2 rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 shadow-neutral-sm md:gap-y-3 md:px-6 md:py-5">
             <div className="flex flex-1 gap-x-3 leading-tight text-neutral-800 md:gap-x-6 md:text-lg">
                 <span className="line-clamp-1 flex-1">{stage?.title ?? 'Approved By'}</span>
                 {stage?.id != null && (
                     <span className="flex shrink-0 justify-between gap-x-0.5">
-                        <span className="flex-1 text-neutral-500">Stage</span>
+                        <span className="flex-1 text-neutral-500">{copy.approvalThresholdResult.stage}</span>
                         {stage.id}
                     </span>
                 )}
@@ -27,9 +33,7 @@ export const ApprovalThresholdResult: React.FC<IApprovalThresholdResultProps> = 
                 <span className="text-primary-400">
                     {formatterUtils.formatNumber(approvalAmount, { format: NumberFormat.GENERIC_SHORT })}
                 </span>
-                <span>of</span>
-                <span>{formatterUtils.formatNumber(approvalThreshold, { format: NumberFormat.GENERIC_SHORT })}</span>
-                <span>Members</span>
+                <span>{copy.approvalThresholdResult.outOf(formattedApprovalThreshold)}</span>
             </div>
         </div>
     );

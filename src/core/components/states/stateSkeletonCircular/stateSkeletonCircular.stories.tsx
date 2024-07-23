@@ -4,7 +4,6 @@ import { StateSkeletonCircular } from './stateSkeletonCircular';
 const meta: Meta<typeof StateSkeletonCircular> = {
     title: 'Core/Components/States/StateSkeletonCircular',
     component: StateSkeletonCircular,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

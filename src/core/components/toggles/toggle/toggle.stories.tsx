@@ -6,7 +6,6 @@ import { Toggle, type IToggleProps } from './toggle';
 const meta: Meta<typeof Toggle> = {
     title: 'Core/Components/Toggles/Toggle',
     component: Toggle,
-    tags: ['autodocs'],
     argTypes: {
         disabled: { control: 'boolean' },
     },

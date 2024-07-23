@@ -10,8 +10,8 @@ describe('<AssetTransferAddress /> component', () => {
         const completeProps = {
             txRole: 'sender' as const,
             participant: { address: '0x1D03D98c0aac1f83860cec5156116FE68725642E' },
-            // Optional, but setting blockExplorerUrl parameter to retrieve the link element through the getByRole utility
-            blockExplorerUrl: 'https://etherscan.io',
+            // Optional, but setting addressUrl parameter to retrieve the link element through the getByRole utility
+            addressUrl: 'https://etherscan.io/address/0xsomeaddress',
             ...props,
         };
         return (
@@ -56,22 +56,19 @@ describe('<AssetTransferAddress /> component', () => {
         expect(truncatedAddress).toBeNull();
     });
 
-    it('does not create a link if blockExplorerUrl is undefined', () => {
-        const blockExplorerUrl = undefined;
-        render(createTestComponent({ blockExplorerUrl }));
+    it('does not create a link if addressUrl is undefined', () => {
+        const addressUrl = undefined;
+        render(createTestComponent({ addressUrl }));
 
         const possibleLinkElement = screen.queryByRole('link');
         expect(possibleLinkElement).toBeNull();
     });
 
-    it('creates a link if blockExplorerUrl is defined', () => {
-        const blockExplorerUrl = 'https://etherscan.io';
-        render(createTestComponent({ blockExplorerUrl }));
+    it('creates a link if addressUrl is defined', () => {
+        const addressUrl = 'https://etherscan.io';
+        render(createTestComponent({ addressUrl }));
 
         const possibleLinkElement = screen.getByRole('link');
-        expect(possibleLinkElement).toHaveAttribute(
-            'href',
-            'https://etherscan.io/address/0x1D03D98c0aac1f83860cec5156116FE68725642E',
-        );
+        expect(possibleLinkElement).toHaveAttribute('href', addressUrl);
     });
 });

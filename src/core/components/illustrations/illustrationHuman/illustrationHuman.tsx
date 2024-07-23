@@ -76,13 +76,14 @@ export const IllustrationHuman: React.FC<IIllustrationHumanProps> = (props) => {
 
     return (
         <div className={classNames('relative', className)} style={computedStyle} {...otherProps}>
-            <Body />
-            <Expression {...commonProps} />
-            {Hairs && <Hairs {...commonProps} />}
-            {Sunglasses && <Sunglasses {...commonProps} />}
-            {Accessory && <Accessory {...commonProps} />}
+            <Body data-testid={body} />
+            <Expression data-testid={expression} {...commonProps} />
+            {Hairs && <Hairs data-testid={hairs} {...commonProps} />}
+            {Sunglasses && <Sunglasses data-testid={sunglasses} {...commonProps} />}
+            {Accessory && <Accessory data-testid={accessory} {...commonProps} />}
             {Object && (
                 <Object
+                    data-testid={object}
                     className={classNames(
                         'absolute top-0 h-[70%]',
                         { 'left-0': objectPosition === 'left' },

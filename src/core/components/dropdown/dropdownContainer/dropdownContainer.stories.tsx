@@ -5,7 +5,6 @@ import { Dropdown, type IDropdownContainerProps } from '../index';
 const meta: Meta<typeof Dropdown.Container> = {
     title: 'Core/Components/Dropdown/Dropdown.Container',
     component: Dropdown.Container,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
@@ -40,24 +39,35 @@ export const OnlyIcon: Story = {
     ),
 };
 
-const ControlledComponent = (props: IDropdownContainerProps) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    return (
-        <Dropdown.Container open={isOpen} onOpenChange={setIsOpen} {...props}>
-            <Dropdown.Item>Controlled item</Dropdown.Item>
-        </Dropdown.Container>
-    );
-};
-
 /**
  * Controlled usage of the DropdownContainer component.
  */
 export const Controlled: Story = {
-    render: (props: IDropdownContainerProps) => <ControlledComponent {...props} />,
+    render: (props) => {
+        const [isOpen, setIsOpen] = useState(false);
+
+        return (
+            <Dropdown.Container open={isOpen} onOpenChange={setIsOpen} {...props}>
+                <Dropdown.Item>Controlled item</Dropdown.Item>
+            </Dropdown.Container>
+        );
+    },
     args: {
         label: 'Controlled dropdown',
     },
+};
+
+/**
+ * Usage of the DropdownContainer component with a max width for the dropdown items.
+ */
+export const WithMaxWidth: Story = {
+    render: (props: IDropdownContainerProps) => (
+        <Dropdown.Container {...props} label="Max width" constrainContentWidth={false} contentClassNames="max-w-52">
+            <Dropdown.Item>
+                A vert long description for the dropdown item that will eventualy be truncated
+            </Dropdown.Item>
+        </Dropdown.Container>
+    ),
 };
 
 const SelectionComponent = (props: IDropdownContainerProps) => {

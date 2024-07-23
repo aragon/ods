@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { useAccount } from 'wagmi';
 import { DataList, Link, Tag } from '../../../../../core';
 import { addressUtils } from '../../../../utils/addressUtils';
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ApprovalThresholdResult } from '../approvalThresholdResult';
 import { MajorityVotingResult } from '../majorityVotingResult';
 import { ProposalDataListItemStatus } from '../proposalDataListItemStatus';
@@ -13,7 +14,7 @@ function parsePublisher(publisher: IPublisher, isConnected: boolean, connectedAd
     const publisherIsConnected = isConnected && addressUtils.isAddressEqual(publisher.address, connectedAddress);
     const publisherLabel = publisherIsConnected
         ? 'You'
-        : publisher.name ?? addressUtils.truncateAddress(publisher.address);
+        : (publisher.name ?? addressUtils.truncateAddress(publisher.address));
 
     return { label: publisherLabel, link: publisher.link };
 }
@@ -40,6 +41,8 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
     } = props;
 
     const { address: connectedAddress, isConnected } = useAccount({ config });
+
+    const { copy } = useOdsModulesContext();
 
     const ongoing = status === 'active' || status === 'challenged' || status === 'vetoed';
 
@@ -71,8 +74,12 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                         'min-h-5 gap-x-0.5 text-sm leading-tight text-neutral-600 md:min-h-6 md:gap-x-1 md:text-base',
                     )}
                 >
-                    By
-                    {showParsedPublisher === false && <span>3+ creators</span>}
+                    {copy.proposalDataListItemStructure.by}
+                    {showParsedPublisher === false && (
+                        <span>
+                            {maxPublishersDisplayed}+ {copy.proposalDataListItemStructure.creators}
+                        </span>
+                    )}
                     {showParsedPublisher &&
                         parsedPublisher.map(({ label, link }, index) => (
                             <span key={label} className="truncate">

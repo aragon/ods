@@ -8,7 +8,7 @@ export const VoteDataListItemSkeleton: React.FC<IVoteDataListItemSkeletonProps> 
     return (
         <DataList.Item tabIndex={0} aria-busy="true" aria-label="loading" {...otherProps}>
             <div className="flex items-center gap-x-3 py-1 md:gap-x-4 md:py-0.5">
-                <StateSkeletonCircular className="shrink-0" responsiveSize={{ md: 'md' }} />
+                <StateSkeletonCircular responsiveSize={{ md: 'md' }} />
                 <div className="flex w-full flex-col gap-y-1 md:gap-y-1.5">
                     <StateSkeletonBar width="60%" responsiveSize={{ md: 'lg' }} />
                     <StateSkeletonBar width="25%" responsiveSize={{ md: 'lg' }} />

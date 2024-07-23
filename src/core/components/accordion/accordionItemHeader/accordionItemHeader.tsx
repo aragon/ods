@@ -7,7 +7,7 @@ import { forwardRef, type ComponentPropsWithRef } from 'react';
 import { AvatarIcon } from '../../avatars';
 import { IconType } from '../../icon';
 
-export interface IAccordionItemHeaderProps extends ComponentPropsWithRef<typeof RadixAccordionTrigger> {}
+export interface IAccordionItemHeaderProps extends ComponentPropsWithRef<'button'> {}
 
 export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemHeaderProps>((props, ref) => {
     const { children, className, ...otherProps } = props;
@@ -25,7 +25,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                 {children}
                 <AvatarIcon
                     icon={IconType.CHEVRON_DOWN}
-                    className="shrink-0 transition-transform group-data-[state=open]:rotate-180 *:group-data-[disabled]:text-neutral-100"
+                    className="transition-transform group-data-[state=open]:rotate-180 *:group-data-[disabled]:text-neutral-100"
                 />
             </RadixAccordionTrigger>
         </RadixAccordionHeader>

@@ -1,4 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
+import { testLogger } from '../../test';
 import { IconType } from '../icon';
 import { Button } from './button';
 import type { IButtonProps } from './button.api';
@@ -66,31 +68,36 @@ describe('<Button /> component', () => {
         expect(link.href).toEqual(href);
     });
 
-    it('disables the button on disabled state', () => {
+    it('disables the button on disabled state', async () => {
+        const user = userEvent.setup();
         const onClick = jest.fn();
         render(createTestComponent({ disabled: true, onClick }));
         const button = screen.getByRole<HTMLButtonElement>('button');
         expect(button).toBeDisabled();
         expect(button).toHaveAttribute('aria-disabled', 'true');
-        fireEvent.click(button);
+        await user.click(button);
         expect(onClick).not.toHaveBeenCalled();
     });
 
-    it('disables the button link on disabled state', () => {
+    it('disables the button link on disabled state', async () => {
+        const user = userEvent.setup();
         const onClick = jest.fn();
         const href = '/test';
         render(createTestComponent({ disabled: true, href, onClick }));
         const link = screen.getByRole<HTMLAnchorElement>('link');
         expect(link).toHaveAttribute('aria-disabled', 'true');
-        fireEvent.click(link);
+        await user.click(link);
         expect(onClick).not.toHaveBeenCalled();
     });
 
-    it('supports the onClick property on link variant', () => {
+    it('supports the onClick property on link variant', async () => {
+        // Suppress "Not implemented: navigation" warning
+        testLogger.suppressErrors();
+        const user = userEvent.setup();
         const onClick = jest.fn();
         const href = '/test';
         render(createTestComponent({ onClick, href }));
-        fireEvent.click(screen.getByRole('link'));
+        await user.click(screen.getByRole('link'));
         expect(onClick).toHaveBeenCalled();
     });
 });

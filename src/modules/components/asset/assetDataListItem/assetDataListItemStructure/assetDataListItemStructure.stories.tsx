@@ -5,7 +5,6 @@ import { AssetDataListItemStructure } from './assetDataListItemStructure';
 const meta: Meta<typeof AssetDataListItemStructure> = {
     title: 'Modules/Components/Asset/AssetDataListItem/AssetDataListItem.Structure',
     component: AssetDataListItemStructure,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',
@@ -25,6 +24,27 @@ export const Default: Story = {
         name: 'Ethereum',
         amount: 420.69,
         symbol: 'ETH',
+        fiatPrice: 3654.76,
+        priceChange: 15,
+    },
+    render: (props) => (
+        <DataList.Root entityLabel="Assets">
+            <DataList.Container>
+                <AssetDataListItemStructure {...props} />
+            </DataList.Container>
+        </DataList.Root>
+    ),
+};
+
+/**
+ * Usage example of the AssetDataListItem component with extra long name & symbol.
+ */
+export const LongName: Story = {
+    args: {
+        logoSrc: 'https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628',
+        name: 'A really really long name that will be truncated when needed',
+        amount: 420.69,
+        symbol: 'A_REALLY_LONG_SYMBOL_THAT_SHOULD_TRUNCATE_WHEN_NEEDED',
         fiatPrice: 3654.76,
         priceChange: 15,
     },

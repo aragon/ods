@@ -4,7 +4,6 @@ import { IllustrationHuman } from './illustrationHuman';
 const meta: Meta<typeof IllustrationHuman> = {
     title: 'Core/Components/Illustrations/IllustrationHuman',
     component: IllustrationHuman,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

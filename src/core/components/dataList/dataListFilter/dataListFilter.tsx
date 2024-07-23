@@ -3,6 +3,7 @@ import { useState, type ChangeEvent, type ComponentProps } from 'react';
 import { AvatarIcon } from '../../avatars';
 import { Button } from '../../button';
 import { Icon, IconType } from '../../icon';
+import { useOdsCoreContext } from '../../odsCoreProvider';
 import { Spinner } from '../../spinner';
 import { useDataListContext } from '../dataListContext';
 import { DataListFilterSort } from './dataListFilterSort';
@@ -52,6 +53,10 @@ export interface IDataListFilterProps extends Omit<ComponentProps<'div'>, 'onCha
      * Callback called on filter button click. The filter button is not displayed when the callback is not defined.
      */
     onFilterClick?: () => void;
+    /**
+     * Callback called on reset filters button click. The reset filters button is not displayed when the callback is not defined.
+     */
+    onResetFiltersClick?: () => void;
 }
 
 export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
@@ -64,12 +69,15 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
         activeSort,
         sortItems,
         onSortChange,
+        onResetFiltersClick,
         ...otherProps
     } = props;
 
     const [isFocused, setIsFocused] = useState(false);
 
     const { state } = useDataListContext();
+
+    const { copy } = useOdsCoreContext();
 
     const handleInputFocus = () => setIsFocused(true);
     const handleInputBlur = () => setIsFocused(false);
@@ -93,14 +101,9 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                 )}
             >
                 {state !== 'loading' && (
-                    <AvatarIcon
-                        icon={IconType.SEARCH}
-                        size="md"
-                        className="shrink-0"
-                        variant={isFocused ? 'primary' : 'neutral'}
-                    />
+                    <AvatarIcon icon={IconType.SEARCH} size="md" variant={isFocused ? 'primary' : 'neutral'} />
                 )}
-                {state === 'loading' && <Spinner size="lg" variant="primary" className="m-1 shrink-0" />}
+                {state === 'loading' && <Spinner size="lg" variant="primary" className="m-1" />}
                 <input
                     type="search"
                     className={classNames(
@@ -128,8 +131,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                                 onClick={onFilterClick}
                                 className="hidden md:flex"
                             >
-                                {/* TODO: apply internationalisation to Filter label [APP-2627] */}
-                                Filter
+                                {copy.dataListFilter.filter}
                             </Button>
                             <Button
                                 iconLeft={IconType.FILTER}
@@ -145,8 +147,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                         sortItems={sortItems}
                         onSortChange={onSortChange}
                         triggerClassNames="hidden md:flex"
-                        /* TODO: apply internationalisation to Sort label [APP-2627] */
-                        triggerLabel="Sort"
+                        triggerLabel={copy.dataListFilter.sort}
                     />
                     <DataListFilterSort
                         activeSort={activeSort}
@@ -156,7 +157,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                     />
                 </div>
             </div>
-            <DataListFilterStatus />
+            <DataListFilterStatus onResetFiltersClick={onResetFiltersClick} />
         </div>
     );
 };

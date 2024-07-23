@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { DialogHeader } from '../dialogHeader';
 import { DialogRoot, type IDialogRootProps } from './dialogRoot';
 
 describe('<Dialog.Root/> component', () => {
@@ -17,12 +18,17 @@ describe('<Dialog.Root/> component', () => {
     });
 
     it('renders the dialog with the given content', () => {
-        const content = 'test content';
+        const content = (
+            <>
+                <DialogHeader title="test" description="description" />
+                <div>test content</div>
+            </>
+        );
 
         render(createTestComponent({ open: true, children: content }));
 
         const dialog = screen.getByRole('dialog');
         expect(dialog).toBeInTheDocument();
-        expect(screen.getByText(content)).toBeInTheDocument();
+        expect(screen.getByText('test content')).toBeInTheDocument();
     });
 });

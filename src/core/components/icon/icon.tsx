@@ -25,21 +25,24 @@ export interface IIconProps extends SVGProps<SVGSVGElement> {
 
 const responsiveSizeClassNames: ResponsiveAttributeClassMap<IconSize> = {
     sm: {
-        sm: 'size-3',
+        default: 'size-3',
+        sm: 'sm:size-3',
         md: 'md:size-3',
         lg: 'lg:size-3',
         xl: 'xl:size-3',
         '2xl': '2xl:size-3',
     },
     md: {
-        sm: 'size-4',
+        default: 'size-4',
+        sm: 'sm:size-4',
         md: 'md:size-4',
         lg: 'lg:size-4',
         xl: 'xl:size-4',
         '2xl': '2xl:size-4',
     },
     lg: {
-        sm: 'size-5',
+        default: 'size-5',
+        sm: 'sm:size-5',
         md: 'md:size-5',
         lg: 'lg:size-5',
         xl: 'xl:size-5',
@@ -48,11 +51,17 @@ const responsiveSizeClassNames: ResponsiveAttributeClassMap<IconSize> = {
 };
 
 export const Icon: React.FC<IIconProps> = (props) => {
-    const { icon, size = 'md', className, responsiveSize = {}, ...otherProps } = props;
+    const { icon, size = 'md', className, responsiveSize, ...otherProps } = props;
 
     const IconComponent = iconList[icon];
 
     const sizeClassNames = responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClassNames);
 
-    return <IconComponent className={classNames('shrink-0', sizeClassNames, className)} {...otherProps} />;
+    return (
+        <IconComponent
+            className={classNames('shrink-0', sizeClassNames, className)}
+            data-testid={icon}
+            {...otherProps}
+        />
+    );
 };

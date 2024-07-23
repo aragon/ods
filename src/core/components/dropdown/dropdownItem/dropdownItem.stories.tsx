@@ -4,7 +4,6 @@ import { Dropdown, type IDropdownItemProps } from '../index';
 const meta: Meta<typeof Dropdown.Item> = {
     title: 'Core/Components/Dropdown/Dropdown.Item',
     component: Dropdown.Item,
-    tags: ['autodocs'],
     argTypes: {
         disabled: { control: 'boolean' },
     },

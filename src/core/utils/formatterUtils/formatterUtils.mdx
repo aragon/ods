@@ -1,24 +1,31 @@
 import { Meta } from '@storybook/blocks';
-import { NumberFormat } from './formatterUtilsDefinitions';
+import { NumberFormat, DateFormat } from './formatterUtilsDefinitions';
 import { formatterUtils } from './formatterUtils';
+import { DateTime } from 'luxon';
 
 <Meta title="Core/Utilities/Formatter" />
 
-export const FormatExampleTable = ({ values, formatShort, formatLong }) => (
+export const FormatExampleTable = ({ values, formats, isDate }) => (
     <table>
         <thead>
             <tr className="text-left">
                 <th>VALUE</th>
-                <th>{formatLong}</th>
-                <th>{formatShort}</th>
+                {formats.map((format) => (
+                    <th key={format}>{format}</th>
+                ))}
             </tr>
         </thead>
         <tbody>
             {values.map((value) => (
                 <tr key={value}>
                     <td>{value}</td>
-                    <td>{formatterUtils.formatNumber(value, { format: formatLong })}</td>
-                    <td>{formatterUtils.formatNumber(value, { format: formatShort })}</td>
+                    {formats.map((format) => (
+                        <td key={format} className="first-letter:capitalize">
+                            {isDate
+                                ? formatterUtils.formatDate(value, { format })
+                                : formatterUtils.formatNumber(value, { format })}
+                        </td>
+                    ))}
                 </tr>
             ))}
         </tbody>
@@ -55,8 +62,7 @@ Generic quantities represent anything countable, such as members, proposals, vot
 
 <FormatExampleTable
     values={[-1234, 0, 123, 1234, 1234567, 1234567890, 1234567890123, 1234567890123456]}
-    formatShort={NumberFormat.GENERIC_SHORT}
-    formatLong={NumberFormat.GENERIC_LONG}
+    formats={[NumberFormat.GENERIC_SHORT, NumberFormat.GENERIC_LONG]}
 />
 
 ### FIAT totals
@@ -70,8 +76,7 @@ Fiat totals represent any summed monetary value, such as treasury amounts or fia
         -1234.56789, -0.012345678, -0.0012345678, 0, 0.0012345678, 0.012345678, 0.12345678, 123.45678, 1234.56789,
         1234567.89012, 1234567890.12345, 1234567890123.45678, 1234567890123456.78901,
     ]}
-    formatShort={NumberFormat.FIAT_TOTAL_SHORT}
-    formatLong={NumberFormat.FIAT_TOTAL_LONG}
+    formats={[NumberFormat.FIAT_TOTAL_SHORT, NumberFormat.FIAT_TOTAL_LONG]}
 />
 
 ### Token amounts
@@ -85,8 +90,7 @@ Token amounts represent whole or fractional amounts of tokens, such as withdrawa
         -1234.5678, -0.0123456789012345678, -0.0012, 0, 0.0012, 0.0123456789012345678, 0.12345678901234567, 123.4567,
         1234, 1234.5678, 1234567.8901, 1234567890.1234, 1234567890123.4567, 1234567890123456.789,
     ]}
-    formatShort={NumberFormat.TOKEN_AMOUNT_SHORT}
-    formatLong={NumberFormat.TOKEN_AMOUNT_LONG}
+    formats={[NumberFormat.TOKEN_AMOUNT_SHORT, NumberFormat.TOKEN_AMOUNT_LONG]}
 />
 
 ### Token prices
@@ -101,8 +105,7 @@ the same.
         -1234.56789, -0.0012345678, 0, 0.0012345678, 0.012345678, 0.12345678, 123.45678, 1234.56789, 1234567.89012,
         1234567890.12345, 1234567890123.45678, 1234567890123456.78901,
     ]}
-    formatShort={NumberFormat.TOKEN_PRICE}
-    formatLong={NumberFormat.TOKEN_PRICE}
+    formats={[NumberFormat.TOKEN_PRICE]}
 />
 
 ### Percentages
@@ -114,6 +117,115 @@ of the total supply.
 
 <FormatExampleTable
     values={[-1, -0.999001, -0.00012345, 0, 0.00012345, 0.0012345, 0.012345, 0.12345, 0.510001, 0.9985, 0.999001, 1]}
-    formatShort={NumberFormat.PERCENTAGE_SHORT}
-    formatLong={NumberFormat.PERCENTAGE_LONG}
+    formats={[NumberFormat.PERCENTAGE_SHORT, NumberFormat.PERCENTAGE_LONG]}
+/>
+
+## Date Formatting
+
+The `formatDate` utility currently supports 5 formats to format dates across your application.
+
+### Usage
+
+Import the `formatterUtils` utility and start using it as follows:
+
+```typescript
+import { DateFormat, formatterUtils } from '@aragon/ods';
+
+const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH });
+```
+
+### YEAR_MONTH_DAY_TIME
+
+The `YEAR_MONTH_DAY_TIME` format displays full dates with times and uses a "friendly" format when the date is yesterday,
+today or tomorrow.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[
+        '2009-01-02T10:10:41.049Z',
+        '2023-10-23T15:33:12.049Z',
+        DateTime.utc().plus({ hours: 3 }).toISO(),
+        DateTime.utc().minus({ hours: 23 }).toISO(),
+        DateTime.utc().plus({ hours: 24 }).toISO(),
+    ]}
+    formats={[DateFormat.YEAR_MONTH_DAY_TIME]}
+    isDate={true}
+/>
+
+### YEAR_MONTH_DAY
+
+The `YEAR_MONTH_DAY` format displays full dates and, similiarly to the `YEAR_MONTH_DAY_TIME` format, uses a "friendly"
+format when the date is yesterday, today or tomorrow.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[
+        '2009-01-02T10:10:41.049Z',
+        '2023-10-23T15:33:12.049Z',
+        DateTime.utc().plus({ hours: 3 }).toISO(),
+        DateTime.utc().minus({ hours: 23 }).toISO(),
+        DateTime.utc().plus({ hours: 24 }).toISO(),
+    ]}
+    formats={[DateFormat.YEAR_MONTH_DAY]}
+    isDate={true}
+/>
+
+### YEAR_MONTH
+
+The `YEAR_MONTH` format only displays the year and month of the specified date and never uses a "friendly" format.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[
+        '2009-01-02T10:10:41.049Z',
+        '2023-10-23T15:33:12.049Z',
+        DateTime.utc().plus({ hours: 3 }).toISO(),
+        DateTime.utc().minus({ hours: 23 }).toISO(),
+        DateTime.utc().plus({ hours: 24 }).toISO(),
+    ]}
+    formats={[DateFormat.YEAR_MONTH]}
+    isDate={true}
+/>
+
+### DURATION
+
+The `DURATION` format returns the date difference between the specified date and now. It uses the largest date unit that
+is greater than 1.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[
+        '2009-01-02T10:10:41.049Z',
+        '2023-10-23T15:33:12.049Z',
+        DateTime.utc().minus({ hours: 23 }).toISO(),
+        DateTime.utc().minus({ seconds: 1 }).toISO(),
+        DateTime.utc().plus({ hours: 25 }).toISO(),
+        DateTime.utc().plus({ months: 4 }).toISO(),
+    ]}
+    formats={[DateFormat.DURATION]}
+    isDate={true}
+/>
+
+### RELATIVE
+
+Similiarly to the `DURATION` format, the `RELATIVE` format returns the date difference between the specified date and
+now and displays if the date is in the past or in the future.
+
+**Examples**:
+
+<FormatExampleTable
+    values={[
+        '2009-01-02T10:10:41.049Z',
+        '2023-10-23T15:33:12.049Z',
+        DateTime.utc().minus({ hours: 23 }).toISO(),
+        DateTime.utc().minus({ seconds: 1 }).toISO(),
+        DateTime.utc().plus({ hours: 25 }).toISO(),
+        DateTime.utc().plus({ months: 4 }).toISO(),
+    ]}
+    formats={[DateFormat.RELATIVE]}
+    isDate={true}
 />

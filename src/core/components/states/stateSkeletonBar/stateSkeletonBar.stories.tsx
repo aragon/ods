@@ -4,7 +4,6 @@ import { StateSkeletonBar } from './stateSkeletonBar';
 const meta: Meta<typeof StateSkeletonBar> = {
     title: 'Core/Components/States/StateSkeletonBar',
     component: StateSkeletonBar,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

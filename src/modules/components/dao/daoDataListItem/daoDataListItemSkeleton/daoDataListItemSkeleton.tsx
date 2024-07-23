@@ -20,7 +20,7 @@ export const DaoDataListItemSkeleton: React.FC<IDaoDataListItemSkeletonProps> = 
                         <StateSkeletonBar size="xl" responsiveSize={{ md: '2xl' }} width="100%" />
                         <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="50%" />
                     </div>
-                    <StateSkeletonCircular className="shrink-0" size="lg" />
+                    <StateSkeletonCircular size="lg" />
                 </div>
                 <div className="flex flex-col gap-y-2">
                     <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="100%" />

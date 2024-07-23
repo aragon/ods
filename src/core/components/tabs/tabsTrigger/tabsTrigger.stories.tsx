@@ -7,7 +7,6 @@ import { Tabs, type ITabsTriggerProps } from '..';
 const meta: Meta<typeof Tabs.Trigger> = {
     title: 'Core/Components/Tabs/Tabs.Trigger',
     component: Tabs.Trigger,
-    tags: ['autodocs'],
     parameters: {
         design: {
             type: 'figma',

@@ -3,6 +3,7 @@ import { useChains } from 'wagmi';
 import {
     AvatarIcon,
     DataList,
+    DateFormat,
     IconType,
     NumberFormat,
     Spinner,
@@ -80,19 +81,13 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                 <div className="flex items-center gap-x-3 md:gap-x-4">
                     {status === TransactionStatus.SUCCESS && (
                         <AvatarIcon
-                            className="shrink-0"
                             variant={txVariantList[type]}
                             icon={txIconTypeList[type]}
                             responsiveSize={{ md: 'md' }}
                         />
                     )}
                     {status === TransactionStatus.FAILED && (
-                        <AvatarIcon
-                            className="shrink-0"
-                            variant="critical"
-                            icon={IconType.CLOSE}
-                            responsiveSize={{ md: 'md' }}
-                        />
+                        <AvatarIcon variant="critical" icon={IconType.CLOSE} responsiveSize={{ md: 'md' }} />
                     )}
                     {status === TransactionStatus.PENDING && (
                         <div className="flex size-6 shrink-0 items-center justify-center md:size-8">
@@ -103,11 +98,13 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                         <span className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
                             {txHeadingStringList[type]}
                         </span>
-                        <p className="text-sm font-normal leading-tight text-neutral-500 md:text-base">{date}</p>
+                        <p className="text-sm font-normal leading-tight text-neutral-500 md:text-base">
+                            {formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME })}
+                        </p>
                     </div>
                 </div>
 
-                <div className="flex flex-col items-end gap-y-0.5">
+                <div className="flex flex-col items-end gap-y-0.5 truncate">
                     <span className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
                         {formattedTokenAmount}
                     </span>
