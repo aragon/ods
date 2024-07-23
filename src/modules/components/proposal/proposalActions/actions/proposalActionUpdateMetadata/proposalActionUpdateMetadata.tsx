@@ -13,7 +13,7 @@ export const ProposalActionUpdateMetadata: React.FC<IProposalActionUpdateMetadat
     const metadataToDisplay = toggleValue === 'proposedMetadata' ? proposedMetadata : existingMetadata;
 
     return (
-        <div className="w-full">
+        <div className="flex w-full flex-col gap-2">
             <ToggleGroup value={toggleValue} onChange={setToggleValue} isMultiSelect={false}>
                 <Toggle label="Existing" value="existingMetadata" />
                 <Toggle label="Proposed" value="proposedMetadata" />
@@ -25,7 +25,11 @@ export const ProposalActionUpdateMetadata: React.FC<IProposalActionUpdateMetadat
                             className="md:items-center"
                             term={modulesCopy.proposalActionsUpdateMetadata.logoTerm}
                         >
-                            <Avatar src={metadataToDisplay.logo} responsiveSize={{ md: 'md', sm: 'sm' }} />
+                            <Avatar
+                                alt="dao-logo"
+                                src={metadataToDisplay.logo}
+                                responsiveSize={{ md: 'md', sm: 'sm' }}
+                            />
                         </DefinitionList.Item>
                         <DefinitionList.Item term={modulesCopy.proposalActionsUpdateMetadata.nameTerm}>
                             <div className="text-base leading-tight text-neutral-800">{metadataToDisplay.name}</div>
