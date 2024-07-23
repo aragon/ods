@@ -2,8 +2,8 @@ export type { IProposalAction, IProposalActionInputData, IProposalActionInputDat
 export { ProposalActionComponent, type IProposalActionComponentProps } from './proposalActionComponent';
 export { ProposalActionType } from './proposalActionType';
 export type {
+    IProposalActionUpdateMetadata,
     IProposalActionUpdateMetadataDaoMetadata,
     IProposalActionUpdateMetadataDaoMetadataLink,
-    IProposalActionUpdateMetadata,
 } from './proposalActionUpdateMetadata';
 export type { IProposalActionWithdrawToken } from './proposalActionWithdrawToken';

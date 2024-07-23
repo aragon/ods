@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
+import { generateProposalActionUpdateMetadata } from './actions/generators';
 import { generateProposalAction } from './actions/generators/proposalAction';
 import { generateProposalActionWithdrawToken } from './actions/generators/proposalActionWithdrawToken';
 import { proposalActionsUtils } from './proposalActionsUtils';
-import { generateProposalActionUpdateMetadata } from './actions/generators';
 
 jest.mock('./actions', () => ({
     ProposalActionWithdrawToken: () => <div>Mock ProposalActionWithdrawToken</div>,
