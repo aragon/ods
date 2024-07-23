@@ -1,7 +1,11 @@
 import { render, screen } from '@testing-library/react';
+import { generateProposalAction } from '../actions/generators/proposalAction';
 import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
-import { ProposalActionType, type IProposalAction, type IProposalActionWithdrawToken } from '../proposalActionsTypes';
-import { ProposalActionsActionVerification } from './proposalActionsActionVerfication';
+import { type IProposalActionWithdrawToken } from '../proposalActionsTypes';
+import {
+    ProposalActionsActionVerification,
+    type IProposalActionsActionVerificationProps,
+} from './proposalActionsActionVerfication';
 
 jest.mock('../../../../utils', () => ({
     addressUtils: {
@@ -10,48 +14,39 @@ jest.mock('../../../../utils', () => ({
 }));
 
 describe('<ProposalActionsActionVerification /> component', () => {
-    const createTestComponent = (action: IProposalAction) => {
-        return <ProposalActionsActionVerification action={action} />;
+    const createTestComponent = (props?: Partial<IProposalActionsActionVerificationProps>) => {
+        const completeProps: IProposalActionsActionVerificationProps = {
+            action: generateProposalAction(),
+            ...props,
+        };
+
+        return <ProposalActionsActionVerification {...completeProps} />;
     };
 
     it('renders with warning when inputData is null', () => {
-        const action = generateProposalActionWithdrawToken({ contractAddress: '0xContractAddress', inputData: null });
-        render(createTestComponent(action));
-
+        const action = generateProposalActionWithdrawToken({ inputData: null });
+        render(createTestComponent({ action }));
         expect(screen.getByTestId('WARNING')).toBeInTheDocument();
     });
 
     it('renders with success when inputData is present and action type is unknown', () => {
-        const action: IProposalAction = {
-            ...generateProposalActionWithdrawToken({
-                inputData: {
-                    function: 'myFunction',
-                    contract: 'myContract',
-                    parameters: [],
-                },
-            }),
+        const action = generateProposalAction({
             type: 'unknownType',
-        };
-        render(createTestComponent(action));
-
+            inputData: {
+                function: 'myFunction',
+                contract: 'myContract',
+                parameters: [],
+            },
+        });
+        render(createTestComponent({ action }));
         expect(screen.getByTestId('SUCCESS')).toBeInTheDocument();
     });
 
     it('renders contract name if verified action', () => {
         const action: IProposalActionWithdrawToken = generateProposalActionWithdrawToken({
-            contractAddress: '0xContractAddress',
-            token: {
-                name: 'TokenName',
-                symbol: 'TKN',
-                logo: 'logo.png',
-                decimals: 18,
-                priceUsd: '1.00',
-                address: '0xTokenAddress',
-            },
-            type: ProposalActionType.WITHDRAW_TOKEN,
+            inputData: { contract: 'contract-name', function: 'func', parameters: [] },
         });
-        render(createTestComponent(action));
-
-        expect(screen.getByText(action.inputData?.contract as string)).toBeInTheDocument();
+        render(createTestComponent({ action }));
+        expect(screen.getByText(action.inputData!.contract)).toBeInTheDocument();
     });
 });

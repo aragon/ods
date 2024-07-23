@@ -1,5 +1,3 @@
 export enum ProposalActionType {
-    WITHDRAW_TOKEN = 'withdrawToken',
-    ADD_MEMBERS = 'addMembers',
-    REMOVE_MEMBERS = 'removeMembers',
+    WITHDRAW_TOKEN = 'WITHDRAW_TOKEN',
 }

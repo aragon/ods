@@ -25,12 +25,12 @@ export const Default: Story = {
 };
 
 /**
- * Progress component with indicator example.
+ * Example of progress component with a threshold indicator.
  */
 export const WithIndicator: Story = {
     args: {
         value: 70,
-        indicator: 50,
+        thresholdIndicator: 50,
     },
 };
 

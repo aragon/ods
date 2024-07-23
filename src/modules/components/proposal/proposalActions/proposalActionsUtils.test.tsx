@@ -1,18 +1,19 @@
 import { render, screen } from '@testing-library/react';
-import { generateProposalAction } from './actions/generators/proposalAction';
 import { generateProposalActionWithdrawToken } from './actions/generators/proposalActionWithdrawToken';
 import { proposalActionsUtils } from './proposalActionsUtils';
+import { generateProposalAction } from './actions/generators/proposalAction';
+
 
 jest.mock('./actions', () => ({
     ProposalActionWithdrawToken: () => <div>Mock ProposalActionWithdrawToken</div>,
 }));
 
-describe('ProposalActionsUtils', () => {
+describe('ProposalActions utils', () => {
     it('returns ProposalActionWithdrawToken component for withdrawToken action', () => {
         const action = generateProposalActionWithdrawToken();
 
-        const Component = proposalActionsUtils.getActionComponent(action) as React.ComponentType;
-        render(<Component />);
+        const Component = proposalActionsUtils.getActionComponent(action)!;
+        render(<Component action={action} />);
         expect(screen.getByText('Mock ProposalActionWithdrawToken')).toBeInTheDocument();
     });
 

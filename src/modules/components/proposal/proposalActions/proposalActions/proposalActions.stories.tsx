@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { generateProposalActionChangeMembers } from '../actions/generators/proposalActionChangeMembers';
-import {
-    generateCompositeAddress,
-    generateProposalActionWithdrawToken,
-    generateToken,
-} from '../actions/generators/proposalActionWithdrawToken';
-import { ProposalActionType, type IProposalAction } from '../proposalActionsTypes';
+
+import { generateProposalActionWithdrawToken, generateToken } from '../actions/generators/proposalActionWithdrawToken';
+import type { IProposalAction } from '../proposalActionsTypes';
 import { ProposalActions } from './proposalActions';
 
 const meta: Meta<typeof ProposalActions> = {
@@ -24,13 +20,27 @@ type Story = StoryObj<typeof ProposalActions>;
 /**
  * Usage example of the ProposalActions module component with mocked TokenWithdraw actions.
  */
-export const VarietyExample: Story = {
+export const TokenWithdraw: Story = {
+    args: {
+        actions: [
+            generateProposalActionWithdrawToken({
+                to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+                token: generateToken({ name: 'Ether' }),
+            }),
+            generateProposalActionWithdrawToken({
+                to: '0x1234567890abcdef1234567890abcdef12345678',
+                inputData: null,
+            }),
+        ],
+    },
+};
+
+export const CustomActions: Story = {
     render: () => {
         const actionNames = {
-            withdrawToken: 'Withdraw assets',
-            addMembers: 'Add members',
-            removeMembers: 'Remove members',
-            customActionOne: 'Custom Action One',
+            WITHDRAW_TOKEN: 'Withdraw assets',
+            CUSTOM_ACTION_ONE: 'Custom Action One',
+            CUSTOM_ACTION_TWO: 'Custom Action Two',
         };
 
         const CustomActionComponentOne: React.FC<{ action: IProposalAction }> = ({ action }) => {
@@ -46,9 +56,22 @@ export const VarietyExample: Story = {
             );
         };
 
+        const CustomActionComponentTwo: React.FC<{ action: IProposalAction }> = ({ action }) => {
+            return (
+                <div>
+                    <h4>Custom Action Two</h4>
+                    <p>Type: {action.type}</p>
+                    <p>From: {action.from}</p>
+                    <p>To: {action.to}</p>
+                    <p>Value: {action.value}</p>
+                    <p>Transaction data: {action.data}</p>
+                </div>
+            );
+        };
+
         const actions = [
             generateProposalActionWithdrawToken({
-                contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+                to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
                 token: generateToken({
                     name: 'Ether',
                     symbol: 'ETH',
@@ -65,17 +88,8 @@ export const VarietyExample: Story = {
                     ],
                 },
             }),
-            generateProposalActionChangeMembers({
-                type: ProposalActionType.REMOVE_MEMBERS,
-                changingMembers: [
-                    generateCompositeAddress({ name: 'alice.eth' }),
-                    generateCompositeAddress({ name: 'bob.eth' }),
-                ],
-                currentMemberCount: 10,
-                contractAddress: '0x1234567890abcdef1234567890abcdef12345678',
-            }),
             {
-                type: 'customActionOne',
+                type: 'CUSTOM_ACTION_ONE',
                 inputData: { function: 'doSomething', contract: 'Ether', parameters: [] },
                 contractAddress: '0x1111111111111111111111111111111111111111',
                 from: '0x1111111111111111111111111111111111111111',
@@ -84,7 +98,16 @@ export const VarietyExample: Story = {
                 value: '10',
             },
             {
-                type: 'customActionUnknown',
+                type: 'CUSTOM_ACTION_TWO',
+                inputData: { function: 'doSomethingElse', contract: 'DAI', parameters: [] },
+                contractAddress: '0x3333333333333333333333333333333333333333',
+                from: '0x3333333333333333333333333333333333333333',
+                to: '0x4444444444444444444444444444444444444444',
+                data: '',
+                value: '20',
+            },
+            {
+                type: 'UNKNWOWN',
                 inputData: { function: 'doSomethingElse', contract: 'DAI', parameters: [] },
                 contractAddress: '0x3333333333333333333333333333333333333333',
                 from: '0x3333333333333333333333333333333333333333',
@@ -99,7 +122,8 @@ export const VarietyExample: Story = {
                 actions={actions}
                 actionNames={actionNames}
                 customActionComponents={{
-                    customActionOne: CustomActionComponentOne,
+                    CUSTOM_ACTION_ONE: CustomActionComponentOne,
+                    CUSTOM_ACTION_TWO: CustomActionComponentTwo,
                 }}
             />
         );
