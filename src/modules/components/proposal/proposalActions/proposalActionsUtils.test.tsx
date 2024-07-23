@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { generateProposalActionUpdateMetadata } from './actions/generators';
-import { generateProposalActionTokenMint } from './actions/generators';
+import { generateProposalActionUpdateMetadata, generateProposalActionTokenMint } from './actions/generators';
 import { generateProposalAction } from './actions/generators/proposalAction';
 import { generateProposalActionWithdrawToken } from './actions/generators/proposalActionWithdrawToken';
 import { proposalActionsUtils } from './proposalActionsUtils';
@@ -26,6 +25,8 @@ describe('ProposalActions utils', () => {
         const Component = proposalActionsUtils.getActionComponent(action)!;
         render(<Component />);
         expect(screen.getByText('Mock ProposalActionUpdateMetaData')).toBeInTheDocument();
+    });
+
     it('returns ProposalActionTokenMint component for tokenMint action', () => {
         const action = generateProposalActionTokenMint();
 

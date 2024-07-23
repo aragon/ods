@@ -2,6 +2,7 @@ import { ProposalActionTokenMint, ProposalActionUpdateMetadata, ProposalActionWi
 import {
     type IProposalAction,
     type IProposalActionTokenMint,
+    type IProposalActionUpdateMetadata,
     type IProposalActionWithdrawToken,
     ProposalActionType,
 } from './proposalActionsTypes';
@@ -12,9 +13,7 @@ class ProposalActionsUtils {
             return () => ProposalActionWithdrawToken({ action });
         } else if (this.isTokenMintAction(action)) {
             return () => ProposalActionTokenMint({ action });
-        }
-
-        if (this.isUpdateMetadataAction(action)) {
+        } else if (this.isUpdateMetadataAction(action)) {
             return () => ProposalActionUpdateMetadata({ action });
         }
 
