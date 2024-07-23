@@ -43,7 +43,7 @@ export const modulesCopy = {
                 removeMembers: 'Remove members',
             },
             existingMembers: 'Existing members',
-            blockNote: 'At the block in which the proposal was created.',
+            blockNote: 'At the block in which the proposal was created',
         },
     },
     proposalDataListItemStatus: {

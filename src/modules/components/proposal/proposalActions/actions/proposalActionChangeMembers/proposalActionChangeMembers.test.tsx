@@ -10,6 +10,15 @@ jest.mock('../../../../../../core', () => ({
         Container: jest.fn(({ children }) => <div>{children}</div>),
     },
     Heading: jest.fn(({ children }) => <h1>{children}</h1>),
+    DefinitionList: {
+        Container: ({ children }: { children: React.ReactNode }) => <dl>{children}</dl>,
+        Item: ({ term, children }: { term: string; children: React.ReactNode }) => (
+            <div>
+                <dt>{term}</dt>
+                <dd>{children}</dd>
+            </div>
+        ),
+    },
 }));
 
 jest.mock('../../../../member', () => ({
@@ -34,6 +43,22 @@ describe('<ProposalActionChangeMembers /> component', () => {
         return <ProposalActionChangeMembers {...completeProps} />;
     };
 
+    it('renders the existing members correctly', () => {
+        const currentMembers = 5;
+        const action = generateProposalActionChangeMembers({ currentMembers });
+        render(
+            createTestComponent({
+                action,
+            }),
+        );
+
+        expect(
+            screen.getByText(
+                `${currentMembers} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
+            ),
+        ).toBeInTheDocument();
+    });
+
     it('renders correctly for adding members', () => {
         const type = ProposalActionType.ADD_MEMBERS;
         const currentMembers = 5;
@@ -51,11 +76,6 @@ describe('<ProposalActionChangeMembers /> component', () => {
         expect(
             screen.getByText(
                 `+${members.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
-            ),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByText(
-                `${currentMembers + members.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
             ),
         ).toBeInTheDocument();
     });
@@ -77,11 +97,6 @@ describe('<ProposalActionChangeMembers /> component', () => {
         expect(
             screen.getByText(
                 `-${members.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
-            ),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByText(
-                `${currentMembers - members.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
             ),
         ).toBeInTheDocument();
     });

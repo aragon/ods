@@ -1,4 +1,4 @@
-import { DataList, Heading } from '../../../../../../core';
+import { DataList, DefinitionList, Heading } from '../../../../../../core';
 import { MemberDataListItem } from '../../../../member';
 import { useOdsModulesContext } from '../../../../odsModulesProvider';
 import { ProposalActionType } from '../../proposalActionsTypes';
@@ -28,39 +28,31 @@ export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersP
                     ))}
                 </DataList.Container>
             </DataList.Root>
-            <section>
+            <div>
                 <Heading size="h3">{copy.proposalActionsAction.proposalActionChangeMembers.summary}</Heading>
-                <div>
-                    <div className="flex flex-col gap-y-1 py-3 md:grid md:grid-cols-4">
-                        <p className="col-span-1 text-neutral-800">
-                            {action.type === ProposalActionType.ADD_MEMBERS
+                <DefinitionList.Container>
+                    <DefinitionList.Item
+                        term={
+                            action.type === ProposalActionType.ADD_MEMBERS
                                 ? copy.proposalActionsAction.proposalActionChangeMembers.added
-                                : copy.proposalActionsAction.proposalActionChangeMembers.removed}
-                        </p>
-                        <p className="col-span-3 text-neutral-500">
+                                : copy.proposalActionsAction.proposalActionChangeMembers.removed
+                        }
+                    >
+                        <p className="text-neutral-500">
                             {action.type === ProposalActionType.ADD_MEMBERS ? `+` : `-`}
                             {action.members.length} {copy.proposalActionsAction.proposalActionChangeMembers.members}
                         </p>
-                    </div>
-                    <div className="h-0 w-full border-b border-neutral-100" />
-                    <div className="flex flex-col gap-y-1 py-3 md:grid md:grid-cols-4">
-                        <p className="col-span-1 text-neutral-800">
-                            {copy.proposalActionsAction.proposalActionChangeMembers.existingMembers}
+                    </DefinitionList.Item>
+                    <DefinitionList.Item term={copy.proposalActionsAction.proposalActionChangeMembers.existingMembers}>
+                        <p className="text-neutral-500">
+                            {action.currentMembers} {copy.proposalActionsAction.proposalActionChangeMembers.members}
                         </p>
-                        <div className="col-span-3 flex flex-col gap-y-1">
-                            <p className="text-neutral-500">
-                                {action.type === ProposalActionType.ADD_MEMBERS
-                                    ? action.currentMembers + action.members.length
-                                    : action.currentMembers - action.members.length}{' '}
-                                {copy.proposalActionsAction.proposalActionChangeMembers.members}
-                            </p>
-                            <p className="text-sm text-neutral-500">
-                                {copy.proposalActionsAction.proposalActionChangeMembers.blockNote}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                    </DefinitionList.Item>
+                </DefinitionList.Container>
+                <p className="text-sm text-neutral-500">
+                    {copy.proposalActionsAction.proposalActionChangeMembers.blockNote}
+                </p>
+            </div>
         </div>
     );
 };
