@@ -91,7 +91,6 @@ export const CustomActions: Story = {
             {
                 type: 'CUSTOM_ACTION_ONE',
                 inputData: { function: 'doSomething', contract: 'Ether', parameters: [] },
-                contractAddress: '0x1111111111111111111111111111111111111111',
                 from: '0x1111111111111111111111111111111111111111',
                 to: '0x2222222222222222222222222222222222222222',
                 data: '',
@@ -100,16 +99,14 @@ export const CustomActions: Story = {
             {
                 type: 'CUSTOM_ACTION_TWO',
                 inputData: { function: 'doSomethingElse', contract: 'DAI', parameters: [] },
-                contractAddress: '0x3333333333333333333333333333333333333333',
                 from: '0x3333333333333333333333333333333333333333',
                 to: '0x4444444444444444444444444444444444444444',
                 data: '',
                 value: '20',
             },
             {
-                type: 'UNKNWOWN',
+                type: 'UNKNOWN',
                 inputData: { function: 'doSomethingElse', contract: 'DAI', parameters: [] },
-                contractAddress: '0x3333333333333333333333333333333333333333',
                 from: '0x3333333333333333333333333333333333333333',
                 to: '0x4444444444444444444444444444444444444444',
                 data: '',

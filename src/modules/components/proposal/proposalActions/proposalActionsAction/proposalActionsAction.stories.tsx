@@ -23,7 +23,7 @@ type Story = StoryObj<typeof ProposalActionsAction>;
 export const TokenWithdraw: Story = {
     args: {
         action: generateProposalActionWithdrawToken({
-            contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+            to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
             token: generateToken({ name: 'Ether' }),
         }),
     },
