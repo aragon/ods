@@ -33,6 +33,11 @@ export const modulesCopy = {
     proposalActionsAction: {
         notVerified: 'Not verified',
     },
+    proposalActionsUpdateMetadata: {
+        logoTerm: 'Logo',
+        nameTerm: 'Name',
+        linkTerm: 'Links'
+    },
     proposalDataListItemStatus: {
         voted: "You've voted",
         ago: 'ago',
