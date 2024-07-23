@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { modulesCopy } from '../../../../../assets';
 import { type IProposalActionUpdateMetadata } from '../../proposalActionsTypes';
-import { generateProposalActionUpdateMetadata } from '../generators/proposalActionUpdateMetadata';
+import { generateProposalActionUpdateMetadata } from '../generators';
 import { type IProposalActionUpdateMetadataProps, ProposalActionUpdateMetadata } from './proposalActionUpdateMetadata';
 
 describe('<ProposalActionUpdateMetadata /> component', () => {

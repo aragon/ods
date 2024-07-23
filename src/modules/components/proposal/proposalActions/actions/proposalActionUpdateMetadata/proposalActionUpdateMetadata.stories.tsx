@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { generateProposalActionUpdateMetadata } from '../generators/proposalActionUpdateMetadata';
+import { generateProposalActionUpdateMetadata } from '../generators';
 import { ProposalActionUpdateMetadata } from './proposalActionUpdateMetadata';
 
 const meta: Meta<typeof ProposalActionUpdateMetadata> = {
