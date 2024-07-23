@@ -9,7 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Add `ProposalAction` module component
+-   Add `ProposalActions` module component
+-   Add `WithdrawToken` action for `ProposalActions`
+-   Add `ChangeMembers` action for `ProposalActions`
 
 ### Changed
 
