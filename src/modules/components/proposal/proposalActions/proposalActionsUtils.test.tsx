@@ -2,9 +2,11 @@ import { render, screen } from '@testing-library/react';
 import { generateProposalAction } from './actions/generators/proposalAction';
 import { generateProposalActionWithdrawToken } from './actions/generators/proposalActionWithdrawToken';
 import { proposalActionsUtils } from './proposalActionsUtils';
+import { generateProposalActionUpdateMetadata } from './actions/generators';
 
 jest.mock('./actions', () => ({
     ProposalActionWithdrawToken: () => <div>Mock ProposalActionWithdrawToken</div>,
+    ProposalActionUpdateMetadata: () => <div>Mock ProposalActionUpdateMetaData</div>,
 }));
 
 describe('ProposalActions utils', () => {
@@ -14,6 +16,14 @@ describe('ProposalActions utils', () => {
         const Component = proposalActionsUtils.getActionComponent(action)!;
         render(<Component />);
         expect(screen.getByText('Mock ProposalActionWithdrawToken')).toBeInTheDocument();
+    });
+
+    it('returns ProposalActionUpdateMetadata component for updateMetadata action', () => {
+        const action = generateProposalActionUpdateMetadata();
+
+        const Component = proposalActionsUtils.getActionComponent(action)!;
+        render(<Component />);
+        expect(screen.getByText('Mock ProposalActionUpdateMetaData')).toBeInTheDocument();
     });
 
     it('returns null for unknown action type', () => {

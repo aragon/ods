@@ -19,8 +19,8 @@ type Story = StoryObj<typeof ProposalActionUpdateMetadata>;
  * Usage example of the ProposalActions module component with mocked UpdateMetadata actions.
  */
 export const Default: Story = {
-    render: () => {
-        return <ProposalActionUpdateMetadata action={generateProposalActionUpdateMetadata()} />;
+    args: {
+        action: generateProposalActionUpdateMetadata(),
     },
 };
 

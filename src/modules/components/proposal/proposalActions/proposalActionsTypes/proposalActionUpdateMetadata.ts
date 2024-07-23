@@ -1,7 +1,7 @@
 import { type IProposalAction } from './proposalAction';
 import { type ProposalActionType } from './proposalActionType';
 
-export interface IMetadataLink {
+export interface IProposalActionUpdateMetadataDaoMetadataLink {
     /**
      * Human readable label for link.
      */
@@ -10,19 +10,15 @@ export interface IMetadataLink {
      * link href.
      */
     href: string;
-    /**
-     * link target.
-     */
-    target: string;
 }
 
-export interface IMetaData {
+export interface IProposalActionUpdateMetadataDaoMetadata {
     /**
-     * metadata logo url.
+     * Logo url of the DAO.
      */
     logo: string;
     /**
-     * Metadata name.
+     *  Name of the DAO.
      */
     name: string;
     /**
@@ -32,7 +28,7 @@ export interface IMetaData {
     /**
      * Array of metadata links.
      */
-    links: IMetadataLink[];
+    links: IProposalActionUpdateMetadataDaoMetadataLink[];
 }
 
 export interface IProposalActionUpdateMetadata extends IProposalAction {
@@ -43,9 +39,9 @@ export interface IProposalActionUpdateMetadata extends IProposalAction {
     /**
      * Proposed metadata.
      */
-    proposedMetadata: IMetaData;
+    proposedMetadata: IProposalActionUpdateMetadataDaoMetadata;
     /**
      * Existing metadata.
      */
-    existingMetadata: IMetaData;
+    existingMetadata: IProposalActionUpdateMetadataDaoMetadata;
 }

@@ -21,8 +21,8 @@ export const generateProposalActionUpdateMetadata = (
         name: 'Old name',
         description: 'Existing DAO description.',
         links: [
-            { label: 'Farcaster', href: 'https://warpcast.com/olddao', target: '_blank' },
-            { label: 'X', href: 'https://x.com/olddao', target: '_blank' },
+            { label: 'Farcaster', href: 'https://warpcast.com/olddao' },
+            { label: 'X', href: 'https://x.com/olddao' },
         ],
     },
     proposedMetadata: {
@@ -30,8 +30,8 @@ export const generateProposalActionUpdateMetadata = (
         name: 'New name',
         description: 'Proposed DAO description.',
         links: [
-            { label: 'Farcaster', href: 'https://warpcast.com/newdao', target: '_blank' },
-            { label: 'X', href: 'https://x.com/newdao', target: '_blank' },
+            { label: 'Farcaster', href: 'https://warpcast.com/newdao' },
+            { label: 'X', href: 'https://x.com/newdao' },
         ],
     },
     ...action,

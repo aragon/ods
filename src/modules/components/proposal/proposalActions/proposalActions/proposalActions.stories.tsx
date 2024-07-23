@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { generateProposalActionUpdateMetadata } from '../actions/generators';
-import { generateProposalActionWithdrawToken, generateToken } from '../actions/generators/proposalActionWithdrawToken';
+import {
+    generateProposalActionUpdateMetadata,
+    generateProposalActionWithdrawToken,
+    generateToken,
+} from '../actions/generators';
 import type { IProposalAction } from '../proposalActionsTypes';
 import { ProposalActions } from './proposalActions';
 

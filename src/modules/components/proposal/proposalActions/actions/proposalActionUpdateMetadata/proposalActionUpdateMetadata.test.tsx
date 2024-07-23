@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { modulesCopy } from '../../../../../assets';
 import { generateProposalActionUpdateMetadata } from '../generators';
 import { type IProposalActionUpdateMetadataProps, ProposalActionUpdateMetadata } from './proposalActionUpdateMetadata';
@@ -27,14 +28,14 @@ describe('<ProposalActionUpdateMetadata /> component', () => {
         expect(screen.getByText(modulesCopy.proposalActionsUpdateMetadata.descriptionTerm)).toBeInTheDocument();
     });
 
-    it('renders the correct existing metadata', () => {
+    it('renders the correct existing metadata', async () => {
         const proposedMetadata = {
             logo: 'proposed-logo.png',
             name: 'Proposed Name',
             description: 'Proposed DAO description',
             links: [
-                { label: 'Proposed Link 1', href: 'https://proposed-link1.com', target: '_blank' },
-                { label: 'Proposed Link 2', href: 'https://proposed-link2.com', target: '_blank' },
+                { label: 'Proposed Link 1', href: 'https://proposed-link1.com' },
+                { label: 'Proposed Link 2', href: 'https://proposed-link2.com' },
             ],
         };
 
@@ -43,8 +44,8 @@ describe('<ProposalActionUpdateMetadata /> component', () => {
             name: 'Existing Name',
             description: 'Existing DAO description',
             links: [
-                { label: 'Existing Link 1', href: 'https://existing-link1.com', target: '_blank' },
-                { label: 'Existing Link 2', href: 'https://existing-link2.com', target: '_blank' },
+                { label: 'Existing Link 1', href: 'https://existing-link1.com' },
+                { label: 'Existing Link 2', href: 'https://existing-link2.com' },
             ],
         };
 
@@ -57,7 +58,7 @@ describe('<ProposalActionUpdateMetadata /> component', () => {
         expect(screen.getByText('Existing Link 2')).toBeInTheDocument();
         expect(screen.getByText('Existing DAO description')).toBeInTheDocument();
 
-        fireEvent.click(screen.getByText('Proposed'));
+        await userEvent.click(screen.getByText('Proposed'));
 
         expect(screen.getByText('Proposed Name')).toBeInTheDocument();
         expect(screen.getByText('Proposed Link 1')).toBeInTheDocument();

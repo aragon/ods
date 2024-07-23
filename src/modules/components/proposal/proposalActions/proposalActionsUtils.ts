@@ -1,7 +1,10 @@
-import { ProposalActionWithdrawToken } from './actions';
-import { ProposalActionUpdateMetadata } from './actions/proposalActionUpdateMetadata';
-import { type IProposalAction, type IProposalActionWithdrawToken, ProposalActionType } from './proposalActionsTypes';
-import { type IProposalActionUpdateMetadata } from './proposalActionsTypes/proposalActionUpdateMetadata';
+import { ProposalActionUpdateMetadata, ProposalActionWithdrawToken } from './actions';
+import {
+    ProposalActionType,
+    type IProposalAction,
+    type IProposalActionUpdateMetadata,
+    type IProposalActionWithdrawToken,
+} from './proposalActionsTypes';
 
 class ProposalActionsUtils {
     getActionComponent = (action: IProposalAction) => {

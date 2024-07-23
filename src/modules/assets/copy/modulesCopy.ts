@@ -38,6 +38,8 @@ export const modulesCopy = {
         nameTerm: 'Name',
         linkTerm: 'Links',
         descriptionTerm: 'Description',
+        existingToggle: 'Existing',
+        proposedToggle: 'Proposed',
     },
     proposalDataListItemStatus: {
         voted: "You've voted",
