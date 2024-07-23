@@ -38,7 +38,6 @@ export const TokenMemberWithoutVotingPower: Story = {
     args: {
         address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
         tokenAmount: 0,
-        tokenSymbol: 'PDC',
     },
     render: (args) => (
         <DataList.Root entityLabel="Members">
@@ -57,7 +56,6 @@ export const TokenMemberWithVotingPower: Story = {
         address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
         delegationCount: 0,
         tokenAmount: 4820,
-        tokenSymbol: 'PDC',
     },
     render: (args) => (
         <DataList.Root entityLabel="Members">
