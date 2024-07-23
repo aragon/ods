@@ -1,6 +1,6 @@
 import type { ICompositeAddress } from '../../../../types';
 import type { IProposalAction } from './proposalAction';
-import type { ProposalActionType } from './proposalActionType';
+import type { ProposalActionType } from './ProposalActionType';
 
 export interface IProposalActionWithdrawToken extends IProposalAction {
     /**
