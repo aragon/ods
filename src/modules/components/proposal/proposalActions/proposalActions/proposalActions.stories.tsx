@@ -22,16 +22,17 @@ type Story = StoryObj<typeof ProposalActions>;
  * Usage example of the ProposalActions module component with mocked TokenWithdraw actions.
  */
 export const TokenWithdraw: Story = {
-    render: () => {
-        const actions = [
+    args: {
+        actions: [
             generateProposalActionWithdrawToken({
+                to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
                 token: generateToken({ name: 'Ether' }),
             }),
             generateProposalActionWithdrawToken({
+                to: '0x1234567890abcdef1234567890abcdef12345678',
                 inputData: null,
             }),
-        ];
-        return <ProposalActions actions={actions} />;
+        ],
     },
 };
 
@@ -39,9 +40,8 @@ export const TokenWithdraw: Story = {
  * Usage example of the ProposalActions module component with mocked UpdateMetadata actions.
  */
 export const UpdateMetadata: Story = {
-    render: () => {
-        const actions = [generateProposalActionUpdateMetadata()];
-        return <ProposalActions actions={actions} />;
+    args: {
+        actions: [generateProposalActionUpdateMetadata()],
     },
 };
 
