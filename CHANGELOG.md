@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Add `proposalActionUpdateMetadata` module component
+-   Add `ProposalActionUpdateMetadata` module component
 -   Add `ProposalAction` module component
 
 ### Changed
