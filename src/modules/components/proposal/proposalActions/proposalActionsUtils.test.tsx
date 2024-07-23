@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { generateProposalActionUpdateMetadata, generateProposalActionTokenMint } from './actions/generators';
+import { generateProposalActionTokenMint, generateProposalActionUpdateMetadata } from './actions/generators';
 import { generateProposalAction } from './actions/generators/proposalAction';
 import { generateProposalActionWithdrawToken } from './actions/generators/proposalActionWithdrawToken';
 import { proposalActionsUtils } from './proposalActionsUtils';
