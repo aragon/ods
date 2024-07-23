@@ -38,7 +38,7 @@ describe('<ProposalActionWithdrawToken /> component', () => {
             sender,
             receiver,
             token,
-            amount
+            amount,
         });
 
         render(createTestComponent({ action }));
