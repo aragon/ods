@@ -10,7 +10,7 @@ class ProposalActionsUtils {
         }
 
         if (this.isUpdateMetadataAction(action)) {
-            return () => ProposalActionUpdateMetadata({ action })
+            return () => ProposalActionUpdateMetadata({ action });
         }
 
         return null;
@@ -21,8 +21,8 @@ class ProposalActionsUtils {
     };
 
     isUpdateMetadataAction = (action: Partial<IProposalAction>): action is IProposalActionUpdateMetadata => {
-        return action.type === ProposalActionType.UPDATE_METADATA
-    }
+        return action.type === ProposalActionType.UPDATE_METADATA;
+    };
 }
 
 export const proposalActionsUtils = new ProposalActionsUtils();

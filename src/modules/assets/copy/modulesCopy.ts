@@ -36,7 +36,7 @@ export const modulesCopy = {
     proposalActionsUpdateMetadata: {
         logoTerm: 'Logo',
         nameTerm: 'Name',
-        linkTerm: 'Links'
+        linkTerm: 'Links',
     },
     proposalDataListItemStatus: {
         voted: "You've voted",
