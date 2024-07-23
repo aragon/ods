@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update interface for `Accordion.Container` to expose value prop
 -   Update styles on `Tabs.List` for latest spec
 -   Rename `indicator` property of `<Progress />` core component to `thresholdIndicator`
+-   Bump `softprops/action-gh-release` from 2.0.6 to 2.0.8
 
 ## [1.0.39] - 2024-07-16
 
