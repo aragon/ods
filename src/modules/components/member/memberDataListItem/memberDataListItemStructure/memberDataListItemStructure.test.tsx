@@ -60,16 +60,18 @@ describe('<MemberDataListItem /> component', () => {
         expect(screen.getByRole('heading', { level: 2, name: '2.96K Delegations' })).toBeInTheDocument();
     });
 
-    it('renders the voting power of the member when not null', () => {
-        const votingPower = 0;
-        render(createTestComponent({ votingPower }));
-        expect(screen.getByRole('heading', { level: 2, name: '0 Voting Power' })).toBeInTheDocument();
+    it('renders the token amount of the member when not null', () => {
+        const tokenAmount = 0;
+        const tokenSymbol = 'PDC';
+        render(createTestComponent({ tokenAmount, tokenSymbol }));
+        expect(screen.getByRole('heading', { level: 2, name: '0 PDC Voting Power' })).toBeInTheDocument();
     });
 
     it('renders and formats the voting power of the member', () => {
-        const votingPower = 420689;
-        render(createTestComponent({ votingPower }));
-        expect(screen.getByRole('heading', { level: 2, name: '420.69K Voting Power' })).toBeInTheDocument();
+        const tokenAmount = 420689;
+        const tokenSymbol = 'ETH';
+        render(createTestComponent({ tokenAmount, tokenSymbol }));
+        expect(screen.getByRole('heading', { level: 2, name: '420.69K ETH Voting Power' })).toBeInTheDocument();
     });
 
     it('renders a you tag when the user is the current connected account', () => {
@@ -77,5 +79,17 @@ describe('<MemberDataListItem /> component', () => {
         useAccountMock.mockReturnValue({ isConnected: true, address } as unknown as wagmi.UseAccountReturnType);
         render(createTestComponent({ address }));
         expect(screen.getByText('You')).toBeInTheDocument();
+    });
+
+    it('hides the voting power label when hideLabelTokenVoting is true', () => {
+        render(createTestComponent({ hideLabelTokenVoting: true }));
+        expect(screen.queryByText('Voting Power')).not.toBeInTheDocument();
+    });
+
+    it('displays the correct token symbol', () => {
+        const tokenAmount = 1000;
+        const tokenSymbol = 'XYZ';
+        render(createTestComponent({ tokenAmount, tokenSymbol }));
+        expect(screen.getByRole('heading', { level: 2, name: '1K XYZ Voting Power' })).toBeInTheDocument();
     });
 });
