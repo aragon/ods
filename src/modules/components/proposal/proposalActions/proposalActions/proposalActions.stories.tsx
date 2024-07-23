@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { generateProposalActionChangeMembers } from '../actions/generators/proposalActionChangeMembers';
 import { generateProposalActionWithdrawToken, generateToken } from '../actions/generators/proposalActionWithdrawToken';
-import type { IProposalAction } from '../proposalActionsTypes';
+import { ProposalActionType, type IProposalAction } from '../proposalActionsTypes';
 import { ProposalActions } from './proposalActions';
 
 const meta: Meta<typeof ProposalActions> = {
@@ -22,6 +23,9 @@ type Story = StoryObj<typeof ProposalActions>;
  */
 export const TokenWithdraw: Story = {
     args: {
+        actionNames: {
+            WITHDRAW_TOKEN: 'Withdraw assets',
+        },
         actions: [
             generateProposalActionWithdrawToken({
                 to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
@@ -30,6 +34,27 @@ export const TokenWithdraw: Story = {
             generateProposalActionWithdrawToken({
                 to: '0x1234567890abcdef1234567890abcdef12345678',
                 inputData: null,
+            }),
+        ],
+    },
+};
+
+/**
+ * Usage example of the ProposalActions module component with mocked TokenWithdraw actions.
+ */
+export const ChangeMembers: Story = {
+    args: {
+        actionNames: {
+            ADD_MEMBERS: 'Add members',
+            REMOVE_MEMBERS: 'Remove members',
+        },
+        actions: [
+            generateProposalActionChangeMembers({
+                to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+            }),
+            generateProposalActionChangeMembers({
+                type: ProposalActionType.REMOVE_MEMBERS,
+                to: '0x1234567890abcdef1234567890abcdef12345678',
             }),
         ],
     },

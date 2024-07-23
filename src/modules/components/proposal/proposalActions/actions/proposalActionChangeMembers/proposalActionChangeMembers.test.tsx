@@ -35,7 +35,9 @@ describe('<ProposalActionAdjustMemberCount /> component', () => {
 
     it('renders without crashing', () => {
         render(createTestComponent());
-        expect(screen.getByText(modulesCopy.proposalActionChangeMembers.summary)).toBeInTheDocument();
+        expect(
+            screen.getByText(modulesCopy.proposalActionsAction.proposalActionChangeMembers.summary),
+        ).toBeInTheDocument();
     });
 
     it('renders correctly for adding members', () => {
@@ -49,13 +51,17 @@ describe('<ProposalActionAdjustMemberCount /> component', () => {
             }),
         );
 
-        expect(screen.getByText(modulesCopy.proposalActionChangeMembers.added)).toBeInTheDocument();
         expect(
-            screen.getByText(`+${changingMembers.length} ${modulesCopy.proposalActionChangeMembers.members}`),
+            screen.getByText(modulesCopy.proposalActionsAction.proposalActionChangeMembers.added),
         ).toBeInTheDocument();
         expect(
             screen.getByText(
-                `${currentMemberCount + changingMembers.length} ${modulesCopy.proposalActionChangeMembers.members}`,
+                `+${changingMembers.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
+            ),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText(
+                `${currentMemberCount + changingMembers.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
             ),
         ).toBeInTheDocument();
     });
@@ -71,13 +77,17 @@ describe('<ProposalActionAdjustMemberCount /> component', () => {
             }),
         );
 
-        expect(screen.getByText(modulesCopy.proposalActionChangeMembers.removed)).toBeInTheDocument();
         expect(
-            screen.getByText(`-${changingMembers.length} ${modulesCopy.proposalActionChangeMembers.members}`),
+            screen.getByText(modulesCopy.proposalActionsAction.proposalActionChangeMembers.removed),
         ).toBeInTheDocument();
         expect(
             screen.getByText(
-                `${currentMemberCount - changingMembers.length} ${modulesCopy.proposalActionChangeMembers.members}`,
+                `-${changingMembers.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
+            ),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText(
+                `${currentMemberCount - changingMembers.length} ${modulesCopy.proposalActionsAction.proposalActionChangeMembers.members}`,
             ),
         ).toBeInTheDocument();
     });
@@ -85,6 +95,8 @@ describe('<ProposalActionAdjustMemberCount /> component', () => {
     it('renders additional summary information', () => {
         render(createTestComponent());
 
-        expect(screen.getByText(modulesCopy.proposalActionChangeMembers.blockNote)).toBeInTheDocument();
+        expect(
+            screen.getByText(modulesCopy.proposalActionsAction.proposalActionChangeMembers.blockNote),
+        ).toBeInTheDocument();
     });
 });

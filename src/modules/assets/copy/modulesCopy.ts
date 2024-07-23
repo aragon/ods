@@ -31,24 +31,20 @@ export const modulesCopy = {
         expand: 'Expand all',
     },
     proposalActionsAction: {
-        actionTypeAdjustMemberCount: {
-            addMembers: 'Add members',
-            removeMembers: 'Remove members',
-        },
         actionTypeWithdrawToken: 'Withdraw assets',
         notVerified: 'Not verified',
-        AdjustMemberCount: {
-            addMembers: 'Add members',
-            removeMembers: 'Remove members',
+        proposalActionChangeMembers: {
+            summary: 'Summary',
+            added: 'Added',
+            removed: 'Removed',
+            members: 'members',
+            adjustMemberCount: {
+                addMembers: 'Add members',
+                removeMembers: 'Remove members',
+            },
+            totalMembers: 'Total members',
+            blockNote: 'This is by the current block number, and might change in the future',
         },
-    },
-    proposalActionChangeMembers: {
-        summary: 'Summary',
-        added: 'Added',
-        removed: 'Removed',
-        members: 'members',
-        totalMembers: 'Total members',
-        blockNote: 'This is by the current block number, and might change in the future',
     },
     proposalDataListItemStatus: {
         voted: "You've voted",

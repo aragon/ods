@@ -28,17 +28,18 @@ export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersP
                 </DataList.Container>
             </DataList.Root>
             <section>
-                <Heading size="h3">{copy.proposalActionChangeMembers.summary}</Heading>
+                <Heading size="h3">{copy.proposalActionsAction.proposalActionChangeMembers.summary}</Heading>
                 <div>
                     <div className="flex flex-col gap-y-1 py-3 md:grid md:grid-cols-4">
                         <p className="col-span-1 text-neutral-800">
                             {action.type === ProposalActionType.ADD_MEMBERS
-                                ? copy.proposalActionChangeMembers.added
-                                : copy.proposalActionChangeMembers.removed}
+                                ? copy.proposalActionsAction.proposalActionChangeMembers.added
+                                : copy.proposalActionsAction.proposalActionChangeMembers.removed}
                         </p>
                         <p className="col-span-3 text-neutral-500">
                             {action.type === ProposalActionType.ADD_MEMBERS ? `+` : `-`}
-                            {action.changingMembers.length} {copy.proposalActionChangeMembers.members}
+                            {action.changingMembers.length}{' '}
+                            {copy.proposalActionsAction.proposalActionChangeMembers.members}
                         </p>
                     </div>
                     <div className="h-0 w-full border-b border-neutral-100" />
@@ -49,9 +50,11 @@ export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersP
                                 {action.type === ProposalActionType.ADD_MEMBERS
                                     ? action.currentMemberCount + action.changingMembers.length
                                     : action.currentMemberCount - action.changingMembers.length}{' '}
-                                {copy.proposalActionChangeMembers.members}
+                                {copy.proposalActionsAction.proposalActionChangeMembers.members}
                             </p>
-                            <p className="text-sm text-neutral-500">{copy.proposalActionChangeMembers.blockNote}</p>
+                            <p className="text-sm text-neutral-500">
+                                {copy.proposalActionsAction.proposalActionChangeMembers.blockNote}
+                            </p>
                         </div>
                     </div>
                 </div>
