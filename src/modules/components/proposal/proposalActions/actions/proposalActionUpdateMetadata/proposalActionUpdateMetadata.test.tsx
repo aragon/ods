@@ -1,13 +1,13 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { modulesCopy } from '../../../../../assets';
-import { type IProposalActionUpdateMetadata } from '../../proposalActionsTypes';
 import { generateProposalActionUpdateMetadata } from '../generators';
 import { type IProposalActionUpdateMetadataProps, ProposalActionUpdateMetadata } from './proposalActionUpdateMetadata';
 
 describe('<ProposalActionUpdateMetadata /> component', () => {
-    const createTestComponent = (props?: Partial<IProposalActionUpdateMetadata>) => {
+    const createTestComponent = (props?: Partial<IProposalActionUpdateMetadataProps>) => {
         const defaultProps: IProposalActionUpdateMetadataProps = {
-            action: generateProposalActionUpdateMetadata(props),
+            action: generateProposalActionUpdateMetadata(),
+            ...props,
         };
 
         return <ProposalActionUpdateMetadata {...defaultProps} />;
@@ -48,7 +48,9 @@ describe('<ProposalActionUpdateMetadata /> component', () => {
             ],
         };
 
-        render(createTestComponent({ proposedMetadata, existingMetadata }));
+        const action = generateProposalActionUpdateMetadata({ proposedMetadata, existingMetadata });
+
+        render(createTestComponent({ action }));
 
         expect(screen.getByText('Existing Name')).toBeInTheDocument();
         expect(screen.getByText('Existing Link 1')).toBeInTheDocument();
