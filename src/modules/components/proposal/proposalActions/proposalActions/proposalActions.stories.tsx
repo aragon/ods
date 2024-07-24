@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import {
+    generateProposalAction,
     generateProposalActionTokenMint,
     generateProposalActionUpdateMetadata,
     generateProposalActionWithdrawToken,
     generateToken,
 } from '../actions/generators';
-import { generateProposalActionChangeMembers } from '../actions/generators/proposalActionChangeMembers';
 import type { IProposalAction } from '../proposalActionsTypes';
 import { ProposalActions } from './proposalActions';
 
@@ -28,22 +28,14 @@ type Story = StoryObj<typeof ProposalActions>;
  */
 export const MixedActions: Story = {
     args: {
-        actionNames: {
-            WITHDRAW_TOKEN: 'Withdraw assets',
-            CUSTOM_ACTION_ONE: 'Custom Action One',
-            CUSTOM_ACTION_TWO: 'Custom Action Two',
-            ADD_MEMBERS: 'Add members',
-        },
+        actionNames: { WITHDRAW_TOKEN: 'Withdraw assets', ADD_MEMBERS: 'Add members' },
         actions: [
             generateProposalActionWithdrawToken({
                 to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
                 token: generateToken({ name: 'Ether' }),
             }),
-            generateProposalActionWithdrawToken({
-                to: '0x1234567890abcdef1234567890abcdef12345678',
-                inputData: null,
-            }),
             generateProposalActionUpdateMetadata(),
+            generateProposalAction({ to: '0x6B175474E89094C44Da98b954EedeAC495271d0F' }),
             generateProposalActionTokenMint({
                 receivers: [
                     {
@@ -63,7 +55,6 @@ export const MixedActions: Story = {
                     },
                 ],
             }),
-            generateProposalActionChangeMembers(),
         ],
     },
 };

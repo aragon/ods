@@ -1,16 +1,10 @@
-import { type ICompositeAddress } from '../../../../../types';
 import { ProposalActionType, type IProposalActionChangeMembers } from '../../proposalActionsTypes';
-
-export const generateCompositeAddress = (address?: Partial<ICompositeAddress>): ICompositeAddress => ({
-    address: '0x0000000000000000000000000000000000000000',
-    ...address,
-});
 
 export const generateProposalActionChangeMembers = (
     action?: Partial<IProposalActionChangeMembers>,
 ): IProposalActionChangeMembers => ({
     type: ProposalActionType.ADD_MEMBERS,
-    members: [generateCompositeAddress({ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' })],
+    members: [{ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' }],
     currentMembers: 5,
     from: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
     to: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE',

@@ -1,8 +1,7 @@
 import { DataList, DefinitionList, Heading } from '../../../../../../core';
 import { MemberDataListItem } from '../../../../member';
 import { useOdsModulesContext } from '../../../../odsModulesProvider';
-import { ProposalActionType } from '../../proposalActionsTypes';
-import type { IProposalActionChangeMembers } from '../../proposalActionsTypes/proposalActionChangeMembers';
+import { ProposalActionType, type IProposalActionChangeMembers } from '../../proposalActionsTypes';
 
 export interface IProposalActionChangeMembersProps {
     /**
@@ -29,29 +28,27 @@ export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersP
                 </DataList.Container>
             </DataList.Root>
             <div>
-                <Heading size="h3">{copy.proposalActionsAction.proposalActionChangeMembers.summary}</Heading>
+                <Heading size="h3">{copy.proposalActionChangeMembers.summary}</Heading>
                 <DefinitionList.Container>
                     <DefinitionList.Item
                         term={
                             action.type === ProposalActionType.ADD_MEMBERS
-                                ? copy.proposalActionsAction.proposalActionChangeMembers.added
-                                : copy.proposalActionsAction.proposalActionChangeMembers.removed
+                                ? copy.proposalActionChangeMembers.added
+                                : copy.proposalActionChangeMembers.removed
                         }
                     >
                         <p className="text-neutral-500">
                             {action.type === ProposalActionType.ADD_MEMBERS ? `+` : `-`}
-                            {action.members.length} {copy.proposalActionsAction.proposalActionChangeMembers.members}
+                            {action.members.length} {copy.proposalActionChangeMembers.members}
                         </p>
                     </DefinitionList.Item>
-                    <DefinitionList.Item term={copy.proposalActionsAction.proposalActionChangeMembers.existingMembers}>
+                    <DefinitionList.Item term={copy.proposalActionChangeMembers.existingMembers}>
                         <p className="text-neutral-500">
-                            {action.currentMembers} {copy.proposalActionsAction.proposalActionChangeMembers.members}
+                            {action.currentMembers} {copy.proposalActionChangeMembers.members}
                         </p>
                     </DefinitionList.Item>
                 </DefinitionList.Container>
-                <p className="text-sm text-neutral-500">
-                    {copy.proposalActionsAction.proposalActionChangeMembers.blockNote}
-                </p>
+                <p className="text-sm text-neutral-500">{copy.proposalActionChangeMembers.blockNote}</p>
             </div>
         </div>
     );

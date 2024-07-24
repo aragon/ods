@@ -31,20 +31,19 @@ export const modulesCopy = {
         expand: 'Expand all',
     },
     proposalActionsAction: {
-        actionTypeWithdrawToken: 'Withdraw assets',
         notVerified: 'Not verified',
-        proposalActionChangeMembers: {
-            summary: 'Summary',
-            added: 'Added',
-            removed: 'Removed',
-            members: 'members',
-            adjustMemberCount: {
-                addMembers: 'Add members',
-                removeMembers: 'Remove members',
-            },
-            existingMembers: 'Existing members',
-            blockNote: 'At the block in which the proposal was created',
+    },
+    proposalActionChangeMembers: {
+        summary: 'Summary',
+        added: 'Added',
+        removed: 'Removed',
+        members: 'members',
+        adjustMemberCount: {
+            addMembers: 'Add members',
+            removeMembers: 'Remove members',
         },
+        existingMembers: 'Existing members',
+        blockNote: 'At the block in which the proposal was created',
     },
     proposalActionsUpdateMetadata: {
         logoTerm: 'Logo',

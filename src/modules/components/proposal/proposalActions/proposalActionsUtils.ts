@@ -1,5 +1,9 @@
-import { ProposalActionTokenMint, ProposalActionUpdateMetadata, ProposalActionWithdrawToken } from './actions';
-import { ProposalActionChangeMembers } from './actions/proposalActionChangeMembers';
+import {
+    ProposalActionChangeMembers,
+    ProposalActionTokenMint,
+    ProposalActionUpdateMetadata,
+    ProposalActionWithdrawToken,
+} from './actions';
 import {
     type IProposalAction,
     type IProposalActionChangeMembers,
@@ -17,9 +21,7 @@ class ProposalActionsUtils {
             return () => ProposalActionTokenMint({ action });
         } else if (this.isUpdateMetadataAction(action)) {
             return () => ProposalActionUpdateMetadata({ action });
-        }
-
-        if (this.isChangeMembersAction(action)) {
+        } else if (this.isChangeMembersAction(action)) {
             return () => ProposalActionChangeMembers({ action });
         }
 
