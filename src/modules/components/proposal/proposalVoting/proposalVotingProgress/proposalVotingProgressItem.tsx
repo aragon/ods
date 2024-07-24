@@ -11,11 +11,11 @@ import {
 
 export interface IProposalVotingProgressItemDescription {
     /**
-     * Value of the description highlighted.
+     * Value of the description highlighted (e.g. current vote amount)
      */
     value: string | number | null;
     /**
-     * Text of the description.
+     * Text of the description (e.g. minimum required vote amount)
      */
     text: string;
 }
