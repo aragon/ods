@@ -20,7 +20,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Renamed `votingPower` prop to `tokenAmount` in the `MemberDataListItemStructure` module component
 -   Update interface for `Accordion.Container` to expose value prop
 -   Update styles on `Tabs.List` for latest spec
--   Rename `indicator` property of `<Progress />` core component to `thresholdIndicator`
+-   Rename `indicator` property of `<Progress />` core component to `thresholdIndicator` and set `data-value` property
+    to indicator component to easier test its value
 -   Bump `softprops/action-gh-release` from 2.0.6 to 2.0.8
 -   Bump `ws` from 7.5.9 to 7.5.10
 -   Update minor and patch NPM dependencies
