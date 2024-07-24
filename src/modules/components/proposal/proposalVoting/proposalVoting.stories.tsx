@@ -100,7 +100,7 @@ const tokenSettings = [
 const multisigSettings = [
     { term: 'Strategy', value: '1 Address → 1 Vote' },
     { term: 'Voting options', value: 'Approve' },
-    { term: 'Minimum approval', value: '3 of 5' },
+    { term: 'Minimum approval', value: '4 of 5' },
 ];
 
 /**
@@ -197,7 +197,7 @@ export const SingleStage: Story = {
                     startDate={DateTime.now().toMillis()}
                     endDate={DateTime.now().plus({ hours: 7 }).toMillis()}
                 >
-                    <ProposalVoting.BreakdownMultisig approvalsAmount={4} minApprovals={5} />
+                    <ProposalVoting.BreakdownMultisig approvalsAmount={4} minApprovals={4} />
                     <ProposalVoting.Votes>
                         <DataList.Root itemsCount={filteredVotes.length} entityLabel="Votes">
                             <DataList.Filter searchValue={search} onSearchValueChange={setSearch} />
