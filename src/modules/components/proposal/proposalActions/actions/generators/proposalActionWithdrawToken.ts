@@ -1,10 +1,4 @@
-import { type ICompositeAddress } from '../../../../../types';
 import { ProposalActionType, type IProposalActionWithdrawToken } from '../../proposalActionsTypes';
-
-export const generateCompositeAddress = (address?: Partial<ICompositeAddress>): ICompositeAddress => ({
-    address: '0x0000000000000000000000000000000000000000',
-    ...address,
-});
 
 export const generateToken = (
     token?: Partial<IProposalActionWithdrawToken['token']>,
@@ -22,8 +16,8 @@ export const generateProposalActionWithdrawToken = (
     action?: Partial<IProposalActionWithdrawToken>,
 ): IProposalActionWithdrawToken => ({
     type: ProposalActionType.WITHDRAW_TOKEN,
-    sender: generateCompositeAddress({ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' }),
-    receiver: generateCompositeAddress({ address: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE' }),
+    sender: { address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' },
+    receiver: { address: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE' },
     token: generateToken(),
     from: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
     to: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE',
