@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { generateProposalActionTokenMint } from '../actions/generators';
-import { generateProposalActionWithdrawToken, generateToken } from '../actions/generators/proposalActionWithdrawToken';
+import {
+    generateProposalActionTokenMint,
+    generateProposalActionUpdateMetadata,
+    generateProposalActionWithdrawToken,
+    generateToken,
+} from '../actions/generators';
 import type { IProposalAction } from '../proposalActionsTypes';
 import { ProposalActions } from './proposalActions';
 
@@ -32,6 +36,7 @@ export const MixedActions: Story = {
                 to: '0x1234567890abcdef1234567890abcdef12345678',
                 inputData: null,
             }),
+            generateProposalActionUpdateMetadata(),
             generateProposalActionTokenMint({
                 receivers: [
                     {

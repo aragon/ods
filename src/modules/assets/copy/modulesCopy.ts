@@ -33,6 +33,14 @@ export const modulesCopy = {
     proposalActionsAction: {
         notVerified: 'Not verified',
     },
+    proposalActionsUpdateMetadata: {
+        logoTerm: 'Logo',
+        nameTerm: 'Name',
+        linkTerm: 'Links',
+        descriptionTerm: 'Description',
+        existingToggle: 'Existing',
+        proposedToggle: 'Proposed',
+    },
     proposalActionsTokenMint: {
         summaryHeading: 'Summary',
         newTokensTerm: 'New tokens',
