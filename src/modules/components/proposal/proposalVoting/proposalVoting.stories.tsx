@@ -97,11 +97,11 @@ const tokenSettings = [
     { term: 'Minimum duration', definition: '7 days' },
 ];
 
-const getMultisigSettings = (minApprovals: number) => ([
+const getMultisigSettings = (minApprovals: number) => [
     { term: 'Strategy', definition: '1 Address → 1 Vote' },
     { term: 'Voting options', definition: 'Approve' },
     { term: 'Minimum approval', definition: `${minApprovals} of 5` },
-]);
+];
 
 /**
  * Usage example of the ProposalVoting module component for multi-stage proposals
@@ -201,7 +201,10 @@ export const SingleStage: Story = {
                     startDate={DateTime.now().toMillis()}
                     endDate={DateTime.now().plus({ hours: 7 }).toMillis()}
                 >
-                    <ProposalVoting.BreakdownMultisig approvalsAmount={multisigVotes.length} minApprovals={minApprovals} />
+                    <ProposalVoting.BreakdownMultisig
+                        approvalsAmount={multisigVotes.length}
+                        minApprovals={minApprovals}
+                    />
                     <ProposalVoting.Votes>
                         <DataList.Root itemsCount={filteredVotes.length} entityLabel="Votes">
                             <DataList.Filter searchValue={search} onSearchValueChange={setSearch} />
