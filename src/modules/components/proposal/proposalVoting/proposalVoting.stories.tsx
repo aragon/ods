@@ -112,6 +112,7 @@ export const MultiStage: Story = {
         description:
             'The proposal must pass all governance stages to be accepted and potential onchain actions to execute.',
         activeStage: '0',
+        className: 'max-w-[560px]',
     },
     render: (args) => {
         const [tokenSearch, setTokenSearch] = useState<string | undefined>('');
@@ -120,7 +121,7 @@ export const MultiStage: Story = {
         const filteredTokenVotes = filterVotes(tokenVotes, tokenSearch);
 
         return (
-            <ProposalVoting.Container {...args} style={{ maxWidth: 560 }}>
+            <ProposalVoting.Container {...args}>
                 <ProposalVoting.Stage
                     name="Token holder voting"
                     status={ProposalVotingStatus.ACTIVE}
