@@ -18,7 +18,7 @@ describe('<ProposalVotingProgressContainer /> component', () => {
         expect(container.querySelector('div')?.className).toContain('md:flex-row');
     });
 
-    it('renders the progress items in row direction when direction property is set to row', () => {
+    it('renders the progress items in col direction when direction property is set to row', () => {
         const direction = 'col';
         const { container } = render(createTestComponent({ direction }));
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
