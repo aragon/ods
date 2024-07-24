@@ -12,9 +12,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Add `ProposalActions` module component
 -   Add `WithdrawToken` action for `ProposalActions`
 -   Add `ChangeMembers` action for `ProposalActions`
+-   Add `ProposalActionTokenMint` module component
+-   Add optional `hideLabelTokenVoting` and `tokenSymbol` props to the `MemberDataListItemStructure` module component
+-   Add `ProposalAction` module component
 
 ### Changed
 
+-   Renamed `votingPower` prop to `tokenAmount` in the `MemberDataListItemStructure` module component
 -   Update interface for `Accordion.Container` to expose value prop
 -   Update styles on `Tabs.List` for latest spec
 -   Rename `indicator` property of `<Progress />` core component to `thresholdIndicator`

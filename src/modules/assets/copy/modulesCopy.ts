@@ -46,6 +46,13 @@ export const modulesCopy = {
             blockNote: 'At the block in which the proposal was created',
         },
     },
+    proposalActionsTokenMint: {
+        summaryHeading: 'Summary',
+        newTokensTerm: 'New tokens',
+        newHoldersTerm: 'New holders',
+        totalTokenSupplyTerm: 'Total token supply',
+        totalHoldersTerm: 'Total token holders',
+    },
     proposalDataListItemStatus: {
         voted: "You've voted",
         ago: 'ago',
