@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Add `ProposalActions` module component
 -   Add `WithdrawToken` action for `ProposalActions`
 -   Add `ChangeMembers` action for `ProposalActions`
+-   Add `ProposalActionUpdateMetadata` module component
 -   Add `ProposalActionTokenMint` module component
 -   Add optional `hideLabelTokenVoting` and `tokenSymbol` props to the `MemberDataListItemStructure` module component
 -   Add `ProposalAction` module component

@@ -1,9 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { generateProposalActionTokenMint } from '../actions/generators';
+import {
+    generateProposalActionTokenMint,
+    generateProposalActionUpdateMetadata,
+    generateProposalActionWithdrawToken,
+    generateToken,
+} from '../actions/generators';
 import { generateProposalActionChangeMembers } from '../actions/generators/proposalActionChangeMembers';
-import { generateProposalActionWithdrawToken, generateToken } from '../actions/generators/proposalActionWithdrawToken';
-import { type IProposalAction } from '../proposalActionsTypes';
+import type { IProposalAction } from '../proposalActionsTypes';
 import { ProposalActions } from './proposalActions';
 
 const meta: Meta<typeof ProposalActions> = {
@@ -24,6 +28,12 @@ type Story = StoryObj<typeof ProposalActions>;
  */
 export const MixedActions: Story = {
     args: {
+        actionNames: {
+            WITHDRAW_TOKEN: 'Withdraw assets',
+            CUSTOM_ACTION_ONE: 'Custom Action One',
+            CUSTOM_ACTION_TWO: 'Custom Action Two',
+            ADD_MEMBERS: 'Add members',
+        },
         actions: [
             generateProposalActionWithdrawToken({
                 to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
@@ -33,6 +43,7 @@ export const MixedActions: Story = {
                 to: '0x1234567890abcdef1234567890abcdef12345678',
                 inputData: null,
             }),
+            generateProposalActionUpdateMetadata(),
             generateProposalActionTokenMint({
                 receivers: [
                     {
@@ -52,11 +63,12 @@ export const MixedActions: Story = {
                     },
                 ],
             }),
+            generateProposalActionChangeMembers(),
         ],
     },
 };
 
-export const ActionsExample: Story = {
+export const CustomActions: Story = {
     render: () => {
         const actionNames = {
             WITHDRAW_TOKEN: 'Withdraw assets',
@@ -79,25 +91,6 @@ export const ActionsExample: Story = {
         };
 
         const actions = [
-            generateProposalActionWithdrawToken({
-                to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-                token: generateToken({
-                    name: 'Ether',
-                    symbol: 'ETH',
-                    decimals: 18,
-                    logo: 'ether-logo.png',
-                    priceUsd: '2000',
-                }),
-                inputData: {
-                    function: 'transfer',
-                    contract: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-                    parameters: [
-                        { type: 'address', value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE' },
-                        { type: 'uint256', value: '1000000000000000000' },
-                    ],
-                },
-            }),
-            generateProposalActionChangeMembers(),
             {
                 type: 'CUSTOM_ACTION',
                 inputData: { function: 'doSomething', contract: 'Ether', parameters: [] },

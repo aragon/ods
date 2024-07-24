@@ -46,6 +46,14 @@ export const modulesCopy = {
             blockNote: 'At the block in which the proposal was created',
         },
     },
+    proposalActionsUpdateMetadata: {
+        logoTerm: 'Logo',
+        nameTerm: 'Name',
+        linkTerm: 'Links',
+        descriptionTerm: 'Description',
+        existingToggle: 'Existing',
+        proposedToggle: 'Proposed',
+    },
     proposalActionsTokenMint: {
         summaryHeading: 'Summary',
         newTokensTerm: 'New tokens',
