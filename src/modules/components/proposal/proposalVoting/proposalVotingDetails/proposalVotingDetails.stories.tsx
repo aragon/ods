@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { DateTime } from 'luxon';
 import { Tabs } from '../../../../../core';
 import { ProposalVoting } from '../index';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
+import { ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
 
 const meta: Meta<typeof ProposalVoting.Details> = {
     title: 'Modules/Components/Proposal/ProposalVoting/ProposalVoting.Details',
@@ -29,9 +31,16 @@ export const Default: Story = {
     },
     render: (args) => {
         return (
-            <Tabs.Root defaultValue={ProposalVotingTab.DETAILS} className="w-full">
-                <ProposalVoting.Details {...args} />
-            </Tabs.Root>
+            <ProposalVotingStageContextProvider
+                value={{
+                    startDate: DateTime.now().plus({ days: 4 }).toMillis(),
+                    endDate: DateTime.now().plus({ days: 7 }).toMillis(),
+                }}
+            >
+                <Tabs.Root defaultValue={ProposalVotingTab.DETAILS} className="w-full">
+                    <ProposalVoting.Details {...args} />
+                </Tabs.Root>
+            </ProposalVotingStageContextProvider>
         );
     },
 };

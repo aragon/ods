@@ -30,7 +30,7 @@ export interface IProposalVotingStageProps extends ComponentProps<'div'> {
      */
     name?: string;
     /**
-     * Index of the stage.
+     * Index of the stage set automatically by the ProposalVotingContainer for multi-stage proposals.
      */
     index?: number;
     /**
@@ -76,7 +76,7 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
         <Accordion.Item value={index!.toString()} {...otherProps}>
             <Accordion.ItemHeader>
                 <div className="flex grow flex-row justify-between gap-4 md:gap-6">
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col items-start gap-1">
                         <p className="text-lg font-normal leading-tight text-neutral-800">{name}</p>
                         <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={true} />
                     </div>

@@ -24,11 +24,12 @@ export const Default: Story = {
         status: ProposalVotingStatus.ACCEPTED,
         startDate: '2024-07-17T08:34:22.719Z',
         endDate: '2024-07-20T08:34:22.719Z',
+        index: 0,
     },
     render: (args) => {
         return (
             <Accordion.Container isMulti={false}>
-                <ProposalVoting.Stage {...args} index={0} />
+                <ProposalVoting.Stage {...args} />
             </Accordion.Container>
         );
     },
