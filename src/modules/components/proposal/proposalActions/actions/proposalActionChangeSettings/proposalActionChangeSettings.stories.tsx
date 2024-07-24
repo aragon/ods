@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProposalActionUpdateSettings } from './proposalActionUpdateSettings';
+import { ProposalActionUpdateSettings } from './proposalActionChangeSettings';
 import { generateProposalActionUpdateSettingsMultisig } from '../generators/proposalActionUpdateSettings';
 
 const meta: Meta<typeof ProposalActionUpdateSettings> = {

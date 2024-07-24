@@ -2,11 +2,11 @@ import { type ICompositeAddress } from "../../../../types";
 import { type IProposalAction } from "./proposalAction";
 import { type ProposalActionType } from "./proposalActionType";
 
-export interface IProposalActionUpdateSettings extends IProposalAction {
+export interface IProposalActionChangeSettings extends IProposalAction {
     /**
      * Type of settings update for proposal action.
      */
-    type: ProposalActionType.UPDATE_SETTINGS_MULTISIG | ProposalActionType.UPDATE_SETTINGS_TOKENVOTE;
+    type: ProposalActionType.CHANGE_SETTINGS_MULTISIG | ProposalActionType.CHANGE_SETTINGS_TOKENVOTE;
     /**
      * Multisig threshold.
      */
