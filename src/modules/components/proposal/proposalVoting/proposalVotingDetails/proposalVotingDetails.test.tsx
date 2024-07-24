@@ -53,15 +53,15 @@ describe('<ProposalVotingDetails /> component', () => {
 
     it('renders the governance settings passed as props', () => {
         const settings = [
-            { term: 'Voting options', value: 'Approve' },
-            { term: 'Minimum approval', value: '3 of 5' },
+            { term: 'Voting options', definition: 'Approve' },
+            { term: 'Minimum approval', definition: '3 of 5' },
         ];
         render(createTestComponent({ settings }));
         expect(screen.getByText('Governance')).toBeInTheDocument();
 
         settings.forEach((setting) => {
             expect(screen.getByText(setting.term)).toBeInTheDocument();
-            expect(screen.getByText(setting.value)).toBeInTheDocument();
+            expect(screen.getByText(setting.definition)).toBeInTheDocument();
         });
     });
 

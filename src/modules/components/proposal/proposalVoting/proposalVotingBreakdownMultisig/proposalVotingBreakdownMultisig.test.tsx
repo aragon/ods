@@ -51,7 +51,7 @@ describe('<ProposalVotingBreakdownMultisig /> component', () => {
         render(createTestComponent({ approvalsAmount, minApprovals }));
         expect(screen.getByText('Minimum Approval')).toBeInTheDocument();
         expect(screen.getByText('1K')).toBeInTheDocument();
-        expect(screen.getByText('of 12.35K Members')).toBeInTheDocument();
+        expect(screen.getByText('of 12.35K members')).toBeInTheDocument();
     });
 
     it('renders success indicator on min approvals reached', () => {

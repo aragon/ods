@@ -88,19 +88,19 @@ const multisigVotes: IVoteDataListItemStructureProps[] = [
 ];
 
 const tokenSettings = [
-    { term: 'Strategy', value: '1 Token → 1 Vote' },
-    { term: 'Voting options', value: 'Yes, Abstain, or No' },
-    { term: 'Minimum support', value: '>50%' },
-    { term: 'Minimum participation (Quorum)', value: '≥62.42K of 1M DEGEN (≥6.942)' },
-    { term: 'Early execution', value: 'Yes' },
-    { term: 'Vote replacement', value: 'No' },
-    { term: 'Minimum duration', value: '7 days' },
+    { term: 'Strategy', definition: '1 Token → 1 Vote' },
+    { term: 'Voting options', definition: 'Yes, Abstain, or No' },
+    { term: 'Minimum support', definition: '>50%' },
+    { term: 'Minimum participation (Quorum)', definition: '≥62.42K of 1M DEGEN (≥6.942)' },
+    { term: 'Early execution', definition: 'Yes' },
+    { term: 'Vote replacement', definition: 'No' },
+    { term: 'Minimum duration', definition: '7 days' },
 ];
 
 const multisigSettings = [
-    { term: 'Strategy', value: '1 Address → 1 Vote' },
-    { term: 'Voting options', value: 'Approve' },
-    { term: 'Minimum approval', value: '4 of 5' },
+    { term: 'Strategy', definition: '1 Address → 1 Vote' },
+    { term: 'Voting options', definition: 'Approve' },
+    { term: 'Minimum approval', definition: '4 of 5' },
 ];
 
 /**

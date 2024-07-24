@@ -12,7 +12,7 @@ export interface IProposalVotingDetailsSetting {
     /**
      * Value of the setting.
      */
-    value: string;
+    definition: string;
 }
 
 export interface IProposalVotingDetailsProps extends Omit<ITabsContentProps, 'value'> {
@@ -52,9 +52,9 @@ export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (pro
                 <>
                     <Heading size="h3">{copy.proposalVotingDetails.governance}</Heading>
                     <DefinitionList.Container>
-                        {settings.map(({ term, value }) => (
+                        {settings.map(({ term, definition }) => (
                             <DefinitionList.Item key={term} term={term}>
-                                <p className="text-neutral-500">{value}</p>
+                                <p className="text-neutral-500">{definition}</p>
                             </DefinitionList.Item>
                         ))}
                     </DefinitionList.Container>

@@ -24,9 +24,9 @@ type Story = StoryObj<typeof ProposalVoting.Details>;
 export const Default: Story = {
     args: {
         settings: [
-            { term: 'Strategy', value: '1 Address → 1 Vote' },
-            { term: 'Voting options', value: 'Approve' },
-            { term: 'Minimum approval', value: '3 of 5' },
+            { term: 'Strategy', definition: '1 Address → 1 Vote' },
+            { term: 'Voting options', definition: 'Approve' },
+            { term: 'Minimum approval', definition: '3 of 5' },
         ],
     },
     render: (args) => {
