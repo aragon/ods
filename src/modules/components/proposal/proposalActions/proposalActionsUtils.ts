@@ -1,6 +1,12 @@
-import { ProposalActionTokenMint, ProposalActionUpdateMetadata, ProposalActionWithdrawToken } from './actions';
+import {
+    ProposalActionChangeMembers,
+    ProposalActionTokenMint,
+    ProposalActionUpdateMetadata,
+    ProposalActionWithdrawToken,
+} from './actions';
 import {
     type IProposalAction,
+    type IProposalActionChangeMembers,
     type IProposalActionTokenMint,
     type IProposalActionUpdateMetadata,
     type IProposalActionWithdrawToken,
@@ -15,6 +21,8 @@ class ProposalActionsUtils {
             return () => ProposalActionTokenMint({ action });
         } else if (this.isUpdateMetadataAction(action)) {
             return () => ProposalActionUpdateMetadata({ action });
+        } else if (this.isChangeMembersAction(action)) {
+            return () => ProposalActionChangeMembers({ action });
         }
 
         return null;
@@ -22,6 +30,10 @@ class ProposalActionsUtils {
 
     isWithdrawTokenAction = (action: Partial<IProposalAction>): action is IProposalActionWithdrawToken => {
         return action.type === ProposalActionType.WITHDRAW_TOKEN;
+    };
+
+    isChangeMembersAction = (action: Partial<IProposalAction>): action is IProposalActionChangeMembers => {
+        return action.type === ProposalActionType.ADD_MEMBERS || action.type === ProposalActionType.REMOVE_MEMBERS;
     };
 
     isUpdateMetadataAction = (action: Partial<IProposalAction>): action is IProposalActionUpdateMetadata => {

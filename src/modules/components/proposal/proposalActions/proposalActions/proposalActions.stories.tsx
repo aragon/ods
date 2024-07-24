@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import {
+    generateProposalAction,
     generateProposalActionTokenMint,
     generateProposalActionUpdateMetadata,
     generateProposalActionWithdrawToken,
@@ -27,16 +28,14 @@ type Story = StoryObj<typeof ProposalActions>;
  */
 export const MixedActions: Story = {
     args: {
+        actionNames: { WITHDRAW_TOKEN: 'Withdraw assets', ADD_MEMBERS: 'Add members' },
         actions: [
             generateProposalActionWithdrawToken({
                 to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
                 token: generateToken({ name: 'Ether' }),
             }),
-            generateProposalActionWithdrawToken({
-                to: '0x1234567890abcdef1234567890abcdef12345678',
-                inputData: null,
-            }),
             generateProposalActionUpdateMetadata(),
+            generateProposalAction({ to: '0x6B175474E89094C44Da98b954EedeAC495271d0F' }),
             generateProposalActionTokenMint({
                 receivers: [
                     {
@@ -66,9 +65,10 @@ export const CustomActions: Story = {
             WITHDRAW_TOKEN: 'Withdraw assets',
             CUSTOM_ACTION_ONE: 'Custom Action One',
             CUSTOM_ACTION_TWO: 'Custom Action Two',
+            ADD_MEMBERS: 'Add members',
         };
 
-        const CustomActionComponentOne: React.FC<{ action: IProposalAction }> = ({ action }) => {
+        const CustomActionComponent: React.FC<{ action: IProposalAction }> = ({ action }) => {
             return (
                 <div>
                     <h4>Custom Action One</h4>
@@ -81,60 +81,18 @@ export const CustomActions: Story = {
             );
         };
 
-        const CustomActionComponentTwo: React.FC<{ action: IProposalAction }> = ({ action }) => {
-            return (
-                <div>
-                    <h4>Custom Action Two</h4>
-                    <p>Type: {action.type}</p>
-                    <p>From: {action.from}</p>
-                    <p>To: {action.to}</p>
-                    <p>Value: {action.value}</p>
-                    <p>Transaction data: {action.data}</p>
-                </div>
-            );
-        };
-
         const actions = [
-            generateProposalActionWithdrawToken({
-                to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-                token: generateToken({
-                    name: 'Ether',
-                    symbol: 'ETH',
-                    decimals: 18,
-                    logo: 'ether-logo.png',
-                    priceUsd: '2000',
-                }),
-                inputData: {
-                    function: 'transfer',
-                    contract: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-                    parameters: [
-                        { type: 'address', value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE' },
-                        { type: 'uint256', value: '1000000000000000000' },
-                    ],
-                },
-            }),
             {
-                type: 'CUSTOM_ACTION_ONE',
+                type: 'CUSTOM_ACTION',
                 inputData: { function: 'doSomething', contract: 'Ether', parameters: [] },
-                contractAddress: '0x1111111111111111111111111111111111111111',
                 from: '0x1111111111111111111111111111111111111111',
                 to: '0x2222222222222222222222222222222222222222',
                 data: '',
                 value: '10',
             },
             {
-                type: 'CUSTOM_ACTION_TWO',
+                type: 'UNKNOWN',
                 inputData: { function: 'doSomethingElse', contract: 'DAI', parameters: [] },
-                contractAddress: '0x3333333333333333333333333333333333333333',
-                from: '0x3333333333333333333333333333333333333333',
-                to: '0x4444444444444444444444444444444444444444',
-                data: '',
-                value: '20',
-            },
-            {
-                type: 'UNKNWOWN',
-                inputData: { function: 'doSomethingElse', contract: 'DAI', parameters: [] },
-                contractAddress: '0x3333333333333333333333333333333333333333',
                 from: '0x3333333333333333333333333333333333333333',
                 to: '0x4444444444444444444444444444444444444444',
                 data: '',
@@ -147,8 +105,7 @@ export const CustomActions: Story = {
                 actions={actions}
                 actionNames={actionNames}
                 customActionComponents={{
-                    CUSTOM_ACTION_ONE: CustomActionComponentOne,
-                    CUSTOM_ACTION_TWO: CustomActionComponentTwo,
+                    CUSTOM_ACTION: CustomActionComponent,
                 }}
             />
         );
