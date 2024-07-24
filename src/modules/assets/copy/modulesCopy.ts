@@ -76,7 +76,7 @@ export const modulesCopy = {
     },
     proposalVotingBreakdownMultisig: {
         name: 'Minimum Approval',
-        description: (count: string | null) => `of ${count} Members`,
+        description: (count: string | null) => `of ${count} members`,
     },
     proposalVotingBreakdownToken: {
         option: {
