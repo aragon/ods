@@ -9,17 +9,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Implement `ProposalAction` module component
+-   Implement `ProposalAction` and `ProposalVoting` module components
 -   Handle `WithdrawToken`, `ChangeMembers`, `UpdateMetadata` and `TokenMint` actions on `ProposalActions` module
     component.
 -   Add optional `hideLabelTokenVoting` and `tokenSymbol` props to the `MemberDataListItemStructure` module component
+-   Implement `invariant` core utility
 
 ### Changed
 
 -   Renamed `votingPower` prop to `tokenAmount` in the `MemberDataListItemStructure` module component
 -   Update interface for `Accordion.Container` to expose value prop
 -   Update styles on `Tabs.List` for latest spec
--   Rename `indicator` property of `<Progress />` core component to `thresholdIndicator`
+-   Rename `indicator` property of `<Progress />` core component to `thresholdIndicator` and set `data-value` property
+    to indicator component to easier test its value
 -   Bump `softprops/action-gh-release` from 2.0.6 to 2.0.8
 -   Bump `ws` from 7.5.9 to 7.5.10
 -   Update minor and patch NPM dependencies
