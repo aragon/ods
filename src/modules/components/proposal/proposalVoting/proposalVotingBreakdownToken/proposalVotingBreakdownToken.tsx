@@ -72,7 +72,7 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
 
     const winningOption = Math.max(...optionValues.map((option) => option.value));
     const winningOptionPercentage = totalVotes > 0 ? (winningOption / totalVotes) * 100 : 0;
-    const formattedWinninOption = formatterUtils.formatNumber(winningOption, { format: NumberFormat.GENERIC_SHORT });
+    const formattedWinningOption = formatterUtils.formatNumber(winningOption, { format: NumberFormat.GENERIC_SHORT });
 
     const currentParticipationPercentage = (totalVotes / minParticipationToken) * 100;
 
@@ -104,7 +104,7 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
                     name={copy.proposalVotingBreakdownToken.support.name}
                     value={winningOptionPercentage}
                     description={{
-                        value: formattedWinninOption,
+                        value: formattedWinningOption,
                         text: copy.proposalVotingBreakdownToken.support.description(
                             `${formattedTotalVotes} ${tokenSymbol}`,
                         ),
