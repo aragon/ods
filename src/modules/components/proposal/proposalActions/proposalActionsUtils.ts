@@ -1,17 +1,17 @@
 import {
     ProposalActionChangeMembers,
+    ProposalActionChangeSettings,
     ProposalActionTokenMint,
     ProposalActionUpdateMetadata,
     ProposalActionWithdrawToken,
-    ProposalActionChangeSettings,
 } from './actions';
 import {
     type IProposalAction,
     type IProposalActionChangeMembers,
+    type IProposalActionChangeSettings,
     type IProposalActionTokenMint,
     type IProposalActionUpdateMetadata,
     type IProposalActionWithdrawToken,
-    type IProposalActionChangeSettings,
     ProposalActionType,
 } from './proposalActionsTypes';
 
@@ -53,7 +53,7 @@ class ProposalActionsUtils {
             action.type === ProposalActionType.CHANGE_SETTINGS_MULTISIG ||
             action.type === ProposalActionType.CHANGE_SETTINGS_TOKENVOTE
         );
-    }
+    };
 }
 
 export const proposalActionsUtils = new ProposalActionsUtils();

@@ -1,7 +1,7 @@
-import { type IProposalActionChangeSettingsMultisig, ProposalActionType } from "../../proposalActionsTypes";
+import { type IProposalActionChangeSettingsMultisig, ProposalActionType } from '../../proposalActionsTypes';
 
 export const generateProposalActionChangeSettingsMultisig = (
-    action?: Partial<IProposalActionChangeSettingsMultisig>
+    action?: Partial<IProposalActionChangeSettingsMultisig>,
 ): IProposalActionChangeSettingsMultisig => ({
     type: ProposalActionType.CHANGE_SETTINGS_MULTISIG,
     existingSettings: {
