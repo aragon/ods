@@ -46,7 +46,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
 
         const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })!;
         expect(screen.getByText(status)).toBeInTheDocument();
-        expect(formattedDate).not.toBeInTheDocument();
+        expect(screen.queryByText(formattedDate)).not.toBeInTheDocument();
         expect(screen.queryByTestId(IconType.CALENDAR)).not.toBeInTheDocument();
     });
 

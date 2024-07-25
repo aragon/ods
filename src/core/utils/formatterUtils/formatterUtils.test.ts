@@ -166,7 +166,7 @@ describe('formatter utils', () => {
         describe('token prices', () => {
             test.each([
                 { value: -1234.56789, result: '-$1,234.57' },
-                { value: -1234.56789, result: '-1.234,57 USD', locale: 'it' },
+                { value: -1234.56789, result: '-1.234,57 USD', locale: 'it' },
                 { value: -0.0012345678, result: '-$0.001235' },
                 { value: 0, result: 'Unknown' },
                 { value: 0.0012345678, result: '$0.001235' },
