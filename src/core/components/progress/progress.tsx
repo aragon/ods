@@ -87,6 +87,7 @@ export const Progress: React.FC<IProgressProps> = (props) => {
             {processedIndicator && (
                 <div
                     data-testid="progress-indicator"
+                    data-value={processedIndicator}
                     className={indicatorClassNames}
                     style={{ left: `${processedIndicator}%`, transform: 'translateX(-50%)' }}
                 >

@@ -69,6 +69,54 @@ export const modulesCopy = {
         by: 'By',
         creators: 'creators',
     },
+    proposalVotingTabs: {
+        breakdown: 'Breakdown',
+        votes: 'Votes',
+        details: 'Details',
+    },
+    proposalVotingBreakdownMultisig: {
+        name: 'Minimum Approval',
+        description: (count: string | null) => `of ${count} members`,
+    },
+    proposalVotingBreakdownToken: {
+        option: {
+            yes: 'Yes',
+            no: 'No',
+            abstain: 'Abstain',
+        },
+        support: {
+            name: 'Support',
+            description: (value: string) => `of ${value}`,
+        },
+        minParticipation: {
+            name: 'Minimum participation',
+            description: (value: string) => `of ${value}`,
+        },
+    },
+    proposalVotingStageStatus: {
+        main: {
+            proposal: 'Proposal',
+            stage: 'Stage',
+        },
+        secondary: {
+            pending: 'is pending',
+            active: 'left to vote',
+            accepted: 'has been',
+            rejected: 'has been',
+            unreached: 'not reached',
+        },
+        status: {
+            accepted: 'accepted',
+            rejected: 'rejected',
+        },
+    },
+    proposalVotingDetails: {
+        voting: 'Voting',
+        governance: 'Governance',
+    },
+    proposalVotingStage: {
+        stage: (index: number) => `Stage ${index}`,
+    },
     voteDataListItemStructure: {
         yourDelegate: 'Your delegate',
         you: 'You',
