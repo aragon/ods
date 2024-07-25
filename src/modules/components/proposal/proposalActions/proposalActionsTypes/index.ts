@@ -1,10 +1,7 @@
 export type { IProposalAction, IProposalActionInputData, IProposalActionInputDataParameter } from './proposalAction';
 export type { IProposalActionChangeMembers } from './proposalActionChangeMembers';
 export type {
-    IProposalActionChangeSettings,
-    IProposalActionChangeSettingsMultisig,
-    IProposalActionChangeSettingsTokenVote,
-    ISetting,
+    IProposalActionChangeSettings, IProposalActionChangeSettingsSetting 
 } from './proposalActionChangeSettings';
 export { ProposalActionComponent, type IProposalActionComponentProps } from './proposalActionComponent';
 export type { IProposalActionTokenMint } from './proposalActionTokenMint';
