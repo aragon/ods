@@ -2,6 +2,7 @@ import { type IDataListItemProps } from '../../../../../core';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../../types';
 
 export type ProposalType = 'majorityVoting' | 'approvalThreshold';
+
 export type ProposalStatus =
     | 'accepted'
     | 'active'
@@ -60,6 +61,7 @@ export interface IProposalDataListItemStructureBaseProps<TType extends ProposalT
      */
     voted?: boolean;
 }
+
 export interface IPublisher extends ICompositeAddress {
     /**
      * Link to additional information about the publisher, such as a profile page or block explorer.

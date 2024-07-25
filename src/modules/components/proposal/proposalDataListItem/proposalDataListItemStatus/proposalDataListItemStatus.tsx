@@ -10,6 +10,7 @@ import {
     type StatePingAnimationVariant,
     type TagVariant,
 } from '../../../../../core';
+import type { ModulesCopy } from '../../../../assets';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { type IProposalDataListItemStructureProps, type ProposalStatus } from '../proposalDataListItemStructure';
 
@@ -32,15 +33,22 @@ const statusToTagVariant: Record<ProposalStatus, TagVariant> = {
 };
 
 type OngoingProposalStatus = 'active' | 'challenged' | 'vetoed';
+
 const ongoingStatusToPingVariant: Record<OngoingProposalStatus, StatePingAnimationVariant> = {
     active: 'info',
     challenged: 'warning',
     vetoed: 'warning',
 };
 
-/**
- * `ProposalDataListItemStatus` local component
- */
+const getFormattedProposalDate = (date: string | number, now: number, copy: ModulesCopy) => {
+    const formattedDuration = formatterUtils.formatDate(date, { format: DateFormat.DURATION });
+
+    const suffix =
+        new Date(date).getTime() > now ? copy.proposalDataListItemStatus.left : copy.proposalDataListItemStatus.ago;
+
+    return `${formattedDuration} ${suffix}`;
+};
+
 export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusProps> = (props) => {
     const { date, status, voted } = props;
 
@@ -62,23 +70,9 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                             'text-neutral-800': ongoing === false,
                         })}
                     >
-                        {ongoingAndVoted ? (
-                            copy.proposalDataListItemStatus.voted
-                        ) : (
-                            <Rerender>
-                                {(now) => {
-                                    const formattedDuration = formatterUtils.formatDate(date, {
-                                        format: DateFormat.DURATION,
-                                    })!;
-
-                                    const suffix =
-                                        new Date(date!).getTime() > now
-                                            ? copy.proposalDataListItemStatus.left
-                                            : copy.proposalDataListItemStatus.ago;
-
-                                    return `${formattedDuration} ${suffix}`;
-                                }}
-                            </Rerender>
+                        {ongoingAndVoted && copy.proposalDataListItemStatus.voted}
+                        {!ongoingAndVoted && date != null && (
+                            <Rerender>{(now) => getFormattedProposalDate(date, now, copy)}</Rerender>
                         )}
                     </span>
                     {ongoingAndVoted && <AvatarIcon icon={IconType.CHECKMARK} responsiveSize={{ md: 'md' }} />}

@@ -26,6 +26,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump `ws` from 7.5.9 to 7.5.10
 -   Update minor and patch NPM dependencies
 
+### Fixed
+
+-   Update `ProposalDataListItem` module component to avoid showing `null` when date property is not defined
+-   Fix `DURATION` date format to use the date locale set on the formatter
+
 ## [1.0.39] - 2024-07-16
 
 ### Changed
