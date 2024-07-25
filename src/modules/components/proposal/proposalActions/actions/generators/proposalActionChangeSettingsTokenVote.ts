@@ -12,10 +12,6 @@ export const generateProposalActionChangeSettingsTokenVote = (
         minimumDuration: '7 days',
         earlyExecution: true,
         voteChanges: false,
-        additionalSettings: [
-            { term: 'Max number of active proposals', definition: '5' },
-            { term: 'Proposal cool-off period', definition: '48 hours' },
-        ],
     },
     proposedSettings: {
         tokenSymbol: 'TKN',
