@@ -1,0 +1,1 @@
+export { ProposalActionChangeSettings } from './proposalActionChangeSettings';

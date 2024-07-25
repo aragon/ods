@@ -9,3 +9,4 @@ export type {
     IProposalActionUpdateMetadataDaoMetadataLink,
 } from './proposalActionUpdateMetadata';
 export type { IProposalActionWithdrawToken } from './proposalActionWithdrawToken';
+export type { IProposalActionChangeSettings, IProposalActionChangeSettingsMultisig, IProposalActionChangeSettingsTokenVote, ISetting } from './proposalActionChangeSettings';

@@ -3,6 +3,7 @@ import {
     ProposalActionTokenMint,
     ProposalActionUpdateMetadata,
     ProposalActionWithdrawToken,
+    ProposalActionChangeSettings,
 } from './actions';
 import {
     type IProposalAction,
@@ -10,6 +11,7 @@ import {
     type IProposalActionTokenMint,
     type IProposalActionUpdateMetadata,
     type IProposalActionWithdrawToken,
+    type IProposalActionChangeSettings,
     ProposalActionType,
 } from './proposalActionsTypes';
 
@@ -23,6 +25,8 @@ class ProposalActionsUtils {
             return () => ProposalActionUpdateMetadata({ action });
         } else if (this.isChangeMembersAction(action)) {
             return () => ProposalActionChangeMembers({ action });
+        } else if (this.isChangeSettingsAction(action)) {
+            return () => ProposalActionChangeSettings({ action });
         }
 
         return null;
@@ -43,6 +47,13 @@ class ProposalActionsUtils {
     isTokenMintAction = (action: Partial<IProposalAction>): action is IProposalActionTokenMint => {
         return action.type === ProposalActionType.TOKEN_MINT;
     };
+
+    isChangeSettingsAction = (action: Partial<IProposalAction>): action is IProposalActionChangeSettings => {
+        return (
+            action.type === ProposalActionType.CHANGE_SETTINGS_MULTISIG ||
+            action.type === ProposalActionType.CHANGE_SETTINGS_TOKENVOTE
+        );
+    }
 }
 
 export const proposalActionsUtils = new ProposalActionsUtils();

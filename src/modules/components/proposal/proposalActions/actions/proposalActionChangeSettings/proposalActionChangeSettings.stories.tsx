@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProposalActionUpdateSettings } from './proposalActionChangeSettings';
-import { generateProposalActionUpdateSettingsMultisig } from '../generators/proposalActionUpdateSettings';
+import { ProposalActionChangeSettings } from './proposalActionChangeSettings';
 
-const meta: Meta<typeof ProposalActionUpdateSettings> = {
-    title: 'Modules/Components/Proposal/ProposalActions/Actions/WithdrawToken',
-    component: ProposalActionUpdateSettings,
+import { generateProposalActionChangeSettingsMultisig } from '../generators/proposalActionChangeSettingsMultisig';
+import { generateProposalActionChangeSettingsTokenVote } from '../generators/proposalActionChangeSettingsTokenVote';
+
+const meta: Meta<typeof ProposalActionChangeSettings> = {
+    title: 'Modules/Components/Proposal/ProposalActions/Actions/ChangeSettings',
+    component: ProposalActionChangeSettings,
     parameters: {
         design: {
             type: 'figma',
@@ -13,14 +15,23 @@ const meta: Meta<typeof ProposalActionUpdateSettings> = {
     },
 };
 
-type Story = StoryObj<typeof ProposalActionUpdateSettings>;
+type Story = StoryObj<typeof ProposalActionChangeSettings>;
 
 /**
- * Usage example of the ProposalActions module component with mocked TokenWithdraw actions.
+ * Usage example of the ProposalActions module component with mocked Multisig settings.
  */
-export const Default: Story = {
+export const MultisigSettings: Story = {
     render: () => {
-        return <ProposalActionUpdateSettings action={generateProposalActionUpdateSettingsMultisig()} />;
+        return <ProposalActionChangeSettings action={generateProposalActionChangeSettingsMultisig()} />;
+    },
+};
+
+/**
+ * Usage example of the ProposalActions module component with mocked Multisig settings.
+ */
+export const TokenVoteSettings: Story = {
+    render: () => {
+        return <ProposalActionChangeSettings action={generateProposalActionChangeSettingsTokenVote()} />;
     },
 };
 
