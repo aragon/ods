@@ -21,8 +21,8 @@ type Story = StoryObj<typeof ProposalActionChangeSettings>;
  * Usage example of the ProposalActions module component with mocked Multisig settings.
  */
 export const MultisigSettings: Story = {
-    render: () => {
-        return <ProposalActionChangeSettings action={generateProposalActionChangeSettingsMultisig()} />;
+    args: {
+        action: generateProposalActionChangeSettingsMultisig(),
     },
 };
 
@@ -30,8 +30,8 @@ export const MultisigSettings: Story = {
  * Usage example of the ProposalActions module component with mocked Multisig settings.
  */
 export const TokenVoteSettings: Story = {
-    render: () => {
-        return <ProposalActionChangeSettings action={generateProposalActionChangeSettingsTokenVote()} />;
+    args: {
+        action: generateProposalActionChangeSettingsTokenVote(),
     },
 };
 

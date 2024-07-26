@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { DefinitionList, Toggle, ToggleGroup } from '../../../../../../core';
-import { type IProposalActionComponentProps } from '../../proposalActionsTypes';
-import { type IProposalActionChangeSettings } from '../../proposalActionsTypes/proposalActionChangeSettings';
+import { type IProposalActionChangeSettings, type IProposalActionComponentProps } from '../../proposalActionsTypes';
 
 export interface IProposalActionChangeSettingsProps
     extends IProposalActionComponentProps<IProposalActionChangeSettings> {}

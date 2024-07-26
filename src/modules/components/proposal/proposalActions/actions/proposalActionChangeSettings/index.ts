@@ -1,1 +1,1 @@
-export { ProposalActionChangeSettings } from './proposalActionChangeSettings';
+export { ProposalActionChangeSettings, type IProposalActionChangeSettingsProps } from './proposalActionChangeSettings';
