@@ -150,7 +150,10 @@ class FormatterUtils {
         if (isDuration) {
             const dateDiff = dateObject.diffNow(this.relativeDateOrder);
             const nonZeroUnit = this.relativeDateOrder.find((unit) => Math.abs(dateDiff.get(unit)) > 0) ?? 'seconds';
-            const roundedDiffUnit = Duration.fromObject({ [nonZeroUnit]: Math.floor(dateDiff.get(nonZeroUnit)) });
+            const roundedDiffUnit = Duration.fromObject(
+                { [nonZeroUnit]: Math.floor(dateDiff.get(nonZeroUnit)) },
+                { locale: this.dateLocale },
+            );
 
             return roundedDiffUnit.valueOf() < 0 ? roundedDiffUnit.negate().toHuman() : roundedDiffUnit.toHuman();
         }

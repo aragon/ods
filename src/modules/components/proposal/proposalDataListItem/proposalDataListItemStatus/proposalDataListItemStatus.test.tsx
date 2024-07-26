@@ -5,7 +5,10 @@ import { ProposalDataListItemStatus, type IProposalDataListItemStatusProps } fro
 
 describe('<ProposalDataListItemStatus /> component', () => {
     const createTestComponent = (props?: Partial<IProposalDataListItemStatusProps>) => {
-        const completeProps: IProposalDataListItemStatusProps = { date: 1719563030308, status: 'accepted', ...props };
+        const completeProps: IProposalDataListItemStatusProps = {
+            status: 'accepted',
+            ...props,
+        };
 
         return <ProposalDataListItemStatus {...completeProps} />;
     };
@@ -24,12 +27,15 @@ describe('<ProposalDataListItemStatus /> component', () => {
         expect(screen.getByTestId(IconType.CALENDAR)).toBeInTheDocument();
     });
 
-    it('does not render the calendar icon when date property is not defined', () => {
+    it('does not render the calendar icon and date when date property is not defined', () => {
         const status = 'accepted';
+        const date = undefined;
 
-        render(createTestComponent({ status, date: undefined }));
+        render(createTestComponent({ status, date }));
 
         expect(screen.queryByTestId(IconType.CALENDAR)).not.toBeInTheDocument();
+        expect(screen.queryByText(/ago/)).not.toBeInTheDocument();
+        expect(screen.queryByText(/left/)).not.toBeInTheDocument();
     });
 
     it("only displays the date for proposals with a status that is not 'draft'", () => {
@@ -38,8 +44,9 @@ describe('<ProposalDataListItemStatus /> component', () => {
 
         render(createTestComponent({ date, status }));
 
+        const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })!;
         expect(screen.getByText(status)).toBeInTheDocument();
-        expect(screen.queryByText(date)).not.toBeInTheDocument();
+        expect(screen.queryByText(formattedDate)).not.toBeInTheDocument();
         expect(screen.queryByTestId(IconType.CALENDAR)).not.toBeInTheDocument();
     });
 

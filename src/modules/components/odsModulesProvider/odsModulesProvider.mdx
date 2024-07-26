@@ -5,12 +5,12 @@ import { OdsModulesProvider } from './odsModulesProvider';
 
 <Title>OdsModulesProvider</Title>
 
-The `<OdsModulesProvider />` is a simple wrapper around the `<WagmiProvider />` and `<QueryClientProvider />` React
-Context providers from the [wagmi](https://wagmi.sh/) and [@tanstack/react-query](https://tanstack.com/query) libraries.
+The `<OdsModulesProvider />` is a React context that, beside providing some customisations for the modules components,
+renders the `<WagmiProvider />` and `<QueryClientProvider />` React Context providers from the
+[wagmi](https://wagmi.sh/) and [@tanstack/react-query](https://tanstack.com/query) libraries.
 
 The two providers are needed for the ODS Modules component using the hooks from wagmi (e.g.
-[useEnsName](https://wagmi.sh/react/api/hooks/useEnsName)). In order to use these hooks, the application needs to be
-wrapped using the following providers:
+[useEnsName](https://wagmi.sh/react/api/hooks/useEnsName)):
 
 -   `<WagmiProvider />`: needed to know which chain and RPC endpoint to use when fetching blockchain data;
 -   `<QueryClientProvider />`: needed to cache the data fetched from the blockchain;
@@ -18,10 +18,9 @@ wrapped using the following providers:
 Additionally, `<OdsModulesProvider />` renders the `<OdsCoreProvider />` and passes values from the `coreProviderValues`
 prop.
 
-The `values` prop is used for module-specific configurations.
+The `<OdsModulesProvider />` provides the following customisations for modules components:
 
--   `values` (optional): Partial object of type `IOdsModulesContext` to override default context values.
-    -   `copy`: Object of type `IOdsModulesCopy` to customize the text labels used within the modules components.
+-   `copy`: Object of type `IOdsModulesCopy` to customize the text labels used within the modules components.
 
 Refer to the component's properties below for more details on the default configuration objects used for each provider.
 
