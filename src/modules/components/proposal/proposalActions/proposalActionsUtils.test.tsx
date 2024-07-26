@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import {
     generateProposalAction,
     generateProposalActionChangeMembers,
+    generateProposalActionChangeSettings,
     generateProposalActionTokenMint,
     generateProposalActionUpdateMetadata,
     generateProposalActionWithdrawToken,
@@ -14,6 +15,7 @@ jest.mock('./actions', () => ({
     ProposalActionUpdateMetadata: () => <div>Mock ProposalActionUpdateMetaData</div>,
     ProposalActionTokenMint: () => <div>Mock ProposalActionTokenMint</div>,
     ProposalActionChangeMembers: () => <div>Mock ProposalActionChangeMembers</div>,
+    ProposalActionChangeSettings: () => <div>Mock ProposalActionChangeSettings</div>,
 }));
 
 describe('ProposalActions utils', () => {
@@ -55,6 +57,22 @@ describe('ProposalActions utils', () => {
         const Component = proposalActionsUtils.getActionComponent(action)!;
         render(<Component />);
         expect(screen.getByText('Mock ProposalActionChangeMembers')).toBeInTheDocument();
+    });
+
+    it('returns ProposalActionChangeSettings component for Multisig action', () => {
+        const action = generateProposalActionChangeSettings({ type: ProposalActionType.CHANGE_SETTINGS_MULTISIG });
+
+        const Component = proposalActionsUtils.getActionComponent(action)!;
+        render(<Component />);
+        expect(screen.getByText('Mock ProposalActionChangeSettings')).toBeInTheDocument();
+    });
+
+    it('returns ProposalActionChangeSettings component for TokenVote action', () => {
+        const action = generateProposalActionChangeSettings({ type: ProposalActionType.CHANGE_SETTINGS_TOKENVOTE });
+
+        const Component = proposalActionsUtils.getActionComponent(action)!;
+        render(<Component />);
+        expect(screen.getByText('Mock ProposalActionChangeSettings')).toBeInTheDocument();
     });
 
     it('returns null for unknown action type', () => {
