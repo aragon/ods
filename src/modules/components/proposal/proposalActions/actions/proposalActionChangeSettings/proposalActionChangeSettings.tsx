@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { DefinitionList, Toggle, ToggleGroup } from '../../../../../../core';
+import { useOdsModulesContext } from '../../../../odsModulesProvider';
 import { type IProposalActionChangeSettings, type IProposalActionComponentProps } from '../../proposalActionsTypes';
 
 export interface IProposalActionChangeSettingsProps
@@ -10,12 +11,12 @@ export const ProposalActionChangeSettings: React.FC<IProposalActionChangeSetting
     const [toggleValue, setToggleValue] = useState<string | undefined>('existingSettings');
     const { proposedSettings, existingSettings } = action;
     const settingsToDisplay = toggleValue === 'proposedSettings' ? proposedSettings : existingSettings;
-
+    const { copy } = useOdsModulesContext();
     return (
         <div className="flex w-full flex-col gap-2">
             <ToggleGroup value={toggleValue} onChange={setToggleValue} isMultiSelect={false}>
-                <Toggle label="Existing" value="existingSettings" />
-                <Toggle label="Proposed" value="proposedSettings" />
+                <Toggle label={copy.proposalActionsChangeSettings.existingToggle} value="existingSettings" />
+                <Toggle label={copy.proposalActionsChangeSettings.proposedToggle} value="proposedSettings" />
             </ToggleGroup>
 
             <DefinitionList.Container>

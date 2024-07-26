@@ -45,6 +45,10 @@ export const modulesCopy = {
         existingMembers: 'Existing members',
         blockNote: 'At the block in which the proposal was created',
     },
+    proposalActionsChangeSettings: {
+        existingToggle: 'Existing',
+        proposedToggle: 'Proposed',
+    },
     proposalActionsUpdateMetadata: {
         logoTerm: 'Logo',
         nameTerm: 'Name',

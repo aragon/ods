@@ -1,15 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import {
-    generateProposalActionChangeSettingsMultisig,
-    generateProposalActionChangeSettingsTokenVote,
-} from '../generators';
+import { generateProposalActionChangeSettings } from '../generators';
 import { ProposalActionChangeSettings, type IProposalActionChangeSettingsProps } from './proposalActionChangeSettings';
 
 describe('<ProposalActionChangeSettings /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionChangeSettingsProps>) => {
         const completeProps: IProposalActionChangeSettingsProps = {
-            action: generateProposalActionChangeSettingsMultisig(),
+            action: generateProposalActionChangeSettings(),
             ...props,
         };
 
@@ -19,7 +16,7 @@ describe('<ProposalActionChangeSettings /> component', () => {
     it('renders existing settings by default', () => {
         const existingSettings = [{ term: 'Support threshold', definition: '50%' }];
         const proposedSettings = [{ term: 'Support threshold', definition: '60%' }];
-        const action = generateProposalActionChangeSettingsTokenVote({ existingSettings, proposedSettings });
+        const action = generateProposalActionChangeSettings({ existingSettings, proposedSettings });
         render(createTestComponent({ action }));
         expect(screen.getByText(existingSettings[0].term)).toBeInTheDocument();
         expect(screen.getByText(existingSettings[0].definition)).toBeInTheDocument();
@@ -28,7 +25,7 @@ describe('<ProposalActionChangeSettings /> component', () => {
     it('toggles to proposed settings', async () => {
         const existingSettings = [{ term: 'Threshold', definition: '2' }];
         const proposedSettings = [{ term: 'Threshold', definition: '3' }];
-        const action = generateProposalActionChangeSettingsTokenVote({ existingSettings, proposedSettings });
+        const action = generateProposalActionChangeSettings({ existingSettings, proposedSettings });
         render(createTestComponent({ action }));
 
         await userEvent.click(screen.getByText('Proposed'));
@@ -46,7 +43,7 @@ describe('<ProposalActionChangeSettings /> component', () => {
             { term: 'Proposed Term 1', definition: 'Proposed Definition 1' },
             { term: 'Proposed Term 2', definition: 'Proposed Definition 2' },
         ];
-        const action = generateProposalActionChangeSettingsMultisig({ existingSettings, proposedSettings });
+        const action = generateProposalActionChangeSettings({ existingSettings, proposedSettings });
         render(createTestComponent({ action }));
         expect(screen.getByText(existingSettings[0].term)).toBeInTheDocument();
         expect(screen.getByText(existingSettings[0].definition)).toBeInTheDocument();

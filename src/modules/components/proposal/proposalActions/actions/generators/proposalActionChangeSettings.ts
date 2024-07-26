@@ -1,7 +1,7 @@
 import { ProposalActionType } from '../../proposalActionsTypes';
 import { type IProposalActionChangeSettings } from '../../proposalActionsTypes/proposalActionChangeSettings';
 
-export const generateProposalActionChangeSettingsTokenVote = (
+export const generateProposalActionChangeSettings = (
     action?: Partial<IProposalActionChangeSettings>,
 ): IProposalActionChangeSettings => ({
     existingSettings: [
