@@ -39,7 +39,7 @@ describe('useBlockExplorer hook', () => {
             expect(result.current.getBlockExplorer()).toEqual(sepolia.blockExplorers?.default);
         });
 
-        it('returns the block explorer of the chain speficied on the hook when function chain-id parameter is not specified', () => {
+        it('returns the block explorer of the chain specified on the hook when function chain-id parameter is not specified', () => {
             const chains: [Chain, ...Chain[]] = [mainnet, polygon];
             const { result } = renderHook(() => useBlockExplorer({ chains, chainId: polygon.id }));
             expect(result.current.getBlockExplorer()).toEqual(polygon.blockExplorers.default);
