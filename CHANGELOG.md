@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Export `VoteIndicator` type from `Vote` module.
+-   Update `useBlockExplorer` hook to export a `getBlockExplorer` function, update `buildEntityUrl` function to support
+    a `chainId` parameter which overrides the `chainId` hook parameter.
+
 ## [1.0.40] - 2024-07-26
 
 ### Added
