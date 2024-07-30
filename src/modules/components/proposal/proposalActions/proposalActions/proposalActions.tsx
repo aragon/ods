@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { createRef, useRef, useState, type ReactNode } from 'react';
+import { createRef, useState, type ReactNode } from 'react';
 import { Accordion, Button, Card, Heading } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
@@ -36,11 +36,17 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
 
     const { copy } = useOdsModulesContext();
 
+    const actionsContainerRef = createRef<HTMLDivElement>();
+
     const handleToggleAll = () => {
         if (expandedItems.length === actions.length) {
             setExpandedItems([]);
         } else {
             setExpandedItems(Array.from({ length: actions.length }, (_, index) => `${index}`));
+        }
+
+        if (actionsContainerRef.current && expandedItems.length === actions.length) {
+            actionsContainerRef.current.scrollIntoView({ behavior: 'instant', block: 'center' });
         }
     };
 
@@ -48,7 +54,7 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
 
     return (
         <Card className={classNames('w-full overflow-hidden', className)}>
-            <Heading size="h2" className="p-4 md:p-6">
+            <Heading size="h2" className="p-4 md:p-6" ref={actionsContainerRef}>
                 {copy.proposalActionsContainer.containerName}
             </Heading>
             <Accordion.Container isMulti={true} value={expandedItems} onValueChange={handleAccordionValueChange}>

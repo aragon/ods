@@ -61,7 +61,7 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
         setDropdownValue(value);
 
         if (itemRef.current) {
-            itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            itemRef.current.scrollIntoView({ behavior: 'instant', block: 'center' });
         }
     };
 
