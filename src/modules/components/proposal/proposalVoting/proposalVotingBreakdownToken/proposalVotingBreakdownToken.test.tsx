@@ -117,7 +117,7 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
         expect(progressbarContainer.getByText(`of ${formattedMinParticipation} ${tokenSymbol}`)).toBeInTheDocument();
     });
 
-    it('hides the minimum participation details when set to 0', () => {
+    it('hides the minimum participation details when minParticipation prop is set to 0', () => {
         const minParticipation = 0;
         render(createTestComponent({ minParticipation }));
         expect(screen.queryByText('Minimum participation')).not.toBeInTheDocument();
