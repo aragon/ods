@@ -1,5 +1,15 @@
 import { useRef, useState } from 'react';
-import { Accordion, Dropdown, Heading, InputContainer, InputNumber, InputText } from '../../../../../core';
+import {
+    Accordion,
+    Button,
+    clipboardUtils,
+    Dropdown,
+    Heading,
+    InputContainer,
+    InputNumber,
+    InputText,
+    TextArea,
+} from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
@@ -31,6 +41,7 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
     const [dropdownValue, setDropdownValue] = useState('basic');
 
     const contentRef = useRef<HTMLDivElement>(null);
+    const itemRef = useRef<HTMLDivElement>(null);
 
     const ActionComponent = customComponent ?? proposalActionsUtils.getActionComponent(action);
 
@@ -48,10 +59,14 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
         style.setProperty('--radix-collapsible-content-height', scrollHeight.toString());
 
         setDropdownValue(value);
+
+        if (itemRef.current) {
+            itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     };
 
     return (
-        <Accordion.Item value={isDisabled ? '' : `${index}`} disabled={isDisabled}>
+        <Accordion.Item value={isDisabled ? '' : `${index}`} disabled={isDisabled} ref={itemRef}>
             <Accordion.ItemHeader>
                 <div className="flex flex-col items-start">
                     <Heading size="h4">
@@ -67,34 +82,74 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
                 {dropdownValue === 'decoded' && (
                     <div key={index} className="flex flex-col gap-y-3">
                         <div key={index} className="flex flex-col gap-y-2">
-                            <div>
-                                <Heading size="h5">Value</Heading>
-                                <p className="text-sm text-neutral-400">Natspec placeholder</p>
-                            </div>
-                            <InputContainer id={`${index}`}>
+                            <InputContainer
+                                label="Value"
+                                helpText="Amount of ETH to transfer to the smart contract"
+                                id={`${index}`}
+                            >
                                 <InputNumber value={action.value ?? 0} disabled={true} />
                             </InputContainer>
                         </div>
                         {action.inputData &&
                             action.inputData.parameters.map((parameter, index) => (
                                 <div key={index} className="flex flex-col gap-y-2">
-                                    <div>
-                                        <Heading size="h5">{parameter.type}</Heading>
-                                        <p className="text-sm text-neutral-400">Natspec placeholder</p>
-                                    </div>
-                                    <InputContainer id={`${index}`}>
+                                    <InputContainer
+                                        label={parameter.type}
+                                        helpText="Natspec placeholder"
+                                        id={`${index}`}
+                                    >
                                         <InputText value={parameter.value} disabled={true} />
                                     </InputContainer>
                                 </div>
                             ))}
                     </div>
                 )}
-                {dropdownValue === 'raw' && <div>RAW VIEW</div>}
+                {dropdownValue === 'raw' && (
+                    <div key={index} className="flex flex-col gap-y-3">
+                        <div key={index} className="flex flex-col gap-y-2">
+                            <InputContainer label="Value" id={`${index}`}>
+                                <InputNumber value={action.value ?? 0} disabled={true} />
+                            </InputContainer>
+                            <InputContainer label="To" id={`${index}`}>
+                                <InputText value={action.to} disabled={true} />
+                            </InputContainer>
+                            <InputContainer label="Data" id={`${index}`}>
+                                <TextArea value={action.data} disabled={true} />
+                            </InputContainer>
+                            <Button
+                                className="self-end"
+                                variant="tertiary"
+                                size="md"
+                                onClick={() => clipboardUtils.copy(action.data)}
+                            >
+                                Copy data
+                            </Button>
+                        </div>
+                    </div>
+                )}
                 <div className="mt-6 md:mt-8">
                     <Dropdown.Container label="View action as" size="sm" className="my-2">
-                        <Dropdown.Item onClick={() => handleDropdownChange('basic')}>Basic</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleDropdownChange('decoded')}>Decoded</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleDropdownChange('raw')}>Raw</Dropdown.Item>
+                        <Dropdown.Item
+                            onClick={() => handleDropdownChange('basic')}
+                            disabled={dropdownValue === 'basic'}
+                            selected={dropdownValue === 'basic'}
+                        >
+                            Basic
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                            onClick={() => handleDropdownChange('decoded')}
+                            disabled={dropdownValue === 'decoded'}
+                            selected={dropdownValue === 'decoded'}
+                        >
+                            Decoded
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                            onClick={() => handleDropdownChange('raw')}
+                            disabled={dropdownValue === 'raw'}
+                            selected={dropdownValue === 'raw'}
+                        >
+                            Raw
+                        </Dropdown.Item>
                     </Dropdown.Container>
                 </div>
             </Accordion.ItemContent>
