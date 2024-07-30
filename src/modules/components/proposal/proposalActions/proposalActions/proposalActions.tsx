@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useState, type ReactNode } from 'react';
+import { createRef, useRef, useState, type ReactNode } from 'react';
 import { Accordion, Button, Card, Heading } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
@@ -32,9 +32,9 @@ export interface IProposalActionsProps extends IWeb3ComponentProps {
 export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
     const { actions, actionNames, className, customActionComponents, children, ...web3Props } = props;
 
-    const { copy } = useOdsModulesContext();
-
     const [expandedItems, setExpandedItems] = useState<string[]>([]);
+
+    const { copy } = useOdsModulesContext();
 
     const handleToggleAll = () => {
         if (expandedItems.length === actions.length) {
@@ -48,7 +48,7 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
 
     return (
         <Card className={classNames('w-full overflow-hidden', className)}>
-            <Heading size="h2" className="px-4 pt-4 md:px-6 md:pt-6">
+            <Heading size="h2" className="p-4 md:p-6">
                 {copy.proposalActionsContainer.containerName}
             </Heading>
             <Accordion.Container isMulti={true} value={expandedItems} onValueChange={handleAccordionValueChange}>
