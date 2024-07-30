@@ -9,12 +9,13 @@ export enum ChainEntityType {
 
 export interface IUseBlockExplorerParams {
     /**
-     * Chains definitions to use for building the block explorer URLs. Defaults to the chains defined on the Wagmi
-     * context provider.
+     * Chains definitions to use for returning the block explorer definitions and building the URLs. Defaults to the
+     * chains defined on the Wagmi context provider.
      */
     chains?: Config['chains'];
     /**
-     * Chain ID to build the URLs for. Defaults to the id of the first chain on the chains list.
+     * Uses the block explorer definition of the specified Chain ID when set. Defaults to the ID of the first chain on
+     * the chains list.
      */
     chainId?: number;
 }
@@ -25,28 +26,45 @@ export interface IBuildEntityUrlParams {
      */
     type: ChainEntityType;
     /**
+     * ID of the chain related to the entity. When set, overrides the chainId set as hook parameter.
+     */
+    chainId?: number;
+    /**
      * The ID of the entity (e.g. transaction hash for a transaction)
      */
     id?: string;
 }
 
 export const useBlockExplorer = (params?: IUseBlockExplorerParams) => {
-    const { chains, chainId } = params ?? {};
+    const { chains, chainId: hookChainId } = params ?? {};
 
     const globalChains = useChains();
-    const processedChains = chains ?? globalChains;
 
-    const chainDefinitions = chainId ? processedChains.find((chain) => chain.id === chainId) : processedChains[0];
-    const { default: blockExplorer } = chainDefinitions?.blockExplorers ?? {};
+    const getBlockExplorer = useCallback(
+        (chainId?: number) => {
+            const processedChains = chains ?? globalChains;
+            const processedChainId = chainId ?? hookChainId;
+
+            const chainDefinitions = processedChainId
+                ? processedChains.find((chain) => chain.id === processedChainId)
+                : processedChains[0];
+
+            return chainDefinitions?.blockExplorers?.default;
+        },
+        [chains, globalChains, hookChainId],
+    );
 
     const buildEntityUrl = useCallback(
-        ({ type, id }: IBuildEntityUrlParams) => {
+        ({ type, chainId, id }: IBuildEntityUrlParams) => {
+            const blockExplorer = getBlockExplorer(chainId ?? hookChainId);
             const baseUrl = blockExplorer?.url;
 
             return baseUrl != null ? `${baseUrl}/${type}/${id}` : undefined;
         },
-        [blockExplorer],
+        [getBlockExplorer, hookChainId],
     );
 
-    return { blockExplorer, buildEntityUrl };
+    const blockExplorer = getBlockExplorer(hookChainId);
+
+    return { blockExplorer, getBlockExplorer, buildEntityUrl };
 };
