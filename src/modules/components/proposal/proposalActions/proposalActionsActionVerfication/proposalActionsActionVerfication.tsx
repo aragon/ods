@@ -23,11 +23,11 @@ export const ProposalActionsActionVerification: React.FC<IProposalActionsActionV
 
     return (
         <div className={classNames('flex items-center gap-x-1.5', className)} {...otherProps}>
-            <Heading size="h5" className={contractClassName}>
+            <Heading size="h5" className={classNames('shrink-0', contractClassName)}>
                 {addressUtils.truncateAddress(action.to)}
             </Heading>
             {contractName && (
-                <Heading size="h5" className="text-primary-400">
+                <Heading size="h5" className="truncate text-primary-400">
                     {contractName}
                 </Heading>
             )}
