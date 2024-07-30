@@ -1,20 +1,13 @@
 import { useRef, useState } from 'react';
-import {
-    Accordion,
-    Button,
-    clipboardUtils,
-    Dropdown,
-    Heading,
-    InputContainer,
-    InputNumber,
-    InputText,
-    TextArea,
-} from '../../../../../core';
+import { Accordion, Heading } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
 import type { IProposalAction, ProposalActionComponent } from '../proposalActionsTypes';
 import { proposalActionsUtils } from '../proposalActionsUtils';
+import { ProposalActionsActionDecodedView } from './proposalActionsActionDecodedView/proposalActionsActionDecodedView';
+import { ProposalActionsActionRawView } from './proposalActionsActionRawView/proposalActionsActionRawView';
+import { ProposalActionsActionViewAsMenu } from './proposalActionsActionViewAsMenu/proposalActionsActionViewAsMenu';
 
 export interface IProposalActionsActionProps extends IWeb3ComponentProps {
     /**
@@ -79,79 +72,12 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
             </Accordion.ItemHeader>
             <Accordion.ItemContent ref={contentRef}>
                 {dropdownValue === 'basic' && ActionComponent && <ActionComponent action={action} {...web3Props} />}
-                {dropdownValue === 'decoded' && (
-                    <div key={index} className="flex flex-col gap-y-3">
-                        <div key={index} className="flex flex-col gap-y-2">
-                            <InputContainer
-                                label="Value"
-                                helpText="Amount of ETH to transfer to the smart contract"
-                                id={`${index}`}
-                            >
-                                <InputNumber value={action.value ?? 0} disabled={true} />
-                            </InputContainer>
-                        </div>
-                        {action.inputData &&
-                            action.inputData.parameters.map((parameter, index) => (
-                                <div key={index} className="flex flex-col gap-y-2">
-                                    <InputContainer
-                                        label={parameter.type}
-                                        helpText="Natspec placeholder"
-                                        id={`${index}`}
-                                    >
-                                        <InputText value={parameter.value} disabled={true} />
-                                    </InputContainer>
-                                </div>
-                            ))}
-                    </div>
-                )}
-                {dropdownValue === 'raw' && (
-                    <div key={index} className="flex flex-col gap-y-3">
-                        <div key={index} className="flex flex-col gap-y-2">
-                            <InputContainer label="Value" id={`${index}`}>
-                                <InputNumber value={action.value ?? 0} disabled={true} />
-                            </InputContainer>
-                            <InputContainer label="To" id={`${index}`}>
-                                <InputText value={action.to} disabled={true} />
-                            </InputContainer>
-                            <InputContainer label="Data" id={`${index}`}>
-                                <TextArea value={action.data} disabled={true} />
-                            </InputContainer>
-                            <Button
-                                className="self-end"
-                                variant="tertiary"
-                                size="md"
-                                onClick={() => clipboardUtils.copy(action.data)}
-                            >
-                                Copy data
-                            </Button>
-                        </div>
-                    </div>
-                )}
-                <div className="mt-6 md:mt-8">
-                    <Dropdown.Container label="View action as" size="sm" className="my-2">
-                        <Dropdown.Item
-                            onClick={() => handleDropdownChange('basic')}
-                            disabled={dropdownValue === 'basic'}
-                            selected={dropdownValue === 'basic'}
-                        >
-                            Basic
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                            onClick={() => handleDropdownChange('decoded')}
-                            disabled={dropdownValue === 'decoded'}
-                            selected={dropdownValue === 'decoded'}
-                        >
-                            Decoded
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                            onClick={() => handleDropdownChange('raw')}
-                            disabled={dropdownValue === 'raw'}
-                            selected={dropdownValue === 'raw'}
-                        >
-                            Raw
-                        </Dropdown.Item>
-                    </Dropdown.Container>
-                </div>
+                {dropdownValue === 'decoded' && <ProposalActionsActionDecodedView action={action} />}
+                {dropdownValue === 'raw' && <ProposalActionsActionRawView action={action} />}
+                <ProposalActionsActionViewAsMenu
+                    dropdownValue={dropdownValue}
+                    handleDropdownChange={handleDropdownChange}
+                />
             </Accordion.ItemContent>
         </Accordion.Item>
     );
