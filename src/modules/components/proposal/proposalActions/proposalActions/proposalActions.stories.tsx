@@ -7,7 +7,7 @@ import {
     generateProposalActionWithdrawToken,
     generateToken,
 } from '../actions/generators';
-import type { IProposalAction } from '../proposalActionsTypes';
+import type { IProposalAction, ProposalActionType } from '../proposalActionsTypes';
 import { ProposalActions } from './proposalActions';
 
 const meta: Meta<typeof ProposalActions> = {
@@ -35,8 +35,19 @@ export const MixedActions: Story = {
                 token: generateToken({ name: 'Ether' }),
             }),
             generateProposalActionUpdateMetadata(),
-            generateProposalAction({ to: '0x6B175474E89094C44Da98b954EedeAC495271d0F' }),
+            generateProposalAction({
+                to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+                inputData: {
+                    function: 'Mint tokens',
+                    contract: 'GovernanceERC20',
+                    parameters: [
+                        { type: 'address', value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE' },
+                        { type: 'uint256', value: '2000000000000000000' },
+                    ],
+                },
+            }),
             generateProposalActionTokenMint({
+                type: 'unknownType' as ProposalActionType.TOKEN_MINT,
                 receivers: [
                     {
                         currentBalance: 0,
@@ -54,6 +65,7 @@ export const MixedActions: Story = {
                         address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
                     },
                 ],
+                inputData: null,
             }),
         ],
     },

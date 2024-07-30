@@ -31,14 +31,14 @@ export interface IProposalActionsActionProps extends IWeb3ComponentProps {
 export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {
     const { action, index, name, customComponent, ...web3Props } = props;
 
-    const [dropdownValue, setDropdownValue] = useState('basic');
-
+    const { copy } = useOdsModulesContext();
+    
     const contentRef = useRef<HTMLDivElement>(null);
     const itemRef = useRef<HTMLDivElement>(null);
 
     const ActionComponent = customComponent ?? proposalActionsUtils.getActionComponent(action);
 
-    const { copy } = useOdsModulesContext();
+    const [dropdownValue, setDropdownValue] = useState(ActionComponent ? 'basic' : 'decoded');
 
     const isDisabled = action.inputData == null;
 
@@ -74,7 +74,9 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
                 {dropdownValue === 'basic' && ActionComponent && <ActionComponent action={action} {...web3Props} />}
                 {dropdownValue === 'decoded' && <ProposalActionsActionDecodedView action={action} />}
                 {dropdownValue === 'raw' && <ProposalActionsActionRawView action={action} />}
+
                 <ProposalActionsActionViewAsMenu
+                    disableBasic={ActionComponent == null}
                     dropdownValue={dropdownValue}
                     handleDropdownChange={handleDropdownChange}
                 />
