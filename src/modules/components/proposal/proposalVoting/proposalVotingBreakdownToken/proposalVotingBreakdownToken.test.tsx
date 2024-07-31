@@ -37,12 +37,6 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
         expect(() => render(createTestComponent({ tokenTotalSupply }))).toThrow();
     });
 
-    it('throws error when minParticipation is set to 0', () => {
-        testLogger.suppressErrors();
-        const minParticipation = 0;
-        expect(() => render(createTestComponent({ minParticipation }))).toThrow();
-    });
-
     it('renders a progress and proper description for each option based on the current votes and total votes', () => {
         const totalYes = 7000;
         const totalNo = 2000;
@@ -121,5 +115,11 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
 
         expect(progressbarContainer.getByText(formattedTotal)).toBeInTheDocument();
         expect(progressbarContainer.getByText(`of ${formattedMinParticipation} ${tokenSymbol}`)).toBeInTheDocument();
+    });
+
+    it('hides the minimum participation details when minParticipation prop is set to 0', () => {
+        const minParticipation = 0;
+        render(createTestComponent({ minParticipation }));
+        expect(screen.queryByText('Minimum participation')).not.toBeInTheDocument();
     });
 });

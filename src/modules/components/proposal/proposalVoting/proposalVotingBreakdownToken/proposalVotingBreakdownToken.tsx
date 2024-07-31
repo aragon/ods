@@ -60,7 +60,6 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
     const totalSupplyNumber = Number(tokenTotalSupply);
 
     invariant(totalSupplyNumber > 0, 'ProposalVotingBreakdownToken: tokenTotalSupply must be a positive number');
-    invariant(minParticipation > 0, 'ProposalVotingBreakdownToken: minParticipation must be a positive number');
 
     const totalVotes = optionValues.reduce((accumulator, option) => accumulator + option.value, 0);
     const formattedTotalVotes = formatterUtils.formatNumber(totalVotes, { format: NumberFormat.GENERIC_SHORT });
@@ -114,19 +113,21 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
                     variant={supportReached ? 'primary' : 'neutral'}
                     thresholdIndicator={supportThreshold}
                 />
-                <ProposalVotingProgress.Item
-                    name={copy.proposalVotingBreakdownToken.minParticipation.name}
-                    value={currentParticipationPercentage}
-                    description={{
-                        value: formattedTotalVotes,
-                        text: copy.proposalVotingBreakdownToken.minParticipation.description(
-                            `${formattedMinParticipationToken} ${tokenSymbol}`,
-                        ),
-                    }}
-                    showPercentage={true}
-                    showStatusIcon={true}
-                    variant={minParticipationReached ? 'primary' : 'neutral'}
-                />
+                {minParticipation > 0 && (
+                    <ProposalVotingProgress.Item
+                        name={copy.proposalVotingBreakdownToken.minParticipation.name}
+                        value={currentParticipationPercentage}
+                        description={{
+                            value: formattedTotalVotes,
+                            text: copy.proposalVotingBreakdownToken.minParticipation.description(
+                                `${formattedMinParticipationToken} ${tokenSymbol}`,
+                            ),
+                        }}
+                        showPercentage={true}
+                        showStatusIcon={true}
+                        variant={minParticipationReached ? 'primary' : 'neutral'}
+                    />
+                )}
             </ProposalVotingProgress.Container>
             {children}
         </Tabs.Content>
