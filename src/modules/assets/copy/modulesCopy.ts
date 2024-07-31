@@ -34,13 +34,13 @@ export const modulesCopy = {
         notVerified: 'Not verified',
     },
     proposalActionsActionDecodedView: {
-        valueHelper: "Amount of ETH to transfer in the transaction",
+        valueHelper: 'Amount of ETH to transfer in the transaction',
     },
     proposalActionsActionRawView: {
         to: 'To',
         data: 'Data',
         value: 'Value',
-        copyButton: 'Copy data'
+        copyButton: 'Copy data',
     },
     proposalActionsActionViewAsMenu: {
         basic: 'Basic',

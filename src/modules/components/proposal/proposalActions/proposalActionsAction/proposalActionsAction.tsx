@@ -32,7 +32,7 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
     const { action, index, name, customComponent, ...web3Props } = props;
 
     const { copy } = useOdsModulesContext();
-    
+
     const contentRef = useRef<HTMLDivElement>(null);
     const itemRef = useRef<HTMLDivElement>(null);
 
