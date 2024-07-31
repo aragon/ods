@@ -33,6 +33,21 @@ export const modulesCopy = {
     proposalActionsAction: {
         notVerified: 'Not verified',
     },
+    proposalActionsActionDecodedView: {
+        valueHelper: "Amount of ETH to transfer in the transaction",
+    },
+    proposalActionsActionRawView: {
+        to: 'To',
+        data: 'Data',
+        value: 'Value',
+        copyButton: 'Copy data'
+    },
+    proposalActionsActionViewAsMenu: {
+        basic: 'Basic',
+        dropdownLabel: 'View action as',
+        decoded: 'Decoded',
+        raw: 'Raw',
+    },
     proposalActionChangeMembers: {
         summary: 'Summary',
         added: 'Added',

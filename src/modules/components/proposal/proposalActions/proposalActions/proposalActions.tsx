@@ -46,7 +46,7 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
         }
 
         if (actionsContainerRef.current && expandedItems.length === actions.length) {
-            actionsContainerRef.current.scrollIntoView({ behavior: 'instant', block: 'center' });
+            actionsContainerRef.current.scrollIntoView({ behavior: 'instant' });
         }
     };
 

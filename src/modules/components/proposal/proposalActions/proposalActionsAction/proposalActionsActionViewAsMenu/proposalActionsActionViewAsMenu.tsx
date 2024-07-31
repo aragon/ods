@@ -1,4 +1,5 @@
 import { Dropdown } from '../../../../../../core';
+import { useOdsModulesContext } from '../../../../odsModulesProvider';
 
 interface IProposalActionsActionViewAsMenuProps {
     /**
@@ -18,6 +19,8 @@ interface IProposalActionsActionViewAsMenuProps {
 export const ProposalActionsActionViewAsMenu: React.FC<IProposalActionsActionViewAsMenuProps> = (props) => {
     const { dropdownValue, disableBasic, handleDropdownChange } = props;
 
+    const { copy } = useOdsModulesContext();
+
     const basicEnabledClickHandler = () => {
         if (!disableBasic) {
             handleDropdownChange('basic');
@@ -26,19 +29,19 @@ export const ProposalActionsActionViewAsMenu: React.FC<IProposalActionsActionVie
     };
     return (
         <div className="mt-6 md:mt-8">
-            <Dropdown.Container label="View action as" size="sm" className="my-2">
+            <Dropdown.Container label={copy.proposalActionsActionViewAsMenu.dropdownLabel} size="sm" className="my-2">
                 <Dropdown.Item
                     onClick={basicEnabledClickHandler}
                     disabled={disableBasic}
                     selected={dropdownValue === 'basic'}
                 >
-                    Basic
+                    {copy.proposalActionsActionViewAsMenu.basic}
                 </Dropdown.Item>
                 <Dropdown.Item onClick={() => handleDropdownChange('decoded')} selected={dropdownValue === 'decoded'}>
-                    Decoded
+                    {copy.proposalActionsActionViewAsMenu.decoded}
                 </Dropdown.Item>
                 <Dropdown.Item onClick={() => handleDropdownChange('raw')} selected={dropdownValue === 'raw'}>
-                    Raw
+                    {copy.proposalActionsActionViewAsMenu.raw}
                 </Dropdown.Item>
             </Dropdown.Container>
         </div>

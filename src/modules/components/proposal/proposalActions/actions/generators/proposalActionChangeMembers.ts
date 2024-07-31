@@ -14,8 +14,8 @@ export const generateProposalActionChangeMembers = (
         function: 'transfer',
         contract: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         parameters: [
-            { type: 'address', value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE' },
-            { type: 'uint256', value: '1000000000000000000' },
+            { name: 'address', value: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e', comment: 'Changing member address' },
+            { name: 'address', value: '0x742d35Cc6634C0532925a3b844Bc4dasae4438f44e', comment: 'Changing member address' },
         ],
     },
     ...action,

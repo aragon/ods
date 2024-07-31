@@ -11,8 +11,8 @@ export const generateProposalActionUpdateMetadata = (
         function: 'Update DAO metadata',
         contract: 'DAO',
         parameters: [
-            { type: 'address', value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE' },
-            { type: 'uint256', value: '1000000000000000000' },
+            { name: 'address', value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE' },
+            { name: 'tokenAmount', value: '1000000000000000000' },
         ],
     },
     type: ProposalActionType.UPDATE_METADATA,

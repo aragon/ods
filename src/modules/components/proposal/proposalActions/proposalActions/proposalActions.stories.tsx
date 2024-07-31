@@ -32,17 +32,22 @@ export const MixedActions: Story = {
         actions: [
             generateProposalActionWithdrawToken({
                 to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-                token: generateToken({ name: 'Ether' }),
+                token: generateToken(),
             }),
             generateProposalActionUpdateMetadata(),
             generateProposalAction({
                 to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+                value: '10',
                 inputData: {
-                    function: 'Mint tokens',
+                    function: 'mintToken',
                     contract: 'GovernanceERC20',
                     parameters: [
-                        { type: 'address', value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE' },
-                        { type: 'uint256', value: '2000000000000000000' },
+                        {
+                            name: 'address',
+                            value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE',
+                            comment: 'Contract address of asset',
+                        },
+                        { name: 'tokenAmount', value: '2000000000000000000', comment: 'Amount of tokens to withdraw' },
                     ],
                 },
             }),

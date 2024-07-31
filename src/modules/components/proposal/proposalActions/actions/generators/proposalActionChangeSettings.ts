@@ -29,8 +29,8 @@ export const generateProposalActionChangeSettings = (
         function: 'settings',
         contract: 'TokenVote',
         parameters: [
-            { type: 'address', value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE' },
-            { type: 'uint256', value: '1000000000000000000' },
+            { name: 'duration', value: 5, comment: 'Changing minimum duration' },
+            { name: 'tokenAmount', value: '1000000000000000000' },
         ],
     },
     ...action,
