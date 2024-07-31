@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+-   Hide minimum participation details on `ProposalVotingBreakdownToken` module component when minParticipation is set
+    to zero.
+
 ## [1.0.41] - 2024-07-30
 
 ### Added
