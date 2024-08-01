@@ -1,4 +1,4 @@
-import { Button, clipboardUtils, InputContainer, InputNumber, InputText, TextArea } from '../../../../../../core';
+import { Button, clipboardUtils, InputNumber, InputText, TextArea } from '../../../../../../core';
 import { useOdsModulesContext } from '../../../../odsModulesProvider';
 import type { IProposalAction } from '../../proposalActionsTypes';
 
@@ -17,15 +17,17 @@ export const ProposalActionsActionRawView: React.FC<IProposalActionsActionRawVie
     return (
         <div className="flex flex-col gap-y-3">
             <div className="flex flex-col gap-y-2">
-                <InputContainer label={copy.proposalActionsActionRawView.value} id="value">
-                    <InputNumber value={action.value ?? 0} disabled={true} suffix="ETH" />
-                </InputContainer>
-                <InputContainer label={copy.proposalActionsActionRawView.to} id="to">
-                    <InputText value={action.to} disabled={true} />
-                </InputContainer>
-                <InputContainer label={copy.proposalActionsActionRawView.data} id="data">
-                    <TextArea value={action.data} disabled={true} />
-                </InputContainer>
+                <InputNumber
+                    label={copy.proposalActionsActionRawView.value}
+                    value={action.value ?? 0}
+                    disabled={true}
+                    suffix="ETH"
+                />
+
+                <InputText label={copy.proposalActionsActionRawView.to} value={action.to} disabled={true} />
+
+                <TextArea label={copy.proposalActionsActionRawView.data} value={action.data} disabled={true} />
+
                 <Button
                     className="self-end"
                     variant="tertiary"

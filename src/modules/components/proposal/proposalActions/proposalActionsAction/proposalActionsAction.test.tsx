@@ -65,8 +65,8 @@ describe('<ProposalActionsAction /> component', () => {
         await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.decoded));
         expect(screen.getByText(modulesCopy.proposalActionsActionDecodedView.valueHelper)).toBeInTheDocument();
 
-        await userEvent.click(screen.getByText('View action as'));
-        await userEvent.click(screen.getByText('Raw'));
+        await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
+        await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.raw));
         expect(screen.getByText(modulesCopy.proposalActionsActionRawView.value)).toBeInTheDocument();
         expect(screen.getByText(modulesCopy.proposalActionsActionRawView.to)).toBeInTheDocument();
         expect(screen.getByText(modulesCopy.proposalActionsActionRawView.data)).toBeInTheDocument();

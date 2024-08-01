@@ -1,4 +1,4 @@
-import { InputContainer, InputNumber, InputText } from '../../../../../../core';
+import { InputNumber, InputText } from '../../../../../../core';
 import { useOdsModulesContext } from '../../../../odsModulesProvider';
 import type { IProposalAction } from '../../proposalActionsTypes';
 
@@ -15,20 +15,23 @@ export const ProposalActionsActionDecodedView: React.FC<IProposalActionsActionDe
     return (
         <div className="flex flex-col gap-y-3">
             <div className="flex flex-col gap-y-2">
-                <InputContainer label="Value" helpText={copy.proposalActionsActionDecodedView.valueHelper} id="value">
-                    <InputNumber value={action.value ?? 0} disabled={true} suffix="ETH" />
-                </InputContainer>
+                <InputNumber
+                    label="Value"
+                    helpText={copy.proposalActionsActionDecodedView.valueHelper}
+                    value={action.value ?? 0}
+                    disabled={true}
+                    suffix="ETH"
+                />
             </div>
             {action.inputData &&
                 action.inputData.parameters.map((parameter) => (
-                    <InputContainer
+                    <InputText
                         key={parameter.name}
                         label={parameter.name}
                         helpText={parameter.comment}
-                        id={`${parameter.name}`}
-                    >
-                        <InputText value={parameter.value} disabled={true} />
-                    </InputContainer>
+                        value={parameter.value}
+                        disabled={true}
+                    />
                 ))}
         </div>
     );
