@@ -2,17 +2,8 @@ import { Dropdown } from '../../../../../../core';
 import { useOdsModulesContext } from '../../../../odsModulesProvider';
 
 interface IProposalActionsActionViewAsMenuProps {
-    /**
-     * Value of the dropdown. @default 'basic'
-     */
     dropdownValue: string;
-    /**
-     * Disable basic if there is no ActionComponent.
-     */
     disableBasic: boolean;
-    /**
-     * Callback to handle dropdown change.
-     */
     handleDropdownChange: (value: string) => void;
 }
 
@@ -21,16 +12,20 @@ export const ProposalActionsActionViewAsMenu: React.FC<IProposalActionsActionVie
 
     const { copy } = useOdsModulesContext();
 
+    // TODO: Should remove this and update Dropdown.Item disabled prop logic (APP-3488)
     const basicEnabledClickHandler = () => {
-        if (!disableBasic) {
-            handleDropdownChange('basic');
+        if (disableBasic) {
+            return;
         }
-        return;
+
+        handleDropdownChange('basic');
     };
+
     return (
         <div className="mt-6 md:mt-8">
             <Dropdown.Container label={copy.proposalActionsActionViewAsMenu.dropdownLabel} size="sm" className="my-2">
                 <Dropdown.Item
+                    href="#"
                     onClick={basicEnabledClickHandler}
                     disabled={disableBasic}
                     selected={dropdownValue === 'basic'}

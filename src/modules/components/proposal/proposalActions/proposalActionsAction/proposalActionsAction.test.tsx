@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import { Accordion } from '../../../../../core';
 import { modulesCopy } from '../../../../assets';
 import { generateProposalAction } from '../actions/generators/proposalAction';
@@ -23,6 +23,10 @@ describe('<ProposalActionsAction /> component', () => {
         );
     };
 
+    beforeEach(() => {
+        window.HTMLElement.prototype.scrollIntoView = jest.fn();
+    });
+
     it('renders not-verified label when action.inputData is null', () => {
         const action = generateProposalActionWithdrawToken({ inputData: null });
         render(createTestComponent({ action }));
@@ -31,14 +35,15 @@ describe('<ProposalActionsAction /> component', () => {
 
     it('renders custom action component when provided', async () => {
         const customComponent = ({ action }: { action: IProposalAction }) => `Custom action for ${action.type}`;
+        const name = 'Custom Action Name';
         const action = generateProposalAction({
             type: 'customType',
             inputData: { function: 'transfer', contract: 'DAI', parameters: [] },
         });
 
-        render(createTestComponent({ action, customComponent }));
+        render(createTestComponent({ action, name, customComponent }));
 
-        await userEvent.click(screen.getByText('transfer'));
+        await userEvent.click(screen.getByText(/Custom Action Name/));
         expect(screen.getByText(`Custom action for ${action.type}`)).toBeInTheDocument();
     });
 
@@ -49,40 +54,21 @@ describe('<ProposalActionsAction /> component', () => {
         expect(screen.getByText(name)).toBeInTheDocument();
     });
 
-    it('renders decoded view when dropdown value is "decoded"', async () => {
+    it('updates view when dropdown value changes', async () => {
         const action = generateProposalAction({ inputData: { function: '', contract: '', parameters: [] } });
-        render(createTestComponent({ action }));
+        const name = 'Custom Action Name';
+        render(createTestComponent({ action, name }));
 
-        await userEvent.click(screen.getByText('View action as'));
-        await userEvent.click(screen.getByText('Decoded'));
+        await userEvent.click(screen.getByText(name));
 
-        expect(screen.getByText('Natspec placeholder')).toBeInTheDocument();
-    });
-
-    it('renders raw view when dropdown value is "raw"', async () => {
-        const action = generateProposalAction({ inputData: { function: '', contract: '', parameters: [] } });
-        render(createTestComponent({ action }));
+        await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
+        await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.decoded));
+        expect(screen.getByText(modulesCopy.proposalActionsActionDecodedView.valueHelper)).toBeInTheDocument();
 
         await userEvent.click(screen.getByText('View action as'));
         await userEvent.click(screen.getByText('Raw'));
-
-        expect(screen.getByText('Value')).toBeInTheDocument();
-        expect(screen.getByText('To')).toBeInTheDocument();
-        expect(screen.getByText('Data')).toBeInTheDocument();
-    });
-
-    it('calls handleDropdownChange and updates the view when dropdown value changes', async () => {
-        const action = generateProposalAction({ inputData: { function: '', contract: '', parameters: [] } });
-        render(createTestComponent({ action }));
-
-        await userEvent.click(screen.getByText('View action as'));
-        await userEvent.click(screen.getByText('Decoded'));
-        expect(screen.getByText('Natspec placeholder')).toBeInTheDocument();
-
-        await userEvent.click(screen.getByText('View action as'));
-        await userEvent.click(screen.getByText('Raw'));
-        expect(screen.getByText('Value')).toBeInTheDocument();
-        expect(screen.getByText('To')).toBeInTheDocument();
-        expect(screen.getByText('Data')).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalActionsActionRawView.value)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalActionsActionRawView.to)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalActionsActionRawView.data)).toBeInTheDocument();
     });
 });
