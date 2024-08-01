@@ -22,6 +22,10 @@ describe('<ProposalActions /> component', () => {
         );
     };
 
+    beforeEach(() => {
+        window.HTMLElement.prototype.scrollIntoView = jest.fn();
+    });
+
     it('correctly renders the actions', () => {
         const actions = [generateProposalActionWithdrawToken(), generateProposalActionWithdrawToken()];
         const actionNames = { [ProposalActionType.WITHDRAW_TOKEN]: 'Withdraw assets' };
