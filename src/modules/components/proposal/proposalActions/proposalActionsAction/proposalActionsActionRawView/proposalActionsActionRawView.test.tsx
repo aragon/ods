@@ -32,7 +32,6 @@ describe('<ProposalActionsActionRawView /> component', () => {
     it('renders action properties correctly', () => {
         const action = generateProposalActionTokenMint({ value: '100', to: '0x123dao', data: '0x123data' });
         render(createTestComponent({ action }));
-        screen.debug();
 
         expect(screen.getByText(modulesCopy.proposalActionsActionRawView.value)).toBeInTheDocument();
         expect(screen.getByText(modulesCopy.proposalActionsActionRawView.to)).toBeInTheDocument();
