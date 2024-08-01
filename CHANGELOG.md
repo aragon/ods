@@ -9,8 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Add 'Raw' and 'Decoded' views to `ProposalActions` with Dropdown selector for the data of proposal actions 
-    with more technical understanding.
+-   Add 'Raw' and 'Decoded' views to `ProposalActions` with Dropdown selector for the data of proposal actions with more
+    technical understanding.
 
 ### Fixed
 
