@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Hide minimum participation details on `ProposalVotingBreakdownToken` module component when minParticipation is set
     to zero.
+-   Correctly forward web3 params (e.g. `chainId`) to native `ProposalActions` components
 
 ## [1.0.41] - 2024-07-30
 
