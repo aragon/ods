@@ -67,9 +67,14 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
 
     const toggleExpanded = () => setIsExpanded((current) => !current);
 
-    // Hide page overflow when component is expanded
+    // Hide page overflow and set pointer-event to auto (e.g. if the component is rendered inside a modal) when
+    // component is expanded
     useEffect(() => {
         document.body.style.overflow = isExpanded ? 'hidden' : 'auto';
+
+        if (isExpanded) {
+            document.body.style.pointerEvents = 'auto';
+        }
     }, [isExpanded]);
 
     // Update editable setting on Tiptap editor on disabled property change
@@ -93,8 +98,11 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
     const textAreaRichText = (
         <InputContainer
             disabled={disabled}
-            className={classNames(className, { 'fixed left-0 top-0 z-10 h-screen w-full': isExpanded })}
-            wrapperClassName={classNames('grow overflow-hidden', { 'rounded-none ': isExpanded })}
+            className={classNames(className, {
+                'fixed left-0 top-0 z-[var(--ods---ods-text-area-rich-text-expanded-z-index)] h-screen w-full [&>label]:hidden':
+                    isExpanded,
+            })}
+            wrapperClassName={classNames('grow overflow-hidden', { '!rounded-none': isExpanded })}
             id={processedId}
             {...containerProps}
         >

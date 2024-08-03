@@ -60,6 +60,7 @@ describe('<TextAreaRichText /> component', () => {
         await user.click(screen.getByTestId(IconType.EXPAND));
         expect(createPortalMock).toHaveBeenCalled();
         expect(document.body.style.overflow).toEqual('hidden');
+        expect(document.body.style.pointerEvents).toEqual('auto');
     });
 
     it('resets the expanded state on ESC key down', async () => {
