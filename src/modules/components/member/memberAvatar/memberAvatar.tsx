@@ -4,9 +4,10 @@ import { type Address } from 'viem';
 import { normalize } from 'viem/ens';
 import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
 import { Avatar, ssrUtils, type IAvatarProps } from '../../../../core';
+import { IWeb3ComponentProps } from '../../../types';
 import { addressUtils, ensUtils } from '../../../utils';
 
-export interface IMemberAvatarProps extends Omit<IAvatarProps, 'fallback'> {
+export interface IMemberAvatarProps extends Omit<IAvatarProps, 'fallback'>, IWeb3ComponentProps {
     /**
      * ENS name of the user to lookup avatar src.
      */
@@ -22,7 +23,7 @@ export interface IMemberAvatarProps extends Omit<IAvatarProps, 'fallback'> {
 }
 
 export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
-    const { ensName, address, avatarSrc, ...otherProps } = props;
+    const { ensName, address, avatarSrc, chainId, wagmiConfig, ...otherProps } = props;
 
     const isValidAddress = addressUtils.isAddress(address);
     const isValidENSName = ensUtils.isEnsName(ensName);
@@ -30,18 +31,24 @@ export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
     const { data: ensAddressData, isLoading: addressLoading } = useEnsAddress({
         name: ensName,
         query: { enabled: isValidENSName && !isValidAddress && avatarSrc == null },
+        chainId,
+        config: wagmiConfig,
     });
     const resolvedAddress = isValidAddress ? address : ensAddressData;
 
     const { data: ensNameData, isLoading: nameLoading } = useEnsName({
         address: resolvedAddress as Address,
         query: { enabled: resolvedAddress != null && avatarSrc == null },
+        chainId,
+        config: wagmiConfig,
     });
     const resolvedName = isValidENSName ? ensName : ensNameData;
 
     const { data: ensAvatarData, isLoading: avatarLoading } = useEnsAvatar({
         name: resolvedName ? normalize(resolvedName) : undefined,
         query: { enabled: resolvedName != null && avatarSrc == null },
+        chainId,
+        config: wagmiConfig,
     });
     const resolvedAvatarSrc = avatarSrc ?? ensAvatarData ?? undefined;
 
