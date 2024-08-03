@@ -12,6 +12,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Hide minimum participation details on `ProposalVotingBreakdownToken` module component when minParticipation is set
     to zero.
 -   Correctly forward web3 params (e.g. `chainId`) to native `ProposalActions` components
+-   Fix ENS name truncation on `<Wallet />` module component
+-   Update `<Wallet />` module component to only resolve user ENS name when name property is not set
+
+### Added
+
+-   Update `<Wallet />` module component to support custom `chainId` and `wagmi` configurations
+-   Update ICompositeAddress interface and components using it to support custom avatar
 
 ## [1.0.41] - 2024-07-30
 
