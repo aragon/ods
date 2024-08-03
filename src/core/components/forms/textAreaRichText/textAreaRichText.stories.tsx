@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { Button } from '../../button';
+import { Dialog } from '../../dialogs';
 import { TextAreaRichText } from './textAreaRichText';
 
 const meta: Meta<typeof TextAreaRichText> = {
@@ -28,12 +30,36 @@ export const Default: Story = {
  * Usage example of a controlled TextAreaRichText component.
  */
 export const Controlled: Story = {
+    args: {
+        label: 'Controlled component',
+        helpText: 'Make sure this is hidden when component is expanded',
+    },
     render: ({ onChange, ...props }) => {
         const [value, setValue] = useState(
             '<p>Hello <strong>dev</strong>, check this <a href="https://aragon.org" target="_blank">link</a>.</p>',
         );
 
         return <TextAreaRichText value={value} onChange={setValue} {...props} />;
+    },
+};
+
+/**
+ * Expand behaviour of TextAreaRichText component inside a Dialog.
+ */
+export const InsideDialog: Story = {
+    render: (props) => {
+        const [isOpen, setIsOpen] = useState(false);
+
+        return (
+            <>
+                <Button onClick={() => setIsOpen(true)}>Open dialog</Button>
+                <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+                    <Dialog.Content className="p-4">
+                        <TextAreaRichText {...props} />
+                    </Dialog.Content>
+                </Dialog.Root>
+            </>
+        );
     },
 };
 
