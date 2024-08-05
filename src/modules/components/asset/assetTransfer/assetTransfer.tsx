@@ -6,7 +6,7 @@ import { AssetTransferAddress } from './assetTransferAddress';
 
 export interface IAssetTransferProps extends IWeb3ComponentProps {
     /**
-     * Sender of the transation.
+     * Sender of the transaction.
      */
     sender: ICompositeAddress;
     /**
