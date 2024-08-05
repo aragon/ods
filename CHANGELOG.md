@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update `<Wallet />` module component to support custom `chainId` and `wagmi` configurations
 -   Update ICompositeAddress interface and components using it to support custom avatar
 -   Add z-index property customisation for `TextAreaRichText` core component when expanded
+-   Handle `useFocusTrap` property on dialog components to support disabling default focus-trap behaviour
 
 ## [1.0.41] - 2024-07-30
 

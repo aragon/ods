@@ -50,6 +50,7 @@ __metadata:
     "@radix-ui/react-checkbox": "npm:^1.1.0"
     "@radix-ui/react-dialog": "npm:^1.1.0"
     "@radix-ui/react-dropdown-menu": "npm:^2.1.0"
+    "@radix-ui/react-focus-scope": "npm:^1.1.0"
     "@radix-ui/react-progress": "npm:^1.1.0"
     "@radix-ui/react-radio-group": "npm:^1.2.0"
     "@radix-ui/react-switch": "npm:^1.1.0"
@@ -3244,7 +3245,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-focus-scope@npm:1.1.0":
+"@radix-ui/react-focus-scope@npm:1.1.0, @radix-ui/react-focus-scope@npm:^1.1.0":
   version: 1.1.0
   resolution: "@radix-ui/react-focus-scope@npm:1.1.0"
   dependencies:
