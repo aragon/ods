@@ -3,7 +3,7 @@ import { userEvent } from '@testing-library/user-event';
 import { clipboardUtils } from '../../../../../../core';
 import { modulesCopy } from '../../../../../assets';
 import { generateProposalActionTokenMint } from '../../actions/generators';
-import { ProposalActionsActionRawView } from './proposalActionsActionRawView';
+import { IProposalActionsActionRawViewProps, ProposalActionsActionRawView } from './proposalActionsActionRawView';
 
 jest.mock('../../../../../../core', () => {
     const originalModule = jest.requireActual('../../../../../../core');
@@ -21,12 +21,12 @@ jest.mock('../../../../../../core', () => {
 describe('<ProposalActionsActionRawView /> component', () => {
     const copyMock = jest.spyOn(clipboardUtils, 'copy');
 
-    const createTestComponent = (props?: Partial<React.ComponentProps<typeof ProposalActionsActionRawView>>) => {
-        const defaultProps = {
+    const createTestComponent = (props?: Partial<IProposalActionsActionRawViewProps>) => {
+        const completeProps: IProposalActionsActionRawViewProps = {
             action: generateProposalActionTokenMint(),
             ...props,
         };
-        return <ProposalActionsActionRawView {...defaultProps} />;
+        return <ProposalActionsActionRawView {...completeProps} />;
     };
 
     it('renders action properties correctly', () => {

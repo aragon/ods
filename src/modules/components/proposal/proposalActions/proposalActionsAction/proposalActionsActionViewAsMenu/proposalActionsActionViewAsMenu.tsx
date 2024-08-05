@@ -1,44 +1,53 @@
 import { Dropdown } from '../../../../../../core';
 import { useOdsModulesContext } from '../../../../odsModulesProvider';
+import { ProposalActionViewMode } from '../proposalActionsAction';
 
-interface IProposalActionsActionViewAsMenuProps {
-    dropdownValue: string;
+export interface IProposalActionsActionViewAsMenuProps {
+    /**
+     * Current selected view mode for the action.
+     */
+    viewMode: string;
+    /**
+     * Flag to disable basic view mode.
+     */
     disableBasic: boolean;
-    handleDropdownChange: (value: string) => void;
+    /**
+     * Flag to disable decoded view mode.
+     */
+    disableDecoded: boolean;
+    /**
+     * Callback to handle dropdown value change.
+     */
+    onViewModeChange: (value: ProposalActionViewMode) => void;
 }
 
 export const ProposalActionsActionViewAsMenu: React.FC<IProposalActionsActionViewAsMenuProps> = (props) => {
-    const { dropdownValue, disableBasic, handleDropdownChange } = props;
+    const { viewMode, disableBasic, disableDecoded, onViewModeChange } = props;
 
     const { copy } = useOdsModulesContext();
 
-    // TODO: Should remove this and update Dropdown.Item disabled prop logic (APP-3488)
-    const basicEnabledClickHandler = () => {
-        if (disableBasic) {
-            return;
-        }
-
-        handleDropdownChange('basic');
-    };
-
     return (
-        <div className="mt-6 md:mt-8">
-            <Dropdown.Container label={copy.proposalActionsActionViewAsMenu.dropdownLabel} size="sm" className="my-2">
-                <Dropdown.Item
-                    href="#"
-                    onClick={basicEnabledClickHandler}
-                    disabled={disableBasic}
-                    selected={dropdownValue === 'basic'}
-                >
-                    {copy.proposalActionsActionViewAsMenu.basic}
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => handleDropdownChange('decoded')} selected={dropdownValue === 'decoded'}>
-                    {copy.proposalActionsActionViewAsMenu.decoded}
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => handleDropdownChange('raw')} selected={dropdownValue === 'raw'}>
-                    {copy.proposalActionsActionViewAsMenu.raw}
-                </Dropdown.Item>
-            </Dropdown.Container>
-        </div>
+        <Dropdown.Container label={copy.proposalActionsActionViewAsMenu.dropdownLabel} size="sm">
+            <Dropdown.Item
+                onSelect={() => !disableBasic && onViewModeChange(ProposalActionViewMode.BASIC_VIEW)}
+                disabled={disableBasic}
+                selected={viewMode === 'basic'}
+            >
+                {copy.proposalActionsActionViewAsMenu.basic}
+            </Dropdown.Item>
+            <Dropdown.Item
+                onSelect={() => onViewModeChange(ProposalActionViewMode.DECODED_VIEW)}
+                disabled={disableDecoded}
+                selected={viewMode === ProposalActionViewMode.DECODED_VIEW}
+            >
+                {copy.proposalActionsActionViewAsMenu.decoded}
+            </Dropdown.Item>
+            <Dropdown.Item
+                onSelect={() => onViewModeChange(ProposalActionViewMode.RAW_VIEW)}
+                selected={viewMode === ProposalActionViewMode.RAW_VIEW}
+            >
+                {copy.proposalActionsActionViewAsMenu.raw}
+            </Dropdown.Item>
+        </Dropdown.Container>
     );
 };

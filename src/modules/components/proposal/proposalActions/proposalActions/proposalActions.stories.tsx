@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import {
     generateProposalAction,
-    generateProposalActionTokenMint,
     generateProposalActionUpdateMetadata,
     generateProposalActionWithdrawToken,
     generateToken,
@@ -33,11 +32,16 @@ export const MixedActions: Story = {
             generateProposalActionWithdrawToken({
                 to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
                 token: generateToken(),
+                data: '0x3f60b63300000000000000000000000019dbc1c820dd3f13260829a4e06dda6d9ef758db00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000d5fb864acfd6bb2f72939f122e89ff7f475924f5',
             }),
-            generateProposalActionUpdateMetadata(),
+            generateProposalActionUpdateMetadata({
+                data: '0x3f60b63300000000000000000000000019dbc1c820dd3f13260829a4e06dda6d9ef758db00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000d5fb864acfd6bb2f72939f122e89ff7f475924f5',
+            }),
             generateProposalAction({
                 to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
                 value: '10',
+                data: '0x3f60b63300000000000000000000000019dbc1c820dd3f13260829a4e06dda6d9ef758db00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000d5fb864acfd6bb2f72939f122e89ff7f475924f5',
+
                 inputData: {
                     function: 'mintToken',
                     contract: 'GovernanceERC20',
@@ -46,30 +50,20 @@ export const MixedActions: Story = {
                             name: 'address',
                             value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE',
                             comment: 'Contract address of asset',
+                            type: 'string',
                         },
-                        { name: 'tokenAmount', value: '2000000000000000000', comment: 'Amount of tokens to withdraw' },
+                        {
+                            name: 'tokenAmount',
+                            value: '2000000000000000000',
+                            comment: 'Amount of tokens to withdraw',
+                            type: 'string',
+                        },
                     ],
                 },
             }),
-            generateProposalActionTokenMint({
+            generateProposalAction({
                 type: 'unknownType' as ProposalActionType.TOKEN_MINT,
-                receivers: [
-                    {
-                        currentBalance: 0,
-                        newBalance: 5,
-                        address: '0x32c2FE388ABbB3e678D44DF6a0471086D705316a',
-                    },
-                    {
-                        currentBalance: 100,
-                        newBalance: 110,
-                        address: '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d',
-                    },
-                    {
-                        currentBalance: 0,
-                        newBalance: 200,
-                        address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
-                    },
-                ],
+                data: '0x3f60b63300000000000000000000000019dbc1c820dd3f13260829a4e06dda6d9ef758db00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000d5fb864acfd6bb2f72939f122e89ff7f475924f5',
                 inputData: null,
             }),
         ],

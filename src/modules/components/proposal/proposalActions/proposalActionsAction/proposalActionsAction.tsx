@@ -5,9 +5,9 @@ import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
 import type { IProposalAction, ProposalActionComponent } from '../proposalActionsTypes';
 import { proposalActionsUtils } from '../proposalActionsUtils';
-import { ProposalActionsActionDecodedView } from './proposalActionsActionDecodedView/proposalActionsActionDecodedView';
-import { ProposalActionsActionRawView } from './proposalActionsActionRawView/proposalActionsActionRawView';
-import { ProposalActionsActionViewAsMenu } from './proposalActionsActionViewAsMenu/proposalActionsActionViewAsMenu';
+import { ProposalActionsActionDecodedView } from './proposalActionsActionDecodedView';
+import { ProposalActionsActionRawView } from './proposalActionsActionRawView';
+import { ProposalActionsActionViewAsMenu } from './proposalActionsActionViewAsMenu';
 
 export interface IProposalActionsActionProps extends IWeb3ComponentProps {
     /**
@@ -28,6 +28,12 @@ export interface IProposalActionsActionProps extends IWeb3ComponentProps {
     customComponent?: ProposalActionComponent;
 }
 
+export enum ProposalActionViewMode {
+    BASIC_VIEW = 'basic',
+    DECODED_VIEW = 'decoded',
+    RAW_VIEW = 'raw',
+}
+
 export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {
     const { action, index, name, customComponent, ...web3Props } = props;
 
@@ -38,11 +44,15 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
 
     const ActionComponent = customComponent ?? proposalActionsUtils.getActionComponent(action);
 
-    const [dropdownValue, setDropdownValue] = useState(ActionComponent ? 'basic' : 'decoded');
+    const [viewMode, setViewMode] = useState(
+        ActionComponent
+            ? ProposalActionViewMode.BASIC_VIEW
+            : action.inputData
+              ? ProposalActionViewMode.DECODED_VIEW
+              : ProposalActionViewMode.RAW_VIEW,
+    );
 
-    const isDisabled = action.inputData == null;
-
-    const handleDropdownChange = (value: string) => {
+    const onViewModeChange = (value: ProposalActionViewMode) => {
         if (contentRef?.current == null) {
             return;
         }
@@ -51,7 +61,7 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
 
         style.setProperty('--radix-collapsible-content-height', scrollHeight.toString());
 
-        setDropdownValue(value);
+        setViewMode(value);
 
         if (itemRef.current) {
             itemRef.current.scrollIntoView({ behavior: 'instant', block: 'center' });
@@ -59,7 +69,7 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
     };
 
     return (
-        <Accordion.Item value={isDisabled ? '' : `${index}`} disabled={isDisabled} ref={itemRef}>
+        <Accordion.Item value={`${index}`} ref={itemRef}>
             <Accordion.ItemHeader>
                 <div className="flex flex-col items-start">
                     <Heading size="h4">
@@ -71,15 +81,22 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
                 </div>
             </Accordion.ItemHeader>
             <Accordion.ItemContent ref={contentRef}>
-                {dropdownValue === 'basic' && ActionComponent && <ActionComponent action={action} {...web3Props} />}
-                {dropdownValue === 'decoded' && <ProposalActionsActionDecodedView action={action} />}
-                {dropdownValue === 'raw' && <ProposalActionsActionRawView action={action} />}
+                <div className="flex flex-col items-start gap-y-6 md:gap-y-8">
+                    {viewMode === ProposalActionViewMode.BASIC_VIEW && ActionComponent && (
+                        <ActionComponent action={action} {...web3Props} />
+                    )}
+                    {viewMode === ProposalActionViewMode.DECODED_VIEW && (
+                        <ProposalActionsActionDecodedView action={action} />
+                    )}
+                    {viewMode === ProposalActionViewMode.RAW_VIEW && <ProposalActionsActionRawView action={action} />}
 
-                <ProposalActionsActionViewAsMenu
-                    disableBasic={ActionComponent == null}
-                    dropdownValue={dropdownValue}
-                    handleDropdownChange={handleDropdownChange}
-                />
+                    <ProposalActionsActionViewAsMenu
+                        disableBasic={ActionComponent == null}
+                        disableDecoded={action.inputData == null}
+                        viewMode={viewMode}
+                        onViewModeChange={onViewModeChange}
+                    />
+                </div>
             </Accordion.ItemContent>
         </Accordion.Item>
     );

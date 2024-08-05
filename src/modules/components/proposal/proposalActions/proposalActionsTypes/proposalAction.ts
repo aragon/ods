@@ -4,6 +4,10 @@ export interface IProposalActionInputDataParameter {
      */
     name: string;
     /**
+     * The type of the argument being passed.
+     */
+    type: string;
+    /**
      * The value of the argument being passed.
      */
     value: string | number;
@@ -44,7 +48,7 @@ export interface IProposalAction {
     /**
      * The value to send with the transaction.
      */
-    value: string | null;
+    value: string;
     /**
      * The type of the proposal action.
      */

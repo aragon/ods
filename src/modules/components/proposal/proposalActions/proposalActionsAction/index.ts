@@ -1,1 +1,1 @@
-export { ProposalActionsAction, type IProposalActionsActionProps } from './proposalActionsAction';
+export { ProposalActionsAction, IProposalActionsActionProps } from './proposalActionsAction';

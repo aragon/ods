@@ -35,6 +35,7 @@ export const modulesCopy = {
     },
     proposalActionsActionDecodedView: {
         valueHelper: 'Amount of ETH to transfer in the transaction',
+        valueLabel: 'Value',
     },
     proposalActionsActionRawView: {
         to: 'To',

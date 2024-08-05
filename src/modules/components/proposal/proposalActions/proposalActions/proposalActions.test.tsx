@@ -9,6 +9,8 @@ import { ProposalActions, type IProposalActionsProps } from './proposalActions';
 jest.mock('../../../member', () => ({ MemberAvatar: () => <div data-testid="member-avatar" /> }));
 
 describe('<ProposalActions /> component', () => {
+    let scrollIntoViewSpy: jest.SpyInstance;
+
     const createTestComponent = (props?: Partial<IProposalActionsProps>) => {
         const completeProps: IProposalActionsProps = {
             actions: [],
@@ -23,7 +25,12 @@ describe('<ProposalActions /> component', () => {
     };
 
     beforeEach(() => {
-        window.HTMLElement.prototype.scrollIntoView = jest.fn();
+        HTMLElement.prototype.scrollIntoView = jest.fn();
+        scrollIntoViewSpy = jest.spyOn(HTMLElement.prototype, 'scrollIntoView').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
     });
 
     it('correctly renders the actions', () => {
@@ -57,6 +64,23 @@ describe('<ProposalActions /> component', () => {
 
         expect(screen.getByText('Expand all')).toBeInTheDocument();
         actions.forEach(() => expect(screen.queryAllByText(/vitalik.eth/).length).toBe(0));
+    });
+
+    it('triggers scrollIntoView when collapsing all items', async () => {
+        const actions = [generateProposalActionWithdrawToken(), generateProposalActionWithdrawToken()];
+        render(createTestComponent({ actions }));
+
+        const toggleButtonExpand = screen.getByText('Expand all');
+        await userEvent.click(toggleButtonExpand);
+
+        expect(screen.getByText('Collapse all')).toBeInTheDocument();
+        expect(scrollIntoViewSpy).not.toHaveBeenCalled();
+
+        const toggleButtonCollapse = screen.getByText('Collapse all');
+        await userEvent.click(toggleButtonCollapse);
+
+        expect(screen.getByText('Expand all')).toBeInTheDocument();
+        expect(scrollIntoViewSpy).toHaveBeenCalled();
     });
 
     it('passes custom action names to ProposalActionsAction', async () => {

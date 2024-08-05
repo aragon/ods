@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { createRef, useState, type ReactNode } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import { Accordion, Button, Card, Heading } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
@@ -16,7 +16,7 @@ export interface IProposalActionsProps extends IWeb3ComponentProps {
      */
     actionNames?: Record<string, string>;
     /**
-     * Map of action-type <=> custom-component to customise how actions are displayed.
+     * Map of action-type <=> custom-component to customize how actions are displayed.
      */
     customActionComponents?: Record<string, ProposalActionComponent>;
     /**
@@ -36,7 +36,7 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
 
     const { copy } = useOdsModulesContext();
 
-    const actionsContainerRef = createRef<HTMLDivElement>();
+    const actionsContainerRef = useRef<HTMLDivElement | null>(null);
 
     const handleToggleAll = () => {
         if (expandedItems.length === actions.length) {

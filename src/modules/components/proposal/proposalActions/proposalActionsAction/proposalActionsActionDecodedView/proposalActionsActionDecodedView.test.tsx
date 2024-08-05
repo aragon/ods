@@ -1,7 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { modulesCopy } from '../../../../../assets';
 import { generateProposalActionTokenMint } from '../../actions/generators';
-import { ProposalActionsActionDecodedView } from './proposalActionsActionDecodedView';
+import {
+    IProposalActionsActionDecodedViewProps,
+    ProposalActionsActionDecodedView,
+} from './proposalActionsActionDecodedView';
 
 jest.mock('../../../../../../core', () => {
     const originalModule = jest.requireActual('../../../../../../core');
@@ -28,7 +31,7 @@ jest.mock('../../../../../../core', () => {
 });
 
 describe('<ProposalActionsActionDecodedView /> component', () => {
-    const createTestComponent = (props?: Partial<React.ComponentProps<typeof ProposalActionsActionDecodedView>>) => {
+    const createTestComponent = (props?: Partial<IProposalActionsActionDecodedViewProps>) => {
         const defaultProps = {
             action: generateProposalActionTokenMint(),
             ...props,
@@ -51,20 +54,39 @@ describe('<ProposalActionsActionDecodedView /> component', () => {
                 function: 'myFunction',
                 contract: 'myContract',
                 parameters: [
-                    { name: 'param1', comment: 'First parameter', value: 'value1' },
-                    { name: 'param2', comment: 'Second parameter', value: 'value2' },
+                    {
+                        name: 'param1',
+                        comment: 'First parameter',
+                        value: 'value1',
+                        type: 'string',
+                    },
+                    {
+                        name: 'param2',
+                        comment: 'Second parameter',
+                        value: 'value2',
+                        type: 'string',
+                    },
                 ],
             },
         });
         render(createTestComponent({ action }));
 
-        expect(screen.getByText('param1')).toBeInTheDocument();
-        expect(screen.getByText('First parameter')).toBeInTheDocument();
-        expect(screen.getByDisplayValue('value1')).toBeInTheDocument();
+        const param1Input = screen.getByDisplayValue('value1');
+        const param2Input = screen.getByDisplayValue('value2');
 
-        expect(screen.getByText('param2')).toBeInTheDocument();
-        expect(screen.getByText('Second parameter')).toBeInTheDocument();
-        expect(screen.getByDisplayValue('value2')).toBeInTheDocument();
+        expect(
+            screen.getByText(`${action.inputData?.parameters[0].name} (${action.inputData?.parameters[0].type})`),
+        ).toBeInTheDocument();
+        expect(screen.getByText(action.inputData?.parameters[0].comment ?? '')).toBeInTheDocument();
+        expect(param1Input).toBeInTheDocument();
+        expect(param1Input).toBeDisabled();
+
+        expect(
+            screen.getByText(`${action.inputData?.parameters[1].name} (${action.inputData?.parameters[1].type})`),
+        ).toBeInTheDocument();
+        expect(screen.getByText(action.inputData?.parameters[1].comment ?? '')).toBeInTheDocument();
+        expect(param2Input).toBeInTheDocument();
+        expect(param2Input).toBeDisabled();
     });
 
     it('renders correctly with no parameters', () => {

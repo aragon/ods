@@ -2,7 +2,7 @@ import { Button, clipboardUtils, InputNumber, InputText, TextArea } from '../../
 import { useOdsModulesContext } from '../../../../odsModulesProvider';
 import type { IProposalAction } from '../../proposalActionsTypes';
 
-interface IProposalActionsActionRawViewProps {
+export interface IProposalActionsActionRawViewProps {
     /**
      * Proposal action to render raw view for.
      */
@@ -16,27 +16,20 @@ export const ProposalActionsActionRawView: React.FC<IProposalActionsActionRawVie
 
     return (
         <div className="flex flex-col gap-y-3">
-            <div className="flex flex-col gap-y-2">
-                <InputNumber
-                    label={copy.proposalActionsActionRawView.value}
-                    value={action.value ?? 0}
-                    disabled={true}
-                    suffix="ETH"
-                />
+            <InputText label={copy.proposalActionsActionRawView.to} value={action.to} disabled={true} />
 
-                <InputText label={copy.proposalActionsActionRawView.to} value={action.to} disabled={true} />
+            <InputNumber
+                label={copy.proposalActionsActionRawView.value}
+                value={action.value}
+                disabled={true}
+                suffix="ETH"
+            />
 
-                <TextArea label={copy.proposalActionsActionRawView.data} value={action.data} disabled={true} />
+            <TextArea label={copy.proposalActionsActionRawView.data} value={action.data} disabled={true} />
 
-                <Button
-                    className="self-end"
-                    variant="tertiary"
-                    size="md"
-                    onClick={() => clipboardUtils.copy(action.data)}
-                >
-                    {copy.proposalActionsActionRawView.copyButton}
-                </Button>
-            </div>
+            <Button className="self-end" variant="tertiary" size="md" onClick={() => clipboardUtils.copy(action.data)}>
+                {copy.proposalActionsActionRawView.copyButton}
+            </Button>
         </div>
     );
 };

@@ -1,50 +1,57 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { modulesCopy } from '../../../../../assets';
+import { ProposalActionViewMode } from '../proposalActionsAction';
 import { ProposalActionsActionViewAsMenu } from './proposalActionsActionViewAsMenu';
 
 describe('<ProposalActionsActionViewAsMenu /> component', () => {
-    const mockHandleDropdownChange = jest.fn();
+    const onViewModeChange = jest.fn();
 
     const createTestComponent = (props?: Partial<React.ComponentProps<typeof ProposalActionsActionViewAsMenu>>) => {
         const defaultProps = {
-            dropdownValue: 'basic',
+            viewMode: ProposalActionViewMode.BASIC_VIEW,
             disableBasic: false,
-            handleDropdownChange: mockHandleDropdownChange,
+            disableDecoded: false,
+            onViewModeChange: onViewModeChange,
             ...props,
         };
+
         return <ProposalActionsActionViewAsMenu {...defaultProps} />;
     };
 
-    it('calls handleDropdownChange with "basic" when basic item is clicked and not disabled', async () => {
+    beforeEach(() => {
+        onViewModeChange.mockClear();
+    });
+
+    it('calls ViewModeChange with "basic" when basic item is clicked and not disabled', async () => {
         render(createTestComponent());
         await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
         const basicItem = screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.basic);
         await userEvent.click(basicItem);
-        expect(mockHandleDropdownChange).toHaveBeenCalledWith('basic');
+        expect(onViewModeChange).toHaveBeenCalledWith(ProposalActionViewMode.BASIC_VIEW);
     });
 
-    // it('does not call handleDropdownChange with "basic" when basic item is clicked and disabled', async () => {
-    //     render(createTestComponent({ disableBasic: true }));
-    //     await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
-    //     const basicItem = screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.basic);
-    //     await userEvent.click(basicItem);
-    //     expect(mockHandleDropdownChange).not.toHaveBeenCalled();
-    // });
+    it('does not call ViewModeChange with "basic" when basic item is clicked and disabled', async () => {
+        render(createTestComponent({ disableBasic: true }));
+        await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
+        const basicItem = screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.basic);
+        await userEvent.click(basicItem);
+        expect(onViewModeChange).not.toHaveBeenCalled();
+    });
 
-    it('calls handleDropdownChange with "decoded" when decoded item is clicked', async () => {
+    it('calls ViewModeChange with "decoded" when decoded item is clicked', async () => {
         render(createTestComponent());
         await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
         const decodedItem = screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.decoded);
         await userEvent.click(decodedItem);
-        expect(mockHandleDropdownChange).toHaveBeenCalledWith('decoded');
+        expect(onViewModeChange).toHaveBeenCalledWith(ProposalActionViewMode.DECODED_VIEW);
     });
 
-    it('calls handleDropdownChange with "raw" when raw item is clicked', async () => {
+    it('calls ViewModeChange with "raw" when raw item is clicked', async () => {
         render(createTestComponent());
         await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
         const rawItem = screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.raw);
         await userEvent.click(rawItem);
-        expect(mockHandleDropdownChange).toHaveBeenCalledWith('raw');
+        expect(onViewModeChange).toHaveBeenCalledWith(ProposalActionViewMode.RAW_VIEW);
     });
 });

@@ -9,6 +9,8 @@ import type { IProposalActionsActionProps } from './proposalActionsAction';
 import { ProposalActionsAction } from './proposalActionsAction';
 
 describe('<ProposalActionsAction /> component', () => {
+    let scrollIntoViewSpy: jest.SpyInstance;
+
     const createTestComponent = (props?: Partial<IProposalActionsActionProps>) => {
         const defaultProps: IProposalActionsActionProps = {
             action: generateProposalAction(),
@@ -24,7 +26,12 @@ describe('<ProposalActionsAction /> component', () => {
     };
 
     beforeEach(() => {
-        window.HTMLElement.prototype.scrollIntoView = jest.fn();
+        HTMLElement.prototype.scrollIntoView = jest.fn();
+        scrollIntoViewSpy = jest.spyOn(HTMLElement.prototype, 'scrollIntoView').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
     });
 
     it('renders not-verified label when action.inputData is null', () => {
@@ -70,5 +77,18 @@ describe('<ProposalActionsAction /> component', () => {
         expect(screen.getByText(modulesCopy.proposalActionsActionRawView.value)).toBeInTheDocument();
         expect(screen.getByText(modulesCopy.proposalActionsActionRawView.to)).toBeInTheDocument();
         expect(screen.getByText(modulesCopy.proposalActionsActionRawView.data)).toBeInTheDocument();
+    });
+
+    it('calls scrollIntoView when changing dropdown value', async () => {
+        const action = generateProposalAction({
+            inputData: { function: 'myFunction', contract: 'myContract', parameters: [] },
+        });
+        const name = 'Custom Action Name';
+        render(createTestComponent({ action, name }));
+
+        await userEvent.click(screen.getByText(name));
+        await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
+        await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.raw));
+        expect(scrollIntoViewSpy).toHaveBeenCalled();
     });
 });
