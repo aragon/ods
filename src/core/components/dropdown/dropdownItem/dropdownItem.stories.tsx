@@ -28,6 +28,7 @@ export const Default: Story = {
     ),
     args: {
         children: 'Dropdown item label',
+        onSelect: () => console.log('hey'),
     },
 };
 
