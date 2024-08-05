@@ -44,7 +44,8 @@ export const Controlled: Story = {
 };
 
 /**
- * Expand behaviour of TextAreaRichText component inside a Dialog.
+ * Set the useFocusTrap dialog property to false to correctly use the expand behaviour of the TextAreaRichText
+ * component inside a dialog
  */
 export const InsideDialog: Story = {
     render: (props) => {
@@ -53,7 +54,7 @@ export const InsideDialog: Story = {
         return (
             <>
                 <Button onClick={() => setIsOpen(true)}>Open dialog</Button>
-                <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+                <Dialog.Root open={isOpen} onOpenChange={setIsOpen} useFocusTrap={false}>
                     <Dialog.Content className="p-4">
                         <TextAreaRichText {...props} />
                     </Dialog.Content>

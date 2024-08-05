@@ -40,6 +40,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
     const { value, onChange, placeholder, disabled, className, id, ...containerProps } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
+    const [savedPosition, setSavedPosition] = useState<number | null>(null);
 
     // Use random-id when id property is not specified for the input.
     const randomId = useId();
@@ -65,15 +66,39 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
         onUpdate: ({ editor }) => onChange?.(editor.getHTML()),
     });
 
-    const toggleExpanded = () => setIsExpanded((current) => !current);
+    const saveCursorPosition = () => {
+        if (editor) {
+            setSavedPosition(editor.state.selection.from);
+        }
+    };
+
+    const restoreCursorPosition = () => {
+        if (editor && savedPosition !== null) {
+            editor.commands.setTextSelection(savedPosition);
+        }
+    };
+
+    const handleExpandClick = () => {
+        saveCursorPosition();
+        setIsExpanded((current) => !current);
+    };
 
     // Hide page overflow and set pointer-event to auto (e.g. if the component is rendered inside a modal) when
     // component is expanded
     useEffect(() => {
-        document.body.style.overflow = isExpanded ? 'hidden' : 'auto';
-
         if (isExpanded) {
+            document.body.style.overflow = 'hidden';
             document.body.style.pointerEvents = 'auto';
+            setTimeout(() => {
+                editor?.commands.focus();
+                restoreCursorPosition();
+            }, 0);
+        } else {
+            document.body.style.overflow = 'auto';
+            setTimeout(() => {
+                editor?.commands.focus();
+                restoreCursorPosition();
+            }, 0);
         }
     }, [isExpanded]);
 
@@ -107,7 +132,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
             {...containerProps}
         >
             <div className="flex h-full grow flex-col self-start overflow-auto">
-                <TextAreaRichTextActions editor={editor} disabled={disabled} onExpandClick={toggleExpanded} />
+                <TextAreaRichTextActions editor={editor} disabled={disabled} onExpandClick={handleExpandClick} />
                 <EditorContent editor={editor} className="h-full" />
             </div>
         </InputContainer>

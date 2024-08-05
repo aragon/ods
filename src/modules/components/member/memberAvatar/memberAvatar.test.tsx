@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import * as blockies from 'blockies-ts';
 import * as viem from 'viem';
+import { polygon } from 'viem/chains';
 import { normalize } from 'viem/ens';
 import * as wagmi from 'wagmi';
 import { ssrUtils } from '../../../../core';
@@ -99,5 +100,14 @@ describe('<MemberAvatar /> component', () => {
         isServerMock.mockReturnValue(true);
         render(createTestComponent({ address }));
         expect(blockiesCreateMock).not.toHaveBeenCalled();
+    });
+
+    it('supports custom chainId and wagmi configurations', () => {
+        const chainId = 137;
+        const wagmiConfig = { chains: [polygon] } as unknown as wagmi.Config;
+        render(createTestComponent({ chainId, wagmiConfig }));
+        expect(useEnsNameMock).toHaveBeenCalledWith(expect.objectContaining({ chainId, config: wagmiConfig }));
+        expect(useEnsAvatarMock).toHaveBeenCalledWith(expect.objectContaining({ chainId, config: wagmiConfig }));
+        expect(useEnsAddressMock).toHaveBeenCalledWith(expect.objectContaining({ chainId, config: wagmiConfig }));
     });
 });

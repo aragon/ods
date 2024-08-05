@@ -23,6 +23,7 @@ export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersP
                             key={member.address}
                             address={member.address}
                             ensName={member.name}
+                            avatarSrc={member.avatarSrc}
                         />
                     ))}
                 </DataList.Container>

@@ -1,11 +1,4 @@
 import {
-    ProposalActionChangeMembers,
-    ProposalActionChangeSettings,
-    ProposalActionTokenMint,
-    ProposalActionUpdateMetadata,
-    ProposalActionWithdrawToken,
-} from './actions';
-import {
     type IProposalAction,
     type IProposalActionChangeMembers,
     type IProposalActionChangeSettings,
@@ -16,22 +9,6 @@ import {
 } from './proposalActionsTypes';
 
 class ProposalActionsUtils {
-    getActionComponent = (action: IProposalAction) => {
-        if (this.isWithdrawTokenAction(action)) {
-            return () => ProposalActionWithdrawToken({ action });
-        } else if (this.isTokenMintAction(action)) {
-            return () => ProposalActionTokenMint({ action });
-        } else if (this.isUpdateMetadataAction(action)) {
-            return () => ProposalActionUpdateMetadata({ action });
-        } else if (this.isChangeMembersAction(action)) {
-            return () => ProposalActionChangeMembers({ action });
-        } else if (this.isChangeSettingsAction(action)) {
-            return () => ProposalActionChangeSettings({ action });
-        }
-
-        return null;
-    };
-
     isWithdrawTokenAction = (action: Partial<IProposalAction>): action is IProposalActionWithdrawToken => {
         return action.type === ProposalActionType.WITHDRAW_TOKEN;
     };

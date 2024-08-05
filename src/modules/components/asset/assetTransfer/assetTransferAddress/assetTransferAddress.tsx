@@ -12,7 +12,7 @@ export interface IAssetTransferAddressProps {
      */
     txRole: TxRole;
     /**
-     * Address (& optional ENS Name) of the transaction participant.
+     * Participant of the transfer to display the details for.
      */
     participant: ICompositeAddress;
     /**
@@ -61,6 +61,7 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                 responsiveSize={{ md: 'md' }}
                 ensName={participant.name}
                 address={participant.address}
+                avatarSrc={participant.avatarSrc}
             />
             <div className="flex min-w-0 flex-col">
                 <span className="text-xs font-normal leading-tight text-neutral-500 md:text-sm">
