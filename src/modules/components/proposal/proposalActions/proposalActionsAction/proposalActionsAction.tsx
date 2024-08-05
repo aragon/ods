@@ -1,10 +1,16 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Accordion, Heading } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
+import {
+    ProposalActionChangeMembers,
+    ProposalActionChangeSettings,
+    ProposalActionTokenMint,
+    ProposalActionUpdateMetadata,
+    ProposalActionWithdrawToken,
+} from '../actions';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
 import type { IProposalAction, ProposalActionComponent } from '../proposalActionsTypes';
-import { ProposalActionViewMode } from '../proposalActionsTypes/proposalActionsActionViewMode';
 import { proposalActionsUtils } from '../proposalActionsUtils';
 import { ProposalActionsActionDecodedView } from './proposalActionsActionDecodedView';
 import { ProposalActionsActionRawView } from './proposalActionsActionRawView';
@@ -26,18 +32,42 @@ export interface IProposalActionsActionProps extends IWeb3ComponentProps {
     /**
      * Custom component for the action
      */
-    customComponent?: ProposalActionComponent;
+    CustomComponent?: ProposalActionComponent;
+}
+
+export enum ProposalActionViewMode {
+    BASIC_VIEW = 'basic',
+    DECODED_VIEW = 'decoded',
+    RAW_VIEW = 'raw',
 }
 
 export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {
-    const { action, index, name, customComponent, ...web3Props } = props;
+    const { action, index, name, CustomComponent, ...web3Props } = props;
 
     const { copy } = useOdsModulesContext();
 
     const contentRef = useRef<HTMLDivElement>(null);
     const itemRef = useRef<HTMLDivElement>(null);
 
-    const ActionComponent = customComponent ?? proposalActionsUtils.getActionComponent(action);
+    const ActionComponent = useMemo(() => {
+        if (CustomComponent) {
+            return <CustomComponent action={action} {...web3Props} />;
+        }
+
+        if (proposalActionsUtils.isWithdrawTokenAction(action)) {
+            return <ProposalActionWithdrawToken action={action} {...web3Props} />;
+        } else if (proposalActionsUtils.isTokenMintAction(action)) {
+            return <ProposalActionTokenMint action={action} {...web3Props} />;
+        } else if (proposalActionsUtils.isUpdateMetadataAction(action)) {
+            return <ProposalActionUpdateMetadata action={action} {...web3Props} />;
+        } else if (proposalActionsUtils.isChangeMembersAction(action)) {
+            return <ProposalActionChangeMembers action={action} {...web3Props} />;
+        } else if (proposalActionsUtils.isChangeSettingsAction(action)) {
+            return <ProposalActionChangeSettings action={action} {...web3Props} />;
+        }
+
+        return null;
+    }, [action, CustomComponent, web3Props]);
 
     const [viewMode, setViewMode] = useState(
         ActionComponent
@@ -77,9 +107,7 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
             </Accordion.ItemHeader>
             <Accordion.ItemContent ref={contentRef}>
                 <div className="flex flex-col items-start gap-y-6 md:gap-y-8">
-                    {viewMode === ProposalActionViewMode.BASIC_VIEW && ActionComponent && (
-                        <ActionComponent action={action} {...web3Props} />
-                    )}
+                    {viewMode === ProposalActionViewMode.BASIC_VIEW && ActionComponent}
                     {viewMode === ProposalActionViewMode.DECODED_VIEW && (
                         <ProposalActionsActionDecodedView action={action} />
                     )}

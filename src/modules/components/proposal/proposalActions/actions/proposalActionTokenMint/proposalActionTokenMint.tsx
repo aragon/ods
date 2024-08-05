@@ -35,11 +35,13 @@ export const ProposalActionTokenMint: React.FC<IProposalActionTokenMintProps> = 
         <div className="flex w-full flex-col gap-8">
             <DataList.Root entityLabel="proposalActionTokenMintReceivers">
                 <DataList.Container className="grid grid-cols-1 gap-2 md:grid-cols-2">
-                    {action.receivers.map(({ address, newBalance, currentBalance }) => (
+                    {action.receivers.map(({ address, name, avatarSrc, newBalance, currentBalance }) => (
                         <MemberDataListItemStructure
                             key={address}
                             className="w-full"
                             address={address}
+                            ensName={name}
+                            avatarSrc={avatarSrc}
                             tokenAmount={newBalance - currentBalance}
                             tokenSymbol={action.tokenSymbol}
                             hideLabelTokenVoting={true}

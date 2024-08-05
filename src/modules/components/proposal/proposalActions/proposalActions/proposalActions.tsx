@@ -64,7 +64,7 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
                         action={action}
                         index={index}
                         name={actionNames?.[action.type]}
-                        customComponent={customActionComponents?.[action.type]}
+                        CustomComponent={customActionComponents?.[action.type]}
                         {...web3Props}
                     />
                 ))}

@@ -1,6 +1,4 @@
-import { render, screen } from '@testing-library/react';
 import {
-    generateProposalAction,
     generateProposalActionChangeMembers,
     generateProposalActionChangeSettings,
     generateProposalActionTokenMint,
@@ -10,75 +8,74 @@ import {
 import { ProposalActionType } from './proposalActionsTypes';
 import { proposalActionsUtils } from './proposalActionsUtils';
 
-jest.mock('./actions', () => ({
-    ProposalActionWithdrawToken: () => <div>Mock ProposalActionWithdrawToken</div>,
-    ProposalActionUpdateMetadata: () => <div>Mock ProposalActionUpdateMetaData</div>,
-    ProposalActionTokenMint: () => <div>Mock ProposalActionTokenMint</div>,
-    ProposalActionChangeMembers: () => <div>Mock ProposalActionChangeMembers</div>,
-    ProposalActionChangeSettings: () => <div>Mock ProposalActionChangeSettings</div>,
-}));
-
 describe('ProposalActions utils', () => {
-    it('returns ProposalActionWithdrawToken component for withdrawToken action', () => {
-        const action = generateProposalActionWithdrawToken();
+    describe('isWithdrawTokenAction', () => {
+        it('returns true for withdraw action', () => {
+            const action = generateProposalActionWithdrawToken();
+            expect(proposalActionsUtils.isWithdrawTokenAction(action)).toBeTruthy();
+        });
 
-        const Component = proposalActionsUtils.getActionComponent(action)!;
-        render(<Component />);
-        expect(screen.getByText('Mock ProposalActionWithdrawToken')).toBeInTheDocument();
+        it('returns false for other actions', () => {
+            const action = generateProposalActionUpdateMetadata();
+            expect(proposalActionsUtils.isWithdrawTokenAction(action)).toBeFalsy();
+        });
     });
 
-    it('returns ProposalActionUpdateMetadata component for updateMetadata action', () => {
-        const action = generateProposalActionUpdateMetadata();
+    describe('isChangeMemberAction', () => {
+        it('returns true for change members actions', () => {
+            const addMembersAction = generateProposalActionChangeMembers({ type: ProposalActionType.ADD_MEMBERS });
+            const removeMembersAction = generateProposalActionChangeMembers({
+                type: ProposalActionType.REMOVE_MEMBERS,
+            });
+            expect(proposalActionsUtils.isChangeMembersAction(addMembersAction)).toBeTruthy();
+            expect(proposalActionsUtils.isChangeMembersAction(removeMembersAction)).toBeTruthy();
+        });
 
-        const Component = proposalActionsUtils.getActionComponent(action)!;
-        render(<Component />);
-        expect(screen.getByText('Mock ProposalActionUpdateMetaData')).toBeInTheDocument();
+        it('returns false for other actions', () => {
+            const action = generateProposalActionWithdrawToken();
+            expect(proposalActionsUtils.isChangeMembersAction(action)).toBeFalsy();
+        });
     });
 
-    it('returns ProposalActionTokenMint component for tokenMint action', () => {
-        const action = generateProposalActionTokenMint();
+    describe('isUpdateMetadataAction', () => {
+        it('returns true for update metadata action', () => {
+            const action = generateProposalActionUpdateMetadata();
+            expect(proposalActionsUtils.isUpdateMetadataAction(action)).toBeTruthy();
+        });
 
-        const Component = proposalActionsUtils.getActionComponent(action)!;
-        render(<Component />);
-        expect(screen.getByText('Mock ProposalActionTokenMint')).toBeInTheDocument();
+        it('returns false for other actions', () => {
+            const action = generateProposalActionChangeMembers();
+            expect(proposalActionsUtils.isUpdateMetadataAction(action)).toBeFalsy();
+        });
     });
 
-    it('returns ProposalActionChangeMembers component for addMember action', () => {
-        const action = generateProposalActionChangeMembers({ type: ProposalActionType.ADD_MEMBERS });
+    describe('isTokenMintAction', () => {
+        it('returns true for token mint action', () => {
+            const action = generateProposalActionTokenMint();
+            expect(proposalActionsUtils.isTokenMintAction(action)).toBeTruthy();
+        });
 
-        const Component = proposalActionsUtils.getActionComponent(action)!;
-        render(<Component />);
-        expect(screen.getByText('Mock ProposalActionChangeMembers')).toBeInTheDocument();
+        it('returns false for other actions', () => {
+            const action = generateProposalActionUpdateMetadata();
+            expect(proposalActionsUtils.isTokenMintAction(action)).toBeFalsy();
+        });
     });
 
-    it('returns ProposalActionChangeMembers component for removeMember action', () => {
-        const action = generateProposalActionChangeMembers({ type: ProposalActionType.REMOVE_MEMBERS });
+    describe('isChangeSettingsAction', () => {
+        it('returns true for change settings actions', () => {
+            const changeMultisig = generateProposalActionChangeSettings({
+                type: ProposalActionType.CHANGE_SETTINGS_MULTISIG,
+            });
+            const changeToken = generateProposalActionChangeSettings({
+                type: ProposalActionType.CHANGE_SETTINGS_TOKENVOTE,
+            });
+            expect(proposalActionsUtils.isChangeSettingsAction(changeMultisig)).toBeTruthy();
+            expect(proposalActionsUtils.isChangeSettingsAction(changeToken)).toBeTruthy();
+        });
 
-        const Component = proposalActionsUtils.getActionComponent(action)!;
-        render(<Component />);
-        expect(screen.getByText('Mock ProposalActionChangeMembers')).toBeInTheDocument();
-    });
-
-    it('returns ProposalActionChangeSettings component for Multisig action', () => {
-        const action = generateProposalActionChangeSettings({ type: ProposalActionType.CHANGE_SETTINGS_MULTISIG });
-
-        const Component = proposalActionsUtils.getActionComponent(action)!;
-        render(<Component />);
-        expect(screen.getByText('Mock ProposalActionChangeSettings')).toBeInTheDocument();
-    });
-
-    it('returns ProposalActionChangeSettings component for TokenVote action', () => {
-        const action = generateProposalActionChangeSettings({ type: ProposalActionType.CHANGE_SETTINGS_TOKENVOTE });
-
-        const Component = proposalActionsUtils.getActionComponent(action)!;
-        render(<Component />);
-        expect(screen.getByText('Mock ProposalActionChangeSettings')).toBeInTheDocument();
-    });
-
-    it('returns null for unknown action type', () => {
-        const action = generateProposalAction();
-
-        const Component = proposalActionsUtils.getActionComponent(action);
-        expect(Component).toBeNull();
+        it('returns false for other actions', () => {
+            const action = generateProposalActionTokenMint();
+            expect(proposalActionsUtils.isChangeSettingsAction(action)).toBeFalsy();
+        });
     });
 });

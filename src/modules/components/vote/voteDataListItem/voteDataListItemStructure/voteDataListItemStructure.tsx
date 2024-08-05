@@ -55,7 +55,12 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
     );
     return (
         <DataList.Item className={classNames('flex items-center gap-x-3 md:gap-x-4', className)} {...otherProps}>
-            <MemberAvatar address={voter.address} ensName={voter.name} responsiveSize={{ md: 'md' }} />
+            <MemberAvatar
+                address={voter.address}
+                ensName={voter.name}
+                avatarSrc={voter.avatarSrc}
+                responsiveSize={{ md: 'md' }}
+            />
             <div className={centerInfoClassNames}>
                 <span className="flex items-center gap-x-1 text-neutral-800 md:gap-x-1.5">
                     <span className="truncate">{resolvedUserHandle}</span>

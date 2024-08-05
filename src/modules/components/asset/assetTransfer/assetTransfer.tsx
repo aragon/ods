@@ -6,11 +6,11 @@ import { AssetTransferAddress } from './assetTransferAddress';
 
 export interface IAssetTransferProps extends IWeb3ComponentProps {
     /**
-     * Address (& optional ENS Name) of the transaction sender.
+     * Sender of the transaction.
      */
     sender: ICompositeAddress;
     /**
-     * Address (& optional ENS Name) of the transaction recipient.
+     * Recipient of the transaction.
      */
     recipient: ICompositeAddress;
     /**
@@ -37,10 +37,6 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
      * Transaction hash.
      */
     hash: string;
-    /**
-     * Chain ID of the transaction.
-     */
-    chainId?: number;
 }
 
 export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
