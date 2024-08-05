@@ -1,1 +1,1 @@
-export { ProposalActionsActionRawView, IProposalActionsActionRawViewProps } from './proposalActionsActionRawView';
+export { IProposalActionsActionRawViewProps, ProposalActionsActionRawView } from './proposalActionsActionRawView';

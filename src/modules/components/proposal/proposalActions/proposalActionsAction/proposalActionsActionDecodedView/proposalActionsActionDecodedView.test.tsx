@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { modulesCopy } from '../../../../../assets';
 import { generateProposalActionTokenMint } from '../../actions/generators';
 import {
-    IProposalActionsActionDecodedViewProps,
+    type IProposalActionsActionDecodedViewProps,
     ProposalActionsActionDecodedView,
 } from './proposalActionsActionDecodedView';
 

@@ -4,6 +4,7 @@ import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
 import type { IProposalAction, ProposalActionComponent } from '../proposalActionsTypes';
+import { ProposalActionViewMode } from '../proposalActionsTypes/proposalActionsActionViewMode';
 import { proposalActionsUtils } from '../proposalActionsUtils';
 import { ProposalActionsActionDecodedView } from './proposalActionsActionDecodedView';
 import { ProposalActionsActionRawView } from './proposalActionsActionRawView';
@@ -26,12 +27,6 @@ export interface IProposalActionsActionProps extends IWeb3ComponentProps {
      * Custom component for the action
      */
     customComponent?: ProposalActionComponent;
-}
-
-export enum ProposalActionViewMode {
-    BASIC_VIEW = 'basic',
-    DECODED_VIEW = 'decoded',
-    RAW_VIEW = 'raw',
 }
 
 export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {

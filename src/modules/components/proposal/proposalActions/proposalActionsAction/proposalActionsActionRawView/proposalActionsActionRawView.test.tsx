@@ -3,7 +3,7 @@ import { userEvent } from '@testing-library/user-event';
 import { clipboardUtils } from '../../../../../../core';
 import { modulesCopy } from '../../../../../assets';
 import { generateProposalActionTokenMint } from '../../actions/generators';
-import { IProposalActionsActionRawViewProps, ProposalActionsActionRawView } from './proposalActionsActionRawView';
+import { type IProposalActionsActionRawViewProps, ProposalActionsActionRawView } from './proposalActionsActionRawView';
 
 jest.mock('../../../../../../core', () => {
     const originalModule = jest.requireActual('../../../../../../core');

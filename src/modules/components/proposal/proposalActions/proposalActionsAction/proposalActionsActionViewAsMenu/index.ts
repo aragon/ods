@@ -1,1 +1,4 @@
-export { ProposalActionsActionViewAsMenu, IProposalActionsActionViewAsMenuProps } from './proposalActionsActionViewAsMenu';
+export {
+    ProposalActionsActionViewAsMenu,
+    type IProposalActionsActionViewAsMenuProps,
+} from './proposalActionsActionViewAsMenu';

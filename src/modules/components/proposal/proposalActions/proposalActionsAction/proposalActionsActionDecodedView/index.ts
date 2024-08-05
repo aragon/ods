@@ -1,1 +1,4 @@
-export {ProposalActionsActionDecodedView, type IProposalActionsActionDecodedViewProps} from './proposalActionsActionDecodedView';
+export {
+    ProposalActionsActionDecodedView,
+    type IProposalActionsActionDecodedViewProps,
+} from './proposalActionsActionDecodedView';

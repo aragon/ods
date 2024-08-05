@@ -1,30 +1,25 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { modulesCopy } from '../../../../../assets';
-import { ProposalActionViewMode } from '../proposalActionsAction';
+import { ProposalActionViewMode } from '../../proposalActionsTypes/proposalActionsActionViewMode';
 import { ProposalActionsActionViewAsMenu } from './proposalActionsActionViewAsMenu';
 
 describe('<ProposalActionsActionViewAsMenu /> component', () => {
-    const onViewModeChange = jest.fn();
-
     const createTestComponent = (props?: Partial<React.ComponentProps<typeof ProposalActionsActionViewAsMenu>>) => {
         const defaultProps = {
             viewMode: ProposalActionViewMode.BASIC_VIEW,
             disableBasic: false,
             disableDecoded: false,
-            onViewModeChange: onViewModeChange,
+            onViewModeChange: jest.fn(),
             ...props,
         };
 
         return <ProposalActionsActionViewAsMenu {...defaultProps} />;
     };
 
-    beforeEach(() => {
-        onViewModeChange.mockClear();
-    });
-
     it('calls ViewModeChange with "basic" when basic item is clicked and not disabled', async () => {
-        render(createTestComponent());
+        const onViewModeChange = jest.fn();
+        render(createTestComponent({ onViewModeChange }));
         await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
         const basicItem = screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.basic);
         await userEvent.click(basicItem);
@@ -32,7 +27,8 @@ describe('<ProposalActionsActionViewAsMenu /> component', () => {
     });
 
     it('does not call ViewModeChange with "basic" when basic item is clicked and disabled', async () => {
-        render(createTestComponent({ disableBasic: true }));
+        const onViewModeChange = jest.fn();
+        render(createTestComponent({ disableBasic: true, onViewModeChange }));
         await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
         const basicItem = screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.basic);
         await userEvent.click(basicItem);
@@ -40,7 +36,8 @@ describe('<ProposalActionsActionViewAsMenu /> component', () => {
     });
 
     it('calls ViewModeChange with "decoded" when decoded item is clicked', async () => {
-        render(createTestComponent());
+        const onViewModeChange = jest.fn();
+        render(createTestComponent({ onViewModeChange }));
         await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
         const decodedItem = screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.decoded);
         await userEvent.click(decodedItem);
@@ -48,7 +45,8 @@ describe('<ProposalActionsActionViewAsMenu /> component', () => {
     });
 
     it('calls ViewModeChange with "raw" when raw item is clicked', async () => {
-        render(createTestComponent());
+        const onViewModeChange = jest.fn();
+        render(createTestComponent({ onViewModeChange }));
         await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
         const rawItem = screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.raw);
         await userEvent.click(rawItem);
