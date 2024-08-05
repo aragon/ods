@@ -106,7 +106,7 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
                 </div>
             </Accordion.ItemHeader>
             <Accordion.ItemContent ref={contentRef}>
-                <div className="flex flex-col items-start gap-y-6 md:gap-y-8">
+                <div className="flex flex-col items-start gap-y-6 self-start md:gap-y-8">
                     {viewMode === ProposalActionViewMode.BASIC_VIEW && ActionComponent}
                     {viewMode === ProposalActionViewMode.DECODED_VIEW && (
                         <ProposalActionsActionDecodedView action={action} />

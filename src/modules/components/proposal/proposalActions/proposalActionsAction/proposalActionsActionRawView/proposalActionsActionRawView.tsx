@@ -15,7 +15,7 @@ export const ProposalActionsActionRawView: React.FC<IProposalActionsActionRawVie
     const { copy } = useOdsModulesContext();
 
     return (
-        <div className="flex flex-col gap-y-3">
+        <div className="flex w-full flex-col gap-y-3">
             <InputText label={copy.proposalActionsActionRawView.to} value={action.to} disabled={true} />
 
             <InputNumber

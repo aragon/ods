@@ -14,7 +14,7 @@ export const ProposalActionsActionDecodedView: React.FC<IProposalActionsActionDe
     const { copy } = useOdsModulesContext();
 
     return (
-        <div className="flex flex-col gap-y-3">
+        <div className="flex w-full flex-col gap-y-3">
             <div className="flex flex-col gap-y-2">
                 <InputNumber
                     label={copy.proposalActionsActionDecodedView.valueLabel}
