@@ -10,7 +10,7 @@ describe('<InputNumberMax /> component', () => {
     beforeEach(() => {
         const numberMaskResult = {
             ref: createRef(),
-            setValue: jest.fn(),
+            setUnmaskedValue: jest.fn(),
         } as unknown as InputHooks.IUseNumberMaskResult;
         useNumberMaskMock.mockReturnValue(numberMaskResult);
     });
@@ -37,12 +37,12 @@ describe('<InputNumberMax /> component', () => {
     it('updates the mask value with the max property on max button click', async () => {
         const user = userEvent.setup();
         const max = 1_000_000;
-        const setValue = jest.fn();
-        const hookResult = { setValue } as unknown as InputHooks.IUseNumberMaskResult;
+        const setUnmaskedValue = jest.fn();
+        const hookResult = { setUnmaskedValue } as unknown as InputHooks.IUseNumberMaskResult;
         useNumberMaskMock.mockReturnValue(hookResult);
         render(createTestComponent({ max }));
         await user.click(screen.getByRole('button'));
-        expect(setValue).toHaveBeenCalledWith(max.toString());
+        expect(setUnmaskedValue).toHaveBeenCalledWith(max.toString());
     });
 
     it('does not render the max button when input is disabled', () => {

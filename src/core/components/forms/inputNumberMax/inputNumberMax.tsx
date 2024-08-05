@@ -22,11 +22,11 @@ export const InputNumberMax: React.FC<IInputNumberMaxProps> = (props) => {
     const { variant, ...otherContainerProps } = containerProps;
     const { className: inputClassName, value, min, disabled, ...otherInputProps } = inputProps;
 
-    const { ref, setValue } = useNumberMask({ min, max, value, onChange });
+    const { ref, setUnmaskedValue } = useNumberMask({ min, max, value, onChange });
 
     const { copy } = useOdsCoreContext();
 
-    const handleMaxClick = () => setValue(max.toString());
+    const handleMaxClick = () => setUnmaskedValue(max.toString());
 
     return (
         <InputContainer variant={variant} {...otherContainerProps}>
