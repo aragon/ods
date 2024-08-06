@@ -74,17 +74,13 @@ describe('<ProposalActionsActionDecodedView /> component', () => {
         const param1Input = screen.getByDisplayValue('value1');
         const param2Input = screen.getByDisplayValue('value2');
 
-        expect(
-            screen.getByText(`${action.inputData?.parameters[0].name} (${action.inputData?.parameters[0].type})`),
-        ).toBeInTheDocument();
-        expect(screen.getByText(action.inputData?.parameters[0].notice ?? '')).toBeInTheDocument();
+        expect(screen.getByText(action.inputData!.parameters[0].name)).toBeInTheDocument();
+        expect(screen.getByText(action.inputData!.parameters[0].notice!)).toBeInTheDocument();
         expect(param1Input).toBeInTheDocument();
         expect(param1Input).toBeDisabled();
 
-        expect(
-            screen.getByText(`${action.inputData?.parameters[1].name} (${action.inputData?.parameters[1].type})`),
-        ).toBeInTheDocument();
-        expect(screen.getByText(action.inputData?.parameters[1].notice ?? '')).toBeInTheDocument();
+        expect(screen.getByText(action.inputData!.parameters[1].name)).toBeInTheDocument();
+        expect(screen.getByText(action.inputData!.parameters[1].notice!)).toBeInTheDocument();
         expect(param2Input).toBeInTheDocument();
         expect(param2Input).toBeDisabled();
     });
