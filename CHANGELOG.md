@@ -10,15 +10,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 -   Hide minimum participation details on `ProposalVotingBreakdownToken` module component when minParticipation is set
-    to zero.
+    to zero
 -   Correctly forward web3 params (e.g. `chainId`) to native `ProposalActions` components
 -   Fix ENS name truncation on `<Wallet />` module component
 -   Update `<Wallet />` module component to only resolve user ENS name when name property is not set
+-   Fix expand behaviour of `TextAreaRichText` core component when used inside a dialog and hide the input label
 
 ### Added
 
 -   Update `<Wallet />` module component to support custom `chainId` and `wagmi` configurations
 -   Update ICompositeAddress interface and components using it to support custom avatar
+-   Add z-index property customisation for `TextAreaRichText` core component when expanded
+-   Handle `useFocusTrap` property on dialog components to support disabling default focus-trap behaviour
 
 ### Changed
 
@@ -28,9 +31,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Export `VoteIndicator` type from `Vote` module.
+-   Export `VoteIndicator` type from `Vote` module
 -   Update `useBlockExplorer` hook to export a `getBlockExplorer` function, update `buildEntityUrl` function to support
-    a `chainId` parameter which overrides the `chainId` hook parameter.
+    a `chainId` parameter which overrides the `chainId` hook parameter
 
 ### Changed
 
