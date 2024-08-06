@@ -33,7 +33,7 @@ const getNumberSeparators = () => {
 };
 
 // The imask.js library requires us to set a "scale" property as max decimal places otherwise it defaults to 0.
-const maxDecimalPlaces = 30;
+const defaultScale = 30;
 
 export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult => {
     const { suffix, prefix, min, max, onChange, value } = props;
@@ -41,6 +41,8 @@ export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult 
     const { thousandsSeparator, radix } = getNumberSeparators();
 
     const numberMask = `${prefix ?? ''} num ${suffix ?? ''}`.trim();
+    const maskMax = max != null ? Number(max) : undefined;
+    const maskMin = min != null ? Number(min) : undefined;
 
     const handleMaskAccept = (_value: string, mask: InputMask<FactoryOpts>) => {
         // Update the lazy option to display the suffix when the user is deleting the last digits of the input
@@ -54,14 +56,7 @@ export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult 
             mask: numberMask,
             eager: true, // Displays eventual suffix on user input
             blocks: {
-                num: {
-                    mask: Number,
-                    radix,
-                    thousandsSeparator,
-                    scale: maxDecimalPlaces,
-                    max: max != null ? Number(max) : undefined,
-                    min: min != null ? Number(min) : undefined,
-                },
+                num: { mask: Number, radix, thousandsSeparator, scale: defaultScale, max: maskMax, min: maskMin },
             },
         },
         { onAccept: handleMaskAccept },
