@@ -7,7 +7,7 @@ import { ProposalActionsActionViewAsMenu } from './proposalActionsActionViewAsMe
 describe('<ProposalActionsActionViewAsMenu /> component', () => {
     const createTestComponent = (props?: Partial<React.ComponentProps<typeof ProposalActionsActionViewAsMenu>>) => {
         const defaultProps = {
-            viewMode: ProposalActionViewMode.BASIC_VIEW,
+            viewMode: ProposalActionViewMode.BASIC,
             disableBasic: false,
             disableDecoded: false,
             onViewModeChange: jest.fn(),
@@ -23,7 +23,7 @@ describe('<ProposalActionsActionViewAsMenu /> component', () => {
         await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
         const basicItem = screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.basic);
         await userEvent.click(basicItem);
-        expect(onViewModeChange).toHaveBeenCalledWith(ProposalActionViewMode.BASIC_VIEW);
+        expect(onViewModeChange).toHaveBeenCalledWith(ProposalActionViewMode.BASIC);
     });
 
     it('does not call ViewModeChange with "basic" when basic item is clicked and disabled', async () => {
@@ -41,7 +41,7 @@ describe('<ProposalActionsActionViewAsMenu /> component', () => {
         await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
         const decodedItem = screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.decoded);
         await userEvent.click(decodedItem);
-        expect(onViewModeChange).toHaveBeenCalledWith(ProposalActionViewMode.DECODED_VIEW);
+        expect(onViewModeChange).toHaveBeenCalledWith(ProposalActionViewMode.DECODED);
     });
 
     it('calls ViewModeChange with "raw" when raw item is clicked', async () => {
@@ -50,6 +50,6 @@ describe('<ProposalActionsActionViewAsMenu /> component', () => {
         await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
         const rawItem = screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.raw);
         await userEvent.click(rawItem);
-        expect(onViewModeChange).toHaveBeenCalledWith(ProposalActionViewMode.RAW_VIEW);
+        expect(onViewModeChange).toHaveBeenCalledWith(ProposalActionViewMode.RAW);
     });
 });

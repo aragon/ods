@@ -56,13 +56,13 @@ describe('<ProposalActionsActionDecodedView /> component', () => {
                 parameters: [
                     {
                         name: 'param1',
-                        comment: 'First parameter',
+                        notice: 'First parameter',
                         value: 'value1',
                         type: 'string',
                     },
                     {
                         name: 'param2',
-                        comment: 'Second parameter',
+                        notice: 'Second parameter',
                         value: 'value2',
                         type: 'string',
                     },
@@ -77,14 +77,14 @@ describe('<ProposalActionsActionDecodedView /> component', () => {
         expect(
             screen.getByText(`${action.inputData?.parameters[0].name} (${action.inputData?.parameters[0].type})`),
         ).toBeInTheDocument();
-        expect(screen.getByText(action.inputData?.parameters[0].comment ?? '')).toBeInTheDocument();
+        expect(screen.getByText(action.inputData?.parameters[0].notice ?? '')).toBeInTheDocument();
         expect(param1Input).toBeInTheDocument();
         expect(param1Input).toBeDisabled();
 
         expect(
             screen.getByText(`${action.inputData?.parameters[1].name} (${action.inputData?.parameters[1].type})`),
         ).toBeInTheDocument();
-        expect(screen.getByText(action.inputData?.parameters[1].comment ?? '')).toBeInTheDocument();
+        expect(screen.getByText(action.inputData?.parameters[1].notice ?? '')).toBeInTheDocument();
         expect(param2Input).toBeInTheDocument();
         expect(param2Input).toBeDisabled();
     });

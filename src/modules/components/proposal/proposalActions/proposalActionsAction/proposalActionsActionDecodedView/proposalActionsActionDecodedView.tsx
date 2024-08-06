@@ -28,7 +28,7 @@ export const ProposalActionsActionDecodedView: React.FC<IProposalActionsActionDe
                 <InputText
                     key={parameter.name}
                     label={`${parameter.name} ${parameter.type && `(${parameter.type})`}`}
-                    helpText={parameter.comment}
+                    helpText={parameter.notice}
                     value={parameter.value}
                     disabled={true}
                 />

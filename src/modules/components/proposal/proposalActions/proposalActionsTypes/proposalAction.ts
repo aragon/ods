@@ -12,9 +12,9 @@ export interface IProposalActionInputDataParameter {
      */
     value: string | number;
     /**
-     * The NatSpec comment for the parameter on the contract.
+     * The NatSpec notice for the parameter on the contract.
      */
-    comment?: string;
+    notice?: string;
 }
 
 export interface IProposalActionInputData {

@@ -18,7 +18,7 @@ export const generateProposalActionChangeMembers = (
                 name: 'address',
                 type: 'string',
                 value: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
-                comment: 'Changing member address',
+                notice: 'Changing member address',
             },
         ],
     },

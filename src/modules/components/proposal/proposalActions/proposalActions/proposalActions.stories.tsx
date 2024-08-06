@@ -6,7 +6,7 @@ import {
     generateProposalActionWithdrawToken,
     generateToken,
 } from '../actions/generators';
-import type { IProposalAction, ProposalActionType } from '../proposalActionsTypes';
+import type { IProposalAction } from '../proposalActionsTypes';
 import { ProposalActions } from './proposalActions';
 
 const meta: Meta<typeof ProposalActions> = {
@@ -43,26 +43,26 @@ export const MixedActions: Story = {
                 data: '0x3f60b63300000000000000000000000019dbc1c820dd3f13260829a4e06dda6d9ef758db00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000d5fb864acfd6bb2f72939f122e89ff7f475924f5',
 
                 inputData: {
-                    function: 'mintToken',
+                    function: 'customAction',
                     contract: 'GovernanceERC20',
                     parameters: [
                         {
                             name: 'address',
                             value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE',
-                            comment: 'Contract address of asset',
+                            notice: 'Contract address of asset',
                             type: 'string',
                         },
                         {
                             name: 'tokenAmount',
                             value: '2000000000000000000',
-                            comment: 'Amount of tokens to withdraw',
+                            notice: 'Amount of tokens to withdraw',
                             type: 'string',
                         },
                     ],
                 },
             }),
             generateProposalAction({
-                type: 'unknownType' as ProposalActionType.TOKEN_MINT,
+                type: 'unknownType',
                 data: '0x3f60b63300000000000000000000000019dbc1c820dd3f13260829a4e06dda6d9ef758db00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000d5fb864acfd6bb2f72939f122e89ff7f475924f5',
                 inputData: null,
             }),

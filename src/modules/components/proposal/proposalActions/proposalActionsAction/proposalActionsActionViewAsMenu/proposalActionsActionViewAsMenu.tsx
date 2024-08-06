@@ -6,7 +6,7 @@ export interface IProposalActionsActionViewAsMenuProps {
     /**
      * Current selected view mode for the action.
      */
-    viewMode: string;
+    viewMode: ProposalActionViewMode;
     /**
      * Flag to disable basic view mode.
      */
@@ -29,22 +29,22 @@ export const ProposalActionsActionViewAsMenu: React.FC<IProposalActionsActionVie
     return (
         <Dropdown.Container label={copy.proposalActionsActionViewAsMenu.dropdownLabel} size="sm">
             <Dropdown.Item
-                onSelect={() => !disableBasic && onViewModeChange(ProposalActionViewMode.BASIC_VIEW)}
+                onSelect={() => onViewModeChange(ProposalActionViewMode.BASIC)}
                 disabled={disableBasic}
-                selected={viewMode === 'basic'}
+                selected={viewMode === ProposalActionViewMode.BASIC}
             >
                 {copy.proposalActionsActionViewAsMenu.basic}
             </Dropdown.Item>
             <Dropdown.Item
-                onSelect={() => onViewModeChange(ProposalActionViewMode.DECODED_VIEW)}
+                onSelect={() => onViewModeChange(ProposalActionViewMode.DECODED)}
                 disabled={disableDecoded}
-                selected={viewMode === ProposalActionViewMode.DECODED_VIEW}
+                selected={viewMode === ProposalActionViewMode.DECODED}
             >
                 {copy.proposalActionsActionViewAsMenu.decoded}
             </Dropdown.Item>
             <Dropdown.Item
-                onSelect={() => onViewModeChange(ProposalActionViewMode.RAW_VIEW)}
-                selected={viewMode === ProposalActionViewMode.RAW_VIEW}
+                onSelect={() => onViewModeChange(ProposalActionViewMode.RAW)}
+                selected={viewMode === ProposalActionViewMode.RAW}
             >
                 {copy.proposalActionsActionViewAsMenu.raw}
             </Dropdown.Item>

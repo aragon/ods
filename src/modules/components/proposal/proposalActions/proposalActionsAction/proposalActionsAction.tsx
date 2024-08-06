@@ -11,6 +11,7 @@ import {
 } from '../actions';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
 import type { IProposalAction, ProposalActionComponent } from '../proposalActionsTypes';
+import { ProposalActionViewMode } from '../proposalActionsTypes/proposalActionsActionViewMode';
 import { proposalActionsUtils } from '../proposalActionsUtils';
 import { ProposalActionsActionDecodedView } from './proposalActionsActionDecodedView';
 import { ProposalActionsActionRawView } from './proposalActionsActionRawView';
@@ -33,12 +34,6 @@ export interface IProposalActionsActionProps extends IWeb3ComponentProps {
      * Custom component for the action
      */
     CustomComponent?: ProposalActionComponent;
-}
-
-export enum ProposalActionViewMode {
-    BASIC_VIEW = 'basic',
-    DECODED_VIEW = 'decoded',
-    RAW_VIEW = 'raw',
 }
 
 export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {
@@ -71,10 +66,10 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
 
     const [viewMode, setViewMode] = useState(
         ActionComponent
-            ? ProposalActionViewMode.BASIC_VIEW
+            ? ProposalActionViewMode.BASIC
             : action.inputData
-              ? ProposalActionViewMode.DECODED_VIEW
-              : ProposalActionViewMode.RAW_VIEW,
+              ? ProposalActionViewMode.DECODED
+              : ProposalActionViewMode.RAW,
     );
 
     const onViewModeChange = (value: ProposalActionViewMode) => {
@@ -107,11 +102,11 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
             </Accordion.ItemHeader>
             <Accordion.ItemContent ref={contentRef}>
                 <div className="flex flex-col items-start gap-y-6 self-start md:gap-y-8">
-                    {viewMode === ProposalActionViewMode.BASIC_VIEW && ActionComponent}
-                    {viewMode === ProposalActionViewMode.DECODED_VIEW && (
+                    {viewMode === ProposalActionViewMode.BASIC && ActionComponent}
+                    {viewMode === ProposalActionViewMode.DECODED && (
                         <ProposalActionsActionDecodedView action={action} />
                     )}
-                    {viewMode === ProposalActionViewMode.RAW_VIEW && <ProposalActionsActionRawView action={action} />}
+                    {viewMode === ProposalActionViewMode.RAW && <ProposalActionsActionRawView action={action} />}
 
                     <ProposalActionsActionViewAsMenu
                         disableBasic={ActionComponent == null}
