@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import { IconType } from '../../../../../core';
-import { ProposalVotingStatus } from '../proposalVotingDefinitions';
+import { ProposalVotingStatus } from '../../proposalUtils';
 import { type IProposalVotingStageStatusProps, ProposalVotingStageStatus } from './proposalVotingStageStatus';
 
 describe('<ProposalVotingStageStatus /> component', () => {

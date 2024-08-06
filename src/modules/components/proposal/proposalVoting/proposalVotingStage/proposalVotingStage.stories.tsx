@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Accordion } from '../../../../../core';
-import { ProposalVoting, ProposalVotingStatus } from '../index';
+import { ProposalVotingStatus } from '../../proposalUtils';
+import { ProposalVoting } from '../index';
 
 const meta: Meta<typeof ProposalVoting.Stage> = {
     title: 'Modules/Components/Proposal/ProposalVoting/ProposalVoting.Stage',

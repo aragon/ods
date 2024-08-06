@@ -1,7 +1,7 @@
-import type { ProposalStatus } from '../proposalUtils';
+import { ProposalStatus } from '../proposalUtils';
 
 class ProposalDataListItemUtils {
-    ongoingStatuses: ProposalStatus[] = ['active', 'challenged', 'vetoed'];
+    ongoingStatuses: ProposalStatus[] = [ProposalStatus.ACTIVE, ProposalStatus.CHALLENGED, ProposalStatus.VETOED];
 
     isOngoingStatus = (status: ProposalStatus) => this.ongoingStatuses.includes(status);
 }

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { ProposalVotingStatus } from '../proposalVotingDefinitions';
+import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingStage } from '../proposalVotingStage';
 import { type IProposalVotingContainerProps, ProposalVotingContainer } from './proposalVotingContainer';
 

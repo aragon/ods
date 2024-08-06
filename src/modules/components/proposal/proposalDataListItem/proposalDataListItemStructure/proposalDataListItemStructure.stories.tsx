@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DataList } from '../../../../../core';
-import { ProposalDataListItem } from '../../index';
+import { ProposalDataListItem, ProposalStatus } from '../../index';
 import { type IProposalDataListItemStructureProps } from './proposalDataListItemStructure.api';
 
 const meta: Meta<typeof ProposalDataListItem.Structure> = {
@@ -23,9 +23,9 @@ const basePublisher = {
 
 const baseArgs: Omit<IProposalDataListItemStructureProps, 'result' | 'publisher'> = {
     date: 1719963030308,
-    status: 'active',
+    status: ProposalStatus.ACTIVE,
     title: 'This is a very serious proposal to send funds to a wallet address',
-    summary: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel eleifend neque, in mattis eros. 
+    summary: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel eleifend neque, in mattis eros.
         Integer ornare dapibus sem sit amet viverra. Sed blandit ipsum quis erat elementum lacinia.
         Sed eu nisi urna. Ut quis urna ac mi vulputate suscipit. Aenean lacinia, libero sit amet laoreet vulputate,
         magna magna sollicitudin tellus, ut volutpat nulla arcu nec neque. Phasellus vulputate tincidunt orci vitae eleifend.`,

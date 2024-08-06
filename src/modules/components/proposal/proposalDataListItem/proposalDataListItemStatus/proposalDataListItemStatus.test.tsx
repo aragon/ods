@@ -1,13 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import { DateFormat, IconType, formatterUtils } from '../../../../../core';
-import { type ProposalStatus } from '../proposalDataListItemStructure';
+import { modulesCopy } from '../../../../assets';
+import { ProposalStatus } from '../../proposalUtils';
 import { proposalDataListItemUtils } from '../proposalDataListItemUtils';
 import { ProposalDataListItemStatus, type IProposalDataListItemStatusProps } from './proposalDataListItemStatus';
 
 describe('<ProposalDataListItemStatus /> component', () => {
     const createTestComponent = (props?: Partial<IProposalDataListItemStatusProps>) => {
         const completeProps: IProposalDataListItemStatusProps = {
-            status: 'accepted',
+            status: ProposalStatus.ACCEPTED,
             ...props,
         };
 
@@ -16,18 +17,18 @@ describe('<ProposalDataListItemStatus /> component', () => {
 
     it('displays the date, calendar icon and status', () => {
         const date = 1719563030308;
-        const status = 'accepted';
+        const status = ProposalStatus.ACCEPTED;
 
         render(createTestComponent({ date, status }));
 
         const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })!;
         expect(screen.getByText(formattedDate)).toBeInTheDocument();
-        expect(screen.getByText(status)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalDataListItemStatus.statusLabel[status])).toBeInTheDocument();
         expect(screen.getByTestId(IconType.CALENDAR)).toBeInTheDocument();
     });
 
     it('does not render the calendar icon and date when date property is not defined', () => {
-        const status = 'accepted';
+        const status = ProposalStatus.ACCEPTED;
         const date = undefined;
 
         render(createTestComponent({ status, date }));
@@ -39,12 +40,12 @@ describe('<ProposalDataListItemStatus /> component', () => {
 
     it("only displays the date for proposals with a status that is not 'draft'", () => {
         const date = 1719563030308;
-        const status = 'draft';
+        const status = ProposalStatus.DRAFT;
 
         render(createTestComponent({ date, status }));
 
         const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })!;
-        expect(screen.getByText(status)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalDataListItemStatus.statusLabel[status])).toBeInTheDocument();
         expect(screen.queryByText(formattedDate)).not.toBeInTheDocument();
         expect(screen.queryByTestId(IconType.CALENDAR)).not.toBeInTheDocument();
     });
@@ -72,7 +73,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
     );
 
     it('does not display a you-voted label when the status is not an ongoing one and the voted is true', () => {
-        render(createTestComponent({ status: 'executed', voted: true }));
+        render(createTestComponent({ status: ProposalStatus.EXECUTED, voted: true }));
 
         expect(screen.queryByText(/You've voted/i)).not.toBeInTheDocument();
         expect(screen.queryByTestId(IconType.CHECKMARK)).not.toBeInTheDocument();
