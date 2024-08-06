@@ -26,11 +26,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Add 'Raw' and 'Decoded' views to `ProposalActions` with Dropdown selector for the data of proposal actions with more
     technical understanding.
 -   Add `AlertCard` to `ProposalActionsAction` to alert user when action will send native currency
+-   Update `ICompositeAddress` interface and components using it to support custom avatar
+-   Make `ProposalStatus` strings customisable
+-   Implement and export `proposalStatusToVotingStatus` utility
 
 ### Changed
 
 -   Update minor and patch NPM dependencies
 -   Bump `postcss` from 8.4.40 to 8.4.41
+-   Update `ProposalStatus` type to enum to align it with `ProposalVotingStatus` enum
 
 ## [1.0.41] - 2024-07-30
 
