@@ -1,21 +1,8 @@
 import { type IDataListItemProps } from '../../../../../core';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../../types';
+import { type ProposalStatus } from '../../proposalUtils';
 
 export type ProposalType = 'majorityVoting' | 'approvalThreshold';
-
-export type ProposalStatus =
-    | 'accepted'
-    | 'active'
-    | 'challenged'
-    | 'draft'
-    | 'executed'
-    | 'expired'
-    | 'failed'
-    | 'partiallyExecuted'
-    | 'pending'
-    | 'queued'
-    | 'rejected'
-    | 'vetoed';
 
 export interface IProposalDataListItemStructureBaseProps<TType extends ProposalType = ProposalType>
     extends IDataListItemProps,
@@ -74,7 +61,6 @@ export interface IProposalStage {
      * Name of the proposal stage
      */
     title?: string;
-
     /**
      * Id of the proposal stage
      */
@@ -114,16 +100,6 @@ export interface IMajorityVotingResult extends IProposalResultBase {
     votePercentage: number;
 }
 
-export interface IProposalDataListItemStructureMajorityVotingProps
-    extends IProposalDataListItemStructureBaseProps<'majorityVoting'> {
-    result: IMajorityVotingResult;
-}
-
-export interface IProposalDataListItemStructureApprovalThresholdProps
-    extends IProposalDataListItemStructureBaseProps<'approvalThreshold'> {
-    result: IApprovalThresholdResult;
-}
-
 export type IProposalDataListItemStructureProps =
-    | IProposalDataListItemStructureMajorityVotingProps
-    | IProposalDataListItemStructureApprovalThresholdProps;
+    | IProposalDataListItemStructureBaseProps<'majorityVoting'>
+    | IProposalDataListItemStructureBaseProps<'approvalThreshold'>;
