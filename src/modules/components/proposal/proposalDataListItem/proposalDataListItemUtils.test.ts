@@ -10,9 +10,9 @@ describe('proposalDataListItem utils', () => {
         });
 
         it('returns false for non-ongoing proposal statuses', () => {
-            expect(proposalDataListItemUtils.isOngoingStatus(ProposalStatus.DRAFT)).toBeTruthy();
-            expect(proposalDataListItemUtils.isOngoingStatus(ProposalStatus.EXECUTABLE)).toBeTruthy();
-            expect(proposalDataListItemUtils.isOngoingStatus(ProposalStatus.ACCEPTED)).toBeTruthy();
+            expect(proposalDataListItemUtils.isOngoingStatus(ProposalStatus.DRAFT)).toBeFalsy();
+            expect(proposalDataListItemUtils.isOngoingStatus(ProposalStatus.EXECUTABLE)).toBeFalsy();
+            expect(proposalDataListItemUtils.isOngoingStatus(ProposalStatus.ACCEPTED)).toBeFalsy();
         });
     });
 });
