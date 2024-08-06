@@ -27,6 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Update minor and patch NPM dependencies
+-   Bump `postcss` from 8.4.40 to 8.4.41
 
 ## [1.0.41] - 2024-07-30
 
