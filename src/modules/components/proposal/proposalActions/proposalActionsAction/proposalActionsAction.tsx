@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
-import { Accordion, Heading } from '../../../../../core';
+import { Accordion, AlertCard, Heading } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import {
@@ -10,6 +10,7 @@ import {
     ProposalActionWithdrawToken,
 } from '../actions';
 
+import { formatUnits } from 'viem';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerification';
 import type { IProposalAction, ProposalActionComponent } from '../proposalActionsTypes';
 import { ProposalActionViewMode } from '../proposalActionsTypes';
@@ -88,6 +89,7 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
             itemRef.current.scrollIntoView({ behavior: 'instant', block: 'center' });
         }
     };
+    const isNativeTransfer = action.value !== '0' && action.data === '0x';
 
     return (
         <Accordion.Item value={`${index}`} ref={itemRef}>
@@ -103,6 +105,15 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
             </Accordion.ItemHeader>
             <Accordion.ItemContent ref={contentRef}>
                 <div className="flex flex-col items-start gap-y-6 self-start md:gap-y-8">
+                    {isNativeTransfer && (
+                        <AlertCard
+                            variant="critical"
+                            message={copy.proposalActionsAction.nativeSendAlert}
+                            description={copy.proposalActionsAction.nativeSendDescription(
+                                formatUnits(BigInt(action.value), 18),
+                            )}
+                        />
+                    )}
                     {viewMode === ProposalActionViewMode.BASIC && ActionComponent}
                     {viewMode === ProposalActionViewMode.DECODED && (
                         <ProposalActionsActionDecodedView action={action} />

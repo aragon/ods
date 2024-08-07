@@ -32,6 +32,9 @@ export const modulesCopy = {
     },
     proposalActionsAction: {
         notVerified: 'Not verified',
+        nativeSendAlert: 'Proceed with caution',
+        nativeSendDescription: (amount: string) =>
+            `This action attempts to send ${amount} ETH. This could cause the action to fail or result in a loss of funds.`,
     },
     proposalActionsActionDecodedView: {
         valueHelper: 'Amount of ETH to transfer in the transaction',

@@ -110,4 +110,43 @@ describe('<ProposalActionsAction /> component', () => {
         await userEvent.click(screen.getByRole('button'));
         expect(screen.getByTestId(testId)).toBeInTheDocument();
     });
+
+    it('renders an alert when action.value is not "0" and data is native "0x"', async () => {
+        const action = generateProposalAction({
+            inputData: { function: '', contract: '', parameters: [] },
+            value: '1000000000000000000',
+            data: '0x',
+        });
+        render(createTestComponent({ action }));
+
+        await userEvent.click(screen.getByRole('button'));
+
+        expect(screen.getByRole('alert')).toBeInTheDocument();
+    });
+
+    it('does not render alert when action.value is "0" and action.data is not "0x"', async () => {
+        const action = generateProposalAction({
+            inputData: { function: '', contract: '', parameters: [] },
+            value: '0',
+            data: '0x1234',
+        });
+        render(createTestComponent({ action }));
+
+        await userEvent.click(screen.getByRole('button'));
+
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    });
+
+    it('does not render alert when action.value is "0" and action.data is "0x"', async () => {
+        const action = generateProposalAction({
+            inputData: { function: '', contract: '', parameters: [] },
+            value: '0',
+            data: '0x',
+        });
+        render(createTestComponent({ action }));
+
+        await userEvent.click(screen.getByRole('button'));
+
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    });
 });
