@@ -1,4 +1,4 @@
-import { InputNumber, InputText } from '../../../../../../core';
+import { InputText } from '../../../../../../core';
 import { useOdsModulesContext } from '../../../../odsModulesProvider';
 import type { IProposalAction } from '../../proposalActionsTypes';
 
@@ -15,12 +15,11 @@ export const ProposalActionsActionDecodedView: React.FC<IProposalActionsActionDe
 
     return (
         <div className="flex w-full flex-col gap-y-3">
-            <InputNumber
+            <InputText
                 label={copy.proposalActionsActionDecodedView.valueLabel}
                 helpText={copy.proposalActionsActionDecodedView.valueHelper}
-                value={action.value ?? 0}
+                value={action.value}
                 disabled={true}
-                suffix="ETH"
             />
             {action.inputData?.parameters.map((parameter) => (
                 <InputText

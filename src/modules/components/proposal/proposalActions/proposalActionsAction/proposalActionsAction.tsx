@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
-import { Accordion, AlertCard, Heading } from '../../../../../core';
+import { Accordion, AlertCard, Heading, Icon, IconType } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import {
@@ -89,23 +89,30 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
             itemRef.current.scrollIntoView({ behavior: 'instant', block: 'center' });
         }
     };
-    const isNativeTransfer = action.value !== '0' && action.data === '0x';
+
+    // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
+    const displayValueWarning = action.value !== '0' && action.data !== '0x';
 
     return (
         <Accordion.Item value={`${index}`} ref={itemRef}>
             <Accordion.ItemHeader>
                 <div className="flex flex-col items-start">
-                    <Heading size="h4">
-                        {action.inputData == null
-                            ? copy.proposalActionsAction.notVerified
-                            : (name ?? action.inputData.function)}
-                    </Heading>
+                    <div className="flex flex-row items-center gap-2">
+                        <Heading size="h4" className={displayValueWarning ? '!text-critical-800' : undefined}>
+                            {action.inputData == null
+                                ? copy.proposalActionsAction.notVerified
+                                : (name ?? action.inputData.function)}
+                        </Heading>
+                        {displayValueWarning && (
+                            <Icon icon={IconType.CRITICAL} size="md" className="text-critical-500" />
+                        )}
+                    </div>
                     <ProposalActionsActionVerification action={action} />
                 </div>
             </Accordion.ItemHeader>
             <Accordion.ItemContent ref={contentRef}>
                 <div className="flex flex-col items-start gap-y-6 self-start md:gap-y-8">
-                    {isNativeTransfer && (
+                    {displayValueWarning && (
                         <AlertCard
                             variant="critical"
                             message={copy.proposalActionsAction.nativeSendAlert}

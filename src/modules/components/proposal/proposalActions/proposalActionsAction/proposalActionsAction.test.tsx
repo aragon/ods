@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { Accordion } from '../../../../../core';
+import { Accordion, IconType } from '../../../../../core';
 import { modulesCopy } from '../../../../assets';
 import {
     generateProposalActionChangeMembers,
@@ -111,42 +111,20 @@ describe('<ProposalActionsAction /> component', () => {
         expect(screen.getByTestId(testId)).toBeInTheDocument();
     });
 
-    it('renders an alert when action.value is not "0" and data is native "0x"', async () => {
-        const action = generateProposalAction({
-            inputData: { function: '', contract: '', parameters: [] },
-            value: '1000000000000000000',
-            data: '0x',
-        });
+    it('renders an alert when action has value is not "0" and is not a native transfer', async () => {
+        const action = generateProposalAction({ value: '1000000000000000000', data: 'some-data' });
         render(createTestComponent({ action }));
 
         await userEvent.click(screen.getByRole('button'));
-
         expect(screen.getByRole('alert')).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.CRITICAL)).toBeInTheDocument();
     });
 
-    it('does not render alert when action.value is "0" and action.data is not "0x"', async () => {
-        const action = generateProposalAction({
-            inputData: { function: '', contract: '', parameters: [] },
-            value: '0',
-            data: '0x1234',
-        });
+    it('does not render an alert when action has value but it is a native transfer', async () => {
+        const action = generateProposalAction({ value: '0', data: '0x' });
         render(createTestComponent({ action }));
 
         await userEvent.click(screen.getByRole('button'));
-
-        expect(screen.queryByRole('alert')).not.toBeInTheDocument();
-    });
-
-    it('does not render alert when action.value is "0" and action.data is "0x"', async () => {
-        const action = generateProposalAction({
-            inputData: { function: '', contract: '', parameters: [] },
-            value: '0',
-            data: '0x',
-        });
-        render(createTestComponent({ action }));
-
-        await userEvent.click(screen.getByRole('button'));
-
         expect(screen.queryByRole('alert')).not.toBeInTheDocument();
     });
 });

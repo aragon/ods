@@ -40,14 +40,11 @@ export const MixedActions: Story = {
                     priceUsd: '2800',
                 }),
             }),
-            generateProposalActionUpdateMetadata({
-                data: '0x3f60b63300000000000000000000000019dbc1c820dd3f13260829a4e06dda6d9ef758db00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000d5fb864acfd6bb2f72939f122e89ff7f475924f5',
-            }),
+            generateProposalActionUpdateMetadata({ data: 'update-data' }),
             generateProposalAction({
                 to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-                value: '10',
-                data: '0x3f60b63300000000000000000000000019dbc1c820dd3f13260829a4e06dda6d9ef758db00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000d5fb864acfd6bb2f72939f122e89ff7f475924f5',
-
+                value: '1000000000000000000',
+                data: 'custom-action-data',
                 inputData: {
                     function: 'customAction',
                     contract: 'GovernanceERC20',
@@ -69,7 +66,8 @@ export const MixedActions: Story = {
             }),
             generateProposalAction({
                 type: 'unknownType',
-                data: '0x3f60b63300000000000000000000000019dbc1c820dd3f13260829a4e06dda6d9ef758db00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000d5fb864acfd6bb2f72939f122e89ff7f475924f5',
+                data: 'data-mock',
+                to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
                 inputData: null,
             }),
         ],
