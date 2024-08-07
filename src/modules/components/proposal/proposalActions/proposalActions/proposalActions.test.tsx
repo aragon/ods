@@ -9,8 +9,11 @@ import { ProposalActions, type IProposalActionsProps } from './proposalActions';
 jest.mock('../../../member', () => ({ MemberAvatar: () => <div data-testid="member-avatar" /> }));
 
 describe('<ProposalActions /> component', () => {
-    HTMLElement.prototype.scrollIntoView = jest.fn();
     const scrollIntoViewSpy = jest.spyOn(HTMLElement.prototype, 'scrollIntoView');
+
+    afterEach(() => {
+        scrollIntoViewSpy.mockReset();
+    });
 
     const createTestComponent = (props?: Partial<IProposalActionsProps>) => {
         const completeProps: IProposalActionsProps = {
@@ -24,10 +27,6 @@ describe('<ProposalActions /> component', () => {
             </OdsModulesProvider>
         );
     };
-
-    afterEach(() => {
-        scrollIntoViewSpy.mockReset();
-    });
 
     it('correctly renders the actions', () => {
         const actions = [generateProposalActionWithdrawToken(), generateProposalActionWithdrawToken()];

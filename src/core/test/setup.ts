@@ -11,3 +11,8 @@ testLogger.setup();
 
 // Globally setup TextEncoder/TextDecoder needed by viem
 Object.assign(global, { TextDecoder, TextEncoder });
+
+if (typeof window !== 'undefined') {
+    // Mock scrollIntoView function
+    HTMLElement.prototype.scrollIntoView = jest.fn();
+}

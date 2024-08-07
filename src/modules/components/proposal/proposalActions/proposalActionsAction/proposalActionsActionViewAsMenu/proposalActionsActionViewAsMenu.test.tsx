@@ -2,11 +2,14 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { modulesCopy } from '../../../../../assets';
 import { ProposalActionViewMode } from '../../proposalActionsTypes';
-import { ProposalActionsActionViewAsMenu } from './proposalActionsActionViewAsMenu';
+import {
+    type IProposalActionsActionViewAsMenuProps,
+    ProposalActionsActionViewAsMenu,
+} from './proposalActionsActionViewAsMenu';
 
 describe('<ProposalActionsActionViewAsMenu /> component', () => {
-    const createTestComponent = (props?: Partial<React.ComponentProps<typeof ProposalActionsActionViewAsMenu>>) => {
-        const defaultProps = {
+    const createTestComponent = (props?: Partial<IProposalActionsActionViewAsMenuProps>) => {
+        const completeProps: IProposalActionsActionViewAsMenuProps = {
             viewMode: ProposalActionViewMode.BASIC,
             disableBasic: false,
             disableDecoded: false,
@@ -14,7 +17,7 @@ describe('<ProposalActionsActionViewAsMenu /> component', () => {
             ...props,
         };
 
-        return <ProposalActionsActionViewAsMenu {...defaultProps} />;
+        return <ProposalActionsActionViewAsMenu {...completeProps} />;
     };
 
     it('calls ViewModeChange with "basic" when basic item is clicked and not disabled', async () => {

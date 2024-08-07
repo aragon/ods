@@ -22,11 +22,14 @@ jest.mock('../actions', () => ({
 }));
 
 describe('<ProposalActionsAction /> component', () => {
-    HTMLElement.prototype.scrollIntoView = jest.fn();
     const scrollIntoViewSpy = jest.spyOn(HTMLElement.prototype, 'scrollIntoView');
 
+    afterEach(() => {
+        scrollIntoViewSpy.mockReset();
+    });
+
     const createTestComponent = (props?: Partial<IProposalActionsActionProps>) => {
-        const defaultProps: IProposalActionsActionProps = {
+        const completeProps: IProposalActionsActionProps = {
             action: generateProposalAction(),
             index: 0,
             ...props,
@@ -34,14 +37,10 @@ describe('<ProposalActionsAction /> component', () => {
 
         return (
             <Accordion.Container isMulti={true}>
-                <ProposalActionsAction {...defaultProps} />
+                <ProposalActionsAction {...completeProps} />
             </Accordion.Container>
         );
     };
-
-    afterEach(() => {
-        scrollIntoViewSpy.mockReset();
-    });
 
     it('renders not-verified label when action.inputData is null', () => {
         const action = generateProposalActionWithdrawToken({ inputData: null });
