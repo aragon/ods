@@ -17,7 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Fix expand behaviour of `TextAreaRichText` core component when used inside a dialog and hide the input label
 -   Fix `NumberInput` component to correctly update values on plus / minus buttons click
 -   Fix `ProposalVotingBreakdownToken` module component to display correct progress variant when min-participation and
-    support are equal to the threshold required.
+    support are equal to the threshold required
 
 ### Added
 
@@ -31,6 +31,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update `ICompositeAddress` interface and components using it to support custom avatar
 -   Make `ProposalStatus` strings customisable
 -   Implement and export `proposalStatusToVotingStatus` utility
+-   Add 'Raw' and 'Decoded' views to `ProposalActions` module component
 
 ### Changed
 
