@@ -15,15 +15,13 @@ export const ProposalActionsActionDecodedView: React.FC<IProposalActionsActionDe
 
     return (
         <div className="flex w-full flex-col gap-y-3">
-            <div className="flex flex-col gap-y-2">
-                <InputNumber
-                    label={copy.proposalActionsActionDecodedView.valueLabel}
-                    helpText={copy.proposalActionsActionDecodedView.valueHelper}
-                    value={action.value ?? 0}
-                    disabled={true}
-                    suffix="ETH"
-                />
-            </div>
+            <InputNumber
+                label={copy.proposalActionsActionDecodedView.valueLabel}
+                helpText={copy.proposalActionsActionDecodedView.valueHelper}
+                value={action.value ?? 0}
+                disabled={true}
+                suffix="ETH"
+            />
             {action.inputData?.parameters.map((parameter) => (
                 <InputText
                     key={parameter.name}

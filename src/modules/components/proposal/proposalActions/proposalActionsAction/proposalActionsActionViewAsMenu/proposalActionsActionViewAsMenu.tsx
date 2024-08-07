@@ -1,6 +1,6 @@
 import { Dropdown } from '../../../../../../core';
 import { useOdsModulesContext } from '../../../../odsModulesProvider';
-import { ProposalActionViewMode } from '../../proposalActionsTypes/proposalActionsActionViewMode';
+import { ProposalActionViewMode } from '../../proposalActionsTypes';
 
 export interface IProposalActionsActionViewAsMenuProps {
     /**

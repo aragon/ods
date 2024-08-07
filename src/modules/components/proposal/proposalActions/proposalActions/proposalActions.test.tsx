@@ -9,7 +9,8 @@ import { ProposalActions, type IProposalActionsProps } from './proposalActions';
 jest.mock('../../../member', () => ({ MemberAvatar: () => <div data-testid="member-avatar" /> }));
 
 describe('<ProposalActions /> component', () => {
-    let scrollIntoViewSpy: jest.SpyInstance;
+    HTMLElement.prototype.scrollIntoView = jest.fn();
+    const scrollIntoViewSpy = jest.spyOn(HTMLElement.prototype, 'scrollIntoView');
 
     const createTestComponent = (props?: Partial<IProposalActionsProps>) => {
         const completeProps: IProposalActionsProps = {
@@ -24,13 +25,8 @@ describe('<ProposalActions /> component', () => {
         );
     };
 
-    beforeEach(() => {
-        HTMLElement.prototype.scrollIntoView = jest.fn();
-        scrollIntoViewSpy = jest.spyOn(HTMLElement.prototype, 'scrollIntoView').mockImplementation(() => {});
-    });
-
     afterEach(() => {
-        jest.clearAllMocks();
+        scrollIntoViewSpy.mockReset();
     });
 
     it('correctly renders the actions', () => {

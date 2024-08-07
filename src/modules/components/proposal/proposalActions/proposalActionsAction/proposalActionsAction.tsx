@@ -9,13 +9,14 @@ import {
     ProposalActionUpdateMetadata,
     ProposalActionWithdrawToken,
 } from '../actions';
-import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication/proposalActionsActionVerfication';
+
 import type { IProposalAction, ProposalActionComponent } from '../proposalActionsTypes';
-import { ProposalActionViewMode } from '../proposalActionsTypes/proposalActionsActionViewMode';
+import { ProposalActionViewMode } from '../proposalActionsTypes';
 import { proposalActionsUtils } from '../proposalActionsUtils';
 import { ProposalActionsActionDecodedView } from './proposalActionsActionDecodedView';
 import { ProposalActionsActionRawView } from './proposalActionsActionRawView';
 import { ProposalActionsActionViewAsMenu } from './proposalActionsActionViewAsMenu';
+import { ProposalActionsActionVerification } from '../proposalActionsActionVerification';
 
 export interface IProposalActionsActionProps extends IWeb3ComponentProps {
     /**

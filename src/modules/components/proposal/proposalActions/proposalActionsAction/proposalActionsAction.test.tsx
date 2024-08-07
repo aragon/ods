@@ -22,7 +22,8 @@ jest.mock('../actions', () => ({
 }));
 
 describe('<ProposalActionsAction /> component', () => {
-    let scrollIntoViewSpy: jest.SpyInstance;
+    HTMLElement.prototype.scrollIntoView = jest.fn();
+    const scrollIntoViewSpy = jest.spyOn(HTMLElement.prototype, 'scrollIntoView');
 
     const createTestComponent = (props?: Partial<IProposalActionsActionProps>) => {
         const defaultProps: IProposalActionsActionProps = {
@@ -38,13 +39,8 @@ describe('<ProposalActionsAction /> component', () => {
         );
     };
 
-    beforeEach(() => {
-        HTMLElement.prototype.scrollIntoView = jest.fn();
-        scrollIntoViewSpy = jest.spyOn(HTMLElement.prototype, 'scrollIntoView').mockImplementation(() => {});
-    });
-
     afterEach(() => {
-        jest.clearAllMocks();
+        scrollIntoViewSpy.mockReset();
     });
 
     it('renders not-verified label when action.inputData is null', () => {

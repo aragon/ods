@@ -5,7 +5,7 @@ import { type IProposalActionWithdrawToken } from '../proposalActionsTypes';
 import {
     ProposalActionsActionVerification,
     type IProposalActionsActionVerificationProps,
-} from './proposalActionsActionVerfication';
+} from './proposalActionsActionVerification';
 
 jest.mock('../../../../utils', () => ({
     addressUtils: {
