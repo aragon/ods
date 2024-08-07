@@ -12,5 +12,5 @@ export type {
     IProposalActionUpdateMetadataDaoMetadata,
     IProposalActionUpdateMetadataDaoMetadataLink,
 } from './proposalActionUpdateMetadata';
-export type { IProposalActionWithdrawToken } from './proposalActionWithdrawToken';
 export { ProposalActionViewMode } from './proposalActionViewMode';
+export type { IProposalActionWithdrawToken } from './proposalActionWithdrawToken';
