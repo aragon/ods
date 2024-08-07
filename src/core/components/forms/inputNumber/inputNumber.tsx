@@ -24,7 +24,8 @@ export interface IInputNumberProps
      */
     prefix?: string;
     /**
-     * Specifies the granularity of the intervals for the input value
+     * Specifies the granularity of the intervals for the input value.
+     * @default 1
      */
     step?: number;
     /**
@@ -41,14 +42,14 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
     const {
         max = Number.MAX_SAFE_INTEGER,
         min = Number.MIN_SAFE_INTEGER,
-        step: inputStep = 1,
+        step = 1,
         prefix,
         suffix,
         onChange,
         ...otherProps
     } = props;
 
-    const step = inputStep <= 0 ? 1 : inputStep;
+    const processedStep = step <= 0 ? 1 : step;
     const { containerProps, inputProps } = useInputProps(otherProps);
 
     const { className: containerClassName, disabled, ...otherContainerProps } = containerProps;
@@ -57,7 +58,7 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
     const {
         ref: maskRef,
         unmaskedValue,
-        setValue,
+        setUnmaskedValue,
     } = useNumberMask({
         min,
         max,
@@ -82,7 +83,7 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
 
         // increment directly to the minimum if value is less than the minimum
         if (parsedValue < min) {
-            setValue(min.toString());
+            setUnmaskedValue(min.toString());
             return;
         }
 
@@ -90,7 +91,7 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
         const newValue = (Math.floor(parsedValue / step) + 1) * step;
 
         // ensure the new value is than the max
-        setValue(Math.min(max, newValue).toString());
+        setUnmaskedValue(Math.min(max, newValue).toString());
     };
 
     const handleDecrement = () => {
@@ -98,7 +99,7 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
 
         // decrement directly to the maximum if value is greater than the maximum
         if (parsedValue > max) {
-            setValue(max.toString());
+            setUnmaskedValue(max.toString());
             return;
         }
 
@@ -106,7 +107,7 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
         const newValue = (Math.ceil(parsedValue / step) - 1) * step;
 
         // ensure the new value is than the max
-        setValue(Math.max(min, newValue).toString());
+        setUnmaskedValue(Math.max(min, newValue).toString());
     };
 
     return (
@@ -122,7 +123,7 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
             )}
             <input
                 ref={mergeRefs([maskRef, ref])}
-                step={step}
+                step={processedStep}
                 max={max}
                 min={min}
                 inputMode="numeric"

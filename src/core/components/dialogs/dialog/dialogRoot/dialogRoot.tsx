@@ -1,4 +1,5 @@
 import { Content, Overlay, Portal, Root } from '@radix-ui/react-dialog';
+import { FocusScope } from '@radix-ui/react-focus-scope';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
@@ -50,6 +51,11 @@ export interface IDialogRootProps extends ComponentPropsWithoutRef<'div'> {
      * Handler called when a pointer event occurs outside the bounds of the component
      */
     onPointerDownOutside?: (e: Event) => void;
+    /**
+     * Keeps the focus inside the Dialog when set to true.
+     * @default true
+     */
+    useFocusTrap?: boolean;
 }
 
 /**
@@ -65,22 +71,29 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
         onInteractOutside,
         onOpenAutoFocus,
         onPointerDownOutside,
+        useFocusTrap = true,
         ...rootProps
     } = props;
+
+    const overlayClassNames = classNames(
+        'fixed inset-0 bg-modal-overlay backdrop-blur-md',
+        'z-[var(--ods-dialog-overlay-z-index)]',
+        overlayClassName,
+    );
+
+    const containerClassNames = classNames(
+        'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] lg:bottom-auto lg:top-[120px] lg:max-h-[calc(100vh-200px)]',
+        'flex max-w-[480px] flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md md:min-w-[480px]',
+        'z-[var(--ods-dialog-content-z-index)]',
+        containerClassName,
+    );
 
     return (
         <Root {...rootProps}>
             <AnimatePresence>
                 {rootProps.open && (
                     <Portal forceMount={true} key="portal">
-                        <Overlay
-                            className={classNames(
-                                'fixed inset-0 bg-modal-overlay backdrop-blur-md',
-                                'z-[var(--ods-dialog-overlay-z-index)]',
-                                overlayClassName,
-                            )}
-                            asChild={true}
-                        >
+                        <Overlay className={overlayClassNames} asChild={true}>
                             <motion.div
                                 initial="closed"
                                 animate="open"
@@ -88,29 +101,26 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                                 variants={DialogUtils.overlayAnimationVariants}
                             />
                         </Overlay>
-                        <Content
-                            className={classNames(
-                                'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] lg:bottom-auto lg:top-[120px] lg:max-h-[calc(100vh-200px)]',
-                                'flex max-w-[480px] flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md md:min-w-[480px]',
-                                'z-[var(--ods-dialog-content-z-index)]',
-                                containerClassName,
-                            )}
-                            onCloseAutoFocus={onCloseAutoFocus}
-                            onEscapeKeyDown={onEscapeKeyDown}
-                            onInteractOutside={onInteractOutside}
-                            onOpenAutoFocus={onOpenAutoFocus}
-                            onPointerDownOutside={onPointerDownOutside}
-                            asChild={true}
-                        >
-                            <motion.div
-                                variants={DialogUtils.contentAnimationVariants}
-                                initial="closed"
-                                animate="open"
-                                exit="exit"
+                        <FocusScope trapped={useFocusTrap}>
+                            <Content
+                                className={containerClassNames}
+                                onCloseAutoFocus={onCloseAutoFocus}
+                                onEscapeKeyDown={onEscapeKeyDown}
+                                onInteractOutside={onInteractOutside}
+                                onOpenAutoFocus={onOpenAutoFocus}
+                                onPointerDownOutside={onPointerDownOutside}
+                                asChild={true}
                             >
-                                {children}
-                            </motion.div>
-                        </Content>
+                                <motion.div
+                                    variants={DialogUtils.contentAnimationVariants}
+                                    initial="closed"
+                                    animate="open"
+                                    exit="exit"
+                                >
+                                    {children}
+                                </motion.div>
+                            </Content>
+                        </FocusScope>
                     </Portal>
                 )}
             </AnimatePresence>
