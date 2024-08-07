@@ -16,21 +16,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update `<Wallet />` module component to only resolve user ENS name when name property is not set
 -   Fix expand behaviour of `TextAreaRichText` core component when used inside a dialog and hide the input label
 -   Fix `NumberInput` component to correctly update values on plus / minus buttons click
+-   Fix `ProposalVotingBreakdownToken` module component to display correct progress variant when min-participation and
+    support are equal to the threshold required
 
 ### Added
 
 -   Update `<Wallet />` module component to support custom `chainId` and `wagmi` configurations
--   Update ICompositeAddress interface and components using it to support custom avatar
 -   Add z-index property customisation for `TextAreaRichText` core component when expanded
 -   Handle `useFocusTrap` property on dialog components to support disabling default focus-trap behaviour
--   Add 'Raw' and 'Decoded' views to `ProposalActions` with Dropdown selector for the data of proposal actions with more
-    technical understanding.
 -   Add `AlertCard` to `ProposalActionsAction` to alert user when action will send native currency
+-   Update `ICompositeAddress` interface and components using it to support custom avatar
+-   Make `ProposalStatus` strings customisable
+-   Implement and export `proposalStatusToVotingStatus` utility
+-   Add 'Raw' and 'Decoded' views to `ProposalActions` module component
 
 ### Changed
 
 -   Update minor and patch NPM dependencies
 -   Bump `postcss` from 8.4.40 to 8.4.41
+-   Update `ProposalStatus` type to enum to align it with `ProposalVotingStatus` enum
 
 ## [1.0.41] - 2024-07-30
 

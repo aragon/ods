@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { AccordionContainer } from '../../../../../core';
 import { testLogger } from '../../../../../core/test';
-import { ProposalVotingStatus, ProposalVotingTab } from '../proposalVotingDefinitions';
+import { ProposalVotingStatus } from '../../proposalUtils';
+import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { type IProposalVotingStageProps, ProposalVotingStage } from './proposalVotingStage';
 
 jest.mock('../proposalVotingStageStatus', () => ({

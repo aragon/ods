@@ -4,79 +4,77 @@ import * as wagmi from 'wagmi';
 import { DataList } from '../../../../../core';
 import { modulesCopy } from '../../../../assets';
 import { addressUtils } from '../../../../utils/addressUtils';
+import { ProposalStatus } from '../../proposalUtils';
 import { ProposalDataListItemStructure, maxPublishersDisplayed } from './proposalDataListItemStructure';
 import {
     type IApprovalThresholdResult,
     type IMajorityVotingResult,
     type IProposalDataListItemStructureProps,
-    type ProposalStatus,
 } from './proposalDataListItemStructure.api';
 
-jest.mock('wagmi', () => ({
-    ...jest.requireActual('wagmi'),
-    useAccount: jest.fn(),
-}));
+jest.mock('wagmi', () => ({ ...jest.requireActual('wagmi'), useAccount: jest.fn() }));
+
 jest.mock('viem/utils', () => ({ isAddress: jest.fn().mockReturnValue(true) }));
 
 describe('<ProposalDataListItemStructure/> component', () => {
-    const createTestComponent = (props?: Partial<IProposalDataListItemStructureProps>) => {
-        const { result, ...baseInputProps } = props ?? {};
-
-        const baseProps: Omit<IProposalDataListItemStructureProps, 'result'> = {
-            publisher: { address: '0x0000000000000000000000000000000000000000', link: '#' },
-            status: 'active',
-            summary: 'Example Summary',
-            title: 'Example Title',
-            type: 'approvalThreshold',
-            ...baseInputProps,
-        };
-
-        const approvalThresholdProps: IApprovalThresholdResult = {
-            approvalAmount: 1,
-            approvalThreshold: 2,
-            ...result,
-        };
-
-        const majorityVotingProps: IMajorityVotingResult = {
-            option: 'yes',
-            voteAmount: '100 wAnt',
-            votePercentage: 10,
-            ...result,
-        };
-
-        return (
-            <DataList.Root entityLabel="Proposals">
-                {baseProps.type === 'approvalThreshold' && (
-                    <ProposalDataListItemStructure
-                        {...baseProps}
-                        result={approvalThresholdProps}
-                        type="approvalThreshold"
-                    />
-                )}
-
-                {baseProps.type === 'majorityVoting' && (
-                    <ProposalDataListItemStructure {...baseProps} result={majorityVotingProps} type="majorityVoting" />
-                )}
-            </DataList.Root>
-        );
-    };
-
     const useAccountMock = jest.spyOn(wagmi, 'useAccount');
 
     beforeEach(() => {
-        useAccountMock.mockImplementation(jest.fn().mockReturnValue({ address: '0x456', isConnected: true }));
+        useAccountMock.mockReturnValue({
+            address: '0x456',
+            isConnected: true,
+        } as unknown as wagmi.UseAccountReturnType);
     });
 
     afterEach(() => {
         useAccountMock.mockReset();
     });
 
-    const ongoingStatuses: ProposalStatus[] = ['active', 'challenged', 'vetoed'];
+    const createTestComponent = (props?: Partial<IProposalDataListItemStructureProps>) => {
+        const baseProps: Omit<IProposalDataListItemStructureProps, 'result'> = {
+            publisher: { address: '0x0000000000000000000000000000000000000000', link: '#' },
+            status: ProposalStatus.ACTIVE,
+            summary: 'Example Summary',
+            title: 'Example Title',
+            type: 'approvalThreshold',
+            ...props,
+        };
+
+        const approvalResult: IApprovalThresholdResult = {
+            approvalAmount: 1,
+            approvalThreshold: 2,
+            ...props?.result,
+        };
+
+        const majorityVotingProps: IMajorityVotingResult = {
+            option: 'yes',
+            voteAmount: '100 wAnt',
+            votePercentage: 10,
+            ...props?.result,
+        };
+
+        if (baseProps.type === 'approvalThreshold') {
+            return (
+                <DataList.Root entityLabel="Proposals">
+                    <ProposalDataListItemStructure {...baseProps} result={approvalResult} type="approvalThreshold" />
+                </DataList.Root>
+            );
+        }
+
+        return (
+            <DataList.Root entityLabel="Proposals">
+                <ProposalDataListItemStructure {...baseProps} result={majorityVotingProps} type="majorityVoting" />
+            </DataList.Root>
+        );
+    };
 
     it("renders 'You' as the publisher if the connected address is the publisher address", () => {
         const publisher = { address: '0x0000000000000000000000000000000000000000', link: '#' };
 
-        useAccountMock.mockImplementation(jest.fn().mockReturnValue({ address: publisher.address, isConnected: true }));
+        useAccountMock.mockReturnValue({
+            address: publisher.address,
+            isConnected: true,
+        } as unknown as wagmi.UseAccountReturnType);
 
         render(createTestComponent({ publisher }));
 
@@ -91,9 +89,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
         render(createTestComponent({ publisher: publishers }));
 
-        publishers.forEach((publisher) => {
-            expect(screen.getByText(publisher.name)).toBeInTheDocument();
-        });
+        publishers.forEach((publisher) => expect(screen.getByText(publisher.name)).toBeInTheDocument());
     });
 
     it(`renders '${maxPublishersDisplayed}+ creators' when the publishers are more than ${maxPublishersDisplayed}`, () => {
@@ -113,18 +109,20 @@ describe('<ProposalDataListItemStructure/> component', () => {
         const testProps = {
             tag: 'OSx updates',
             publisher: { address: '0x0000000000000000000000000000000000000000', link: '#' },
-            status: 'active',
+            status: ProposalStatus.ACTIVE,
             summary: 'Example Summary',
             title: 'Example Title',
-            type: 'approvalThreshold',
+            type: 'approvalThreshold' as const,
             id: '0x1',
         };
 
-        render(createTestComponent(testProps as IProposalDataListItemStructureProps));
+        render(createTestComponent(testProps));
 
         expect(screen.getByText(testProps.title)).toBeInTheDocument();
         expect(screen.getByText(testProps.summary)).toBeInTheDocument();
-        expect(screen.getByText(testProps.status)).toBeInTheDocument();
+        expect(
+            screen.getByText(modulesCopy.proposalDataListItemStatus.statusLabel[testProps.status]),
+        ).toBeInTheDocument();
         expect(screen.getByText(testProps.id)).toBeInTheDocument();
         expect(screen.getByText(testProps.tag)).toBeInTheDocument();
         expect(screen.getByText(addressUtils.truncateAddress(testProps.publisher.address))).toBeInTheDocument();
@@ -147,29 +145,25 @@ describe('<ProposalDataListItemStructure/> component', () => {
     });
 
     describe("'approvalThreshold' type", () => {
-        ongoingStatuses.forEach((status) => {
-            it.each(ongoingStatuses)(`renders the results when status is '${status}'`, () => {
-                const testProps = {
-                    approvalAmount: 10,
-                    approvalThreshold: 11,
-                };
+        it(`renders the results when status is ongoing`, () => {
+            const testProps = { approvalAmount: 10, approvalThreshold: 11 };
 
-                render(createTestComponent({ result: testProps, type: 'approvalThreshold', status }));
+            render(
+                createTestComponent({ result: testProps, type: 'approvalThreshold', status: ProposalStatus.ACTIVE }),
+            );
 
-                expect(screen.getByText(testProps.approvalAmount)).toBeInTheDocument();
-                expect(
-                    screen.getByText(modulesCopy.approvalThresholdResult.outOf(testProps.approvalThreshold.toString())),
-                ).toBeInTheDocument();
-            });
+            expect(screen.getByText(testProps.approvalAmount)).toBeInTheDocument();
+            expect(
+                screen.getByText(modulesCopy.approvalThresholdResult.outOf(testProps.approvalThreshold.toString())),
+            ).toBeInTheDocument();
         });
 
         it('does not render the results when status is not of an ongoing type', () => {
-            const testProps = {
-                approvalAmount: 10,
-                approvalThreshold: 11,
-            };
+            const testProps = { approvalAmount: 10, approvalThreshold: 11 };
 
-            render(createTestComponent({ result: testProps, type: 'approvalThreshold', status: 'expired' }));
+            render(
+                createTestComponent({ result: testProps, type: 'approvalThreshold', status: ProposalStatus.EXPIRED }),
+            );
 
             expect(screen.queryByText(testProps.approvalAmount)).not.toBeInTheDocument();
             expect(
@@ -179,30 +173,22 @@ describe('<ProposalDataListItemStructure/> component', () => {
     });
 
     describe("'majorityVoting' type", () => {
-        ongoingStatuses.forEach((status) => {
-            it(`renders the results when status is '${status}'`, () => {
-                const testProps = {
-                    option: 'Yes',
-                    voteAmount: '100 wAnt',
-                    votePercentage: 10,
-                };
+        it(`renders the results when status is ongoing`, () => {
+            const testProps = { option: 'Yes', voteAmount: '100 wAnt', votePercentage: 10 };
 
-                render(createTestComponent({ result: testProps, type: 'majorityVoting', status }));
+            render(
+                createTestComponent({ result: testProps, type: 'majorityVoting', status: ProposalStatus.CHALLENGED }),
+            );
 
-                expect(screen.getByText(testProps.option)).toBeInTheDocument();
-                expect(screen.getByText(testProps.voteAmount)).toBeInTheDocument();
-                expect(screen.getByText(`${testProps.votePercentage}%`)).toBeInTheDocument();
-            });
+            expect(screen.getByText(testProps.option)).toBeInTheDocument();
+            expect(screen.getByText(testProps.voteAmount)).toBeInTheDocument();
+            expect(screen.getByText(`${testProps.votePercentage}%`)).toBeInTheDocument();
         });
 
         it('does not render the results when status is not of an ongoing type', () => {
-            const testProps = {
-                option: 'Yes',
-                voteAmount: '100 wAnt',
-                votePercentage: 10,
-            };
+            const testProps = { option: 'Yes', voteAmount: '100 wAnt', votePercentage: 10 };
 
-            render(createTestComponent({ result: testProps, type: 'majorityVoting', status: 'pending' }));
+            render(createTestComponent({ result: testProps, type: 'majorityVoting', status: ProposalStatus.PENDING }));
 
             expect(screen.queryByText(testProps.option)).not.toBeInTheDocument();
             expect(screen.queryByText(testProps.voteAmount)).not.toBeInTheDocument();

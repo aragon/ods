@@ -6,18 +6,19 @@ import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ApprovalThresholdResult } from '../approvalThresholdResult';
 import { MajorityVotingResult } from '../majorityVotingResult';
 import { ProposalDataListItemStatus } from '../proposalDataListItemStatus';
+import { proposalDataListItemUtils } from '../proposalDataListItemUtils';
 import { type IProposalDataListItemStructureProps, type IPublisher } from './proposalDataListItemStructure.api';
 
 export const maxPublishersDisplayed = 3;
 
-function parsePublisher(publisher: IPublisher, isConnected: boolean, connectedAddress: string | undefined) {
+const parsePublisher = (publisher: IPublisher, isConnected: boolean, connectedAddress: string | undefined) => {
     const publisherIsConnected = isConnected && addressUtils.isAddressEqual(publisher.address, connectedAddress);
     const publisherLabel = publisherIsConnected
         ? 'You'
         : (publisher.name ?? addressUtils.truncateAddress(publisher.address));
 
     return { label: publisherLabel, link: publisher.link };
-}
+};
 
 /**
  * `ProposalDataListItemStructure` module component
@@ -41,10 +42,9 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
     } = props;
 
     const { address: connectedAddress, isConnected } = useAccount({ config });
-
     const { copy } = useOdsModulesContext();
 
-    const ongoing = status === 'active' || status === 'challenged' || status === 'vetoed';
+    const isOngoing = proposalDataListItemUtils.isOngoingStatus(status);
 
     const parsedPublisher = Array.isArray(publisher)
         ? publisher.map((p) => parsePublisher(p, isConnected, connectedAddress))
@@ -63,9 +63,9 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                 <p className="line-clamp-2 leading-normal text-neutral-500 md:text-lg">{summary}</p>
             </div>
 
-            {ongoing && type === 'approvalThreshold' && result && <ApprovalThresholdResult {...result} />}
+            {isOngoing && type === 'approvalThreshold' && result && <ApprovalThresholdResult {...result} />}
 
-            {ongoing && type === 'majorityVoting' && result && <MajorityVotingResult {...result} />}
+            {isOngoing && type === 'majorityVoting' && result && <MajorityVotingResult {...result} />}
 
             <div className="flex items-center justify-between gap-x-4 md:gap-x-6">
                 <div

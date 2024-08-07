@@ -12,7 +12,7 @@ import {
 } from '../../../../../core';
 import type { ModulesCopy } from '../../../../assets';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
-import { ProposalVotingStatus } from '../proposalVotingDefinitions';
+import { ProposalVotingStatus } from '../../proposalUtils';
 
 export interface IProposalVotingStageStatusProps extends ComponentProps<'div'> {
     /**
