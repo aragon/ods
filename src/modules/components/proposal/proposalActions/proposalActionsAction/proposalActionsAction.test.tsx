@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import { Accordion } from '../../../../../core';
 import { modulesCopy } from '../../../../assets';
 import {
@@ -72,5 +72,41 @@ describe('<ProposalActionsAction /> component', () => {
         render(createTestComponent({ action }));
         await userEvent.click(screen.getByRole('button'));
         expect(screen.getByTestId(testId)).toBeInTheDocument();
+    });
+
+    it('renders AlertCard when action.value is not null and not "0"', async () => {
+        const action = generateProposalAction({
+            inputData: { function: '', contract: '', parameters: [] },
+            value: '1000000000000000000',
+        });
+        render(createTestComponent({ action }));
+
+        await userEvent.click(screen.getByRole('button'));
+
+        expect(screen.getByRole('alert')).toBeInTheDocument();
+    });
+
+    it('does not render AlertCard when action.value is "0"', async () => {
+        const action = generateProposalAction({
+            inputData: { function: '', contract: '', parameters: [] },
+            value: '0',
+        });
+        render(createTestComponent({ action }));
+
+        await userEvent.click(screen.getByRole('button'));
+
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    });
+
+    it('does not render AlertCard when action.value is null', async () => {
+        const action = generateProposalAction({
+            inputData: { function: '', contract: '', parameters: [] },
+            value: null,
+        });
+        render(createTestComponent({ action }));
+
+        await userEvent.click(screen.getByRole('button'));
+
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument();
     });
 });
