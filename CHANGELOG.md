@@ -23,6 +23,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update ICompositeAddress interface and components using it to support custom avatar
 -   Add z-index property customisation for `TextAreaRichText` core component when expanded
 -   Handle `useFocusTrap` property on dialog components to support disabling default focus-trap behaviour
+-   Add 'Raw' and 'Decoded' views to `ProposalActions` with Dropdown selector for the data of proposal actions with more
+    technical understanding.
 -   Add `AlertCard` to `ProposalActionsAction` to alert user when action will send native currency
 
 ### Changed

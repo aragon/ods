@@ -36,6 +36,22 @@ export const modulesCopy = {
         nativeSendDescription: (amount: string) =>
             `This action attempts to send ${amount} ETH. This could cause the action to fail or result in a loss of funds.`,
     },
+    proposalActionsActionDecodedView: {
+        valueHelper: 'Amount of ETH to transfer in the transaction',
+        valueLabel: 'Value',
+    },
+    proposalActionsActionRawView: {
+        to: 'To',
+        data: 'Data',
+        value: 'Value',
+        copyButton: 'Copy data',
+    },
+    proposalActionsActionViewAsMenu: {
+        basic: 'Basic',
+        dropdownLabel: 'View action as',
+        decoded: 'Decoded',
+        raw: 'Raw',
+    },
     proposalActionChangeMembers: {
         summary: 'Summary',
         added: 'Added',

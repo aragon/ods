@@ -1,5 +1,4 @@
-import { useMemo } from 'react';
-import { formatUnits } from 'viem';
+import { useMemo, useRef, useState } from 'react';
 import { Accordion, AlertCard, Heading } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
@@ -10,9 +9,15 @@ import {
     ProposalActionUpdateMetadata,
     ProposalActionWithdrawToken,
 } from '../actions';
-import { ProposalActionsActionVerification } from '../proposalActionsActionVerfication';
+
+import { formatUnits } from 'viem';
+import { ProposalActionsActionVerification } from '../proposalActionsActionVerification';
 import type { IProposalAction, ProposalActionComponent } from '../proposalActionsTypes';
+import { ProposalActionViewMode } from '../proposalActionsTypes';
 import { proposalActionsUtils } from '../proposalActionsUtils';
+import { ProposalActionsActionDecodedView } from './proposalActionsActionDecodedView';
+import { ProposalActionsActionRawView } from './proposalActionsActionRawView';
+import { ProposalActionsActionViewAsMenu } from './proposalActionsActionViewAsMenu';
 
 export interface IProposalActionsActionProps extends IWeb3ComponentProps {
     /**
@@ -38,6 +43,9 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
 
     const { copy } = useOdsModulesContext();
 
+    const contentRef = useRef<HTMLDivElement>(null);
+    const itemRef = useRef<HTMLDivElement>(null);
+
     const ActionComponent = useMemo(() => {
         if (CustomComponent) {
             return <CustomComponent action={action} {...web3Props} />;
@@ -58,22 +66,45 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
         return null;
     }, [action, CustomComponent, web3Props]);
 
-    const defaultTitle = name ?? action.inputData?.function;
-    const actionTitle = action.inputData == null ? copy.proposalActionsAction.notVerified : defaultTitle;
+    const [viewMode, setViewMode] = useState(
+        ActionComponent
+            ? ProposalActionViewMode.BASIC
+            : action.inputData
+              ? ProposalActionViewMode.DECODED
+              : ProposalActionViewMode.RAW,
+    );
 
-    const isDisabled = action.inputData == null;
+    const onViewModeChange = (value: ProposalActionViewMode) => {
+        if (contentRef?.current == null) {
+            return;
+        }
+
+        const { style, scrollHeight } = contentRef.current;
+
+        style.setProperty('--radix-collapsible-content-height', scrollHeight.toString());
+
+        setViewMode(value);
+
+        if (itemRef.current) {
+            itemRef.current.scrollIntoView({ behavior: 'instant', block: 'center' });
+        }
+    };
     const isNativeTransfer = action.value !== '0' && action.data === '0x';
 
     return (
-        <Accordion.Item value={isDisabled ? '' : `${index}`} disabled={isDisabled}>
+        <Accordion.Item value={`${index}`} ref={itemRef}>
             <Accordion.ItemHeader>
                 <div className="flex flex-col items-start">
-                    <Heading size="h4">{actionTitle}</Heading>
+                    <Heading size="h4">
+                        {action.inputData == null
+                            ? copy.proposalActionsAction.notVerified
+                            : (name ?? action.inputData.function)}
+                    </Heading>
                     <ProposalActionsActionVerification action={action} />
                 </div>
             </Accordion.ItemHeader>
-            <Accordion.ItemContent>
-                <div className="flex flex-col gap-y-6 md:gap-y-8">
+            <Accordion.ItemContent ref={contentRef}>
+                <div className="flex flex-col items-start gap-y-6 self-start md:gap-y-8">
                     {isNativeTransfer && (
                         <AlertCard
                             variant="critical"
@@ -83,7 +114,18 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
                             )}
                         />
                     )}
-                    {ActionComponent}
+                    {viewMode === ProposalActionViewMode.BASIC && ActionComponent}
+                    {viewMode === ProposalActionViewMode.DECODED && (
+                        <ProposalActionsActionDecodedView action={action} />
+                    )}
+                    {viewMode === ProposalActionViewMode.RAW && <ProposalActionsActionRawView action={action} />}
+
+                    <ProposalActionsActionViewAsMenu
+                        disableBasic={ActionComponent == null}
+                        disableDecoded={action.inputData == null}
+                        viewMode={viewMode}
+                        onViewModeChange={onViewModeChange}
+                    />
                 </div>
             </Accordion.ItemContent>
         </Accordion.Item>

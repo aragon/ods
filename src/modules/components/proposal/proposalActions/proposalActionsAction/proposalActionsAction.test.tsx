@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import { Accordion } from '../../../../../core';
 import { modulesCopy } from '../../../../assets';
 import {
@@ -11,7 +11,7 @@ import {
 import { generateProposalAction } from '../actions/generators/proposalAction';
 import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
 import type { IProposalAction } from '../proposalActionsTypes';
-import { type IProposalActionsActionProps, ProposalActionsAction } from './proposalActionsAction';
+import { ProposalActionsAction, type IProposalActionsActionProps } from './proposalActionsAction';
 
 jest.mock('../actions', () => ({
     ProposalActionWithdrawToken: () => <div data-testid="withdraw-token" />,
@@ -22,8 +22,14 @@ jest.mock('../actions', () => ({
 }));
 
 describe('<ProposalActionsAction /> component', () => {
+    const scrollIntoViewSpy = jest.spyOn(HTMLElement.prototype, 'scrollIntoView');
+
+    afterEach(() => {
+        scrollIntoViewSpy.mockReset();
+    });
+
     const createTestComponent = (props?: Partial<IProposalActionsActionProps>) => {
-        const defaultProps: IProposalActionsActionProps = {
+        const completeProps: IProposalActionsActionProps = {
             action: generateProposalAction(),
             index: 0,
             ...props,
@@ -31,7 +37,7 @@ describe('<ProposalActionsAction /> component', () => {
 
         return (
             <Accordion.Container isMulti={true}>
-                <ProposalActionsAction {...defaultProps} />
+                <ProposalActionsAction {...completeProps} />
             </Accordion.Container>
         );
     };
@@ -60,6 +66,37 @@ describe('<ProposalActionsAction /> component', () => {
         const name = 'Custom Action Name';
         render(createTestComponent({ name, action }));
         expect(screen.getByText(name)).toBeInTheDocument();
+    });
+
+    it('updates view when dropdown value changes', async () => {
+        const action = generateProposalAction({ inputData: { function: '', contract: '', parameters: [] } });
+        const name = 'Custom Action Name';
+        render(createTestComponent({ action, name }));
+
+        await userEvent.click(screen.getByText(name));
+
+        await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
+        await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.decoded));
+        expect(screen.getByText(modulesCopy.proposalActionsActionDecodedView.valueHelper)).toBeInTheDocument();
+
+        await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
+        await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.raw));
+        expect(screen.getByText(modulesCopy.proposalActionsActionRawView.value)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalActionsActionRawView.to)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalActionsActionRawView.data)).toBeInTheDocument();
+    });
+
+    it('calls scrollIntoView when changing dropdown value', async () => {
+        const action = generateProposalAction({
+            inputData: { function: 'myFunction', contract: 'myContract', parameters: [] },
+        });
+        const name = 'Custom Action Name';
+        render(createTestComponent({ action, name }));
+
+        await userEvent.click(screen.getByText(name));
+        await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.dropdownLabel));
+        await userEvent.click(screen.getByText(modulesCopy.proposalActionsActionViewAsMenu.raw));
+        expect(scrollIntoViewSpy).toHaveBeenCalled();
     });
 
     it.each([
