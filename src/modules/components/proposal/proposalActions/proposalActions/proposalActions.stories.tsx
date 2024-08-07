@@ -32,7 +32,8 @@ export const MixedActions: Story = {
         actions: [
             generateProposalActionWithdrawToken({
                 to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-                token: generateToken({ name: 'Ether' }),
+                value: '1000000000000000000',
+                token: generateToken({ name: 'Ether', amount: '10' }),
             }),
             generateProposalActionUpdateMetadata(),
             generateProposalAction({ to: '0x6B175474E89094C44Da98b954EedeAC495271d0F' }),
