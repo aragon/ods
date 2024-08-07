@@ -13,8 +13,8 @@ export const generateProposalActionTokenMint = (
         function: 'Mint tokens',
         contract: 'GovernanceERC20',
         parameters: [
-            { type: 'address', value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE' },
-            { type: 'uint256', value: '2000000000000000000' },
+            { name: 'address', type: 'string', value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE' },
+            { name: 'tokenAmount', type: 'string', value: '2000000000000000000' },
         ],
     },
     receivers: [],

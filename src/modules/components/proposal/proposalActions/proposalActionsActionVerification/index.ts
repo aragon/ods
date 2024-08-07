@@ -1,4 +1,4 @@
 export {
     ProposalActionsActionVerification,
     type IProposalActionsActionVerificationProps,
-} from './proposalActionsActionVerfication';
+} from './proposalActionsActionVerification';

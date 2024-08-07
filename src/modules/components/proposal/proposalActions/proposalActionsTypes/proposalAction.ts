@@ -1,12 +1,20 @@
 export interface IProposalActionInputDataParameter {
     /**
-     * The type of the parameter (e.g. address, uint256, uint32, ..).
+     * The name of the parameter being passed.
+     */
+    name: string;
+    /**
+     * The type of the argument being passed.
      */
     type: string;
     /**
-     * The value of the parameter.
+     * The value of the argument being passed.
      */
-    value: string;
+    value: string | number;
+    /**
+     * The NatSpec notice for the parameter on the contract.
+     */
+    notice?: string;
 }
 
 export interface IProposalActionInputData {
@@ -40,7 +48,7 @@ export interface IProposalAction {
     /**
      * The value to send with the transaction.
      */
-    value: string | null;
+    value: string;
     /**
      * The type of the proposal action.
      */
