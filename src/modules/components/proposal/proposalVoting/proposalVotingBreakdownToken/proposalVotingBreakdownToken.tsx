@@ -75,8 +75,8 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
 
     const currentParticipationPercentage = (totalVotes / minParticipationToken) * 100;
 
-    const supportReached = winningOptionPercentage > supportThreshold;
-    const minParticipationReached = currentParticipationPercentage > minParticipation;
+    const supportReached = winningOptionPercentage >= supportThreshold;
+    const minParticipationReached = currentParticipationPercentage >= minParticipation;
 
     return (
         <Tabs.Content

@@ -16,6 +16,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update `<Wallet />` module component to only resolve user ENS name when name property is not set
 -   Fix expand behaviour of `TextAreaRichText` core component when used inside a dialog and hide the input label
 -   Fix `NumberInput` component to correctly update values on plus / minus buttons click
+-   Fix `ProposalVotingBreakdownToken` module component to display correct progress variant when min-participation and
+    support are equal to the threshold required.
 
 ### Added
 
