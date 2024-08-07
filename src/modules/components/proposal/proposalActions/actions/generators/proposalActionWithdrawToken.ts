@@ -3,11 +3,11 @@ import { ProposalActionType, type IProposalActionWithdrawToken } from '../../pro
 export const generateToken = (
     token?: Partial<IProposalActionWithdrawToken['token']>,
 ): IProposalActionWithdrawToken['token'] => ({
-    name: 'Ether',
-    symbol: 'ETH',
-    logo: 'https://etherscan.io/token/images/ether.png',
+    name: 'Dai Stablecoin',
+    symbol: 'DAI',
+    logo: 'https://cryptologos.cc/logos/multi-collateral-dai-dai-logo.png',
     decimals: 18,
-    priceUsd: '3218.25',
+    priceUsd: '1.00',
     address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
     ...token,
 });

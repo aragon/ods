@@ -62,6 +62,7 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
     const actionTitle = action.inputData == null ? copy.proposalActionsAction.notVerified : defaultTitle;
 
     const isDisabled = action.inputData == null;
+    const isNativeTransfer = action.value !== '0' && action.data === '0x';
 
     return (
         <Accordion.Item value={isDisabled ? '' : `${index}`} disabled={isDisabled}>
@@ -72,17 +73,18 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
                 </div>
             </Accordion.ItemHeader>
             <Accordion.ItemContent>
-                {action.value != null && action.value !== '0' && (
-                    <AlertCard
-                        variant="critical"
-                        message={copy.proposalActionsAction.nativeSendAlert}
-                        description={copy.proposalActionsAction.nativeSendDescription(
-                            formatUnits(BigInt(action.value), 18),
-                        )}
-                        className="mb-6 md:mb-8"
-                    />
-                )}
-                {ActionComponent}
+                <div className="flex flex-col gap-y-6 md:gap-y-8">
+                    {isNativeTransfer && (
+                        <AlertCard
+                            variant="critical"
+                            message={copy.proposalActionsAction.nativeSendAlert}
+                            description={copy.proposalActionsAction.nativeSendDescription(
+                                formatUnits(BigInt(action.value), 18),
+                            )}
+                        />
+                    )}
+                    {ActionComponent}
+                </div>
             </Accordion.ItemContent>
         </Accordion.Item>
     );

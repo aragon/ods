@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import { Accordion } from '../../../../../core';
 import { modulesCopy } from '../../../../assets';
 import {
@@ -74,10 +74,11 @@ describe('<ProposalActionsAction /> component', () => {
         expect(screen.getByTestId(testId)).toBeInTheDocument();
     });
 
-    it('renders AlertCard when action.value is not null and not "0"', async () => {
+    it('renders an alert when action.value is not "0" and data is native "0x"', async () => {
         const action = generateProposalAction({
             inputData: { function: '', contract: '', parameters: [] },
             value: '1000000000000000000',
+            data: '0x',
         });
         render(createTestComponent({ action }));
 
@@ -86,10 +87,11 @@ describe('<ProposalActionsAction /> component', () => {
         expect(screen.getByRole('alert')).toBeInTheDocument();
     });
 
-    it('does not render AlertCard when action.value is "0"', async () => {
+    it('does not render alert when action.value is "0" and action.data is not "0x"', async () => {
         const action = generateProposalAction({
             inputData: { function: '', contract: '', parameters: [] },
             value: '0',
+            data: '0x1234',
         });
         render(createTestComponent({ action }));
 
@@ -98,10 +100,11 @@ describe('<ProposalActionsAction /> component', () => {
         expect(screen.queryByRole('alert')).not.toBeInTheDocument();
     });
 
-    it('does not render AlertCard when action.value is null', async () => {
+    it('does not render alert when action.value is "0" and action.data is "0x"', async () => {
         const action = generateProposalAction({
             inputData: { function: '', contract: '', parameters: [] },
-            value: null,
+            value: '0',
+            data: '0x',
         });
         render(createTestComponent({ action }));
 

@@ -40,7 +40,7 @@ export interface IProposalAction {
     /**
      * The native currency value to send with the transaction.
      */
-    value: string | null;
+    value: string;
     /**
      * The type of the proposal action.
      */
