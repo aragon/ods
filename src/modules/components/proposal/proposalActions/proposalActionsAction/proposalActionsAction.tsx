@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { Accordion, Heading } from '../../../../../core';
+import { formatUnits } from 'viem';
+import { Accordion, AlertCard, Heading } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import {
@@ -70,7 +71,19 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
                     <ProposalActionsActionVerification action={action} />
                 </div>
             </Accordion.ItemHeader>
-            <Accordion.ItemContent>{ActionComponent}</Accordion.ItemContent>
+            <Accordion.ItemContent>
+                {action.value != null && action.value !== '0' && (
+                    <AlertCard
+                        variant="critical"
+                        message={copy.proposalActionsAction.nativeSendAlert}
+                        description={copy.proposalActionsAction.nativeSendDescription(
+                            formatUnits(BigInt(action.value), 18),
+                        )}
+                        className="mb-6 md:mb-8"
+                    />
+                )}
+                {ActionComponent}
+            </Accordion.ItemContent>
         </Accordion.Item>
     );
 };
