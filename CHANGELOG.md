@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Update `@typescript-eslint` packages to v8
+-   Update `eslint` to v9
 
 ## [1.0.42] - 2024-08-07
 
