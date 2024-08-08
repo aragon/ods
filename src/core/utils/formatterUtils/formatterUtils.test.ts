@@ -3,7 +3,7 @@ import { formatterUtils } from './formatterUtils';
 import { DateFormat, NumberFormat } from './formatterUtilsDefinitions';
 
 /* Using big values to fully test the formatter */
-/* eslint-disable @typescript-eslint/no-loss-of-precision */
+/* eslint-disable no-loss-of-precision */
 
 describe('formatter utils', () => {
     const originalNow = Settings.now;
