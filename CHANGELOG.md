@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Add Aragon logo, remove dark background options and create custom theme using Aragon branding for ODS storybook
+
 ### Changed
 
 -   Update `@typescript-eslint` packages to v8
