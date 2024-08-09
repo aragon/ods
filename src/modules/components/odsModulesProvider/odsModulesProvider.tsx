@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createContext, useContext, useMemo, type ReactNode } from 'react';
 import { createClient, http } from 'viem';
-import { State, WagmiProvider, createConfig, type Config } from 'wagmi';
+import { WagmiProvider, createConfig, type Config, type State } from 'wagmi';
 import { arbitrum, arbitrumSepolia, base, baseSepolia, mainnet, polygon, polygonAmoy, sepolia } from 'wagmi/chains';
 import { OdsCoreProvider, type IOdsCoreProviderProps } from '../../../core';
 import { modulesCopy, type ModulesCopy } from '../../assets';
