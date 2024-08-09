@@ -30,16 +30,8 @@ const preview: Preview = {
             default: 'neutral-50',
             values: [
                 {
-                    name: 'neutral-0',
-                    value: 'var(--ods-color-neutral-0)',
-                },
-                {
                     name: 'neutral-50',
                     value: 'var(--ods-color-neutral-50)',
-                },
-                {
-                    name: 'neutral-800',
-                    value: 'var(--ods-color-neutral-800)',
                 },
             ],
         },
