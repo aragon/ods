@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 -   Add Aragon logo, remove dark background options and create custom theme using Aragon branding for ODS storybook
+-   Update `OdsModulesProvider` to support `wagmiInitialState` configuration for Wagmi provider
 
 ### Changed
 
