@@ -17,7 +17,11 @@ export const generateProposalActionTokenMint = (
             { name: 'tokenAmount', type: 'string', value: '2000000000000000000' },
         ],
     },
-    receivers: [],
+    receiver: {
+        currentBalance: 0,
+        newBalance: 5,
+        address: '0x32c2FE388ABbB3e678D44DF6a0471086D705316a',
+    },
     tokenSupply: 10000,
     holdersCount: 500,
     tokenSymbol: 'PDC',

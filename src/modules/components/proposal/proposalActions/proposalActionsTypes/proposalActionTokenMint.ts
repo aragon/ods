@@ -21,7 +21,7 @@ export interface IProposalActionTokenMint extends IProposalAction {
     /**
      * Token receivers.
      */
-    receivers: IProposalActionTokenMintMetadataReceiver[];
+    receiver: IProposalActionTokenMintMetadataReceiver;
     /**
      * Total token supply.
      */
