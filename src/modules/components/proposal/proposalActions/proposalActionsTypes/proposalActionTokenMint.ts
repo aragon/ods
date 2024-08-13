@@ -6,11 +6,11 @@ export interface IProposalActionTokenMintMetadataReceiver extends ICompositeAddr
     /**
      * Receivers current token balance.
      */
-    currentBalance: number;
+    currentBalance: string;
     /**
      * Receivers new token balance after mint.
      */
-    newBalance: number;
+    newBalance: string;
 }
 
 export interface IProposalActionTokenMint extends IProposalAction {
@@ -21,15 +21,7 @@ export interface IProposalActionTokenMint extends IProposalAction {
     /**
      * Token receivers.
      */
-    receivers: IProposalActionTokenMintMetadataReceiver[];
-    /**
-     * Total token supply.
-     */
-    tokenSupply: number;
-    /**
-     * Holders token count.
-     */
-    holdersCount: number;
+    receiver: IProposalActionTokenMintMetadataReceiver;
     /**
      * Token Symbol.
      */
