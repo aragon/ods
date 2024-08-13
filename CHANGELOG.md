@@ -15,7 +15,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Update `@typescript-eslint` packages to v8
--   Remove "Summary" section from `ProposalActionTokenMint` module component and update action interface to only support one receiver
+-   Remove "Summary" section from `ProposalActionTokenMint` module component and update action interface to only support
+    one receiver
 
 ## [1.0.42] - 2024-08-07
 

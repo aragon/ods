@@ -24,8 +24,8 @@ export const Default: Story = {
             <ProposalActionTokenMint
                 action={generateProposalActionTokenMint({
                     receiver: {
-                        currentBalance: 0,
-                        newBalance: 5,
+                        currentBalance: '0',
+                        newBalance: '5',
                         address: '0x32c2FE388ABbB3e678D44DF6a0471086D705316a',
                     },
                 })}
