@@ -44,7 +44,16 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
                     {resolvedUserHandle}
                 </span>
             )}
-            {user && <MemberAvatar size="lg" ensName={user.name} address={user.address} avatarSrc={user.avatarSrc} />}
+            {user && (
+                <MemberAvatar
+                    size="lg"
+                    ensName={user.name}
+                    address={user.address}
+                    avatarSrc={user.avatarSrc}
+                    chainId={chainId}
+                    wagmiConfig={wagmiConfig}
+                />
+            )}
         </button>
     );
 };
