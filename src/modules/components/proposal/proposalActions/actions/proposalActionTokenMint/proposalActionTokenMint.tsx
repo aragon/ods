@@ -9,14 +9,13 @@ export const ProposalActionTokenMint: React.FC<IProposalActionTokenMintProps> = 
     const { tokenSymbol, receiver } = action;
     const { currentBalance, newBalance, address, name, avatarSrc } = receiver;
 
-    const mintedTokenAmount = newBalance - currentBalance;
+    const mintedTokenAmount = +newBalance - +currentBalance;
 
     return (
         <div className="flex w-full flex-col gap-8">
             <DataList.Root entityLabel="proposalActionTokenMintReceivers">
-                <DataList.Container className="grid grid-cols-1 gap-2 md:grid-cols-2">
+                <DataList.Container>
                     <MemberDataListItemStructure
-                        key={address}
                         className="w-full"
                         address={address}
                         ensName={name}

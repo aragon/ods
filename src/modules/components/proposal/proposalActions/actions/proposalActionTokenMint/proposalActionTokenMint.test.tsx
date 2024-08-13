@@ -23,28 +23,30 @@ describe('<ProposalActionTokenMint /> component', () => {
         );
     };
 
-    it('renders the correct number of MemberDataListItemStructure components', () => {
+    it('renders a Member when a receiver is passed correctly', () => {
         const receiver = {
-            currentBalance: 0,
-            newBalance: 5,
+            currentBalance: '0',
+            newBalance: '5',
             address: '0x32c2FE388ABbB3e678D44DF6a0471086D705316a',
         };
         const action = generateProposalActionTokenMint({ receiver });
         render(createTestComponent({ action }));
-        const memberItems = screen.getAllByTestId('member-data-list-item');
-        expect(memberItems.length).toBe(1);
+        const memberItems = screen.getByTestId('member-data-list-item');
+        expect(memberItems).toBeInTheDocument();
     });
 
-    it('renders the correct token amount for each MemberDataListItemStructure component', () => {
+    it('renders the correct token amount being minted for the receiver', () => {
         const receiver = {
-            currentBalance: 50,
-            newBalance: 200,
+            currentBalance: '50',
+            newBalance: '200',
             address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
         };
         const tokenSymbol = 'PDC';
         const action = generateProposalActionTokenMint({ receiver, tokenSymbol });
         render(createTestComponent({ action }));
-        expect(screen.getByText(`${receiver.newBalance - receiver.currentBalance} ${tokenSymbol}`)).toBeInTheDocument();
+        expect(
+            screen.getByText(`${+receiver.newBalance - +receiver.currentBalance} ${tokenSymbol}`),
+        ).toBeInTheDocument();
     });
 
     it('does not render Voting Power label', () => {
