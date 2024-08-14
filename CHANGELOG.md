@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+-   Update `<Wallet />` module component to correctly propagate custom `chainId` and `wagmi` configs to
+    `<MemberAvatar />` component
+
 ## [1.0.43] - 2024-08-13
 
 ### Added

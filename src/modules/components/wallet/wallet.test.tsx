@@ -6,7 +6,7 @@ import { OdsModulesProvider } from '../odsModulesProvider';
 import { Wallet, type IWalletProps } from './wallet';
 
 jest.mock('../member', () => ({
-    MemberAvatar: () => <div data-testid="member-avatar-mock" />,
+    MemberAvatar: (props: { chainId: number }) => <div data-testid="member-avatar-mock" data-chainid={props.chainId} />,
 }));
 
 jest.mock('../../utils/addressUtils', () => ({
@@ -89,7 +89,10 @@ describe('<Wallet /> component', () => {
     it('supports custom chainId and wagmi configurations', () => {
         const chainId = 137;
         const wagmiConfig = { chains: [sepolia] } as unknown as wagmi.Config;
-        render(createTestComponent({ chainId, wagmiConfig }));
+        const user = { address: '0x0987654321098765432109876543210987654321' };
+        render(createTestComponent({ user, chainId, wagmiConfig }));
         expect(useEnsNameMock).toHaveBeenCalledWith(expect.objectContaining({ chainId, config: wagmiConfig }));
+        const avatar = screen.getByTestId('member-avatar-mock');
+        expect(avatar.dataset.chainid).toEqual(chainId.toString());
     });
 });
