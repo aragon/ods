@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { RadioGroup, type IRadioGroupProps } from '..';
 import { Radio } from '../radio';
+import { RadioGroup, type IRadioGroupProps } from './radioGroup';
 
 describe('<RadioGroup /> component', () => {
     const createTestComponent = (props?: Partial<IRadioGroupProps>) => {

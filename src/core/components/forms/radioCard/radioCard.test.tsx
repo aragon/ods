@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { RadioGroup } from '..';
-import { IconType } from '../../../icon';
+import { IconType } from '../../icon';
 import { RadioCard, type IRadioCardProps } from './radioCard';
 
 jest.mock('../../../avatars', () => ({

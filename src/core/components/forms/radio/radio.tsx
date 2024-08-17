@@ -1,7 +1,7 @@
 import { RadioGroupIndicator, RadioGroupItem } from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
 import { forwardRef, useId, type ComponentProps } from 'react';
-import { Icon, IconType } from '../../../icon';
+import { Icon, IconType } from '../../icon';
 
 export interface IRadioProps extends ComponentProps<'button'> {
     /**

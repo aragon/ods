@@ -1,6 +1,6 @@
 import { RadioGroup as PrimitiveRadioGroup } from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
-import { forwardRef, type ComponentProps } from 'react';
+import { type ComponentProps, forwardRef } from 'react';
 
 export interface IRadioGroupProps extends Omit<ComponentProps<'div'>, 'dir'> {
     /**
@@ -27,6 +27,7 @@ export interface IRadioGroupProps extends Omit<ComponentProps<'div'>, 'dir'> {
 
 export const RadioGroup = forwardRef<HTMLDivElement, IRadioGroupProps>((props, ref) => {
     const { className, value, defaultValue, onValueChange, name, disabled, ...rest } = props;
+
     return (
         <PrimitiveRadioGroup
             ref={ref}
