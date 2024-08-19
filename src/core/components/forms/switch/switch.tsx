@@ -1,6 +1,7 @@
 import * as RadixSwitch from '@radix-ui/react-switch';
 import classNames from 'classnames';
-import { useId, type HtmlHTMLAttributes } from 'react';
+import { type HtmlHTMLAttributes } from 'react';
+import { useRandomId } from '../../../hooks';
 
 export interface ISwitchProps extends HtmlHTMLAttributes<HTMLDivElement> {
     /**
@@ -40,38 +41,28 @@ export interface ISwitchProps extends HtmlHTMLAttributes<HTMLDivElement> {
     onCheckedChanged?: (checked: boolean) => void;
 }
 
-/**
- * Switch component
- */
 export const Switch: React.FC<ISwitchProps> = (props) => {
     const {
         checked,
         className,
         defaultChecked = false,
         disabled = false,
-        id: propId,
+        id,
         label,
         name,
         onCheckedChanged,
         ...otherProps
     } = props;
 
-    // use randomly generated id when non provided
-    const internalId = useId();
-    const id = propId ?? internalId;
+    const randomId = useRandomId(id);
 
-    const switchProps = {
-        id,
-        name,
-        checked,
-        disabled,
-        defaultChecked,
-    };
+    const switchProps = { name, checked, disabled, defaultChecked };
 
     return (
         <div className={classNames('inline-flex items-center', className)} {...otherProps}>
             <RadixSwitch.Root
                 onCheckedChange={onCheckedChanged}
+                id={randomId}
                 className={classNames(
                     'group peer w-10 cursor-default rounded-[40px] border border-neutral-200 bg-neutral-0 p-1 shadow-neutral-sm', // Default
                     'data-[state=checked]:border-primary-400 data-[state=checked]:shadow-primary', // Checked

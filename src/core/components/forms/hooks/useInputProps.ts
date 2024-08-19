@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import { useEffect, useId, useState, type ChangeEvent, type InputHTMLAttributes } from 'react';
+import { useEffect, useState, type ChangeEvent, type InputHTMLAttributes } from 'react';
+import { useRandomId } from '../../../hooks';
 import type { IInputComponentProps, IInputContainerProps, InputComponentElement } from '../inputContainer';
 
 export interface IUseInputPropsResult<TElement extends InputComponentElement> {
@@ -38,10 +39,7 @@ export const useInputProps = <TElement extends InputComponentElement>(
         ...inputElementProps
     } = props;
 
-    // Set a random generated id to the input field when id property is not defined to properly link the
-    // input with the label
-    const randomId = useId();
-    const processedId = id ?? randomId;
+    const randomId = useRandomId();
 
     const [inputLength, setInputLength] = useState(0);
 

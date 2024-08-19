@@ -1,6 +1,7 @@
 import { RadioGroupIndicator, RadioGroupItem } from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
-import { forwardRef, useId, type ComponentProps } from 'react';
+import { forwardRef, type ComponentProps } from 'react';
+import { useRandomId } from '../../../hooks';
 import { Avatar } from '../../avatars';
 import { Icon, IconType } from '../../icon';
 import { Tag, type ITagProps } from '../../tag';
@@ -32,16 +33,11 @@ export interface IRadioCardProps extends ComponentProps<'button'> {
     disabled?: boolean;
 }
 
-/**
- * `RadioCard` component
- *
- * **NOTE**: The component must be used inside a `<RadioGroup />` component in order to work properly.
- */
 export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, ref) => {
     const { value, id, className, tag, avatar, label, description, disabled, ...rest } = props;
-    const randomId = useId();
-    const processedId = id ?? randomId;
-    const labelId = `${processedId}-label`;
+
+    const randomId = useRandomId(id);
+    const labelId = `${randomId}-label`;
 
     const containerClasses = classNames(
         'group h-16 rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 shadow-neutral-sm outline-none transition-all md:h-20 md:rounded-2xl md:px-6 md:py-4', // default
@@ -63,7 +59,7 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
 
     return (
         <RadioGroupItem
-            id={processedId}
+            id={randomId}
             ref={ref}
             value={value}
             disabled={disabled}
