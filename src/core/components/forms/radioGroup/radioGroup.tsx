@@ -1,8 +1,11 @@
 import { RadioGroup as PrimitiveRadioGroup } from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
-import { type ComponentProps, forwardRef } from 'react';
+import { forwardRef, type ReactNode } from 'react';
+import { useRandomId } from '../../../hooks';
+import { type IInputContainerBaseProps, InputContainer } from '../inputContainer';
 
-export interface IRadioGroupProps extends Omit<ComponentProps<'div'>, 'dir'> {
+export interface IRadioGroupProps
+    extends Pick<IInputContainerBaseProps, 'alert' | 'label' | 'helpText' | 'isOptional'> {
     /**
      * The value of the selected radio item.
      */
@@ -23,22 +26,36 @@ export interface IRadioGroupProps extends Omit<ComponentProps<'div'>, 'dir'> {
      * Whether the radio group is disabled.
      */
     disabled?: boolean;
+    /**
+     * Additional classes for the component.
+     */
+    className?: string;
+    /**
+     * Children of the component.
+     */
+    children?: ReactNode;
 }
 
 export const RadioGroup = forwardRef<HTMLDivElement, IRadioGroupProps>((props, ref) => {
-    const { className, value, defaultValue, onValueChange, name, disabled, ...rest } = props;
+    const { className, value, defaultValue, onValueChange, name, disabled, children, ...otherProps } = props;
+
+    const randomId = useRandomId();
 
     return (
-        <PrimitiveRadioGroup
-            ref={ref}
-            value={value}
-            defaultValue={defaultValue}
-            onValueChange={onValueChange}
-            name={name}
-            disabled={disabled}
-            className={classNames('flex min-w-0 flex-col gap-y-2 md:gap-y-3', className)}
-            {...rest}
-        />
+        <InputContainer id={randomId} useCustomWrapper={true} {...otherProps}>
+            <PrimitiveRadioGroup
+                ref={ref}
+                id={randomId}
+                value={value}
+                defaultValue={defaultValue}
+                onValueChange={onValueChange}
+                name={name}
+                disabled={disabled}
+                className={classNames('flex min-w-0 flex-col gap-y-2 md:gap-y-3', className)}
+            >
+                {children}
+            </PrimitiveRadioGroup>
+        </InputContainer>
     );
 });
 
