@@ -300,17 +300,10 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
         );
     }
 
-    const buttonProps = otherProps as ButtonHTMLAttributes<HTMLButtonElement>;
-    const buttonType = buttonProps.type ?? 'button';
+    const { type = 'button', ...buttonProps } = otherProps as ButtonHTMLAttributes<HTMLButtonElement>;
 
     return (
-        <button
-            disabled={isDisabled}
-            ref={ref as Ref<HTMLButtonElement>}
-            type={buttonType}
-            {...commonProps}
-            {...buttonProps}
-        >
+        <button disabled={isDisabled} ref={ref as Ref<HTMLButtonElement>} type={type} {...commonProps} {...buttonProps}>
             {buttonContent}
         </button>
     );
