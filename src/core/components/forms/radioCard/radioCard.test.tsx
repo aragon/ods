@@ -4,7 +4,7 @@ import { RadioGroup } from '..';
 import { IconType } from '../../icon';
 import { RadioCard, type IRadioCardProps } from './radioCard';
 
-jest.mock('../../../avatars', () => ({
+jest.mock('../../avatars', () => ({
     Avatar: () => <div data-testid="avatar" />,
 }));
 

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { RadioGroup } from '..';
-import { IconType } from '../../../icon';
+import { IconType } from '../../icon';
 import { Radio, type IRadioProps } from './radio';
 
 describe('<Radio/> component', () => {
