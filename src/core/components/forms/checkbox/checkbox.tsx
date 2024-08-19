@@ -1,6 +1,7 @@
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
 import classNames from 'classnames';
-import { forwardRef, useId, type ComponentProps } from 'react';
+import { forwardRef, type ComponentProps } from 'react';
+import { useRandomId } from '../../../hooks';
 import { Icon, IconType } from '../../icon';
 
 export type CheckboxState = boolean | 'indeterminate';
@@ -36,9 +37,7 @@ export interface ICheckboxProps extends ComponentProps<'button'> {
 export const Checkbox = forwardRef<HTMLButtonElement, ICheckboxProps>((props, ref) => {
     const { label, labelPosition = 'right', checked, onCheckedChange, disabled, id, className, ...otherProps } = props;
 
-    // Generate random id if id property is not set
-    const randomId = useId();
-    const processedId = id ?? randomId;
+    const randomId = useRandomId(id);
 
     return (
         <div
@@ -50,7 +49,7 @@ export const Checkbox = forwardRef<HTMLButtonElement, ICheckboxProps>((props, re
             )}
         >
             <RadixCheckbox.Root
-                id={processedId}
+                id={randomId}
                 checked={checked}
                 onCheckedChange={onCheckedChange}
                 disabled={disabled}
@@ -83,7 +82,7 @@ export const Checkbox = forwardRef<HTMLButtonElement, ICheckboxProps>((props, re
                 </RadixCheckbox.Indicator>
             </RadixCheckbox.Root>
             <label
-                htmlFor={processedId}
+                htmlFor={randomId}
                 className={classNames(
                     'cursor-pointer text-sm font-normal leading-tight text-neutral-500 md:text-base',
                     'group-hover/root:text-neutral-800',
