@@ -81,7 +81,7 @@ export const Switch: React.FC<ISwitchProps> = (props) => {
             </RadixSwitch.Root>
             {label && (
                 <label
-                    htmlFor={id}
+                    htmlFor={randomId}
                     className={classNames(
                         'pl-2 text-sm font-normal leading-tight text-neutral-500 md:pl-3 md:text-base', // Default
                         'peer-data-[state=checked]:text-neutral-800', // Checked
