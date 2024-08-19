@@ -39,7 +39,7 @@ export const useInputProps = <TElement extends InputComponentElement>(
         ...inputElementProps
     } = props;
 
-    const randomId = useRandomId();
+    const randomId = useRandomId(id);
 
     const [inputLength, setInputLength] = useState(0);
 
@@ -55,7 +55,7 @@ export const useInputProps = <TElement extends InputComponentElement>(
         isOptional,
         alert,
         disabled,
-        id: processedId,
+        id: randomId,
         maxLength,
         className,
         inputLength,
@@ -69,7 +69,7 @@ export const useInputProps = <TElement extends InputComponentElement>(
     );
 
     const inputProps = {
-        id: processedId,
+        id: randomId,
         disabled: disabled,
         className: inputClasses,
         onChange: handleOnChange,
