@@ -75,22 +75,22 @@ __metadata:
     "@svgr/rollup": "npm:^8.1.0"
     "@svgr/webpack": "npm:^8.1.0"
     "@tailwindcss/typography": "npm:^0.5.14"
-    "@tanstack/react-query": "npm:^5.51.23"
+    "@tanstack/react-query": "npm:^5.51.24"
     "@testing-library/dom": "npm:^10.4.0"
     "@testing-library/jest-dom": "npm:^6.4.8"
     "@testing-library/react": "npm:^16.0.0"
     "@testing-library/user-event": "npm:^14.5.2"
-    "@tiptap/extension-code-block": "npm:^2.5.0"
-    "@tiptap/extension-image": "npm:^2.5.0"
-    "@tiptap/extension-link": "npm:^2.5.0"
-    "@tiptap/extension-placeholder": "npm:^2.5.0"
-    "@tiptap/pm": "npm:^2.5.0"
-    "@tiptap/react": "npm:^2.5.0"
-    "@tiptap/starter-kit": "npm:^2.5.0"
+    "@tiptap/extension-code-block": "npm:^2.6.0"
+    "@tiptap/extension-image": "npm:^2.6.0"
+    "@tiptap/extension-link": "npm:^2.6.0"
+    "@tiptap/extension-placeholder": "npm:^2.6.0"
+    "@tiptap/pm": "npm:^2.6.0"
+    "@tiptap/react": "npm:^2.6.0"
+    "@tiptap/starter-kit": "npm:^2.6.0"
     "@types/jest": "npm:^29.5.12"
     "@types/luxon": "npm:^3.4.2"
     "@types/react-dom": "npm:^18.3.0"
-    "@types/sanitize-html": "npm:^2.9.0"
+    "@types/sanitize-html": "npm:^2.13.0"
     "@typescript-eslint/eslint-plugin": "npm:^8.1.0"
     "@typescript-eslint/parser": "npm:^8.1.0"
     autoprefixer: "npm:^10.4.20"
@@ -109,7 +109,7 @@ __metadata:
     husky: "npm:^9.1.4"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
-    lint-staged: "npm:^15.2.8"
+    lint-staged: "npm:^15.2.9"
     luxon: "npm:^3.5.0"
     postcss: "npm:^8.4.41"
     postcss-loader: "npm:^8.1.1"
@@ -120,17 +120,17 @@ __metadata:
     react-dom: "npm:^18.3.1"
     react-dropzone: "npm:^14.2.0"
     react-imask: "npm:7.5.0"
-    rollup: "npm:^4.20.0"
+    rollup: "npm:^4.21.0"
     rollup-plugin-peer-deps-external: "npm:^2.2.4"
     rollup-plugin-postcss: "npm:^4.0.2"
     rollup-plugin-visualizer: "npm:^5.12.0"
     sanitize-html: "npm:^2.13.0"
     storybook: "npm:^8.2.8"
-    tailwindcss: "npm:^3.4.9"
+    tailwindcss: "npm:^3.4.10"
     tiptap-markdown: "npm:^0.8.10"
     ts-jest: "npm:^29.2.4"
     typescript: "npm:^5.5.4"
-    viem: "npm:^2.19.4"
+    viem: "npm:^2.19.7"
     wagmi: "npm:^2.12.5"
   peerDependencies:
     "@tailwindcss/typography": ^0.5.0
@@ -4995,7 +4995,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^5.51.23":
+"@tanstack/react-query@npm:^5.51.24":
   version: 5.51.24
   resolution: "@tanstack/react-query@npm:5.51.24"
   dependencies:
@@ -5115,7 +5115,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-code-block@npm:^2.5.0, @tiptap/extension-code-block@npm:^2.6.4":
+"@tiptap/extension-code-block@npm:^2.6.0, @tiptap/extension-code-block@npm:^2.6.4":
   version: 2.6.4
   resolution: "@tiptap/extension-code-block@npm:2.6.4"
   peerDependencies:
@@ -5213,7 +5213,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-image@npm:^2.5.0":
+"@tiptap/extension-image@npm:^2.6.0":
   version: 2.6.4
   resolution: "@tiptap/extension-image@npm:2.6.4"
   peerDependencies:
@@ -5231,7 +5231,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-link@npm:^2.5.0":
+"@tiptap/extension-link@npm:^2.6.0":
   version: 2.6.4
   resolution: "@tiptap/extension-link@npm:2.6.4"
   dependencies:
@@ -5270,7 +5270,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-placeholder@npm:^2.5.0":
+"@tiptap/extension-placeholder@npm:^2.6.0":
   version: 2.6.4
   resolution: "@tiptap/extension-placeholder@npm:2.6.4"
   peerDependencies:
@@ -5298,7 +5298,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/pm@npm:^2.5.0, @tiptap/pm@npm:^2.6.4":
+"@tiptap/pm@npm:^2.6.0, @tiptap/pm@npm:^2.6.4":
   version: 2.6.4
   resolution: "@tiptap/pm@npm:2.6.4"
   dependencies:
@@ -5324,7 +5324,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/react@npm:^2.5.0":
+"@tiptap/react@npm:^2.6.0":
   version: 2.6.4
   resolution: "@tiptap/react@npm:2.6.4"
   dependencies:
@@ -5341,7 +5341,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/starter-kit@npm:^2.5.0":
+"@tiptap/starter-kit@npm:^2.6.0":
   version: 2.6.4
   resolution: "@tiptap/starter-kit@npm:2.6.4"
   dependencies:
@@ -5784,7 +5784,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/sanitize-html@npm:^2.9.0":
+"@types/sanitize-html@npm:^2.13.0":
   version: 2.13.0
   resolution: "@types/sanitize-html@npm:2.13.0"
   dependencies:
@@ -12624,7 +12624,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^15.2.8":
+"lint-staged@npm:^15.2.9":
   version: 15.2.9
   resolution: "lint-staged@npm:15.2.9"
   dependencies:
@@ -16105,7 +16105,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^4.20.0":
+"rollup@npm:^4.21.0":
   version: 4.21.0
   resolution: "rollup@npm:4.21.0"
   dependencies:
@@ -17153,7 +17153,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^3.4.9":
+"tailwindcss@npm:^3.4.10":
   version: 3.4.10
   resolution: "tailwindcss@npm:3.4.10"
   dependencies:
@@ -18122,9 +18122,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:^2.1.1, viem@npm:^2.19.4":
-  version: 2.19.7
-  resolution: "viem@npm:2.19.7"
+"viem@npm:^2.1.1, viem@npm:^2.19.7":
+  version: 2.19.8
+  resolution: "viem@npm:2.19.8"
   dependencies:
     "@adraffy/ens-normalize": "npm:1.10.0"
     "@noble/curves": "npm:1.4.0"
@@ -18140,7 +18140,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/70270a7ebffaffed076a5315798321908f28d47b5affe8fbe1464f199b1de23bbb18ab86ace58f67f3179dd7d8dae0c42215c58bfa19528bf7dd146be6d34d48
+  checksum: 10c0/abc3de07ccccf50948a04c5924d3cd0ab30c4d7f47ef797669e2977d802c7b99ff090f4544e5acb2eeb6e1773976396142514b8ece5b04436adf6683ee5b2a57
   languageName: node
   linkType: hard
 
