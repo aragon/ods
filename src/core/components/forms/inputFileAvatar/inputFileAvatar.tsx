@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import { useCallback, useState } from 'react';
 import { ErrorCode, useDropzone, type FileRejection } from 'react-dropzone';
+import { useRandomId } from '../../../hooks';
 import { Avatar } from '../../avatars';
 import { Icon, IconType } from '../../icon';
 import { Spinner } from '../../spinner';
-import { useInputProps } from '../hooks';
 import { InputContainer, type InputVariant } from '../inputContainer';
 import { InputFileAvatarError, type IInputFileAvatarProps } from './inputFileAvatar.api';
 
@@ -39,23 +39,25 @@ const dropzoneErrorToError: Record<string, InputFileAvatarError | undefined> = {
     [ErrorCode.TooManyFiles]: InputFileAvatarError.TOO_MANY_FILES,
 };
 
-export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
-    onFileSelect,
-    onFileError,
-    maxFileSize,
-    minDimension,
-    maxDimension,
-    acceptedFileTypes = { 'image/png': [], 'image/gif': [], 'image/jpeg': ['.jpg', '.jpeg'] },
-    onlySquare,
-    variant = 'default',
-    disabled,
-    ...otherProps
-}) => {
+export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
+    const {
+        onFileSelect,
+        onFileError,
+        maxFileSize,
+        minDimension,
+        maxDimension,
+        acceptedFileTypes = { 'image/png': [], 'image/gif': [], 'image/jpeg': ['.jpg', '.jpeg'] },
+        onlySquare,
+        variant = 'default',
+        disabled,
+        ...otherProps
+    } = props;
+
+    const { id, ...containerProps } = otherProps;
+    const randomId = useRandomId(id);
+
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
-
-    const { containerProps } = useInputProps(otherProps);
-    const { id, ...otherContainerProps } = containerProps;
 
     const onDrop = useCallback(
         (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
@@ -124,9 +126,9 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = ({
     );
 
     return (
-        <InputContainer id={id} useCustomWrapper={true} {...otherContainerProps}>
+        <InputContainer id={randomId} useCustomWrapper={true} {...containerProps}>
             <div {...getRootProps()} className={inputAvatarClassNames}>
-                <input {...getInputProps()} id={id} />
+                <input {...getInputProps()} id={randomId} />
                 {imagePreview ? (
                     <div className="relative">
                         <Avatar src={imagePreview} size="lg" className="cursor-pointer" data-testid="avatar" />

@@ -20,7 +20,7 @@ type Story = StoryObj<typeof Switch>;
  */
 export const Uncontrolled: Story = {
     args: {
-        label: 'Show testnets',
+        inlineLabel: 'Show testnets',
         name: 'testnet',
         defaultChecked: true,
         onCheckedChanged: undefined,
@@ -37,7 +37,7 @@ export const Controlled: Story = {
         return <Switch checked={checked} onCheckedChanged={setChecked} {...props} />;
     },
     args: {
-        label: 'Show testnets',
+        inlineLabel: 'Show testnets',
         name: 'testnet',
     },
 };

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { CheckboxCard } from './checkboxCard';
 
 const meta: Meta<typeof CheckboxCard> = {
-    title: 'Core/Components/Checkbox/CheckboxCard',
+    title: 'Core/Components/Forms/CheckboxCard',
     component: CheckboxCard,
     argTypes: {
         disabled: { control: 'boolean' },

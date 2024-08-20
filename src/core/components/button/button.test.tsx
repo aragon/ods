@@ -100,4 +100,15 @@ describe('<Button /> component', () => {
         await user.click(screen.getByRole('link'));
         expect(onClick).toHaveBeenCalled();
     });
+
+    it('sets button type by default', () => {
+        render(createTestComponent());
+        expect(screen.getByRole<HTMLButtonElement>('button').type).toEqual('button');
+    });
+
+    it('allows customisation of button type', () => {
+        const type = 'submit';
+        render(createTestComponent({ type }));
+        expect(screen.getByRole<HTMLButtonElement>('button').type).toEqual(type);
+    });
 });

@@ -1,43 +1,33 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { RadioGroup } from '..';
-import { IconType } from '../../../icon';
-import { RadioCard, type IRadioCardProps } from './radioCard';
+import { IconType } from '../../icon';
+import { Radio, type IRadioProps } from './radio';
 
-jest.mock('../../../avatars', () => ({
-    Avatar: () => <div data-testid="avatar" />,
-}));
-
-describe('<RadioCard/> component', () => {
-    const createTestComponent = (props?: Partial<IRadioCardProps>) => {
-        const completeProps = { label: 'test label', value: 'test value', description: 'test description', ...props };
+describe('<Radio/> component', () => {
+    const createTestComponent = (props?: Partial<IRadioProps>) => {
+        const completeProps = { label: 'test label', value: 'test value', ...props };
 
         return (
             <RadioGroup name="Test Group">
-                <RadioCard {...completeProps} />;
+                <Radio {...completeProps} />
             </RadioGroup>
         );
     };
 
-    it('renders with avatar, label, description, tag, and unchecked radio button', async () => {
-        const avatar = 'avatar';
-        const description = 'Test Description';
-        const label = 'Test Label';
-        const tag = { label: 'Tag Label' };
+    it('renders a label and an unchecked radio button', () => {
+        const label = 'Test label';
 
-        render(createTestComponent({ avatar, description, label, tag }));
+        render(createTestComponent({ label }));
 
         const radioButton = screen.getByRole('radio');
 
         expect(radioButton).toBeInTheDocument();
         expect(radioButton).not.toBeChecked();
-        expect(screen.getByText(label)).toBeInTheDocument();
-        expect(screen.getByText(description)).toBeInTheDocument();
-        expect(screen.getByText(tag.label)).toBeInTheDocument();
-        expect(screen.getByTestId('avatar')).toBeInTheDocument();
+        expect(screen.getByLabelText(label)).toBeInTheDocument();
     });
 
-    it('renders the RADIO icon when unchecked', () => {
+    it('renders the RADIO_DEFAULT icon when unchecked', () => {
         render(createTestComponent());
 
         const uncheckedIcon = screen.getByTestId(IconType.RADIO);
@@ -71,5 +61,19 @@ describe('<RadioCard/> component', () => {
         render(createTestComponent({ value }));
 
         expect(screen.getByRole('radio')).toHaveValue(value);
+    });
+
+    it('sets the label position correctly when variant is left', () => {
+        const labelPosition = 'left';
+
+        render(createTestComponent({ labelPosition }));
+
+        expect(screen.getByRole('radio')).toHaveClass('order-2');
+    });
+
+    it('sets the label position to right by default', () => {
+        render(createTestComponent());
+
+        expect(screen.getByRole('radio')).not.toHaveClass('order-2');
     });
 });

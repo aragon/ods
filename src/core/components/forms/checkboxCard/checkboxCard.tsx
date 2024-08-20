@@ -1,6 +1,7 @@
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
 import classNames from 'classnames';
-import { forwardRef, useId, type ComponentProps } from 'react';
+import { forwardRef, type ComponentProps } from 'react';
+import { useRandomId } from '../../../hooks';
 import { Avatar } from '../../avatars';
 import { Icon, IconType } from '../../icon';
 import { Tag, type ITagProps } from '../../tag';
@@ -44,14 +45,12 @@ export interface ICheckboxCardProps extends ComponentProps<'button'> {
 export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((props, ref) => {
     const { id, avatar, label, description, tag, className, checked, onCheckedChange, disabled, ...otherProps } = props;
 
-    // Generate random id if id property is not set
-    const randomId = useId();
-    const processedId = id ?? randomId;
-    const labelId = `${processedId}-label`;
+    const randomId = useRandomId(id);
+    const labelId = `${randomId}-label`;
 
     return (
         <RadixCheckbox.Root
-            id={processedId}
+            id={randomId}
             ref={ref}
             aria-labelledby={labelId}
             checked={checked}
@@ -73,7 +72,7 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
             {avatar && <Avatar size="sm" responsiveSize={{ md: 'md' }} src={avatar} />}
             <div className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-sm font-normal leading-tight md:gap-1 md:text-base">
                 <p
-                    id={processedId}
+                    id={randomId}
                     className={classNames(
                         'max-w-full cursor-pointer truncate text-neutral-800 group-data-[state=unchecked]:text-neutral-800',
                         'group-data-[disabled]:cursor-default group-data-[disabled]:group-data-[state=unchecked]:text-neutral-300',

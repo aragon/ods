@@ -10,6 +10,8 @@ export * from './inputNumberMax';
 export * from './inputSearch';
 export * from './inputText';
 export * from './inputTime';
+export * from './radio';
+export * from './radioCard';
 export * from './radioGroup';
 export * from './switch';
 export * from './textArea';

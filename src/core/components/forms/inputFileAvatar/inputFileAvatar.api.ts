@@ -1,5 +1,5 @@
 import { type Accept } from 'react-dropzone';
-import { type IInputComponentProps } from '../inputContainer';
+import { type IInputContainerBaseProps } from '../inputContainer';
 
 export enum InputFileAvatarError {
     SQUARE_ONLY = 'square-only',
@@ -11,16 +11,7 @@ export enum InputFileAvatarError {
 }
 
 export interface IInputFileAvatarProps
-    extends Omit<
-        IInputComponentProps,
-        | 'maxLength'
-        | 'onChange'
-        | 'inputLength'
-        | 'wrapperClassName'
-        | 'useCustomWrapper'
-        | 'inputClassName'
-        | 'multiple'
-    > {
+    extends Pick<IInputContainerBaseProps, 'alert' | 'label' | 'helpText' | 'isOptional' | 'variant' | 'disabled'> {
     /**
      * Function that is called when a file is selected. Passes the file to the parent component.
      * If the file is rejected, the function is not called.
@@ -53,4 +44,8 @@ export interface IInputFileAvatarProps
      * If true, only square images are accepted.
      */
     onlySquare?: boolean;
+    /**
+     * Optional ID for the file avatar input.
+     */
+    id?: string;
 }

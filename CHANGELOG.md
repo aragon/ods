@@ -7,15 +7,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Implement `useRandomId` hook and update fields components to use it
+-   Update `<TextAreaRichText />` core component to expose `immediatelyRender` property for SSR usage
+-   Update `<RadioGroup />`, `<CheckboxGroup />` and `<Switch />` core components to render the `InputContainer`
+    component and support the label, helpText, alert and isOptional properties.
+
 ### Fixed
 
 -   Update `<Wallet />` module component to correctly propagate custom `chainId` and `wagmi` configs to
     `<MemberAvatar />` component
 -   Fix `FIAT_TOTAL_SHORT`, `FIAT_TOTAL_LONG`, `TOKEN_AMOUNT_SHORT` and `PERCENTAGE_SHORT` formats to truncate small
     numbers
+-   Hide ens loader indicator on `<Wallet />` module component for mobile devices
+-   Fix Storybook stories path of `<Checkbox />` core components
+-   Move `<Radio />` core components under `/forms` folder
+-   Fix `<InputFileAvatar />` props interface to only expose supported props
+-   Fix customisation of `z-index` property on `<TextAreaRichText />` core component
 
 ### Changed
 
+-   Default `type` attribute of `<Button />` core component to `button`
+-   Rename `label` property on `<Switch />` core component to `inlineLabel` to also support the existing `label`
+    property from the `InputContainer` component.
 -   Update minor and patch NPM dependencies
 -   Bump `elliptic` from `6.5.5` to `6.5.7`
 
