@@ -71,19 +71,16 @@ export const numberFormats: Record<NumberFormat, INumberFormat> = {
     },
     [NumberFormat.FIAT_TOTAL_SHORT]: {
         fixedFractionDigits: 2,
-        maxSignificantDigits: (value) => (Math.abs(value) < 0.01 ? 1 : undefined),
         useBaseSymbol: true,
         isCurrency: true,
     },
     [NumberFormat.FIAT_TOTAL_LONG]: {
         fixedFractionDigits: 2,
-        maxSignificantDigits: (value) => (Math.abs(value) < 0.01 ? 1 : undefined),
         isCurrency: true,
     },
     [NumberFormat.TOKEN_AMOUNT_SHORT]: {
         maxFractionDigits: 2,
         useBaseSymbol: true,
-        maxSignificantDigits: (value) => (Math.abs(value) < 0.01 ? 1 : undefined),
     },
     [NumberFormat.TOKEN_AMOUNT_LONG]: {
         maxFractionDigits: 18,
@@ -97,7 +94,6 @@ export const numberFormats: Record<NumberFormat, INumberFormat> = {
     },
     [NumberFormat.PERCENTAGE_SHORT]: {
         maxFractionDigits: 1,
-        maxSignificantDigits: (value) => (Math.abs(value) < 0.1 ? 1 : undefined),
         isPercentage: true,
     },
     [NumberFormat.PERCENTAGE_LONG]: {
