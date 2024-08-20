@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Remove "Summary" section from `ProposalActionTokenMint` module component and update action interface to only support
     one receiver
 -   Update minor and patch NPM dependencies
+-   Bump `elliptic` from `6.5.5` to `6.5.7`
 
 ## [1.0.42] - 2024-08-07
 
