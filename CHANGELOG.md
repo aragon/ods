@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Update minor and patch NPM dependencies
+-   Bump `elliptic` from `6.5.5` to `6.5.7`
 
 ## [1.0.43] - 2024-08-13
 
