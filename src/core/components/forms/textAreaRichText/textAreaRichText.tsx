@@ -103,7 +103,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
         <InputContainer
             disabled={disabled}
             className={classNames(className, {
-                'fixed left-0 top-0 z-[var(--ods---ods-text-area-rich-text-expanded-z-index)] h-screen w-full [&>label]:hidden':
+                'fixed left-0 top-0 z-[var(--ods-text-area-rich-text-expanded-z-index)] h-screen w-full [&>label]:hidden':
                     isExpanded,
             })}
             wrapperClassName={classNames('grow overflow-hidden', { '!rounded-none': isExpanded })}

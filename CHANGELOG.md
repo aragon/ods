@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Fix Storybook stories path of `<Checkbox />` core components
 -   Move `<Radio />` core components under `/forms` folder
 -   Fix `<InputFileAvatar />` props interface to only expose supported props
+-   Fix customisation of `z-index` property on `<TextAreaRichText />` core component
 
 ### Changed
 
