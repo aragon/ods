@@ -15,7 +15,7 @@ describe('<Switch /> component', () => {
     });
 
     it('renders with custom props', () => {
-        const customProps = { checked: true, id: 'customId', disabled: true, label: 'customLabel', name: 'customName' };
+        const customProps = { checked: true, id: 'customId', disabled: true, inlineLabel: 'customLabel' };
 
         render(createTestComponent(customProps));
 
@@ -27,10 +27,9 @@ describe('<Switch /> component', () => {
     });
 
     it('associates label correctly', () => {
-        const label = 'customLabel';
-        render(createTestComponent({ label }));
-
-        expect(screen.getByLabelText(label)).toBeInTheDocument();
+        const inlineLabel = 'customLabel';
+        render(createTestComponent({ inlineLabel }));
+        expect(screen.getByLabelText(inlineLabel)).toBeInTheDocument();
     });
 
     it('generates unique ID when no ID is provided', () => {

@@ -1,9 +1,9 @@
 import * as RadixSwitch from '@radix-ui/react-switch';
 import classNames from 'classnames';
-import { type HtmlHTMLAttributes } from 'react';
 import { useRandomId } from '../../../hooks';
+import { InputContainer, type IInputContainerBaseProps } from '../inputContainer';
 
-export interface ISwitchProps extends HtmlHTMLAttributes<HTMLDivElement> {
+export interface ISwitchProps extends Pick<IInputContainerBaseProps, 'alert' | 'label' | 'helpText' | 'isOptional'> {
     /**
      * Indicates whether the switch is checked
      */
@@ -27,9 +27,9 @@ export interface ISwitchProps extends HtmlHTMLAttributes<HTMLDivElement> {
      */
     id?: string;
     /**
-     * The label of the switch
+     * The inline label of the switch
      */
-    label?: string;
+    inlineLabel?: string;
     /**
      * The name of the switch
      */
@@ -48,7 +48,7 @@ export const Switch: React.FC<ISwitchProps> = (props) => {
         defaultChecked = false,
         disabled = false,
         id,
-        label,
+        inlineLabel,
         name,
         onCheckedChanged,
         ...otherProps
@@ -56,41 +56,45 @@ export const Switch: React.FC<ISwitchProps> = (props) => {
 
     const randomId = useRandomId(id);
 
-    const switchProps = { name, checked, disabled, defaultChecked };
+    const switchClassNames = classNames(
+        'group peer w-10 cursor-default rounded-[40px] border border-neutral-200 bg-neutral-0 p-1 shadow-neutral-sm', // Default
+        'data-[state=checked]:border-primary-400 data-[state=checked]:shadow-primary', // Checked
+        'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // Focus
+        'disabled:bg-neutral-100 disabled:data-[state=checked]:border-neutral-200 disabled:data-[state=checked]:shadow-none', // Disabled
+    );
+
+    const thumbClassNames = classNames(
+        'block size-4 rounded-full bg-neutral-300 transition-transform duration-100 will-change-transform', // Default
+        'data-[state=checked]:translate-x-[14px] data-[state=checked]:bg-primary-400', // Checked
+        'group-disabled:bg-neutral-200 group-disabled:data-[state=checked]:bg-neutral-300', // Disabled
+    );
+
+    const labelClassNames = classNames(
+        'pl-2 text-sm font-normal leading-tight text-neutral-500 md:pl-3 md:text-base', // Default
+        'peer-data-[state=checked]:text-neutral-800', // Checked
+        'peer-disabled:text-neutral-300 peer-disabled:peer-data-[state=checked]:text-neutral-800', // Disabled
+    );
 
     return (
-        <div className={classNames('inline-flex items-center', className)} {...otherProps}>
-            <RadixSwitch.Root
-                onCheckedChange={onCheckedChanged}
-                id={randomId}
-                className={classNames(
-                    'group peer w-10 cursor-default rounded-[40px] border border-neutral-200 bg-neutral-0 p-1 shadow-neutral-sm', // Default
-                    'data-[state=checked]:border-primary-400 data-[state=checked]:shadow-primary', // Checked
-                    'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // Focus
-                    'disabled:bg-neutral-100 disabled:data-[state=checked]:border-neutral-200 disabled:data-[state=checked]:shadow-none', // Disabled
-                )}
-                {...switchProps}
-            >
-                <RadixSwitch.Thumb
-                    className={classNames(
-                        'block size-4 rounded-full bg-neutral-300 transition-transform duration-100 will-change-transform', // Default
-                        'data-[state=checked]:translate-x-[14px] data-[state=checked]:bg-primary-400', // Checked
-                        'group-disabled:bg-neutral-200 group-disabled:data-[state=checked]:bg-neutral-300', // Disabled
-                    )}
-                />
-            </RadixSwitch.Root>
-            {label && (
-                <label
-                    htmlFor={randomId}
-                    className={classNames(
-                        'pl-2 text-sm font-normal leading-tight text-neutral-500 md:pl-3 md:text-base', // Default
-                        'peer-data-[state=checked]:text-neutral-800', // Checked
-                        'peer-disabled:text-neutral-300 peer-disabled:peer-data-[state=checked]:text-neutral-800', // Disabled
-                    )}
+        <InputContainer id={randomId} useCustomWrapper={true} {...otherProps}>
+            <div className={classNames('inline-flex items-center', className)}>
+                <RadixSwitch.Root
+                    onCheckedChange={onCheckedChanged}
+                    id={randomId}
+                    className={switchClassNames}
+                    name={name}
+                    checked={checked}
+                    disabled={disabled}
+                    defaultChecked={defaultChecked}
                 >
-                    <span>{label}</span>
-                </label>
-            )}
-        </div>
+                    <RadixSwitch.Thumb className={thumbClassNames} />
+                </RadixSwitch.Root>
+                {inlineLabel && (
+                    <label htmlFor={randomId} className={labelClassNames}>
+                        {inlineLabel}
+                    </label>
+                )}
+            </div>
+        </InputContainer>
     );
 };

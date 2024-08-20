@@ -11,8 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `useRandomId` hook and update fields components to use it
 -   Update `<TextAreaRichText />` core component to expose `immediatelyRender` property for SSR usage
--   Update `<RadioGroup />` and `<CheckboxGroup />` core components to render the `InputContainer` component and support
-    the label, helpText, alert and isOptional properties.
+-   Update `<RadioGroup />`, `<CheckboxGroup />` and `<Switch />` core components to render the `InputContainer`
+    component and support the label, helpText, alert and isOptional properties.
 
 ### Fixed
 
@@ -28,6 +28,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Default `type` attribute of `<Button />` core component to `button`
+-   Rename `label` property on `<Switch />` core component to `inlineLabel` to also support the existing `label`
+    property from the `InputContainer` component.
 -   Update minor and patch NPM dependencies
 -   Bump `elliptic` from `6.5.5` to `6.5.7`
 
