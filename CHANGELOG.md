@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.44] - 2024-08-20
+
 ### Added
 
 -   Implement `useRandomId` hook and update fields components to use it
