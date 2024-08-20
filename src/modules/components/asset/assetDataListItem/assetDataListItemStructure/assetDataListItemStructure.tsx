@@ -73,7 +73,7 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
     });
 
     const formattedPriceChangedPercentage = formatterUtils.formatNumber(priceChange / 100, {
-        format: NumberFormat.PERCENTAGE_SHORT,
+        format: NumberFormat.PERCENTAGE_LONG,
         withSign: true,
     });
 
