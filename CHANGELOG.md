@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update `<Wallet />` module component to correctly propagate custom `chainId` and `wagmi` configs to
     `<MemberAvatar />` component
 
+### Changed
+
+-   Update minor and patch NPM dependencies
+
 ## [1.0.43] - 2024-08-13
 
 ### Added
