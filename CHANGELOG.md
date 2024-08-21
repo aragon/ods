@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+-   Use correct percentage formatting on `<AssetDataListItem />` module component
+
 ## [1.0.44] - 2024-08-20
 
 ### Added
