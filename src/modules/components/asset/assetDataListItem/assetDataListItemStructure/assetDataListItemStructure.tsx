@@ -26,7 +26,7 @@ export interface IAssetDataListItemStructureProps extends IDataListItemProps {
      */
     fiatPrice?: number | string;
     /**
-     * The price change in percentage of the asset (E.g. in last 24h).
+     * The price change in percentage of the asset.
      * @default 0
      */
     priceChange?: number;
@@ -34,6 +34,8 @@ export interface IAssetDataListItemStructureProps extends IDataListItemProps {
 
 export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructureProps> = (props) => {
     const { logoSrc, name, amount, symbol, fiatPrice, priceChange = 0, ...otherProps } = props;
+
+    const { copy } = useOdsModulesContext();
 
     const fiatAmount = Number(amount ?? 0) * Number(fiatPrice ?? 0);
 
@@ -45,8 +47,6 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
         const oldFiatAmount = (100 / (priceChange + 100)) * fiatAmount;
         return fiatAmount - oldFiatAmount;
     }, [fiatAmount, fiatPrice, priceChange]);
-
-    const { copy } = useOdsModulesContext();
 
     const changedAmountClasses = classNames(
         'text-sm font-normal leading-tight md:text-base',
