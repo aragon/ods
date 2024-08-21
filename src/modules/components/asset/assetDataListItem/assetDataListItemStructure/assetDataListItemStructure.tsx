@@ -37,7 +37,7 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
 
     const { copy } = useOdsModulesContext();
 
-    const fiatAmount = Number(amount ?? 0) * Number(fiatPrice ?? 0);
+    const fiatAmount = Number(amount) * Number(fiatPrice ?? 0);
 
     const fiatAmountChanged = useMemo(() => {
         if (!fiatPrice || !priceChange) {
@@ -45,6 +45,7 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
         }
 
         const oldFiatAmount = (100 / (priceChange + 100)) * fiatAmount;
+
         return fiatAmount - oldFiatAmount;
     }, [fiatAmount, fiatPrice, priceChange]);
 
