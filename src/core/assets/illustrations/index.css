@@ -1,0 +1,4 @@
+:root {
+  --ods-illustration-primary: var(--ods-color-primary-400);
+  --ods-illustration-secondary: var(--ods-color-primary-900);
+}
