@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Update illustration SVGs with custom CSS color customizations
+
 ### Fixed
 
 -   Use correct percentage formatting on `<AssetDataListItem />` module component
