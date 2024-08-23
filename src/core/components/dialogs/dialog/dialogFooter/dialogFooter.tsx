@@ -33,8 +33,8 @@ export interface IDialogFooterProps extends ComponentPropsWithoutRef<'div'> {
  */
 export const DialogFooter: React.FC<IDialogFooterProps> = (props) => {
     const { alert, primaryAction, secondaryAction, ...otherProps } = props;
-    const { label: primaryLabel, ...primaryBtnProps } = primaryAction ?? {};
-    const { label: secondaryLabel, ...secondaryButtonProps } = secondaryAction ?? {};
+    const { label: primaryLabel, ...primaryBtnProps } = primaryAction ?? { label: '' };
+    const { label: secondaryLabel, ...secondaryButtonProps } = secondaryAction ?? { label: '' };
 
     const renderButtonGroup = !!primaryAction || !!secondaryAction;
 
