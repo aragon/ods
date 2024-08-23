@@ -6,7 +6,7 @@ export type IDialogFooterAction = (
     | Pick<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
     | Pick<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'>
 ) &
-    Pick<IButtonBaseProps, 'iconRight' | 'iconLeft'> & {
+    Pick<IButtonBaseProps, 'iconRight' | 'iconLeft' | 'disabled' | 'isLoading'> & {
         /**
          * Button label
          */
@@ -33,8 +33,8 @@ export interface IDialogFooterProps extends ComponentPropsWithoutRef<'div'> {
  */
 export const DialogFooter: React.FC<IDialogFooterProps> = (props) => {
     const { alert, primaryAction, secondaryAction, ...otherProps } = props;
-    const { label: primaryLabel, ...primaryBtnProps } = primaryAction ?? { label: '' };
-    const { label: secondaryLabel, ...secondaryButtonProps } = secondaryAction ?? { label: '' };
+    const { label: primaryLabel, ...primaryBtnProps } = primaryAction ?? {};
+    const { label: secondaryLabel, ...secondaryButtonProps } = secondaryAction ?? {};
 
     const renderButtonGroup = !!primaryAction || !!secondaryAction;
 

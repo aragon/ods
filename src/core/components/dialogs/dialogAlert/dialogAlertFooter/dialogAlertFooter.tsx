@@ -9,7 +9,7 @@ export type IDialogAlertFooterAction = (
     | Pick<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
     | Pick<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'>
 ) &
-    Pick<IButtonBaseProps, 'iconRight' | 'iconLeft'> & {
+    Pick<IButtonBaseProps, 'iconRight' | 'iconLeft' | 'disabled' | 'isLoading'> & {
         /**
          * Button label
          */
