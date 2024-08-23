@@ -12,8 +12,16 @@ describe('<Spinner /> component', () => {
         return <Spinner {...completeProps} />;
     };
 
-    it('renders a spinner', () => {
+    it('renders a loading spinner by default', () => {
         render(createTestComponent());
-        expect(screen.getByRole('progressbar')).toBeInTheDocument();
+        const spinner = screen.getByRole('progressbar');
+        expect(spinner).toBeInTheDocument();
+        expect(spinner.className).toMatch(/border-t/);
+    });
+
+    it('renders a static spinner when isLoading is set to false', () => {
+        const isLoading = false;
+        render(createTestComponent({ isLoading }));
+        expect(screen.getByRole('progressbar').className).not.toMatch(/border-t/);
     });
 });

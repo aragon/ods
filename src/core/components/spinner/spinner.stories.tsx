@@ -25,6 +25,17 @@ export const Default: Story = {
 };
 
 /**
+ * Usage of a static spinner through the isLoading property.
+ */
+export const Static: Story = {
+    args: {
+        variant: 'neutral',
+        size: 'lg',
+        isLoading: false,
+    },
+};
+
+/**
  * Usage example of the Spinner component with responsive size.
  */
 export const ResponsiveSize: Story = {
