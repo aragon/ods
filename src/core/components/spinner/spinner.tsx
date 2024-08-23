@@ -21,6 +21,11 @@ export interface ISpinnerProps extends HTMLAttributes<HTMLDivElement> {
      * @default neutral
      */
     variant?: SpinnerVariant;
+    /**
+     * Defines if the spinner is in the loading state or not.
+     * @default true
+     */
+    isLoading?: boolean;
 }
 
 const responsiveSizeClassNames: ResponsiveAttributeClassMap<SpinnerSize> = {
@@ -59,24 +64,34 @@ const responsiveSizeClassNames: ResponsiveAttributeClassMap<SpinnerSize> = {
 };
 
 const variantToClassNames: Record<SpinnerVariant, string> = {
-    neutral: 'border-neutral-100 border-t-neutral-500',
-    primary: 'border-primary-100 border-t-primary-400',
-    primaryInverted: 'border-primary-300 border-t-neutral-0',
-    success: 'border-success-300 border-t-success-800',
-    warning: 'border-warning-300 border-t-warning-800',
-    critical: 'border-critical-300 border-t-critical-800',
+    neutral: 'border-neutral-100',
+    primary: 'border-primary-100',
+    primaryInverted: 'border-primary-300',
+    success: 'border-success-300',
+    warning: 'border-warning-300',
+    critical: 'border-critical-300',
+};
+
+const variantToLoadingClassNames: Record<SpinnerVariant, string> = {
+    neutral: 'border-t-neutral-500',
+    primary: 'border-t-primary-400',
+    primaryInverted: 'border-t-neutral-0',
+    success: 'border-t-success-800',
+    warning: 'border-t-warning-800',
+    critical: 'border-t-critical-800',
 };
 
 /**
  * Spinner UI component
  */
 export const Spinner: React.FC<ISpinnerProps> = (props) => {
-    const { size = 'md', responsiveSize, variant = 'neutral', className, ...otherProps } = props;
+    const { size = 'md', isLoading = true, responsiveSize, variant = 'neutral', className, ...otherProps } = props;
 
     const sizeClassNames = responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClassNames);
 
     const spinnerClassNames = classNames(
         'shrink-0 animate-spin rounded-full',
+        isLoading && variantToLoadingClassNames[variant],
         variantToClassNames[variant],
         sizeClassNames,
         className,

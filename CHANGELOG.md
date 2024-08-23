@@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 -   Update illustration SVGs with custom CSS color customizations
+-   Add `isLoading` property to `<Spinner />` core component to render static spinners
+-   Update the interfaces of the `<Dialog.Footer />` and `<DialogAlert.Footer />` core components to support the
+    `disabled` and `isLoading` properties for the footer buttons
 
 ### Fixed
 
