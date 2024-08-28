@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Update minor and patch NPM dependencies
+-   Bump `micromatch` from 4.0.7 to 4.0.8
 
 ## [1.0.45] - 2024-08-23
 
