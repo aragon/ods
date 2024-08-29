@@ -59,6 +59,7 @@ export enum IconType {
     SORT_ASC = 'SORT_ASC',
     SORT_DESC = 'SORT_DESC',
     SUCCESS = 'SUCCESS',
+    WALLET_CONNECT = 'WALLET_CONNECT',
     WARNING = 'WARNING',
     WITHDRAW = 'WITHDRAW',
 }
