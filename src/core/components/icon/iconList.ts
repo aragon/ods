@@ -78,6 +78,7 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.BLOCKCHAIN_GASFEE]: BlockchainGasfee,
     [IconType.BLOCKCHAIN_SMARTCONTRACT]: BlockchainSmartContract,
     [IconType.BLOCKCHAIN_WALLET]: BlockchainWallet,
+    [IconType.BLOCKCHAIN_WALLETCONNECT]: BlockChainWalletConnect,
     [IconType.CALENDAR]: Calendar,
     [IconType.CHECKBOX]: Checkbox,
     [IconType.CHECKBOX_INDETERMINATE]: CheckboxIndeterminate,
@@ -127,7 +128,6 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.SORT_ASC]: SortAsc,
     [IconType.SORT_DESC]: SortDesc,
     [IconType.SUCCESS]: Success,
-    [IconType.WALLET_CONNECT]: BlockChainWalletConnect,
     [IconType.WARNING]: Warning,
     [IconType.WITHDRAW]: Withdraw,
 };
