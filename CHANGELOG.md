@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Add `IconType.WALLET_CONNECT` and associated asset
+-   Add `IconType.BLOCKCHAIN_WALLETCONNECT` and associated asset
 
 ### Changed
 
