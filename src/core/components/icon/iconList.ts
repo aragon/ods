@@ -10,6 +10,7 @@ import BlockchainBlockchain from '../../assets/icons/blockchain-blockchain.svg';
 import BlockchainGasfee from '../../assets/icons/blockchain-gasfee.svg';
 import BlockchainSmartContract from '../../assets/icons/blockchain-smartcontract.svg';
 import BlockchainWallet from '../../assets/icons/blockchain-wallet.svg';
+import BlockChainWalletConnect from '../../assets/icons/blockchain-walletconnect.svg';
 import Calendar from '../../assets/icons/calendar.svg';
 import CheckboxIndeterminate from '../../assets/icons/checkbox-indeterminate.svg';
 import CheckboxSelected from '../../assets/icons/checkbox-selected.svg';
@@ -77,6 +78,7 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.BLOCKCHAIN_GASFEE]: BlockchainGasfee,
     [IconType.BLOCKCHAIN_SMARTCONTRACT]: BlockchainSmartContract,
     [IconType.BLOCKCHAIN_WALLET]: BlockchainWallet,
+    [IconType.BLOCKCHAIN_WALLETCONNECT]: BlockChainWalletConnect,
     [IconType.CALENDAR]: Calendar,
     [IconType.CHECKBOX]: Checkbox,
     [IconType.CHECKBOX_INDETERMINATE]: CheckboxIndeterminate,
