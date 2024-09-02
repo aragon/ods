@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRef, useState, type ReactNode } from 'react';
-import { Accordion, Button, Card, CardEmptyState, Heading } from '../../../../../core';
+import { Accordion, Button, Card, EmptyState, Heading } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsAction } from '../proposalActionsAction';
@@ -81,7 +81,7 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
                         />
                     ))
                 ) : (
-                    <CardEmptyState
+                    <EmptyState
                         heading={copy.proposalActionsContainer.empty.heading}
                         description={copy.proposalActionsContainer.empty.description}
                         isStacked={false}
