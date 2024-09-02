@@ -10,14 +10,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 -   Add `IconType.BLOCKCHAIN_WALLETCONNECT` and associated asset
--   Add Empty State fallback to ProposalActions when no actions provided
+-   Add `EmptyState` fallback to ProposalActions when no actions provided
 
 ### Changed
 
 -   Update minor and patch NPM dependencies
 -   Bump `micromatch` from 4.0.7 to 4.0.8
 -   Bump `webpack` from 5.91.0 to 5.94.0
--   Update layout of EmptyState for centering
+-   Update layout of `EmptyState` for centering
 -   Update AccordionItem and ProposalAction usage for border with new optional custom heading prop & sub component
 
 ## [1.0.45] - 2024-08-23
