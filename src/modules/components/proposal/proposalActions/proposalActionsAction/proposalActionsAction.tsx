@@ -92,7 +92,7 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
     const displayValueWarning = action.value !== '0' && action.data !== '0x';
-    
+
     return (
         <Accordion.Item value={`${index}`} ref={itemRef}>
             <Accordion.ItemHeader>
