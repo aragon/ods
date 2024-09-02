@@ -74,7 +74,7 @@ export const MixedActions: Story = {
     },
 };
 
-export const CustomActions: Story = {
+export const CustomActionsWithHeading: Story = {
     render: () => {
         const actionNames = {
             WITHDRAW_TOKEN: 'Withdraw assets',
@@ -117,6 +117,7 @@ export const CustomActions: Story = {
 
         return (
             <ProposalActions
+                heading="Custom actions"
                 actions={actions}
                 actionNames={actionNames}
                 customActionComponents={{
@@ -124,6 +125,14 @@ export const CustomActions: Story = {
                 }}
             />
         );
+    },
+};
+
+export const EmptyActions: Story = {
+    render: () => {
+        const actions: IProposalAction[] = [];
+
+        return <ProposalActions actions={actions} />;
     },
 };
 

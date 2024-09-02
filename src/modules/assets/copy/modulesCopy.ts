@@ -29,6 +29,11 @@ export const modulesCopy = {
         containerName: 'Actions',
         collapse: 'Collapse all',
         expand: 'Expand all',
+        empty: {
+            description:
+                'Add actions by selecting them, interacting with custom contracts, uploading actions or connect with any DApp.',
+            heading: 'No actions added',
+        },
     },
     proposalActionsAction: {
         notVerified: 'Not verified',

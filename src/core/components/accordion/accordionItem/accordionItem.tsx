@@ -21,7 +21,7 @@ export const AccordionItem = forwardRef<HTMLDivElement, IAccordionItemProps>((pr
             disabled={disabled}
             value={value}
             className={classNames(
-                'border-t border-neutral-100 hover:border-neutral-200 active:border-neutral-400',
+                'border-t border-neutral-100 first:border-none hover:border-neutral-200 active:border-neutral-400',
                 className,
             )}
             ref={ref}

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRef, useState, type ReactNode } from 'react';
-import { Accordion, Button, Card, Heading } from '../../../../../core';
+import { Accordion, Button, Card, CardEmptyState, Heading } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsAction } from '../proposalActionsAction';
@@ -10,7 +10,7 @@ export interface IProposalActionsProps extends IWeb3ComponentProps {
     /**
      * Actions to render.
      */
-    actions: IProposalAction[];
+    actions: IProposalAction[] | [];
     /**
      * Map of action-type <=> action-name displayed on the action header.
      */
@@ -19,6 +19,10 @@ export interface IProposalActionsProps extends IWeb3ComponentProps {
      * Map of action-type <=> custom-component to customize how actions are displayed.
      */
     customActionComponents?: Record<string, ProposalActionComponent>;
+    /**
+     * Custom heading for the actions list.
+     */
+    heading?: string;
     /**
      * Additional classes for the component.
      */
@@ -30,9 +34,9 @@ export interface IProposalActionsProps extends IWeb3ComponentProps {
 }
 
 export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
-    const { actions, actionNames, className, customActionComponents, children, ...web3Props } = props;
+    const { actions, actionNames, heading, className, customActionComponents, children, ...web3Props } = props;
 
-    const [expandedItems, setExpandedItems] = useState<string[]>([]);
+    const [expandedItems, setExpandedItems] = useState<string[]>(['0']);
 
     const { copy } = useOdsModulesContext();
 
@@ -54,30 +58,46 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
 
     return (
         <Card className={classNames('w-full overflow-hidden', className)}>
-            <Heading size="h2" className="p-4 md:p-6" ref={actionsContainerRef}>
-                {copy.proposalActionsContainer.containerName}
-            </Heading>
-            <Accordion.Container isMulti={true} value={expandedItems} onValueChange={handleAccordionValueChange}>
-                {actions.map((action, index) => (
-                    <ProposalActionsAction
-                        key={`action-${index}`}
-                        action={action}
-                        index={index}
-                        name={actionNames?.[action.type]}
-                        CustomComponent={customActionComponents?.[action.type]}
-                        {...web3Props}
+            {heading && (
+                <Heading size="h2" className="border-b border-neutral-100 p-4 md:p-6">
+                    {heading}
+                </Heading>
+            )}
+            <Accordion.Container
+                ref={actionsContainerRef}
+                isMulti={true}
+                value={expandedItems}
+                onValueChange={handleAccordionValueChange}
+            >
+                {actions.length > 0 ? (
+                    actions.map((action, index) => (
+                        <ProposalActionsAction
+                            key={`action-${index}`}
+                            action={action}
+                            index={index}
+                            name={actionNames?.[action.type]}
+                            CustomComponent={customActionComponents?.[action.type]}
+                            {...web3Props}
+                        />
+                    ))
+                ) : (
+                    <CardEmptyState
+                        heading={copy.proposalActionsContainer.empty.heading}
+                        description={copy.proposalActionsContainer.empty.description}
+                        isStacked={false}
+                        objectIllustration={{ object: 'SMART_CONTRACT' }}
                     />
-                ))}
-                <div className="mt-1 flex w-full flex-col gap-y-3 px-4 pb-4 md:flex-row-reverse md:px-6 md:pb-6">
-                    {actions.length > 1 && (
+                )}
+                {actions.length > 1 && (
+                    <div className="mt-1 flex w-full flex-col gap-y-3 px-4 pb-4 md:flex-row-reverse md:px-6 md:pb-6">
                         <Button onClick={handleToggleAll} variant="tertiary" size="md" className="shrink-0 md:w-fit">
                             {expandedItems.length === actions.length
                                 ? copy.proposalActionsContainer.collapse
                                 : copy.proposalActionsContainer.expand}
                         </Button>
-                    )}
-                    {children}
-                </div>
+                    </div>
+                )}
+                {children}
             </Accordion.Container>
         </Card>
     );

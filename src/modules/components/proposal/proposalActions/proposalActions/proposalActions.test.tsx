@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import { modulesCopy } from '../../../../assets';
 import { OdsModulesProvider } from '../../../odsModulesProvider';
 import { generateProposalAction } from '../actions/generators/proposalAction';
 import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
@@ -109,5 +110,12 @@ describe('<ProposalActions /> component', () => {
         await userEvent.click(toggleButtonExpand);
 
         expect(screen.getByText(`Custom action for ${actions[1].type}`)).toBeInTheDocument();
+    });
+
+    it('renders an empty state if no actions are provided', () => {
+        const actions: IProposalAction[] = [];
+        render(createTestComponent({ actions }));
+        expect(screen.getByText(modulesCopy.proposalActionsContainer.empty.heading)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalActionsContainer.empty.description)).toBeInTheDocument();
     });
 });
