@@ -74,11 +74,11 @@ __metadata:
     "@storybook/storybook-deployer": "npm:^2.8.16"
     "@svgr/rollup": "npm:^8.1.0"
     "@svgr/webpack": "npm:^8.1.0"
-    "@tailwindcss/typography": "npm:^0.5.14"
-    "@tanstack/react-query": "npm:^5.52.1"
+    "@tailwindcss/typography": "npm:^0.5.15"
+    "@tanstack/react-query": "npm:^5.53.3"
     "@testing-library/dom": "npm:^10.4.0"
     "@testing-library/jest-dom": "npm:^6.5.0"
-    "@testing-library/react": "npm:^16.0.0"
+    "@testing-library/react": "npm:^16.0.1"
     "@testing-library/user-event": "npm:^14.5.2"
     "@tiptap/extension-code-block": "npm:^2.6.0"
     "@tiptap/extension-image": "npm:^2.6.0"
@@ -109,9 +109,9 @@ __metadata:
     husky: "npm:^9.1.5"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
-    lint-staged: "npm:^15.2.9"
+    lint-staged: "npm:^15.2.10"
     luxon: "npm:^3.5.0"
-    postcss: "npm:^8.4.41"
+    postcss: "npm:^8.4.44"
     postcss-loader: "npm:^8.1.1"
     prettier: "npm:^3.3.3"
     prettier-plugin-organize-imports: "npm:^4.0.0"
@@ -120,7 +120,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     react-dropzone: "npm:^14.2.0"
     react-imask: "npm:7.5.0"
-    rollup: "npm:^4.21.1"
+    rollup: "npm:^4.21.2"
     rollup-plugin-peer-deps-external: "npm:^2.2.4"
     rollup-plugin-postcss: "npm:^4.0.2"
     rollup-plugin-visualizer: "npm:^5.12.0"
@@ -130,15 +130,15 @@ __metadata:
     tiptap-markdown: "npm:^0.8.10"
     ts-jest: "npm:^29.2.5"
     typescript: "npm:^5.5.4"
-    viem: "npm:^2.20.0"
-    wagmi: "npm:^2.12.7"
+    viem: "npm:^2.21.1"
+    wagmi: "npm:^2.12.8"
   peerDependencies:
     "@tailwindcss/typography": ^0.5.0
-    "@tanstack/react-query": ^5.52.0
+    "@tanstack/react-query": ^5.53.0
     react: ^18.2.0
     react-dom: ^18.2.0
     tailwindcss: ^3.4.0
-    viem: ^2.20.0
+    viem: ^2.21.0
     wagmi: ^2.12.0
   languageName: unknown
   linkType: soft
@@ -4944,7 +4944,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/typography@npm:^0.5.14":
+"@tailwindcss/typography@npm:^0.5.15":
   version: 0.5.15
   resolution: "@tailwindcss/typography@npm:0.5.15"
   dependencies:
@@ -4965,7 +4965,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^5.52.1":
+"@tanstack/react-query@npm:^5.53.3":
   version: 5.53.3
   resolution: "@tanstack/react-query@npm:5.53.3"
   dependencies:
@@ -5007,7 +5007,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react@npm:^16.0.0":
+"@testing-library/react@npm:^16.0.1":
   version: 16.0.1
   resolution: "@testing-library/react@npm:16.0.1"
   dependencies:
@@ -12564,7 +12564,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^15.2.9":
+"lint-staged@npm:^15.2.10":
   version: 15.2.10
   resolution: "lint-staged@npm:15.2.10"
   dependencies:
@@ -14769,7 +14769,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.3.11, postcss@npm:^8.4.23, postcss@npm:^8.4.33, postcss@npm:^8.4.4, postcss@npm:^8.4.41":
+"postcss@npm:^8.3.11, postcss@npm:^8.4.23, postcss@npm:^8.4.33, postcss@npm:^8.4.4, postcss@npm:^8.4.44":
   version: 8.4.44
   resolution: "postcss@npm:8.4.44"
   dependencies:
@@ -16036,7 +16036,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^4.21.1":
+"rollup@npm:^4.21.2":
   version: 4.21.2
   resolution: "rollup@npm:4.21.2"
   dependencies:
@@ -18044,7 +18044,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:^2.1.1, viem@npm:^2.20.0":
+"viem@npm:^2.1.1, viem@npm:^2.21.1":
   version: 2.21.1
   resolution: "viem@npm:2.21.1"
   dependencies:
@@ -18082,7 +18082,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:^2.12.7":
+"wagmi@npm:^2.12.8":
   version: 2.12.8
   resolution: "wagmi@npm:2.12.8"
   dependencies:
