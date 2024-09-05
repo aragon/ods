@@ -34,15 +34,8 @@ export interface IProposalActionsProps extends IWeb3ComponentProps {
 }
 
 export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
-    const {
-        actions,
-        actionNames,
-        className,
-        customActionComponents,
-        children,
-        emptyStateDescription = 'proposalActionsContainer.empty.description',
-        ...web3Props
-    } = props;
+    const { actions, actionNames, className, customActionComponents, children, emptyStateDescription, ...web3Props } =
+        props;
 
     const [expandedItems, setExpandedItems] = useState<string[]>(['0']);
 
