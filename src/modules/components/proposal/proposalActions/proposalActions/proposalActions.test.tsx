@@ -118,4 +118,11 @@ describe('<ProposalActions /> component', () => {
         expect(screen.getByText(modulesCopy.proposalActionsContainer.empty.heading)).toBeInTheDocument();
         expect(screen.getByText(modulesCopy.proposalActionsContainer.empty.description)).toBeInTheDocument();
     });
+
+    it('renders a custom empty state description if provided', () => {
+        const actions: IProposalAction[] = [];
+        const emptyStateDescription = 'Custom empty state description';
+        render(createTestComponent({ actions, emptyStateDescription }));
+        expect(screen.getByText(emptyStateDescription)).toBeInTheDocument();
+    });
 });

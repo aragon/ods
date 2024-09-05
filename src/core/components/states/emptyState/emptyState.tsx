@@ -44,9 +44,8 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
             )}
 
             <div
-                className={classNames('h-full', {
-                    'flex w-full flex-col items-center': isStacked,
-                    'flex items-center': !isStacked,
+                className={classNames('flex h-full items-center', {
+                    'flex w-full flex-col': isStacked,
                     'space-y-6': (isStacked && !!primaryButton) || !!secondaryButton,
                     'space-y-4': (!isStacked && !!primaryButton) || !!secondaryButton,
                 })}

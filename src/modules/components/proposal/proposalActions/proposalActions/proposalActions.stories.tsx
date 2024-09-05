@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { useOdsModulesContext } from '../../../odsModulesProvider';
 import {
     generateProposalAction,
     generateProposalActionUpdateMetadata,
@@ -74,7 +75,7 @@ export const MixedActions: Story = {
     },
 };
 
-export const CustomActionsWithHeading: Story = {
+export const CustomActions: Story = {
     render: () => {
         const actionNames = {
             WITHDRAW_TOKEN: 'Withdraw assets',
@@ -117,7 +118,6 @@ export const CustomActionsWithHeading: Story = {
 
         return (
             <ProposalActions
-                heading="Custom actions"
                 actions={actions}
                 actionNames={actionNames}
                 customActionComponents={{
@@ -132,7 +132,14 @@ export const EmptyActions: Story = {
     render: () => {
         const actions: IProposalAction[] = [];
 
-        return <ProposalActions actions={actions} />;
+        const { copy } = useOdsModulesContext();
+
+        return (
+            <ProposalActions
+                actions={actions}
+                emptyStateDescription={copy.proposalActionsContainer.empty.description}
+            />
+        );
     },
 };
 
