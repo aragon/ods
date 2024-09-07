@@ -66,7 +66,10 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
                 'aria-labelledby': randomId,
             },
         },
-        onUpdate: ({ editor }) => onChange?.(editor.getHTML()),
+        onUpdate: ({ editor }) => {
+            const value = editor.getText() !== '' ? editor.getHTML() : '';
+            onChange?.(value);
+        },
     });
 
     const toggleExpanded = () => setIsExpanded((current) => !current);

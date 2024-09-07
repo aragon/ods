@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import ReactDOM from 'react-dom';
 import { IconType } from '../../icon';
@@ -50,8 +50,18 @@ describe('<TextAreaRichText /> component', () => {
     it('calls the onChange property on input change', async () => {
         const onChange = jest.fn();
         render(createTestComponent({ onChange }));
-        fireEvent.input(await screen.findByRole('textbox'), 'test');
-        expect(onChange).toHaveBeenCalled();
+        await userEvent.type(await screen.findByRole('textbox'), 'test');
+        // userEvent.type adds a new line character (\n\n) before tests causing the onChange callback
+        // to be called with an empty paragraph before the typed text
+        expect(onChange).toHaveBeenLastCalledWith('<p></p><p>test</p>');
+    });
+
+    it('defaults to empty string instead of empty paragraph when input is empty', async () => {
+        const onChange = jest.fn();
+        render(createTestComponent({ onChange }));
+        await userEvent.type(await screen.findByRole('textbox'), 'test');
+        await userEvent.clear(screen.getByRole('textbox'));
+        expect(onChange).toHaveBeenLastCalledWith('');
     });
 
     it('renders the textarea as a React portal on expand action click', async () => {
