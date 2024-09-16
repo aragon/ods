@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { useOdsModulesContext } from '../../../odsModulesProvider';
 import {
     generateProposalAction,
     generateProposalActionUpdateMetadata,
@@ -123,6 +122,7 @@ export const CustomActions: Story = {
                 customActionComponents={{
                     CUSTOM_ACTION: CustomActionComponent,
                 }}
+                emptyStateDescription="No actions added. Consider adding some."
             />
         );
     },
@@ -132,14 +132,7 @@ export const EmptyActions: Story = {
     render: () => {
         const actions: IProposalAction[] = [];
 
-        const { copy } = useOdsModulesContext();
-
-        return (
-            <ProposalActions
-                actions={actions}
-                emptyStateDescription={copy.proposalActionsContainer.empty.description}
-            />
-        );
+        return <ProposalActions actions={actions} emptyStateDescription="No actions added. Consider adding some." />;
     },
 };
 

@@ -10,7 +10,7 @@ export interface IProposalActionsProps extends IWeb3ComponentProps {
     /**
      * Actions to render.
      */
-    actions: IProposalAction[] | [];
+    actions: IProposalAction[];
     /**
      * Map of action-type <=> action-name displayed on the action header.
      */
@@ -30,7 +30,7 @@ export interface IProposalActionsProps extends IWeb3ComponentProps {
     /**
      * Custom description for the empty state.
      */
-    emptyStateDescription?: string;
+    emptyStateDescription: string;
 }
 
 export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
@@ -78,7 +78,7 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
                 {actions.length === 0 && (
                     <EmptyState
                         heading={copy.proposalActionsContainer.empty.heading}
-                        description={emptyStateDescription ?? copy.proposalActionsContainer.empty.description}
+                        description={emptyStateDescription}
                         isStacked={false}
                         objectIllustration={{ object: 'SMART_CONTRACT' }}
                     />
@@ -96,9 +96,9 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
                                     ? copy.proposalActionsContainer.collapse
                                     : copy.proposalActionsContainer.expand}
                             </Button>
-                            {children}
                         </div>
                     )}
+                    {children}
                 </div>
             </Accordion.Container>
         </Card>

@@ -19,6 +19,7 @@ describe('<ProposalActions /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionsProps>) => {
         const completeProps: IProposalActionsProps = {
             actions: [],
+            emptyStateDescription: 'Please add actions',
             ...props,
         };
 
@@ -113,10 +114,11 @@ describe('<ProposalActions /> component', () => {
     });
 
     it('renders an empty state if no actions are provided', () => {
+        const emptyStateDescription = 'Custom empty state description';
         const actions: IProposalAction[] = [];
-        render(createTestComponent({ actions }));
+        render(createTestComponent({ actions, emptyStateDescription }));
         expect(screen.getByText(modulesCopy.proposalActionsContainer.empty.heading)).toBeInTheDocument();
-        expect(screen.getByText(modulesCopy.proposalActionsContainer.empty.description)).toBeInTheDocument();
+        expect(screen.getByText(emptyStateDescription)).toBeInTheDocument();
     });
 
     it('renders a custom empty state description if provided', () => {
