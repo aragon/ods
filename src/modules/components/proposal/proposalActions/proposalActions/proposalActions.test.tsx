@@ -114,11 +114,9 @@ describe('<ProposalActions /> component', () => {
     });
 
     it('renders an empty state if no actions are provided', () => {
-        const emptyStateDescription = 'Custom empty state description';
         const actions: IProposalAction[] = [];
-        render(createTestComponent({ actions, emptyStateDescription }));
+        render(createTestComponent({ actions }));
         expect(screen.getByText(modulesCopy.proposalActionsContainer.empty.heading)).toBeInTheDocument();
-        expect(screen.getByText(emptyStateDescription)).toBeInTheDocument();
     });
 
     it('renders a custom empty state description if provided', () => {

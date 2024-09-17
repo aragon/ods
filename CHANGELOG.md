@@ -18,8 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump `micromatch` from 4.0.7 to 4.0.8
 -   Bump `webpack` from 5.91.0 to 5.94.0
 -   Update layout of `EmptyState` for centering
--   Update `AccordionItem` and `ProposalAction` usage for border with new optional custom heading prop for activating
-    `Heading` sub component
+-   Update `AccordionItem` and `ProposalAction` usage for border
 -   Bump `actions/setup-python` from 5.1.1 to 5.2.0
 
 ## [1.0.45] - 2024-08-23

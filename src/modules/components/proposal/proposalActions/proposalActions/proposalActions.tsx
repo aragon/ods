@@ -57,6 +57,11 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
 
     const handleAccordionValueChange = (value: string[] = []) => setExpandedItems(value);
 
+    const footerClassNames = classNames(
+        'mt-1 flex w-full flex-col justify-between gap-y-3 px-4 pb-4 md:flex-row-reverse md:items-end md:px-6 md:pb-6',
+        { hidden: actions.length === 0 && children == null },
+    );
+
     return (
         <Card className={classNames('w-full overflow-hidden', className)}>
             <Accordion.Container
@@ -65,7 +70,7 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
                 value={expandedItems}
                 onValueChange={handleAccordionValueChange}
             >
-                {actions?.map((action, index) => (
+                {actions.map((action, index) => (
                     <ProposalActionsAction
                         key={`action-${index}`}
                         action={action}
@@ -83,20 +88,13 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
                         objectIllustration={{ object: 'SMART_CONTRACT' }}
                     />
                 )}
-                <div className="flex md:flex-col">
+                <div className={footerClassNames}>
                     {actions.length > 1 && (
-                        <div className="mt-1 flex w-full flex-col justify-between gap-y-3 px-4 pb-4 md:flex-row md:px-6 md:pb-6">
-                            <Button
-                                onClick={handleToggleAll}
-                                variant="tertiary"
-                                size="md"
-                                className="shrink-0 md:w-fit"
-                            >
-                                {expandedItems.length === actions.length
-                                    ? copy.proposalActionsContainer.collapse
-                                    : copy.proposalActionsContainer.expand}
-                            </Button>
-                        </div>
+                        <Button onClick={handleToggleAll} variant="tertiary" size="md" className="shrink-0 md:w-fit">
+                            {expandedItems.length === actions.length
+                                ? copy.proposalActionsContainer.collapse
+                                : copy.proposalActionsContainer.expand}
+                        </Button>
                     )}
                     {children}
                 </div>

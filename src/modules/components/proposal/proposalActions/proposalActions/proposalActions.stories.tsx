@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Button } from '../../../../../core';
 import {
     generateProposalAction,
     generateProposalActionUpdateMetadata,
@@ -133,6 +134,34 @@ export const EmptyActions: Story = {
         const actions: IProposalAction[] = [];
 
         return <ProposalActions actions={actions} emptyStateDescription="No actions added. Consider adding some." />;
+    },
+};
+
+export const WithChildren: Story = {
+    args: {
+        actionNames: { WITHDRAW_TOKEN: 'Withdraw assets', ADD_MEMBERS: 'Add members' },
+        actions: [
+            generateProposalActionWithdrawToken({
+                to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+                value: '1000000000000000000',
+                data: '0x',
+                token: generateToken({
+                    name: 'Ether',
+                    symbol: 'ETH',
+                    logo: 'https://cryptologos.cc/logos/ethereum-eth-logo.png',
+                    priceUsd: '2800',
+                }),
+            }),
+            generateProposalActionUpdateMetadata({ data: 'update-data' }),
+        ],
+    },
+
+    render: (args) => {
+        return (
+            <ProposalActions {...args}>
+                <Button size="md">Execute actions</Button>
+            </ProposalActions>
+        );
     },
 };
 
