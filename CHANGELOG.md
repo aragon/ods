@@ -19,8 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump `webpack` from 5.91.0 to 5.94.0
 -   Update layout of `EmptyState` for centering
 -   Update `AccordionItem` border classes for usage within bordered containers
--   Update `ProposalAction` to handle an `EmptyState` fallback for no actions passed, improve layout of children with "Expand
-    all" (eg. 'Execute actions' button)
+-   Update `ProposalAction` to handle an `EmptyState` fallback for no actions passed, improve layout of children with
+    "Expand all" (eg. 'Execute actions' button, etc)
 -   Bump `actions/setup-python` from 5.1.1 to 5.2.0
 
 ## [1.0.45] - 2024-08-23
