@@ -26,7 +26,6 @@ export const modulesCopy = {
         stage: 'Stage',
     },
     proposalActionsContainer: {
-        containerName: 'Actions',
         collapse: 'Collapse all',
         expand: 'Expand all',
         empty: {
