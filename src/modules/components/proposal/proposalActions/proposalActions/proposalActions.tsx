@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRef, useState, type ReactNode } from 'react';
-import { Accordion, Button, Card, Heading } from '../../../../../core';
+import { Accordion, Button, Card, EmptyState } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsAction } from '../proposalActionsAction';
@@ -27,12 +27,17 @@ export interface IProposalActionsProps extends IWeb3ComponentProps {
      * Children of the component.
      */
     children?: ReactNode;
+    /**
+     * Custom description for the empty state.
+     */
+    emptyStateDescription: string;
 }
 
 export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
-    const { actions, actionNames, className, customActionComponents, children, ...web3Props } = props;
+    const { actions, actionNames, className, customActionComponents, children, emptyStateDescription, ...web3Props } =
+        props;
 
-    const [expandedItems, setExpandedItems] = useState<string[]>([]);
+    const [expandedItems, setExpandedItems] = useState<string[]>(['0']);
 
     const { copy } = useOdsModulesContext();
 
@@ -52,12 +57,19 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
 
     const handleAccordionValueChange = (value: string[] = []) => setExpandedItems(value);
 
+    const footerClassNames = classNames(
+        'mt-1 flex w-full flex-col justify-between gap-y-3 px-4 pb-4 md:flex-row-reverse md:items-end md:px-6 md:pb-6',
+        { hidden: actions.length === 0 && children == null },
+    );
+
     return (
         <Card className={classNames('w-full overflow-hidden', className)}>
-            <Heading size="h2" className="p-4 md:p-6" ref={actionsContainerRef}>
-                {copy.proposalActionsContainer.containerName}
-            </Heading>
-            <Accordion.Container isMulti={true} value={expandedItems} onValueChange={handleAccordionValueChange}>
+            <Accordion.Container
+                ref={actionsContainerRef}
+                isMulti={true}
+                value={expandedItems}
+                onValueChange={handleAccordionValueChange}
+            >
                 {actions.map((action, index) => (
                     <ProposalActionsAction
                         key={`action-${index}`}
@@ -68,7 +80,15 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
                         {...web3Props}
                     />
                 ))}
-                <div className="mt-1 flex w-full flex-col gap-y-3 px-4 pb-4 md:flex-row-reverse md:px-6 md:pb-6">
+                {actions.length === 0 && (
+                    <EmptyState
+                        heading={copy.proposalActionsContainer.empty.heading}
+                        description={emptyStateDescription}
+                        isStacked={false}
+                        objectIllustration={{ object: 'SMART_CONTRACT' }}
+                    />
+                )}
+                <div className={footerClassNames}>
                     {actions.length > 1 && (
                         <Button onClick={handleToggleAll} variant="tertiary" size="md" className="shrink-0 md:w-fit">
                             {expandedItems.length === actions.length

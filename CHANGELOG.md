@@ -10,12 +10,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 -   Add `IconType.BLOCKCHAIN_WALLETCONNECT` and associated asset
+-   Add `EmptyState` fallback to ProposalActions when no actions provided
 
 ### Changed
 
 -   Update minor and patch versions of NPM dependencies
 -   Bump `micromatch` from 4.0.7 to 4.0.8
 -   Bump `webpack` from 5.91.0 to 5.94.0
+-   Update layout of `EmptyState` for centering
+-   Update `AccordionItem` border classes for usage within bordered containers
+-   Update `ProposalAction` to handle an `EmptyState` fallback for no actions passed, improve layout of children with
+    "Expand all" (eg. 'Execute actions' button, etc)
 -   Bump `actions/setup-python` from 5.1.1 to 5.2.0
 -   Bump `express` from 4.19.2 to 4.21.0
 
