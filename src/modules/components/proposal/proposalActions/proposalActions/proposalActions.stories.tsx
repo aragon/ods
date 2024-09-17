@@ -130,10 +130,9 @@ export const CustomActions: Story = {
 };
 
 export const EmptyActions: Story = {
-    render: () => {
-        const actions: IProposalAction[] = [];
-
-        return <ProposalActions actions={actions} emptyStateDescription="No actions added. Consider adding some." />;
+    args: {
+        actions: [],
+        emptyStateDescription: 'No actions added. Consider adding some.',
     },
 };
 
@@ -155,14 +154,11 @@ export const WithChildren: Story = {
             generateProposalActionUpdateMetadata({ data: 'update-data' }),
         ],
     },
-
-    render: (args) => {
-        return (
-            <ProposalActions {...args}>
-                <Button size="md">Execute actions</Button>
-            </ProposalActions>
-        );
-    },
+    render: (args) => (
+        <ProposalActions {...args}>
+            <Button size="md">Confirm Actions</Button>
+        </ProposalActions>
+    ),
 };
 
 export default meta;
