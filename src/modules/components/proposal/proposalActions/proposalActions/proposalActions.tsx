@@ -1,41 +1,21 @@
 import classNames from 'classnames';
-import { useRef, useState, type ReactNode } from 'react';
+import { useRef, useState } from 'react';
 import { Accordion, Button, Card, EmptyState } from '../../../../../core';
-import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsAction } from '../proposalActionsAction';
-import type { IProposalAction, ProposalActionComponent } from '../proposalActionsTypes';
-
-export interface IProposalActionsProps extends IWeb3ComponentProps {
-    /**
-     * Actions to render.
-     */
-    actions: IProposalAction[];
-    /**
-     * Map of action-type <=> action-name displayed on the action header.
-     */
-    actionNames?: Record<string, string>;
-    /**
-     * Map of action-type <=> custom-component to customize how actions are displayed.
-     */
-    customActionComponents?: Record<string, ProposalActionComponent>;
-    /**
-     * Additional classes for the component.
-     */
-    className?: string;
-    /**
-     * Children of the component.
-     */
-    children?: ReactNode;
-    /**
-     * Custom description for the empty state.
-     */
-    emptyStateDescription: string;
-}
+import type { IProposalActionsProps } from './proposalActions.api';
 
 export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
-    const { actions, actionNames, className, customActionComponents, children, emptyStateDescription, ...web3Props } =
-        props;
+    const {
+        actions,
+        actionNames,
+        customActionComponents,
+        emptyStateDescription,
+        dropdownItems,
+        className,
+        children,
+        ...web3Props
+    } = props;
 
     const [expandedItems, setExpandedItems] = useState<string[]>(['0']);
 
@@ -77,6 +57,7 @@ export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
                         index={index}
                         name={actionNames?.[action.type]}
                         CustomComponent={customActionComponents?.[action.type]}
+                        dropdownItems={dropdownItems}
                         {...web3Props}
                     />
                 ))}

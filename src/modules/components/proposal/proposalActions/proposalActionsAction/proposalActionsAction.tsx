@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
-import { Accordion, AlertCard, Heading, Icon, IconType } from '../../../../../core';
+import { Accordion, AlertCard, Button, Dropdown, Heading, Icon, IconType } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import {
@@ -11,6 +11,7 @@ import {
 } from '../actions';
 
 import { formatUnits } from 'viem';
+import type { IProposalActionsDropdownItem } from '../proposalActions';
 import { ProposalActionsActionVerification } from '../proposalActionsActionVerification';
 import type { IProposalAction, ProposalActionComponent } from '../proposalActionsTypes';
 import { ProposalActionViewMode } from '../proposalActionsTypes';
@@ -36,10 +37,14 @@ export interface IProposalActionsActionProps extends IWeb3ComponentProps {
      * Custom component for the action
      */
     CustomComponent?: ProposalActionComponent;
+    /**
+     * Items displayed beside the "View as" menu.
+     */
+    dropdownItems?: IProposalActionsDropdownItem[];
 }
 
 export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {
-    const { action, index, name, CustomComponent, ...web3Props } = props;
+    const { action, index, name, CustomComponent, dropdownItems, ...web3Props } = props;
 
     const { copy } = useOdsModulesContext();
 
@@ -127,12 +132,34 @@ export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (pro
                     )}
                     {viewMode === ProposalActionViewMode.RAW && <ProposalActionsActionRawView action={action} />}
 
-                    <ProposalActionsActionViewAsMenu
-                        disableBasic={ActionComponent == null}
-                        disableDecoded={action.inputData == null}
-                        viewMode={viewMode}
-                        onViewModeChange={onViewModeChange}
-                    />
+                    <div className="flex w-full flex-row justify-between">
+                        <ProposalActionsActionViewAsMenu
+                            disableBasic={ActionComponent == null}
+                            disableDecoded={action.inputData == null}
+                            viewMode={viewMode}
+                            onViewModeChange={onViewModeChange}
+                        />
+                        {dropdownItems != null && dropdownItems.length > 0 && (
+                            <Dropdown.Container
+                                customTrigger={
+                                    <Button variant="tertiary" size="sm" iconRight={IconType.DOTS_VERTICAL}>
+                                        {copy.proposalActionsAction.dropdownLabel}
+                                    </Button>
+                                }
+                            >
+                                {dropdownItems.map((item) => (
+                                    <Dropdown.Item
+                                        key={item.label}
+                                        icon={item.icon}
+                                        iconPosition="left"
+                                        onClick={() => item.onClick?.(action)}
+                                    >
+                                        {item.label}
+                                    </Dropdown.Item>
+                                ))}
+                            </Dropdown.Container>
+                        )}
+                    </div>
                 </div>
             </Accordion.ItemContent>
         </Accordion.Item>

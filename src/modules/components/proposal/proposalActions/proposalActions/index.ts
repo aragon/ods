@@ -1,1 +1,2 @@
-export { ProposalActions, type IProposalActionsProps } from './proposalActions';
+export { ProposalActions } from './proposalActions';
+export type { IProposalActionsDropdownItem, IProposalActionsProps } from './proposalActions.api';

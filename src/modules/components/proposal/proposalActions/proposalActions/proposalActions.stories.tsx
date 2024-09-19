@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import { Button } from '../../../../../core';
+import { Button, IconType } from '../../../../../core';
 import {
     generateProposalAction,
+    generateProposalActionTokenMint,
     generateProposalActionUpdateMetadata,
     generateProposalActionWithdrawToken,
     generateToken,
@@ -28,7 +28,6 @@ type Story = StoryObj<typeof ProposalActions>;
  */
 export const MixedActions: Story = {
     args: {
-        actionNames: { WITHDRAW_TOKEN: 'Withdraw assets', ADD_MEMBERS: 'Add members' },
         actions: [
             generateProposalActionWithdrawToken({
                 to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
@@ -103,7 +102,7 @@ export const CustomActions: Story = {
                 inputData: { function: 'doSomething', contract: 'Ether', parameters: [] },
                 from: '0x1111111111111111111111111111111111111111',
                 to: '0x2222222222222222222222222222222222222222',
-                data: '',
+                data: '0x',
                 value: '10',
             },
             {
@@ -111,7 +110,7 @@ export const CustomActions: Story = {
                 inputData: { function: 'doSomethingElse', contract: 'DAI', parameters: [] },
                 from: '0x3333333333333333333333333333333333333333',
                 to: '0x4444444444444444444444444444444444444444',
-                data: '',
+                data: '0x',
                 value: '20',
             },
         ];
@@ -120,9 +119,7 @@ export const CustomActions: Story = {
             <ProposalActions
                 actions={actions}
                 actionNames={actionNames}
-                customActionComponents={{
-                    CUSTOM_ACTION: CustomActionComponent,
-                }}
+                customActionComponents={{ CUSTOM_ACTION: CustomActionComponent }}
                 emptyStateDescription="No actions added. Consider adding some."
             />
         );
@@ -138,27 +135,25 @@ export const EmptyActions: Story = {
 
 export const WithChildren: Story = {
     args: {
-        actionNames: { WITHDRAW_TOKEN: 'Withdraw assets', ADD_MEMBERS: 'Add members' },
-        actions: [
-            generateProposalActionWithdrawToken({
-                to: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-                value: '1000000000000000000',
-                data: '0x',
-                token: generateToken({
-                    name: 'Ether',
-                    symbol: 'ETH',
-                    logo: 'https://cryptologos.cc/logos/ethereum-eth-logo.png',
-                    priceUsd: '2800',
-                }),
-            }),
-            generateProposalActionUpdateMetadata({ data: 'update-data' }),
-        ],
+        actions: [generateProposalActionWithdrawToken(), generateProposalActionUpdateMetadata()],
     },
     render: (args) => (
         <ProposalActions {...args}>
             <Button size="md">Confirm Actions</Button>
         </ProposalActions>
     ),
+};
+
+export const WithDropdownItems: Story = {
+    args: {
+        actions: [generateProposalActionUpdateMetadata(), generateProposalActionTokenMint()],
+        dropdownItems: [
+            { label: 'Move up', icon: IconType.CHEVRON_UP, onClick: () => null },
+            { label: 'Move down', icon: IconType.CHEVRON_DOWN, onClick: () => null },
+            { label: 'Reset action', icon: IconType.RELOAD, onClick: () => null },
+            { label: 'Remove action', icon: IconType.CLOSE, onClick: () => null },
+        ],
+    },
 };
 
 export default meta;
