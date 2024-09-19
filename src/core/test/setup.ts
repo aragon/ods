@@ -4,7 +4,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 import { TextDecoder, TextEncoder } from 'util';
-import { testLogger } from './utils';
+import { createRangeMock, testLogger } from './utils';
 
 // Setup test logger
 testLogger.setup();
@@ -15,4 +15,9 @@ Object.assign(global, { TextDecoder, TextEncoder });
 if (typeof window !== 'undefined') {
     // Mock scrollIntoView function
     HTMLElement.prototype.scrollIntoView = jest.fn();
+
+    // Mock elementFromPoint function
+    document.elementFromPoint = jest.fn();
+
+    createRangeMock();
 }

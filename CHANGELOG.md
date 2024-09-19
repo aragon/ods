@@ -24,6 +24,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump `actions/setup-python` from 5.1.1 to 5.2.0
 -   Bump `express` from 4.19.2 to 4.21.0
 
+### Fixed
+
+-   Fix the `TextAreaRichText` core component to expose empty string as default value instead of empty paragraph
+
 ## [1.0.45] - 2024-08-23
 
 ### Added
