@@ -15,7 +15,7 @@ export const ProposalDataListItemSkeleton: React.FC<IProposalDataListItemSkeleto
             className={classNames('flex flex-col gap-y-4 bg-neutral-0 py-4 md:py-5', className)}
             {...otherProps}
         >
-            <div className="flex justify-between">
+            <div className="flex w-full justify-between">
                 <StateSkeletonBar size="lg" responsiveSize={{ md: 'xl' }} width="16%" />
                 <StateSkeletonBar size="lg" responsiveSize={{ md: 'xl' }} width="24%" />
             </div>
