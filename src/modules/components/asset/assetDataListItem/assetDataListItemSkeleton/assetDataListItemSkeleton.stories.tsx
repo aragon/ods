@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DataList } from '../../../../../core';
 import { AssetDataListItem } from '../../assetDataListItem';
 
 const meta: Meta<typeof AssetDataListItem.Skeleton> = {
@@ -18,13 +17,6 @@ type Story = StoryObj<typeof AssetDataListItem.Skeleton>;
 /**
  * Default usage example of the DaoDataListItemSkeleton component.
  */
-export const Default: Story = {
-    args: {},
-    render: () => (
-        <DataList.Root entityLabel="Asset" state="initialLoading" pageSize={1}>
-            <DataList.Container SkeletonElement={AssetDataListItem.Skeleton} />
-        </DataList.Root>
-    ),
-};
+export const Default: Story = {};
 
 export default meta;

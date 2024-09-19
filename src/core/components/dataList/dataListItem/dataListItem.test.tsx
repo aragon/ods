@@ -6,11 +6,15 @@ import { DataListItem, type IDataListItemProps } from './dataListItem';
 describe('<DataList.Item /> component', () => {
     const createTestComponent = (values?: {
         props?: Partial<IDataListItemProps>;
-        context?: Partial<IDataListContext>;
+        context?: Partial<IDataListContext> | null;
     }) => {
         const completeProps = {
             ...values?.props,
         };
+
+        if (values?.context === null) {
+            return <DataListItem {...completeProps} />;
+        }
 
         return (
             <DataListContextProvider value={dataListTestUtils.generateContextValues(values?.context)}>
@@ -19,10 +23,12 @@ describe('<DataList.Item /> component', () => {
         );
     };
 
-    it('renders a link with the given content', () => {
+    it('renders an interactive link with the given content when href property is set', () => {
         const props = { children: 'test-data-list-item', href: '/test' };
         render(createTestComponent({ props }));
-        expect(screen.getByRole('link', { name: props.children })).toBeInTheDocument();
+        const link = screen.getByRole('link', { name: props.children });
+        expect(link).toBeInTheDocument();
+        expect(link.classList).toContain('cursor-pointer');
     });
 
     it('marks the item as hidden when the data list is on initialLoading state', () => {
@@ -37,5 +43,24 @@ describe('<DataList.Item /> component', () => {
         const props = { href: '/test' };
         render(createTestComponent({ context, props }));
         expect(screen.queryByRole('link')).not.toBeInTheDocument();
+    });
+
+    it('does not throw error when not placed inside the DataListContextProvider', () => {
+        const context = null;
+        expect(() => render(createTestComponent({ context }))).not.toThrow();
+    });
+
+    it('renders the item as an interactive button when onClick property is set', () => {
+        const props = { onClick: jest.fn() };
+        render(createTestComponent({ props }));
+        const button = screen.getByRole('button');
+        expect(button).toBeInTheDocument();
+        expect(button.classList).toContain('cursor-pointer');
+    });
+
+    it('renders the item as a non interactive button when both onClick and href property are not set', () => {
+        const props = { onClick: undefined, href: undefined };
+        render(createTestComponent({ props }));
+        expect(screen.getByRole('button').classList).not.toContain('cursor-pointer');
     });
 });

@@ -17,25 +17,23 @@ const meta: Meta<typeof ProposalActionChangeMembers> = {
 type Story = StoryObj<typeof ProposalActionChangeMembers>;
 
 /**
- * Usage example of the ProposalActions module component with mocked ChangeMembers action. @default ProposalActionType.ADD_MEMBERS
+ * Usage example of the ProposalActions module component with mocked ChangeMembers action.
  */
 export const Default: Story = {
-    render: () => {
-        return <ProposalActionChangeMembers action={generateProposalActionChangeMembers()} />;
+    args: {
+        action: generateProposalActionChangeMembers(),
     },
 };
 
 export const RemoveMembers: Story = {
-    render: () => {
-        const action = generateProposalActionChangeMembers({
+    args: {
+        action: generateProposalActionChangeMembers({
             type: ProposalActionType.REMOVE_MEMBERS,
             members: [
-                {
-                    address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
-                },
+                { address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' },
+                { address: '0x8C8D7C46219D9205f056f28fee5950aD564d7465' },
             ],
-        });
-        return <ProposalActionChangeMembers action={action} />;
+        }),
     },
 };
 

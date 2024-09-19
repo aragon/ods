@@ -1,16 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import { DataList } from '../../../../../core';
 import { TransactionDataListItem, type ITransactionDataListItemSkeletonProps } from '../../transactionDataListItem';
 
 describe('<MemberDataListItem.Skeleton /> component', () => {
     const createTestComponent = (props?: Partial<ITransactionDataListItemSkeletonProps>) => {
         const completeProps: ITransactionDataListItemSkeletonProps = { ...props };
 
-        return (
-            <DataList.Root entityLabel="Transaction">
-                <TransactionDataListItem.Skeleton {...completeProps} />
-            </DataList.Root>
-        );
+        return <TransactionDataListItem.Skeleton {...completeProps} />;
     };
 
     it('has correct accessibility attributes', () => {

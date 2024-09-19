@@ -43,10 +43,8 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         tokenPrice,
         type = TransactionType.ACTION,
         status = TransactionStatus.PENDING,
-        // TO-DO: implement formatter decision
         date,
         hash,
-        href,
         className,
         ...otherProps
     } = props;
@@ -56,7 +54,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
     const blockExplorerBaseUrl = matchingChain?.blockExplorers?.default?.url;
     const blockExplorerAssembledHref = blockExplorerBaseUrl ? `${blockExplorerBaseUrl}/tx/${hash}` : undefined;
 
-    const parsedHref = blockExplorerAssembledHref ?? href;
+    const parsedHref = blockExplorerAssembledHref ?? ('href' in otherProps ? otherProps.href : undefined);
 
     const formattedTokenValue = formatterUtils.formatNumber(tokenAmount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
@@ -71,12 +69,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         type === TransactionType.ACTION || tokenAmount == null ? '-' : `${formattedTokenValue} ${tokenSymbol}`;
 
     return (
-        <DataList.Item
-            className={classNames('px-4 py-0 md:px-6', className)}
-            href={parsedHref}
-            target="_blank"
-            {...otherProps}
-        >
+        <DataList.Item className={classNames('px-4 py-0 md:px-6', className)} href={parsedHref} {...otherProps}>
             <div className="flex w-full justify-between py-3 md:py-4">
                 <div className="flex items-center gap-x-3 md:gap-x-4">
                     {status === TransactionStatus.SUCCESS && (

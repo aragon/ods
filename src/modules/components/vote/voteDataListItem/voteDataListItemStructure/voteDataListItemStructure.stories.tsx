@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { VoteDataListItem } from '..';
-import { DataList } from '../../../../../core';
 
 const meta: Meta<typeof VoteDataListItem.Structure> = {
     title: 'Modules/Components/Vote/VoteDataListItem/VoteDataListItem.Structure',
@@ -25,13 +24,6 @@ export const TokenVoting: Story = {
         votingPower: 1230000,
         tokenSymbol: 'PDC',
     },
-    render: (args) => (
-        <DataList.Root entityLabel="Votes">
-            <DataList.Container>
-                <VoteDataListItem.Structure {...args} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 /**
@@ -42,13 +34,6 @@ export const Multisig: Story = {
         voter: { address: '0x1234567890123456789012345678901234567890', name: 'vitalik.eth' },
         voteIndicator: 'approve',
     },
-    render: (args) => (
-        <DataList.Root entityLabel="Votes">
-            <DataList.Container>
-                <VoteDataListItem.Structure {...args} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 /**
@@ -64,13 +49,6 @@ export const TokenVotingLongNames: Story = {
         votingPower: 123456789,
         tokenSymbol: 'PDC',
     },
-    render: (args) => (
-        <DataList.Root entityLabel="Votes">
-            <DataList.Container>
-                <VoteDataListItem.Structure {...args} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 export default meta;

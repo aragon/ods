@@ -1,16 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { VoteDataListItem, type IVoteDataListItemSkeletonProps } from '../..';
-import { DataList } from '../../../../../core';
 
 describe('<VoteDataListItem.Skeleton /> component', () => {
     const createTestComponent = (props?: Partial<IVoteDataListItemSkeletonProps>) => {
         const completeProps: IVoteDataListItemSkeletonProps = { ...props };
 
-        return (
-            <DataList.Root entityLabel="Vote">
-                <VoteDataListItem.Skeleton {...completeProps} />
-            </DataList.Root>
-        );
+        return <VoteDataListItem.Skeleton {...completeProps} />;
     };
     it('has correct accessibility attributes', () => {
         render(createTestComponent());

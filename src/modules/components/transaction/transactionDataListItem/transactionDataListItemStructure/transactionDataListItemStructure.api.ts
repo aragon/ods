@@ -13,7 +13,7 @@ export enum TransactionType {
     ACTION = 'ACTION',
 }
 
-export interface ITransactionDataListItemProps extends IDataListItemProps {
+export type ITransactionDataListItemProps = IDataListItemProps & {
     /**
      * The chain ID of the transaction.
      */
@@ -52,4 +52,4 @@ export interface ITransactionDataListItemProps extends IDataListItemProps {
      * The transaction hash.
      */
     hash: Hash;
-}
+};

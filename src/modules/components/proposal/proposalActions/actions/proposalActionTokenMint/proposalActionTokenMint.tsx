@@ -1,4 +1,3 @@
-import { DataList } from '../../../../../../core';
 import { MemberDataListItemStructure } from '../../../../member';
 import { type IProposalActionComponentProps, type IProposalActionTokenMint } from '../../proposalActionsTypes';
 
@@ -13,19 +12,15 @@ export const ProposalActionTokenMint: React.FC<IProposalActionTokenMintProps> = 
 
     return (
         <div className="flex w-full flex-col gap-8">
-            <DataList.Root entityLabel="proposalActionTokenMintReceivers">
-                <DataList.Container>
-                    <MemberDataListItemStructure
-                        className="w-full"
-                        address={address}
-                        ensName={name}
-                        avatarSrc={avatarSrc}
-                        tokenAmount={mintedTokenAmount}
-                        tokenSymbol={tokenSymbol}
-                        hideLabelTokenVoting={true}
-                    />
-                </DataList.Container>
-            </DataList.Root>
+            <MemberDataListItemStructure
+                className="w-full"
+                address={address}
+                ensName={name}
+                avatarSrc={avatarSrc}
+                tokenAmount={mintedTokenAmount}
+                tokenSymbol={tokenSymbol}
+                hideLabelTokenVoting={true}
+            />
         </div>
     );
 };

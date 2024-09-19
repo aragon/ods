@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { DataList } from '../../../../../core';
 import { AssetDataListItemStructure, type IAssetDataListItemStructureProps } from './assetDataListItemStructure';
 
 describe('<AssetDataListItem.Structure /> component', () => {
@@ -11,13 +10,7 @@ describe('<AssetDataListItem.Structure /> component', () => {
             ...props,
         };
 
-        return (
-            <DataList.Root entityLabel="Assets">
-                <DataList.Container>
-                    <AssetDataListItemStructure {...completeProps} />
-                </DataList.Container>
-            </DataList.Root>
-        );
+        return <AssetDataListItemStructure {...completeProps} />;
     };
 
     it('renders token name and symbol', () => {

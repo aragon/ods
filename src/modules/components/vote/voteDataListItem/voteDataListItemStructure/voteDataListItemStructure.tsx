@@ -7,7 +7,7 @@ import { MemberAvatar } from '../../../member';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
-export interface IVoteDataListItemStructureProps extends IDataListItemProps {
+export type IVoteDataListItemStructureProps = IDataListItemProps & {
     /**
      * The account details of the voter.
      */
@@ -28,7 +28,7 @@ export interface IVoteDataListItemStructureProps extends IDataListItemProps {
      * If token-based voting, the symbol of the voting power used.
      */
     tokenSymbol?: string;
-}
+};
 
 export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps> = (props) => {
     const { voter, isDelegate, votingPower, tokenSymbol, voteIndicator, className, ...otherProps } = props;
@@ -41,18 +41,15 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
     const resolvedUserHandle =
         voter.name != null && voter.name !== '' ? voter.name : addressUtils.truncateAddress(voter.address);
 
-    const formattedTokenNumber = formatterUtils.formatNumber(votingPower, {
-        format: NumberFormat.TOKEN_AMOUNT_SHORT,
-    });
+    const formattedTokenNumber = formatterUtils.formatNumber(votingPower, { format: NumberFormat.TOKEN_AMOUNT_SHORT });
     const formattedTokenVote = `${formattedTokenNumber} ${tokenSymbol}`;
 
     const isTokenVoting = votingPower != null && tokenSymbol != null;
     const centerInfoClassNames = classNames(
         'flex w-full min-w-0 shrink flex-col gap-y-1 text-base font-normal leading-tight md:gap-y-1.5 md:text-lg',
-        {
-            'py-3 md:py-3.5': !isTokenVoting,
-        },
+        { 'py-3 md:py-3.5': !isTokenVoting },
     );
+
     return (
         <DataList.Item className={classNames('flex items-center gap-x-3 md:gap-x-4', className)} {...otherProps}>
             <MemberAvatar

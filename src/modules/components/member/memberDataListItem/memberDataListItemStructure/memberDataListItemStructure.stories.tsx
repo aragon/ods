@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DataList } from '../../../../../core';
 import { MemberDataListItemStructure } from './memberDataListItemStructure';
 
 const meta: Meta<typeof MemberDataListItemStructure> = {
@@ -22,13 +21,6 @@ export const Default: Story = {
     args: {
         address: '0x1234567890123456789012345678901234567890',
     },
-    render: (args) => (
-        <DataList.Root entityLabel="Members">
-            <DataList.Container>
-                <MemberDataListItemStructure {...args} />
-            </DataList.Container>{' '}
-        </DataList.Root>
-    ),
 };
 
 /**
@@ -39,13 +31,6 @@ export const TokenMemberWithoutVotingPower: Story = {
         address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
         tokenAmount: 0,
     },
-    render: (args) => (
-        <DataList.Root entityLabel="Members">
-            <DataList.Container>
-                <MemberDataListItemStructure {...args} />
-            </DataList.Container>{' '}
-        </DataList.Root>
-    ),
 };
 
 /**
@@ -57,13 +42,6 @@ export const TokenMemberWithVotingPower: Story = {
         delegationCount: 0,
         tokenAmount: 4820,
     },
-    render: (args) => (
-        <DataList.Root entityLabel="Members">
-            <DataList.Container>
-                <MemberDataListItemStructure {...args} />
-            </DataList.Container>{' '}
-        </DataList.Root>
-    ),
 };
 
 /**
@@ -78,13 +56,6 @@ export const Complete: Story = {
         tokenAmount: 13370,
         tokenSymbol: 'PDC',
     },
-    render: (args) => (
-        <DataList.Root entityLabel="Members">
-            <DataList.Container>
-                <MemberDataListItemStructure {...args} />
-            </DataList.Container>{' '}
-        </DataList.Root>
-    ),
 };
 
 export default meta;

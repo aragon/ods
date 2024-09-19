@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
-import { DataList } from '../../../../../core';
 import {
     VoteProposalDataListItemStructure,
     type IVoteProposalDataListItemStructureProps,
@@ -20,13 +19,7 @@ describe('<VoteProposalDataListItemStructure /> component', () => {
             ...props,
         };
 
-        return (
-            <DataList.Root entityLabel="proposalVote">
-                <DataList.Container>
-                    <VoteProposalDataListItemStructure {...completeProps} />
-                </DataList.Container>
-            </DataList.Root>
-        );
+        return <VoteProposalDataListItemStructure {...completeProps} />;
     };
 
     it('renders the vote and the proposal information', () => {

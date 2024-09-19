@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import * as wagmi from 'wagmi';
-import { DataList } from '../../../../../core';
 import { MemberDataListItemStructure, type IMemberDataListItemProps } from './memberDataListItemStructure';
 
 jest.mock('../../memberAvatar', () => ({ MemberAvatar: () => <div data-testid="member-avatar-mock" /> }));
@@ -23,13 +22,7 @@ describe('<MemberDataListItem /> component', () => {
             ...props,
         };
 
-        return (
-            <DataList.Root entityLabel="Members">
-                <DataList.Container>
-                    <MemberDataListItemStructure {...completeProps} />
-                </DataList.Container>
-            </DataList.Root>
-        );
+        return <MemberDataListItemStructure {...completeProps} />;
     };
 
     it('renders the member avatar', () => {

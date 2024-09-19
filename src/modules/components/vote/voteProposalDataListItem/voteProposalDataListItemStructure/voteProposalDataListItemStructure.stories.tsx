@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { VoteProposalDataListItem } from '..';
-import { DataList } from '../../../../../core';
 
 const meta: Meta<typeof VoteProposalDataListItem.Structure> = {
     title: 'Modules/Components/Vote/VoteProposalDataListItem/VoteProposalDataListItem.Structure',
@@ -25,13 +24,6 @@ export const TokenVoting: Story = {
         voteIndicator: 'yes',
         date: 1613984914000,
     },
-    render: (args) => (
-        <DataList.Root entityLabel="proposalVote">
-            <DataList.Container>
-                <VoteProposalDataListItem.Structure {...args} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 /**
@@ -44,13 +36,6 @@ export const Multisig: Story = {
         voteIndicator: 'approve',
         date: 1613984914000,
     },
-    render: (args) => (
-        <DataList.Root entityLabel="proposalVote">
-            <DataList.Container>
-                <VoteProposalDataListItem.Structure {...args} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 export default meta;

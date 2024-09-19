@@ -4,10 +4,11 @@ import { DataList, type IDataListItemProps } from '../../../../../core';
 import { StateSkeletonBar } from '../../../../../core/components/states/stateSkeletonBar';
 import { StateSkeletonCircular } from '../../../../../core/components/states/stateSkeletonCircular';
 
-export interface IAssetDataListItemSkeletonProps extends IDataListItemProps {}
+export type IAssetDataListItemSkeletonProps = IDataListItemProps;
 
 export const AssetDataListItemSkeleton: React.FC<IAssetDataListItemSkeletonProps> = (props) => {
     const { className, ...otherProps } = props;
+
     return (
         <DataList.Item
             tabIndex={0}

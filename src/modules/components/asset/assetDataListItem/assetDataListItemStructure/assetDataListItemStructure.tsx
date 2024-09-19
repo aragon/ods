@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { Avatar, DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 
-export interface IAssetDataListItemStructureProps extends IDataListItemProps {
+export type IAssetDataListItemStructureProps = IDataListItemProps & {
     /**
      * The name of the asset.
      */
@@ -30,7 +30,7 @@ export interface IAssetDataListItemStructureProps extends IDataListItemProps {
      * @default 0
      */
     priceChange?: number;
-}
+};
 
 export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructureProps> = (props) => {
     const { logoSrc, name, amount, symbol, fiatPrice, priceChange = 0, ...otherProps } = props;

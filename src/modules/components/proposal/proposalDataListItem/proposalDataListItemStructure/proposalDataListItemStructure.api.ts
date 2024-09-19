@@ -4,50 +4,49 @@ import { type ProposalStatus } from '../../proposalUtils';
 
 export type ProposalType = 'majorityVoting' | 'approvalThreshold';
 
-export interface IProposalDataListItemStructureBaseProps<TType extends ProposalType = ProposalType>
-    extends IDataListItemProps,
-        IWeb3ComponentProps {
-    /**
-     * Proposal id
-     */
-    id?: string;
-    /**
-     *  Date relative to the proposal status in ISO format or as a timestamp
-     */
-    date?: string | number;
-    /**
-     * Optional tag indicating proposal type
-     */
-    tag?: string;
-    /**
-     * Publisher(s) address (and optional ENS name and profile link)
-     */
-    publisher: IPublisher | IPublisher[];
-    /**
-     * Result of the proposal shown only when it is active, challenged or vetoed.
-     */
-    result?: TType extends 'majorityVoting' ? IMajorityVotingResult : IApprovalThresholdResult;
-    /**
-     * Proposal status
-     */
-    status: ProposalStatus;
-    /**
-     * Proposal description
-     */
-    summary: string;
-    /**
-     * Proposal title
-     */
-    title: string;
-    /**
-     * Type of the ProposalDataListItem
-     */
-    type: TType;
-    /**
-     * Indicates whether the connected wallet has voted
-     */
-    voted?: boolean;
-}
+export type IProposalDataListItemStructureBaseProps<TType extends ProposalType = ProposalType> = IDataListItemProps &
+    IWeb3ComponentProps & {
+        /**
+         * Proposal id
+         */
+        id?: string;
+        /**
+         *  Date relative to the proposal status in ISO format or as a timestamp
+         */
+        date?: string | number;
+        /**
+         * Optional tag indicating proposal type
+         */
+        tag?: string;
+        /**
+         * Publisher(s) address (and optional ENS name and profile link)
+         */
+        publisher: IPublisher | IPublisher[];
+        /**
+         * Result of the proposal shown only when it is active, challenged or vetoed.
+         */
+        result?: TType extends 'majorityVoting' ? IMajorityVotingResult : IApprovalThresholdResult;
+        /**
+         * Proposal status
+         */
+        status: ProposalStatus;
+        /**
+         * Proposal description
+         */
+        summary: string;
+        /**
+         * Proposal title
+         */
+        title: string;
+        /**
+         * Type of the ProposalDataListItem
+         */
+        type: TType;
+        /**
+         * Indicates whether the connected wallet has voted
+         */
+        voted?: boolean;
+    };
 
 export interface IPublisher extends ICompositeAddress {
     /**
