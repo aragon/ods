@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 -   Fix the `TextAreaRichText` core component to expose empty string as default value instead of empty paragraph
+-   Update `DropdownItem` style to correctly render items with icons aligned on the left
 
 ## [1.0.45] - 2024-08-23
 
