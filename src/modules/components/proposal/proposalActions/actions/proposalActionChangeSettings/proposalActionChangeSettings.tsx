@@ -12,9 +12,9 @@ export const ProposalActionChangeSettings: React.FC<IProposalActionChangeSetting
     const { copy } = useOdsModulesContext();
 
     const [toggleValue, setToggleValue] = useState<string | undefined>('existingSettings');
-    const settingsToDisplay = toggleValue === 'proposedSettings' ? proposedSettings : existingSettings;
 
     const { proposedSettings, existingSettings } = action;
+    const settingsToDisplay = toggleValue === 'proposedSettings' ? proposedSettings : existingSettings;
 
     return (
         <div className="flex w-full flex-col gap-2">
