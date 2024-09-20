@@ -20,8 +20,8 @@ type Story = StoryObj<typeof ProposalActionWithdrawToken>;
  * Usage example of the ProposalActions module component with mocked TokenWithdraw actions.
  */
 export const Default: Story = {
-    render: () => {
-        return <ProposalActionWithdrawToken action={generateProposalActionWithdrawToken()} />;
+    args: {
+        action: generateProposalActionWithdrawToken(),
     },
 };
 
