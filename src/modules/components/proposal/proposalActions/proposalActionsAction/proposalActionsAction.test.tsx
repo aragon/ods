@@ -149,6 +149,6 @@ describe('<ProposalActionsAction /> component', () => {
         expect(screen.getByTestId(dropdownItems[1].icon)).toBeInTheDocument();
 
         await userEvent.click(dropdownItem);
-        expect(dropdownItems[0].onClick).toHaveBeenCalledWith(action);
+        expect(dropdownItems[0].onClick).toHaveBeenCalledWith(action, 0);
     });
 });

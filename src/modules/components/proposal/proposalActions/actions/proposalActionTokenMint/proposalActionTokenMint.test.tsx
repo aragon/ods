@@ -13,6 +13,7 @@ describe('<ProposalActionTokenMint /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionTokenMintProps>) => {
         const completeProps: IProposalActionTokenMintProps = {
             action: generateProposalActionTokenMint(),
+            index: 0,
             ...props,
         };
 

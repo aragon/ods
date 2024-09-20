@@ -55,24 +55,26 @@ export const ProposalActionsAction = <TAction extends IProposalAction = IProposa
     const itemRef = useRef<HTMLDivElement>(null);
 
     const ActionComponent = useMemo(() => {
+        const commonProps = { index, ...web3Props };
+
         if (CustomComponent) {
-            return <CustomComponent action={action} {...web3Props} />;
+            return <CustomComponent action={action} {...commonProps} />;
         }
 
         if (proposalActionsUtils.isWithdrawTokenAction(action)) {
-            return <ProposalActionWithdrawToken action={action} {...web3Props} />;
+            return <ProposalActionWithdrawToken action={action} {...commonProps} />;
         } else if (proposalActionsUtils.isTokenMintAction(action)) {
-            return <ProposalActionTokenMint action={action} {...web3Props} />;
+            return <ProposalActionTokenMint action={action} {...commonProps} />;
         } else if (proposalActionsUtils.isUpdateMetadataAction(action)) {
-            return <ProposalActionUpdateMetadata action={action} {...web3Props} />;
+            return <ProposalActionUpdateMetadata action={action} {...commonProps} />;
         } else if (proposalActionsUtils.isChangeMembersAction(action)) {
-            return <ProposalActionChangeMembers action={action} {...web3Props} />;
+            return <ProposalActionChangeMembers action={action} {...commonProps} />;
         } else if (proposalActionsUtils.isChangeSettingsAction(action)) {
-            return <ProposalActionChangeSettings action={action} {...web3Props} />;
+            return <ProposalActionChangeSettings action={action} {...commonProps} />;
         }
 
         return null;
-    }, [action, CustomComponent, web3Props]);
+    }, [action, CustomComponent, web3Props, index]);
 
     const [viewMode, setViewMode] = useState(
         ActionComponent
@@ -155,7 +157,7 @@ export const ProposalActionsAction = <TAction extends IProposalAction = IProposa
                                         key={item.label}
                                         icon={item.icon}
                                         iconPosition="left"
-                                        onClick={() => item.onClick?.(action)}
+                                        onClick={() => item.onClick?.(action, index)}
                                     >
                                         {item.label}
                                     </Dropdown.Item>

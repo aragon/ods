@@ -8,10 +8,14 @@ export interface IProposalActionChangeSettingsProps
 
 export const ProposalActionChangeSettings: React.FC<IProposalActionChangeSettingsProps> = (props) => {
     const { action } = props;
-    const [toggleValue, setToggleValue] = useState<string | undefined>('existingSettings');
-    const { proposedSettings, existingSettings } = action;
-    const settingsToDisplay = toggleValue === 'proposedSettings' ? proposedSettings : existingSettings;
+
     const { copy } = useOdsModulesContext();
+
+    const [toggleValue, setToggleValue] = useState<string | undefined>('existingSettings');
+    const settingsToDisplay = toggleValue === 'proposedSettings' ? proposedSettings : existingSettings;
+
+    const { proposedSettings, existingSettings } = action;
+
     return (
         <div className="flex w-full flex-col gap-2">
             <ToggleGroup value={toggleValue} onChange={setToggleValue} isMultiSelect={false}>

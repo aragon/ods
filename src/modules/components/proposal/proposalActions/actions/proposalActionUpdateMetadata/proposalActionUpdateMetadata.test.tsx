@@ -8,6 +8,7 @@ describe('<ProposalActionUpdateMetadata /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionUpdateMetadataProps>) => {
         const defaultProps: IProposalActionUpdateMetadataProps = {
             action: generateProposalActionUpdateMetadata(),
+            index: 0,
             ...props,
         };
 

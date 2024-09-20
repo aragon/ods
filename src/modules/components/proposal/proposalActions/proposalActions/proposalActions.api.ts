@@ -15,7 +15,7 @@ export interface IProposalActionsDropdownItem<TAction extends IProposalAction = 
     /**
      * Callback called with the current action on item click.
      */
-    onClick: (action: TAction) => void;
+    onClick: (action: TAction, index: number) => void;
 }
 
 export interface IProposalActionsProps<TAction extends IProposalAction = IProposalAction> extends IWeb3ComponentProps {
@@ -23,6 +23,11 @@ export interface IProposalActionsProps<TAction extends IProposalAction = IPropos
      * Actions to render.
      */
     actions: TAction[];
+    /**
+     * Optional action attribute name to be used as a key, useful for using the component within a form library.
+     * @default action-{index}
+     */
+    actionKey?: keyof TAction;
     /**
      * Map of action-type <=> action-name displayed on the action header.
      */

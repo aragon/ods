@@ -12,6 +12,7 @@ describe('<ProposalActionChangeMembers /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionChangeMembersProps>) => {
         const completeProps: IProposalActionChangeMembersProps = {
             action: generateProposalActionChangeMembers(),
+            index: 0,
             ...props,
         };
 

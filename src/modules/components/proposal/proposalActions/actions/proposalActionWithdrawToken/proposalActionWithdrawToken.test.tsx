@@ -11,6 +11,7 @@ describe('<ProposalActionWithdrawToken /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionWithdrawTokenProps>) => {
         const completeProps: IProposalActionWithdrawTokenProps = {
             action: generateProposalActionWithdrawToken(),
+            index: 0,
             ...props,
         };
 

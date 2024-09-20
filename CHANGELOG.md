@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Add `IconType.BLOCKCHAIN_WALLETCONNECT` and associated asset
 -   Add `EmptyState` fallback to ProposalActions when no actions provided
 -   Support `dropdownItems` property on `ProposalActions` module component to display custom actions
+-   Update `ProposalActions` component to support `actionKey` property and forward `index` property to sub action
+    components
 
 ### Changed
 
