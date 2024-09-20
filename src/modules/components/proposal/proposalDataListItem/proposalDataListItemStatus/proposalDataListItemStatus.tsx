@@ -43,14 +43,14 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
     const { copy } = useOdsModulesContext();
 
     return (
-        <div className="flex items-center gap-x-4 md:gap-x-6">
+        <div className="flex w-full items-center justify-between gap-x-4 md:gap-x-6">
             <Tag
                 label={copy.proposalDataListItemStatus.statusLabel[status]}
                 variant={proposalStatusToTagVariant[status]}
                 className="shrink-0"
             />
             {showStatusMetadata && (
-                <div className="flex flex-1 items-center justify-end gap-x-2 md:gap-x-3">
+                <div className="flex items-center gap-x-2 md:gap-x-3">
                     <span
                         className={classNames('text-sm leading-tight md:text-base', {
                             'text-info-800': status === ProposalStatus.ACTIVE,
