@@ -3,7 +3,7 @@ import type { IconType } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
 import type { IProposalAction, ProposalActionComponent } from '../proposalActionsTypes';
 
-export interface IProposalActionsDropdownItem {
+export interface IProposalActionsDropdownItem<TAction extends IProposalAction = IProposalAction> {
     /**
      * Label of the item.
      */
@@ -15,14 +15,14 @@ export interface IProposalActionsDropdownItem {
     /**
      * Callback called with the current action on item click.
      */
-    onClick: (action: IProposalAction) => void;
+    onClick: (action: TAction) => void;
 }
 
-export interface IProposalActionsProps extends IWeb3ComponentProps {
+export interface IProposalActionsProps<TAction extends IProposalAction = IProposalAction> extends IWeb3ComponentProps {
     /**
      * Actions to render.
      */
-    actions: IProposalAction[];
+    actions: TAction[];
     /**
      * Map of action-type <=> action-name displayed on the action header.
      */
@@ -30,7 +30,7 @@ export interface IProposalActionsProps extends IWeb3ComponentProps {
     /**
      * Map of action-type <=> custom-component to customize how actions are displayed.
      */
-    customActionComponents?: Record<string, ProposalActionComponent>;
+    customActionComponents?: Record<string, ProposalActionComponent<TAction>>;
     /**
      * Custom description for the empty state.
      */
@@ -38,7 +38,7 @@ export interface IProposalActionsProps extends IWeb3ComponentProps {
     /**
      * Items to be displayed insdie a dropdown for each proposal action (e.g. remove from list, move up, etc..)
      */
-    dropdownItems?: IProposalActionsDropdownItem[];
+    dropdownItems?: Array<IProposalActionsDropdownItem<TAction>>;
     /**
      * Additional classes for the component.
      */

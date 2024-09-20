@@ -20,6 +20,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update `ProposalAction` to handle an `EmptyState` fallback for no actions passed, improve layout of children with
     "Expand all" (eg. 'Execute actions' button, etc)
 -   Update `DataListItem` component to support button rendering and standalone usage
+-   Make `IProposalAction` type generic on ProposalAction module component to support actions with additional parameters
+    when used inside a form (e.g. actions with an additional `index` parameter)
 -   Update minor and patch versions of NPM dependencies
 -   Bump `micromatch` from 4.0.7 to 4.0.8
 -   Bump `webpack` from 5.91.0 to 5.94.0

@@ -20,11 +20,12 @@ import { ProposalActionsActionDecodedView } from './proposalActionsActionDecoded
 import { ProposalActionsActionRawView } from './proposalActionsActionRawView';
 import { ProposalActionsActionViewAsMenu } from './proposalActionsActionViewAsMenu';
 
-export interface IProposalActionsActionProps extends IWeb3ComponentProps {
+export interface IProposalActionsActionProps<TAction extends IProposalAction = IProposalAction>
+    extends IWeb3ComponentProps {
     /**
      * Proposal action
      */
-    action: IProposalAction;
+    action: TAction;
     /**
      * Proposal action name
      */
@@ -36,14 +37,16 @@ export interface IProposalActionsActionProps extends IWeb3ComponentProps {
     /**
      * Custom component for the action
      */
-    CustomComponent?: ProposalActionComponent;
+    CustomComponent?: ProposalActionComponent<TAction>;
     /**
      * Items displayed beside the "View as" menu.
      */
-    dropdownItems?: IProposalActionsDropdownItem[];
+    dropdownItems?: Array<IProposalActionsDropdownItem<TAction>>;
 }
 
-export const ProposalActionsAction: React.FC<IProposalActionsActionProps> = (props) => {
+export const ProposalActionsAction = <TAction extends IProposalAction = IProposalAction>(
+    props: IProposalActionsActionProps<TAction>,
+) => {
     const { action, index, name, CustomComponent, dropdownItems, ...web3Props } = props;
 
     const { copy } = useOdsModulesContext();

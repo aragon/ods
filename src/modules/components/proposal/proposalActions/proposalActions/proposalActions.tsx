@@ -3,9 +3,12 @@ import { useRef, useState } from 'react';
 import { Accordion, Button, Card, EmptyState } from '../../../../../core';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { ProposalActionsAction } from '../proposalActionsAction';
+import type { IProposalAction } from '../proposalActionsTypes';
 import type { IProposalActionsProps } from './proposalActions.api';
 
-export const ProposalActions: React.FC<IProposalActionsProps> = (props) => {
+export const ProposalActions = <TAction extends IProposalAction = IProposalAction>(
+    props: IProposalActionsProps<TAction>,
+) => {
     const {
         actions,
         actionNames,
