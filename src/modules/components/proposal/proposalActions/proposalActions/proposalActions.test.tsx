@@ -5,7 +5,8 @@ import { OdsModulesProvider } from '../../../odsModulesProvider';
 import { generateProposalAction } from '../actions/generators/proposalAction';
 import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
 import { ProposalActionType, type IProposalAction } from '../proposalActionsTypes';
-import { ProposalActions, type IProposalActionsProps } from './proposalActions';
+import { ProposalActions } from './proposalActions';
+import type { IProposalActionsProps } from './proposalActions.api';
 
 jest.mock('../../../member', () => ({ MemberAvatar: () => <div data-testid="member-avatar" /> }));
 

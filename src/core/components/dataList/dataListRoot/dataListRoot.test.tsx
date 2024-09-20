@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { Button } from '../../button';
 import { useDataListContext } from '../dataListContext';
 import { DataListItem } from '../dataListItem';
 import { DataListRoot, type IDataListRootProps } from './dataListRoot';
@@ -29,11 +28,7 @@ describe('<DataList.Root /> component', () => {
         const ChildrenComponent = () => {
             const { currentPage, handleLoadMore } = useDataListContext();
 
-            return (
-                <DataListItem>
-                    <Button onClick={() => handleLoadMore(currentPage + 1)}>{currentPage}</Button>
-                </DataListItem>
-            );
+            return <button onClick={() => handleLoadMore(currentPage + 1)}>{currentPage}</button>;
         };
 
         render(

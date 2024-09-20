@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { TransactionDataListItem } from '../../../..';
-import { DataList } from '../../../../../core';
 
 const meta: Meta<typeof TransactionDataListItem.Skeleton> = {
     title: 'Modules/Components/Transaction/TransactionDataListItem/TransactionDataListItem.Skeleton',
@@ -18,12 +17,6 @@ type Story = StoryObj<typeof TransactionDataListItem.Skeleton>;
 /**
  * Default usage example of the TransactionDataListItem.Skeleton component.
  */
-export const Default: Story = {
-    render: () => (
-        <DataList.Root entityLabel="Transaction" state="initialLoading" pageSize={1}>
-            <DataList.Container SkeletonElement={TransactionDataListItem.Skeleton} />
-        </DataList.Root>
-    ),
-};
+export const Default: Story = {};
 
 export default meta;

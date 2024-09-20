@@ -8,7 +8,7 @@ export const generateProposalActionUpdateMetadata = (
     data: '',
     value: '0',
     inputData: {
-        function: 'Update DAO metadata',
+        function: 'setMetadata',
         contract: 'DAO',
         parameters: [
             { name: 'address', type: 'string', value: '0x3f5CE5FBFe3E9af3971dD833D26BA9b5C936F0bE' },

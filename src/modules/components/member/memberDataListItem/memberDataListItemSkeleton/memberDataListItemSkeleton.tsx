@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { DataList, StateSkeletonBar, StateSkeletonCircular, type IDataListItemProps } from '../../../../../core';
 
-export interface IMemberDataListItemSkeletonProps extends IDataListItemProps {}
+export type IMemberDataListItemSkeletonProps = IDataListItemProps;
 
 export const MemberDataListItemSkeleton: React.FC<IMemberDataListItemSkeletonProps> = (props) => {
     const { className, ...otherProps } = props;

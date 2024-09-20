@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import * as wagmi from 'wagmi';
-import { DataList, DateFormat, NumberFormat, formatterUtils } from '../../../../../core';
+import { DateFormat, NumberFormat, formatterUtils } from '../../../../../core';
 import { TransactionDataListItemStructure } from './transactionDataListItemStructure';
 import {
     TransactionStatus,
@@ -19,11 +19,7 @@ describe('<TransactionDataListItem.Structure /> component', () => {
                     default: { name: 'Etherscan', url: 'https://etherscan.io', apiUrl: 'https://api.etherscan.io/api' },
                 },
                 name: 'Chain Name',
-                nativeCurrency: {
-                    decimals: 18,
-                    name: 'Ether',
-                    symbol: 'ETH',
-                },
+                nativeCurrency: { decimals: 18, name: 'Ether', symbol: 'ETH' },
                 rpcUrls: { default: { http: ['https://cloudflare-eth.com'] } },
             },
         ]);
@@ -40,13 +36,8 @@ describe('<TransactionDataListItem.Structure /> component', () => {
             date: '2023-01-01T00:00:00Z',
             ...props,
         };
-        return (
-            <DataList.Root entityLabel="Transactions">
-                <DataList.Container>
-                    <TransactionDataListItemStructure {...defaultProps} />
-                </DataList.Container>
-            </DataList.Root>
-        );
+
+        return <TransactionDataListItemStructure {...defaultProps} />;
     };
 
     it('renders the transaction type heading', () => {

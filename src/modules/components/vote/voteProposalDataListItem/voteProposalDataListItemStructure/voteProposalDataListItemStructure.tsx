@@ -3,7 +3,7 @@ import { DataList, DateFormat, Tag, formatterUtils, type IDataListItemProps } fr
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
-export interface IVoteProposalDataListItemStructureProps extends IDataListItemProps {
+export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
     /**
      * The ID of proposal.
      */
@@ -20,7 +20,7 @@ export interface IVoteProposalDataListItemStructureProps extends IDataListItemPr
      *  Date of the vote on the proposal in ISO format or as a timestamp
      */
     date?: number | string;
-}
+};
 
 export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListItemStructureProps> = (props) => {
     const { proposalTitle, proposalId, voteIndicator, date, className, ...otherProps } = props;

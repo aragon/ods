@@ -127,4 +127,28 @@ describe('<ProposalActionsAction /> component', () => {
         await userEvent.click(screen.getByRole('button'));
         expect(screen.queryByRole('alert')).not.toBeInTheDocument();
     });
+
+    it('renders the dropdown with the specified items when the dropdownItems property is set', async () => {
+        const dropdownItems = [
+            { label: 'Select', icon: IconType.APP_ASSETS, onClick: jest.fn() },
+            { label: 'Edit', icon: IconType.APP_TRANSACTIONS, onClick: jest.fn() },
+        ];
+        const action = generateProposalAction();
+        render(createTestComponent({ dropdownItems, action }));
+
+        await userEvent.click(screen.getByRole('button'));
+        const dropdownTrigger = screen.getByRole('button', { name: modulesCopy.proposalActionsAction.dropdownLabel });
+        expect(dropdownTrigger).toBeInTheDocument();
+        await userEvent.click(dropdownTrigger);
+
+        const dropdownItem = screen.getByRole('menuitem', { name: dropdownItems[0].label });
+        expect(dropdownItem).toBeInTheDocument();
+        expect(screen.getByTestId(dropdownItems[0].icon)).toBeInTheDocument();
+
+        expect(screen.getByRole('menuitem', { name: dropdownItems[1].label })).toBeInTheDocument();
+        expect(screen.getByTestId(dropdownItems[1].icon)).toBeInTheDocument();
+
+        await userEvent.click(dropdownItem);
+        expect(dropdownItems[0].onClick).toHaveBeenCalledWith(action);
+    });
 });

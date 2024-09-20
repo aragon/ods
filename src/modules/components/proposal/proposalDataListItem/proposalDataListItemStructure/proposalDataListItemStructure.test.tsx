@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import * as wagmi from 'wagmi';
-import { DataList } from '../../../../../core';
 import { modulesCopy } from '../../../../assets';
 import { addressUtils } from '../../../../utils/addressUtils';
 import { ProposalStatus } from '../../proposalUtils';
@@ -54,18 +53,10 @@ describe('<ProposalDataListItemStructure/> component', () => {
         };
 
         if (baseProps.type === 'approvalThreshold') {
-            return (
-                <DataList.Root entityLabel="Proposals">
-                    <ProposalDataListItemStructure {...baseProps} result={approvalResult} type="approvalThreshold" />
-                </DataList.Root>
-            );
+            return <ProposalDataListItemStructure {...baseProps} result={approvalResult} type="approvalThreshold" />;
         }
 
-        return (
-            <DataList.Root entityLabel="Proposals">
-                <ProposalDataListItemStructure {...baseProps} result={majorityVotingProps} type="majorityVoting" />
-            </DataList.Root>
-        );
+        return <ProposalDataListItemStructure {...baseProps} result={majorityVotingProps} type="majorityVoting" />;
     };
 
     it("renders 'You' as the publisher if the connected address is the publisher address", () => {

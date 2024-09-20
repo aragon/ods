@@ -1,16 +1,13 @@
 import { render, screen } from '@testing-library/react';
-import { DataList } from '../../../../../core';
 import { DaoDataListItemStructure, type IDaoDataListItemStructureProps } from './daoDataListItemStructure';
 
 describe('<DaoDataListItemStructure /> component', () => {
     const createTestComponent = (props?: Partial<IDaoDataListItemStructureProps>) => {
-        return (
-            <DataList.Root entityLabel="Daos">
-                <DataList.Container>
-                    <DaoDataListItemStructure {...props} />
-                </DataList.Container>
-            </DataList.Root>
-        );
+        const completeProps: IDaoDataListItemStructureProps = {
+            ...props,
+        };
+
+        return <DaoDataListItemStructure {...completeProps} />;
     };
 
     it('renders ensName and the daoName (in uppercase) as the avatar fallback', () => {

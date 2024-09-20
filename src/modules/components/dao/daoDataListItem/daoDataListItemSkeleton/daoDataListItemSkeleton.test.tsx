@@ -1,16 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import { DataList } from '../../../../../core';
 import { DaoDataListItem, type IDaoDataListItemSkeletonProps } from '../../daoDataListItem';
 
 describe('<DaoDataListItem.Skeleton /> component', () => {
     const createTestComponent = (props?: Partial<IDaoDataListItemSkeletonProps>) => {
         const completeProps: IDaoDataListItemSkeletonProps = { ...props };
 
-        return (
-            <DataList.Root entityLabel="Proposal">
-                <DaoDataListItem.Skeleton {...completeProps} />
-            </DataList.Root>
-        );
+        return <DaoDataListItem.Skeleton {...completeProps} />;
     };
     it('has correct accessibility attributes', () => {
         render(createTestComponent());

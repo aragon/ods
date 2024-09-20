@@ -5,7 +5,7 @@ import { addressUtils } from '../../../../utils';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { MemberAvatar } from '../../memberAvatar';
 
-export interface IMemberDataListItemProps extends IDataListItemProps {
+export type IMemberDataListItemProps = IDataListItemProps & {
     /**
      * Whether the member is a delegate of current user or not.
      */
@@ -38,7 +38,7 @@ export interface IMemberDataListItemProps extends IDataListItemProps {
      * Token Symbol.
      */
     tokenSymbol?: string;
-}
+};
 
 export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (props) => {
     const {

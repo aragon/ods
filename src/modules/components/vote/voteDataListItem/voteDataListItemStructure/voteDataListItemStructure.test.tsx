@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import * as viem from 'viem';
 import * as wagmi from 'wagmi';
-import { DataList, NumberFormat, formatterUtils } from '../../../../../core';
+import { NumberFormat, formatterUtils } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
 import { VoteDataListItemStructure, type IVoteDataListItemStructureProps } from '../../voteDataListItem';
 
@@ -10,9 +10,7 @@ jest.mock('../../../../../core/components/tag', () => ({
     Tag: ({ label }: { label: string }) => <div data-testid="tag">{label}</div>,
 }));
 
-jest.mock('../../../member', () => ({
-    MemberAvatar: () => <div data-testid="member-avatar" />,
-}));
+jest.mock('../../../member', () => ({ MemberAvatar: () => <div data-testid="member-avatar" /> }));
 
 describe('<VoteDataListItemStructure /> component', () => {
     const isAddressSpy = jest.spyOn(viem, 'isAddress');
@@ -26,13 +24,7 @@ describe('<VoteDataListItemStructure /> component', () => {
             ...props,
         };
 
-        return (
-            <DataList.Root entityLabel="Votes">
-                <DataList.Container>
-                    <VoteDataListItemStructure {...completeProps} />
-                </DataList.Container>
-            </DataList.Root>
-        );
+        return <VoteDataListItemStructure {...completeProps} />;
     };
 
     beforeEach(() => {
@@ -45,7 +37,9 @@ describe('<VoteDataListItemStructure /> component', () => {
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
+        isAddressSpy.mockReset();
+        getAddressSpy.mockReset();
+        useAccountSpy.mockReset();
     });
 
     it('renders the vote and the voter information', () => {

@@ -1,4 +1,4 @@
-import { DataList, DefinitionList, Heading } from '../../../../../../core';
+import { DefinitionList, Heading } from '../../../../../../core';
 import { MemberDataListItem } from '../../../../member';
 import { useOdsModulesContext } from '../../../../odsModulesProvider';
 import { ProposalActionType, type IProposalActionChangeMembers } from '../../proposalActionsTypes';
@@ -16,18 +16,16 @@ export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersP
 
     return (
         <div className="flex flex-col gap-y-6">
-            <DataList.Root entityLabel="Members">
-                <DataList.Container>
-                    {action.members.map((member) => (
-                        <MemberDataListItem.Structure
-                            key={member.address}
-                            address={member.address}
-                            ensName={member.name}
-                            avatarSrc={member.avatarSrc}
-                        />
-                    ))}
-                </DataList.Container>
-            </DataList.Root>
+            <div className="flex flex-col gap-2 md:flex-row">
+                {action.members.map((member) => (
+                    <MemberDataListItem.Structure
+                        key={member.address}
+                        address={member.address}
+                        ensName={member.name}
+                        avatarSrc={member.avatarSrc}
+                    />
+                ))}
+            </div>
             <div>
                 <Heading size="h3">{copy.proposalActionChangeMembers.summary}</Heading>
                 <DefinitionList.Container>

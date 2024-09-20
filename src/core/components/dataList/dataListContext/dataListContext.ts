@@ -22,7 +22,7 @@ export interface IDataListContext
     handleLoadMore: (newPage: number) => void;
 }
 
-const dataListContext = createContext<IDataListContext | null>(null);
+export const dataListContext = createContext<IDataListContext | null>(null);
 
 export const DataListContextProvider = dataListContext.Provider;
 

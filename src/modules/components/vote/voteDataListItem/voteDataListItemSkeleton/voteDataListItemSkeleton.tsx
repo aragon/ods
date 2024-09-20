@@ -1,6 +1,6 @@
 import { DataList, StateSkeletonBar, StateSkeletonCircular, type IDataListItemProps } from '../../../../../core';
 
-export interface IVoteDataListItemSkeletonProps extends IDataListItemProps {}
+export type IVoteDataListItemSkeletonProps = IDataListItemProps;
 
 export const VoteDataListItemSkeleton: React.FC<IVoteDataListItemSkeletonProps> = (props) => {
     const { ...otherProps } = props;

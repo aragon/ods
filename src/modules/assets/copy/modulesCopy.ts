@@ -33,6 +33,7 @@ export const modulesCopy = {
         },
     },
     proposalActionsAction: {
+        dropdownLabel: 'More',
         notVerified: 'Not verified',
         nativeSendAlert: 'Proceed with caution',
         nativeSendDescription: (amount: string) =>

@@ -18,14 +18,30 @@ type Story = StoryObj<typeof DataList.Item>;
  * Default usage example of the DataList.Item component.
  */
 export const Default: Story = {
-    args: {},
-    render: (props) => (
-        <DataList.Root entityLabel="Users">
-            <DataList.Container>
-                <DataList.Item {...props}>Data List Item</DataList.Item>
-            </DataList.Container>
-        </DataList.Root>
-    ),
+    args: {
+        children: 'Data list item',
+    },
+};
+
+/**
+ * Usage of the DataList.Item component as link.
+ */
+export const Link: Story = {
+    args: {
+        children: 'Link data list item',
+        href: 'https://aragon.org',
+        target: '_blank',
+    },
+};
+
+/**
+ * Usage of the DataList.Item component as button.
+ */
+export const Button: Story = {
+    args: {
+        children: 'Button data list item',
+        onClick: () => null,
+    },
 };
 
 export default meta;

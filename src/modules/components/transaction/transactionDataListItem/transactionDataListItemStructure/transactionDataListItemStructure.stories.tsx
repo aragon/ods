@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DataList } from '../../../../../core';
 import { TransactionDataListItemStructure } from './transactionDataListItemStructure';
 import { TransactionStatus, TransactionType } from './transactionDataListItemStructure.api';
 
@@ -24,16 +23,11 @@ type Story = StoryObj<typeof TransactionDataListItemStructure>;
 /**
  * Default usage example of the TransactionDataList module component.
  */
-export const Default: Story = {
-    render: (args) => (
-        <DataList.Root entityLabel="Transactions">
-            <DataList.Container>
-                <TransactionDataListItemStructure {...args} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
-};
+export const Default: Story = {};
 
+/**
+ * Example of the TransactionDataList component with withdraw transaction.
+ */
 export const Withdraw: Story = {
     args: {
         status: TransactionStatus.SUCCESS,
@@ -42,15 +36,11 @@ export const Withdraw: Story = {
         tokenSymbol: 'ETH',
         date: 1613984914000,
     },
-    render: (args) => (
-        <DataList.Root entityLabel="Transactions">
-            <DataList.Container>
-                <TransactionDataListItemStructure {...args} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
+/**
+ * Example of the TransactionDataList component with failed transaction.
+ */
 export const Failed: Story = {
     args: {
         status: TransactionStatus.FAILED,
@@ -60,13 +50,6 @@ export const Failed: Story = {
         tokenPrice: 100,
         date: 1613984914000,
     },
-    render: (args) => (
-        <DataList.Root entityLabel="Transactions">
-            <DataList.Container>
-                <TransactionDataListItemStructure {...args} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 export default meta;

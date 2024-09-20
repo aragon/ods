@@ -2,7 +2,7 @@ import type React from 'react';
 import { DataList, Heading, Icon, IconType, type IDataListItemProps } from '../../../../../core';
 import { DaoAvatar } from '../../daoAvatar';
 
-export interface IDaoDataListItemStructureProps extends IDataListItemProps {
+export type IDaoDataListItemStructureProps = IDataListItemProps & {
     /**
      * The name of the DAO.
      */
@@ -32,7 +32,7 @@ export interface IDaoDataListItemStructureProps extends IDataListItemProps {
      * The network on which the DAO operates.
      */
     network?: string;
-}
+};
 
 export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> = (props) => {
     const { name, logoSrc, description, network, plugin = 'token-based', address, ens, ...otherProps } = props;

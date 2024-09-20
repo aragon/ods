@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DataList } from '../../../../../core';
 import { ProposalDataListItem, ProposalStatus } from '../../index';
 import { type IProposalDataListItemStructureProps } from './proposalDataListItemStructure.api';
 
@@ -47,13 +46,6 @@ export const MajorityVoting: Story = {
             votePercentage: 15,
         },
     },
-    render: (props) => (
-        <DataList.Root entityLabel="Proposals">
-            <DataList.Container>
-                <ProposalDataListItem.Structure {...props} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 /**
@@ -69,13 +61,6 @@ export const ApprovalThreshold: Story = {
             approvalThreshold: 6,
         },
     },
-    render: (props) => (
-        <DataList.Root entityLabel="Proposals">
-            <DataList.Container>
-                <ProposalDataListItem.Structure {...props} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 /**
@@ -98,13 +83,6 @@ export const MultiBody: Story = {
             approvalThreshold: 6,
         },
     },
-    render: (props) => (
-        <DataList.Root entityLabel="Proposals">
-            <DataList.Container SkeletonElement={ProposalDataListItem.Skeleton}>
-                <ProposalDataListItem.Structure {...props} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 export default meta;

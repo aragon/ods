@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DataList } from '../../../../../core';
 import { DaoDataListItemStructure } from './daoDataListItemStructure';
 
 const meta: Meta<typeof DaoDataListItemStructure> = {
@@ -28,13 +27,6 @@ export const Default: Story = {
         network: 'Ethereum Mainnet',
         ens: 'patito.dao.eth',
     },
-    render: (props) => (
-        <DataList.Root entityLabel="Daos">
-            <DataList.Container>
-                <DaoDataListItemStructure {...props} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 /* Usage with extra long strings for name & ENS */
@@ -48,13 +40,6 @@ export const LongNames: Story = {
         network: 'Ethereum Mainnet',
         ens: 'a_dao_with_an_extremely_long_ens_name_that_should_be_truncated.dao.eth',
     },
-    render: (props) => (
-        <DataList.Root entityLabel="Daos">
-            <DataList.Container>
-                <DaoDataListItemStructure {...props} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 /**
@@ -69,13 +54,6 @@ export const Fallback: Story = {
         network: 'Ethereum Mainnet',
         ens: 'patito.dao.eth',
     },
-    render: (props) => (
-        <DataList.Root entityLabel="Daos">
-            <DataList.Container>
-                <DaoDataListItemStructure {...props} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 export default meta;

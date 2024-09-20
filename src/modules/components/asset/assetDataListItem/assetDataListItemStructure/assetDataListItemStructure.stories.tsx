@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DataList } from '../../../../../core';
 import { AssetDataListItemStructure } from './assetDataListItemStructure';
 
 const meta: Meta<typeof AssetDataListItemStructure> = {
@@ -27,13 +26,6 @@ export const Default: Story = {
         fiatPrice: 3654.76,
         priceChange: 15,
     },
-    render: (props) => (
-        <DataList.Root entityLabel="Assets">
-            <DataList.Container>
-                <AssetDataListItemStructure {...props} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 /**
@@ -48,13 +40,6 @@ export const LongName: Story = {
         fiatPrice: 3654.76,
         priceChange: 15,
     },
-    render: (props) => (
-        <DataList.Root entityLabel="Assets">
-            <DataList.Container>
-                <AssetDataListItemStructure {...props} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 /**
@@ -66,13 +51,6 @@ export const Fallback: Story = {
         amount: 420.69,
         symbol: 'ETH',
     },
-    render: (props) => (
-        <DataList.Root entityLabel="Assets">
-            <DataList.Container>
-                <AssetDataListItemStructure {...props} />
-            </DataList.Container>
-        </DataList.Root>
-    ),
 };
 
 export default meta;
