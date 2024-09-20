@@ -36,7 +36,7 @@ export interface IProposalActionsProps<TAction extends IProposalAction = IPropos
      */
     emptyStateDescription: string;
     /**
-     * Items to be displayed insdie a dropdown for each proposal action (e.g. remove from list, move up, etc..)
+     * Items to be displayed inside a dropdown for each proposal action (e.g. remove from list, move up, etc..)
      */
     dropdownItems?: Array<IProposalActionsDropdownItem<TAction>>;
     /**
