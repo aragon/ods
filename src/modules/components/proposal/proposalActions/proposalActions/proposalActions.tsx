@@ -11,6 +11,7 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
 ) => {
     const {
         actions,
+        actionKey,
         actionNames,
         customActionComponents,
         emptyStateDescription,
@@ -55,7 +56,7 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
             >
                 {actions.map((action, index) => (
                     <ProposalActionsAction
-                        key={`action-${index}`}
+                        key={actionKey != null ? (action[actionKey] as string) : `action-${index}`}
                         action={action}
                         index={index}
                         name={actionNames?.[action.type]}

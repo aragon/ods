@@ -7,6 +7,7 @@ describe('<ProposalActionChangeSettings /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionChangeSettingsProps>) => {
         const completeProps: IProposalActionChangeSettingsProps = {
             action: generateProposalActionChangeSettings(),
+            index: 0,
             ...props,
         };
 

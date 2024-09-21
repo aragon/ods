@@ -1,14 +1,14 @@
 import { DefinitionList, Heading } from '../../../../../../core';
 import { MemberDataListItem } from '../../../../member';
 import { useOdsModulesContext } from '../../../../odsModulesProvider';
-import { ProposalActionType, type IProposalActionChangeMembers } from '../../proposalActionsTypes';
+import {
+    ProposalActionType,
+    type IProposalActionChangeMembers,
+    type IProposalActionComponentProps,
+} from '../../proposalActionsTypes';
 
-export interface IProposalActionChangeMembersProps {
-    /**
-     * The action to render for Member count adjustment
-     */
-    action: IProposalActionChangeMembers;
-}
+export interface IProposalActionChangeMembersProps
+    extends IProposalActionComponentProps<IProposalActionChangeMembers> {}
 
 export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersProps> = (props) => {
     const { action } = props;

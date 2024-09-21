@@ -8,6 +8,10 @@ export interface IProposalActionComponentProps<TAction extends IProposalAction =
      * Action to be rendered.
      */
     action: TAction;
+    /**
+     * Index of the action.
+     */
+    index: number;
 }
 
 export type ProposalActionComponent<TAction extends IProposalAction = IProposalAction> = ComponentType<

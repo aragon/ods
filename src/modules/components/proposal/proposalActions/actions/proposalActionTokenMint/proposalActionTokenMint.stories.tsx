@@ -19,18 +19,14 @@ type Story = StoryObj<typeof ProposalActionTokenMint>;
  * Usage example of the ProposalActions module component with mocked TokenMint actions.
  */
 export const Default: Story = {
-    render: () => {
-        return (
-            <ProposalActionTokenMint
-                action={generateProposalActionTokenMint({
-                    receiver: {
-                        currentBalance: '0',
-                        newBalance: '5',
-                        address: '0x32c2FE388ABbB3e678D44DF6a0471086D705316a',
-                    },
-                })}
-            />
-        );
+    args: {
+        action: generateProposalActionTokenMint({
+            receiver: {
+                currentBalance: '0',
+                newBalance: '5',
+                address: '0x32c2FE388ABbB3e678D44DF6a0471086D705316a',
+            },
+        }),
     },
 };
 
