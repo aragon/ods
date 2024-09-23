@@ -37,4 +37,11 @@ describe('<VoteProposalDataListItemStructure /> component', () => {
 
         expect(screen.getByText('2 days ago')).toBeInTheDocument();
     });
+
+    it('renders the custom label if available', () => {
+        const voteLabel = 'Custom label';
+        render(createTestComponent({ voteLabel }));
+
+        expect(screen.getByText(voteLabel)).toBeInTheDocument();
+    });
 });
