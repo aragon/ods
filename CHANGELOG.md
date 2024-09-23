@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Add optional `voteLabel` prop to the `VoteProposalDataListItem` component in order to pass a custom string wen
     needed.
+-   Add new `xs` size for core `Avatar` component
 
 ## [1.0.46] - 2024-09-21
 
