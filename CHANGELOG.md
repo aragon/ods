@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Add optional `confirmationLabel` prop to the `VoteProposalDataListItem` component in order to pass a custom string
+    when needed.
+-   Add new `xs` size for core `Avatar` component
+
 ## [1.0.46] - 2024-09-21
 
 ### Added

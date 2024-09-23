@@ -27,6 +27,19 @@ export const TokenVoting: Story = {
 };
 
 /**
+ * Usage example of the VotesDataListItem module component with a custom label.
+ */
+export const TokenVotingCustomLabel: Story = {
+    args: {
+        proposalId: 'PIP-06',
+        proposalTitle: 'Introduction of Layer 2 Scaling Solutions',
+        voteIndicator: 'yes',
+        date: 1613984914000,
+        confirmationLabel: 'Custom label',
+    },
+};
+
+/**
  * Usage example of the VotesDataListItem module component for a multisig vote.
  */
 export const Multisig: Story = {
