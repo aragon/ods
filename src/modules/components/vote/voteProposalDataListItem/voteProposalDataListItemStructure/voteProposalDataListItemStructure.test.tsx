@@ -39,9 +39,9 @@ describe('<VoteProposalDataListItemStructure /> component', () => {
     });
 
     it('renders the custom label if available', () => {
-        const voteLabel = 'Custom label';
-        render(createTestComponent({ voteLabel }));
+        const confirmationLabel = 'Custom label';
+        render(createTestComponent({ confirmationLabel }));
 
-        expect(screen.getByText(voteLabel)).toBeInTheDocument();
+        expect(screen.getByText(confirmationLabel)).toBeInTheDocument();
     });
 });

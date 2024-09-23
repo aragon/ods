@@ -35,7 +35,7 @@ export const TokenVotingCustomLabel: Story = {
         proposalTitle: 'Introduction of Layer 2 Scaling Solutions',
         voteIndicator: 'yes',
         date: 1613984914000,
-        voteLabel: 'Cutom label',
+        confirmationLabel: 'Cutom label',
     },
 };
 

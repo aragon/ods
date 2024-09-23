@@ -23,11 +23,11 @@ export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
     /**
      *   Custom label for the tag
      */
-    voteLabel?: string;
+    confirmationLabel?: string;
 };
 
 export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListItemStructureProps> = (props) => {
-    const { proposalTitle, proposalId, voteIndicator, date, voteLabel, className, ...otherProps } = props;
+    const { proposalTitle, proposalId, voteIndicator, date, confirmationLabel, className, ...otherProps } = props;
 
     const { copy } = useOdsModulesContext();
 
@@ -41,7 +41,7 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
                 <span className="truncate text-neutral-800">{proposalTitle}</span>
             </div>
             <div className="flex items-center gap-x-1 text-sm font-normal leading-tight text-neutral-500 md:gap-x-1.5 md:text-base">
-                <span>{voteLabel ?? copy.voteProposalDataListItemStructure.voted}</span>
+                <span>{confirmationLabel ?? copy.voteProposalDataListItemStructure.voted}</span>
                 <Tag
                     variant={voteIndicatorToTagVariant[voteIndicator]}
                     className="capitalize"
