@@ -9,7 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add optional `voteLabel` prop to the `VoteProposalDataListItem` component in order to pass a custom string wen needed.
+-   Add optional `voteLabel` prop to the `VoteProposalDataListItem` component in order to pass a custom string wen
+    needed.
 
 ## [1.0.46] - 2024-09-21
 
