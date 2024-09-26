@@ -36,10 +36,10 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
             className={classNames('flex flex-col gap-x-3 gap-y-1 md:gap-x-4 md:gap-y-1.5 md:text-lg', className)}
             {...otherProps}
         >
-            <div className="flex items-center gap-x-1 text-base font-normal leading-tight md:gap-x-1.5 md:text-lg">
-                <span className="text-ellipsis whitespace-nowrap text-neutral-500">{proposalId}</span>
-                <span className="truncate text-neutral-800">{proposalTitle}</span>
-            </div>
+            <p className="flex items-center gap-x-1 text-base font-normal leading-tight md:gap-x-1.5 md:text-lg">
+                <span className="shrink-0 text-ellipsis whitespace-nowrap text-neutral-500">{proposalId}</span>
+                <span className="line-clamp-1 text-neutral-800">{proposalTitle}</span>
+            </p>
             <div className="flex items-center gap-x-1 text-sm font-normal leading-tight text-neutral-500 md:gap-x-1.5 md:text-base">
                 <span>{confirmationLabel ?? copy.voteProposalDataListItemStructure.voted}</span>
                 <Tag
