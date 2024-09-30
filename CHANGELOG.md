@@ -7,13 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-### Added
+### Fixed
 
--   Add truncation to `VoteProposalDateListItem` module component
+-   Fix truncation issue on `VoteProposalDataListItem` module component
 
 ### Changed
 
 -   Bump `actions/setup-node` from 4.0.3 to 4.0.4
+-   Update minor and patch NPM dependencies
 
 ## [1.0.47] - 2024-09-23
 
