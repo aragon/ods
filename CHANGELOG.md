@@ -9,14 +9,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Add truncation to `VoteProposalDateListItem` module component.
+-   Add truncation to `VoteProposalDateListItem` module component
+
+### Changed
+
+-   Bump `actions/setup-node` from 4.0.3 to 4.0.4
 
 ## [1.0.47] - 2024-09-23
 
 ### Added
 
 -   Add optional `confirmationLabel` prop to the `VoteProposalDataListItem` component in order to pass a custom string
-    when needed.
+    when needed
 -   Add new `xs` size for core `Avatar` component
 
 ## [1.0.46] - 2024-09-21
