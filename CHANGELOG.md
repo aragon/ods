@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Bump `actions/setup-node` from 4.0.3 to 4.0.4
 
+### Changed
+
+-   Update minor and patch NPM dependencies
+
 ## [1.0.47] - 2024-09-23
 
 ### Added
