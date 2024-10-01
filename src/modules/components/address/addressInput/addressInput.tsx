@@ -201,7 +201,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         <InputContainer {...containerProps}>
             <div className="ml-3 shrink-0">
                 {isLoading && <Spinner variant="neutral" size="lg" />}
-                {!isLoading && <MemberAvatar address={addressValue} />}
+                {!isLoading && <MemberAvatar address={addressValue} chainId={chainId} wagmiConfig={wagmiConfig} />}
             </div>
             <textarea
                 type="text"
