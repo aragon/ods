@@ -64,7 +64,11 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
         return (
             <div className={classNames('flex flex-col gap-4 md:gap-6', className)}>
                 <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={false} />
-                <ProposalVotingTabs defaultValue={processedDefaultTab} accordionRef={accordionContentRef}>
+                <ProposalVotingTabs
+                    status={status}
+                    defaultValue={processedDefaultTab}
+                    accordionRef={accordionContentRef}
+                >
                     <ProposalVotingStageContextProvider value={contextValues}>
                         {children}
                     </ProposalVotingStageContextProvider>
@@ -87,7 +91,11 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                 </div>
             </Accordion.ItemHeader>
             <Accordion.ItemContent ref={accordionContentRef}>
-                <ProposalVotingTabs defaultValue={processedDefaultTab} accordionRef={accordionContentRef}>
+                <ProposalVotingTabs
+                    defaultValue={processedDefaultTab}
+                    status={status}
+                    accordionRef={accordionContentRef}
+                >
                     <ProposalVotingStageContextProvider value={contextValues}>
                         {children}
                     </ProposalVotingStageContextProvider>

@@ -1,12 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Tabs, type ITabsTriggerProps } from '..';
+import type { ComponentType } from 'react';
+import { Tabs } from '..';
 
-/**
- * Tabs.Root can contain multiple Tabs.Triggers inside it's requisite Tabs.List. These tabs will coordinate with what Tabs.Content to show by matching their value prop.
- */
+const ComponentWrapper = (Story: ComponentType) => (
+    <Tabs.Root>
+        <Tabs.List>
+            <Story />
+        </Tabs.List>
+    </Tabs.Root>
+);
+
 const meta: Meta<typeof Tabs.Trigger> = {
     title: 'Core/Components/Tabs/Tabs.Trigger',
     component: Tabs.Trigger,
+    decorators: ComponentWrapper,
     parameters: {
         design: {
             type: 'figma',
@@ -17,25 +24,25 @@ const meta: Meta<typeof Tabs.Trigger> = {
 
 type Story = StoryObj<typeof Tabs.Trigger>;
 
-const reusableStoryComponent = (props: ITabsTriggerProps) => {
-    return (
-        <Tabs.Root>
-            <Tabs.List>
-                <Tabs.Trigger {...props} />
-            </Tabs.List>
-        </Tabs.Root>
-    );
-};
-
 /**
  * Default usage example of a single Tabs.Trigger component.
  */
 export const Default: Story = {
     args: {
-        label: 'Tab 1',
-        value: '1',
+        label: 'Example',
+        value: 'example',
     },
-    render: (args) => reusableStoryComponent(args),
+};
+
+/**
+ * Default usage example of a single Tabs.Trigger component.
+ */
+export const Disabled: Story = {
+    args: {
+        label: 'Disabled tab',
+        value: 'disabled',
+        disabled: true,
+    },
 };
 
 export default meta;

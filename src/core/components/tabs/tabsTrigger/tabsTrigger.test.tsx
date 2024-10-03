@@ -3,7 +3,7 @@ import { IconType } from '../../icon';
 import { Tabs, type ITabsTriggerProps } from '../../tabs';
 
 describe('<Tabs.Trigger /> component', () => {
-    const createTestComponent = (props?: Partial<ITabsTriggerProps>, isUnderlined?: boolean) => {
+    const createTestComponent = (props?: Partial<ITabsTriggerProps>) => {
         const completeProps: ITabsTriggerProps = {
             label: 'Tab 1',
             value: '1',
@@ -11,7 +11,7 @@ describe('<Tabs.Trigger /> component', () => {
         };
 
         return (
-            <Tabs.Root isUnderlined={isUnderlined}>
+            <Tabs.Root>
                 <Tabs.List>
                     <Tabs.Trigger {...completeProps} />
                 </Tabs.List>
@@ -19,24 +19,22 @@ describe('<Tabs.Trigger /> component', () => {
         );
     };
 
-    it('should render without crashing', () => {
+    it('renders a tab', () => {
         render(createTestComponent());
-
-        expect(screen.getByRole('tab')).toBeInTheDocument();
+        const tab = screen.getByRole('tab');
+        expect(tab).toBeInTheDocument();
+        expect(tab.getAttribute('disabled')).toBeNull();
     });
 
-    it('should pass the correct value prop', () => {
-        const value = 'complex1';
-        render(createTestComponent({ value }));
-
-        const triggerElement = screen.getByRole('tab');
-        expect(triggerElement).toHaveAttribute('id', `radix-:r2:-trigger-${value}`);
-    });
-
-    it('should render the icon when iconRight is provided', () => {
+    it('renders the icon when iconRight is provided', () => {
         const iconRight = IconType.BLOCKCHAIN_BLOCK;
         render(createTestComponent({ iconRight }));
+        expect(screen.getByTestId(iconRight)).toBeInTheDocument();
+    });
 
-        expect(screen.getByTestId('BLOCKCHAIN_BLOCK')).toBeInTheDocument();
+    it('disables the tab when the disabled property is set to true', () => {
+        const disabled = true;
+        render(createTestComponent({ disabled }));
+        expect(screen.getByRole('tab').getAttribute('disabled')).toEqual('');
     });
 });

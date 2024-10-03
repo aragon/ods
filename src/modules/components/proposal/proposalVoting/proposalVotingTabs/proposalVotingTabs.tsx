@@ -1,9 +1,14 @@
 import { useRef, type RefObject } from 'react';
 import { Tabs, type ITabsRootProps } from '../../../../../core';
 import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 
 export interface IProposalVotingTabsProps extends ITabsRootProps {
+    /**
+     * Voting status of the proposal.
+     */
+    status: ProposalVotingStatus;
     /**
      * Default proposal voting tab selected.
      * @default ProposalVotingTab.BREAKDOWN
@@ -16,7 +21,7 @@ export interface IProposalVotingTabsProps extends ITabsRootProps {
 }
 
 export const ProposalVotingTabs: React.FC<IProposalVotingTabsProps> = (props) => {
-    const { defaultValue = ProposalVotingTab.BREAKDOWN, accordionRef, children, ...otherProps } = props;
+    const { defaultValue = ProposalVotingTab.BREAKDOWN, accordionRef, children, status, ...otherProps } = props;
 
     const { copy } = useOdsModulesContext();
 
@@ -33,17 +38,21 @@ export const ProposalVotingTabs: React.FC<IProposalVotingTabsProps> = (props) =>
         style.setProperty('--radix-collapsible-content-height', clientHeight.toString());
     };
 
+    const isVotingActive = status !== ProposalVotingStatus.PENDING && status !== ProposalVotingStatus.UNREACHED;
+
     return (
         <Tabs.Root defaultValue={defaultValue} className="flex flex-col gap-4 md:gap-6" {...otherProps}>
             <Tabs.List>
                 <Tabs.Trigger
                     label={copy.proposalVotingTabs.breakdown}
                     value={ProposalVotingTab.BREAKDOWN}
+                    disabled={!isVotingActive}
                     onClick={handleTabClick}
                 />
                 <Tabs.Trigger
                     label={copy.proposalVotingTabs.votes}
                     value={ProposalVotingTab.VOTES}
+                    disabled={!isVotingActive}
                     onClick={handleTabClick}
                 />
                 <Tabs.Trigger

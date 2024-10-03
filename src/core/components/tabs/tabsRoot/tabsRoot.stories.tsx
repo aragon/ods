@@ -23,9 +23,9 @@ const reusableStoryComponent = (props: ITabsRootProps) => {
     return (
         <Tabs.Root {...props}>
             <Tabs.List>
-                <Tabs.Trigger label="Tab 1" value="1" />
-                <Tabs.Trigger label="Tab 2" value="2" />
-                <Tabs.Trigger label="Tab 3" value="3" iconRight={IconType.BLOCKCHAIN_BLOCK} />
+                <Tabs.Trigger label="Default Tab" value="1" />
+                <Tabs.Trigger label="Disabled Tab" value="2" disabled={true} />
+                <Tabs.Trigger label="Icon Tab" value="3" iconRight={IconType.BLOCKCHAIN_BLOCK} />
             </Tabs.List>
             <Tabs.Content value="1">
                 <div className="flex h-24 w-96 items-center justify-center border border-dashed border-info-300 bg-info-100">
@@ -66,7 +66,7 @@ export const Underlined: Story = {
  * Usage example of a Tabs component inside a Card component with the defaultValue set.
  */
 export const InsideCard: Story = {
-    args: { defaultValue: '2' },
+    args: { defaultValue: '3' },
     render: (args) => <Card className="p-6">{reusableStoryComponent(args)}</Card>,
 };
 
