@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Update `Tabs` core component to handle disabled tab trigger state
+
 ### Fixed
 
 -   Fix truncation issue on `VoteProposalDataListItem` module component
@@ -14,6 +18,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+-   Update `<ProposalVotingTabs />` module component to disable `Breakdown` and `Votes` tabs when voting status is not
+    active
 -   Bump `actions/setup-node` from 4.0.3 to 4.0.4
 -   Bump `actions/checkout` from 4.1.7 to 4.2.0
 -   Update minor and patch dependencies
