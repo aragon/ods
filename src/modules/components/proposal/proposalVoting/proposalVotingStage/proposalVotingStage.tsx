@@ -31,6 +31,10 @@ export interface IProposalVotingStageProps extends ComponentProps<'div'> {
      */
     name?: string;
     /**
+     * Forces the multi-stage content to be rendered when set to true.
+     */
+    forceMount?: true;
+    /**
      * Index of the stage set automatically by the ProposalVotingContainer for multi-stage proposals.
      */
     index?: number;
@@ -41,8 +45,19 @@ export interface IProposalVotingStageProps extends ComponentProps<'div'> {
 }
 
 export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) => {
-    const { name, status, startDate, endDate, defaultTab, index, children, isMultiStage, className, ...otherProps } =
-        props;
+    const {
+        name,
+        status,
+        startDate,
+        endDate,
+        defaultTab,
+        forceMount,
+        index,
+        children,
+        isMultiStage,
+        className,
+        ...otherProps
+    } = props;
 
     const { copy } = useOdsModulesContext();
 
@@ -64,7 +79,11 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
         return (
             <div className={classNames('flex flex-col gap-4 md:gap-6', className)}>
                 <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={false} />
-                <ProposalVotingTabs defaultValue={processedDefaultTab} accordionRef={accordionContentRef}>
+                <ProposalVotingTabs
+                    status={status}
+                    defaultValue={processedDefaultTab}
+                    accordionRef={accordionContentRef}
+                >
                     <ProposalVotingStageContextProvider value={contextValues}>
                         {children}
                     </ProposalVotingStageContextProvider>
@@ -86,8 +105,12 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                     </p>
                 </div>
             </Accordion.ItemHeader>
-            <Accordion.ItemContent ref={accordionContentRef}>
-                <ProposalVotingTabs defaultValue={processedDefaultTab} accordionRef={accordionContentRef}>
+            <Accordion.ItemContent ref={accordionContentRef} forceMount={forceMount}>
+                <ProposalVotingTabs
+                    defaultValue={processedDefaultTab}
+                    status={status}
+                    accordionRef={accordionContentRef}
+                >
                     <ProposalVotingStageContextProvider value={contextValues}>
                         {children}
                     </ProposalVotingStageContextProvider>

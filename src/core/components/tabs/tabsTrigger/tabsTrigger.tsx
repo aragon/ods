@@ -20,29 +20,29 @@ export interface ITabsTriggerProps extends ComponentProps<'button'> {
 }
 
 export const TabsTrigger: React.FC<ITabsTriggerProps> = (props) => {
-    const { label, iconRight, className, value, ...otherProps } = props;
+    const { label, iconRight, className, value, disabled, ...otherProps } = props;
     const { isUnderlined } = useContext(TabsContext);
 
     const triggerClassNames = classNames(
-        'group line-clamp-1 flex cursor-pointer items-center gap-x-4 rounded-t border-primary-400 py-3 text-base font-normal leading-tight text-neutral-500', // base
-        'hover:text-neutral-800', // hover
-        'active:data-[state=active]:text-neutral-800 active:data-[state=active]:shadow-[inset_0_0_0_0,0_1px_0_0] active:data-[state=active]:shadow-primary-400', // active click
-        'focus:outline-none', // focus -- might need style updates pending conversation
-        { 'hover:shadow-[inset_0_0_0_0,0_1px_0_0] hover:shadow-neutral-800': isUnderlined }, //  isUnderlined variant
-        'data-[state=active]:text-neutral-800 data-[state=active]:shadow-[inset_0_-1px_0_0,0_1px_0_0] data-[state=active]:shadow-primary-400', // active selection
+        'group line-clamp-1 flex items-center gap-x-4 rounded-t border-primary-400 py-3 text-base font-normal leading-tight', // Base
+        'active:data-[state=active]:text-neutral-800 active:data-[state=active]:shadow-[inset_0_0_0_0,0_1px_0_0] active:data-[state=active]:shadow-primary-400', // Active state
+        'focus:outline-none', // Focus state
+        { 'hover:shadow-[inset_0_0_0_0,0_1px_0_0] hover:shadow-neutral-800': isUnderlined && !disabled }, //  Underlined & enabled variant
+        'data-[state=active]:text-neutral-800 data-[state=active]:shadow-[inset_0_-1px_0_0,0_1px_0_0] data-[state=active]:shadow-primary-400', // Active selection
+        { 'cursor-pointer text-neutral-500 hover:text-neutral-800': !disabled }, // Enabled state
+        { 'text-neutral-300': disabled }, // Disabled state
         className,
     );
 
     const iconClassNames = classNames(
-        'group-data-[state=active]:text-neutral-800',
-        'text-neutral-500',
-        'group-hover:text-neutral-300',
-        'group-active:text-neutral-600',
-        'group-focus:text-neutral-500',
+        'group-data-[state=active]:text-neutral-800', // Base
+        { 'text-neutral-200': disabled }, // Disabled state
+        { 'text-neutral-500 group-hover:text-neutral-300': !disabled }, // Enabled state
+        { 'group-focus:text-neutral-500 group-active:text-neutral-600': !disabled }, // Enabled & Active/Focus states
     );
 
     return (
-        <RadixTabsTrigger className={triggerClassNames} value={value} {...otherProps}>
+        <RadixTabsTrigger className={triggerClassNames} value={value} disabled={disabled} {...otherProps}>
             {label}
             {iconRight && <Icon icon={iconRight} size="sm" className={iconClassNames} />}
         </RadixTabsTrigger>
