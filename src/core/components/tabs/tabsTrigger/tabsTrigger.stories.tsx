@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentType } from 'react';
 import { Tabs } from '..';
+import { IconType } from '../../icon';
 
 const ComponentWrapper = (Story: ComponentType) => (
     <Tabs.Root>
@@ -41,6 +42,7 @@ export const Disabled: Story = {
     args: {
         label: 'Disabled tab',
         value: 'disabled',
+        iconRight: IconType.APP_ASSETS,
         disabled: true,
     },
 };

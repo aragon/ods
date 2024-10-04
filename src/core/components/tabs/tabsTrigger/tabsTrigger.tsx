@@ -35,11 +35,10 @@ export const TabsTrigger: React.FC<ITabsTriggerProps> = (props) => {
     );
 
     const iconClassNames = classNames(
-        'group-data-[state=active]:text-neutral-800',
-        'text-neutral-500',
-        'group-hover:text-neutral-300',
-        'group-active:text-neutral-600',
-        'group-focus:text-neutral-500',
+        'group-data-[state=active]:text-neutral-800', // Base
+        { 'text-neutral-200': disabled }, // Disabled state
+        { 'text-neutral-500 group-hover:text-neutral-300': !disabled }, // Enabled state
+        { 'group-focus:text-neutral-500 group-active:text-neutral-600': !disabled }, // Enabled & Active/Focus states
     );
 
     return (
