@@ -1,10 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { type RefAttributes } from 'react';
-import { Accordion, type IAccordionContainerProps } from '..';
+import { Accordion } from '..';
 
-/**
- * Accordion.Container can contain multiple Accordion.Items which comprises an Accordion.Header and its collapsible Accordion.Content.
- */
 const meta: Meta<typeof Accordion.Container> = {
     title: 'Core/Components/Accordion/Accordion.Container',
     component: Accordion.Container,
@@ -18,44 +14,57 @@ const meta: Meta<typeof Accordion.Container> = {
 
 type Story = StoryObj<typeof Accordion.Container>;
 
-const reusableStoryComponent = (props: IAccordionContainerProps & RefAttributes<HTMLDivElement>, count: number) => {
-    return (
-        <Accordion.Container {...props}>
-            {Array.from({ length: count }, (_, index) => (
-                <Accordion.Item key={`item-${index + 1}`} value={`item-${index + 1}`}>
-                    <Accordion.ItemHeader>Item {index + 1} Header</Accordion.ItemHeader>
-                    <Accordion.ItemContent>
-                        <div className="flex h-24 w-full items-center justify-center border border-dashed border-info-300 bg-info-100">
-                            Item {index + 1} Content
-                        </div>
-                    </Accordion.ItemContent>
-                </Accordion.Item>
-            ))}
-        </Accordion.Container>
-    );
-};
+const DefaultChildComponent = (childCount: number, forceMount?: true) =>
+    [...Array(childCount)].map((_, index) => (
+        <Accordion.Item key={`item-${index}`} value={`item-${index}`}>
+            <Accordion.ItemHeader>Item {index + 1} Header</Accordion.ItemHeader>
+            <Accordion.ItemContent forceMount={forceMount}>
+                <div className="flex h-24 w-full items-center justify-center border border-dashed border-info-300 bg-info-100">
+                    Item {index + 1} Content
+                </div>
+            </Accordion.ItemContent>
+        </Accordion.Item>
+    ));
+
 /**
- * Default usage example of a full Accordion component.
+ * Default usage example of the Accordion component.
  */
 export const Default: Story = {
-    args: { isMulti: false },
-    render: (args) => reusableStoryComponent(args as IAccordionContainerProps & RefAttributes<HTMLDivElement>, 1),
+    args: {
+        isMulti: false,
+        children: DefaultChildComponent(2),
+    },
 };
 
 /**
- * Example of an Accordion component implementation with a type of "single" and no defaultValue is set.
+ * Example of an Accordion component with multiple items open at the same time.
  */
-export const SingleTypeItems: Story = {
-    args: { isMulti: false },
-    render: (args) => reusableStoryComponent(args as IAccordionContainerProps & RefAttributes<HTMLDivElement>, 3),
+export const MultiType: Story = {
+    args: {
+        isMulti: true,
+        children: DefaultChildComponent(3),
+    },
 };
 
 /**
- * Example of an Accordion component implementation with a type of "multiple" where the second and third items have been set as the defaultValue.
+ * Example of an Accordion component with two accordion item open by default.
  */
-export const MultipleTypeItems: Story = {
-    args: { isMulti: true, defaultValue: ['item-2', 'item-3'] },
-    render: (args) => reusableStoryComponent(args as IAccordionContainerProps & RefAttributes<HTMLDivElement>, 3),
+export const DefaultValue: Story = {
+    args: {
+        isMulti: true,
+        children: DefaultChildComponent(3),
+        defaultValue: ['item-1', 'item-2'],
+    },
+};
+
+/**
+ * Use the `forceMount` property to always render the accordion item content.
+ */
+export const ForceMount: Story = {
+    args: {
+        isMulti: true,
+        children: DefaultChildComponent(3, true),
+    },
 };
 
 export default meta;

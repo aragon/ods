@@ -14,6 +14,7 @@ export const AccordionItemContent = forwardRef<HTMLDivElement, IAccordionItemCon
 
     const contentClassNames = classNames(
         'overflow-hidden', // Default
+        { 'data-[state=closed]:hidden': forceMount }, // Force mount variant
         'data-[state=open]:animate-[accordionExpand_0.3s_cubic-bezier(0.87,_0,_0.13,_1)_forwards]', // Expanding animation
         'data-[state=closed]:animate-[accordionCollapse_0.3s_cubic-bezier(0.87,_0,_0.13,_1)_forwards]', // Collapsing animation
         className,
