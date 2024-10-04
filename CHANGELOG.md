@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 -   Update `Tabs` core component to handle disabled tab trigger state
+-   Support `forceMount` property on `Accordion` core component and `ProposalVotingStage` module component to correctly
+    render dynamic content on proposal stages.
 
 ### Fixed
 
