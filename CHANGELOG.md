@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 -   Fix truncation issue on `VoteProposalDataListItem` module component
+-   Update `AddressInput` module component to forward `chainId` and `wagmiConfig` to `MemberAvatar` component
 
 ### Changed
 
