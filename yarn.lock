@@ -120,7 +120,7 @@ __metadata:
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     react-dropzone: "npm:^14.2.0"
-    react-imask: "npm:7.5.0"
+    react-imask: "npm:^7.6.1"
     rollup: "npm:^4.24.0"
     rollup-plugin-peer-deps-external: "npm:^2.2.4"
     rollup-plugin-postcss: "npm:^4.0.2"
@@ -10812,7 +10812,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"imask@npm:^7.5.0":
+"imask@npm:^7.6.1":
   version: 7.6.1
   resolution: "imask@npm:7.6.1"
   dependencies:
@@ -15050,15 +15050,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-imask@npm:7.5.0":
-  version: 7.5.0
-  resolution: "react-imask@npm:7.5.0"
+"react-imask@npm:^7.6.1":
+  version: 7.6.1
+  resolution: "react-imask@npm:7.6.1"
   dependencies:
-    imask: "npm:^7.5.0"
+    imask: "npm:^7.6.1"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=0.14.0"
-  checksum: 10c0/755969ce03067608bc543731397b71586d2820094f94cf73e4bcce6c19214ccca7574f160456eee66537f1f64349a542c041df0ecd4b1afeb300f5a270fc31e2
+  checksum: 10c0/48b8c234fb77e4d8b8446712695c63f2b0351a896b17623510a648408dd1b7ab506496124453a821528781b05fe2f5b04514f902e260f8b7f4486c972061da88
   languageName: node
   linkType: hard
 
