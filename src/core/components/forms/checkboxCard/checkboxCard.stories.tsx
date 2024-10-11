@@ -31,6 +31,20 @@ export const Default: Story = {
 };
 
 /**
+ * Usage of the CheckboxCard component with children when checked
+ */
+export const WithChildrenWhenChecked: Story = {
+    render: (props) => <CheckboxCard {...props} />,
+    args: {
+        avatar: 'https://assets-global.website-files.com/5e997428d0f2eb13a90aec8c/63f47db62df04b569e4e004e_icon_aragon.svg',
+        label: 'Checkbox label',
+        description: 'Checkbox description',
+        tag: { label: 'Tag', variant: 'info' },
+        children: <div>Children</div>,
+    },
+};
+
+/**
  * CheckboxCard in indeterminate state
  */
 export const IndeterminateState: Story = {

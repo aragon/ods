@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Radio } from '../radio';
 import { RadioCard } from '../radioCard';
 import { RadioGroup } from './radioGroup';
+import { InputNumber } from '../inputNumber';
 
 const meta: Meta<typeof RadioGroup> = {
     title: 'Core/Components/Forms/RadioGroup',
@@ -63,6 +64,43 @@ export const RadioCardVariant: Story = {
                 avatar="bronze"
                 tag={{ label: 'Bronze', variant: 'warning' }}
             />
+        </RadioGroup>
+    ),
+    args: {
+        defaultValue: '2',
+        name: 'Options',
+        disabled: false,
+        onValueChange: undefined,
+    },
+};
+
+/**
+ * Usage of the `RadioGroup` component with the RadioCard and children when selected
+ */
+export const RadioCardVariantWithChildren: Story = {
+    render: (props) => (
+        <RadioGroup {...props}>
+            <RadioCard
+                label="Option one"
+                description="The best option"
+                value="1"
+                avatar="gold"
+                tag={{ label: 'Gold', variant: 'success' }}
+            >
+                <InputNumber placeholder="0" />
+            </RadioCard>
+            <RadioCard label="Option two" value="2" avatar="silver" tag={{ label: 'Silver' }}>
+                <div>Some additional content</div>
+            </RadioCard>
+            <RadioCard
+                label="Option three"
+                description="The 3rd best option"
+                value="3"
+                avatar="bronze"
+                tag={{ label: 'Bronze', variant: 'warning' }}
+            >
+                <div>Some additional content</div>
+            </RadioCard>
         </RadioGroup>
     ),
     args: {
