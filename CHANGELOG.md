@@ -9,8 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Added optional `children` property to `RadioCard` and `CheckboxCard` core components. When selected children will be
-    rendered
+-   Add optional `children` property to `RadioCard` and `CheckboxCard` core components displayed only when component is selected
 
 ### Changed
 
