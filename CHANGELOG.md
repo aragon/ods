@@ -9,12 +9,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Add optional `children` property to `RadioCard` and `CheckboxCard` core components displayed only when component is selected
+-   Add optional `children` property to `RadioCard` and `CheckboxCard` core components displayed only when component is
+    selected
 
 ### Changed
 
--   Update core components `RadioCard` and `CheckboxCard` to have optional description property and correct alignment when no description
-    provided
+-   Update core components `RadioCard` and `CheckboxCard` to have optional description property and correct alignment
+    when no description provided
 -   Bump `actions/checkout` from 4.2.0 to 4.2.1
 -   Update minor and patch NPM dependencies
 
