@@ -19,7 +19,7 @@ export interface ICheckboxCardProps extends ComponentProps<'button'> {
     /**
      * Description of the checkbox.
      */
-    description: string;
+    description?: string;
     /**
      * Optional tag for the checkbox.
      */
@@ -85,7 +85,7 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
             )}
             {...otherProps}
         >
-            <div className="flex w-full min-w-0 flex-row gap-3">
+            <div className={classNames('flex w-full min-w-0 flex-row gap-3', { 'items-center': !description })}>
                 {avatar && <Avatar size="sm" responsiveSize={{ md: 'md' }} src={avatar} />}
                 <div className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-sm font-normal leading-tight md:gap-1 md:text-base">
                     <p
@@ -97,19 +97,26 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
                     >
                         {label}
                     </p>
-                    <p className="max-w-full truncate text-neutral-500 group-data-[disabled]:text-neutral-300">
-                        {description}
-                    </p>
+                    {description && (
+                        <p className="max-w-full truncate text-neutral-500 group-data-[disabled]:text-neutral-300">
+                            {description}
+                        </p>
+                    )}
                 </div>
-                {tag && <Tag {...tag} className={classNames('self-start', tag.className)} />}
+                {tag && <Tag {...tag} className={classNames(tag.className, { 'self-start': description })} />}
                 <Icon
                     icon={IconType.CHECKBOX}
                     size="md"
                     className={classNames(
-                        'mt-0.5 hidden self-start text-neutral-400 group-data-[state=unchecked]:block group-data-[disabled]:text-neutral-300 md:mt-1',
+                        'mt-0.5 hidden text-neutral-400 group-data-[state=unchecked]:block group-data-[disabled]:text-neutral-300 md:mt-1',
+                        { 'self-start': description },
                     )}
                 />
-                <RadixCheckbox.Indicator className="mt-0.5 self-start text-primary-400 group-data-[disabled]:text-neutral-500 md:mt-1">
+                <RadixCheckbox.Indicator
+                    className={classNames('mt-0.5 text-primary-400 group-data-[disabled]:text-neutral-500 md:mt-1', {
+                        'self-start': description,
+                    })}
+                >
                     <Icon
                         icon={IconType.CHECKBOX_SELECTED}
                         size="md"

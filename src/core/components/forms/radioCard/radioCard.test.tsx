@@ -75,18 +75,14 @@ describe('<RadioCard/> component', () => {
 
     it('renders children when radio button is checked', async () => {
         const user = userEvent.setup();
-        render(
-            createTestComponent({
-                children: <div data-testid="child-content">child content</div>,
-            }),
-        );
+
+        const children = 'test-children';
+        render(createTestComponent({ children }));
 
         const radioButton = screen.getByRole('radio');
 
         await user.click(radioButton);
-        const childContent = screen.getByTestId('child-content');
-
-        expect(childContent).toBeVisible();
+        expect(screen.getByText(children)).toBeVisible();
         expect(screen.getByRole('radio')).toBeChecked();
     });
 });
