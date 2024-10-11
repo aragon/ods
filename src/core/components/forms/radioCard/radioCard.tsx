@@ -1,6 +1,6 @@
 import { RadioGroupIndicator, RadioGroupItem } from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
-import { forwardRef, type ReactNode, type ComponentProps } from 'react';
+import { forwardRef, type ComponentProps, type ReactNode } from 'react';
 import { useRandomId } from '../../../hooks';
 import { Avatar } from '../../avatars';
 import { Icon, IconType } from '../../icon';

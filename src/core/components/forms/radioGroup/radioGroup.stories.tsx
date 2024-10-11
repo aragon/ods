@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { InputNumber } from '../inputNumber';
 import { Radio } from '../radio';
 import { RadioCard } from '../radioCard';
 import { RadioGroup } from './radioGroup';
-import { InputNumber } from '../inputNumber';
 
 const meta: Meta<typeof RadioGroup> = {
     title: 'Core/Components/Forms/RadioGroup',

@@ -62,4 +62,10 @@ describe('<CheckboxCard /> component', () => {
         render(createTestComponent({ checked }));
         expect(screen.getByTestId(IconType.CHECKBOX_INDETERMINATE)).toBeVisible();
     });
+
+    it('renders the children when checkbox is checked', () => {
+        const checked = true;
+        render(createTestComponent({ checked, children: <div data-testid="children" /> }));
+        expect(screen.getByTestId('children')).toBeVisible();
+    });
 });
