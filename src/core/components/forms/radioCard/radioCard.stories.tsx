@@ -56,7 +56,7 @@ export const WithDescription: Story = {
 /**
  * Usage of the `RadioCard` component with children when selected
  */
-export const WithChildrenWhenCSelected: Story = {
+export const WithChildrenWhenSelected: Story = {
     render: (props) => (
         <RadioGroup>
             <RadioCard {...props} />
