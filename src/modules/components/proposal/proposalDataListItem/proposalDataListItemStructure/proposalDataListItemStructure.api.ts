@@ -10,7 +10,7 @@ export type ProposalResult<TType extends ProposalType> = TType extends 'majority
       ? IApprovalThresholdResult
       : undefined;
 
-export type IProposalDataListItemStructureBaseProps<TType extends ProposalType = undefined> = IDataListItemProps &
+export type IProposalDataListItemStructureBaseProps<TType extends ProposalType = ProposalType> = IDataListItemProps &
     IWeb3ComponentProps & {
         /**
          * Proposal id
