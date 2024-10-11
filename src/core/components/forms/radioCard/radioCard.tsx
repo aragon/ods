@@ -86,11 +86,7 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
                     </div>
                     {tag && <Tag {...tag} />}
                 </div>
-                <span
-                    className={classNames({
-                        'h-full': description,
-                    })}
-                >
+                <span className={classNames({ 'h-full': description })}>
                     <Icon icon={IconType.RADIO} className="text-neutral-300 group-data-[state=checked]:hidden" />
                     <RadioGroupIndicator>
                         <Icon
