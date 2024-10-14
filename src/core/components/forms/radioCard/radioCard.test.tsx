@@ -72,4 +72,17 @@ describe('<RadioCard/> component', () => {
 
         expect(screen.getByRole('radio')).toHaveValue(value);
     });
+
+    it('renders children when radio button is checked', async () => {
+        const user = userEvent.setup();
+
+        const children = 'test-children';
+        render(createTestComponent({ children }));
+
+        const radioButton = screen.getByRole('radio');
+
+        await user.click(radioButton);
+        expect(screen.getByText(children)).toBeVisible();
+        expect(screen.getByRole('radio')).toBeChecked();
+    });
 });
