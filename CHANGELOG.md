@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.49] - 2024-10-14
+
 ### Added
 
 -   Add optional `children` property to `RadioCard` and `CheckboxCard` core components displayed only when component is
