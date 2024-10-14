@@ -14,8 +14,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
--   Update core components `RadioCard` and `CheckboxCard` to have optional description property and correct alignment
-    when no description provided
+-   Update `RadioCard` and `CheckboxCard` core components to have optional description property, fix alignment when no
+    description provided
+-   Update `<ProposalDataListItem.Structure >` module component to make proposal type property optional and support
+    custom proposal results
 -   Bump `actions/checkout` from 4.2.0 to 4.2.1
 -   Update minor and patch NPM dependencies
 
@@ -25,7 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Update `Tabs` core component to handle disabled tab trigger state
 -   Support `forceMount` property on `Accordion` core component and `ProposalVotingStage` module component to correctly
-    render dynamic content on proposal stages.
+    render dynamic content on proposal stages
 
 ### Fixed
 

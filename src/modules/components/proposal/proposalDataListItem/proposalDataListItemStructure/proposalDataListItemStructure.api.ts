@@ -1,8 +1,14 @@
-import { type IDataListItemProps } from '../../../../../core';
+import type { IDataListItemProps } from '../../../../../core';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../../types';
 import { type ProposalStatus } from '../../proposalUtils';
 
-export type ProposalType = 'majorityVoting' | 'approvalThreshold';
+export type ProposalType = 'majorityVoting' | 'approvalThreshold' | undefined;
+
+export type ProposalResult<TType extends ProposalType> = TType extends 'majorityVoting'
+    ? IMajorityVotingResult
+    : TType extends 'approvalThreshold'
+      ? IApprovalThresholdResult
+      : undefined;
 
 export type IProposalDataListItemStructureBaseProps<TType extends ProposalType = ProposalType> = IDataListItemProps &
     IWeb3ComponentProps & {
@@ -25,7 +31,7 @@ export type IProposalDataListItemStructureBaseProps<TType extends ProposalType =
         /**
          * Result of the proposal shown only when it is active, challenged or vetoed.
          */
-        result?: TType extends 'majorityVoting' ? IMajorityVotingResult : IApprovalThresholdResult;
+        result?: ProposalResult<TType>;
         /**
          * Proposal status
          */
@@ -41,7 +47,7 @@ export type IProposalDataListItemStructureBaseProps<TType extends ProposalType =
         /**
          * Type of the ProposalDataListItem
          */
-        type: TType;
+        type?: TType;
         /**
          * Indicates whether the connected wallet has voted
          */
@@ -100,5 +106,6 @@ export interface IMajorityVotingResult extends IProposalResultBase {
 }
 
 export type IProposalDataListItemStructureProps =
+    | IProposalDataListItemStructureBaseProps<undefined>
     | IProposalDataListItemStructureBaseProps<'majorityVoting'>
     | IProposalDataListItemStructureBaseProps<'approvalThreshold'>;

@@ -5,11 +5,7 @@ import { modulesCopy } from '../../../../assets';
 import { addressUtils } from '../../../../utils/addressUtils';
 import { ProposalStatus } from '../../proposalUtils';
 import { ProposalDataListItemStructure, maxPublishersDisplayed } from './proposalDataListItemStructure';
-import {
-    type IApprovalThresholdResult,
-    type IMajorityVotingResult,
-    type IProposalDataListItemStructureProps,
-} from './proposalDataListItemStructure.api';
+import { type IProposalDataListItemStructureProps } from './proposalDataListItemStructure.api';
 
 jest.mock('wagmi', () => ({ ...jest.requireActual('wagmi'), useAccount: jest.fn() }));
 
@@ -30,34 +26,23 @@ describe('<ProposalDataListItemStructure/> component', () => {
     });
 
     const createTestComponent = (props?: Partial<IProposalDataListItemStructureProps>) => {
-        const baseProps: Omit<IProposalDataListItemStructureProps, 'result'> = {
+        const defaultProps = {
             publisher: { address: '0x0000000000000000000000000000000000000000', link: '#' },
             status: ProposalStatus.ACTIVE,
             summary: 'Example Summary',
             title: 'Example Title',
             type: 'approvalThreshold',
             ...props,
-        };
+        } as IProposalDataListItemStructureProps;
 
-        const approvalResult: IApprovalThresholdResult = {
-            approvalAmount: 1,
-            approvalThreshold: 2,
-            ...props?.result,
-        };
-
-        const majorityVotingProps: IMajorityVotingResult = {
-            option: 'yes',
-            voteAmount: '100 wAnt',
-            votePercentage: 10,
-            ...props?.result,
-        };
-
-        if (baseProps.type === 'approvalThreshold') {
-            return <ProposalDataListItemStructure {...baseProps} result={approvalResult} type="approvalThreshold" />;
-        }
-
-        return <ProposalDataListItemStructure {...baseProps} result={majorityVotingProps} type="majorityVoting" />;
+        return <ProposalDataListItemStructure {...defaultProps} />;
     };
+
+    it('renders the children property to support custom proposal results', () => {
+        const children = 'custom-results';
+        render(createTestComponent({ children }));
+        expect(screen.getByText(children)).toBeInTheDocument();
+    });
 
     it("renders 'You' as the publisher if the connected address is the publisher address", () => {
         const publisher = { address: '0x0000000000000000000000000000000000000000', link: '#' };

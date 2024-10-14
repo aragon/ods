@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ProposalDataListItem, ProposalStatus } from '../../index';
-import { type IProposalDataListItemStructureProps } from './proposalDataListItemStructure.api';
 
 const meta: Meta<typeof ProposalDataListItem.Structure> = {
     title: 'Modules/Components/Proposal/ProposalDataListItem/ProposalDataListItem.Structure',
@@ -15,21 +14,18 @@ const meta: Meta<typeof ProposalDataListItem.Structure> = {
 
 type Story = StoryObj<typeof ProposalDataListItem.Structure>;
 
-const basePublisher = {
-    address: '0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5',
-    link: 'https://app.aragon.org/#/daos/base/0xd2705c56aa4edb98271cb8cea2b0df3288ad4585/members/0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5',
-};
-
-const baseArgs: Omit<IProposalDataListItemStructureProps, 'result' | 'publisher'> = {
-    date: 1719963030308,
-    status: ProposalStatus.ACTIVE,
-    title: 'This is a very serious proposal to send funds to a wallet address',
-    summary: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel eleifend neque, in mattis eros.
-        Integer ornare dapibus sem sit amet viverra. Sed blandit ipsum quis erat elementum lacinia.
-        Sed eu nisi urna. Ut quis urna ac mi vulputate suscipit. Aenean lacinia, libero sit amet laoreet vulputate,
-        magna magna sollicitudin tellus, ut volutpat nulla arcu nec neque. Phasellus vulputate tincidunt orci vitae eleifend.`,
-    type: 'majorityVoting',
-    voted: false,
+/**
+ * Default usage example of the `ProposalDataListItem.Structure` module component.
+ */
+export const Default: Story = {
+    args: {
+        date: 1728637284503,
+        status: ProposalStatus.ACCEPTED,
+        title: 'Funding testnet of Unichain',
+        summary:
+            'This covers the fees associated with the final development on the Unichain Testnet and development of the bridge for the mainnet.',
+        publisher: { address: '0x17C6808fA04DC9de98eaCfeb4c66B352067c1cDD' },
+    },
 };
 
 /**
@@ -37,14 +33,14 @@ const baseArgs: Omit<IProposalDataListItemStructureProps, 'result' | 'publisher'
  */
 export const MajorityVoting: Story = {
     args: {
-        ...baseArgs,
-        publisher: { ...basePublisher },
+        date: 1691664284000,
+        status: ProposalStatus.ACTIVE,
+        title: 'Update DAO metadata',
+        summary: 'Update the name, logo and description of the DAO.',
+        voted: true,
+        publisher: { address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', name: 'vitalik.eth' },
         type: 'majorityVoting',
-        result: {
-            option: 'yes',
-            voteAmount: '100k wAnt',
-            votePercentage: 15,
-        },
+        result: { option: 'yes', voteAmount: '100k wAnt', votePercentage: 15 },
     },
 };
 
@@ -53,13 +49,14 @@ export const MajorityVoting: Story = {
  */
 export const ApprovalThreshold: Story = {
     args: {
-        ...baseArgs,
-        publisher: { ...basePublisher, name: 'sio.eth' },
+        date: 1638723612000,
+        status: ProposalStatus.ACTIVE,
+        title: 'Add new DAO member',
+        summary: `Adding a new member to the DAO. This is a long description to test if the component correctly truncated
+            the proposal description. This is a long description to test if the component correctly truncated the proposal description.`,
+        publisher: { address: '0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5', name: 'sio.eth' },
         type: 'approvalThreshold',
-        result: {
-            approvalAmount: 4,
-            approvalThreshold: 6,
-        },
+        result: { approvalAmount: 4, approvalThreshold: 6 },
     },
 };
 
@@ -68,20 +65,38 @@ export const ApprovalThreshold: Story = {
  */
 export const MultiBody: Story = {
     args: {
-        ...baseArgs,
+        date: 1580338809000,
+        status: ProposalStatus.ACTIVE,
+        title: 'Partnering with WalletConnect on Social Media',
+        summary:
+            'This is round 1 of our community engagement and building gamfi strategy with our marketing team partnership.',
         id: 'PIP-1',
         publisher: [
-            { ...basePublisher, name: '0xRugg', link: undefined },
-            { ...basePublisher, name: 'Bob the Builder', link: undefined },
-            { ...basePublisher, name: 'sio.eth' },
-            { ...basePublisher },
+            { address: '0x17366cae2b9c6C3055e9e3C78936a69006BE5409', name: 'cgero.eth', link: undefined },
+            { address: '0x9d0920D3D7c9F28baF0abed7f2E26A5126cc0786', name: 'Bob the Builder', link: undefined },
+            { address: '0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5', name: 'sio.eth' },
+            { address: '0xbC7f20ebB9AeDe6DF4965eCAAcfBb24927Ae16E7' },
         ],
         type: 'approvalThreshold',
-        result: {
-            stage: { title: 'Founders Approval Council', id: '1' },
-            approvalAmount: 4,
-            approvalThreshold: 6,
-        },
+        result: { stage: { title: 'Founders Approval Council', id: '1' }, approvalAmount: 4, approvalThreshold: 6 },
+    },
+};
+
+/**
+ * Usage example of the `ProposalDataListItem.Structure` with custom proposal results UI.
+ */
+export const CustomResults: Story = {
+    args: {
+        date: 1728637491379,
+        status: ProposalStatus.FAILED,
+        title: 'A proposal with custom results',
+        summary: 'Pass the custom proposal results as children property to render a custom UI.',
+        publisher: { address: '0x17C6808fA04DC9de98eaCfeb4c66B352067c1cDD' },
+        children: (
+            <div className="flex h-24 w-full items-center justify-center border border-dashed border-info-300 bg-info-100">
+                Custom results breakdown
+            </div>
+        ),
     },
 };
 

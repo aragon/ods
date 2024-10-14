@@ -20,9 +20,6 @@ const parsePublisher = (publisher: IPublisher, isConnected: boolean, connectedAd
     return { label: publisherLabel, link: publisher.link };
 };
 
-/**
- * `ProposalDataListItemStructure` module component
- */
 export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStructureProps> = (props) => {
     const {
         wagmiConfig: config,
@@ -38,6 +35,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
         summary,
         title,
         voted,
+        children,
         ...otherProps
     } = props;
 
@@ -66,6 +64,8 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
             {isOngoing && type === 'approvalThreshold' && result && <ApprovalThresholdResult {...result} />}
 
             {isOngoing && type === 'majorityVoting' && result && <MajorityVotingResult {...result} />}
+
+            {children}
 
             <div className="flex items-center justify-between gap-x-4 md:gap-x-6">
                 <div
