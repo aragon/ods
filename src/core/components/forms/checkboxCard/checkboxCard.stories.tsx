@@ -21,7 +21,6 @@ type Story = StoryObj<typeof CheckboxCard>;
  * Default usage of the CheckboxCard component
  */
 export const Default: Story = {
-    render: (props) => <CheckboxCard {...props} />,
     args: {
         avatar: 'https://assets-global.website-files.com/5e997428d0f2eb13a90aec8c/63f47db62df04b569e4e004e_icon_aragon.svg',
         label: 'Checkbox label',
@@ -33,7 +32,6 @@ export const Default: Story = {
  * Default usage of the CheckboxCard component
  */
 export const WithDescription: Story = {
-    render: (props) => <CheckboxCard {...props} />,
     args: {
         avatar: 'https://assets-global.website-files.com/5e997428d0f2eb13a90aec8c/63f47db62df04b569e4e004e_icon_aragon.svg',
         label: 'Checkbox label',
@@ -46,7 +44,6 @@ export const WithDescription: Story = {
  * Usage of the CheckboxCard component with children when checked
  */
 export const WithChildrenWhenChecked: Story = {
-    render: (props) => <CheckboxCard {...props} />,
     args: {
         avatar: 'https://assets-global.website-files.com/5e997428d0f2eb13a90aec8c/63f47db62df04b569e4e004e_icon_aragon.svg',
         label: 'Checkbox label',
