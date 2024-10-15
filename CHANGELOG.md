@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Chhanged
 
+-   Bump `eslint-plugin-react-hooks` from 4.6.2 to 5.0.0
 -   Update minor and patch NPM dependencies
 
 ## [1.0.49] - 2024-10-14
