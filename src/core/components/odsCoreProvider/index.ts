@@ -1,6 +1,6 @@
 export {
-    OdsCoreProvider,
-    useOdsCoreContext,
-    type IOdsCoreContext,
-    type IOdsCoreProviderProps,
+    GukCoreProvider,
+    useGukCoreContext,
+    type IGukCoreContext,
+    type IGukCoreProviderProps,
 } from './odsCoreProvider';

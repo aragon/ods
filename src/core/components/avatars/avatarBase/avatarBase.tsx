@@ -1,10 +1,10 @@
 import { forwardRef, type ComponentPropsWithoutRef } from 'react';
-import { useOdsCoreContext } from '../../odsCoreProvider';
+import { useGukCoreContext } from '../../odsCoreProvider';
 
 export interface IAvatarBaseProps extends ComponentPropsWithoutRef<'img'> {}
 
 export const AvatarBase = forwardRef<HTMLImageElement, IAvatarBaseProps>((props, ref) => {
-    const { Img } = useOdsCoreContext();
+    const { Img } = useGukCoreContext();
 
     return <Img ref={ref} {...props} />;
 });

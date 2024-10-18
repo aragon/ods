@@ -1,6 +1,6 @@
 export {
-    OdsModulesProvider,
-    useOdsModulesContext,
-    type IOdsModulesContext,
-    type IOdsModulesProviderProps,
+    GukModulesProvider,
+    useGukModulesContext,
+    type IGukModulesContext,
+    type IGukModulesProviderProps,
 } from './odsModulesProvider';

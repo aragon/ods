@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { ComponentProps } from 'react';
 import { Button } from '../../button';
 import { IconType } from '../../icon';
-import { useOdsCoreContext } from '../../odsCoreProvider';
+import { useGukCoreContext } from '../../odsCoreProvider';
 import { Progress } from '../../progress';
 import { useDataListContext } from '../dataListContext';
 
@@ -21,7 +21,7 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
         entityLabel,
     } = useDataListContext();
 
-    const { copy } = useOdsCoreContext();
+    const { copy } = useGukCoreContext();
 
     const currentlyDisplayed = Math.min(pageSize * (currentPage + 1), childrenItemCount);
 

@@ -7,8 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-### Chhanged
+### Changed
 
+-   Update entire repo for conversion from ODS to Governance UI Kit brand
 -   Bump `eslint-plugin-react-hooks` from 4.6.2 to 5.0.0
 -   Update minor and patch NPM dependencies
 
@@ -135,7 +136,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 -   Add Aragon logo, remove dark background options and create custom theme using Aragon branding for ODS storybook
--   Update `OdsModulesProvider` to support `wagmiInitialState` configuration for Wagmi provider
+-   Update `GukModulesProvider` to support `wagmiInitialState` configuration for Wagmi provider
 
 ### Changed
 
@@ -345,7 +346,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement `DefinitionList` core component
 -   Implement `TransactionDataListItem.Skeleton` module component
--   Implement `OdsCoreProvider`, `LinkBase` and `AvatarBase` core components to support `Link` and `Image` NextJs
+-   Implement `GukCoreProvider`, `LinkBase` and `AvatarBase` core components to support `Link` and `Image` NextJs
     components.
 
 ### Changed
@@ -354,7 +355,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump minor and patch dependencies of Github workflows
 -   Expose `onValueChange` property on `Accordion` core component
 -   Update type extensions for `Tabs.Root` core component to allow forward ref
--   Update `OdsModulesProvider` component to render the `OdsCoreProvider` context.
+-   Update `GukModulesProvider` component to render the `GukCoreProvider` context.
 
 ## [1.0.28] - 2024-05-16
 
@@ -502,7 +503,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement animations for `Dialog` and `DialogAlert` components
 -   Implement `DaoAvatar` and `MemberAvatar` module components
--   Implement `OdsModulesProvider` for using wagmi hooks on modules components
+-   Implement `GukModulesProvider` for using wagmi hooks on modules components
 -   Introduce component customisations for the z-index property of the `Dropdown` and `Dialogs` components
 
 ### Changed
