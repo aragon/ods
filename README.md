@@ -22,8 +22,8 @@ prioritizing user experience throughout the Aragon ecosystem.
 
 ## Usage
 
-Visit the [Installation documentation page](https://aragon.github.io/gov-ui-kit/?path=/docs/docs-installation) to correctly
-install, setup and use the library.
+Visit the [Installation documentation page](https://aragon.github.io/gov-ui-kit/?path=/docs/docs-installation) to
+correctly install, setup and use the library.
 
 ## Contributing
 
