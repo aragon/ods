@@ -1,5 +1,5 @@
 import { Progress } from '../../../../../core';
-import { useGukModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { type IMajorityVotingResult } from '../proposalDataListItemStructure';
 
 export interface IMajorityVotingResultProps extends IMajorityVotingResult {}

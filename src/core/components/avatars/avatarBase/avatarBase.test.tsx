@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { GukCoreProvider, type IGukCoreContext } from '../../odsCoreProvider';
+import { GukCoreProvider, type IGukCoreContext } from '../../gukCoreProvider';
 import { AvatarBase, type IAvatarBaseProps } from './avatarBase';
 
 describe('<AvatarBase /> component', () => {

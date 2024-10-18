@@ -1,5 +1,5 @@
 import { Dropdown } from '../../../../../../core';
-import { useGukModulesContext } from '../../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../../gukModulesProvider';
 import { ProposalActionViewMode } from '../../proposalActionsTypes';
 
 export interface IProposalActionsActionViewAsMenuProps {

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { type ITabsContentProps, NumberFormat, Tabs, formatterUtils, invariant } from '../../../../../core';
-import { useGukModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { ProposalVotingProgress } from '../proposalVotingProgress';
 

@@ -3,4 +3,4 @@ export {
     useGukCoreContext,
     type IGukCoreContext,
     type IGukCoreProviderProps,
-} from './odsCoreProvider';
+} from './gukCoreProvider';

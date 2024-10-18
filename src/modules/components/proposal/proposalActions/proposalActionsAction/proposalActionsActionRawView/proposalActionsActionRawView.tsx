@@ -1,5 +1,5 @@
 import { Button, clipboardUtils, InputText, TextArea } from '../../../../../../core';
-import { useGukModulesContext } from '../../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../../gukModulesProvider';
 import type { IProposalAction } from '../../proposalActionsTypes';
 
 export interface IProposalActionsActionRawViewProps {

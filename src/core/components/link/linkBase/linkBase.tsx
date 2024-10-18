@@ -1,5 +1,5 @@
 import { forwardRef, type ComponentPropsWithoutRef } from 'react';
-import { useGukCoreContext } from '../../odsCoreProvider';
+import { useGukCoreContext } from '../../gukCoreProvider';
 
 export interface ILinkBaseProps extends ComponentPropsWithoutRef<'a'> {}
 

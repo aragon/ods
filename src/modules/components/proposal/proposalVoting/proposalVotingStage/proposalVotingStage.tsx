@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useMemo, useRef, type ComponentProps } from 'react';
 import { Accordion, invariant } from '../../../../../core';
-import { useGukModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { ProposalVotingStageContextProvider } from '../proposalVotingStageContext';

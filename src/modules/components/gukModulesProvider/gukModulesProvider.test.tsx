@@ -6,7 +6,7 @@ import {
     useGukModulesContext,
     type IGukModulesContext,
     type IGukModulesProviderProps,
-} from './odsModulesProvider';
+} from './gukModulesProvider';
 
 jest.mock('@tanstack/react-query', () => ({
     ...jest.requireActual('@tanstack/react-query'),

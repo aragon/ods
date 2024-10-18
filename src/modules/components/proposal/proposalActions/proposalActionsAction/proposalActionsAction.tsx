@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { Accordion, AlertCard, Button, Dropdown, Heading, Icon, IconType } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
-import { useGukModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import {
     ProposalActionChangeMembers,
     ProposalActionChangeSettings,

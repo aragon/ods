@@ -3,8 +3,8 @@ import { useAccount } from 'wagmi';
 import { DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { type ICompositeAddress } from '../../../../types';
 import { addressUtils } from '../../../../utils';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { MemberAvatar } from '../../../member';
-import { useGukModulesContext } from '../../../odsModulesProvider';
 import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export type IVoteDataListItemStructureProps = IDataListItemProps & {

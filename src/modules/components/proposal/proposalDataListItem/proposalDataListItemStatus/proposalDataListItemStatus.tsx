@@ -10,7 +10,7 @@ import {
     type StatePingAnimationVariant,
 } from '../../../../../core';
 import type { ModulesCopy } from '../../../../assets';
-import { useGukModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalStatus, proposalStatusToTagVariant } from '../../proposalUtils';
 import { type IProposalDataListItemStructureProps } from '../proposalDataListItemStructure';
 import { proposalDataListItemUtils } from '../proposalDataListItemUtils';

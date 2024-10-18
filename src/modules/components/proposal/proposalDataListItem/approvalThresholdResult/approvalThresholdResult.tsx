@@ -1,5 +1,5 @@
 import { NumberFormat, Progress, formatterUtils } from '../../../../../core';
-import { useGukModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { type IApprovalThresholdResult } from '../proposalDataListItemStructure';
 
 export interface IApprovalThresholdResultProps extends IApprovalThresholdResult {}

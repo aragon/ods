@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import type { ComponentProps } from 'react';
 import { Button } from '../../button';
+import { useGukCoreContext } from '../../gukCoreProvider';
 import { IconType } from '../../icon';
-import { useGukCoreContext } from '../../odsCoreProvider';
 import { Progress } from '../../progress';
 import { useDataListContext } from '../dataListContext';
 

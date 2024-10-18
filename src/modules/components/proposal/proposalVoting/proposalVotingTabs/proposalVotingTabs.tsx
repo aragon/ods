@@ -1,6 +1,6 @@
 import { useRef, type RefObject } from 'react';
 import { Tabs, type ITabsRootProps } from '../../../../../core';
-import { useGukModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 

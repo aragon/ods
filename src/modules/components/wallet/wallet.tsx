@@ -3,8 +3,8 @@ import { useEnsName } from 'wagmi';
 import { StateSkeletonBar } from '../../../core';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../types';
 import { addressUtils } from '../../utils';
+import { useGukModulesContext } from '../gukModulesProvider';
 import { MemberAvatar } from '../member';
-import { useGukModulesContext } from '../odsModulesProvider';
 
 export interface IWalletProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, IWeb3ComponentProps {
     /**

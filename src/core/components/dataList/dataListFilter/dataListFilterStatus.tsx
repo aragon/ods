@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { Button } from '../../button';
-import { useGukCoreContext } from '../../odsCoreProvider';
+import { useGukCoreContext } from '../../gukCoreProvider';
 import { useDataListContext } from '../dataListContext';
 
 export interface IDataListFilterStatusProps {

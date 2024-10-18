@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type React from 'react';
 import { useMemo } from 'react';
 import { Avatar, DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
-import { useGukModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 
 export type IAssetDataListItemStructureProps = IDataListItemProps & {
     /**

@@ -1,6 +1,6 @@
 import { DefinitionList, Heading } from '../../../../../../core';
+import { useGukModulesContext } from '../../../../gukModulesProvider';
 import { MemberDataListItem } from '../../../../member';
-import { useGukModulesContext } from '../../../../odsModulesProvider';
 import {
     ProposalActionType,
     type IProposalActionChangeMembers,

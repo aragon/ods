@@ -3,4 +3,4 @@ export {
     useGukModulesContext,
     type IGukModulesContext,
     type IGukModulesProviderProps,
-} from './odsModulesProvider';
+} from './gukModulesProvider';

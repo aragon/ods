@@ -1,5 +1,5 @@
 import { NumberFormat, Tabs, formatterUtils, invariant, type ITabsContentProps } from '../../../../../core';
-import { useGukModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { ProposalVotingProgress } from '../proposalVotingProgress';
 

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { modulesCopy } from '../../../../assets';
-import { GukModulesProvider } from '../../../odsModulesProvider';
+import { GukModulesProvider } from '../../../gukModulesProvider';
 import { generateProposalAction } from '../actions/generators/proposalAction';
 import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
 import { ProposalActionType, type IProposalAction } from '../proposalActionsTypes';

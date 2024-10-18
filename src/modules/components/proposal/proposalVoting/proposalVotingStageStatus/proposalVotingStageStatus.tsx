@@ -11,7 +11,7 @@ import {
     StatePingAnimation,
 } from '../../../../../core';
 import type { ModulesCopy } from '../../../../assets';
-import { useGukModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
 
 export interface IProposalVotingStageStatusProps extends ComponentProps<'div'> {

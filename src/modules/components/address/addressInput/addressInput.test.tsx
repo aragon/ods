@@ -6,7 +6,7 @@ import type { UseEnsAddressReturnType, UseEnsNameReturnType } from 'wagmi';
 import * as wagmi from 'wagmi';
 import { IconType, clipboardUtils } from '../../../../core';
 import { addressUtils } from '../../../utils';
-import { GukModulesProvider } from '../../odsModulesProvider';
+import { GukModulesProvider } from '../../gukModulesProvider';
 import { AddressInput, type IAddressInputProps } from './addressInput';
 
 jest.mock('../../member', () => ({

@@ -6,7 +6,7 @@ import {
     useGukCoreContext,
     type IGukCoreContext,
     type IGukCoreProviderProps,
-} from './odsCoreProvider';
+} from './gukCoreProvider';
 
 describe('<GukCoreProvider /> component', () => {
     const createTestComponent = (props?: IGukCoreProviderProps) => {

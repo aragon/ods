@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { DefinitionList, Toggle, ToggleGroup } from '../../../../../../core';
-import { useGukModulesContext } from '../../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../../gukModulesProvider';
 import { type IProposalActionChangeSettings, type IProposalActionComponentProps } from '../../proposalActionsTypes';
 
 export interface IProposalActionChangeSettingsProps

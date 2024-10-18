@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { forwardRef } from 'react';
 import { AlertInline } from '../../alerts';
-import { useGukCoreContext } from '../../odsCoreProvider';
+import { useGukCoreContext } from '../../gukCoreProvider';
 import { Tag } from '../../tag';
 import type { IInputContainerProps, InputVariant } from './inputContainer.api';
 

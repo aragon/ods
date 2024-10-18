@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { Accordion, Button, Card, EmptyState } from '../../../../../core';
-import { useGukModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalActionsAction } from '../proposalActionsAction';
 import type { IProposalAction } from '../proposalActionsTypes';
 import type { IProposalActionsProps } from './proposalActions.api';

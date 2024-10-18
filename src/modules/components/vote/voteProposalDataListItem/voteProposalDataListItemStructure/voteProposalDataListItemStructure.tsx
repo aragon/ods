@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { DataList, DateFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
-import { useGukModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {

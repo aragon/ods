@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { GukModulesProvider } from '../../../odsModulesProvider';
+import { GukModulesProvider } from '../../../gukModulesProvider';
 import { AssetTransferAddress, type IAssetTransferAddressProps } from './assetTransferAddress';
 
 jest.mock('../../../member/', () => ({ MemberAvatar: () => <div data-testid="member-avatar-mock" /> }));
