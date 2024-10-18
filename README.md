@@ -12,18 +12,18 @@
 
 <br/>
 
-# Aragon ODS
+# Aragon Governance UI Kit
 
-The Aragon Open Design System (ODS) is an open source and human-centric design system specifically designed for the
+The Aragon Governance UI Kit (GovKit) is an open source and human-centric design system specifically designed for the
 Aragon App. It provides a unified and easy-to-use framework for creating visually consistent and engaging interfaces,
 prioritizing user experience throughout the Aragon ecosystem.
 
-**NOTE**: The Aragon ODS library is currently in pre-alpha stage; breaking changes are likely to occur.
+**NOTE**: The Aragon Governance UI Kit library is currently in pre-alpha stage; breaking changes are likely to occur.
 
 ## Usage
 
-Visit the [Installation documentation page](https://aragon.github.io/ods/?path=/docs/docs-installation) to correctly
-install, setup and use the library.
+Visit the [Installation documentation page](https://aragon.github.io/gov-ui-kit/?path=/docs/docs-installation) to
+correctly install, setup and use the library.
 
 ## Contributing
 
