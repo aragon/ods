@@ -31,15 +31,16 @@ describe('<DaoDataListItemStructure /> component', () => {
     it('keeps full address controls outside the row link', async () => {
         const user = userEvent.setup();
         const address = '0xc6B61B776367b236648399ACF4A0bc5aDe70708F';
-        render(createTestComponent({ name: 'Patito DAO', address, ens: 'patito.eth', href: '/dao/patito' }));
+        const truncatedAddress = addressUtils.truncateAddress(address);
+        render(createTestComponent({ name: 'Patito DAO', address, href: '/dao/patito' }));
 
         const row = screen.getByRole('link');
-        const revealButton = screen.getByRole('button', { name: 'patito.eth' });
+        const revealButton = screen.getByRole('button', { name: truncatedAddress });
         const copyButton = screen.getByRole('button', { name: 'Copy' });
         expect(row).not.toContainElement(revealButton);
         expect(row).not.toContainElement(copyButton);
 
-        await user.hover(screen.getByText('patito.eth'));
+        await user.hover(screen.getByText(truncatedAddress));
 
         expect(await screen.findByRole('tooltip')).toHaveTextContent(address);
     });

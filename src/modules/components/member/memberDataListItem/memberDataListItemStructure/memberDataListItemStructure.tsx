@@ -75,7 +75,8 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
     const isCurrentUser =
         hasMounted && isConnected && address && addressUtils.isAddressEqual(currentUserAddress, address);
 
-    const resolvedUserHandle = ensName != null && ensName.length > 0 ? ensName : addressUtils.truncateAddress(address);
+    // Left unset when there is no ENS name so that AddressOutput renders and reveals the address itself.
+    const resolvedUserHandle = ensName != null && ensName.length > 0 ? ensName : undefined;
 
     const showDelegationOrTokenInformation = delegationCount != null || tokenAmount != null;
 

@@ -45,20 +45,16 @@ describe('<VoteDataListItemStructure /> component', () => {
     it('keeps full address controls outside the row link', async () => {
         const user = userEvent.setup();
         const address = '0x1D03D98c0aac1f83860cec5156116FE68725642E';
-        render(
-            createTestComponent({
-                voter: { address, name: 'vitalik.eth' },
-                href: '/members/vitalik.eth',
-            }),
-        );
+        const truncatedAddress = addressUtils.truncateAddress(address);
+        render(createTestComponent({ voter: { address }, href: '/members/vitalik.eth' }));
 
         const row = screen.getByRole('link');
-        const revealButton = screen.getByRole('button', { name: 'vitalik.eth' });
+        const revealButton = screen.getByRole('button', { name: truncatedAddress });
         const copyButton = screen.getByRole('button', { name: 'Copy' });
         expect(row).not.toContainElement(revealButton);
         expect(row).not.toContainElement(copyButton);
 
-        await user.hover(screen.getByText('vitalik.eth'));
+        await user.hover(screen.getByText(truncatedAddress));
 
         expect(await screen.findByRole('tooltip')).toHaveTextContent(address);
     });

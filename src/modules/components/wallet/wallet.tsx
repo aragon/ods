@@ -26,7 +26,8 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
         config: wagmiConfig,
     });
 
-    const resolvedUserHandle = user?.name ?? ensName ?? addressUtils.truncateAddress(user?.address);
+    // Left unset when neither a name nor an ENS name resolves so that AddressOutput renders and reveals the address.
+    const resolvedUserHandle = user?.name ?? ensName ?? undefined;
     const contentId = useId();
 
     const buttonClassName = classNames(

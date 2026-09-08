@@ -2,7 +2,6 @@ import type React from 'react';
 import {
     AddressOutput,
     AvatarIcon,
-    addressUtils,
     DataList,
     Heading,
     Icon,
@@ -45,8 +44,7 @@ export type IDaoDataListItemStructureProps = IDataListItemProps & {
 export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> = (props) => {
     const { name, logoSrc, description, network, address, ens, isExternal, ...otherProps } = props;
 
-    const truncatedAddress = addressUtils.truncateAddress(address);
-    const addressLine = ens ?? truncatedAddress;
+    const showAddressLine = !!(ens || address);
 
     return (
         <DataList.Item className="grid gap-y-3 py-4 md:gap-y-4 md:py-6" {...otherProps}>
@@ -55,12 +53,12 @@ export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> 
                     <Heading as="h2" className="truncate" size="h3">
                         {name}
                     </Heading>
-                    {!!addressLine && (
+                    {showAddressLine && (
                         <Heading as="h3" className="truncate" size="h5">
                             {address == null ? (
-                                addressLine
+                                ens
                             ) : (
-                                <AddressOutput address={address} className="truncate" label={addressLine} />
+                                <AddressOutput address={address} className="truncate" label={ens} />
                             )}
                         </Heading>
                     )}

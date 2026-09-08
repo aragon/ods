@@ -65,6 +65,34 @@ describe('<AddressOutput /> component', () => {
         expect(screen.getAllByRole('button')).toHaveLength(2);
     });
 
+    it('does not reveal by default when a label replaces the address', async () => {
+        const user = userEvent.setup();
+        render(createTestComponent({ label: 'vitalik.eth' }));
+
+        await user.hover(screen.getByText('vitalik.eth'));
+
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
+    });
+
+    it('does not reveal by default when the complete address is displayed', async () => {
+        const user = userEvent.setup();
+        render(createTestComponent({ showCompleteAddress: true }));
+
+        await user.hover(screen.getByText(checksumAddress));
+
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    });
+
+    it('reveals by default when the label is the truncated address itself', async () => {
+        const user = userEvent.setup();
+        render(createTestComponent({ label: '0xd8da…6045' }));
+
+        await user.hover(screen.getByRole('button', { name: '0xd8da…6045' }));
+
+        expect(await screen.findByRole('tooltip')).toHaveTextContent(checksumAddress);
+    });
+
     it('reveals the checksummed address on hover when reveal is set', async () => {
         const user = userEvent.setup();
         render(createTestComponent({ reveal: true }));
@@ -84,13 +112,22 @@ describe('<AddressOutput /> component', () => {
         expect(await screen.findByRole('tooltip')).toHaveTextContent(checksumAddress);
     });
 
-    it('reveals the same checksummed address whatever the label is', async () => {
+    it('reveals the same checksummed address whatever the label is when reveal is set explicitly', async () => {
         const user = userEvent.setup();
         render(createTestComponent({ reveal: true, label: 'vitalik.eth' }));
 
         await user.hover(screen.getByRole('button', { name: 'vitalik.eth' }));
 
         expect(await screen.findByRole('tooltip')).toHaveTextContent(checksumAddress);
+    });
+
+    it('does not reveal a truncated address when reveal is turned off explicitly', async () => {
+        const user = userEvent.setup();
+        render(createTestComponent({ reveal: false }));
+
+        await user.hover(screen.getByText('0xd8da…6045'));
+
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
     });
 
     it('reveals on tap and dismisses on an outside press', async () => {
@@ -155,10 +192,10 @@ describe('<AddressOutput /> component', () => {
 
     it('reveals on hover with no interactive control when hasInteractiveAncestor is set', async () => {
         const user = userEvent.setup();
-        render(createTestComponent({ hasInteractiveAncestor: true, label: 'vitalik.eth' }));
+        render(createTestComponent({ hasInteractiveAncestor: true }));
 
         expect(screen.queryByRole('button')).not.toBeInTheDocument();
-        await user.hover(screen.getByText('vitalik.eth'));
+        await user.hover(screen.getByText('0xd8da…6045'));
 
         expect(await screen.findByRole('tooltip')).toHaveTextContent(checksumAddress);
     });

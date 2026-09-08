@@ -95,7 +95,7 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
                     <p className="text-neutral-500">{contractLabel}</p>
                     {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
                     <object type="unknown">
-                        <AddressOutput address={contractAddress} href={blockExplorerHref} reveal={true} />
+                        <AddressOutput address={contractAddress} href={blockExplorerHref} />
                     </object>
                 </LinkBase>
             </div>

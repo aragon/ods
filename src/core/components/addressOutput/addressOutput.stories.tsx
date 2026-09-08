@@ -37,7 +37,8 @@ const meta: Meta<typeof AddressOutput> = {
         },
         reveal: {
             control: 'boolean',
-            description: 'Reveals the full checksummed address on hover, keyboard focus and tap.',
+            description:
+                'Reveals the full checksummed address on hover, keyboard focus and tap. Defaults to on only while the rendered text is a truncated address.',
         },
     },
 };
@@ -47,7 +48,7 @@ type Story = StoryObj<typeof AddressOutput>;
 const address = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045';
 
 /**
- * Default usage. `reveal` and `copy` are on by default: the full checksummed address is revealed on hover,
+ * Default usage. The address is truncated, so the reveal is on: the full checksummed address is shown on hover,
  * keyboard focus and tap, with an inline copy control.
  */
 export const Default: Story = {
@@ -60,7 +61,9 @@ export const Default: Story = {
 };
 
 /**
- * The label stays the display only; the reveal shows the same checksummed address whatever the label is.
+ * A label such as an ENS name, a DAO name or the literal `You` replaces the address, so nothing is truncated and the
+ * reveal stays off: only the copy control remains. Set `reveal` explicitly to show the address behind the label
+ * anyway; the tooltip is the same checksummed address whatever the label is.
  */
 export const WithLabel: Story = {
     args: { address, label: 'vitalik.eth' },
@@ -72,7 +75,8 @@ export const WithLabel: Story = {
 };
 
 /**
- * Escape hatch that renders the full checksummed address instead of the truncated one.
+ * Escape hatch that renders the full checksummed address instead of the truncated one. Nothing is truncated, so the
+ * reveal stays off here too.
  */
 export const Full: Story = {
     args: { address, showCompleteAddress: true },

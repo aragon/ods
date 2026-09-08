@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import * as wagmi from 'wagmi';
+import { addressUtils } from '../../../../../core';
 import { type IMemberDataListItemProps, MemberDataListItemStructure } from './memberDataListItemStructure';
 
 jest.mock('../../memberAvatar', () => ({ MemberAvatar: () => <div data-testid="member-avatar-mock" /> }));
@@ -49,24 +50,27 @@ describe('<MemberDataListItem /> component', () => {
     it('keeps full address controls outside the row link', async () => {
         const user = userEvent.setup();
         const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
-        render(
-            createTestComponent({
-                address,
-                ensName: 'vitalik.eth',
-                href: '/members/vitalik.eth',
-                onClick: jest.fn(),
-            }),
-        );
+        const truncatedAddress = addressUtils.truncateAddress(address);
+        render(createTestComponent({ address, href: '/members/vitalik.eth', onClick: jest.fn() }));
 
         const row = screen.getByRole('link');
-        const revealButton = screen.getByRole('button', { name: 'vitalik.eth' });
+        const revealButton = screen.getByRole('button', { name: truncatedAddress });
         const copyButton = screen.getByRole('button', { name: 'Copy' });
         expect(row).not.toContainElement(revealButton);
         expect(row).not.toContainElement(copyButton);
 
-        await user.hover(screen.getByText('vitalik.eth'));
+        await user.hover(screen.getByText(truncatedAddress));
 
         expect(await screen.findByRole('tooltip')).toHaveTextContent(address);
+    });
+
+    it('does not reveal the address behind an ENS name', async () => {
+        const user = userEvent.setup();
+        render(createTestComponent({ ensName: 'vitalik.eth', href: '/members/vitalik.eth' }));
+
+        await user.hover(screen.getByText('vitalik.eth'));
+
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
     });
 
     it('keeps the copy control available for a long ENS name', () => {

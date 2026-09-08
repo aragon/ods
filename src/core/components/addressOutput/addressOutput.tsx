@@ -39,9 +39,11 @@ export interface IAddressOutputProps {
      */
     copy?: boolean;
     /**
-     * Reveals the full checksummed address on hover, keyboard focus and tap. Keyboard focus and tap fall away when
-     * `hasInteractiveAncestor` is set, leaving the hover reveal.
-     * @default true
+     * Reveals the full checksummed address on hover, keyboard focus and tap. Defaults to on only while the rendered
+     * text is a truncated address, since a `label` such as an ENS or a DAO name is not the address and the complete
+     * address has nothing left to reveal. Keyboard focus and tap fall away when `hasInteractiveAncestor` is set,
+     * leaving the hover reveal.
+     * @default true when the rendered text is a truncated address, false otherwise
      */
     reveal?: boolean;
     /**
@@ -69,7 +71,7 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
         isExternal = true,
         hasInteractiveAncestor = inheritedInteractiveAncestor,
         copy = !hasInteractiveAncestor,
-        reveal = true,
+        reveal: revealProp,
         className,
     } = props;
 
@@ -151,6 +153,11 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
     const checksumAddress = addressUtils.isAddress(address) ? addressUtils.getChecksum(address) : address;
     const truncatedValue = addressUtils.truncateHash(addressUtils.truncateAddress(address));
     const displayLabel = label ?? (showCompleteAddress ? checksumAddress : truncatedValue);
+
+    // The reveal only earns its place while the rendered text is a truncated address: an ENS, a DAO name or the
+    // literal `You` is not the address, and the complete address needs no second copy of itself. Labels that a
+    // caller truncated itself still match, so callers never have to opt back in.
+    const reveal = revealProp ?? displayLabel === truncatedValue;
 
     const text = <span className="block min-w-0 max-w-full truncate">{displayLabel}</span>;
 

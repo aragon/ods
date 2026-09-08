@@ -16,9 +16,8 @@ const parsePublisher = (
 ) => {
     const publisherIsConnected =
         canShowConnectedLabel && isConnected && addressUtils.isAddressEqual(publisher.address, connectedAddress);
-    const publisherLabel = publisherIsConnected
-        ? 'You'
-        : (publisher.name ?? addressUtils.truncateAddress(publisher.address));
+    // Left unset for a nameless publisher so that AddressOutput renders and reveals the address itself.
+    const publisherLabel = publisherIsConnected ? 'You' : publisher.name;
 
     return { label: publisherLabel, link: publisher.link, address: publisher.address };
 };
@@ -96,7 +95,6 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                                         href={link}
                                         isExternal={false}
                                         label={label}
-                                        reveal={true}
                                     />
                                     {index < parsedPublisher.length - 1 && ','}
                                 </object>
