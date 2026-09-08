@@ -1,5 +1,13 @@
 # @aragon/gov-ui-kit
 
+## 2.11.4
+
+### Patch Changes
+
+- [#778](https://github.com/aragon/gov-ui-kit/pull/778) [`427794c`](https://github.com/aragon/gov-ui-kit/commit/427794cf69875b785c0bd7e20dd2472f381a1aa4) Thanks [@milosh86](https://github.com/milosh86)! - Stop tooltips from opening on focus that no key press preceded, so an `AddressOutput` or `Clipboard` inside a dialog no longer reveals its tooltip as soon as the dialog autofocuses it.
+
+- [#775](https://github.com/aragon/gov-ui-kit/pull/775) [`1e8fc2c`](https://github.com/aragon/gov-ui-kit/commit/1e8fc2ccdaa3a016e7cb2fbd7edde32a8d021ec2) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Restore the Wallet address label at medium and larger breakpoints while keeping small layouts avatar-only.
+
 ## 2.11.3
 
 ### Patch Changes
