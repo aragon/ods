@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { clipboardUtils } from '../../utils';
 import { Button } from '../button';
 import { Dialog } from '../dialogs';
+import { Tooltip } from '../tooltip';
 import { AddressOutput, type IAddressOutputProps } from './addressOutput';
 import { InteractiveAncestorContext } from './interactiveAncestorContext';
 
@@ -156,14 +157,8 @@ describe('<AddressOutput /> component', () => {
         expect(screen.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
     });
 
-    it.each([
-        { name: 'the reveal button', props: {} },
-        { name: 'the copy control', props: { href: 'https://etherscan.io/address/x' } },
-        { name: 'the copy control only', props: { reveal: false } },
-    ])('keeps every tooltip closed when a dialog autofocuses $name', async ({ props }) => {
-        const user = userEvent.setup();
-
-        const TestDialog = () => {
+    const createTestDialog = (props?: Partial<IAddressOutputProps>) =>
+        function TestDialog() {
             const [open, setOpen] = useState(false);
 
             return (
@@ -176,6 +171,35 @@ describe('<AddressOutput /> component', () => {
                 </>
             );
         };
+
+    it.each([
+        { name: 'the reveal button', props: {} },
+        { name: 'the copy control', props: { href: 'https://etherscan.io/address/x' } },
+        { name: 'the copy control only', props: { reveal: false } },
+    ])('keeps every tooltip closed when a dialog autofocuses $name', async ({ props }) => {
+        const user = userEvent.setup();
+        const TestDialog = createTestDialog(props);
+
+        render(<TestDialog />);
+        await user.click(screen.getByRole('button', { name: 'Open' }));
+
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    });
+
+    it('keeps every tooltip closed when the dialog owns the only tooltips on the page', async () => {
+        const user = userEvent.setup();
+        const TestDialog = createTestDialog();
+
+        // A tooltip elsewhere is focused by keyboard and then unmounts: the keyboard modality must not outlive it,
+        // or the pointer interaction that opens the dialog goes unnoticed and the reveal opens on autofocus again.
+        const elsewhere = render(
+            <Tooltip content="elsewhere" triggerAsChild={true}>
+                <button type="button">elsewhere</button>
+            </Tooltip>,
+        );
+        await user.tab();
+        expect(await screen.findByRole('tooltip')).toHaveTextContent('elsewhere');
+        elsewhere.unmount();
 
         render(<TestDialog />);
         await user.click(screen.getByRole('button', { name: 'Open' }));
