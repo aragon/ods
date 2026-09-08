@@ -82,7 +82,6 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
 
     const isPinnedRef = useRef(false);
 
-    const suppressOpenRef = useRef(false);
     const triggerRef = useRef<HTMLElement | null>(null);
 
     const setTriggerRef = useCallback((element: HTMLElement | null) => {
@@ -95,11 +94,6 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
     }, []);
 
     const handleOpenChange = useCallback((open: boolean) => {
-        if (open && suppressOpenRef.current) {
-            suppressOpenRef.current = false;
-            return;
-        }
-
         if (!open && isPinnedRef.current) {
             return;
         }
@@ -113,9 +107,9 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
             return;
         }
 
-        // A tap belongs to the link label or to the surrounding container, never to the reveal.
+        // A tap belongs to the link label or to the surrounding container, never to the reveal. The tooltip already
+        // refuses the open that the tap-induced focus asks for, so nothing has to be suppressed here.
         if (usePassiveTrigger) {
-            suppressOpenRef.current = true;
             return;
         }
 

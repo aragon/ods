@@ -1,4 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import { Button } from '../button';
+import { Dialog } from '../dialogs';
+import { Radio, RadioGroup } from '../forms';
 import { AddressOutput } from './addressOutput';
 
 const meta: Meta<typeof AddressOutput> = {
@@ -102,6 +106,62 @@ export const PlainText: Story = {
             <AddressOutput {...props} />
         </div>
     ),
+};
+
+/**
+ * Reproduces the reveal opening on its own when the component sits inside a dialog.
+ *
+ * A dialog moves focus into its content on open: Radix's `FocusScope` focuses the first tabbable element it finds,
+ * skipping links, and a Radix tooltip trigger opens instantly on focus without telling programmatic focus apart from
+ * a keyboard `Tab`. So whenever the dialog's first tabbable element is one of the tooltip triggers this component
+ * renders, that tooltip is already open when the dialog appears.
+ *
+ * Pick a layout and open the dialog with the mouse only:
+ *
+ * - `address` — the reveal button is first, so the checksummed address is revealed on open.
+ * - `link` — the reveal trigger is a link and gets skipped, so the `Copy` tooltip opens instead.
+ * - `close button` / `preceding button` — focus lands elsewhere and no tooltip opens, which is the correct behaviour.
+ */
+export const InsideDialog: Story = {
+    args: { address },
+    render: (props) => {
+        const [layout, setLayout] = useState('address');
+        const [open, setOpen] = useState(false);
+
+        const closeDialog = () => setOpen(false);
+
+        return (
+            <div className="flex flex-col items-start gap-4">
+                <RadioGroup
+                    className="md:grid md:grid-cols-2"
+                    label="First tabbable element of the dialog"
+                    onValueChange={setLayout}
+                    value={layout}
+                >
+                    <Radio label="Address reveal button" value="address" />
+                    <Radio label="Address rendered as a link" value="link" />
+                    <Radio label="Header close button" value="close-button" />
+                    <Radio label="A preceding button" value="preceding-button" />
+                </RadioGroup>
+                <Button onClick={() => setOpen(true)} variant="primary">
+                    Open dialog
+                </Button>
+                <Dialog.Root onOpenChange={setOpen} open={open}>
+                    <Dialog.Header
+                        onClose={layout === 'close-button' ? closeDialog : undefined}
+                        title="Address details"
+                    />
+                    <Dialog.Content className="flex flex-col items-start gap-4 pb-4 md:pb-6">
+                        {layout === 'preceding-button' && <Button variant="secondary">Focused on open</Button>}
+                        <AddressOutput
+                            {...props}
+                            href={layout === 'link' ? `https://etherscan.io/address/${props.address}` : undefined}
+                        />
+                    </Dialog.Content>
+                </Dialog.Root>
+            </div>
+        );
+    },
 };
 
 export default meta;

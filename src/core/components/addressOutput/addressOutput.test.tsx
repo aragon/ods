@@ -1,6 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import { useState } from 'react';
 import { clipboardUtils } from '../../utils';
+import { Button } from '../button';
+import { Dialog } from '../dialogs';
+import { Tooltip } from '../tooltip';
 import { AddressOutput, type IAddressOutputProps } from './addressOutput';
 import { InteractiveAncestorContext } from './interactiveAncestorContext';
 
@@ -121,6 +125,17 @@ describe('<AddressOutput /> component', () => {
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
     });
 
+    it('still reveals on hover after a tap when href is set', async () => {
+        const user = userEvent.setup();
+        render(createTestComponent({ reveal: true, copy: false, href: 'https://etherscan.io/address/x' }));
+
+        const link = screen.getByRole('link');
+        await user.pointer({ keys: '[TouchA]', target: link });
+        await user.hover(link);
+
+        expect(await screen.findByRole('tooltip')).toHaveTextContent(checksumAddress);
+    });
+
     it('copies the checksummed address from the copy control', async () => {
         const user = userEvent.setup();
         const copySpy = jest.spyOn(clipboardUtils, 'copy').mockResolvedValue();
@@ -151,6 +166,75 @@ describe('<AddressOutput /> component', () => {
     it('keeps the copy control inside an interactive ancestor when the flag is set explicitly', () => {
         render(createTestComponent({ hasInteractiveAncestor: true, copy: true }));
         expect(screen.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
+    });
+
+    const createTestDialog = (props?: Partial<IAddressOutputProps>) =>
+        function TestDialog() {
+            const [open, setOpen] = useState(false);
+
+            return (
+                <>
+                    <Button onClick={() => setOpen(true)}>Open</Button>
+                    <Dialog.Root onOpenChange={setOpen} open={open}>
+                        <Dialog.Header title="Address details" />
+                        <Dialog.Content>{createTestComponent(props)}</Dialog.Content>
+                    </Dialog.Root>
+                </>
+            );
+        };
+
+    it.each([
+        { name: 'the reveal button', props: {} },
+        { name: 'the copy control', props: { href: 'https://etherscan.io/address/x' } },
+        { name: 'the copy control only', props: { reveal: false } },
+    ])('keeps every tooltip closed when a dialog autofocuses $name', async ({ props }) => {
+        const user = userEvent.setup();
+        const TestDialog = createTestDialog(props);
+
+        render(<TestDialog />);
+        await user.click(screen.getByRole('button', { name: 'Open' }));
+
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    });
+
+    it.each([{ key: '{Enter}' }, { key: ' ' }])(
+        'keeps every tooltip closed when the dialog is opened with $key',
+        async ({ key }) => {
+            const user = userEvent.setup();
+            const TestDialog = createTestDialog();
+
+            render(<TestDialog />);
+
+            // Reaching the button by keyboard and pressing it must not make the dialog's own autofocus read as
+            // keyboard navigation: an activation key presses the control, it does not move focus.
+            await user.tab();
+            expect(screen.getByRole('button', { name: 'Open' })).toHaveFocus();
+            await user.keyboard(key);
+
+            expect(await screen.findByRole('dialog')).toBeInTheDocument();
+            expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+        },
+    );
+
+    it('keeps every tooltip closed when the dialog owns the only tooltips on the page', async () => {
+        const user = userEvent.setup();
+        const TestDialog = createTestDialog();
+
+        // A tooltip elsewhere is focused by keyboard and then unmounts: the keyboard modality must not outlive it,
+        // or the pointer interaction that opens the dialog goes unnoticed and the reveal opens on autofocus again.
+        const elsewhere = render(
+            <Tooltip content="elsewhere" triggerAsChild={true}>
+                <button type="button">elsewhere</button>
+            </Tooltip>,
+        );
+        await user.tab();
+        expect(await screen.findByRole('tooltip')).toHaveTextContent('elsewhere');
+        elsewhere.unmount();
+
+        render(<TestDialog />);
+        await user.click(screen.getByRole('button', { name: 'Open' }));
+
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
     });
 
     it('displays the value as is when it is not a valid address', async () => {

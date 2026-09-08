@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { useState } from 'react';
 import * as Hooks from '../../hooks';
+import { Dialog } from '../dialogs';
 import { IconType } from '../icon';
 import { Clipboard, type IClipboardProps } from './clipboard';
 
@@ -129,5 +131,29 @@ describe('<Clipboard /> component', () => {
 
         expect(screen.getByText(childText)).toBeInTheDocument();
         expect(screen.getByTestId(icon)).toBeInTheDocument();
+    });
+
+    it('keeps the copy tooltip closed when a dialog autofocuses the control', async () => {
+        const TestDialog = () => {
+            const [open, setOpen] = useState(false);
+
+            return (
+                <>
+                    <button onClick={() => setOpen(true)} type="button">
+                        Open
+                    </button>
+                    <Dialog.Root onOpenChange={setOpen} open={open}>
+                        <Dialog.Header title="Clipboard details" />
+                        <Dialog.Content>{createTestComponent()}</Dialog.Content>
+                    </Dialog.Root>
+                </>
+            );
+        };
+
+        render(<TestDialog />);
+        await userEvent.click(screen.getByRole('button', { name: 'Open' }));
+
+        expect(screen.getByRole('button', { name: 'Copy' })).toHaveFocus();
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
     });
 });

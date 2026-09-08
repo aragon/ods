@@ -1,7 +1,8 @@
 import { Arrow, Content, Portal, Provider, Root, Trigger } from '@radix-ui/react-tooltip';
 import classNames from 'classnames';
 import type React from 'react';
-import type { ReactNode } from 'react';
+import { type ReactNode, type PointerEvent as ReactPointerEvent, useRef, useState } from 'react';
+import { getIsKeyboardModality } from './keyboardModality';
 
 export type TooltipVariant = 'neutral' | 'info' | 'warning' | 'critical' | 'success';
 
@@ -81,16 +82,59 @@ export const Tooltip: React.FC<ITooltipProps> = (props) => {
         ...otherProps
     } = props;
 
+    const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen ?? false);
+    const isControlled = open != null;
+    const isOpen = isControlled ? open : uncontrolledOpen;
+
+    const isPointerOverTriggerRef = useRef(false);
+
+    // Radix ignores touch pointers when opening on hover, so the trigger only counts as hovered for mouse and pen.
+    const handleTriggerPointerMove = (event: ReactPointerEvent<HTMLElement>) => {
+        if (event.pointerType === 'touch') {
+            return;
+        }
+
+        isPointerOverTriggerRef.current = true;
+    };
+
+    const handleTriggerPointerLeave = () => {
+        isPointerOverTriggerRef.current = false;
+    };
+
+    // Radix opens the tooltip on every focus, without telling a keyboard `Tab` apart from focus moved by script, so a
+    // dialog autofocusing its first tabbable element opens the tooltip of whatever trigger it lands on. Radix's own
+    // open is refused here rather than default-preventing the focus event: React shares one event object along the
+    // whole propagation path, and every Radix primitive composes its handlers with `composeEventHandlers`, which
+    // skips them once the event is default-prevented — a trigger passed through `triggerAsChild` would lose its own
+    // focus handling. An open is honoured when the pointer is over the trigger, or when the last interaction was a
+    // key press, which is the `:focus-visible` heuristic.
+    const handleRootOpenChange = (nextOpen: boolean) => {
+        if (nextOpen && !isPointerOverTriggerRef.current && !getIsKeyboardModality()) {
+            return;
+        }
+
+        if (!isControlled) {
+            setUncontrolledOpen(nextOpen);
+        }
+
+        onOpenChange?.(nextOpen);
+    };
+
     return (
         <Provider>
             <Root
-                defaultOpen={defaultOpen}
                 delayDuration={delayDuration}
                 disableHoverableContent={disableHoverableContent}
-                onOpenChange={onOpenChange}
-                open={open}
+                onOpenChange={handleRootOpenChange}
+                open={isOpen}
             >
-                <Trigger asChild={triggerAsChild}>{children}</Trigger>
+                <Trigger
+                    asChild={triggerAsChild}
+                    onPointerLeave={handleTriggerPointerLeave}
+                    onPointerMove={handleTriggerPointerMove}
+                >
+                    {children}
+                </Trigger>
                 <Portal>
                     <Content
                         className={classNames(
