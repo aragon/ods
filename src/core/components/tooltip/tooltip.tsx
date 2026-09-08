@@ -1,7 +1,8 @@
 import { Arrow, Content, Portal, Provider, Root, Trigger } from '@radix-ui/react-tooltip';
 import classNames from 'classnames';
 import type React from 'react';
-import type { ReactNode } from 'react';
+import type { FocusEvent as ReactFocusEvent, ReactNode } from 'react';
+import { useKeyboardModality } from './useKeyboardModality';
 
 export type TooltipVariant = 'neutral' | 'info' | 'warning' | 'critical' | 'success';
 
@@ -81,6 +82,18 @@ export const Tooltip: React.FC<ITooltipProps> = (props) => {
         ...otherProps
     } = props;
 
+    const isKeyboardModality = useKeyboardModality();
+
+    // Radix opens the tooltip on every focus, without telling a keyboard `Tab` apart from focus moved by script. That
+    // makes a dialog autofocusing its first tabbable element open the tooltip of whatever trigger it lands on, so the
+    // reveal is gated on the `:focus-visible` heuristic here. Radix skips its own focus handler once the event is
+    // default-prevented.
+    const handleTriggerFocus = (event: ReactFocusEvent<HTMLElement>) => {
+        if (!isKeyboardModality()) {
+            event.preventDefault();
+        }
+    };
+
     return (
         <Provider>
             <Root
@@ -90,7 +103,9 @@ export const Tooltip: React.FC<ITooltipProps> = (props) => {
                 onOpenChange={onOpenChange}
                 open={open}
             >
-                <Trigger asChild={triggerAsChild}>{children}</Trigger>
+                <Trigger asChild={triggerAsChild} onFocus={handleTriggerFocus}>
+                    {children}
+                </Trigger>
                 <Portal>
                     <Content
                         className={classNames(

@@ -1,6 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import { useState } from 'react';
 import { clipboardUtils } from '../../utils';
+import { Button } from '../button';
+import { Dialog } from '../dialogs';
 import { AddressOutput, type IAddressOutputProps } from './addressOutput';
 import { InteractiveAncestorContext } from './interactiveAncestorContext';
 
@@ -151,6 +154,33 @@ describe('<AddressOutput /> component', () => {
     it('keeps the copy control inside an interactive ancestor when the flag is set explicitly', () => {
         render(createTestComponent({ hasInteractiveAncestor: true, copy: true }));
         expect(screen.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
+    });
+
+    it.each([
+        { name: 'the reveal button', props: {} },
+        { name: 'the copy control', props: { href: 'https://etherscan.io/address/x' } },
+        { name: 'the copy control only', props: { reveal: false } },
+    ])('keeps every tooltip closed when a dialog autofocuses $name', async ({ props }) => {
+        const user = userEvent.setup();
+
+        const TestDialog = () => {
+            const [open, setOpen] = useState(false);
+
+            return (
+                <>
+                    <Button onClick={() => setOpen(true)}>Open</Button>
+                    <Dialog.Root onOpenChange={setOpen} open={open}>
+                        <Dialog.Header title="Address details" />
+                        <Dialog.Content>{createTestComponent(props)}</Dialog.Content>
+                    </Dialog.Root>
+                </>
+            );
+        };
+
+        render(<TestDialog />);
+        await user.click(screen.getByRole('button', { name: 'Open' }));
+
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
     });
 
     it('displays the value as is when it is not a valid address', async () => {

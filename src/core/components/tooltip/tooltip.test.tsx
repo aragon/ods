@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { type ITooltipProps, Tooltip } from './tooltip';
 
@@ -41,5 +41,45 @@ describe('<Tooltip/> component', () => {
 
         await user.hover(screen.getByText(trigger));
         await waitFor(() => expect(handleOpenChange).toHaveBeenCalledWith(true));
+    });
+
+    it('renders the tooltip content when the trigger is focused with the keyboard', async () => {
+        const user = userEvent.setup();
+        const content = 'test-content';
+
+        render(
+            createTestComponent({
+                content,
+                triggerAsChild: true,
+                children: <button type="button">test-trigger</button>,
+            }),
+        );
+
+        await user.tab();
+
+        expect(screen.getByRole('button')).toHaveFocus();
+        expect(await screen.findByRole('tooltip')).toHaveTextContent(content);
+    });
+
+    it('does not render the tooltip content when the trigger is focused without a preceding key press', async () => {
+        const user = userEvent.setup();
+
+        render(
+            createTestComponent({
+                triggerAsChild: true,
+                children: <button type="button">test-trigger</button>,
+            }),
+        );
+
+        const trigger = screen.getByRole('button');
+
+        // A pointer interaction makes the focus that follows pointer-driven, the way a dialog opened by click does.
+        await user.click(document.body);
+        await act(() => {
+            trigger.focus();
+        });
+
+        expect(trigger).toHaveFocus();
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
     });
 });
