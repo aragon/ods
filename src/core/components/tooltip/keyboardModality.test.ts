@@ -7,8 +7,14 @@ describe('keyboardModality', () => {
     // jsdom does not implement PointerEvent, and the listener reads nothing off the event.
     const pressPointer = () => document.dispatchEvent(new Event('pointerdown', { bubbles: true }));
 
-    it('reports no keyboard modality before any interaction', () => {
-        expect(getIsKeyboardModality()).toBe(false);
+    it('reports no keyboard modality before any interaction', async () => {
+        // The initial value only exists on a freshly imported module, so this asserts it against one rather than
+        // relying on running before the tests that drive the modality.
+        await jest.isolateModulesAsync(async () => {
+            const { getIsKeyboardModality: getFreshModality } = await import('./keyboardModality');
+
+            expect(getFreshModality()).toBe(false);
+        });
     });
 
     it('reports keyboard modality after a key press', () => {
