@@ -1,10 +1,28 @@
 /**
- * Whether the most recent user interaction came from the keyboard. Document-level state on purpose: the interaction
- * modality belongs to the page, not to any single tooltip, so every tooltip reads the same value. It starts out
- * `false` so a focus that no key press preceded — a dialog autofocusing its content, a component calling `focus()` —
- * never counts as keyboard-driven.
+ * Whether the most recent user interaction was the keyboard *moving focus*. Document-level state on purpose: the
+ * interaction modality belongs to the page, not to any single tooltip, so every tooltip reads the same value. It
+ * starts out `false` so a focus that no key press preceded — a dialog autofocusing its content, a component calling
+ * `focus()` — never counts as keyboard-driven.
  */
 let isKeyboardModality = false;
+
+/**
+ * Keys whose default action moves focus: `Tab` through the tab order, and the rest within a composite widget such as
+ * a menu, a tab list or a radio group. Activation keys are deliberately absent — `Enter` and `Space` press a control
+ * rather than moving focus, so any focus that follows one of them was placed by script, which is exactly what a
+ * dialog does to its first tabbable element when it opens.
+ */
+const focusMovingKeys = new Set([
+    'Tab',
+    'ArrowUp',
+    'ArrowDown',
+    'ArrowLeft',
+    'ArrowRight',
+    'Home',
+    'End',
+    'PageUp',
+    'PageDown',
+]);
 
 const handleKeyDown = (event: KeyboardEvent) => {
     // Meta/Alt/Control shortcuts move focus without being a focus-visible interaction, e.g. tabbing between windows.
@@ -12,7 +30,9 @@ const handleKeyDown = (event: KeyboardEvent) => {
         return;
     }
 
-    isKeyboardModality = true;
+    // An activation key clears the modality rather than leaving the previous `Tab` standing: pressing Enter on a
+    // button that opens a dialog must not make the dialog's own autofocus look like keyboard navigation.
+    isKeyboardModality = focusMovingKeys.has(event.key);
 };
 
 const handlePointerDown = () => {

@@ -125,6 +125,17 @@ describe('<AddressOutput /> component', () => {
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
     });
 
+    it('still reveals on hover after a tap when href is set', async () => {
+        const user = userEvent.setup();
+        render(createTestComponent({ reveal: true, copy: false, href: 'https://etherscan.io/address/x' }));
+
+        const link = screen.getByRole('link');
+        await user.pointer({ keys: '[TouchA]', target: link });
+        await user.hover(link);
+
+        expect(await screen.findByRole('tooltip')).toHaveTextContent(checksumAddress);
+    });
+
     it('copies the checksummed address from the copy control', async () => {
         const user = userEvent.setup();
         const copySpy = jest.spyOn(clipboardUtils, 'copy').mockResolvedValue();
@@ -185,6 +196,25 @@ describe('<AddressOutput /> component', () => {
 
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
     });
+
+    it.each([{ key: '{Enter}' }, { key: ' ' }])(
+        'keeps every tooltip closed when the dialog is opened with $key',
+        async ({ key }) => {
+            const user = userEvent.setup();
+            const TestDialog = createTestDialog();
+
+            render(<TestDialog />);
+
+            // Reaching the button by keyboard and pressing it must not make the dialog's own autofocus read as
+            // keyboard navigation: an activation key presses the control, it does not move focus.
+            await user.tab();
+            expect(screen.getByRole('button', { name: 'Open' })).toHaveFocus();
+            await user.keyboard(key);
+
+            expect(await screen.findByRole('dialog')).toBeInTheDocument();
+            expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+        },
+    );
 
     it('keeps every tooltip closed when the dialog owns the only tooltips on the page', async () => {
         const user = userEvent.setup();

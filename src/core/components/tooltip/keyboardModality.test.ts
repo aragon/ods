@@ -22,6 +22,33 @@ describe('keyboardModality', () => {
         expect(getIsKeyboardModality()).toBe(false);
     });
 
+    it.each([{ key: 'Enter' }, { key: ' ' }, { key: 'Escape' }, { key: 'a' }])(
+        'reports no keyboard modality after $key, which presses a control instead of moving focus',
+        ({ key }) => {
+            pressKey();
+            expect(getIsKeyboardModality()).toBe(true);
+
+            pressKey({ key });
+
+            expect(getIsKeyboardModality()).toBe(false);
+        },
+    );
+
+    it.each([
+        { key: 'Tab' },
+        { key: 'ArrowDown' },
+        { key: 'ArrowUp' },
+        { key: 'ArrowLeft' },
+        { key: 'ArrowRight' },
+        { key: 'Home' },
+        { key: 'End' },
+    ])('reports keyboard modality after $key, which moves focus', ({ key }) => {
+        pressPointer();
+        pressKey({ key });
+
+        expect(getIsKeyboardModality()).toBe(true);
+    });
+
     it.each([{ modifier: 'metaKey' }, { modifier: 'altKey' }, { modifier: 'ctrlKey' }])(
         'ignores a key press held with $modifier, which moves focus without being a focus-visible interaction',
         ({ modifier }) => {
