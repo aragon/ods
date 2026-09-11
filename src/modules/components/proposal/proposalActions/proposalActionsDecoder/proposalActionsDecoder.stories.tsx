@@ -1,13 +1,16 @@
 import { DevTool } from '@hookform/devtools';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useController, useForm } from 'react-hook-form';
+import { Radio, RadioGroup } from '../../../../../core';
 import { generateProposalAction } from '../proposalActionsTestUtils';
 import { ProposalActionsDecoder } from './proposalActionsDecoder';
 import {
     type IProposalActionsDecoderProps,
     ProposalActionsDecoderMode,
+    type ProposalActionsDecoderParameterComponent,
     ProposalActionsDecoderView,
 } from './proposalActionsDecoder.api';
+import { type ProposalActionsFieldValue, proposalActionsDecoderUtils } from './proposalActionsDecoderUtils';
 
 const defaultRender = (props: IProposalActionsDecoderProps) => {
     const methods = useForm({ mode: 'onTouched', defaultValues: props.action });
@@ -31,6 +34,30 @@ const meta: Meta<typeof ProposalActionsDecoder> = {
             url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Governance-UI-Kit?node-id=16738-8439&t=tQiF5klPD9cjUit6-4',
         },
     },
+};
+
+/**
+ * Custom editor rendering the vote option parameter as a radio group instead of the default number input.
+ */
+const VoteOptionEditor: ProposalActionsDecoderParameterComponent = (props) => {
+    const { parameter, fieldName, formPrefix } = props;
+
+    const formFieldName = proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix);
+    const { field } = useController<Record<string, ProposalActionsFieldValue>>({ name: formFieldName });
+
+    return (
+        <RadioGroup
+            helpText={parameter.notice}
+            label={`${parameter.name} (custom editor)`}
+            name={formFieldName}
+            onValueChange={field.onChange}
+            value={field.value?.toString() ?? ''}
+        >
+            <Radio label="Yes" value="1" />
+            <Radio label="No" value="2" />
+            <Radio label="Abstain" value="0" />
+        </RadioGroup>
+    );
 };
 
 type Story = StoryObj<typeof ProposalActionsDecoder>;
@@ -417,6 +444,41 @@ export const NestedTuple: Story = {
                             { name: 'approvalThreshold', type: 'uint16' },
                             { name: 'vetoThreshold', type: 'uint16' },
                         ],
+                    },
+                ],
+            },
+        }),
+    },
+};
+
+/**
+ * Applications can replace the editor of a single decoded parameter through the customParameterComponents property,
+ * keyed by the index of the parameter. The custom editor writes to the form field built from the fieldName and
+ * formPrefix properties it receives, so the decoder keeps encoding the action calldata automatically. Update the vote
+ * option below and check the data field on the form devtools to see the re-encoded calldata.
+ */
+export const CustomParameterEditor: Story = {
+    render: defaultRender,
+    args: {
+        view: ProposalActionsDecoderView.DECODED,
+        mode: ProposalActionsDecoderMode.EDIT,
+        customParameterComponents: { 1: VoteOptionEditor },
+        action: generateProposalAction({
+            inputData: {
+                function: 'vote',
+                contract: 'TokenVoting',
+                parameters: [
+                    {
+                        name: '_proposalId',
+                        type: 'uint256',
+                        value: '25',
+                        notice: 'The ID of the proposal.',
+                    },
+                    {
+                        name: '_voteOption',
+                        type: 'uint8',
+                        value: '1',
+                        notice: 'The chosen vote option.',
                     },
                 ],
             },

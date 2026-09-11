@@ -125,6 +125,23 @@ describe('<ProposalActionsDecoder /> component', () => {
         expect(screen.getAllByTestId('field-mock')).toHaveLength(actionParams.length);
     });
 
+    it('renders a custom editor for a configured decoded parameter', () => {
+        const view = ProposalActionsDecoderView.DECODED;
+        const actionParams = [
+            { name: 'where', type: 'address', value: undefined },
+            { name: 'permissionId', type: 'bytes32', value: undefined },
+        ];
+        const action = generateProposalAction({
+            inputData: { function: 'grant', contract: '', parameters: actionParams },
+        });
+        const PermissionEditor = () => <div>Permission editor</div>;
+
+        render(createTestComponent({ action, customParameterComponents: { 1: PermissionEditor }, view }));
+
+        expect(screen.getByText('Permission editor')).toBeInTheDocument();
+        expect(screen.getAllByTestId('field-mock')).toHaveLength(1);
+    });
+
     it('updates the data field when a parameter value changes on EDIT view and DECODED mode', () => {
         const view = ProposalActionsDecoderView.DECODED;
         const mode = ProposalActionsDecoderMode.EDIT;

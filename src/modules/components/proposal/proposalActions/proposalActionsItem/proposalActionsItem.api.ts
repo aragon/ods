@@ -1,5 +1,5 @@
 import type { IWeb3ComponentProps } from '../../../../types';
-import type { ProposalActionsDecoderView } from '../proposalActionsDecoder';
+import type { IProposalActionsDecoderProps, ProposalActionsDecoderView } from '../proposalActionsDecoder';
 import type { IProposalAction, ProposalActionComponent } from '../proposalActionsDefinitions';
 
 export type ProposalActionsItemViewMode = 'BASIC' | ProposalActionsDecoderView;
@@ -60,6 +60,10 @@ export interface IProposalActionsItemProps<TAction extends IProposalAction = IPr
      * Custom component for the action to be rendered on BASIC view.
      */
     CustomComponent?: ProposalActionComponent<TAction>;
+    /**
+     * Custom editors for decoded top-level parameters, keyed by parameter index.
+     */
+    customParameterComponents?: IProposalActionsDecoderProps['customParameterComponents'];
     /**
      * Controls for the action to be moved up or down.
      */

@@ -52,6 +52,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         index,
         value,
         CustomComponent,
+        customParameterComponents,
         arrayControls,
         actionCount,
         editMode: editModeProp,
@@ -256,6 +257,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                     {activeViewMode === ProposalActionsDecoderView.DECODED && (
                         <ProposalActionsDecoder
                             action={action}
+                            customParameterComponents={customParameterComponents}
                             formPrefix={formPrefix}
                             mode={decodedViewMode}
                             view={ProposalActionsDecoderView.DECODED}

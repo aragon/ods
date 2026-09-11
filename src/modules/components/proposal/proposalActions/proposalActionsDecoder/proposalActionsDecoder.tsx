@@ -19,6 +19,7 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
         formPrefix,
         mode = ProposalActionsDecoderMode.READ,
         view = ProposalActionsDecoderView.RAW,
+        customParameterComponents,
         className,
         ...otherProps
     } = props;
@@ -129,18 +130,22 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
             )}
             {view === ProposalActionsDecoderView.DECODED && (
                 <>
-                    {parameters.map((parameter, index) => (
-                        <ProposalActionsDecoderField
-                            fieldName="value"
-                            formPrefix={proposalActionsDecoderUtils.getFieldName(
-                                `inputData.parameters.${index.toString()}`,
-                                formPrefix,
-                            )}
-                            key={parameter.name}
-                            mode={mode}
-                            parameter={parameter}
-                        />
-                    ))}
+                    {parameters.map((parameter, index) => {
+                        const ParameterComponent = customParameterComponents?.[index] ?? ProposalActionsDecoderField;
+
+                        return (
+                            <ParameterComponent
+                                fieldName="value"
+                                formPrefix={proposalActionsDecoderUtils.getFieldName(
+                                    `inputData.parameters.${index.toString()}`,
+                                    formPrefix,
+                                )}
+                                key={parameter.name}
+                                mode={mode}
+                                parameter={parameter}
+                            />
+                        );
+                    })}
                     {!hasParameters && (
                         <AlertCard message={copy.proposalActionsDecoder.noParametersMessage} variant="info" />
                     )}
