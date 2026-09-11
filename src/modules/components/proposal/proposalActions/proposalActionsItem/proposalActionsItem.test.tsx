@@ -482,4 +482,17 @@ describe('<ProposalActionsItem /> component', () => {
         expect(actionDecoder.dataset.view).toEqual(ProposalActionsDecoderView.RAW);
         expect(actionDecoder.dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
     });
+
+    it('renders consumer supplied alerts above the action view', () => {
+        const action = generateProposalAction();
+        render(
+            createTestComponent({
+                action,
+                alerts: <div data-testid="custom-alert">Permission risk</div>,
+                editMode: true,
+            }),
+        );
+
+        expect(screen.getByTestId('custom-alert')).toBeInTheDocument();
+    });
 });

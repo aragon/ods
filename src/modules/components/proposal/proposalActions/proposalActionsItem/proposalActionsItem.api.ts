@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { IWeb3ComponentProps } from '../../../../types';
 import type { IProposalActionsDecoderProps, ProposalActionsDecoderView } from '../proposalActionsDecoder';
 import type { IProposalAction, ProposalActionComponent } from '../proposalActionsDefinitions';
@@ -64,6 +65,12 @@ export interface IProposalActionsItemProps<TAction extends IProposalAction = IPr
      * Custom editors for decoded top-level parameters, keyed by parameter index.
      */
     customParameterComponents?: IProposalActionsDecoderProps['customParameterComponents'];
+    /**
+     * Alerts rendered above the action view, alongside the warnings the component raises itself.
+     * Use it to flag risk the consumer knows about and this component cannot infer, e.g. an action
+     * that changes permissions.
+     */
+    alerts?: ReactNode;
     /**
      * Controls for the action to be moved up or down.
      */
