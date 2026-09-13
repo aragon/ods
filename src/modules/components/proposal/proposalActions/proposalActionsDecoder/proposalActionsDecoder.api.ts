@@ -26,9 +26,10 @@ export interface IProposalActionsDecoderParameterComponentProps {
      */
     formPrefix?: string;
     /**
-     * Current decoder mode.
+     * Current decoder mode. Always supplied: the decoder defaults its own `mode` prop to
+     * READ before rendering, so a parameter component never sees it undefined.
      */
-    mode?: ProposalActionsDecoderMode;
+    mode: ProposalActionsDecoderMode;
 }
 
 export type ProposalActionsDecoderParameterComponent = ComponentType<IProposalActionsDecoderParameterComponentProps>;
