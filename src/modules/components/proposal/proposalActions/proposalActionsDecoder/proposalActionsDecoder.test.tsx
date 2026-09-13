@@ -9,6 +9,7 @@ import { generateFormContext } from '../../../../testUtils';
 import { generateProposalAction } from '../proposalActionsTestUtils';
 import { ProposalActionsDecoder } from './proposalActionsDecoder';
 import {
+    type IProposalActionsDecoderParameterComponentProps,
     type IProposalActionsDecoderProps,
     ProposalActionsDecoderMode,
     ProposalActionsDecoderView,
@@ -123,6 +124,76 @@ describe('<ProposalActionsDecoder /> component', () => {
         const action = generateProposalAction({ inputData: { function: '', contract: '', parameters: actionParams } });
         render(createTestComponent({ action, view }));
         expect(screen.getAllByTestId('field-mock')).toHaveLength(actionParams.length);
+    });
+
+    it('renders a custom editor for a configured decoded parameter', () => {
+        const view = ProposalActionsDecoderView.DECODED;
+        const actionParams = [
+            { name: 'where', type: 'address', value: undefined },
+            { name: 'permissionId', type: 'bytes32', value: undefined },
+        ];
+        const action = generateProposalAction({
+            inputData: { function: 'grant', contract: '', parameters: actionParams },
+        });
+        const PermissionEditor = () => <div>Permission editor</div>;
+
+        render(createTestComponent({ action, customParameterComponents: { 1: PermissionEditor }, view }));
+
+        expect(screen.getByText('Permission editor')).toBeInTheDocument();
+        expect(screen.getAllByTestId('field-mock')).toHaveLength(1);
+    });
+
+    it('passes the parameter, its nested field path and the mode to a custom component', () => {
+        const view = ProposalActionsDecoderView.DECODED;
+        const mode = ProposalActionsDecoderMode.EDIT;
+        const parameters = [
+            { name: 'boolType', type: 'bool', value: undefined },
+            { name: 'permissionId', type: 'bytes32', value: '0x01' },
+        ];
+        const action = generateProposalAction({ inputData: { function: 'testFunc', contract: '', parameters } });
+        const watch = () => ({ unsubscribe: jest.fn() });
+        useFormContextSpy.mockReturnValue(
+            generateFormContext({ watch: watch as unknown as ModuleHooks.UseFormContextReturn['watch'] }),
+        );
+        const PermissionEditor = (props: IProposalActionsDecoderParameterComponentProps) => (
+            <div
+                data-field-name={props.fieldName}
+                data-form-prefix={props.formPrefix}
+                data-mode={props.mode}
+                data-parameter-name={props.parameter.name}
+                data-testid="permission-editor"
+            />
+        );
+
+        render(createTestComponent({ action, customParameterComponents: { 1: PermissionEditor }, view, mode }));
+
+        const editor = screen.getByTestId('permission-editor');
+        expect(editor.dataset.fieldName).toEqual('value');
+        expect(editor.dataset.formPrefix).toEqual('inputData.parameters.1');
+        expect(editor.dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
+        expect(editor.dataset.parameterName).toEqual('permissionId');
+    });
+
+    it('re-encodes the action data when a custom component updates its field', () => {
+        const view = ProposalActionsDecoderView.DECODED;
+        const mode = ProposalActionsDecoderMode.EDIT;
+        const parameters = [{ name: 'permissionId', type: 'bytes32', value: undefined }];
+        const action = generateProposalAction({ inputData: { function: 'testFunc', contract: '', parameters } });
+        const functionParameters = ['0x02'];
+        formValuesToFunctionParametersSpy.mockReturnValue(functionParameters);
+        const watch = (callback: WatchObserver<NestedProposalActionFormValues>) => {
+            callback({}, { name: 'inputData.parameters.0.value' });
+            return { unsubscribe: jest.fn() };
+        };
+        useFormContextSpy.mockReturnValue(
+            generateFormContext({ watch: watch as ModuleHooks.UseFormContextReturn['watch'] }),
+        );
+        const PermissionEditor = () => <div>Permission editor</div>;
+
+        render(createTestComponent({ action, customParameterComponents: { 0: PermissionEditor }, view, mode }));
+
+        const expectedAbi = { type: 'function', name: action.inputData?.function, inputs: parameters };
+        expect(encodeFunctionDataSpy).toHaveBeenCalledWith({ abi: [expectedAbi], args: functionParameters });
     });
 
     it('updates the data field when a parameter value changes on EDIT view and DECODED mode', () => {

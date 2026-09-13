@@ -16,8 +16,13 @@ import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 
 jest.mock('../proposalActionsDecoder', () => ({
     ...jest.requireActual<typeof ProposalActionsDecoder>('../proposalActionsDecoder'),
-    ProposalActionsDecoder: (props: { mode: string; view: string }) => (
-        <div data-mode={props.mode} data-testid="decoder-mock" data-view={props.view} />
+    ProposalActionsDecoder: (props: { customParameterComponents?: unknown; mode: string; view: string }) => (
+        <div
+            data-custom-parameters={props.customParameterComponents == null ? 'false' : 'true'}
+            data-mode={props.mode}
+            data-testid="decoder-mock"
+            data-view={props.view}
+        />
     ),
 }));
 
@@ -362,6 +367,17 @@ describe('<ProposalActionsItem /> component', () => {
         expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
     });
 
+    it('forwards custom parameter editors to the decoded view', () => {
+        const params = [{ name: 'permissionId', type: 'bytes32', value: '' }];
+        const action = generateProposalAction({ inputData: { contract: '', function: 'grant', parameters: params } });
+        const PermissionEditor = () => null;
+        isActionSupportedSpy.mockReturnValue(false);
+
+        render(createTestComponent({ action, customParameterComponents: { 0: PermissionEditor }, editMode: true }));
+
+        expect(screen.getByTestId('decoder-mock')).toHaveAttribute('data-custom-parameters', 'true');
+    });
+
     it('renders the decoded-view in watch mode when editMode prop is true and action supports basic view', async () => {
         const params = [{ name: 'amount', type: 'uint', value: null }];
         const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: params } });
@@ -465,5 +481,18 @@ describe('<ProposalActionsItem /> component', () => {
         const actionDecoder = screen.getByTestId('decoder-mock');
         expect(actionDecoder.dataset.view).toEqual(ProposalActionsDecoderView.RAW);
         expect(actionDecoder.dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
+    });
+
+    it('renders consumer supplied alerts above the action view', () => {
+        const action = generateProposalAction();
+        render(
+            createTestComponent({
+                action,
+                alerts: <div data-testid="custom-alert">Permission risk</div>,
+                editMode: true,
+            }),
+        );
+
+        expect(screen.getByTestId('custom-alert')).toBeInTheDocument();
     });
 });

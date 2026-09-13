@@ -1,5 +1,5 @@
-import type { ComponentProps } from 'react';
-import type { IProposalAction } from '../proposalActionsDefinitions';
+import type { ComponentProps, ComponentType } from 'react';
+import type { IProposalAction, IProposalActionInputDataParameter } from '../proposalActionsDefinitions';
 
 export enum ProposalActionsDecoderView {
     DECODED = 'DECODED',
@@ -11,6 +11,28 @@ export enum ProposalActionsDecoderMode {
     EDIT = 'EDIT',
     WATCH = 'WATCH',
 }
+
+export interface IProposalActionsDecoderParameterComponentProps {
+    /**
+     * Parameter to edit.
+     */
+    parameter: IProposalActionInputDataParameter;
+    /**
+     * Name of the parameter value field.
+     */
+    fieldName: string;
+    /**
+     * Prefix prepended to the field name.
+     */
+    formPrefix?: string;
+    /**
+     * Current decoder mode. Always supplied: the decoder defaults its own `mode` prop to
+     * READ before rendering, so a parameter component never sees it undefined.
+     */
+    mode: ProposalActionsDecoderMode;
+}
+
+export type ProposalActionsDecoderParameterComponent = ComponentType<IProposalActionsDecoderParameterComponentProps>;
 
 export interface IProposalActionsDecoderProps extends ComponentProps<'div'> {
     /**
@@ -36,4 +58,10 @@ export interface IProposalActionsDecoderProps extends ComponentProps<'div'> {
      * @default RAW
      */
     view?: ProposalActionsDecoderView;
+    /**
+     * Custom editors for decoded top-level parameters, keyed by parameter index.
+     * The custom editor writes to the supplied form field and the decoder keeps
+     * the action calldata in sync.
+     */
+    customParameterComponents?: Partial<Record<number, ProposalActionsDecoderParameterComponent>>;
 }

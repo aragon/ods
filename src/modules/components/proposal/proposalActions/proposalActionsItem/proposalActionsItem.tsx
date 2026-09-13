@@ -52,6 +52,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         index,
         value,
         CustomComponent,
+        customParameterComponents,
+        alerts,
         arrayControls,
         actionCount,
         editMode: editModeProp,
@@ -244,6 +246,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                             {copy.proposalActionsItem.nativeSendDescription(formattedValue, currencySymbol)}
                         </AlertCard>
                     )}
+                    {alerts}
                     {activeViewMode === 'BASIC' && (
                         <ProposalActionsItemBasicView
                             action={action}
@@ -256,6 +259,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                     {activeViewMode === ProposalActionsDecoderView.DECODED && (
                         <ProposalActionsDecoder
                             action={action}
+                            customParameterComponents={customParameterComponents}
                             formPrefix={formPrefix}
                             mode={decodedViewMode}
                             view={ProposalActionsDecoderView.DECODED}

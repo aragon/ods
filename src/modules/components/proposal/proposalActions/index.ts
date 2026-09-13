@@ -13,6 +13,7 @@ export const ProposalActions = {
 };
 
 export * from './proposalActionsContainer';
+export * from './proposalActionsDecoder';
 export * from './proposalActionsDefinitions';
 export * from './proposalActionsFooter';
 export * from './proposalActionsItem';
